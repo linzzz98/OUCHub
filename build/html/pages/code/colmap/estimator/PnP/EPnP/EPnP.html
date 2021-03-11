@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2.2. EPnP &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="prev" title="2.1. P3P" href="../P3P/P3P.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../Utils/Utils.html">1. Utils</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../PnP.html">2. PnP</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../P3P/P3P.html">2.1. P3P</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">2.2. EPnP</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">2.2.1. 成员变量</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id2">2.2.2. 成员函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+          <li><a href="../PnP.html"><span class="section-number">2. </span>PnP</a> &raquo;</li>
+        
+      <li><span class="section-number">2.2. </span>EPnP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/code/colmap/estimator/PnP/EPnP/EPnP.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="epnp">
+<h1><span class="section-number">2.2. </span>EPnP<a class="headerlink" href="#epnp" title="永久链接至标题">¶</a></h1>
+<p>EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D-3D对应关系。</p>
+<pre class="literal-block"><a class="reference external" href="http://www.iri.upc.edu/people/fmoreno/Publications/2009/pdf/Lepetit_ijcv2009.pdf">Epnp: An accurate o (n) solution to the pnp problem</a></pre>
+<div class="section" id="id1">
+<h2><span class="section-number">2.2.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>2D图像特征观察值</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43X_t" title="X_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">X_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>世界框架中观察到的3D特征</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43Y_t" title="Y_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">Y_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>从世界到相机框架的转变</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43M_t" title="M_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">M_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>估计模型所需的最少样本数</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv414kMinNumSamples" title="kMinNumSamples"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">kMinNumSamples</span></code></a></p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">2.2.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Estimate</strong></p></li>
+</ol>
+<p>从一组三个2D-3D点对应关系中估计EPnP问题的最可能解决方案。</p>
+<ul class="simple">
+<li><p>&#64;param points2D Normalized 2D image points as 3x2 matrix.</p></li>
+<li><p>&#64;param points3D 3D world points as 3x3 matrix.</p></li>
+<li><p>&#64;return Most probable pose as length-1 vector of a 3x4 matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv48EstimateRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
+<span id="_CPPv38EstimateRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv28EstimateRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><em class="property">static</em> std::vector&lt;<a class="reference internal" href="../PnP.html#_CPPv43M_t" title="M_t">M_t</a>&gt; <code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP.html#_CPPv43X_t" title="X_t">X_t</a>&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP.html#_CPPv43Y_t" title="Y_t">Y_t</a>&gt; &amp;<em>points3D</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv48EstimateRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="n">EPNPEstimator</span> <span class="n">epnp</span><span class="p">;</span>
+  <span class="n">M_t</span> <span class="n">proj_matrix</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">epnp</span><span class="p">.</span><span class="n">ComputePose</span><span class="p">(</span><span class="n">points2D</span><span class="p">,</span> <span class="n">points3D</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">proj_matrix</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">({});</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">({</span><span class="n">proj_matrix</span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>ComputePose</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv411ComputePoseRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen10Matrix3x4dE">
+<span id="_CPPv311ComputePoseRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen10Matrix3x4dE"></span><span id="_CPPv211ComputePoseRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen10Matrix3x4dE"></span><span id="ComputePose__std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Matrix3x4dP"></span>bool <code class="sig-name descname">ComputePose</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Matrix3x4d *<em>proj_matrix</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv411ComputePoseRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen10Matrix3x4dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">ComputePose</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span>
+                                <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">,</span>
+                                <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">*</span> <span class="n">proj_matrix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">points2D_</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">points2D</span><span class="p">;</span>
+  <span class="n">points3D_</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">points3D</span><span class="p">;</span>
+
+  <span class="n">ChooseControlPoints</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ComputeBarycentricCoordinates</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">M</span> <span class="o">=</span> <span class="n">ComputeM</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">MtM</span> <span class="o">=</span> <span class="n">M</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">M</span><span class="p">;</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;&gt;</span> <span class="n">svd</span><span class="p">(</span>
+      <span class="n">MtM</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">Ut</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixU</span><span class="p">().</span><span class="n">transpose</span><span class="p">();</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">L6x10</span> <span class="o">=</span> <span class="n">ComputeL6x10</span><span class="p">(</span><span class="n">Ut</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">rho</span> <span class="o">=</span> <span class="n">ComputeRho</span><span class="p">();</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span> <span class="n">betas</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">reproj_errors</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">Rs</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">ts</span><span class="p">;</span>
+
+  <span class="n">FindBetasApprox1</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">RunGaussNewton</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="n">reproj_errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">ComputeRT</span><span class="p">(</span><span class="n">Ut</span><span class="p">,</span> <span class="n">betas</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">Rs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+  <span class="n">FindBetasApprox2</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">RunGaussNewton</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="n">reproj_errors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">ComputeRT</span><span class="p">(</span><span class="n">Ut</span><span class="p">,</span> <span class="n">betas</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">Rs</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+  <span class="n">FindBetasApprox3</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">RunGaussNewton</span><span class="p">(</span><span class="n">L6x10</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">betas</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+  <span class="n">reproj_errors</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">ComputeRT</span><span class="p">(</span><span class="n">Ut</span><span class="p">,</span> <span class="n">betas</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">Rs</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">ts</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+
+  <span class="kt">int</span> <span class="n">best_idx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">reproj_errors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">reproj_errors</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+    <span class="n">best_idx</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">reproj_errors</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">reproj_errors</span><span class="p">[</span><span class="n">best_idx</span><span class="p">])</span> <span class="p">{</span>
+    <span class="n">best_idx</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">proj_matrix</span><span class="o">-&gt;</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">Rs</span><span class="p">[</span><span class="n">best_idx</span><span class="p">];</span>
+  <span class="n">proj_matrix</span><span class="o">-&gt;</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">ts</span><span class="p">[</span><span class="n">best_idx</span><span class="p">];</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>ChooseControlPoints</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4N13EPNPEstimator19ChooseControlPointsEv">
+<span id="_CPPv3N13EPNPEstimator19ChooseControlPointsEv"></span><span id="_CPPv2N13EPNPEstimator19ChooseControlPointsEv"></span><span id="EPNPEstimator::ChooseControlPoints"></span>void <code class="sig-prename descclassname">EPNPEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ChooseControlPoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13EPNPEstimator19ChooseControlPointsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">ChooseControlPoints</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="c1">// 以C0作为质心参考点</span>
+  <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">setZero</span><span class="p">();</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">PW0</span><span class="p">(</span><span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">PW0</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">PW0tPW0</span> <span class="o">=</span> <span class="n">PW0</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">PW0</span><span class="p">;</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span>
+      <span class="n">PW0tPW0</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">D</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">singularValues</span><span class="p">();</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">Ut</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixU</span><span class="p">().</span><span class="n">transpose</span><span class="p">();</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">k</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">D</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">());</span>
+
+    <span class="n">cws_</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="n">Ut</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="n">transpose</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>为了系统的稳定性，采用如下策略进行控制点的选取。第一个控制点选择在所有3D点的质心位置</p>
+<div class="math notranslate nohighlight">
+\[c_1^w = \frac{1}{n} \sum\limits_{i=1}^n p_i^w\]</div>
+<p>其余点选择在数据的主方向上。具体操作如下，计算矩阵</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[
+\begin{matrix}
+(p_1^w)^T-(c_1^w)^T\\
+\dots\\
+(p_n^w)^T-(c_1^w)^T
+\end{matrix}
+\right]\end{split}\]</div>
+<p>计算 <span class="math notranslate nohighlight">\(A^TA\)</span> 的3个特征值为  <span class="math notranslate nohighlight">\(\lambda_1,\lambda_2,\lambda_3\)</span>， 对应的特征向量为 <span class="math notranslate nohighlight">\(v_1,v_2,v_3\)</span>，那么剩下的三个控制点为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+c_2^w = c_1^w + \sqrt{ \frac{\lambda_1}{n} } v_1 \\
+c_3^w = c_1^w + \sqrt{ \frac{\lambda_2}{n} } v_2 \\
+c_4^w = c_1^w + \sqrt{ \frac{\lambda_3}{n} } v_3 \\
+\end{cases}\end{split}\]</div>
+<p>上述操作实际上是找到点云的重心，以及点云的三个主方向。<a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">主成分分析(PCA)</a></p>
+<p>到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  <span class="math notranslate nohighlight">\(c_j\)</span> ，每一个3D点的hd坐标  <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span>  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  <span class="math notranslate nohighlight">\([R|t]\)</span> 。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../P3P/P3P.html" class="btn btn-neutral float-left" title="2.1. P3P" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

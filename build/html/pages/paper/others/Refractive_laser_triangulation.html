@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Refractive laser triangulation and photometric stereo in underwater environment &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="tst" href="../../code/code.html" />
+    <link rel="prev" title="Others" href="../p_others.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../p_others.html">Others</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Refractive laser triangulation and photometric stereo in underwater environment</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../code/code.html">tst</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../p_others.html">Others</a> &raquo;</li>
+        
+      <li>1. Refractive laser triangulation and photometric stereo in underwater environment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/pages/paper/others/Refractive_laser_triangulation.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="refractive-laser-triangulation-and-photometric-stereo-in-underwater-environment">
+<h1>1. Refractive laser triangulation and photometric stereo in underwater environment<a class="headerlink" href="#refractive-laser-triangulation-and-photometric-stereo-in-underwater-environment" title="永久链接至标题">¶</a></h1>
+<div class="align-center figure align-default">
+<img alt="pages\paper\others\../../images/paper/others/p_1/1.png" src="pages\paper\others\../../images/paper/others/p_1/1.png" />
+</div>
+<p>相机处于防水外壳中。 相机的光轴垂直于外壳接口。
+根据透视投影，可以将虚拟点设置为沿OM的延长线的任何位置。
+为了简化计算，我们假设虚拟点在真实点的正上方，并且两个点的连接线垂直于外壳接口。</p>
+<p>该模型的特征在于以下参数：</p>
+<p><span class="math notranslate nohighlight">\(h\)</span>：透视中心O与外壳接口之间的距离；</p>
+<p><span class="math notranslate nohighlight">\(α_1\)</span>：入射角；<span class="math notranslate nohighlight">\(α_2\)</span>：在水中的折射角；</p>
+<p><span class="math notranslate nohighlight">\(I\)</span>：真实物体点<span class="math notranslate nohighlight">\((x_c，y_c，z_c)\)</span>（在相机坐标系中）；</p>
+<p><span class="math notranslate nohighlight">\(E\)</span>：与点<span class="math notranslate nohighlight">\(I\)</span>相关的虚拟对象点<span class="math notranslate nohighlight">\(\ (x_v，y_v，z_v)\)</span>。</p>
+<p>在此模型中，显然存在以下关系：<span class="math notranslate nohighlight">\(x_c = x_v，y_c = y_v\)</span>。</p>
+<p>假设光轴，入射光线和折射光线都在同一平面上。
+根据斯涅耳的折射定律，折射率n可以写成：</p>
+<div class="math notranslate nohighlight">
+\[n = \frac{sin \alpha_1}{sin \alpha_2}\]</div>
+<p>根据几何关系：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}sin\alpha_1 = \frac{ED'}{ME}\\
+sin\alpha_2 = \frac{IA'}{MI}\end{split}\]</div>
+<p>在图中存在如下的几何关系:</p>
+<div class="math notranslate nohighlight">
+\[ED = IA,ED' = IA',MD'=KD,MA'=KA, AA'=DD'=MK\]</div>
+<p>因此折射率<span class="math notranslate nohighlight">\(n\)</span>可以写为</p>
+<div class="math notranslate nohighlight">
+\[n = \frac{ED' \times MI}{IA' \times ME} = \frac{MI}{ME}\]</div>
+<p>因为<span class="math notranslate nohighlight">\(z_v = OD,z_c = OA\)</span>，则可以由<span class="math notranslate nohighlight">\(OA\)</span>和<span class="math notranslate nohighlight">\(OD\)</span>的几何关系来估计“虚拟现实”关系，</p>
+<p>他们有一个共同的因素<span class="math notranslate nohighlight">\(\longrightarrow OK\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}OA = OK + KA\\
+OD = OK + KD\end{split}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(OK\)</span>表示镜头玻璃距离<span class="math notranslate nohighlight">\(h\)</span>，下面找到<span class="math notranslate nohighlight">\(KA\)</span>和<span class="math notranslate nohighlight">\(KD\)</span>的几何关系</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+KA &amp;=&amp; \sqrt{MI^2- IA'^2} \\
+&amp;=&amp; \sqrt{n^2 \times ME^2 - IA'^2}\\
+&amp;=&amp; \sqrt{n^2 \times (MD'^2 + ED'^2) - IA'^2}\\
+&amp;=&amp; \sqrt{n^2 \times (KD^2 + IA'^2) - IA'^2}\\
+&amp;=&amp; \sqrt{n^2 \times KD^2 + (n^2-1) \times IA'^2}
+\end{eqnarray}\end{split}\]</div>
+<p>又因为<span class="math notranslate nohighlight">\(KD = OD - OK， IA' = IA - AA' = IA - MK\)</span>，因此<span class="math notranslate nohighlight">\(KA\)</span>可以被表示为</p>
+<div class="math notranslate nohighlight">
+\[KA = \sqrt{n^2 \times (OD - OK)^2 + (n^2 - 1) \times (IA - MK) ^ 2}\]</div>
+<p>因此<span class="math notranslate nohighlight">\(OA\)</span>可以表示为</p>
+<div class="math notranslate nohighlight">
+\[OA = OK + \sqrt{n^2 \times (OD - OK)^2 + (n^2 - 1) \times (IA - MK) ^ 2}\]</div>
+<p>所以，<span class="math notranslate nohighlight">\(z_v\)</span>和<span class="math notranslate nohighlight">\(z_c\)</span>的关系可以表示为</p>
+<div class="math notranslate nohighlight">
+\[z_c = h +\sqrt{n^2 \times (z_v - h)^2 + (n^2 - 1) \times (IA - MK) ^ 2}\]</div>
+<p>基于透视相机模型，点<span class="math notranslate nohighlight">\(I\)</span>和<span class="math notranslate nohighlight">\(E\)</span>都与点<span class="math notranslate nohighlight">\(B(x_u,x_v)\)</span>有关（在归一化坐标系中）。它们之间的关系可以表示为：</p>
+<div class="math notranslate nohighlight">
+\[\frac{BC}{OC} = \frac{MK}{OK} = \frac{ED}{OD}\]</div>
+<p><span class="math notranslate nohighlight">\(BC\)</span>表示了点<span class="math notranslate nohighlight">\(B\)</span> 到图像平面中心<span class="math notranslate nohighlight">\(C\)</span>的距离，并且在正交化图像坐标系中，<span class="math notranslate nohighlight">\(OC\)</span> = 1，在这个条件下，<span class="math notranslate nohighlight">\(MK\)</span>可以表示为</p>
+<div class="math notranslate nohighlight">
+\[MK = \frac{BC \times OK}{OC} = \sqrt{x_u^2 + y_u^2} \times h\]</div>
+<p><span class="math notranslate nohighlight">\(IA\)</span>表示从点<span class="math notranslate nohighlight">\(I\)</span>到<span class="math notranslate nohighlight">\(XY\)</span>平面中心<span class="math notranslate nohighlight">\(A\)</span>的距离</p>
+<div class="math notranslate nohighlight">
+\[IA = ED = \frac{BC \times OD}{OC} = \sqrt{x_u^2 + x_v^2} \times z_v\]</div>
+<p>最后，结合以上等式，该折射模型中的“虚拟-真实”关系可以表示为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+x_c = x_v\\
+y_c = y_v\\
+z_c = h + (z_v - h) \times \sqrt{n ^ 2 + (n^2 - 1) \times (x_u^2 + y_u^2)}
+\end{cases}
+\\
+where\quad x_v = z_v \times x_u, y_v = z_v \times y_u\end{split}\]</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../code/code.html" class="btn btn-neutral float-right" title="tst" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../p_others.html" class="btn btn-neutral float-left" title="Others" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

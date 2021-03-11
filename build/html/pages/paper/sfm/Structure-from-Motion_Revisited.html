@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Structure-from-Motion Revisited &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="Others" href="../p_others.html" />
+    <link rel="prev" title="Structure from Motion" href="../p_sfm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../p_sfm.html">Structure from Motion</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Structure-from-Motion Revisited</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#review-of-structure-from-motion">Review of Structure-from-Motion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#correspondence-search">Correspondence Search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#incremental-reconstruction">Incremental Reconstruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#contributions">Contributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scene-graph-augmentation">Scene Graph Augmentation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#next-best-view-selection">Next Best View Selection</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#robust-and-efficient-triangulation">Robust and Efficient Triangulation</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#bundle-adjustment">Bundle Adjustment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#redundant-view-mining">Redundant View Mining</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../code/code.html">tst</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../p_sfm.html">Structure from Motion</a> &raquo;</li>
+        
+      <li>1. Structure-from-Motion Revisited</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/pages/paper/sfm/Structure-from-Motion_Revisited.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="structure-from-motion-revisited">
+<h1>1. Structure-from-Motion Revisited<a class="headerlink" href="#structure-from-motion-revisited" title="永久链接至标题">¶</a></h1>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
+<p>SfM是从无序图像集合中进行3D重建的一种流行策略。
+尽管增量重建系统在各个方面都取得了巨大的进步，但健壮性，准确性，完整性和可伸缩性仍然是构建真正通用管道的关键问题。</p>
+<p>我们提出了一种新的SfM技术，该技术在现有技术的基础上进行了改进，从而朝着这一最终目标迈进了一步。
+完整的重建流程将作为开源实现发布给公众。</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>多年来，来自无序图像的运动结构（SfM）经历了巨大的发展。</p>
+<p>早期的自校准度量重建系统为无序Internet照片集和城市场景上的第一个系统奠定了基础。</p>
+<p>受这些作品的启发，已经开发了越来越大的重建系统，用于成千上万的和数百万的互联网照片[30]。已经提出了多种SfM策略，包括递增，分层和全局方法。可以说，增量SfM是重建无序照片集的最流行策略。</p>
+<p>尽管已被广泛使用，但我们仍然无法设计出真正的通用SfM系统。尽管现有系统已取得了巨大的进步，但稳健性，准确性，完整性和可扩展性仍然是增量SfM中的关键问题，无法将其用作通用方法。</p>
+<p>在本文中，我们提出了一种新的SfM算法来实现这一最终目标。</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/1.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/1.png" />
+</div>
+</div>
+<div class="section" id="review-of-structure-from-motion">
+<h2>Review of Structure-from-Motion<a class="headerlink" href="#review-of-structure-from-motion" title="永久链接至标题">¶</a></h2>
+<p>SfM是将一系列从不同角度拍摄的图像投影重建成三维结构的过程。</p>
+<p>增量式SfM是具有迭代重建组件的顺序处理管道，它通常从特征提取和匹配开始，然后是几何验证。最终的场景图为重建阶段奠定了基础，该阶段通过仔细选择两视图重建为模型种子，然后逐步配准新图像，对场景点进行三角测量，过滤离群值并使用BA调整细化重建。</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/2.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/2.png" />
+</div>
+<div class="section" id="correspondence-search">
+<h3>Correspondence Search<a class="headerlink" href="#correspondence-search" title="永久链接至标题">¶</a></h3>
+<p>第一阶段是对应搜索，该搜索在输入图像中找到场景重叠部分<span class="math notranslate nohighlight">\(I = \{I_i|i = 1 ... N_I\}\)</span>并标识重叠图像中相同的投影。</p>
+<p>该阶段的输出是一组经几何验证的图像对<span class="math notranslate nohighlight">\(C\)</span>和每个点的图像投影图。</p>
+<p><strong>1. Feature Extraction</strong></p>
+<p>对于每个图像<span class="math notranslate nohighlight">\(I_i\)</span>，SfM检测到由描述子<span class="math notranslate nohighlight">\(f_j\)</span>表示的位置<span class="math notranslate nohighlight">\(x_j \in R^2\)</span>的局部特征集<span class="math notranslate nohighlight">\(F_i = \{(x_j, f_j)| j = 1...N_{F_i}\}\)</span>。</p>
+<p>这些特征在辐射和几何变化下应该是不变的，以便SfM可以在多个图像中唯一识别它们。</p>
+<p>SIFT及其他的特征提取功能是鲁棒性的黄金标准。（一般使用SIFT进行特征提取）</p>
+<p>或者，二进制特征以降低的鲁棒性为代价提供更好的效率。（ORB的Brief描述子）</p>
+<p><strong>2. Matching</strong></p>
+<p>接下来，SfM通过利用特征<span class="math notranslate nohighlight">\(F_i\)</span>作为图像的描述符来发现看到相同场景部分的图像。</p>
+<p>普通方法测试每一个图像对场景重叠，它使用相似度比较特征的外观<span class="math notranslate nohighlight">\(f_j\)</span>，通过为图像<span class="math notranslate nohighlight">\(I_b\)</span>中的每个特征找到图像<span class="math notranslate nohighlight">\(I_a\)</span>中最相似的特征来搜索特征对应性。</p>
+<p>但是该方法的复杂度很高<span class="math notranslate nohighlight">\(O(N_I^2N_{F_I}^2)\)</span>，并且不能使用在大量的图片序列中。</p>
+<p>各种各样的方法解决了可扩展和有效匹配的问题。</p>
+<p>该阶段的输出是一组可能重叠的图像对<span class="math notranslate nohighlight">\(C = \{\{I_a,I_b\}|I_a,I_b \in I, a &lt; b\}\)</span>，及其关联的特征对应关系<span class="math notranslate nohighlight">\(M_{ab} \in F_a \times F_b\)</span>。</p>
+<p><strong>3. Geometric Verification</strong></p>
+<p>第三阶段验证可能重叠的图像对C，由于匹配仅基于外观，因此不能保证相应的特征实际映射到同一场景点。因此，SfM通过尝试估计使用投影几何体在图像之间映射特征点的变换来验证匹配。</p>
+<p>根据图像对的空间配置，不同的映射描述它们的几何关系。</p>
+<ul class="simple">
+<li><p>单应性<span class="math notranslate nohighlight">\(H\)</span>描述了捕获平面场景的纯旋转或移动相机的转换。</p></li>
+<li><p>对极几何描述了移动相机通过基本矩阵E（已校准）或基本矩阵F（未校准）的关系，并可以使用三焦点张量将其扩展到三个视图。</p></li>
+</ul>
+<p>如果有效的变换在图像之间映射了足够多的特征，则将其视为经过了几何验证。</p>
+<p>由于来自匹配的信息经常被异常值污染，因此需要鲁棒的估计技术，例如RANSAC。</p>
+<p>该阶段的输出是一组经过几何验证的图像对<span class="math notranslate nohighlight">\(\overline{C}\)</span>，其相关联的对应关系<span class="math notranslate nohighlight">\(\overline{M}_{ab}\)</span>，以及对它们的几何关系<span class="math notranslate nohighlight">\(G_{ab}\)</span>的描述。</p>
+<p>为了确定适当的关系，可以使用诸如GRIC或QDEGSAC之类的决策标准。</p>
+<p>该阶段的输出是所谓的场景图，其中图像作为节点，已验证的图像对作为边缘。</p>
+</div>
+<div class="section" id="incremental-reconstruction">
+<h3>Incremental Reconstruction<a class="headerlink" href="#incremental-reconstruction" title="永久链接至标题">¶</a></h3>
+<p>重建阶段的输入是场景图，输出是配准图片的位姿估计<span class="math notranslate nohighlight">\(P = \{P_c \in SE(3)|c = 1...N_P\}\)</span>和重构的场景结构点集<span class="math notranslate nohighlight">\(X = \{X_k \in R^3 | k = 1 ... N_x\}\)</span></p>
+<p><strong>1. Initialization</strong></p>
+<p>SfM精心选择一个初始视图对来初始化模型，选择合适的初始对至关重要，因为重建可能永远不会从错误的初始化中恢复。此外，重建的鲁棒性，准确性和性能取决于增量过程的种子位置。</p>
+<p>由于增加的冗余度，使用许多重叠的摄像头从图像图中的密集位置进行初始化通常会导致更健壮和准确的重建。</p>
+<p>相反，由于BA处理了整个重建过程中累积的稀疏问题，因此从稀疏位置进行初始化会降低运行时间。</p>
+<p><strong>2. Image Registration</strong></p>
+<p>从度量重建开始，可以通过使用特征对应于已配准图像中的三角点（2D-3D对应）来解决“透视n点”（PnP）问题[18]，从而将新图像配准至当前模型。</p>
+<p>PnP问题涉及估计位姿<span class="math notranslate nohighlight">\(P_c\)</span>，对于未校准的摄像机，估计其内参。因此，通过新配准的图像的位姿<span class="math notranslate nohighlight">\(P_c\)</span>扩展集合<span class="math notranslate nohighlight">\(P\)</span>。</p>
+<p>由于2D-3D对应关系经常被异常值污染，因此通常使用RANSAC和最小位姿求解器。</p>
+<p>对于未校准的相机，可以使用各种最小解算器（略）</p>
+<p>我们提出了一种新颖的鲁棒次优图像选择方法，用于准确的姿态估计和可靠的三角剖分。</p>
+<p><strong>3. Triangulation</strong></p>
+<p>新配准的图像必须观察到现有的场景点。另外，它也可以通过三角测量扩展点<span class="math notranslate nohighlight">\(X\)</span>的集合来增加场景覆盖范围。</p>
+<p>一旦至少另一个图像（也覆盖了新场景部分，但从不同角度来看）被配准，就可以对新场景点<span class="math notranslate nohighlight">\(X_k\)</span>进行三角测量并添加到<span class="math notranslate nohighlight">\(X\)</span>中。</p>
+<p>三角测量是SfM中的关键步骤，因为它通过冗余提高了现有模型的稳定性，并通过提供附加的2D-3D对应关系实现了新图像的配准。</p>
+<p>存在多种用于多视图三角剖分的方法（见原文文献）这些方法受SfM使用的鲁棒性有限或计算成本高的困扰，我们将通过提出一种鲁棒而有效的三角剖分方法来解决这些问题。</p>
+<p><strong>4. Bundle Adjustment</strong></p>
+<p>图像配准和三角测量是独立的过程，即使它们的过程之间具有高度相关性——相机位姿的不确定性与三角点相反，反之亦然，附加的三角测量可以通过增加冗余来改善初始相机姿态。</p>
+<p>如果没有进一步完善，SfM通常会迅速漂移到不可恢复的状态。（误差累积导致的场景漂移）
+BA是摄像机参数<span class="math notranslate nohighlight">\(P_c\)</span>和点参数<span class="math notranslate nohighlight">\(X_k\)</span>的联合非线性优化，可最大程度地减少重投影误差。</p>
+<div class="math notranslate nohighlight">
+\[E = \sum\limits_j \rho_j (||\pi(P_c, X_k) - x_j||^2_2)\]</div>
+<p>使用将场景点投影到图像空间的函数<span class="math notranslate nohighlight">\(π\)</span>和损失函数<span class="math notranslate nohighlight">\(ρ_j\)</span>降低潜在异常值。</p>
+<p>Levenberg-Marquardt是解决BA问题的一种选择方法，BA问题中特殊的参数结构激发了Schur补充技巧，其中首先解决简化的相机系统，然后通过反替换来更新点。</p>
+<p>solving the system有两种选择：精确和不精确的步长算法。</p>
+<p>确切的方法通过将其存储并分解为具有<span class="math notranslate nohighlight">\(O(N^2_P)\)</span>空间复杂度和<span class="math notranslate nohighlight">\(O(N^3_P)\)</span>时间复杂度的密集或稀疏矩阵来解决该系统。</p>
+<p>不精确的方法通常通过使用迭代求解器（例如迭代求解器）来近似求解系统。</p>
+<p>直接算法是多达数百个摄像机的选择方法，但是在大规模设置中它们过于昂贵。</p>
+<p>稀疏直接方法在很大程度上减少了稀疏问题的复杂性，但由于通常具有更紧密的连接图，因此它们对于大型非结构化照片集是不适用的。</p>
+<p>在这种情况下，可以选择间接算法。
+特别是对于Internet照片，BA花费大量时间来优化许多近乎重复的图像。</p>
+<p>我们提出了一种方法来识别和参数化高度重叠的图像，以实现密集集合的有效BA。</p>
+</div>
+</div>
+<div class="section" id="contributions">
+<h2>Contributions<a class="headerlink" href="#contributions" title="永久链接至标题">¶</a></h2>
+<p>本节介绍了一种新算法，该算法改进了SfM中的主要挑战。</p>
+<p>首先，我们引入了一种几何验证策略，该策略用信息增强了场景图，随后提高了初始化和三角剖分组件的鲁棒性。</p>
+<p>其次，下一个最佳视图选择将最大化增量重建过程的鲁棒性和准确性。</p>
+<p>第三，一种健壮的三角剖分方法，与现有技术相比，它以降低的计算成本产生了更为完整的场景结构。</p>
+<p>第四，迭代的BA，重新三角剖分和离群值过滤策略可通过减轻漂移效应来显着提高完整性和准确性。</p>
+<p>最后，通过冗余视图挖掘为密集的照片集提供更有效的BA参数化。</p>
+<p>这样就形成了一个在健壮性和完整性方面明显优于现有技术的系统，同时又保持了其效率。</p>
+<div class="section" id="scene-graph-augmentation">
+<h3>Scene Graph Augmentation<a class="headerlink" href="#scene-graph-augmentation" title="永久链接至标题">¶</a></h3>
+<p>我们提出了一种多模型几何验证策略，以通过适当的几何关系来扩充场景图。</p>
+<p>首先，我们估计一个基本矩阵。
+如果至少找到<span class="math notranslate nohighlight">\(N_F\)</span>像素，则我们将图像对视为经过几何验证。</p>
+<p>接下来，我们通过确定同一图像对的单应性像素<span class="math notranslate nohighlight">\(N_H\)</span>的数量来对变换进行分类。</p>
+<p>为了近似模型选择方法（如GRIC），我们假设<span class="math notranslate nohighlight">\(N_H / N_F &lt; \epsilon_{HF}\)</span>。对于校准后的图像，我们还估计了一个基本矩阵及其内点<span class="math notranslate nohighlight">\(N_E\)</span>的数量。如果<span class="math notranslate nohighlight">\(N_E / N_F &gt; \epsilon_{EF}\)</span>，我们假设校正正确。</p>
+<p>如果校正正确且<span class="math notranslate nohighlight">\(N_H / N_F &lt; \epsilon_{HF}\)</span>，我们将分解基础矩阵，根据内在对应关系对点进行三角测量，然后确定中值三角剖分角<span class="math notranslate nohighlight">\(\alpha_m\)</span>。使用<span class="math notranslate nohighlight">\(\alpha_m\)</span>，我们可以区分纯旋转（全景）和平面场景（垂直）的情况。</p>
+<p>此外，互联网照片中的常见问题是水印，时间戳和错误地链接不同地标图像的帧（WTFs），我们通过估计与图像边界处的<span class="math notranslate nohighlight">\(N_S\)</span>像素的相似性变换来检测此类图像对。任何<span class="math notranslate nohighlight">\(N_S / N_F &gt; \epsilon_{SF} ∨ N_S / N_E &gt; \epsilon_{SE}\)</span>的图像对都会被认为是一个WTF并且不会插入到场景图中。</p>
+<p>对于有效对，我们用模型类型（常规，全景，平面）标记场景图，并在模型内部加上最大支持<span class="math notranslate nohighlight">\(N_H,N_E\)</span>或<span class="math notranslate nohighlight">\(N_F\)</span>。</p>
+<p>仅利用从非全景和优选校准的模型类型的图像为重建提供种子。已经增强的场景图能够有效地找到用于快速重建过程的最佳初始化。</p>
+<p>此外，我们不会从全景图像对中进行三角剖分，以避免退化点，从而提高三角剖分和后续图像配准的鲁棒性。</p>
+</div>
+<div class="section" id="next-best-view-selection">
+<h3>Next Best View Selection<a class="headerlink" href="#next-best-view-selection" title="永久链接至标题">¶</a></h3>
+<p>在稳健的SfM中选择下一个最佳视图的目的是最小化重构误差，在这里，我们提出了一种有效的次优视图策略，该策略遵循不确定性驱动的方法，该方法可以最大程度地提高重建的鲁棒性。</p>
+<p>选择下一个最佳视图至关重要，因为每个决策都会影响其余的重建。此外，选择下一个最佳视图会极大地影响姿态估计的质量以及三角剖分的完整性和准确性。</p>
+<p>精确的姿态估计对于鲁棒的SfM是必不可少的，因为如果姿态不准确，点的三角测量可能会失败。
+选择下一个最佳视图的决定具有挑战性，因为对于互联网照片集，通常没有关于场景覆盖范围和相机参数的先验信息，因此，该决定完全基于外观得出的信息，
+两视图对应关系，以及递增重建的场景。</p>
+<p>一种流行的策略是选择能看到最多三角点的图像，以最大程度地减少相机切除的不确定性。</p>
+<p>Haner提出了一种不确定性驱动的方法，该方法将重构误差最小化。通常情况下，除非观察条件的配置条件不佳，否则选择看到三角点数量最多的摄像机。</p>
+<p>为此，Lepetit等人的实验表明，使用PnP的摄像机姿态的准确性取决于观测次数及其在图像中的分布。</p>
+<p>对于互联网照片，标准PnP问题扩展到在事先校准丢失或不准确的情况下对固有参数的估计。
+大量的2D-3D对应关系为这种估计提供了冗余，而点的均匀分布避免了错误的配置，并实现了对内在函数的可靠估计。</p>
+<p>下一个最佳视图的候选者是至少看到了<span class="math notranslate nohighlight">\(N_t&gt; 0\)</span>的三角点的所有未配准图像。</p>
+<p>使用特征轨迹图可以有效地实现跟踪此统计信息。</p>
+<p>对于Internet数据集，此图可能非常密集，因为许多图像可能会看到相同的结构。
+因此，在重建的每个步骤中都有许多候选视图可供选择。
+由Haner等人提出的详尽的协方差传播。
+这是不可行的，因为需要在每个步骤为每个候选者计算和分析协方差。
+我们提出的方法使用有效的多分辨率分析来近似其不确定性驱动的方法。</p>
+<p>我们必须同时跟踪可见点的数量及其在每个候选图像中的分布。
+更多的可见点和这些点的更均匀分布应导致更高的分数S，从而首先记录可见点条件更好的图像。</p>
+<p>为了实现此目标，我们将图像离散化为固定尺寸的网格，在两个维度上均带有Kl箱。
+每个单元格都有两种不同的状态：空和满。在重建过程中，只要在空白单元格中出现一个点，该单元格的状态就会变满，并且图像的分数<span class="math notranslate nohighlight">\(S_i\)</span>会增加权重<span class="math notranslate nohighlight">\(w_l\)</span>。</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/3.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/3.png" />
+</div>
+<p>通过这种方案，我们可以量化可见点的数量。
+由于单元仅一次对总分做出贡献，因此与将点聚集在图像的一部分中（即只有几个单元包含所有可见点）的情况相比，我们倾向于更均匀的分布。</p>
+<p>但是，如果可见点的数量为<span class="math notranslate nohighlight">\(N_t \ll K_l^2\)</span>，该方案可能无法很好地捕获点的分布，因为每个点都可能落入单独的单元中。</p>
+<p>因此，通过在每个连续级别使用高分辨率<span class="math notranslate nohighlight">\(K_l = 2^l\)</span>对图像进行分割，我们将先前描述的方法扩展为<span class="math notranslate nohighlight">\(l = 1 ... L\)</span>级的多分辨率金字塔。
+分数在所有级别上累积，且分辨率相关的权重<span class="math notranslate nohighlight">\(w_l = K^2_l\)</span>。</p>
+<p>总结为：点越多越均匀，评分越高。在每层中，每个格子内的点只计算一次，权重即为当前层格子的尺寸，具体来说上述四个评分的计算：</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/4.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/4.png" />
+</div>
+<div class="section" id="robust-and-efficient-triangulation">
+<h4>Robust and Efficient Triangulation<a class="headerlink" href="#robust-and-efficient-triangulation" title="永久链接至标题">¶</a></h4>
+<p>特别是对于稀疏匹配的图像集合，利用传递对应关系可以提高三角剖分的完整性和准确性，从而改善后续的图像配准。
+近似匹配技术通常有利于外观相似的图像对，因此，结果二视图对应通常源于基线较小的图像对。
+利用传递性可以在基线较大的图像之间建立对应关系，从而实现更精确的三角剖分。
+因此，我们通过串联两个视图的对应关系来形成特征轨迹。</p>
+<p>从嘈杂的图像观察中，已经提出了多种方法进行多视图三角测量。
+尽管某些建议的方法对于一定程度的异常污染具有鲁棒性，但据我们所知，没有一种方法可以处理特征轨迹中经常出现的高异常率。
+在本节中，我们提出了一种有效的基于采样的三角剖分方法，该方法可以可靠地估计受异常值污染的特征轨迹内的所有点。</p>
+<p>由于沿对极线的歧义匹配的错误两视图验证，特征轨迹通常包含大量离群值。单个不匹配会合并两个或更多独立点的轨迹。</p>
+<p>例如，错误地合并四个等长的特征轨迹将导致75％的异常值比率。
+另外，由于高再现误差，不正确的摄像机姿势可能会使轨道元素无效。
+因此，对于鲁棒的三角剖分，在使用多个视图进行细化之前，必须找到一组一致的轨道元素。
+而且，为了从错误的合并中恢复特征轨迹的潜在多个点，必须使用递归三角剖分方案。</p>
+<p>为了处理任意级别的异常值污染，我们使用RANSAC制定了多视图三角剖分的问题。</p>
+<p>我们考虑特征轨迹<span class="math notranslate nohighlight">\(T = \{T_n | n = 1...N_T\}\)</span>作为一个先验未知的内点比率<span class="math notranslate nohighlight">\(\epsilon\)</span>的一组测量值。</p>
+<p>测量值<span class="math notranslate nohighlight">\(T_n\)</span>由归一化图像观测值<span class="math notranslate nohighlight">\(\overline{x}_n\in R^2\)</span>和相应的摄像机姿态<span class="math notranslate nohighlight">\(P_n\in SE(3)\)</span>组成，摄像机姿态<span class="math notranslate nohighlight">\(P_n\in SE(3)\)</span>定义了从世界到摄像机帧的投影<span class="math notranslate nohighlight">\(P = [R^T - R^T t]\)</span>，<span class="math notranslate nohighlight">\(R \in SO(3), t\in R^ 3\)</span>。</p>
+<p>我们的目标是最大程度地支持符合条件良好的两视图三角剖分的测量</p>
+<div class="math notranslate nohighlight">
+\[X_{ab} \sim \tau(\overline{x}_a,\overline{x}_b, P_a, P_b) ~~with~~ a \neq b\]</div>
+<p>其中<span class="math notranslate nohighlight">\(\tau\)</span>是任何选择的三角测量方法（在我们的情况下为DLT方法），<span class="math notranslate nohighlight">\(X_{ab}\)</span>是测量点。注意，我们不会从全景图像对中进行三角剖分，以避免由于不正确的姿态估计而导致错误的三角剖分角度。</p>
+<p><strong>一个条件良好的模型可以满足两个约束条件。</strong></p>
+<p><strong>首先，有足够的三角剖分角:math:`alpha`</strong></p>
+<div class="math notranslate nohighlight">
+\[cos \alpha = \frac{t_a - X_{ab}}{||t_a - X_{ab}||_2} · \frac{t_b - X_{ab}}{||t_b - X_{ab}||}\]</div>
+<p>其次，正深度<span class="math notranslate nohighlight">\(d_a\)</span>和<span class="math notranslate nohighlight">\(d_b\)</span>关于视图<span class="math notranslate nohighlight">\(P_a\)</span>和<span class="math notranslate nohighlight">\(P_b\)</span>(奇异性约束)，深度定义为</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}  d = [p_{31}\quad p_{32}\quad p_{33}\quad p_{34}][X_{ab}^T\quad 1]^T\\其中\ :math:`p_{mn}`\ 表示P的第m行和第n列中的元素。\end{aligned}\end{align} \]</div>
+<p>如果测量值<span class="math notranslate nohighlight">\(T_n\)</span>具有正深度<span class="math notranslate nohighlight">\(d_n\)</span>且其重投影误差为正，并且如果重投影误差</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}e_n = || \overline x_{n} - \left[
+\begin{matrix}
+x' / z'\\ y'/z'
+\end{matrix}
+\right]||_2 ~~with~~\left[
+\begin{matrix}
+x'\\y'\\z'
+\end{matrix}
+\right] = P_n \left[
+\begin{matrix}
+X_{ab}\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>小于某个阈值t，则被认为符合模型。</p>
+<p>RANSAC作为迭代方法将K最大化，并且通常它会随机地均匀采样最小的大小为2的集合。但是，由于可能会为小型<span class="math notranslate nohighlight">\(N_T\)</span>多次采样相同的最小集，因此我们将随机采样器定义为仅生成唯一采样。为确保<span class="math notranslate nohighlight">\(η\)</span>至少已采样了一个非离群的最小集，RANSAC必须运行至少K次迭代。</p>
+<p>由于inlier的先验比率是未知的，因此我们将其设置为较小的初始值<span class="math notranslate nohighlight">\(\epsilon_0\)</span>，并在找到较大的共识集（自适应停止准则）时调整K。由于特征轨迹可能包含多个独立点，因此我们通过从其余测量中删除共识集来递归运行此过程。</p>
+<p>如果最新共识集的大小小于3，则递归停止。</p>
+</div>
+</div>
+<div class="section" id="bundle-adjustment">
+<h3>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h3>
+<p>为了减轻累积的错误，我们在图像配准和三角剖分之后执行BA。
+通常，由于增量SfM仅在本地影响模型，因此无需在每个步骤之后执行全局BA。
+因此，在每个图像配准后，我们对连接最紧密的图像集执行本地BA，我们仅在将模型增长一定比例后才执行全局BA。</p>
+<p><strong>1. Parameterization</strong></p>
+<p>为了考虑潜在的离群值，我们在局部BA中将Cauchy函数用作鲁棒损失函数<span class="math notranslate nohighlight">\(\rho_j\)</span>。
+对于多达几百个摄像机的问题，我们使用稀疏直接求解器；对于较大的问题，我们依靠PCG。我们使用Ceres
+Solver，并提供在任何图像组合之间共享任意复杂度的相机模型的选项。
+对于无序的Internet照片，我们依赖于具有一个径向变形参数的简单相机模型，因为估算依赖于纯自校准。</p>
+<p><strong>2. Filtering.</strong></p>
+<p>BA之后，一些观察结果与模型不符。因此，我们过滤了具有较大重投影误差的观测值，此外，对于每个点，我们通过在所有对视线上强制使用最小三角剖分角来检查条件是否良好的几何形状。</p>
+<p>在获得全局BA之后，我们还会检查退化的相机，例如
+那些是由全景图或人工增强的图像引起的。通常，这些相机只有离群值的观察值或它们的本征收敛到虚假的最小值。因此，我们不会将焦距和失真参数限制在先验的固定范围内，而是让它们在BA中自由优化。</p>
+<p>由于主点校准是一个不适的问题，因此对于未校准的相机，我们将其固定在图像中心。</p>
+<p>全局BA后，视野异常或失真系数幅度较大的摄像机会被错误的估计并过滤掉。</p>
+<p><strong>3. Re-Triangulation</strong></p>
+<p>我们执行重新三角测量（RT）以解决全局BA（BA之前的RT）之前的漂移影响。但是，BA通常会显着改善相机和点参数。
+因此，我们建议通过额外的后BA RT步骤扩展非常有效的前BA RT。</p>
+<p>此步骤的目的是通过继续跟踪先前未能进行三角剖分的点（例如由于姿势不准确等）而提高重建的完整性。除了增加三角测量阈值以外，我们仅继续使用误差低于过滤阈值的观测值进行跟踪。
+此外，我们尝试合并轨道，从而为下一个BA步骤提供更多的冗余。</p>
+<p><strong>4. Iterative Refinement</strong></p>
+<p>Bundler和VisualSfM执行BA和过滤的单个实例。由于漂移或BA之前的RT，通常BA中的观测值中有很大一部分是异常值，随后进行过滤。
+由于BA受到异常值的严重影响，所以BA的第二步可以显着改善结果。</p>
+<p>因此，我们建议在迭代优化中执行BA，RT和过滤，直到过滤后的观测值和BA后RT点的数量减少为止。</p>
+<p>在大多数情况下，第二次迭代后结果会大大改善，并且优化收敛。</p>
+<p>下图证明了所提出的迭代细化显着提高了重建的完整性。</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/5.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/5.png" />
+</div>
+</div>
+<div class="section" id="redundant-view-mining">
+<h3>Redundant View Mining<a class="headerlink" href="#redundant-view-mining" title="永久链接至标题">¶</a></h3>
+<p>BA是SfM中的主要性能瓶颈。我们提出了一种方法，该方法利用增量SfM和密集照片集的固有特性，通过将冗余摄像机聚类为高场景重叠组，从而更有效地设置BA参数。</p>
+<p>之前的工作是将摄像机和点划分为子图，这些子图通过分隔符变量连接在一起，方法是将划分作为连接的摄像机和点参数图上的图割问题。</p>
+<p>我们将问题划分为内部参数被排除的子图。</p>
+<p>我们有以下三个主要贡献：</p>
+<p>首先，一种有效的相机分组方案，利用SfM的固有属性并取代前人使用的昂贵的图形切割。</p>
+<p>第二，我们将场景划分为许多小的，高度重叠的摄像机组，而不是将许多摄像机聚集到一个子图中，每个组中的摄像机都折叠为一个摄像机，从而降低了解决简化后的摄像机系统的成本。</p>
+<p>第三，摄影机组非常小，高度重叠。我们通过跳过分隔符变量优化来消除了交替方案。</p>
+<p>SfM根据其参数是否受最新增量模型扩展的影响将图像和点分为两组。对于大问题，由于模型通常在本地扩展，因此大多数场景不会受到影响。
+BA自然会为新扩展的零件进行更多优化，而其他零件只有在出现漂移的情况下才会有所改善。
+此外，Internet照片集通常具有不均匀的相机分布，并带有许多多余的视点。</p>
+<p>基于这些观察，我们将未受影响的场景部分划分为组<span class="math notranslate nohighlight">\(G\{G_r | r = 1...N_G \}\)</span>高度重叠的图像，并将每个组<span class="math notranslate nohighlight">\(G_r\)</span>设置为单个摄像机。受最新扩展名影响的图像被独立分组，以优化其参数。</p>
+<p>请注意，这将导致标准BA参数化</p>
+<div class="align-center figure align-default">
+<img alt="pages\paper\sfm\../../images/paper/sfm/p_1/6.png" src="pages\paper\sfm\../../images/paper/sfm/p_1/6.png" />
+</div>
+<p>对于不受影响的图像，我们创建基数<span class="math notranslate nohighlight">\(N_{G_r}\)</span>组。如果它是在最近的模型扩展过程中添加的，或者其观察值的比值<span class="math notranslate nohighlight">\(\epsilon_r\)</span>大于r像素的重投影误差（以细化三角相机），则我们认为图像是受影响的。</p>
+<p>组中的图像应尽可能地冗余，并且图像之间的共可见点的数量是描述其相互交互程度的一种量度。</p>
+<p>对于具有<span class="math notranslate nohighlight">\(N_X\)</span>点的场景，可以用二进制可见性向量<span class="math notranslate nohighlight">\(v_i\in \{0,1\}^{N_X}\)</span>描述每个图像，如果点<span class="math notranslate nohighlight">\(X_n\)</span>在图像i中可见，则<span class="math notranslate nohighlight">\(v_i\)</span>中的第n个条目为1，否则为0。</p>
+<p>图像a和b之间的相互作用程度是通过对其向量<span class="math notranslate nohighlight">\(v_i\)</span>进行按位运算来计算的</p>
+<div class="math notranslate nohighlight">
+\[V_{ab} = ||v_a ∧ v_b|| / ||v_a ∨ v_b||\]</div>
+<p>为了构建这个组，我们将图像排序为<span class="math notranslate nohighlight">\(\overline{I} = \{I_i|~||v_i|| \ge ||v_{i+1}\}\)</span>，通过从<span class="math notranslate nohighlight">\(I\)</span>中删除第一张图像<span class="math notranslate nohighlight">\(I_a\)</span>并找到使<span class="math notranslate nohighlight">\(V_{ab}\)</span>最大化的图像<span class="math notranslate nohighlight">\(I_b\)</span>来初始化<span class="math notranslate nohighlight">\(G_r\)</span></p>
+<p>如果<span class="math notranslate nohighlight">\(V_{ab} &gt; V\)</span>并且<span class="math notranslate nohighlight">\(|G_r| &lt; s\)</span>，将图像<span class="math notranslate nohighlight">\(l_b\)</span>从<span class="math notranslate nohighlight">\(l\)</span>中删除，然后添加到组<span class="math notranslate nohighlight">\(G_r\)</span>中。否则将初始化一个新组。</p>
+<p>为了减少找到<span class="math notranslate nohighlight">\(l_b\)</span>的时间，我们采用启发式的方法，将搜索范围限制为在<span class="math notranslate nohighlight">\(\pm \beta\)</span>度范围内具有相同视图方向的<span class="math notranslate nohighlight">\(K_r\)</span>空间最近的邻居，这是由于这些图像极有可能共享许多点。</p>
+<p>然后相对于公共的组局部坐标系对组内的每个图像进行参数化。</p>
+<p>分组图像的BA成本函数为</p>
+<div class="math notranslate nohighlight">
+\[E_g = \sum_j \rho_j(||\pi_g(G_r, P_c,X_k) - x_j||^2_2)\]</div>
+<p>使用外参群参数<span class="math notranslate nohighlight">\(G_r\in SE(3)\)</span>和固定<span class="math notranslate nohighlight">\(P_c\)</span>。</p>
+<p>然后将组<span class="math notranslate nohighlight">\(r\)</span>中图像的投影矩阵定义为该组与图像姿态<span class="math notranslate nohighlight">\(P_{cr} = P_cG_r\)</span>的串联。</p>
+<p>总体成本<span class="math notranslate nohighlight">\(E\)</span>是分组和未分组成本贡献的总和。
+为了有效地串联Gr和Pi的旋转分量，我们依靠四元数。</p>
+<p>由于在π上计算<span class="math notranslate nohighlight">\(π_g\)</span>的相对开销较小，因此较大的组大小会带来更大的性能优势。</p>
+<p>请注意，即使对于两个组的情况，我们也会观察到计算上的好处。
+此外，性能收益取决于问题的大小，因为摄像机数量的减少对直接方法的三次计算复杂性的影响大于对间接方法的线性复杂性的影响。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../p_others.html" class="btn btn-neutral float-right" title="Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../p_sfm.html" class="btn btn-neutral float-left" title="Structure from Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

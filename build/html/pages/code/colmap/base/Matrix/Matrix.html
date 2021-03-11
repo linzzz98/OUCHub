@@ -1,0 +1,1149 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6. Matrix &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="Estimator" href="../../c_estimator.html" />
+    <link rel="prev" title="5. Image" href="../Image/Image.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Camera/Camera.html">1. Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../VisibilityPyramid/VisibilityPyramid.html">2. VisibilityPyramid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Correspondence_graph/Correspondence_graph.html">3. Correspondence_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Cost_function/Cost_function.html">4. CostFunctions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Image/Image.html">5. Image</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6. Matrix</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#essential-matrix">6.1. Essential Matrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#decomposeessentialmatrix">6.1.1. DecomposeEssentialMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#posefromessentialmatrix">6.1.2. PoseFromEssentialMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#essentialmatrixfrompose">6.1.3. EssentialMatrixFromPose</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#essentialmatrixfromabsoluteposes">6.1.4. EssentialMatrixFromAbsolutePoses</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#findoptimalimageobservations">6.1.5. FindOptimalImageObservations</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#epipolefromessentialmatrix">6.1.6. EpipoleFromEssentialMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#invertessentialmatrix">6.1.7. InvertEssentialMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#refineessentialmatrix">6.1.8. RefineEssentialMatrix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#homography-matrix">6.2. Homography Matrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#decomposehomographymatrix">6.2.1. DecomposeHomographyMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#posefromhomographymatrix">6.2.2. PoseFromHomographyMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#homographymatrixfrompose">6.2.3. HomographyMatrixFromPose</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#projection-matrix">6.3. Projection Matrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#composeprojectionmatrix">6.3.1. ComposeProjectionMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#invertprojectionmatrix">6.3.2. InvertProjectionMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#computeclosestrotationmatrix">6.3.3. ComputeClosestRotationMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#decomposeprojectionmatrix">6.3.4. DecomposeProjectionMatrix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#projectpointtoimage">6.3.5. ProjectPointToImage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#calculatesquaredreprojectionerror">6.3.6. CalculateSquaredReprojectionError</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#calculateangularerror">6.3.7. CalculateAngularError</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#calculatenormalizedangularerror">6.3.8. CalculateNormalizedAngularError</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#calculatedepth">6.3.9. CalculateDepth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#haspointpositivedepth">6.3.10. HasPointPositiveDepth</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../c_estimator.html">Estimator</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_base.html">Base</a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>Matrix</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/base/Matrix/Matrix.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="matrix">
+<h1><span class="section-number">6. </span>Matrix<a class="headerlink" href="#matrix" title="永久链接至标题">¶</a></h1>
+<div class="section" id="essential-matrix">
+<h2><span class="section-number">6.1. </span>Essential Matrix<a class="headerlink" href="#essential-matrix" title="永久链接至标题">¶</a></h2>
+<p>将基本矩阵分解为可能的旋转和平移。</p>
+<div class="section" id="decomposeessentialmatrix">
+<h3><span class="section-number">6.1.1. </span>DecomposeEssentialMatrix<a class="headerlink" href="#decomposeessentialmatrix" title="永久链接至标题">¶</a></h3>
+<p>假定第一个位姿为<span class="math notranslate nohighlight">\(P = [I | 0]\)</span>和其他四个可能的第二个姿势的集合定义为：<span class="math notranslate nohighlight">\(\{[R_1 | t],[R_2 | t],    [R_1 | -t],[R_2 | -t]\}\)</span></p>
+<ul class="simple">
+<li><p>&#64;param E 3x3 essential matrix.</p></li>
+<li><p>&#64;param R1 First possible 3x3 rotation matrix.</p></li>
+<li><p>&#64;param R2 Second possible 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t 3x1 possible translation vector (also -t possible).</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv424DecomposeEssentialMatrixRKN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE">
+<span id="_CPPv324DecomposeEssentialMatrixRKN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE"></span><span id="_CPPv224DecomposeEssentialMatrixRKN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE"></span><span id="DecomposeEssentialMatrix__Eigen::Matrix3dCR.Eigen::Matrix3dP.Eigen::Matrix3dP.Eigen::Vector3dP"></span>void <code class="sig-name descname">DecomposeEssentialMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em>, Eigen::Matrix3d *<em>R1</em>, Eigen::Matrix3d *<em>R2</em>, Eigen::Vector3d *<em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424DecomposeEssentialMatrixRKN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">DecomposeEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">R1</span><span class="p">,</span>
+                              <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">R2</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span>
+      <span class="n">E</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">U</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixU</span><span class="p">();</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">V</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">transpose</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">U</span><span class="p">.</span><span class="n">determinant</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">U</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">V</span><span class="p">.</span><span class="n">determinant</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">V</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">W</span><span class="p">;</span>
+  <span class="n">W</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="o">*</span><span class="n">R1</span> <span class="o">=</span> <span class="n">U</span> <span class="o">*</span> <span class="n">W</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">R2</span> <span class="o">=</span> <span class="n">U</span> <span class="o">*</span> <span class="n">W</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">V</span><span class="p">;</span>
+  <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">U</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">normalized</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>具体证明如下：正交矩阵<span class="math notranslate nohighlight">\(W\)</span>：<span class="math notranslate nohighlight">\(\left[\begin{matrix}0 &amp; -1 &amp; 0\\1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1\end{matrix}\right]\)</span>
+反对称矩阵<span class="math notranslate nohighlight">\(Z\)</span>：<span class="math notranslate nohighlight">\(\left[\begin{matrix}0 &amp; -1 &amp; 0\\1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0\end{matrix}\right]\)</span></p>
+<p>由<span class="math notranslate nohighlight">\(E = t^∧R =  SR\)</span>，其中<span class="math notranslate nohighlight">\(S\)</span>是反对称矩阵。</p>
+<p>根据定义：</p>
+<div class="math notranslate nohighlight">
+\[S=kUZU^T\]</div>
+<p>其中，<span class="math notranslate nohighlight">\(U\)</span>是正交矩阵，<span class="math notranslate nohighlight">\(Z = diag(1,1,0)W\)</span></p>
+<p>得到：</p>
+<div class="math notranslate nohighlight">
+\[S = kUdiag(1,1,0)WU^T\]</div>
+<p>即：</p>
+<div class="math notranslate nohighlight">
+\[E = Udiag(1,1,0)WU^TR\]</div>
+<p>由SVD分解可得：</p>
+<div class="math notranslate nohighlight">
+\[WU^TR = V^T\]</div>
+<p>由于<span class="math notranslate nohighlight">\(E\)</span>和<span class="math notranslate nohighlight">\(-E\)</span>等价则有两种可能：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R = UW^TV^T\\
+R = U(-W^T)V^T = UWV^T\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(t^∧ = S\)</span>，忽略<span class="math notranslate nohighlight">\(k\)</span>，化简后得到<span class="math notranslate nohighlight">\(t = U.col(2)\)</span>(U的最后一列)</p>
+<p>找到特征点在两个相机位姿下的深度均为正的解。</p>
+</div>
+</div>
+<div class="section" id="posefromessentialmatrix">
+<h3><span class="section-number">6.1.2. </span>PoseFromEssentialMatrix<a class="headerlink" href="#posefromessentialmatrix" title="永久链接至标题">¶</a></h3>
+<p>从给定的基本矩阵中恢复最可能的位姿。</p>
+<p>假设第一张图片的姿态为<span class="math notranslate nohighlight">\(P = [I | 0]\)</span></p>
+<ul class="simple">
+<li><p>&#64;param E 3x3 essential matrix.</p></li>
+<li><p>&#64;param points1 First set of corresponding points.</p></li>
+<li><p>&#64;param points2 Second set of corresponding points.</p></li>
+<li><p>&#64;param R Most probable 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t Most probable 3x1 translation vector.</p></li>
+<li><p>&#64;param points3D Triangulated 3D points infront of camera.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv423PoseFromEssentialMatrixRKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE">
+<span id="_CPPv323PoseFromEssentialMatrixRKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="_CPPv223PoseFromEssentialMatrixRKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="PoseFromEssentialMatrix__Eigen::Matrix3dCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Matrix3dP.Eigen::Vector3dP.std::vector:Eigen::Vector3d:P"></span>void <code class="sig-name descname">PoseFromEssentialMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Matrix3d *<em>R</em>, Eigen::Vector3d *<em>t</em>, std::vector&lt;Eigen::Vector3d&gt; *<em>points3D</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423PoseFromEssentialMatrixRKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">PoseFromEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                             <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">R</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span>
+                             <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;*</span> <span class="n">points3D</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R1</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R2</span><span class="p">;</span>
+  <span class="n">DecomposeEssentialMatrix</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R2</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+
+  <span class="c1">// 得到所有由E分解出的位姿组合</span>
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">R_cmbs</span><span class="p">{{</span><span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">}};</span>
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">t_cmbs</span><span class="p">{{</span><span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">-*</span><span class="n">t</span><span class="p">,</span> <span class="o">-*</span><span class="n">t</span><span class="p">}};</span>
+
+  <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">R_cmbs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D_cmb</span><span class="p">;</span>
+    <span class="c1">// 进行cheirality约束测试，即确定哪个三角对应关系位于两个摄像机的前面。</span>
+    <span class="c1">// -- 该函数在pose.h中 -- //</span>
+    <span class="n">CheckCheirality</span><span class="p">(</span><span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points3D_cmb</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">points3D_cmb</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+      <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="o">*</span><span class="n">points3D</span> <span class="o">=</span> <span class="n">points3D_cmb</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="essentialmatrixfrompose">
+<h3><span class="section-number">6.1.3. </span>EssentialMatrixFromPose<a class="headerlink" href="#essentialmatrixfrompose" title="永久链接至标题">¶</a></h3>
+<p>根据相对的相机位姿构成基本矩阵</p>
+<p>假设第一个摄像机姿态具有投影矩阵<span class="math notranslate nohighlight">\(P = [I | 0]\)</span>，第二个摄影机的姿态作为从世界到摄影机系统的转换而给出。</p>
+<ul class="simple">
+<li><p>&#64;param R 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t 3x1 translation vector.</p></li>
+<li><p>&#64;return 3x3 essential matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv423EssentialMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE">
+<span id="_CPPv323EssentialMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE"></span><span id="_CPPv223EssentialMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE"></span><span id="EssentialMatrixFromPose__Eigen::Matrix3dCR.Eigen::Vector3dCR"></span>Eigen::Matrix3d <code class="sig-name descname">EssentialMatrixFromPose</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>R</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423EssentialMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">EssentialMatrixFromPose</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span>
+                                        <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">CrossProductMatrix</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">normalized</span><span class="p">())</span> <span class="o">*</span> <span class="n">R</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">CrossProductMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">vector</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">matrix</span><span class="p">;</span>
+  <span class="n">matrix</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+      <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">matrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>证明：<span class="math notranslate nohighlight">\(E = t^∧R = \left[\begin{matrix}0 &amp; -t_z &amp; t_y\\t_z &amp; 0 &amp; -t_x \\-t_y &amp; t_x &amp; 0\end{matrix}\right]R\)</span></p>
+</div>
+</div>
+<div class="section" id="essentialmatrixfromabsoluteposes">
+<h3><span class="section-number">6.1.4. </span>EssentialMatrixFromAbsolutePoses<a class="headerlink" href="#essentialmatrixfromabsoluteposes" title="永久链接至标题">¶</a></h3>
+<p>从两个绝对相机姿势构成基本矩阵</p>
+<ul class="simple">
+<li><p>&#64;param proj_matrix1 3x4 projection matrix.</p></li>
+<li><p>&#64;param proj_matrix2 3x4 projection matrix.</p></li>
+<li><p>&#64;return 3x3 essential matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv432EssentialMatrixFromAbsolutePosesRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dE">
+<span id="_CPPv332EssentialMatrixFromAbsolutePosesRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dE"></span><span id="_CPPv232EssentialMatrixFromAbsolutePosesRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dE"></span><span id="EssentialMatrixFromAbsolutePoses__Eigen::Matrix3x4dCR.Eigen::Matrix3x4dCR"></span>Eigen::Matrix3d <code class="sig-name descname">EssentialMatrixFromAbsolutePoses</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix1</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432EssentialMatrixFromAbsolutePosesRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">EssentialMatrixFromAbsolutePoses</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix1</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix2</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R1</span> <span class="o">=</span> <span class="n">proj_matrix1</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R2</span> <span class="o">=</span> <span class="n">proj_matrix2</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">proj_matrix1</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">proj_matrix2</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+
+  <span class="c1">// Relative transformation between to cameras.</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R</span> <span class="o">=</span> <span class="n">R2</span> <span class="o">*</span> <span class="n">R1</span><span class="p">.</span><span class="n">transpose</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">-</span> <span class="n">R</span> <span class="o">*</span> <span class="n">t1</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nf">EssentialMatrixFromPose</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="findoptimalimageobservations">
+<h3><span class="section-number">6.1.5. </span>FindOptimalImageObservations<a class="headerlink" href="#findoptimalimageobservations" title="永久链接至标题">¶</a></h3>
+<p>查找最佳图像点，例如：
+<span class="math notranslate nohighlight">\(optimal\_point1^T * E * optimal\_point2 = 0\)</span></p>
+<p>《Lindstrom, P., “Triangulation made easy”,Computer Vision and Pattern
+Recognition (CVPR),2010 IEEE Conference on , vol., no., pp.1554,1561,
+13-18 June 2010》</p>
+<ul class="simple">
+<li><p>&#64;param E Essential or fundamental matrix.</p></li>
+<li><p>&#64;param point1 Corresponding 2D point in first image.</p></li>
+<li><p>&#64;param point2 Corresponding 2D point in second image.</p></li>
+<li><p>&#64;param optimal_point1 Estimated optimal image point in the first
+image.</p></li>
+<li><p>&#64;param optimal_point2 Estimated optimal image point in the second
+image.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">FindOptimalImageObservations</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point1</span><span class="p">,</span>
+                                  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2</span><span class="p">,</span>
+                                  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">*</span> <span class="n">optimal_point1</span><span class="p">,</span>
+                                  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">*</span> <span class="n">optimal_point2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point1h</span> <span class="o">=</span> <span class="n">point1</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point2h</span> <span class="o">=</span> <span class="n">point2</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">S</span><span class="p">;</span>
+  <span class="n">S</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="c1">// Epipolar lines.</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">n1</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">point2h</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="n">E</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">point1h</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix2d</span> <span class="n">E_tilde</span> <span class="o">=</span> <span class="n">E</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">a</span> <span class="o">=</span> <span class="n">n1</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">E_tilde</span> <span class="o">*</span> <span class="n">n2</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">()</span> <span class="o">+</span> <span class="n">n2</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">())</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">c</span> <span class="o">=</span> <span class="n">point1h</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">point2h</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">c</span><span class="p">);</span>
+  <span class="kt">double</span> <span class="n">lambda</span> <span class="o">=</span> <span class="n">c</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">d</span><span class="p">);</span>
+
+  <span class="n">n1</span> <span class="o">-=</span> <span class="n">E_tilde</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">*</span> <span class="n">n1</span><span class="p">;</span>
+  <span class="n">n2</span> <span class="o">-=</span> <span class="n">E_tilde</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">*</span> <span class="n">n2</span><span class="p">;</span>
+
+  <span class="n">lambda</span> <span class="o">*=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n1</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">()</span> <span class="o">+</span> <span class="n">n2</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">());</span>
+
+  <span class="o">*</span><span class="n">optimal_point1</span> <span class="o">=</span> <span class="p">(</span><span class="n">point1h</span> <span class="o">-</span> <span class="n">S</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">*</span> <span class="n">n1</span><span class="p">).</span><span class="n">hnormalized</span><span class="p">();</span>
+  <span class="o">*</span><span class="n">optimal_point2</span> <span class="o">=</span> <span class="p">(</span><span class="n">point2h</span> <span class="o">-</span> <span class="n">S</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">lambda</span> <span class="o">*</span> <span class="n">n2</span><span class="p">).</span><span class="n">hnormalized</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="epipolefromessentialmatrix">
+<h3><span class="section-number">6.1.6. </span>EpipoleFromEssentialMatrix<a class="headerlink" href="#epipolefromessentialmatrix" title="永久链接至标题">¶</a></h3>
+<p>计算齐次坐标中极点的位置</p>
+<ul class="simple">
+<li><p>&#64;param E 3x3 essential matrix.</p></li>
+<li><p>&#64;param left_image If true, epipole in left image is computed, else
+in right image.</p></li>
+<li><p>&#64;return Epipole in homogeneous coordinates.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv426EpipoleFromEssentialMatrixRKN5Eigen8Matrix3dEKb">
+<span id="_CPPv326EpipoleFromEssentialMatrixRKN5Eigen8Matrix3dEKb"></span><span id="_CPPv226EpipoleFromEssentialMatrixRKN5Eigen8Matrix3dEKb"></span><span id="EpipoleFromEssentialMatrix__Eigen::Matrix3dCR.bC"></span>Eigen::Vector3d <code class="sig-name descname">EpipoleFromEssentialMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em>, <em class="property">const</em> bool <em>left_image</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426EpipoleFromEssentialMatrixRKN5Eigen8Matrix3dEKb" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">EpipoleFromEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span>
+                                           <span class="k">const</span> <span class="kt">bool</span> <span class="n">left_image</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">e</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">left_image</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">e</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="invertessentialmatrix">
+<h3><span class="section-number">6.1.7. </span>InvertEssentialMatrix<a class="headerlink" href="#invertessentialmatrix" title="永久链接至标题">¶</a></h3>
+<p>反转基本矩阵，即，如果基本矩阵E描述了从摄像机A到B的转换，则反转的基本矩阵E’描述了从摄像机B到A的转换。</p>
+<ul class="simple">
+<li><p>&#64;param E 3x3 essential matrix.</p></li>
+<li><p>&#64;return Inverted essential matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv421InvertEssentialMatrixRKN5Eigen8Matrix3dE">
+<span id="_CPPv321InvertEssentialMatrixRKN5Eigen8Matrix3dE"></span><span id="_CPPv221InvertEssentialMatrixRKN5Eigen8Matrix3dE"></span><span id="InvertEssentialMatrix__Eigen::Matrix3dCR"></span>Eigen::Matrix3d <code class="sig-name descname">InvertEssentialMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421InvertEssentialMatrixRKN5Eigen8Matrix3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">InvertEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">E</span><span class="p">.</span><span class="n">transpose</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="refineessentialmatrix">
+<h3><span class="section-number">6.1.8. </span>RefineEssentialMatrix<a class="headerlink" href="#refineessentialmatrix" title="永久链接至标题">¶</a></h3>
+<p>使用函数“
+RefineRelativePose”将基本矩阵分解为旋转和平移分量，并refine相对位姿。</p>
+<dl class="cpp function">
+<dt id="_CPPv421RefineEssentialMatrixRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIcEEPN5Eigen8Matrix3dE">
+<span id="_CPPv321RefineEssentialMatrixRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIcEEPN5Eigen8Matrix3dE"></span><span id="_CPPv221RefineEssentialMatrixRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIcEEPN5Eigen8Matrix3dE"></span><span id="RefineEssentialMatrix__ceres::Solver::OptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.std::vector:c:CR.Eigen::Matrix3dP"></span>bool <code class="sig-name descname">RefineEssentialMatrix</code><span class="sig-paren">(</span><em class="property">const</em> ceres::Solver::Options &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> std::vector&lt;char&gt; &amp;<em>inlier_mask</em>, Eigen::Matrix3d *<em>E</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421RefineEssentialMatrixRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIcEEPN5Eigen8Matrix3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">RefineEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">inlier_mask</span><span class="p">,</span>
+                           <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">E</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">inlier_mask</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="c1">// 提取内点，将基本矩阵分解为旋转和平移分量。</span>
+
+  <span class="kt">size_t</span> <span class="n">num_inliers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">inlier</span> <span class="p">:</span> <span class="n">inlier_mask</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">inlier</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">num_inliers</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points1</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points2</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
+  <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inlier_mask</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+      <span class="n">inlier_points1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="n">inlier_points2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 从基本矩阵中提取相对位姿</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">tvec</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D</span><span class="p">;</span>
+  <span class="n">PoseFromEssentialMatrix</span><span class="p">(</span><span class="o">*</span><span class="n">E</span><span class="p">,</span> <span class="n">inlier_points1</span><span class="p">,</span> <span class="n">inlier_points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvec</span><span class="p">,</span>
+                          <span class="o">&amp;</span><span class="n">points3D</span><span class="p">);</span>
+
+  <span class="c1">// 旋转矩阵转四元数</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span> <span class="n">qvec</span> <span class="o">=</span> <span class="n">RotationMatrixToQuaternion</span><span class="p">(</span><span class="n">R</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// refine基本矩阵，refine的过程将本来是外点的点视为内点，从而使用所有点。</span>
+
+  <span class="k">const</span> <span class="kt">bool</span> <span class="n">refinement_success</span> <span class="o">=</span>
+      <span class="n">RefineRelativePose</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">inlier_points1</span><span class="p">,</span> <span class="n">inlier_points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">qvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvec</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">refinement_success</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Compose refined essential matrix.</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">rot_mat</span> <span class="o">=</span> <span class="n">QuaternionToRotationMatrix</span><span class="p">(</span><span class="n">qvec</span><span class="p">);</span>
+  <span class="o">*</span><span class="n">E</span> <span class="o">=</span> <span class="n">EssentialMatrixFromPose</span><span class="p">(</span><span class="n">rot_mat</span><span class="p">,</span> <span class="n">tvec</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="homography-matrix">
+<h2><span class="section-number">6.2. </span>Homography Matrix<a class="headerlink" href="#homography-matrix" title="永久链接至标题">¶</a></h2>
+<div class="section" id="decomposehomographymatrix">
+<h3><span class="section-number">6.2.1. </span>DecomposeHomographyMatrix<a class="headerlink" href="#decomposehomographymatrix" title="永久链接至标题">¶</a></h3>
+<p>将单应性矩阵分解为可能的旋转，平移和平面法线向量：</p>
+<p>假定第一个位姿为<span class="math notranslate nohighlight">\(P = [I | 0]\)</span>。 注意，如果“
+<span class="math notranslate nohighlight">\(R.size()== t.size()== n.size()== 4\)</span>”，则单应性是plane-induced的。
+如果<span class="math notranslate nohighlight">\(R.size() == t.size() == n.size() == 1\)</span>，则单应性是纯旋转的。</p>
+<p>Malis, Ezio, and Manuel Vargas. 《Deeper understanding of the homography
+decomposition for vision-based control.》 (2007): 90.</p>
+<ul class="simple">
+<li><p>&#64;param H 3x3 homography matrix.</p></li>
+<li><p>&#64;param K 3x3 calibration matrix.</p></li>
+<li><p>&#64;param R Possible 3x3 rotation matrices.</p></li>
+<li><p>&#64;param t Possible translation vectors.</p></li>
+<li><p>&#64;param n Possible normal vectors.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv425DecomposeHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dEPNSt6vectorIN5Eigen8Matrix3dEEEPNSt6vectorIN5Eigen8Vector3dEEEPNSt6vectorIN5Eigen8Vector3dEEE">
+<span id="_CPPv325DecomposeHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dEPNSt6vectorIN5Eigen8Matrix3dEEEPNSt6vectorIN5Eigen8Vector3dEEEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="_CPPv225DecomposeHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dEPNSt6vectorIN5Eigen8Matrix3dEEEPNSt6vectorIN5Eigen8Vector3dEEEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="DecomposeHomographyMatrix__Eigen::Matrix3dCR.Eigen::Matrix3dCR.Eigen::Matrix3dCR.std::vector:Eigen::Matrix3d:P.std::vector:Eigen::Vector3d:P.std::vector:Eigen::Vector3d:P"></span>void <code class="sig-name descname">DecomposeHomographyMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>H</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>K1</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>K2</em>, std::vector&lt;Eigen::Matrix3d&gt; *<em>R</em>, std::vector&lt;Eigen::Vector3d&gt; *<em>t</em>, std::vector&lt;Eigen::Vector3d&gt; *<em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425DecomposeHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dEPNSt6vectorIN5Eigen8Matrix3dEEEPNSt6vectorIN5Eigen8Vector3dEEEPNSt6vectorIN5Eigen8Vector3dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">DecomposeHomographyMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K1</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K2</span><span class="p">,</span>
+                               <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;*</span> <span class="n">R</span><span class="p">,</span>
+                               <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;*</span> <span class="n">t</span><span class="p">,</span>
+                               <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;*</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Remove calibration from homography.</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">H_normalized</span> <span class="o">=</span> <span class="n">K2</span><span class="p">.</span><span class="n">inverse</span><span class="p">()</span> <span class="o">*</span> <span class="n">H</span> <span class="o">*</span> <span class="n">K1</span><span class="p">;</span>
+
+  <span class="c1">// Remove scale from normalized homography.</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">hmatrix_norm_svd</span><span class="p">(</span><span class="n">H_normalized</span><span class="p">);</span>
+  <span class="n">H_normalized</span><span class="p">.</span><span class="n">array</span><span class="p">()</span> <span class="o">/=</span> <span class="n">hmatrix_norm_svd</span><span class="p">.</span><span class="n">singularValues</span><span class="p">()[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">S</span> <span class="o">=</span>
+      <span class="n">H_normalized</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">H_normalized</span> <span class="o">-</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">::</span><span class="n">Identity</span><span class="p">();</span>
+
+  <span class="c1">// Check if H is rotation matrix.</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">kMinInfinityNorm</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">S</span><span class="p">.</span><span class="n">lpNorm</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Infinity</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">kMinInfinityNorm</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="p">{</span><span class="n">H_normalized</span><span class="p">};</span>
+    <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">::</span><span class="n">Zero</span><span class="p">()};</span>
+    <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="p">{</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">::</span><span class="n">Zero</span><span class="p">()};</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M00</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M11</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M22</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">rtM00</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M00</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">rtM11</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M11</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">rtM22</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M22</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M01</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M12</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">M02</span> <span class="o">=</span> <span class="n">ComputeOppositeOfMinor</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">e12</span> <span class="o">=</span> <span class="n">SignOfNumber</span><span class="p">(</span><span class="n">M12</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">e02</span> <span class="o">=</span> <span class="n">SignOfNumber</span><span class="p">(</span><span class="n">M02</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">int</span> <span class="n">e01</span> <span class="o">=</span> <span class="n">SignOfNumber</span><span class="p">(</span><span class="n">M01</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">nS00</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">nS11</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">nS22</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">nS</span><span class="p">{{</span><span class="n">nS00</span><span class="p">,</span> <span class="n">nS11</span><span class="p">,</span> <span class="n">nS22</span><span class="p">}};</span>
+  <span class="k">const</span> <span class="kt">size_t</span> <span class="n">idx</span> <span class="o">=</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">nS</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">max_element</span><span class="p">(</span><span class="n">nS</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nS</span><span class="p">.</span><span class="n">end</span><span class="p">()));</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">np1</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">np2</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">rtM22</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">rtM22</span><span class="p">;</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">e12</span> <span class="o">*</span> <span class="n">rtM11</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">e12</span> <span class="o">*</span> <span class="n">rtM11</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">rtM22</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">rtM22</span><span class="p">;</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">e02</span> <span class="o">*</span> <span class="n">rtM00</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">e02</span> <span class="o">*</span> <span class="n">rtM00</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">e01</span> <span class="o">*</span> <span class="n">rtM11</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">e01</span> <span class="o">*</span> <span class="n">rtM11</span><span class="p">;</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">rtM00</span><span class="p">;</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">rtM00</span><span class="p">;</span>
+    <span class="n">np1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="n">np2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">traceS</span> <span class="o">=</span> <span class="n">S</span><span class="p">.</span><span class="n">trace</span><span class="p">();</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">v</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">traceS</span> <span class="o">-</span> <span class="n">M00</span> <span class="o">-</span> <span class="n">M11</span> <span class="o">-</span> <span class="n">M22</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">ESii</span> <span class="o">=</span> <span class="n">SignOfNumber</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">idx</span><span class="p">));</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">r_2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">traceS</span> <span class="o">+</span> <span class="n">v</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">nt_2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">traceS</span> <span class="o">-</span> <span class="n">v</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">r</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r_2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">n_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nt_2</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">n1</span> <span class="o">=</span> <span class="n">np1</span><span class="p">.</span><span class="n">normalized</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">np2</span><span class="p">.</span><span class="n">normalized</span><span class="p">();</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">half_nt</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">n_t</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">esii_t_r</span> <span class="o">=</span> <span class="n">ESii</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t1_star</span> <span class="o">=</span> <span class="n">half_nt</span> <span class="o">*</span> <span class="p">(</span><span class="n">esii_t_r</span> <span class="o">*</span> <span class="n">n2</span> <span class="o">-</span> <span class="n">n_t</span> <span class="o">*</span> <span class="n">n1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t2_star</span> <span class="o">=</span> <span class="n">half_nt</span> <span class="o">*</span> <span class="p">(</span><span class="n">esii_t_r</span> <span class="o">*</span> <span class="n">n1</span> <span class="o">-</span> <span class="n">n_t</span> <span class="o">*</span> <span class="n">n2</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R1</span> <span class="o">=</span>
+      <span class="n">ComputeHomographyRotation</span><span class="p">(</span><span class="n">H_normalized</span><span class="p">,</span> <span class="n">t1_star</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">R1</span> <span class="o">*</span> <span class="n">t1_star</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R2</span> <span class="o">=</span>
+      <span class="n">ComputeHomographyRotation</span><span class="p">(</span><span class="n">H_normalized</span><span class="p">,</span> <span class="n">t2_star</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">R2</span> <span class="o">*</span> <span class="n">t2_star</span><span class="p">;</span>
+
+  <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="p">{</span><span class="n">R1</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">R2</span><span class="p">};</span>
+  <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="n">t1</span><span class="p">,</span> <span class="o">-</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="o">-</span><span class="n">t2</span><span class="p">};</span>
+  <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="n">n1</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="o">-</span><span class="n">n2</span><span class="p">,</span> <span class="n">n2</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="posefromhomographymatrix">
+<h3><span class="section-number">6.2.2. </span>PoseFromHomographyMatrix<a class="headerlink" href="#posefromhomographymatrix" title="永久链接至标题">¶</a></h3>
+<p>从给定的单应性矩阵中恢复最可能的位姿。</p>
+<p>假定第一个位姿为<span class="math notranslate nohighlight">\(P = [I | 0]\)</span>。</p>
+<ul class="simple">
+<li><p>&#64;param H 3x3 homography matrix.</p></li>
+<li><p>&#64;param K1 3x3 calibration matrix of first camera.</p></li>
+<li><p>&#64;param K2 3x3 calibration matrix of second camera.</p></li>
+<li><p>&#64;param points1 First set of corresponding points.</p></li>
+<li><p>&#64;param points2 Second set of corresponding points.</p></li>
+<li><p>&#64;param R Most probable 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t Most probable 3x1 translation vector.</p></li>
+<li><p>&#64;param n Most probable 3x1 normal vector.</p></li>
+<li><p>&#64;param points3D Triangulated 3D points infront of camera (only if
+homography is not pure-rotational).</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv424PoseFromHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE">
+<span id="_CPPv324PoseFromHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="_CPPv224PoseFromHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE"></span><span id="PoseFromHomographyMatrix__Eigen::Matrix3dCR.Eigen::Matrix3dCR.Eigen::Matrix3dCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Matrix3dP.Eigen::Vector3dP.Eigen::Vector3dP.std::vector:Eigen::Vector3d:P"></span>void <code class="sig-name descname">PoseFromHomographyMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>H</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>K1</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>K2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Matrix3d *<em>R</em>, Eigen::Vector3d *<em>t</em>, Eigen::Vector3d *<em>n</em>, std::vector&lt;Eigen::Vector3d&gt; *<em>points3D</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424PoseFromHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">PoseFromHomographyMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">H</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K1</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K2</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                              <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">R</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span>
+                              <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">n</span><span class="p">,</span>
+                              <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;*</span> <span class="n">points3D</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">R_cmbs</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">t_cmbs</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">n_cmbs</span><span class="p">;</span>
+  <span class="n">DecomposeHomographyMatrix</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">K1</span><span class="p">,</span> <span class="n">K2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R_cmbs</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t_cmbs</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n_cmbs</span><span class="p">);</span>
+
+  <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">R_cmbs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D_cmb</span><span class="p">;</span>
+    <span class="n">CheckCheirality</span><span class="p">(</span><span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points3D_cmb</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">points3D_cmb</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+      <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="o">*</span><span class="n">points3D</span> <span class="o">=</span> <span class="n">points3D_cmb</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="homographymatrixfrompose">
+<h3><span class="section-number">6.2.3. </span>HomographyMatrixFromPose<a class="headerlink" href="#homographymatrixfrompose" title="永久链接至标题">¶</a></h3>
+<p>根据相对位姿计算单应矩阵</p>
+<ul class="simple">
+<li><p>&#64;param K1 3x3 calibration matrix of first camera.</p></li>
+<li><p>&#64;param K2 3x3 calibration matrix of second camera.</p></li>
+<li><p>&#64;param R Most probable 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t Most probable 3x1 translation vector.</p></li>
+<li><p>&#64;param n Most probable 3x1 normal vector.</p></li>
+<li><p>&#64;param d Orthogonal distance from plane.</p></li>
+<li><p>&#64;return 3x3 homography matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv424HomographyMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dEKd">
+<span id="_CPPv324HomographyMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dEKd"></span><span id="_CPPv224HomographyMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dEKd"></span><span id="HomographyMatrixFromPose__Eigen::Matrix3dCR.Eigen::Matrix3dCR.Eigen::Matrix3dCR.Eigen::Vector3dCR.Eigen::Vector3dCR.doubleC"></span>Eigen::Matrix3d <code class="sig-name descname">HomographyMatrixFromPose</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>K1</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>K2</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>R</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>t</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>n</em>, <em class="property">const</em> double <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424HomographyMatrixFromPoseRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dEKd" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">HomographyMatrixFromPose</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K1</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">K2</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">n</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="kt">double</span> <span class="n">d</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">K2</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="n">n</span><span class="p">.</span><span class="n">normalized</span><span class="p">().</span><span class="n">transpose</span><span class="p">()</span> <span class="o">/</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">K1</span><span class="p">.</span><span class="n">inverse</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="projection-matrix">
+<h2><span class="section-number">6.3. </span>Projection Matrix<a class="headerlink" href="#projection-matrix" title="永久链接至标题">¶</a></h2>
+<div class="section" id="composeprojectionmatrix">
+<h3><span class="section-number">6.3.1. </span>ComposeProjectionMatrix<a class="headerlink" href="#composeprojectionmatrix" title="永久链接至标题">¶</a></h3>
+<p>由旋转和平移分量组成投影矩阵。 投影矩阵将3D世界转换为图像点。</p>
+<ul class="simple">
+<li><p>&#64;param qvec Unit Quaternion rotation coefficients (w, x, y, z).</p></li>
+<li><p>&#64;param tvec 3x1 translation vector.</p></li>
+<li><p>&#64;return 3x4 projection matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv423ComposeProjectionMatrixRKN5Eigen8Vector4dERKN5Eigen8Vector3dE">
+<span id="_CPPv323ComposeProjectionMatrixRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="_CPPv223ComposeProjectionMatrixRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="ComposeProjectionMatrix__Eigen::Vector4dCR.Eigen::Vector3dCR"></span>Eigen::Matrix3x4d <code class="sig-name descname">ComposeProjectionMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector4d &amp;<em>qvec</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>tvec</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423ComposeProjectionMatrixRKN5Eigen8Vector4dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span> <span class="n">ComposeProjectionMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                          <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span> <span class="n">proj_matrix</span><span class="p">;</span>
+  <span class="n">proj_matrix</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">QuaternionToRotationMatrix</span><span class="p">(</span><span class="n">qvec</span><span class="p">);</span>
+  <span class="n">proj_matrix</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">proj_matrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>&#64;param R 3x3 rotation matrix.</p></li>
+<li><p>&#64;param t 3x1 translation vector.</p></li>
+<li><p>&#64;return 3x4 projection matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv423ComposeProjectionMatrixRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE">
+<span id="_CPPv323ComposeProjectionMatrixRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE"></span><span id="_CPPv223ComposeProjectionMatrixRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE"></span><span id="ComposeProjectionMatrix__Eigen::Matrix3dCR.Eigen::Vector3dCR"></span>Eigen::Matrix3x4d <code class="sig-name descname">ComposeProjectionMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>R</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>T</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423ComposeProjectionMatrixRKN5Eigen8Matrix3dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span> <span class="n">ComposeProjectionMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">R</span><span class="p">,</span>
+                                          <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">T</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span> <span class="n">proj_matrix</span><span class="p">;</span>
+  <span class="n">proj_matrix</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">R</span><span class="p">;</span>
+  <span class="n">proj_matrix</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">proj_matrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="invertprojectionmatrix">
+<h3><span class="section-number">6.3.2. </span>InvertProjectionMatrix<a class="headerlink" href="#invertprojectionmatrix" title="永久链接至标题">¶</a></h3>
+<p>反转投影矩阵，定义为：</p>
+<div class="math notranslate nohighlight">
+\[P = [R | t]~~ ~~with~~ ~~R \in SO(3) ~~~and~~~ t \in R^3\]</div>
+<ul class="simple">
+<li><p>param proj_matrix 3x4 projection matrix.</p></li>
+<li><p>&#64;return 3x4 inverse projection matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv422InvertProjectionMatrixRKN5Eigen10Matrix3x4dE">
+<span id="_CPPv322InvertProjectionMatrixRKN5Eigen10Matrix3x4dE"></span><span id="_CPPv222InvertProjectionMatrixRKN5Eigen10Matrix3x4dE"></span><span id="InvertProjectionMatrix__Eigen::Matrix3x4dCR"></span>Eigen::Matrix3x4d <code class="sig-name descname">InvertProjectionMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422InvertProjectionMatrixRKN5Eigen10Matrix3x4dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix3x4d</span> <span class="n">InvertProjectionMatrix</span><span class="p">(</span><span class="n">const</span> <span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="p">::</span><span class="n">Matrix3x4d</span> <span class="n">inv_proj_matrix</span><span class="p">;</span>
+  <span class="n">inv_proj_matrix</span><span class="o">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="o">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">();</span>
+  <span class="n">inv_proj_matrix</span><span class="o">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">()</span> <span class="o">=</span> <span class="n">ProjectionCenterFromMatrix</span><span class="p">(</span><span class="n">proj_matrix</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">inv_proj_matrix</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv426ProjectionCenterFromMatrixRKN5Eigen10Matrix3x4dE">
+<span id="_CPPv326ProjectionCenterFromMatrixRKN5Eigen10Matrix3x4dE"></span><span id="_CPPv226ProjectionCenterFromMatrixRKN5Eigen10Matrix3x4dE"></span><span id="ProjectionCenterFromMatrix__Eigen::Matrix3x4dCR"></span>Eigen::Vector3d <code class="sig-name descname">ProjectionCenterFromMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426ProjectionCenterFromMatrixRKN5Eigen10Matrix3x4dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">ProjectionCenterFromMatrix</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">-</span><span class="n">proj_matrix</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">().</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computeclosestrotationmatrix">
+<h3><span class="section-number">6.3.3. </span>ComputeClosestRotationMatrix<a class="headerlink" href="#computeclosestrotationmatrix" title="永久链接至标题">¶</a></h3>
+<p>通过将给定矩阵的奇异值设置为1.计算最接近Frobenius范数的闭合旋转矩阵。</p>
+<dl class="cpp function">
+<dt id="_CPPv428ComputeClosestRotationMatrixRKN5Eigen8Matrix3dE">
+<span id="_CPPv328ComputeClosestRotationMatrixRKN5Eigen8Matrix3dE"></span><span id="_CPPv228ComputeClosestRotationMatrixRKN5Eigen8Matrix3dE"></span><span id="ComputeClosestRotationMatrix__Eigen::Matrix3dCR"></span>Eigen::Matrix3d <code class="sig-name descname">ComputeClosestRotationMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3d &amp;<em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428ComputeClosestRotationMatrixRKN5Eigen8Matrix3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">ComputeClosestRotationMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span>
+      <span class="n">matrix</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixU</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">transpose</span><span class="p">());</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="n">determinant</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">R</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">R</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="decomposeprojectionmatrix">
+<h3><span class="section-number">6.3.4. </span>DecomposeProjectionMatrix<a class="headerlink" href="#decomposeprojectionmatrix" title="永久链接至标题">¶</a></h3>
+<p>将投影矩阵分解为内参，旋转矩阵和平移向量。</p>
+<dl class="cpp function">
+<dt id="_CPPv425DecomposeProjectionMatrixRKN5Eigen10Matrix3x4dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE">
+<span id="_CPPv325DecomposeProjectionMatrixRKN5Eigen10Matrix3x4dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE"></span><span id="_CPPv225DecomposeProjectionMatrixRKN5Eigen10Matrix3x4dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE"></span><span id="DecomposeProjectionMatrix__Eigen::Matrix3x4dCR.Eigen::Matrix3dP.Eigen::Matrix3dP.Eigen::Vector3dP"></span>bool <code class="sig-name descname">DecomposeProjectionMatrix</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>P</em>, Eigen::Matrix3d *<em>K</em>, Eigen::Matrix3d *<em>R</em>, Eigen::Vector3d *<em>T</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425DecomposeProjectionMatrixRKN5Eigen10Matrix3x4dEPN5Eigen8Matrix3dEPN5Eigen8Matrix3dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">DecomposeProjectionMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">P</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">K</span><span class="p">,</span>
+                               <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">*</span> <span class="n">R</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">RR</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">QQ</span><span class="p">;</span>
+  <span class="n">DecomposeMatrixRQ</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">().</span><span class="n">eval</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">RR</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">QQ</span><span class="p">);</span>
+
+  <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="n">ComputeClosestRotationMatrix</span><span class="p">(</span><span class="n">QQ</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">det_K</span> <span class="o">=</span> <span class="n">RR</span><span class="p">.</span><span class="n">determinant</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">det_K</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">det_K</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">K</span> <span class="o">=</span> <span class="n">RR</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">K</span> <span class="o">=</span> <span class="o">-</span><span class="n">RR</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">K</span><span class="p">)(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">K</span><span class="o">-&gt;</span><span class="n">col</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">K</span><span class="o">-&gt;</span><span class="n">col</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="n">R</span><span class="o">-&gt;</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">R</span><span class="o">-&gt;</span><span class="n">row</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="o">*</span><span class="n">T</span> <span class="o">=</span> <span class="n">K</span><span class="o">-&gt;</span><span class="n">triangularView</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Upper</span><span class="o">&gt;</span><span class="p">().</span><span class="n">solve</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">det_K</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="n">T</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="projectpointtoimage">
+<h3><span class="section-number">6.3.5. </span>ProjectPointToImage<a class="headerlink" href="#projectpointtoimage" title="永久链接至标题">¶</a></h3>
+<p>将3D投影到图像</p>
+<ul class="simple">
+<li><p>&#64;param points3D 3D world point as 3x1 vector.</p></li>
+<li><p>&#64;param proj_matrix 3x4 projection matrix.</p></li>
+<li><p>&#64;param camera Camera used to project to image plane.</p></li>
+<li><p>&#64;return Projected image point.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv419ProjectPointToImageRKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera">
+<span id="_CPPv319ProjectPointToImageRKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="_CPPv219ProjectPointToImageRKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="ProjectPointToImage__Eigen::Vector3dCR.Eigen::Matrix3x4dCR.CameraCR"></span>Eigen::Vector2d <code class="sig-name descname">ProjectPointToImage</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em>, <em class="property">const</em> Camera &amp;<em>camera</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419ProjectPointToImageRKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">ProjectPointToImage</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                                    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span>
+                                    <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">world_point</span> <span class="o">=</span> <span class="n">proj_matrix</span> <span class="o">*</span> <span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">camera</span><span class="p">.</span><span class="n">WorldToImage</span><span class="p">(</span><span class="n">world_point</span><span class="p">.</span><span class="n">hnormalized</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculatesquaredreprojectionerror">
+<h3><span class="section-number">6.3.6. </span>CalculateSquaredReprojectionError<a class="headerlink" href="#calculatesquaredreprojectionerror" title="永久链接至标题">¶</a></h3>
+<p>计算重投影误差</p>
+<p>重投影误差是图像中的观测值与3D点在图像中的投影之间的欧式距离。
+如果3D点在相机后面，则此函数返回DBL_MAX。</p>
+<dl class="cpp function">
+<dt id="_CPPv433CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera">
+<span id="_CPPv333CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera"></span><span id="_CPPv233CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera"></span><span id="CalculateSquaredReprojectionError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Vector4dCR.Eigen::Vector3dCR.CameraCR"></span>double <code class="sig-name descname">CalculateSquaredReprojectionError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Vector4d &amp;<em>qvec</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>tvec</em>, <em class="property">const</em> Camera &amp;<em>camera</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv433CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateSquaredReprojectionError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">proj_point3D</span> <span class="o">=</span>
+      <span class="n">QuaternionRotatePoint</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">point3D</span><span class="p">)</span> <span class="o">+</span> <span class="n">tvec</span><span class="p">;</span>
+
+  <span class="c1">// Check that point is infront of camera.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">proj_point3D</span><span class="p">.</span><span class="n">z</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">epsilon</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">proj_point2D</span> <span class="o">=</span>
+      <span class="n">camera</span><span class="p">.</span><span class="n">WorldToImage</span><span class="p">(</span><span class="n">proj_point3D</span><span class="p">.</span><span class="n">hnormalized</span><span class="p">());</span>
+
+  <span class="k">return</span> <span class="p">(</span><span class="n">proj_point2D</span> <span class="o">-</span> <span class="n">point2D</span><span class="p">).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv433CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera">
+<span id="_CPPv333CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="_CPPv233CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="CalculateSquaredReprojectionError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Matrix3x4dCR.CameraCR"></span>double <code class="sig-name descname">CalculateSquaredReprojectionError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em>, <em class="property">const</em> Camera &amp;<em>camera</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv433CalculateSquaredReprojectionErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateSquaredReprojectionError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span>
+                                         <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">proj_z</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">());</span>
+
+  <span class="c1">// Check that point is infront of camera.</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">proj_z</span> <span class="o">&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">epsilon</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">proj_x</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">());</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">proj_y</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">());</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">inv_proj_z</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">proj_z</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">proj_point2D</span> <span class="o">=</span> <span class="n">camera</span><span class="p">.</span><span class="n">WorldToImage</span><span class="p">(</span>
+      <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="p">(</span><span class="n">inv_proj_z</span> <span class="o">*</span> <span class="n">proj_x</span><span class="p">,</span> <span class="n">inv_proj_z</span> <span class="o">*</span> <span class="n">proj_y</span><span class="p">));</span>
+
+  <span class="k">return</span> <span class="p">(</span><span class="n">proj_point2D</span> <span class="o">-</span> <span class="n">point2D</span><span class="p">).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculateangularerror">
+<h3><span class="section-number">6.3.7. </span>CalculateAngularError<a class="headerlink" href="#calculateangularerror" title="永久链接至标题">¶</a></h3>
+<p>计算角度误差</p>
+<p>角度误差是从相机中心到3D点的观察到的光线与实际的光线之间的角度。</p>
+<dl class="cpp function">
+<dt id="_CPPv421CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera">
+<span id="_CPPv321CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera"></span><span id="_CPPv221CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera"></span><span id="CalculateAngularError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Vector4dCR.Eigen::Vector3dCR.CameraCR"></span>double <code class="sig-name descname">CalculateAngularError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Vector4d &amp;<em>qvec</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>tvec</em>, <em class="property">const</em> Camera &amp;<em>camera</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dERK6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateAngularError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">CalculateNormalizedAngularError</span><span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="n">point2D</span><span class="p">),</span> <span class="n">point3D</span><span class="p">,</span>
+                                         <span class="n">qvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv421CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera">
+<span id="_CPPv321CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="_CPPv221CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera"></span><span id="CalculateAngularError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Matrix3x4dCR.CameraCR"></span>double <code class="sig-name descname">CalculateAngularError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em>, <em class="property">const</em> Camera &amp;<em>camera</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421CalculateAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dERK6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateAngularError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">CalculateNormalizedAngularError</span><span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="n">point2D</span><span class="p">),</span> <span class="n">point3D</span><span class="p">,</span>
+                                         <span class="n">proj_matrix</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculatenormalizedangularerror">
+<h3><span class="section-number">6.3.8. </span>CalculateNormalizedAngularError<a class="headerlink" href="#calculatenormalizedangularerror" title="永久链接至标题">¶</a></h3>
+<p>使用归一化的图像点计算角度误差</p>
+<p>角度误差是从相机中心到3D点的观察到的光线与实际的光线之间的角度。</p>
+<dl class="cpp function">
+<dt id="_CPPv431CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dE">
+<span id="_CPPv331CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="_CPPv231CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="CalculateNormalizedAngularError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Vector4dCR.Eigen::Vector3dCR"></span>double <code class="sig-name descname">CalculateNormalizedAngularError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Vector4d &amp;<em>qvec</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>tvec</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen8Vector4dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateNormalizedAngularError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">ray1</span> <span class="o">=</span> <span class="n">point2D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">ray2</span> <span class="o">=</span> <span class="n">QuaternionRotatePoint</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">point3D</span><span class="p">)</span> <span class="o">+</span> <span class="n">tvec</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">acos</span><span class="p">(</span><span class="n">ray1</span><span class="p">.</span><span class="n">normalized</span><span class="p">().</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">ray2</span><span class="p">.</span><span class="n">normalized</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv431CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dE">
+<span id="_CPPv331CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dE"></span><span id="_CPPv231CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dE"></span><span id="CalculateNormalizedAngularError__Eigen::Vector2dCR.Eigen::Vector3dCR.Eigen::Matrix3x4dCR"></span>double <code class="sig-name descname">CalculateNormalizedAngularError</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point2D</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv431CalculateNormalizedAngularErrorRKN5Eigen8Vector2dERKN5Eigen8Vector3dERKN5Eigen10Matrix3x4dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateNormalizedAngularError</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">ray1</span> <span class="o">=</span> <span class="n">point2D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">ray2</span> <span class="o">=</span> <span class="n">proj_matrix</span> <span class="o">*</span> <span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">acos</span><span class="p">(</span><span class="n">ray1</span><span class="p">.</span><span class="n">normalized</span><span class="p">().</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">ray2</span><span class="p">.</span><span class="n">normalized</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="calculatedepth">
+<h3><span class="section-number">6.3.9. </span>CalculateDepth<a class="headerlink" href="#calculatedepth" title="永久链接至标题">¶</a></h3>
+<p>计算相对于相机的3D点深度</p>
+<p>深度定义为3D点到相机的欧式距离，如果3D点在相机的前面，则为正，如果在相机的后面，则为负。</p>
+<ul class="simple">
+<li><p>&#64;param proj_matrix 3x4 projection matrix.</p></li>
+<li><p>&#64;param point3D 3D point as 3x1 vector.</p></li>
+<li><p>&#64;return Depth of 3D point.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv414CalculateDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE">
+<span id="_CPPv314CalculateDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE"></span><span id="_CPPv214CalculateDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE"></span><span id="CalculateDepth__Eigen::Matrix3x4dCR.Eigen::Vector3dCR"></span>double <code class="sig-name descname">CalculateDepth</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414CalculateDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateDepth</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span>
+                      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">proj_z</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">());</span>
+  <span class="k">return</span> <span class="n">proj_z</span> <span class="o">*</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">norm</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="haspointpositivedepth">
+<h3><span class="section-number">6.3.10. </span>HasPointPositiveDepth<a class="headerlink" href="#haspointpositivedepth" title="永久链接至标题">¶</a></h3>
+<p>检查3D点是否通过了cheirality约束</p>
+<p>也就是说，它位于相机前面而不是图像平面中。</p>
+<dl class="cpp function">
+<dt id="_CPPv421HasPointPositiveDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE">
+<span id="_CPPv321HasPointPositiveDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE"></span><span id="_CPPv221HasPointPositiveDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE"></span><span id="HasPointPositiveDepth__Eigen::Matrix3x4dCR.Eigen::Vector3dCR"></span>bool <code class="sig-name descname">HasPointPositiveDepth</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421HasPointPositiveDepthRKN5Eigen10Matrix3x4dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">HasPointPositiveDepth</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span>
+                           <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point3D</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">dot</span><span class="p">(</span><span class="n">point3D</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">())</span> <span class="o">&gt;=</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">epsilon</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../c_estimator.html" class="btn btn-neutral float-right" title="Estimator" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Image/Image.html" class="btn btn-neutral float-left" title="5. Image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

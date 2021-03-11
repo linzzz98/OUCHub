@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2.1. P3P &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="2.2. EPnP" href="../EPnP/EPnP.html" />
+    <link rel="prev" title="2. PnP" href="../PnP.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../Utils/Utils.html">1. Utils</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../PnP.html">2. PnP</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">2.1. P3P</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">2.1.1. 成员变量</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id2">2.1.2. 成员函数</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../EPnP/EPnP.html">2.2. EPnP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+          <li><a href="../PnP.html"><span class="section-number">2. </span>PnP</a> &raquo;</li>
+        
+      <li><span class="section-number">2.1. </span>P3P</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/code/colmap/estimator/PnP/P3P/P3P.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="p3p">
+<h1><span class="section-number">2.1. </span>P3P<a class="headerlink" href="#p3p" title="永久链接至标题">¶</a></h1>
+<p>P3P(透视三点)问题的解析求解器。</p>
+<pre class="literal-block"><a class="reference external" href="http://www.mmrc.iss.ac.cn/~xgao/paper/ieee.pdf">Complete Solution Classification for the Perspective-Three-Point Problem</a></pre>
+<div class="section" id="id1">
+<h2><span class="section-number">2.1.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>2D图像特征观察值</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43X_t" title="X_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">X_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>世界框架中观察到的3D特征</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43Y_t" title="Y_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">Y_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>从世界到相机框架的转变</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv43M_t" title="M_t"><code class="xref cpp cpp-type docutils literal notranslate"><span class="pre">M_t</span></code></a></p>
+</div></blockquote>
+</li>
+<li><p>估计模型所需的最少样本数</p>
+<blockquote>
+<div><p><a class="reference internal" href="../PnP.html#_CPPv414kMinNumSamples" title="kMinNumSamples"><code class="xref cpp cpp-member docutils literal notranslate"><span class="pre">kMinNumSamples</span></code></a></p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">2.1.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>LiftImagePoint</strong></p></li>
+</ol>
+<p>向量单位化</p>
+<dl class="cpp function">
+<dt id="_CPPv414LiftImagePointRKN5Eigen8Vector2dE">
+<span id="_CPPv314LiftImagePointRKN5Eigen8Vector2dE"></span><span id="_CPPv214LiftImagePointRKN5Eigen8Vector2dE"></span><span id="LiftImagePoint__Eigen::Vector2dCR"></span>Eigen::Vector3d <code class="sig-name descname">LiftImagePoint</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414LiftImagePointRKN5Eigen8Vector2dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="n">point</span><span class="p">.</span><span class="n">homogeneous</span><span class="p">()</span> <span class="o">/</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">point</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>假设point为<span class="math notranslate nohighlight">\((x,y)\)</span>，则point.homogeneous()为<span class="math notranslate nohighlight">\((x,y,1)\)</span>，单位化后为：<span class="math notranslate nohighlight">\((x,y, 1) / \sqrt{(x^2 + y^2 +1)}\)</span></p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Estimate</strong></p></li>
+</ol>
+<p>从一组三个2D-3D点对应关系中估计P3P问题的最可能解决方案</p>
+<ul class="simple">
+<li><p>&#64;param points2D Normalized 2D image points as 3x2 matrix.</p></li>
+<li><p>&#64;param points3D 3D world points as 3x3 matrix.</p></li>
+<li><p>&#64;return Most probable pose as length-1 vector of a 3x4 matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv4N12P3PEstimator8EstimateERKNSt6vectorERKNSt6vectorE">
+<span id="_CPPv3N12P3PEstimator8EstimateERKNSt6vectorERKNSt6vectorE"></span><span id="_CPPv2N12P3PEstimator8EstimateERKNSt6vectorERKNSt6vectorE"></span><span id="P3PEstimator::Estimate__vCR.vCR"></span>std::vector <code class="sig-prename descclassname">P3PEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector &amp;<em>points2D</em>, <em class="property">const</em> std::vector &amp;<em>points3D</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12P3PEstimator8EstimateERKNSt6vectorERKNSt6vectorE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">points3D_world</span><span class="p">;</span>
+<span class="n">points3D_world</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">points3D_world</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">points3D_world</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="c1">// 得到单位化的图像坐标(u,v,w)</span>
+<span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">u</span> <span class="o">=</span> <span class="n">LiftImagePoint</span><span class="p">(</span><span class="n">points2D</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">v</span> <span class="o">=</span> <span class="n">LiftImagePoint</span><span class="p">(</span><span class="n">points2D</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">w</span> <span class="o">=</span> <span class="n">LiftImagePoint</span><span class="p">(</span><span class="n">points2D</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+<span class="c1">// Angles between 2D points.</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">cos_uv</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">v</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">cos_uw</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">cos_vw</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span><span class="p">;</span>
+
+<span class="c1">// Distances between 2D points.</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AB_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">1</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AC_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_BC_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AB</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dist_AB_2</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">a</span> <span class="o">=</span> <span class="n">dist_BC_2</span> <span class="o">/</span> <span class="n">dist_AB_2</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b</span> <span class="o">=</span> <span class="n">dist_AC_2</span> <span class="o">/</span> <span class="n">dist_AB_2</span><span class="p">;</span>
+
+<span class="c1">// Helper variables for calculation of coefficients.</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_vw</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_uw</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_uv</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r5</span> <span class="o">=</span> <span class="n">r4</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>
+
+<span class="c1">// Build polynomial coefficients: a4*x^4 + a3*x^3 + a2*x^2 + a1*x + a0 = 0.</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">coeffs</span><span class="p">;</span>
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span>
+            <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="p">(</span><span class="n">p2</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span>
+            <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">q2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">roots_real</span><span class="p">;</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">roots_imag</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FindPolynomialRootsCompanionMatrix</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">roots_real</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">roots_imag</span><span class="p">))</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">P3PEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">({});</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">models</span><span class="p">;</span>
+<span class="n">models</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">roots_real</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span><span class="o">::</span><span class="n">Index</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">roots_real</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">kMaxRootImag</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">roots_imag</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">kMaxRootImag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">continue</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">x</span> <span class="o">=</span> <span class="n">roots_real</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">continue</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+
+  <span class="c1">// Build polynomial coefficients: b1*y + b0 = 0.</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">bb1</span> <span class="o">=</span>
+      <span class="p">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">p2</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="n">r2</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">bb1</span> <span class="o">*</span> <span class="n">bb1</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">b0</span> <span class="o">=</span>
+      <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+      <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">x3</span> <span class="o">+</span>
+       <span class="n">r2</span> <span class="o">*</span>
+           <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span>
+            <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span>
+            <span class="n">r2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span><span class="p">)</span> <span class="o">*</span>
+           <span class="n">x2</span> <span class="o">+</span>
+       <span class="p">(</span><span class="n">r5</span> <span class="o">*</span> <span class="p">(</span><span class="n">b2</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">r4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span>
+        <span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">q2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">r2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span>
+              <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="o">+</span>
+        <span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">p2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">p2</span> <span class="o">+</span>
+             <span class="n">p2</span> <span class="o">*</span> <span class="n">a2</span><span class="p">))</span> <span class="o">*</span>
+           <span class="n">x</span> <span class="o">+</span>
+       <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span>
+       <span class="p">(</span><span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span>
+       <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span>
+           <span class="n">a</span> <span class="o">+</span>
+       <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span>
+       <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span>
+       <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">q</span><span class="p">);</span>
+
+  <span class="c1">// Solve for y.</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">b0</span> <span class="o">/</span> <span class="n">b1</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">nu</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">cos_uv</span><span class="p">;</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PC</span> <span class="o">=</span> <span class="n">dist_AB</span> <span class="o">/</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PB</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PA</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">points3D_camera</span><span class="p">;</span>
+  <span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="n">dist_PA</span><span class="p">;</span>  <span class="c1">// A&#39;</span>
+  <span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">dist_PB</span><span class="p">;</span>  <span class="c1">// B&#39;</span>
+  <span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>  <span class="c1">// C&#39;</span>
+
+  <span class="c1">// Find transformation from the world to the camera system.</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4d</span> <span class="n">transform</span> <span class="o">=</span>
+      <span class="n">Eigen</span><span class="o">::</span><span class="n">umeyama</span><span class="p">(</span><span class="n">points3D_world</span><span class="p">,</span> <span class="n">points3D_camera</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+  <span class="n">models</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">topLeftCorner</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="n">models</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>证明：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/12.png" src="../../../../../../_images/12.png" />
+</div>
+<p>令</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}|PA| = X, ~~|PB| = Y, ~~|PC|=Z,\\\\\end{split}\\\begin{split}\alpha = \angle BPC,~~ \beta = \angle APC,~~ \gamma = \angle APC,\\\\\end{split}\\p = 2cos\alpha, ~~q = 2cos\beta, ~~r = 2cos\gamma\end{aligned}\end{align} \]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">cos_uv</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">v</span><span class="p">;</span> <span class="c1">// cos_uv = r / 2 ==&gt; θ(uv) = θ(γ)</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">cos_uw</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span><span class="p">;</span> <span class="c1">// cos_uw = q / 2 ==&gt; θ(uw) = θ(β)</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">cos_vw</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">w</span><span class="p">;</span> <span class="c1">// cos_vw = p / 2 ==&gt; θ(vw) = θ(α)</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AB_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">1</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>     <span class="c1">//AB^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AC_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>     <span class="c1">//AC^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_BC_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">points3D</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">points3D</span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="n">squaredNorm</span><span class="p">();</span>     <span class="c1">//BC^2</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_AB</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dist_AB_2</span><span class="p">);</span>                            <span class="c1">//AB</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_vw</span><span class="p">;</span>    <span class="c1">// p</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">q</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_uw</span><span class="p">;</span>    <span class="c1">// q</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">cos_uv</span><span class="p">;</span>    <span class="c1">// r</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">p</span><span class="p">;</span>        <span class="c1">// p^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">p</span><span class="p">;</span>       <span class="c1">// p^3</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>        <span class="c1">// q^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>        <span class="c1">// r^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>       <span class="c1">// r^3</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>       <span class="c1">// r^4</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">r5</span> <span class="o">=</span> <span class="n">r4</span> <span class="o">*</span> <span class="n">r</span><span class="p">;</span>       <span class="c1">// r^5</span>
+</pre></div>
+</div>
+<p>从三角形<span class="math notranslate nohighlight">\(PBC\)</span>，<span class="math notranslate nohighlight">\(PAC\)</span>和<span class="math notranslate nohighlight">\(PAB\)</span>中获得P3P方程组：(1)</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/21.png" src="../../../../../../_images/21.png" />
+</div>
+<p>为了简化方程组，令<span class="math notranslate nohighlight">\(X = xZ\)</span>，<span class="math notranslate nohighlight">\(Y=yZ\)</span>，<span class="math notranslate nohighlight">\(|AB| = \sqrt{v}Z\)</span>，<span class="math notranslate nohighlight">\(|BC| = \sqrt{av}Z\)</span>，<span class="math notranslate nohighlight">\(|AC| = \sqrt{bv}Z\)</span>，因为<span class="math notranslate nohighlight">\(Z = |PC| \ne 0\)</span>，可以得到下面的方程组：(3)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">a</span> <span class="o">=</span> <span class="n">dist_BC_2</span> <span class="o">/</span> <span class="n">dist_AB_2</span><span class="p">;</span> <span class="c1">//|BC| = \sqrt{a} |AB| ==&gt; a = |BC|^2 - |AB|^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b</span> <span class="o">=</span> <span class="n">dist_AC_2</span> <span class="o">/</span> <span class="n">dist_AB_2</span><span class="p">;</span> <span class="c1">//|AC| = \sqrt{b} |AB| ==&gt; b = |AC|^2 - |AB\^2</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>                <span class="c1">// a^2</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>                <span class="c1">// b^2</span>
+</pre></div>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/3.png" src="../../../../../../_images/3.png" />
+</div>
+<p>因为<span class="math notranslate nohighlight">\(|r| &lt; 2\)</span>，可以得到<span class="math notranslate nohighlight">\(v = x^2 + y^2 -xyr &gt; 0\)</span>，因此<span class="math notranslate nohighlight">\(Z\)</span>可以被表示为<span class="math notranslate nohighlight">\(Z = |AB| / \sqrt{v}\)</span>，由上面的式子消去<span class="math notranslate nohighlight">\(v\)</span>，可以得到：(ES)</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/4.png" src="../../../../../../_images/4.png" />
+</div>
+<p>参考Wu-Ritt的零分解方法，将多项式方程组的零集表示为三角形式的方程组的并集。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/5.png" src="../../../../../../_images/5.png" />
+</div>
+<p>其中：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/6.png" src="../../../../../../_images/6.png" />
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">coeffs</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">+</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>                 <span class="c1">// a0</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span>     <span class="c1">// a1</span>
+            <span class="p">(</span><span class="n">r2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="p">(</span><span class="n">p2</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span>          <span class="c1">// a2</span>
+            <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">q2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span>                           <span class="c1">// a3</span>
+            <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span><span class="p">;</span>
+
+<span class="n">coeffs</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>                  <span class="c1">// a4</span>
+</pre></div>
+</div>
+<p>接下来，需要求解该方程：</p>
+<div class="math notranslate nohighlight">
+\[a_0x^4 + a_1x^3+a_2x^2+a_3x+a_4 = 0\]</div>
+<p>源码中作者使用了伴随矩阵的找到多项式的根，具体如下：</p>
+<p>对于多项式，<span class="math notranslate nohighlight">\(\sum_{i=0}^N polynomial(i) x^{N-i}.\)</span>，通过找到伴随矩阵</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[
+\begin{matrix}
+-a_{n-1} &amp; -a_{n-2} &amp; ··· &amp; -a_0\\
+1 &amp; 0 &amp; ··· &amp; 0\\
+ &amp; 1 &amp; \ddots\\
+ 0 &amp; \ddots  &amp; 1 &amp; 0
+\end{matrix}
+\right]\end{split}\]</div>
+<p>通过求解矩阵<span class="math notranslate nohighlight">\(Ax = \lambda x\)</span>的特征值，进而计算出<span class="math notranslate nohighlight">\(x\)</span>。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">FindPolynomialRootsCompanionMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span><span class="o">&amp;</span> <span class="n">coeffs_all</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span><span class="o">*</span> <span class="n">real</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span><span class="o">*</span> <span class="n">imag</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="n">CHECK_GE</span><span class="p">(</span><span class="n">coeffs_all</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">coeffs</span> <span class="o">=</span> <span class="n">RemoveLeadingZeros</span><span class="p">(</span><span class="n">coeffs_all</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">degree</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">degree</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">degree</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">FindLinearPolynomialRoots</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">degree</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">FindQuadraticPolynomialRoots</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// 删除系数为零的解</span>
+<span class="n">coeffs</span> <span class="o">=</span> <span class="n">RemoveTrailingZeros</span><span class="p">(</span><span class="n">coeffs</span><span class="p">);</span>
+
+<span class="c1">// 检查是否只有零解</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">real</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="n">real</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">(</span><span class="o">*</span><span class="n">real</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="n">imag</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="n">imag</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="p">(</span><span class="o">*</span><span class="n">imag</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// 填充伴随矩阵C =====&gt; 构造A</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">C</span><span class="p">(</span><span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="n">C</span><span class="p">.</span><span class="n">setZero</span><span class="p">();</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span><span class="o">::</span><span class="n">Index</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">C</span><span class="p">.</span><span class="n">rows</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span> <span class="n">C</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="n">C</span><span class="p">.</span><span class="n">row</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">coeffs</span><span class="p">.</span><span class="n">tail</span><span class="p">(</span><span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">coeffs</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// 求解多项式的根</span>
+<span class="c1">// false指不需要求特征向量</span>
+<span class="c1">//Eigen::EigenSolver&lt;_MatrixType &gt;::EigenSolver (const EigenBase&lt; InputType &gt; &amp; matrix,bool computeEigenvectors = true)</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">EigenSolver</span> <span class="n">solver</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">solver</span><span class="p">.</span><span class="n">info</span><span class="p">()</span> <span class="o">!=</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Success</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// 如果后面有0，则必须添加零作为解</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">effective_degree</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">degree</span> <span class="o">?</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">:</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// 求解实数解</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">real</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="n">real</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">effective_degree</span><span class="p">);</span>
+
+<span class="n">real</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">(</span><span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">solver</span><span class="p">.</span><span class="n">eigenvalues</span><span class="p">().</span><span class="n">real</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">effective_degree</span> <span class="o">&gt;</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="o">*</span><span class="n">real</span><span class="p">)(</span><span class="n">real</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}}</span>
+
+<span class="c1">// 求解虚数解</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">imag</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="n">imag</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">effective_degree</span><span class="p">);</span>
+
+<span class="n">imag</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">(</span><span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">solver</span><span class="p">.</span><span class="n">eigenvalues</span><span class="p">().</span><span class="n">imag</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">effective_degree</span> <span class="o">&gt;</span> <span class="n">coeffs</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">(</span><span class="o">*</span><span class="n">imag</span><span class="p">)(</span><span class="n">imag</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="p">}</span>
+
+<span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>参考：</p>
+<p>《R. A. Horn &amp; C. R. Johnson, Matrix Analysis. Cambridge, UK:
+Cambridge University Press, 1999, pp. 146 3.3.11， 149 11》</p>
+<p>回到P3P源码：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 求解多项式f1的实数解和虚数解</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">roots_real</span><span class="p">;</span>
+
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">roots_imag</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FindPolynomialRootsCompanionMatrix</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">roots_real</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">roots_imag</span><span class="p">))</span>
+
+<span class="p">{</span>     <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">P3PEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">({});</span>   <span class="p">}</span>
+</pre></div>
+</div>
+<p>遍历每一个实数根</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span><span class="o">::</span><span class="n">Index</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">roots_real</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>计算<span class="math notranslate nohighlight">\(x^2,x^3\)</span></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x3</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/7.png" src="../../../../../../_images/7.png" />
+</div>
+<p>注意，源码中将b0 * y - b1的形式改成了b1 * y - b0 = 0. 本质是一样的</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">bb1</span> <span class="o">=</span>  <span class="p">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">p2</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="n">r2</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">bb1</span> <span class="o">*</span> <span class="n">bb1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">b0</span> <span class="o">=</span>
+   <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span>
+   <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">a2</span> <span class="o">+</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">x3</span> <span class="o">+</span>
+    <span class="n">r2</span> <span class="o">*</span>
+        <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span>
+         <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span>
+         <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span>
+         <span class="n">r2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">b2</span><span class="p">)</span> <span class="o">*</span>
+        <span class="n">x2</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">r5</span> <span class="o">*</span> <span class="p">(</span><span class="n">b2</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">r4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span>
+     <span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">q2</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span>
+     <span class="n">r2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">-</span>
+           <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="o">+</span>
+     <span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">p2</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">p2</span> <span class="o">+</span>
+          <span class="n">p2</span> <span class="o">*</span> <span class="n">a2</span><span class="p">))</span> <span class="o">*</span>
+        <span class="n">x</span> <span class="o">+</span>
+    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">q</span> <span class="o">+</span> <span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">+</span>
+    <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span>
+        <span class="n">a</span> <span class="o">+</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span>
+    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">p3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q2</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">-</span>
+    <span class="mi">2</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">p3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r3</span> <span class="o">*</span> <span class="n">q</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>求解<span class="math notranslate nohighlight">\(y\)</span> (<span class="math notranslate nohighlight">\(y = b0 / b1\)</span>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">y</span> <span class="o">=</span> <span class="n">b0</span> <span class="o">/</span> <span class="n">b1</span><span class="p">;</span>      <span class="c1">// y</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>       <span class="c1">// y^2</span>
+</pre></div>
+</div>
+<p>求解<span class="math notranslate nohighlight">\(v\)</span>(<span class="math notranslate nohighlight">\(v = x^2 + y^2 - 2xycos(\gamma))\)</span></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">nu</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">y2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">cos_uv</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>求解
+<span class="math notranslate nohighlight">\(PC(Z),PB(Y),PA(X)\)</span>(<span class="math notranslate nohighlight">\(Z = |AB| / \sqrt{v}， Y = yZ, X = xZ\)</span>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PC</span> <span class="o">=</span> <span class="n">dist_AB</span> <span class="o">/</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">nu</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PB</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dist_PA</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>计算相机位姿：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">points3D_camera</span><span class="p">;</span>
+
+<span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="n">dist_PA</span><span class="p">;</span>  <span class="c1">// A&#39;</span>
+
+<span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">dist_PB</span><span class="p">;</span>  <span class="c1">// B&#39;</span>
+
+<span class="n">points3D_camera</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">dist_PC</span><span class="p">;</span>  <span class="c1">// C&#39;</span>
+</pre></div>
+</div>
+<p>寻找从世界到相机系统的转换：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix4d</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">umeyama</span><span class="p">(</span><span class="n">points3D_world</span><span class="p">,</span> <span class="n">points3D_camera</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+
+<span class="n">models</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">transform</span><span class="p">.</span><span class="n">topLeftCorner</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>这里的Eigen::umeyama计算出两组数据间的旋转与平移矩阵。</p>
+<p>目标：计算一组R、t使目标函数最优：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/8.png" src="../../../../../../_images/8.png" />
+</div>
+<p>最终的判断标准是距离的平方和，也就是一个最小二乘估计问题。</p>
+<p>最终计算结果为：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/9.png" src="../../../../../../_images/9.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(c\)</span>是一个缩放系数。(当第三个参数取值为false时，c = 1)</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Residuals</strong></p></li>
+</ol>
+<p>给定一组2D-3D点对应关系和一个投影矩阵，计算平方的重新投影误差</p>
+<ul class="simple">
+<li><p>&#64;param points2D Normalized 2D image points as Nx2 matrix.</p></li>
+<li><p>&#64;param points3D 3D world points as Nx3 matrix.</p></li>
+<li><p>&#64;param proj_matrix 3x4 projection matrix.</p></li>
+<li><p>&#64;param residuals Output vector of residuals.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv4N12P3PEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3N12P3PEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2N12P3PEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="P3PEstimator::Residuals__std::vector:X_t:CR.std::vector:Y_t:CR.M_tCR.std::vector:double:P"></span>void <code class="sig-prename descclassname">P3PEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP.html#_CPPv43X_t" title="X_t">X_t</a>&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP.html#_CPPv43Y_t" title="Y_t">Y_t</a>&gt; &amp;<em>points3D</em>, <em class="property">const</em> <a class="reference internal" href="../PnP.html#_CPPv43M_t" title="M_t">M_t</a> &amp;<em>proj_matrix</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12P3PEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComputeSquaredReprojectionError</span><span class="p">(</span><span class="n">points2D</span><span class="p">,</span> <span class="n">points3D</span><span class="p">,</span> <span class="n">proj_matrix</span><span class="p">,</span> <span class="n">residuals</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../EPnP/EPnP.html" class="btn btn-neutral float-right" title="2.2. EPnP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../PnP.html" class="btn btn-neutral float-left" title="2. PnP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4. CostFunctions &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="5. Image" href="../Image/Image.html" />
+    <link rel="prev" title="3. Correspondence_graph" href="../Correspondence_graph/Correspondence_graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Camera/Camera.html">1. Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../VisibilityPyramid/VisibilityPyramid.html">2. VisibilityPyramid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Correspondence_graph/Correspondence_graph.html">3. Correspondence_graph</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. CostFunctions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bundleadjustmentcostfunction">4.1. BundleAdjustmentCostFunction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bundleadjustmentconstantposecostfunction">4.2. BundleAdjustmentConstantPoseCostFunction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rigbundleadjustmentcostfunction">4.3. RigBundleAdjustmentCostFunction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#relativeposecostfunction">4.4. RelativePoseCostFunction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Image/Image.html">5. Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">6. Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../c_estimator.html">Estimator</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_base.html">Base</a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>CostFunctions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/base/Cost_function/Cost_function.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="costfunctions">
+<h1><span class="section-number">4. </span>CostFunctions<a class="headerlink" href="#costfunctions" title="永久链接至标题">¶</a></h1>
+<div class="section" id="bundleadjustmentcostfunction">
+<h2><span class="section-number">4.1. </span>BundleAdjustmentCostFunction<a class="headerlink" href="#bundleadjustmentcostfunction" title="永久链接至标题">¶</a></h2>
+<p>标准的BA 代价函数，用于可变的摄像机姿态，校准和点的参数。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">CameraModel</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">BundleAdjustmentCostFunction</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="k">explicit</span> <span class="n">BundleAdjustmentCostFunction</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">observed_x_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">observed_y_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="p">{}</span>
+
+  <span class="k">static</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">Create</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//  优化量:</span>
+    <span class="c1">//  2 表示 observed_x_ 和  observed_y_ 两个变量</span>
+    <span class="c1">//  4，3，3，CameraModel::kNumParams 分别表示 const T* const qvec, const T* const tvec, const T* const point3D, const T* const camera_params的维度</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">AutoDiffCostFunction</span><span class="o">&lt;</span>
+            <span class="n">BundleAdjustmentCostFunction</span><span class="o">&lt;</span><span class="n">CameraModel</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">CameraModel</span><span class="o">::</span><span class="n">kNumParams</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">BundleAdjustmentCostFunction</span><span class="p">(</span><span class="n">point2D</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">qvec</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tvec</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">point3D</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera_params</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="c1">// 旋转和平移</span>
+    <span class="n">T</span> <span class="n">projection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">UnitQuaternionRotatePoint</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">point3D</span><span class="p">,</span> <span class="n">projection</span><span class="p">);</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// 投影到图像平面</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// 畸变并转换为像素空间</span>
+    <span class="n">CameraModel</span><span class="o">::</span><span class="n">WorldToImage</span><span class="p">(</span><span class="n">camera_params</span><span class="p">,</span> <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                              <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="c1">// 重投影误差</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_x_</span><span class="p">);</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_y_</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_x_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_y_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>其中， ceres::UnitQuaternionRotatePoint(qvec, point3D,
+projection)的作用是：根据四元数q（单位范数<span class="math notranslate nohighlight">\(|q|^2 = 1\)</span>）旋转pt，如果<span class="math notranslate nohighlight">\(|q|^2 = 2\)</span>，则结果不是两倍。</p>
+<dl class="cpp function">
+<dt id="_CPPv4I0E25UnitQuaternionRotatePointvAL4E_7constTqAL3E_8constTptAL3E_7Tresult">
+<span id="_CPPv3I0E25UnitQuaternionRotatePointAL4E_7constTqAL3E_8constTptAL3E_7Tresult"></span><span id="_CPPv2I0E25UnitQuaternionRotatePointA4_7constTqA3_8constTptA3_7Tresult"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br />void <code class="sig-name descname">UnitQuaternionRotatePoint</code><span class="sig-paren">(</span>constTq[4], constTpt[3], Tresult[3]<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E25UnitQuaternionRotatePointvAL4E_7constTqAL3E_8constTptAL3E_7Tresult" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="bundleadjustmentconstantposecostfunction">
+<h2><span class="section-number">4.2. </span>BundleAdjustmentConstantPoseCostFunction<a class="headerlink" href="#bundleadjustmentconstantposecostfunction" title="永久链接至标题">¶</a></h2>
+<p>BA 代价函数，用于可变的摄像机校准和点的参数以及固定的摄像机位姿。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">CameraModel</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">BundleAdjustmentConstantPoseCostFunction</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="n">BundleAdjustmentConstantPoseCostFunction</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                           <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">,</span>
+                                           <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">qw_</span><span class="p">(</span><span class="n">qvec</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span>
+        <span class="n">qx_</span><span class="p">(</span><span class="n">qvec</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">qy_</span><span class="p">(</span><span class="n">qvec</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span>
+        <span class="n">qz_</span><span class="p">(</span><span class="n">qvec</span><span class="p">(</span><span class="mi">3</span><span class="p">)),</span>
+        <span class="n">tx_</span><span class="p">(</span><span class="n">tvec</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span>
+        <span class="n">ty_</span><span class="p">(</span><span class="n">tvec</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">tz_</span><span class="p">(</span><span class="n">tvec</span><span class="p">(</span><span class="mi">2</span><span class="p">)),</span>
+        <span class="n">observed_x_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span>
+        <span class="n">observed_y_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="p">{}</span>
+
+  <span class="k">static</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">Create</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">AutoDiffCostFunction</span><span class="o">&lt;</span>
+            <span class="n">BundleAdjustmentConstantPoseCostFunction</span><span class="o">&lt;</span><span class="n">CameraModel</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">CameraModel</span><span class="o">::</span><span class="n">kNumParams</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">BundleAdjustmentConstantPoseCostFunction</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">,</span> <span class="n">point2D</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">point3D</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera_params</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">T</span> <span class="n">qvec</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">T</span><span class="p">(</span><span class="n">qw_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="n">qx_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="n">qy_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="n">qz_</span><span class="p">)};</span>
+
+    <span class="c1">// 旋转和平移</span>
+    <span class="n">T</span> <span class="n">projection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">UnitQuaternionRotatePoint</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">point3D</span><span class="p">,</span> <span class="n">projection</span><span class="p">);</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">T</span><span class="p">(</span><span class="n">tx_</span><span class="p">);</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">T</span><span class="p">(</span><span class="n">ty_</span><span class="p">);</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">T</span><span class="p">(</span><span class="n">tz_</span><span class="p">);</span>
+
+    <span class="c1">// 投影到图像平面</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// 畸变并转换为像素空间</span>
+    <span class="n">CameraModel</span><span class="o">::</span><span class="n">WorldToImage</span><span class="p">(</span><span class="n">camera_params</span><span class="p">,</span> <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                              <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="c1">// 重投影误差</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_x_</span><span class="p">);</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_y_</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">qw_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">qx_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">qy_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">qz_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">tx_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">ty_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">tz_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_x_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_y_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rigbundleadjustmentcostfunction">
+<h2><span class="section-number">4.3. </span>RigBundleAdjustmentCostFunction<a class="headerlink" href="#rigbundleadjustmentcostfunction" title="永久链接至标题">¶</a></h2>
+<p>Rig BA代价函数可用于可变的摄像机位姿，校准和点的参数。</p>
+<p>与标准BA调整功能不同，此代价函数适用于在Rig内具有一致的摄像机相对位姿的摄影机。</p>
+<p>代价函数首先将点投影到摄影机Rig的本地系统中，然后投影到Rig中的摄影机的本地系统中。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">CameraModel</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">RigBundleAdjustmentCostFunction</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="k">explicit</span> <span class="n">RigBundleAdjustmentCostFunction</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">observed_x_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">observed_y_</span><span class="p">(</span><span class="n">point2D</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="p">{}</span>
+
+  <span class="k">static</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">Create</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2D</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">AutoDiffCostFunction</span><span class="o">&lt;</span>
+            <span class="n">RigBundleAdjustmentCostFunction</span><span class="o">&lt;</span><span class="n">CameraModel</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">CameraModel</span><span class="o">::</span><span class="n">kNumParams</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">RigBundleAdjustmentCostFunction</span><span class="p">(</span><span class="n">point2D</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">rig_qvec</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">rig_tvec</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">rel_qvec</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">rel_tvec</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">point3D</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera_params</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="c1">// Concatenate rotations.</span>
+    <span class="n">T</span> <span class="n">qvec</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+
+    <span class="c1">// qvec = rel_qvec * rig_qvec</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionProduct</span><span class="p">(</span><span class="n">rel_qvec</span><span class="p">,</span> <span class="n">rig_qvec</span><span class="p">,</span> <span class="n">qvec</span><span class="p">);</span>
+
+    <span class="c1">// Concatenate translations.</span>
+    <span class="n">T</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+    <span class="c1">// tvec = R(rel_qvec) * rig_tvec</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">UnitQuaternionRotatePoint</span><span class="p">(</span><span class="n">rel_qvec</span><span class="p">,</span> <span class="n">rig_tvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">);</span>
+    <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rel_tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rel_tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">rel_tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// Rotate and translate.</span>
+    <span class="n">T</span> <span class="n">projection</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+    <span class="c1">// projection = R(qvec) * point3D</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">UnitQuaternionRotatePoint</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">point3D</span><span class="p">,</span> <span class="n">projection</span><span class="p">);</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// 投影到图像平面</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/=</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+    <span class="c1">// 畸变并转换为像素空间</span>
+    <span class="n">CameraModel</span><span class="o">::</span><span class="n">WorldToImage</span><span class="p">(</span><span class="n">camera_params</span><span class="p">,</span> <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                              <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+
+    <span class="c1">// 重投影误差</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_x_</span><span class="p">);</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_y_</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_x_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">observed_y_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="relativeposecostfunction">
+<h2><span class="section-number">4.4. </span>RelativePoseCostFunction<a class="headerlink" href="#relativeposecostfunction" title="永久链接至标题">¶</a></h2>
+<p>基于Sampson误差细化两视图几何的代价函数。</p>
+<p>假定第一个位姿位于没有旋转的原点。
+假定第二个姿势在第一个位姿周围的单位球面上，也就是说，第二个摄像机的姿势是通过3D旋转和具有单位范数的3D平移来参数化的。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RelativePoseCostFunction</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">RelativePoseCostFunction</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x2</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">x1_</span><span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">y1_</span><span class="p">(</span><span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x2_</span><span class="p">(</span><span class="n">x2</span><span class="p">(</span><span class="mi">0</span><span class="p">)),</span> <span class="n">y2_</span><span class="p">(</span><span class="n">x2</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="p">{}</span>
+
+  <span class="k">static</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">Create</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x1</span><span class="p">,</span>
+                                     <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">AutoDiffCostFunction</span><span class="o">&lt;</span><span class="n">RelativePoseCostFunction</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="k">new</span> <span class="n">RelativePoseCostFunction</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)));</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">qvec</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tvec</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">RowMajor</span><span class="o">&gt;</span> <span class="n">R</span><span class="p">;</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionToRotation</span><span class="p">(</span><span class="n">qvec</span><span class="p">,</span> <span class="n">R</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+    <span class="c1">// 叉积t x R的矩阵表示</span>
+    <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">t_x</span><span class="p">;</span>
+    <span class="n">t_x</span> <span class="o">&lt;&lt;</span> <span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// 本质矩阵</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">E</span> <span class="o">=</span> <span class="n">t_x</span> <span class="o">*</span> <span class="n">R</span><span class="p">;</span>
+
+    <span class="c1">// 归一化的图像坐标</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">x1_h</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">x1_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="n">y1_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">x2_h</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">x2_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="n">y2_</span><span class="p">),</span> <span class="n">T</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+
+    <span class="c1">// 桑普森误差的平方</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">Ex1</span> <span class="o">=</span> <span class="n">E</span> <span class="o">*</span> <span class="n">x1_h</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="n">Etx2</span> <span class="o">=</span> <span class="n">E</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">x2_h</span><span class="p">;</span>
+    <span class="k">const</span> <span class="n">T</span> <span class="n">x2tEx1</span> <span class="o">=</span> <span class="n">x2_h</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">Ex1</span><span class="p">;</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2tEx1</span> <span class="o">*</span> <span class="n">x2tEx1</span> <span class="o">/</span>
+                   <span class="p">(</span><span class="n">Ex1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Ex1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">Ex1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Ex1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">Etx2</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">Etx2</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span>
+                    <span class="n">Etx2</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">Etx2</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+ <span class="k">private</span><span class="o">:</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">x1_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">y1_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">x2_</span><span class="p">;</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">y2_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Sampson Distance的平方为：</p>
+<div class="math notranslate nohighlight">
+\[|| \epsilon||^2 = \frac{(x_2^TFx_1)^2}{(Fx_1)_1^2 + (Fx_1)_2^2 + (F^Tx_2)_1^2 + (F^Tx_2)_2^2}\]</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Image/Image.html" class="btn btn-neutral float-right" title="5. Image" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Correspondence_graph/Correspondence_graph.html" class="btn btn-neutral float-left" title="3. Correspondence_graph" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

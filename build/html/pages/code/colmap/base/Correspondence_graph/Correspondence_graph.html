@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. Correspondence_graph &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="4. CostFunctions" href="../Cost_function/Cost_function.html" />
+    <link rel="prev" title="2. VisibilityPyramid" href="../VisibilityPyramid/VisibilityPyramid.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Camera/Camera.html">1. Camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../VisibilityPyramid/VisibilityPyramid.html">2. VisibilityPyramid</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. Correspondence_graph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">3.1. 结构体</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.2. 成员函数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Cost_function/Cost_function.html">4. CostFunctions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Image/Image.html">5. Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">6. Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../c_estimator.html">Estimator</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_base.html">Base</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>Correspondence_graph</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/base/Correspondence_graph/Correspondence_graph.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="correspondence-graph">
+<h1><span class="section-number">3. </span>Correspondence_graph<a class="headerlink" href="#correspondence-graph" title="永久链接至标题">¶</a></h1>
+<p>场景图表示数据集的图像与图像以及特征与特征的对应关系的图。
+应该从DatabaseCache访问它。</p>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>该页没做完，以后再做</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">3.1. </span>结构体<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="cpp type">
+<dt id="_CPPv4N6colmap7image_tE">
+<span id="_CPPv3N6colmap7image_tE"></span><span id="_CPPv2N6colmap7image_tE"></span><span id="colmap::image_t"></span><em class="property">typedef </em>uint32_t <code class="sig-prename descclassname">colmap<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">image_t</code><a class="headerlink" href="#_CPPv4N6colmap7image_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt id="_CPPv4N6colmap9point2D_tE">
+<span id="_CPPv3N6colmap9point2D_tE"></span><span id="_CPPv2N6colmap9point2D_tE"></span><span id="colmap::point2D_t"></span><em class="property">typedef </em>uint32_t <code class="sig-prename descclassname">colmap<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">point2D_t</code><a class="headerlink" href="#_CPPv4N6colmap9point2D_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">Correspondence</span> <span class="p">{</span>
+
+    <span class="n">Correspondence</span><span class="p">()</span> <span class="o">:</span> <span class="n">image_id</span><span class="p">(</span><span class="n">kInvalidImageId</span><span class="p">),</span> <span class="n">point2D_idx</span><span class="p">(</span><span class="n">kInvalidPoint2DIdx</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="n">Correspondence</span><span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">,</span> <span class="k">const</span> <span class="n">point2D_t</span> <span class="n">point2D_idx</span><span class="p">)</span> <span class="o">:</span> <span class="n">image_id</span><span class="p">(</span><span class="n">image_id</span><span class="p">),</span> <span class="n">point2D_idx</span><span class="p">(</span><span class="n">point2D_idx</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="c1">// 对应图像的标识</span>
+    <span class="c1">// typedef uint32_t colmap::image_t</span>
+    <span class="n">image_t</span> <span class="n">image_id</span><span class="p">;</span>
+
+    <span class="c1">// 对应图像中相应点的索引</span>
+    <span class="n">point2D_t</span> <span class="n">point2D_idx</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">Image</span> <span class="p">{</span>
+    <span class="c1">// 与另一张图片至少具有一个对应关系的2D点的数量</span>
+    <span class="n">point2D_t</span> <span class="n">num_observations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// 与其他图像的对应总数。 对于找到一个良好的初始对很有用，该初始对连接到许多图像</span>
+    <span class="n">point2D_t</span> <span class="n">num_correspondences</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="c1">// 每个图像点与其他图像的对应关系</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Correspondence</span><span class="o">&gt;&gt;</span> <span class="n">corrs</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ImagePair</span> <span class="p">{</span>
+    <span class="c1">// 图像对之间的对应数</span>
+    <span class="n">point2D_t</span> <span class="n">num_correspondences</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">3.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>数量</p></li>
+</ol>
+<ul>
+<li><p>添加的图像的数量</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NK9NumImagesEv">
+<span id="_CPPv3NK9NumImagesEv"></span><span id="_CPPv2NK9NumImagesEv"></span><span id="NumImagesC"></span><em class="property">inline</em> size_t <code class="sig-name descname">NumImages</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9NumImagesEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>添加的图像对数量</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NK13NumImagePairsEv">
+<span id="_CPPv3NK13NumImagePairsEv"></span><span id="_CPPv2NK13NumImagePairsEv"></span><span id="NumImagePairsC"></span><em class="property">inline</em> size_t <code class="sig-name descname">NumImagePairs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK13NumImagePairsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>图像中的observations。 observation是具有至少一个对应关系的图像点</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NK23NumObservationsForImageEK7image_t">
+<span id="_CPPv3NK23NumObservationsForImageEK7image_t"></span><span id="_CPPv2NK23NumObservationsForImageEK7image_t"></span><span id="NumObservationsForImage__image_tCC"></span><em class="property">inline</em> point2D_t <code class="sig-name descname">NumObservationsForImage</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK23NumObservationsForImageEK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>获取每个图像的对应数量 inline point2D_t</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NK26NumCorrespondencesForImageEK7image_t">
+<span id="_CPPv3NK26NumCorrespondencesForImageEK7image_t"></span><span id="_CPPv2NK26NumCorrespondencesForImageEK7image_t"></span><span id="NumCorrespondencesForImage__image_tCC"></span><code class="sig-name descname">NumCorrespondencesForImage</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK26NumCorrespondencesForImageEK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>获取一对图像之间的对应数 inline point2D_t</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NK31NumCorrespondencesBetweenImagesEK7image_tK7image_t">
+<span id="_CPPv3NK31NumCorrespondencesBetweenImagesEK7image_tK7image_t"></span><span id="_CPPv2NK31NumCorrespondencesBetweenImagesEK7image_tK7image_t"></span><span id="NumCorrespondencesBetweenImages__image_tC.image_tCC"></span><code class="sig-name descname">NumCorrespondencesBetweenImages</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id1</em>, <em class="property">const</em> image_t <em>image_id2</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK31NumCorrespondencesBetweenImagesEK7image_tK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>获取所有图像之间的对应数量</p>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4NKSt44unordered_mapNumCorrespondencesBetweenImagesEv">
+<span id="_CPPv3NKSt44unordered_mapNumCorrespondencesBetweenImagesEv"></span><span id="_CPPv2NKSt44unordered_mapNumCorrespondencesBetweenImagesEv"></span><span id="std::unordered_mapNumCorrespondencesBetweenImagesC"></span><code class="sig-prename descclassname">std<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">unordered_mapNumCorrespondencesBetweenImages</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NKSt44unordered_mapNumCorrespondencesBetweenImagesEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>数据库管理器</p></li>
+</ol>
+<p>（1）通过计算至少具有一种对应关系的图像点的数量，计算每幅图像的观察次数。</p>
+<p>（2）删除没有观察结果的图像，因为它们对SfM无用。</p>
+<p>（3）将对应向量shrink_to_fit以节省内存。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">CorrespondenceGraph</span><span class="o">::</span><span class="n">Finalize</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">images_</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">images_</span><span class="p">.</span><span class="n">end</span><span class="p">();)</span> <span class="p">{</span>
+
+    <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">num_observations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">corr</span> <span class="p">:</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">corrs</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="c1">// 缩小对应向量的大小至当前容量</span>
+      <span class="n">corr</span><span class="p">.</span><span class="n">shrink_to_fit</span><span class="p">();</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">corr</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">num_observations</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">.</span><span class="n">num_observations</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">images_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">it</span><span class="o">++</span><span class="p">);</span>
+
+    <span class="k">else</span>
+      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>添加新的图片到关联图中</p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv48AddImageK7image_tK6size_t">
+<span id="_CPPv38AddImageK7image_tK6size_t"></span><span id="_CPPv28AddImageK7image_tK6size_t"></span><span id="AddImage__image_tC.sC"></span>void <code class="sig-name descname">AddImage</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id</em>, <em class="property">const</em> size_t <em>num_points2D</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv48AddImageK7image_tK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<p>在图像之间添加对应关系</p>
+<dl class="cpp function">
+<dt id="_CPPv418AddCorrespondencesK7image_tK7image_tRK14FeatureMatches">
+<span id="_CPPv318AddCorrespondencesK7image_tK7image_tRK14FeatureMatches"></span><span id="_CPPv218AddCorrespondencesK7image_tK7image_tRK14FeatureMatches"></span><span id="AddCorrespondences__image_tC.image_tC.FeatureMatchesCR"></span>void <code class="sig-name descname">AddCorrespondences</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id1</em>, <em class="property">const</em> image_t <em>image_id2</em>, <em class="property">const</em> FeatureMatches &amp;<em>matches</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418AddCorrespondencesK7image_tK7image_tRK14FeatureMatches" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<ol class="arabic simple" start="4">
+<li><p>查找</p></li>
+</ol>
+<p>查找图像观察值与所有其他图像的对应关系</p>
+<dl class="cpp function">
+<dt id="_CPPv4NK19FindCorrespondencesEK7image_tK9point2D_t">
+<span id="_CPPv3NK19FindCorrespondencesEK7image_tK9point2D_t"></span><span id="_CPPv2NK19FindCorrespondencesEK7image_tK9point2D_t"></span><span id="FindCorrespondences__image_tC.point2D_tCC"></span><em class="property">inline</em> <em class="property">const</em> std::vector&lt;Correspondence&gt; &amp;<code class="sig-name descname">FindCorrespondences</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id</em>, <em class="property">const</em> point2D_t <em>point2D_idx</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK19FindCorrespondencesEK7image_tK9point2D_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<p>查找与给定观察值的对应关系</p>
+<dl class="cpp function">
+<dt id="_CPPv4NK29FindTransitiveCorrespondencesEK7image_tK9point2D_tK6size_t">
+<span id="_CPPv3NK29FindTransitiveCorrespondencesEK7image_tK9point2D_tK6size_t"></span><span id="_CPPv2NK29FindTransitiveCorrespondencesEK7image_tK9point2D_tK6size_t"></span><span id="FindTransitiveCorrespondences__image_tC.point2D_tC.sCC"></span>std::vector&lt;Correspondence&gt; <code class="sig-name descname">FindTransitiveCorrespondences</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id</em>, <em class="property">const</em> point2D_t <em>point2D_idx</em>, <em class="property">const</em> size_t <em>transitivity</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK29FindTransitiveCorrespondencesEK7image_tK9point2D_tK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<p>找到两个图像之间所有的对应</p>
+<dl class="cpp function">
+<dt id="_CPPv4NK32FindCorrespondencesBetweenImagesEK7image_tK7image_t">
+<span id="_CPPv3NK32FindCorrespondencesBetweenImagesEK7image_tK7image_t"></span><span id="_CPPv2NK32FindCorrespondencesBetweenImagesEK7image_tK7image_t"></span><span id="FindCorrespondencesBetweenImages__image_tC.image_tCC"></span>FeatureMatches <code class="sig-name descname">FindCorrespondencesBetweenImages</code><span class="sig-paren">(</span><em class="property">const</em> image_t <em>image_id1</em>, <em class="property">const</em> image_t <em>image_id2</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK32FindCorrespondencesBetweenImagesEK7image_tK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Cost_function/Cost_function.html" class="btn btn-neutral float-right" title="4. CostFunctions" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../VisibilityPyramid/VisibilityPyramid.html" class="btn btn-neutral float-left" title="2. VisibilityPyramid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

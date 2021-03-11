@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Utils &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="2. PnP" href="../PnP/PnP.html" />
+    <link rel="prev" title="Estimator" href="../../c_estimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#centerandnormalizeimagepoints">1.1. CenterAndNormalizeImagePoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#computesquaredsampsonerror">1.2. ComputeSquaredSampsonError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#computesquaredreprojectionerror">1.3. ComputeSquaredReprojectionError</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">2. PnP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/Utils/Utils.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utils">
+<h1><span class="section-number">1. </span>Utils<a class="headerlink" href="#utils" title="永久链接至标题">¶</a></h1>
+<div class="section" id="centerandnormalizeimagepoints">
+<h2><span class="section-number">1.1. </span>CenterAndNormalizeImagePoints<a class="headerlink" href="#centerandnormalizeimagepoints" title="永久链接至标题">¶</a></h2>
+<p>将图像点居中并归一化。</p>
+<p>这些点以两步过程进行变换，该过程表示为变换矩阵。
+所得点的矩阵通常比原始点的矩阵条件更好。</p>
+<ol class="arabic simple">
+<li><p>使图像点居中，以使新坐标系的原点位于图像点的质心处。</p></li>
+<li><p>标准化图像点，以使这些点到坐标系的平均距离为<span class="math notranslate nohighlight">\(\sqrt{2}\)</span>。</p></li>
+</ol>
+<ul class="simple">
+<li><p>&#64;param points Image coordinates.</p></li>
+<li><p>&#64;param normed_points Transformed image coordinates.</p></li>
+<li><p>&#64;param matrix 3x3 transformation matrix.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv429CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE">
+<span id="_CPPv329CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE"></span><span id="_CPPv229CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE"></span><span id="CenterAndNormalizeImagePoints__vCR.vP.Eigen::Matrix3dP"></span>void <code class="sig-name descname">CenterAndNormalizeImagePoints</code><span class="sig-paren">(</span><em class="property">const</em> std::vector &amp;<em>points</em>, std::vector *<em>normed_points</em>, Eigen::Matrix3d *<em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 计算质心λ</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">centroid</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">point</span> <span class="p">:</span> <span class="n">points</span><span class="p">){</span>
+    <span class="n">centroid</span> <span class="o">+=</span> <span class="n">point</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="n">centroid</span> <span class="o">/=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="c1">// 各点质心均方根误差</span>
+<span class="kt">double</span> <span class="n">rms_mean_dist</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">point</span> <span class="p">:</span> <span class="n">points</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// l2范数的平方</span>
+  <span class="n">rms_mean_dist</span> <span class="o">+=</span> <span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="n">rms_mean_dist</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rms_mean_dist</span> <span class="o">/</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="c1">// 组成归一化矩阵</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">norm_factor</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">rms_mean_dist</span><span class="p">;</span>
+<span class="o">*</span><span class="n">matrix</span> <span class="o">&lt;&lt;</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">norm_factor</span> <span class="o">*</span> <span class="n">centroid</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span>
+    <span class="o">-</span><span class="n">norm_factor</span> <span class="o">*</span> <span class="n">centroid</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// 应用归一化矩阵</span>
+<span class="n">normed_points</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_00</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_01</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_02</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_10</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_11</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_12</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_20</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_21</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">M_22</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">p_0</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">p_1</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_0</span> <span class="o">=</span> <span class="n">M_00</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_01</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_02</span><span class="p">;</span>   <span class="c1">//np_0 = λ(x-x0)</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_1</span> <span class="o">=</span> <span class="n">M_10</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_11</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_12</span><span class="p">;</span>   <span class="c1">//np_1 = λ(y-y0)</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_2</span> <span class="o">=</span> <span class="n">M_20</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_21</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_22</span><span class="p">;</span>   <span class="c1">//np_2 = 1</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">inv_np_2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np_2</span><span class="p">;</span>                   <span class="c1">//inv_np_2 = 1</span>
+  <span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_0</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>             <span class="c1">//normed_points = (λ(x-x0),λ(y-y0))</span>
+  <span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_1</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computesquaredsampsonerror">
+<h2><span class="section-number">1.2. </span>ComputeSquaredSampsonError<a class="headerlink" href="#computesquaredsampsonerror" title="永久链接至标题">¶</a></h2>
+<p>计算一组对应点和给定的基本矩阵或基本矩阵的残差。</p>
+<p><strong>残差定义为Sampson误差的平方。</strong></p>
+<div class="math notranslate nohighlight">
+\[|| \epsilon||^2 = \frac{(x_2^TEx_1)^2}{(Ex_1)_1^2 + (Ex_1)_2^2 + (E^Tx_2)_1^2 + (E^Tx_2)_2^2}\]</div>
+<ul class="simple">
+<li><p>&#64;param points1 First set of corresponding points as Nx2 matrix.</p></li>
+<li><p>&#64;param points2 Second set of corresponding points as Nx2 matrix.</p></li>
+<li><p>&#64;param E 3x3 fundamental or essential matrix.</p></li>
+<li><p>&#64;param residuals Output vector of residuals.</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv426ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE">
+<span id="_CPPv326ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE"></span><span id="_CPPv226ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE"></span><span id="ComputeSquaredSampsonError__vCR.vCR.Eigen::Matrix3dCR.vP"></span>void <code class="sig-name descname">ComputeSquaredSampsonError</code><span class="sig-paren">(</span><em class="property">const</em> std::vector &amp;<em>points1</em>, <em class="property">const</em> std::vector &amp;<em>points2</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em>, std::vector *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="n">residuals</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+<span class="c1">// 此代码可能不如本征表达式好，但是速度明显更快</span>
+
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_00</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_01</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_02</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_10</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_11</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_12</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_20</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_21</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">E_22</span> <span class="o">=</span> <span class="n">E</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x1_0</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x1_1</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x2_0</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x2_1</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Ex1 = E * points1[i].homogeneous();</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Ex1_0</span> <span class="o">=</span> <span class="n">E_00</span> <span class="o">*</span> <span class="n">x1_0</span> <span class="o">+</span> <span class="n">E_01</span> <span class="o">*</span> <span class="n">x1_1</span> <span class="o">+</span> <span class="n">E_02</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Ex1_1</span> <span class="o">=</span> <span class="n">E_10</span> <span class="o">*</span> <span class="n">x1_0</span> <span class="o">+</span> <span class="n">E_11</span> <span class="o">*</span> <span class="n">x1_1</span> <span class="o">+</span> <span class="n">E_12</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Ex1_2</span> <span class="o">=</span> <span class="n">E_20</span> <span class="o">*</span> <span class="n">x1_0</span> <span class="o">+</span> <span class="n">E_21</span> <span class="o">*</span> <span class="n">x1_1</span> <span class="o">+</span> <span class="n">E_22</span><span class="p">;</span>
+
+<span class="c1">// Etx2 = E.transpose() * points2[i].homogeneous();</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Etx2_0</span> <span class="o">=</span> <span class="n">E_00</span> <span class="o">*</span> <span class="n">x2_0</span> <span class="o">+</span> <span class="n">E_10</span> <span class="o">*</span> <span class="n">x2_1</span> <span class="o">+</span> <span class="n">E_20</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">Etx2_1</span> <span class="o">=</span> <span class="n">E_01</span> <span class="o">*</span> <span class="n">x2_0</span> <span class="o">+</span> <span class="n">E_11</span> <span class="o">*</span> <span class="n">x2_1</span> <span class="o">+</span> <span class="n">E_21</span><span class="p">;</span>
+
+<span class="c1">// x2tEx1 = points2[i].homogeneous().transpose() * Ex1;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">x2tEx1</span> <span class="o">=</span> <span class="n">x2_0</span> <span class="o">*</span> <span class="n">Ex1_0</span> <span class="o">+</span> <span class="n">x2_1</span> <span class="o">*</span> <span class="n">Ex1_1</span> <span class="o">+</span> <span class="n">Ex1_2</span><span class="p">;</span>
+
+<span class="c1">// Sampson distance</span>
+<span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>
+    <span class="n">x2tEx1</span> <span class="o">*</span> <span class="n">x2tEx1</span> <span class="o">/</span>
+    <span class="p">(</span><span class="n">Ex1_0</span> <span class="o">*</span> <span class="n">Ex1_0</span> <span class="o">+</span> <span class="n">Ex1_1</span> <span class="o">*</span> <span class="n">Ex1_1</span> <span class="o">+</span> <span class="n">Etx2_0</span> <span class="o">*</span> <span class="n">Etx2_0</span> <span class="o">+</span> <span class="n">Etx2_1</span> <span class="o">*</span> <span class="n">Etx2_1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="computesquaredreprojectionerror">
+<h2><span class="section-number">1.3. </span>ComputeSquaredReprojectionError<a class="headerlink" href="#computesquaredreprojectionerror" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../PnP/PnP.html" class="btn btn-neutral float-right" title="2. PnP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../c_estimator.html" class="btn btn-neutral float-left" title="Estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. PointNet &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="Others" href="../../p_others.html" />
+    <link rel="prev" title="Point Cloud" href="../../p_pointcloud.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../p_pointcloud.html">Point Cloud</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. PointNet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">1.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-output">1.2. Input/Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deep-learning-on-point-sets">1.3. Deep Learning on Point Sets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#properties-of-point-sets-in-r-n">1.3.1. Properties of Point Sets in  <span class="math notranslate nohighlight">\(R^n\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pointnet-architecture">1.3.2. PointNet Architecture</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">视频学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../video/v_video.html">Video</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/c_colmap.html">Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../p_pointcloud.html">Point Cloud</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>PointNet</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/paper/pointcloud/PointNet/PointNet.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pointnet">
+<h1><span class="section-number">1. </span>PointNet<a class="headerlink" href="#pointnet" title="永久链接至标题">¶</a></h1>
+<p>大多数研究人员将点云数据转换为规则的3D体素网格或图像集合，但是使得数据变得庞大。</p>
+<p>本文中设计了一种直接消耗点云的新型神经网络，该网络很好地考虑了输入中点的排列不变性。为从对象分类，零件分割到场景语义解析的应用程序提供了统一的体系结构。</p>
+<div class="section" id="introduction">
+<h2><span class="section-number">1.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>本文专注于仅使用点云的3D几何图形的不同输入表示形式。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>该网络尊重这样的事实：点云是一组点，成员的排列不变，因此在网络计算中具有一定的对称性。还需要考虑刚性运动的其他不变性。</p>
+</div>
+<p>PointNet直接将点云作为输入。在初始阶段，每个点都被相同且独立地处理。每个点仅由其三个坐标（x，y，z）表示。可以通过计算法线和其他局部或全局特征来添加其他尺度。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>该方法的关键是使用单个对称函数，即最大池化层。</p>
+</div>
+<p>网络有效地学习了一组优化功能/标准，这些功能/标准选择了点云中有意义的点，并对进行了编码。</p>
+<p>网络的最终完全连接层将这些学习的最优值汇总到上述整个形状的全局描述符中（形状分类），或用于预测每个点的标签（形状分割）。</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>通过添加一个依赖于数据的空间转换器网络，在PointNet处理数据之前对数据进行规范化，以进一步改善结果。</p>
+</div>
+</div>
+<div class="section" id="input-output">
+<h2><span class="section-number">1.2. </span>Input/Output<a class="headerlink" href="#input-output" title="永久链接至标题">¶</a></h2>
+<p>PointNet框架直接使用无序点集作为输入。</p>
+<p>点云表示为一组3D点 <span class="math notranslate nohighlight">\(\{P_i | i = 1,...,n\}\)</span> ，其中每个点 <span class="math notranslate nohighlight">\(P_i\)</span> 是其 <span class="math notranslate nohighlight">\((x,y,z)\)</span> 坐标加上额外特征通道（例如颜色，法线等）的向量。</p>
+<ul class="simple">
+<li><p>对于目标分类任务，输出为k个分数，分别对应k个可能的类别。</p></li>
+<li><p>对于语义分割任务，输出 <span class="math notranslate nohighlight">\(n\times m\)</span> 个分数，分别对应n个点相对于m各类别的分数。</p></li>
+</ul>
+<div class="align-center figure align-default" id="id1">
+<img alt="../../../../_images/13.jpg" src="../../../../_images/13.jpg" />
+<p class="caption"><span class="caption-text">PointNet 应用场景</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
+</div>
+</div>
+<div class="section" id="deep-learning-on-point-sets">
+<h2><span class="section-number">1.3. </span>Deep Learning on Point Sets<a class="headerlink" href="#deep-learning-on-point-sets" title="永久链接至标题">¶</a></h2>
+<div class="section" id="properties-of-point-sets-in-r-n">
+<h3><span class="section-number">1.3.1. </span>Properties of Point Sets in  <span class="math notranslate nohighlight">\(R^n\)</span><a class="headerlink" href="#properties-of-point-sets-in-r-n" title="永久链接至标题">¶</a></h3>
+<p>输入是欧几里得空间的点的子集。对于一个欧式空间里的点云，有三个主要特征：</p>
+<ol class="arabic simple">
+<li><p>无序性：虽然输入的点云是有顺序的，但是显然这个顺序不应当影响结果。</p></li>
+<li><p>点之间的交互：每个点不是独立的，而是与其周围的一些点共同蕴含了一些信息，因而模型应当能够抓住局部的结构和局部之间的交互。</p></li>
+<li><p>变换不变性：比如点云整体的旋转和平移不应该影响它的分类或者分割。</p></li>
+</ol>
+</div>
+<div class="section" id="pointnet-architecture">
+<h3><span class="section-number">1.3.2. </span>PointNet Architecture<a class="headerlink" href="#pointnet-architecture" title="永久链接至标题">¶</a></h3>
+<div class="align-center figure align-default" id="id2">
+<img alt="../../../../_images/21.jpg" src="../../../../_images/21.jpg" />
+<p class="caption"><span class="caption-text">PointNet Architecture</span><a class="headerlink" href="#id2" title="永久链接至图片">¶</a></p>
+</div>
+<p>分类网络对于输入的点云进行输入变换（input transform）和特征变换（feature transform），随后通过最大池化将特征整合在一起。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ul class="simple">
+<li><p>输入： n个点</p></li>
+<li><p>输出： k个类</p></li>
+</ul>
+</div>
+<p>分割网络则是分类网络的延伸，它连接全局特征和局部特征，输出每个点的得分。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>mlp = multi-layer perceptron （多层感知机）</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>mlp 括号中的数字为层的大小。</p>
+<p>Batchnorm 用于具有ReLU的所有层。</p>
+<p>Dropout 用于分类网中的最后一个mlp。</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../p_others.html" class="btn btn-neutral float-right" title="Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../p_pointcloud.html" class="btn btn-neutral float-left" title="Point Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

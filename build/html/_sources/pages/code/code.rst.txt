@@ -1,0 +1,9 @@
+###########
+tst
+###########
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   colmap/base/VisibilityPyramid

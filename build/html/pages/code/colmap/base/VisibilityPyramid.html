@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>VisibilityPyramid &mdash; OUC 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="prev" title="Colmap" href="../../c_colmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUC
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VisibilityPyramid</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">成员变量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">成员函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUC</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../c_colmap.html">Colmap</a> &raquo;</li>
+        
+      <li>VisibilityPyramid</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/code/colmap/base/VisibilityPyramid.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visibilitypyramid">
+<h1>VisibilityPyramid<a class="headerlink" href="#visibilitypyramid" title="永久链接至标题">¶</a></h1>
+<p>VisibilityPyramid是捕获2D网格中点分布的类。
+例如，捕获图像中可见3D点的分布。</p>
+<p>该类通过得分来记录点的分布。 分数越高，网格中点的分布越均匀。</p>
+<p>得分是通过多分辨率金字塔中填充单元的数量来计算的。
+如果填充的单元格至少填充一个点，并且根据其在金字塔中的分辨率对总得分有不同贡献，
+分辨率级别较高的单元对整体得分的贡献更高。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/115.png" src="../../../../_images/115.png" />
+</div>
+<div class="section" id="id1">
+<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>输入点的范围</p></li>
+</ol>
+<dl class="cpp member">
+<dt id="_CPPv45width">
+<span id="_CPPv35width"></span><span id="_CPPv25width"></span><span id="width__s"></span>size_t <code class="sig-name descname">width</code><a class="headerlink" href="#_CPPv45width" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv47height_">
+<span id="_CPPv37height_"></span><span id="_CPPv27height_"></span><span id="height___s"></span>size_t <code class="sig-name descname">height_</code><a class="headerlink" href="#_CPPv47height_" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<ol class="arabic simple" start="2">
+<li><p>整体可见度得分</p></li>
+</ol>
+<dl class="cpp member">
+<dt id="_CPPv46score_">
+<span id="_CPPv36score_"></span><span id="_CPPv26score_"></span><span id="score___s"></span>size_t <code class="sig-name descname">score_</code><a class="headerlink" href="#_CPPv46score_" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<ol class="arabic simple" start="3">
+<li><p>填充所有单元格时的最大分数</p></li>
+</ol>
+<dl class="cpp member">
+<dt id="_CPPv410max_score_">
+<span id="_CPPv310max_score_"></span><span id="_CPPv210max_score_"></span><span id="max_score___s"></span>size_t <code class="sig-name descname">max_score_</code><a class="headerlink" href="#_CPPv410max_score_" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<ol class="arabic simple" start="4">
+<li><p>具有多个级别的可见性金字塔</p></li>
+</ol>
+<dl class="cpp member">
+<dt id="_CPPv48pyramid_">
+<span id="_CPPv38pyramid_"></span><span id="_CPPv28pyramid_"></span><span id="pyramid___std::vector:Eigen::MatrixXi:"></span>std::vector&lt;Eigen::MatrixXi&gt; <code class="sig-name descname">pyramid_</code><a class="headerlink" href="#_CPPv48pyramid_" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>构造函数</strong></p></li>
+</ol>
+<p>构造函数有两种，第一种是默认构造函数，默认num_levels，width，size_t 为 (0，0，0)</p>
+<p>第二种是带三个参数的构造函数</p>
+<dl class="cpp function">
+<dt id="_CPPv4N17VisibilityPyramid17VisibilityPyramidEv">
+<span id="_CPPv3N17VisibilityPyramid17VisibilityPyramidEv"></span><span id="_CPPv2N17VisibilityPyramid17VisibilityPyramidEv"></span><span id="VisibilityPyramid::VisibilityPyramid"></span><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N17VisibilityPyramid17VisibilityPyramidEv" title="VisibilityPyramid::VisibilityPyramid">VisibilityPyramid</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">VisibilityPyramid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17VisibilityPyramid17VisibilityPyramidEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N17VisibilityPyramid17VisibilityPyramidEK6size_tK6size_tK6size_t">
+<span id="_CPPv3N17VisibilityPyramid17VisibilityPyramidEK6size_tK6size_tK6size_t"></span><span id="_CPPv2N17VisibilityPyramid17VisibilityPyramidEK6size_tK6size_tK6size_t"></span><span id="VisibilityPyramid::VisibilityPyramid__sC.sC.sC"></span><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N17VisibilityPyramid17VisibilityPyramidEK6size_tK6size_tK6size_t" title="VisibilityPyramid::VisibilityPyramid">VisibilityPyramid</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">VisibilityPyramid</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>num_levels</em>, <em class="property">const</em> size_t <em>width</em>, <em class="property">const</em> size_t <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17VisibilityPyramid17VisibilityPyramidEK6size_tK6size_tK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">pyramid_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">num_levels</span><span class="p">);</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">level</span> <span class="o">&lt;</span> <span class="n">num_levels</span><span class="p">;</span> <span class="o">++</span><span class="n">level</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">level_plus_one</span> <span class="o">=</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="c1">// dim = level_plus_one * 2</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">level_plus_one</span><span class="p">;</span>
+
+    <span class="c1">// 构造dim行dim列的矩阵</span>
+    <span class="n">pyramid_</span><span class="p">[</span><span class="n">level</span><span class="p">].</span><span class="n">setZero</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+
+    <span class="c1">// 总得分加上 dim ^ 4</span>
+    <span class="c1">// 每个格子的得分是 dim * dim, 所以该层的最多得分是 dim ^ 4</span>
+    <span class="n">max_score_</span> <span class="o">+=</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">dim</span> <span class="o">*</span> <span class="n">dim</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>得分</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4N17VisibilityPyramid8SetPointEKdK7doubley">
+<span id="_CPPv3N17VisibilityPyramid8SetPointEKdK7doubley"></span><span id="_CPPv2N17VisibilityPyramid8SetPointEKdK7doubley"></span><span id="VisibilityPyramid::SetPoint__doubleC.doubleyC"></span>void <code class="sig-prename descclassname">VisibilityPyramid<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetPoint</code><span class="sig-paren">(</span><em class="property">const</em> double <em>x</em>, <em class="property">const</em> doubley<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17VisibilityPyramid8SetPointEKdK7doubley" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK_GT</span><span class="p">(</span><span class="n">pyramid_</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="kt">size_t</span> <span class="n">cx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">size_t</span> <span class="n">cy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">CellForPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cy</span><span class="p">);</span>
+
+<span class="c1">// 从金字塔最上层开始，计算得分</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pyramid_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">level</span> <span class="o">=</span> <span class="n">pyramid_</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+    <span class="n">level</span><span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="p">)</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">level</span><span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">score_</span> <span class="o">+=</span> <span class="n">level</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="n">cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">cy</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">CHECK_LE</span><span class="p">(</span><span class="n">score_</span><span class="p">,</span> <span class="n">max_score_</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/25.png" src="../../../../_images/25.png" />
+</div>
+<p>注意看箭头指向的点，在不同的分辨率下占据着不同的格子坐标。(从0开始)</p>
+<p>层数 = 3 =&gt; x = 5, y = 0</p>
+<p>层数 = 2 =&gt; x = 2, y = 0</p>
+<p>层数 = 1 =&gt; x = 1, y = 0</p>
+<p>所以每次循环会有 cx = cx &gt;&gt; 1; cy = cy &gt;&gt; 1;</p>
+<p>每一层金字塔 pyramid_[i] 用 level表示 ，level(cy, cx)表示该层的(cx,
+cy)格子有无点。</p>
+<p>如果在该层，该点是第一次添加， 则得分加上该层元素的个数(dim * dim)。</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>重置得分</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4N17VisibilityPyramid10ResetPointEKdKd">
+<span id="_CPPv3N17VisibilityPyramid10ResetPointEKdKd"></span><span id="_CPPv2N17VisibilityPyramid10ResetPointEKdKd"></span><span id="VisibilityPyramid::ResetPoint__doubleC.doubleC"></span>void <code class="sig-prename descclassname">VisibilityPyramid<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ResetPoint</code><span class="sig-paren">(</span><em class="property">const</em> double <em>x</em>, <em class="property">const</em> double <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17VisibilityPyramid10ResetPointEKdKd" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK_GT</span><span class="p">(</span><span class="n">pyramid_</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="kt">size_t</span> <span class="n">cx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">size_t</span> <span class="n">cy</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">CellForPoint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cx</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cy</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pyramid_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">auto</span><span class="o">&amp;</span> <span class="n">level</span> <span class="o">=</span> <span class="n">pyramid_</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+   <span class="n">level</span><span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="p">)</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">level</span><span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">cx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">score_</span> <span class="o">-=</span> <span class="n">level</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+   <span class="p">}</span>
+
+   <span class="n">cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+   <span class="n">cy</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">CHECK_LE</span><span class="p">(</span><span class="n">score_</span><span class="p">,</span> <span class="n">max_score_</span><span class="p">);</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>将图像坐标转换到格子中的点的位置</p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4NK17VisibilityPyramid12CellForPointEKdKdP6size_tP6size_t">
+<span id="_CPPv3NK17VisibilityPyramid12CellForPointEKdKdP6size_tP6size_t"></span><span id="_CPPv2NK17VisibilityPyramid12CellForPointEKdKdP6size_tP6size_t"></span><span id="VisibilityPyramid::CellForPoint__doubleC.doubleC.sP.sPC"></span>void <code class="sig-prename descclassname">VisibilityPyramid<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CellForPoint</code><span class="sig-paren">(</span><em class="property">const</em> double <em>x</em>, <em class="property">const</em> double <em>y</em>, size_t *<em>cx</em>, size_t *<em>cy</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK17VisibilityPyramid12CellForPointEKdKdP6size_tP6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CHECK_GT</span><span class="p">(</span><span class="n">width_</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="n">CHECK_GT</span><span class="p">(</span><span class="n">height_</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">max_dim</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">pyramid_</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+<span class="o">*</span><span class="n">cx</span><span class="o">=</span> <span class="n">Clip</span><span class="p">(</span><span class="k">static_cast</span><span class="p">(</span><span class="n">max_dim</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">width_</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="k">static_cast</span><span class="p">(</span><span class="n">max_dim</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+
+<span class="o">*</span><span class="n">cy</span> <span class="o">=</span> <span class="n">Clip</span><span class="p">(</span><span class="k">static_cast</span><span class="p">(</span><span class="n">max_dim</span> <span class="o">*</span> <span class="n">y</span> <span class="o">/</span> <span class="n">height_</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span><span class="k">static_cast</span><span class="p">(</span><span class="n">max_dim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+
+<span class="k">template</span> <span class="n">T</span> <span class="n">Clip</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">low</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">high</span><span class="p">){</span>
+
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">high</span><span class="p">));}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../c_colmap.html" class="btn btn-neutral float-left" title="Colmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
