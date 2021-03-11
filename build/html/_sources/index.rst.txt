@@ -55,15 +55,6 @@ About
    pages/paper/p_pointcloud
    pages/paper/p_others
 
-
-.. toctree::
-   :maxdepth: -1
-   :hidden:
-   :caption: 视频学习
-
-   pages/video/v_video
-
-
 .. toctree::
    :maxdepth: -1
    :hidden:
