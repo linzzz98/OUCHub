@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
-    <link rel="next" title="Others" href="../../p_others.html" />
-    <link rel="prev" title="Point Cloud" href="../../p_pointcloud.html" /> 
+    <link rel="next" title="🍒 Others" href="../../p_others.html" />
+    <link rel="prev" title="🍋 Point Cloud" href="../../p_pointcloud.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,35 +94,42 @@
               
             
             
-              <p class="caption"><span class="caption-text">论文学习</span></p>
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">Structure from Motion</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../p_pointcloud.html">Point Cloud</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../p_pointcloud.html">🍋 Point Cloud</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. PointNet</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#introduction">1.1. Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-output">1.2. Input/Output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deep-learning-on-point-sets">1.3. Deep Learning on Point Sets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#properties-of-point-sets-in-r-n">1.3.1. Properties of Point Sets in  <span class="math notranslate nohighlight">\(R^n\)</span></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pointnet-architecture">1.3.2. PointNet Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#symmetry-function-for-unordered-input">1.3.2. Symmetry Function for Unordered Input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pointnet-basic-architecture">1.3.3. PointNet Basic Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#whole-architecture">1.3.4. Whole Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#theoretical-analysis">1.4. Theoretical Analysis</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../p_others.html">Others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">视频学习</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../video/v_video.html">Video</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../video/v_video.html">🍍 Video</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../code/c_colmap.html">Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/c_colmap.html">🍑 Colmap</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">Others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
             
@@ -171,7 +178,7 @@
     
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../p_pointcloud.html">Point Cloud</a> &raquo;</li>
+          <li><a href="../../p_pointcloud.html">🍋 Point Cloud</a> &raquo;</li>
         
       <li><span class="section-number">1. </span>PointNet</li>
     
@@ -194,11 +201,10 @@
             
   <div class="section" id="pointnet">
 <h1><span class="section-number">1. </span>PointNet<a class="headerlink" href="#pointnet" title="永久链接至标题">¶</a></h1>
-<p>大多数研究人员将点云数据转换为规则的3D体素网格或图像集合，但是使得数据变得庞大。</p>
-<p>本文中设计了一种直接消耗点云的新型神经网络，该网络很好地考虑了输入中点的排列不变性。为从对象分类，零件分割到场景语义解析的应用程序提供了统一的体系结构。</p>
+<p>文章设计了一种直接消耗点云的新型神经网络，该网络很好地考虑了输入中点的排列不变性。为点云分类和点云分割提供了统一的体系结构。</p>
 <div class="section" id="introduction">
 <h2><span class="section-number">1.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
-<p>本文专注于仅使用点云的3D几何图形的不同输入表示形式。</p>
+<p>文章专注于仅使用点云的3D几何图形的不同输入表示形式。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>该网络尊重这样的事实：点云是一组点，成员的排列不变，因此在网络计算中具有一定的对称性。还需要考虑刚性运动的其他不变性。</p>
@@ -238,32 +244,106 @@
 <li><p>点之间的交互：每个点不是独立的，而是与其周围的一些点共同蕴含了一些信息，因而模型应当能够抓住局部的结构和局部之间的交互。</p></li>
 <li><p>变换不变性：比如点云整体的旋转和平移不应该影响它的分类或者分割。</p></li>
 </ol>
+<p>PointNet具有三大关键模块：</p>
+<ol class="arabic simple">
+<li><p>最大池化层（作为对称功能，汇总所有点的信息）</p></li>
+<li><p>局部和全局信息组合结构</p></li>
+<li><p>两个对齐输入点和点的特征的联合对齐网络</p></li>
+</ol>
 </div>
-<div class="section" id="pointnet-architecture">
-<h3><span class="section-number">1.3.2. </span>PointNet Architecture<a class="headerlink" href="#pointnet-architecture" title="永久链接至标题">¶</a></h3>
+<div class="section" id="symmetry-function-for-unordered-input">
+<h3><span class="section-number">1.3.2. </span>Symmetry Function for Unordered Input<a class="headerlink" href="#symmetry-function-for-unordered-input" title="永久链接至标题">¶</a></h3>
+<p>点云从数据表达形式来看是点的集合，对输入顺序不敏感。</p>
+<p>由于点集是无序的，需要模型具有置换不变性——对称函数</p>
+<div class="math notranslate nohighlight">
+\[f(x_1,x_2,...,x_n) \equiv f(x_{\pi_1}, x_{\pi_2}, ..., x_{\pi_n}), x_i \in R^D\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">Examples</dt>
+<dd class="field-odd"><div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}f(x_1,x_2,...,x_n) = max\{x_1,x_2,...,x_n\} \\\\\end{split}\\f(x_1,x_2,...,x_n) = x_1 + x_2 + ... + x_n\end{aligned}\end{align} \]</div>
+</dd>
+</dl>
+</div>
+<p>但是这样去做，会损失太多的特征信息：</p>
+<ul class="simple">
+<li><p>平均值——只取得了重心</p></li>
+<li><p>最大值——只取得了最远处点的边界</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>如何不损失特征信息呢？</p>
+<p>先把每个点映射到高维空间 <span class="math notranslate nohighlight">\(h\)</span> ，在高维空间进行对称性操作。高维空间可能是冗余空间（1000维空间表示3维的点），通过冗余可以避免信息丢失。再通过另一个网络 γ 来进一步消化信息得到点云特征。</p>
+<p>实际上对称函数是函数 <span class="math notranslate nohighlight">\(g, h, \gamma\)</span> 的组合：( <span class="math notranslate nohighlight">\(g\)</span> 对称则整个函数对称 )</p>
+<div class="math notranslate nohighlight">
+\[f(x_1,x_2,...,x_n) = r \circ g(h(x_1),h(x_2),...,h(x_n))\]</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>☝️ 升维再进行操作实际上就是神经网络中的隐层。</p>
+</div>
+</div>
+<div class="section" id="pointnet-basic-architecture">
+<h3><span class="section-number">1.3.3. </span>PointNet Basic Architecture<a class="headerlink" href="#pointnet-basic-architecture" title="永久链接至标题">¶</a></h3>
+<p>👉 分别对每个点进行特征提取（卷积或全连接），再MAX操作得到全局输出。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/31.jpg" src="../../../../_images/31.jpg" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>假设输入的点为 <span class="math notranslate nohighlight">\([1 \times 3]\)</span> 维， 经过MLP  <span class="math notranslate nohighlight">\([3 \times 1024]\)</span> 维升维之后，得到 <span class="math notranslate nohighlight">\([1 \times 1024]\)</span> 的高维特征。</p>
+<p>点云数据的无序性，置换不变性，所以对称函数选择max函数保证其特性——得到1024维特征。</p>
+<p><span class="math notranslate nohighlight">\(\gamma\)</span> 相当于一个权重矩阵 <span class="math notranslate nohighlight">\(W:[1024 : 10]\)</span>，将1024维特征映射到10个分类。</p>
+</div>
+</div>
+<div class="section" id="whole-architecture">
+<h3><span class="section-number">1.3.4. </span>Whole Architecture<a class="headerlink" href="#whole-architecture" title="永久链接至标题">¶</a></h3>
 <div class="align-center figure align-default" id="id2">
 <img alt="../../../../_images/21.jpg" src="../../../../_images/21.jpg" />
 <p class="caption"><span class="caption-text">PointNet Architecture</span><a class="headerlink" href="#id2" title="永久链接至图片">¶</a></p>
 </div>
-<p>分类网络对于输入的点云进行输入变换（input transform）和特征变换（feature transform），随后通过最大池化将特征整合在一起。</p>
-<div class="admonition note">
-<p class="admonition-title">注解</p>
-<ul class="simple">
-<li><p>输入： n个点</p></li>
-<li><p>输出： k个类</p></li>
-</ul>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>在后续的证明中发现T-net对网络的影响非常小，可以忽略。</p>
+<p>因此在接下来将不再解释有关T-net的功能。</p>
 </div>
-<p>分割网络则是分类网络的延伸，它连接全局特征和局部特征，输出每个点的得分。</p>
+<p>分类网络对于输入的点云进行输入变换（input transform）和特征变换（feature transform），随后通过最大池化将特征整合在一起。</p>
+<p>具体步骤如下：</p>
+<ol class="arabic simple">
+<li><p>给定一个输入的点云 n×3 ，通过mlp把每个点投影到64维的高维空间，在64维空间里做高维空间的变换，变换到更归一化的64维空间。</p></li>
+<li><p>通过mlp将每个点的维度升至128维，最终升至1024维。（每个点都是1024维特征）</p></li>
+</ol>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../_images/41.jpg"><img alt="../../../../_images/41.jpg" src="../../../../_images/41.jpg" style="width: 635.2px; height: 385.6px;" /></a>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>对于每个维度，对所有的点的该维度进行maxpooling操作（上图的红色方框）得到最终的全局特征。（1024维向量）</p></li>
+<li><p>通过mlp将1024维的全局特征向量映射到512维、256维、最终映射成k维（其中k为分类的类别数），最终得到分类结果。</p></li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>mlp = multi-layer perceptron （多层感知机）</p>
 </div>
+<p>分割网络则是分类网络的延伸，它连接全局特征和局部特征，针对每个点分别做分类任务。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/51.jpg" src="../../../../_images/51.jpg" />
+</div>
+<p>全局特征包含n个点的特征信息，所以每个点都拼接相同的全局特征。经过这样的操作，每个点既有自己的特征（64）也有全局的特征（1024）</p>
+<p>经过mlp降维，得到每个点（n）的分类结果（m）      （n x m）</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>mlp 括号中的数字为层的大小。</p>
 <p>Batchnorm 用于具有ReLU的所有层。</p>
 <p>Dropout 用于分类网中的最后一个mlp。</p>
 </div>
+</div>
+</div>
+<div class="section" id="theoretical-analysis">
+<h2><span class="section-number">1.4. </span>Theoretical Analysis<a class="headerlink" href="#theoretical-analysis" title="永久链接至标题">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>直接看原文，这里略</p>
 </div>
 </div>
 </div>
@@ -274,8 +354,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../p_others.html" class="btn btn-neutral float-right" title="Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../p_pointcloud.html" class="btn btn-neutral float-left" title="Point Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../p_others.html" class="btn btn-neutral float-right" title="🍒 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../p_pointcloud.html" class="btn btn-neutral float-left" title="🍋 Point Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

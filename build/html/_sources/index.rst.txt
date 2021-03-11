@@ -42,6 +42,8 @@ About
    :hidden:
    :caption: 基础知识
 
+   pages/knowledge/k_MH
+   pages/knowledge/k_CV
    pages/knowledge/k_ML
 
 .. toctree::

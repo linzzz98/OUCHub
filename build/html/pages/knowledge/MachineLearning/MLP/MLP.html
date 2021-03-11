@@ -96,6 +96,8 @@
             
               <p class="caption"><span class="caption-text">基础知识</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../k_ML.html">🍎 Machine Learning</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Multi-Layer Perceptron(多层感知器)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pla-perceptron-learning-algorithm">1.1. 感知机（PLA: Perceptron Learning Algorithm）</a></li>
@@ -206,7 +208,7 @@
 <div class="section" id="pla-perceptron-learning-algorithm">
 <h2><span class="section-number">1.1. </span>感知机（PLA: Perceptron Learning Algorithm）<a class="headerlink" href="#pla-perceptron-learning-algorithm" title="永久链接至标题">¶</a></h2>
 <p>感知机的神经网络表示如下：</p>
-<div class="aligned-center figure align-default">
+<div class="align-center figure align-default">
 <img alt="../../../../_images/14.jpg" src="../../../../_images/14.jpg" />
 </div>
 <ul>
@@ -237,7 +239,7 @@
 <p class="admonition-title">注解</p>
 <p>多层感知机在单层神经网络的基础上引入了一到多个隐藏层（hidden layer）。隐藏层位于输入层和输出层之间。</p>
 </div>
-<div class="aligned-center figure align-default">
+<div class="align-center figure align-default">
 <img alt="../../../../_images/22.jpg" src="../../../../_images/22.jpg" />
 </div>
 <div class="admonition important">
@@ -290,7 +292,7 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为负数时，ReLU函数的导数为0；当输入为正数时，ReLU函数的导数为1。尽管输入为0时ReLU函数不可导，但是可以取此处的导数为0。</p></li>
 </ol>
 </div>
-<div class="aligned-center figure align-default">
+<div class="align-center figure align-default">
 <img alt="../../../../_images/114.png" src="../../../../_images/114.png" />
 </div>
 </div>
@@ -307,7 +309,7 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为0时，sigmoid函数的导数达到最大值0.25；当输入越偏离0时，sigmoid函数的导数越接近0。</p></li>
 </ol>
 </div>
-<div class="aligned-center figure align-default">
+<div class="align-center figure align-default">
 <img alt="../../../../_images/27.png" src="../../../../_images/27.png" />
 </div>
 </div>
@@ -324,7 +326,7 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为0时，tanh函数的导数达到最大值1；当输入越偏离0时，tanh函数的导数越接近0。</p></li>
 </ol>
 </div>
-<div class="aligned-center figure align-default">
+<div class="align-center figure align-default">
 <img alt="../../../../_images/37.png" src="../../../../_images/37.png" />
 </div>
 </div>
