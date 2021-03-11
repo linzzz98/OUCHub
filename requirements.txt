@@ -1,0 +1,10 @@
+# markdown suport
+recommonmark
+
+#emoji
+sphinxemoji
+
+# theme default rtd
+
+# crate-docs-theme
+sphinx-rtd-theme
