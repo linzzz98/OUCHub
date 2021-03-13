@@ -10,6 +10,126 @@ EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D
 
     \ `Epnp: An accurate o (n) solution to the pnp problem <http://www.iri.upc.edu/people/fmoreno/Publications/2009/pdf/Lepetit_ijcv2009.pdf>`_
 
+论文解读
+~~~~~~~~~~~~
+
+.. attention::
+
+   本章参考自 |:point_right:|    `《深入EPnP算法》 <https://blog.csdn.net/jessecw79/article/details/82945918>`_
+
+在论文中，采用上标 :math:`^w` 和 :math:`^c` 表示在世界坐标系和摄像头坐标系中的坐标。那么：
+
+:3D参考点:
+
+* 在世界坐标系中的坐标为 :math:`p_i^w, ~~~i = 1,...,n`
+
+* 在相机参考坐标系中的坐标为 :math:`p_i^c, ~~~i = 1,...,n`
+
+:4个控制点:
+
+* 在世界坐标系的坐标为 :math:`c_j^w, ~~~j = 1,...,4`
+
+* 在相机参考坐标系中的坐标为 :math:`p_j^c, ~~~j = 1,...,4`
+
+.. important::
+   在EPnP论文中，以上坐标均为非齐次坐标。
+
+EPnP算法将参考点的坐标表示为控制点坐标的加权和：
+
+   .. math::
+
+      p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1
+
+其中 :math:`\alpha_{ij}` 是 ``齐次的barycentric坐标``
+
+一旦虚拟控制点确定后，且满足4个控制点不共面的前提， :math:`\alpha_{ij}` 唯一被确定。
+
+在相机坐标系中存在同样的加权关系：
+
+.. math::
+
+   p_i^c = \sum\limits_{j=1}^4 \alpha_{ij}c_j^c
+
+假设相机的外参为 :math:`[R, t]`， 那么虚拟控制点 :math:`c_j^w` 和 :math:`c_j^c` 之间存在关系：
+
+.. math::
+
+   c_j^c = [R~~~t]\left[
+   \begin{matrix}
+   c_j^w \\ 1
+   \end{matrix}
+   \right]
+
+考虑到EPnP算法将参考点坐标表示为控制点坐标的加权和，可以得到：
+
+.. math::
+
+   p_i^c = [R~~~t] \left[
+   \begin{matrix}
+   c_j^w \\ 1
+   \end{matrix}
+   \right] = [R~~~t] \left[
+   \begin{matrix}
+   \sum\limits_{j=1}^4 \alpha_{ij}c_j^w \\ 1
+   \end{matrix}
+   \right]
+
+进而|:point_down:| ：
+
+.. math::
+
+   p_i^c = [R~~~t]\left[
+   \begin{matrix}
+   \sum\limits_{j=1}^4 \alpha_{ij}c_j^w \\ \sum\limits_{j=1}^4 \alpha_{ij}
+   \end{matrix}
+   \right] = \sum\limits_{j=1}^4 \alpha_{ij}[R~~~t]\left[
+   \begin{matrix}
+   c_j^w \\ 1
+   \end{matrix}
+   \right] = \sum\limits_{j=1}^4 \alpha_{ij}c_j^c
+
+.. note::
+   在上述推导过程中，用到了EPnP对权重 :math:`\alpha_{ij}` 的重要约束条件 :math:`\sum\limits_{j=1}^4 \alpha_{ij} = 1`
+
+.. attention::
+   为什么3个控制点不行呢？
+
+   四个方程，三个未知数，是一个超定方程组。不存在精确满足方程的解。
+
+.. important::
+
+   当四个控制点堆叠在一起时：
+
+   .. math::
+
+      \left[
+      \begin{matrix}
+      p_i^w\\1
+      \end{matrix}
+      \right] = C \left[
+      \begin{matrix}
+      \alpha_{i1}\\ \alpha_{i2} \\ \alpha_{i3} \\ \alpha_{i4}
+      \end{matrix}
+      \right] = \left[
+      \begin{matrix}
+      c_1^w & c_2^w & c_3^w & c_4^w\\
+      1 & 1 & 1 & 1
+      \end{matrix}
+      \right]\left[
+      \begin{matrix}
+      \alpha_{i1} \\ \alpha_{i2} \\ \alpha_{i3} \\ \alpha_{i4}
+      \end{matrix}
+      \right]
+
+   |:star:| 也就论证了论文中之前提到的
+
+   .. math::
+
+      p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1
+
+   本质上说明了3D参考的的齐次坐标是控制点齐次坐标的线性组合。
+
+
 成员变量
 ~~~~~~~~~~~
 
@@ -194,3 +314,171 @@ EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D
 
 
     到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  :math:`c_j` ，每一个3D点的hd坐标  :math:`\alpha_{ij}`  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  :math:`[R|t]` 。
+
+4. **ComputeBarycentricCoordinates**
+
+   计算barycentric coodinates
+
+   .. cpp:function:: bool EPNPEstimator::ComputeBarycentricCoordinates()
+
+   .. code-block:: cpp
+
+      bool EPNPEstimator::ComputeBarycentricCoordinates() {
+        Eigen::Matrix3d CC;
+        for (int i = 0; i < 3; ++i) {
+          for (int j = 1; j < 4; ++j) {
+            CC(i, j - 1) = cws_[j][i] - cws_[0][i];
+          }
+        }
+
+        if (CC.colPivHouseholderQr().rank() < 3) {
+          return false;
+        }
+
+        const Eigen::Matrix3d CC_inv = CC.inverse();
+
+        alphas_.resize(points2D_->size());
+        for (size_t i = 0; i < points3D_->size(); ++i) {
+          for (int j = 0; j < 3; ++j) {
+            alphas_[i][1 + j] = CC_inv(j, 0) * ((*points3D_)[i][0] - cws_[0][0]) +
+                                CC_inv(j, 1) * ((*points3D_)[i][1] - cws_[0][1]) +
+                                CC_inv(j, 2) * ((*points3D_)[i][2] - cws_[0][2]);
+          }
+          alphas_[i][0] = 1.0 - alphas_[i][1] - alphas_[i][2] - alphas_[i][3];
+        }
+
+        return true;
+      }
+
+   .. note::
+
+      .. code-block:: cpp
+
+         for (int i = 0; i < 3; ++i) {
+            for (int j = 1; j < 4; ++j) {
+               CC(i, j - 1) = cws_[j][i] - cws_[0][i];
+            }
+         }
+
+      假设上一步得到的控制点为 :math:`X_i = (x_i, y_i, z_i)^T ~~~(i =  1, 2, 3, 4)`， 则：经过变换后（将第一个控制点移动到原点）的控制点坐标组成的矩阵为
+
+      .. math::
+
+         CC = \left[
+         \begin{matrix}
+         x_2 - x_1 & x_3-x_1 & x_4-x_1\\
+         y_2 - y_1 & y_3-y_1 & y_4-y_1\\
+         z_2 - z_1 & z_3-z_1 & z_4-z_1
+         \end{matrix}
+         \right]
+
+      如果QR分解的矩阵的秩 < 3，则返回false
+
+      .. code-block:: cpp
+
+         if (CC.colPivHouseholderQr().rank() < 3) {
+          return false;
+        }
+
+      由第一节的公式  :math:`p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1` 可知
+
+      barycentric coodinates的计算公式为：
+
+      .. math::
+
+         \left[
+         \begin{matrix}
+         \alpha_{i1}\\ \alpha_{i2}\\ \alpha_{i3}\\ \alpha_{i4}\\
+         \end{matrix}
+         \right] = C^{-1}
+         \left[
+         \begin{matrix}
+         p_i^w\\1
+         \end{matrix}
+         \right]
+
+      程序与公式稍稍有些不同，作者选择计算 :math:`\alpha_{i2},\alpha_{i3},\alpha_{i4}`， 并由于 :math:`\sum\limits_{j=1}^4 \alpha_{ij} = 1` ， 所以 :math:`\alpha_{i1} = 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4}`
+
+      .. code-block:: cpp
+
+        alphas_.resize(points2D_->size());
+        for (size_t i = 0; i < points3D_->size(); ++i) {
+          for (int j = 0; j < 3; ++j) {
+            alphas_[i][1 + j] = CC_inv(j, 0) * ((*points3D_)[i][0] - cws_[0][0]) +
+                                CC_inv(j, 1) * ((*points3D_)[i][1] - cws_[0][1]) +
+                                CC_inv(j, 2) * ((*points3D_)[i][2] - cws_[0][2]);
+          }
+          alphas_[i][0] = 1.0 - alphas_[i][1] - alphas_[i][2] - alphas_[i][3];
+        }
+
+5. **ComputeM**
+
+   .. cpp:function::Eigen::Matrix<double, Eigen::Dynamic, 12> EPNPEstimator::ComputeM()
+
+   .. code-block:: cpp
+
+      Eigen::Matrix<double, Eigen::Dynamic, 12> EPNPEstimator::ComputeM() {
+        Eigen::Matrix<double, Eigen::Dynamic, 12> M(2 * points2D_->size(), 12);
+        for (size_t i = 0; i < points3D_->size(); ++i) {
+          for (size_t j = 0; j < 4; ++j) {
+            M(2 * i, 3 * j) = alphas_[i][j];
+            M(2 * i, 3 * j + 1) = 0.0;
+            M(2 * i, 3 * j + 2) = -alphas_[i][j] * (*points2D_)[i].x();
+
+            M(2 * i + 1, 3 * j) = 0.0;
+            M(2 * i + 1, 3 * j + 1) = alphas_[i][j];
+            M(2 * i + 1, 3 * j + 2) = -alphas_[i][j] * (*points2D_)[i].y();
+          }
+        }
+        return M;
+      }
+
+   .. note::
+
+      设 :math:`K` 是摄像头的内参矩阵，可以通过标定获得 :math:`\{u_i\}_{i=1,...,n}` 是参考点 :math:`\{p_i\}_{i=1,...,n}` 的2D投影，那么有
+
+      .. math::
+
+         \forall i, w_i \left[
+         \begin{matrix}
+         u_i\\1
+         \end{matrix}
+         \right] = Kp_i^c = K \sum\limits_{j=1}^4 \alpha_{ij} c_j^c
+
+      用 :math:`c_j^c = [x_j^c, y_j^c, z_j^c]^T` 带入上式，而且把 :math:`K` ：
+
+      .. math::
+
+         \forall i, w_i \left[
+         \begin{matrix}
+         u_i\\v_i\\1
+         \end{matrix}
+         \right] = \left[
+         \begin{matrix}
+         f_u & 0 & u_c\\0 & f_v & v_c \\ 0 & 0 & 1
+         \end{matrix}
+         \right] \sum\limits_{j=1}^4 \alpha_{ij} \left[
+         \begin{matrix}
+         x_j^c\\ y_j^c \\ z_j^c
+         \end{matrix}
+         \right]
+
+      从上式可以得到两个线性方程：
+
+      .. math::
+
+         \begin{cases}
+         \sum\limits_{j=1}^4 \alpha_{ij}f_ux_j^c + \alpha_{ij}(u_c-u_i)z_j^c = 0\\
+         \sum\limits_{j=1}^4 \alpha_{ij}f_vy_j^c + \alpha_{ij}(v_c-v_j)z_j^c = 0
+         \end{cases}
+
+      把所有 :math:`n` 个点串联起来，我们可以得到一个线性方程组：
+
+      .. math::
+
+         Mx = 0
+
+   .. error::
+
+      这里作者的代码忽略了内参，没看懂为什么？
+

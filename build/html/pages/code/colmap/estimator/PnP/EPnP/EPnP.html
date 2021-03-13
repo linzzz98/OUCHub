@@ -45,6 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../../others/o_others.html" />
     <link rel="prev" title="2.1. P3P" href="../P3P/P3P.html" /> 
 </head>
 
@@ -93,22 +94,30 @@
               
             
             
-              <p class="caption"><span class="caption-text">论文学习</span></p>
+              <p class="caption"><span class="caption-text">基础知识</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">Structure from Motion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">Others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../../c_estimator.html">Estimator</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../Utils/Utils.html">1. Utils</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../PnP.html">2. PnP</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="../P3P/P3P.html">2.1. P3P</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">2.2. EPnP</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#id1">2.2.1. 成员变量</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#id2">2.2.2. 成员函数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id1">2.2.1. 论文解读</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">2.2.2. 成员变量</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">2.2.3. 成员函数</a></li>
 </ul>
 </li>
 </ul>
@@ -117,6 +126,10 @@
 </li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
             
@@ -165,7 +178,7 @@
     
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../../c_colmap.html">Colmap</a> &raquo;</li>
+          <li><a href="../../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
         
           <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
         
@@ -195,7 +208,110 @@
 <p>EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D-3D对应关系。</p>
 <pre class="literal-block"><a class="reference external" href="http://www.iri.upc.edu/people/fmoreno/Publications/2009/pdf/Lepetit_ijcv2009.pdf">Epnp: An accurate o (n) solution to the pnp problem</a></pre>
 <div class="section" id="id1">
-<h2><span class="section-number">2.2.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.2.1. </span>论文解读<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本章参考自 👉    <a class="reference external" href="https://blog.csdn.net/jessecw79/article/details/82945918">《深入EPnP算法》</a></p>
+</div>
+<p>在论文中，采用上标 <span class="math notranslate nohighlight">\(^w\)</span> 和 <span class="math notranslate nohighlight">\(^c\)</span> 表示在世界坐标系和摄像头坐标系中的坐标。那么：</p>
+<dl class="field-list simple">
+<dt class="field-odd">3D参考点</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<ul class="simple">
+<li><p>在世界坐标系中的坐标为 <span class="math notranslate nohighlight">\(p_i^w, ~~~i = 1,...,n\)</span></p></li>
+<li><p>在相机参考坐标系中的坐标为 <span class="math notranslate nohighlight">\(p_i^c, ~~~i = 1,...,n\)</span></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">4个控制点</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<ul class="simple">
+<li><p>在世界坐标系的坐标为 <span class="math notranslate nohighlight">\(c_j^w, ~~~j = 1,...,4\)</span></p></li>
+<li><p>在相机参考坐标系中的坐标为 <span class="math notranslate nohighlight">\(p_j^c, ~~~j = 1,...,4\)</span></p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>在EPnP论文中，以上坐标均为非齐次坐标。</p>
+</div>
+<p>EPnP算法将参考点的坐标表示为控制点坐标的加权和：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1\]</div>
+</div></blockquote>
+<p>其中 <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> 是 <code class="docutils literal notranslate"><span class="pre">齐次的barycentric坐标</span></code></p>
+<p>一旦虚拟控制点确定后，且满足4个控制点不共面的前提， <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> 唯一被确定。</p>
+<p>在相机坐标系中存在同样的加权关系：</p>
+<div class="math notranslate nohighlight">
+\[p_i^c = \sum\limits_{j=1}^4 \alpha_{ij}c_j^c\]</div>
+<p>假设相机的外参为 <span class="math notranslate nohighlight">\([R, t]\)</span>， 那么虚拟控制点 <span class="math notranslate nohighlight">\(c_j^w\)</span> 和 <span class="math notranslate nohighlight">\(c_j^c\)</span> 之间存在关系：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}c_j^c = [R~~~t]\left[
+\begin{matrix}
+c_j^w \\ 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>考虑到EPnP算法将参考点坐标表示为控制点坐标的加权和，可以得到：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_i^c = [R~~~t] \left[
+\begin{matrix}
+c_j^w \\ 1
+\end{matrix}
+\right] = [R~~~t] \left[
+\begin{matrix}
+\sum\limits_{j=1}^4 \alpha_{ij}c_j^w \\ 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>进而|:point_down:| ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_i^c = [R~~~t]\left[
+\begin{matrix}
+\sum\limits_{j=1}^4 \alpha_{ij}c_j^w \\ \sum\limits_{j=1}^4 \alpha_{ij}
+\end{matrix}
+\right] = \sum\limits_{j=1}^4 \alpha_{ij}[R~~~t]\left[
+\begin{matrix}
+c_j^w \\ 1
+\end{matrix}
+\right] = \sum\limits_{j=1}^4 \alpha_{ij}c_j^c\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在上述推导过程中，用到了EPnP对权重 <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> 的重要约束条件 <span class="math notranslate nohighlight">\(\sum\limits_{j=1}^4 \alpha_{ij} = 1\)</span></p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>为什么3个控制点不行呢？</p>
+<p>四个方程，三个未知数，是一个超定方程组。不存在精确满足方程的解。</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>当四个控制点堆叠在一起时：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+p_i^w\\1
+\end{matrix}
+\right] = C \left[
+\begin{matrix}
+\alpha_{i1}\\ \alpha_{i2} \\ \alpha_{i3} \\ \alpha_{i4}
+\end{matrix}
+\right] = \left[
+\begin{matrix}
+c_1^w &amp; c_2^w &amp; c_3^w &amp; c_4^w\\
+1 &amp; 1 &amp; 1 &amp; 1
+\end{matrix}
+\right]\left[
+\begin{matrix}
+\alpha_{i1} \\ \alpha_{i2} \\ \alpha_{i3} \\ \alpha_{i4}
+\end{matrix}
+\right]\end{split}\]</div>
+<p>⭐ 也就论证了论文中之前提到的</p>
+<div class="math notranslate nohighlight">
+\[p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1\]</div>
+<p>本质上说明了3D参考的的齐次坐标是控制点齐次坐标的线性组合。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">2.2.2. </span>成员变量<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
 <li><p>2D图像特征观察值</p>
 <blockquote>
@@ -219,8 +335,8 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h2><span class="section-number">2.2.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">2.2.3. </span>成员函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Estimate</strong></p></li>
 </ol>
@@ -378,6 +494,151 @@ c_4^w = c_1^w + \sqrt{ \frac{\lambda_3}{n} } v_3 \\
 <p>上述操作实际上是找到点云的重心，以及点云的三个主方向。<a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">主成分分析(PCA)</a></p>
 <p>到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  <span class="math notranslate nohighlight">\(c_j\)</span> ，每一个3D点的hd坐标  <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span>  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  <span class="math notranslate nohighlight">\([R|t]\)</span> 。</p>
 </div>
+<ol class="arabic" start="4">
+<li><p><strong>ComputeBarycentricCoordinates</strong></p>
+<p>计算barycentric coodinates</p>
+<dl class="cpp function">
+<dt id="_CPPv4N13EPNPEstimator29ComputeBarycentricCoordinatesEv">
+<span id="_CPPv3N13EPNPEstimator29ComputeBarycentricCoordinatesEv"></span><span id="_CPPv2N13EPNPEstimator29ComputeBarycentricCoordinatesEv"></span><span id="EPNPEstimator::ComputeBarycentricCoordinates"></span>bool <code class="sig-prename descclassname">EPNPEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeBarycentricCoordinates</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13EPNPEstimator29ComputeBarycentricCoordinatesEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">ComputeBarycentricCoordinates</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">CC</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">CC</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">cws_</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">CC</span><span class="p">.</span><span class="n">colPivHouseholderQr</span><span class="p">().</span><span class="n">rank</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">CC_inv</span> <span class="o">=</span> <span class="n">CC</span><span class="p">.</span><span class="n">inverse</span><span class="p">();</span>
+
+  <span class="n">alphas_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">points2D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">());</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+                          <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+                          <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">CC</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">cws_</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>假设上一步得到的控制点为 <span class="math notranslate nohighlight">\(X_i = (x_i, y_i, z_i)^T ~~~(i =  1, 2, 3, 4)\)</span>， 则：经过变换后（将第一个控制点移动到原点）的控制点坐标组成的矩阵为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}CC = \left[
+\begin{matrix}
+x_2 - x_1 &amp; x_3-x_1 &amp; x_4-x_1\\
+y_2 - y_1 &amp; y_3-y_1 &amp; y_4-y_1\\
+z_2 - z_1 &amp; z_3-z_1 &amp; z_4-z_1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>如果QR分解的矩阵的秩 &lt; 3，则返回false</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="k">if</span> <span class="p">(</span><span class="n">CC</span><span class="p">.</span><span class="n">colPivHouseholderQr</span><span class="p">().</span><span class="n">rank</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>由第一节的公式  <span class="math notranslate nohighlight">\(p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1\)</span> 可知</p>
+<p>barycentric coodinates的计算公式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\alpha_{i1}\\ \alpha_{i2}\\ \alpha_{i3}\\ \alpha_{i4}\\
+\end{matrix}
+\right] = C^{-1}
+\left[
+\begin{matrix}
+p_i^w\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>程序与公式稍稍有些不同，作者选择计算 <span class="math notranslate nohighlight">\(\alpha_{i2},\alpha_{i3},\alpha_{i4}\)</span>， 并由于 <span class="math notranslate nohighlight">\(\sum\limits_{j=1}^4 \alpha_{ij} = 1\)</span> ， 所以 <span class="math notranslate nohighlight">\(\alpha_{i1} = 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4}\)</span></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">alphas_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">points2D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">());</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span>
+                        <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span>
+                        <span class="n">CC_inv</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="o">*</span><span class="n">points3D_</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">cws_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><strong>ComputeM</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">EPNPEstimator</span><span class="o">::</span><span class="n">ComputeM</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">12</span><span class="o">&gt;</span> <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">points2D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">(),</span> <span class="mi">12</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">points2D_</span><span class="p">)[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span><span class="p">();</span>
+
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+      <span class="n">M</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">alphas_</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">points2D_</span><span class="p">)[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">M</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>设 <span class="math notranslate nohighlight">\(K\)</span> 是摄像头的内参矩阵，可以通过标定获得 <span class="math notranslate nohighlight">\(\{u_i\}_{i=1,...,n}\)</span> 是参考点 <span class="math notranslate nohighlight">\(\{p_i\}_{i=1,...,n}\)</span> 的2D投影，那么有</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\forall i, w_i \left[
+\begin{matrix}
+u_i\\1
+\end{matrix}
+\right] = Kp_i^c = K \sum\limits_{j=1}^4 \alpha_{ij} c_j^c\end{split}\]</div>
+<p>用 <span class="math notranslate nohighlight">\(c_j^c = [x_j^c, y_j^c, z_j^c]^T\)</span> 带入上式，而且把 <span class="math notranslate nohighlight">\(K\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\forall i, w_i \left[
+\begin{matrix}
+u_i\\v_i\\1
+\end{matrix}
+\right] = \left[
+\begin{matrix}
+f_u &amp; 0 &amp; u_c\\0 &amp; f_v &amp; v_c \\ 0 &amp; 0 &amp; 1
+\end{matrix}
+\right] \sum\limits_{j=1}^4 \alpha_{ij} \left[
+\begin{matrix}
+x_j^c\\ y_j^c \\ z_j^c
+\end{matrix}
+\right]\end{split}\]</div>
+<p>从上式可以得到两个线性方程：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{cases}
+\sum\limits_{j=1}^4 \alpha_{ij}f_ux_j^c + \alpha_{ij}(u_c-u_i)z_j^c = 0\\
+\sum\limits_{j=1}^4 \alpha_{ij}f_vy_j^c + \alpha_{ij}(v_c-v_j)z_j^c = 0
+\end{cases}\end{split}\]</div>
+<p>把所有 <span class="math notranslate nohighlight">\(n\)</span> 个点串联起来，我们可以得到一个线性方程组：</p>
+<div class="math notranslate nohighlight">
+\[Mx = 0\]</div>
+</div>
+<div class="admonition error">
+<p class="admonition-title">错误</p>
+<p>这里作者的代码忽略了内参，没看懂为什么？</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 
@@ -387,6 +648,7 @@ c_4^w = c_1^w + \sqrt{ \frac{\lambda_3}{n} } v_3 \\
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../P3P/P3P.html" class="btn btn-neutral float-left" title="2.1. P3P" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
