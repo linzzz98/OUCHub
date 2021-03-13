@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>2. ⭐ 从零开始部署个人博客 &mdash; OUC 0.1 文档</title>
+  <title>2. 从零开始部署个人博客 ⭐ &mdash; OUC 0.1 文档</title>
   
 
   
@@ -113,8 +113,17 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../o_others.html">🍺 Others</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../emoji/emoji.html">1. 如何在Splinx中使用Github Emoji表情 🔥</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">2. ⭐ 从零开始部署个人博客</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#git">2.1. 下载Git</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. 从零开始部署个人博客 ⭐</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#git">2.1. Git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#github">2.2. GitHub</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2.1. 远程仓库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2.2. 本地仓库</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id6">2.2.2.1. 初次部署</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id7">2.2.2.2. 后续同步</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -169,7 +178,7 @@
         
           <li><a href="../o_others.html">🍺 Others</a> &raquo;</li>
         
-      <li><span class="section-number">2. </span>⭐ 从零开始部署个人博客</li>
+      <li><span class="section-number">2. </span>从零开始部署个人博客 ⭐</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -189,9 +198,189 @@
            <div itemprop="articleBody">
             
   <div class="section" id="star">
-<h1><span class="section-number">2. </span>⭐ 从零开始部署个人博客<a class="headerlink" href="#star" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">2. </span>从零开始部署个人博客 ⭐<a class="headerlink" href="#star" title="永久链接至标题">¶</a></h1>
 <div class="section" id="git">
-<h2><span class="section-number">2.1. </span>下载Git<a class="headerlink" href="#git" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.1. </span>Git<a class="headerlink" href="#git" title="永久链接至标题">¶</a></h2>
+<p>👉 <a class="reference external" href="https://git-scm.com/downloads">下载戳我</a></p>
+<p>下载完成后一路安装即可</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<ol class="arabic simple">
+<li><p>select components 根据是否需要gui来勾选 Git GUI Here</p></li>
+<li><p>Choosing the default editor used by Git 选择默认Nano即可</p></li>
+</ol>
+</div>
+<p>安装完成后右键菜单就会出现Git GUI Here和Git Bash Here两个选项。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../_images/115.png"><img alt="../../../_images/115.png" src="../../../_images/115.png" style="width: 154.7px; height: 261.09999999999997px;" /></a>
+</div>
+<p>右键点击Git Bash Here会出现类似命令行的界面。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../_images/1.jpg"><img alt="../../../_images/1.jpg" src="../../../_images/1.jpg" style="width: 521.5px; height: 314.29999999999995px;" /></a>
+</div>
+</div>
+<div class="section" id="github">
+<h2><span class="section-number">2.2. </span>GitHub<a class="headerlink" href="#github" title="永久链接至标题">¶</a></h2>
+<p>👉 <a class="reference external" href="https://github.com/">链接戳我</a></p>
+<p>首先创建一个 <a class="reference external" href="https://github.com/join">GitHub账号</a></p>
+<p>创建完成后，需要新建一个GitHub仓库（Repository）</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../_images/2.jpg"><img alt="../../../_images/2.jpg" src="../../../_images/2.jpg" style="width: 230.29999999999998px; height: 196.0px;" /></a>
+</div>
+<p>输入仓库名称，选择Public， 勾选 Add a README file， 点击下面的Create repository</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../_images/3.jpg"><img alt="../../../_images/3.jpg" src="../../../_images/3.jpg" style="width: 695.0999999999999px; height: 724.5px;" /></a>
+</div>
+<p>点击头像右边的三角，可以查看你创建好的仓库</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../_images/4.jpg"><img alt="../../../_images/4.jpg" src="../../../_images/4.jpg" style="width: 196.0px; height: 431.9px;" /></a>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../_images/5.jpg" src="../../../_images/5.jpg" />
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">2.2.1. </span>远程仓库<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>以下命令行均使用Git Bash进行操作。</p>
+</div>
+<p>右键点击Git Bash Here</p>
+<p>使用以下命令生成 SSH Key：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>后面的 <a class="reference external" href="mailto:your_email&#37;&#52;&#48;youremail&#46;com">your_email<span>&#64;</span>youremail<span>&#46;</span>com</a> 改为在 Github 上注册的邮箱。</p>
+</div>
+<p>之后会要求确认路径和输入密码，使用默认的一路回车就行。</p>
+<p>成功的话会在 C:Users你的用户名 下生成 .ssh 文件夹，进去，打开 id_rsa.pub，复制里面的全部内容。</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>使用记事本打开id_rsa.pub</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh-keygen -t rsa -C &quot;test@youremail.com&quot;
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/Linzzz/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):    # 直接回车
+Enter same passphrase again:                   # 直接回车
+Your identification has been saved in /c/Users/Linzzz/.ssh/id_rsa.
+Your public key has been saved in /c/Users/Linzzz/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:MDKVidPTDXIQoJwoqUmI4LBAsg5XByBlrOEzkxrwARI test@youremail.com
+</pre></div>
+</div>
+<p>回到GitHub，进入 Account =&gt; Settings</p>
+<div class="align-center figure align-default">
+<img alt="../../../_images/6.jpg" src="../../../_images/6.jpg" />
+</div>
+<p>点击左边的SSH and GPG keys，然后点击 New SSH key 按钮,title 设置标题，可以随便填，粘贴在电脑上生成的 key</p>
+<div class="align-center figure align-default">
+<img alt="../../../_images/7.jpg" src="../../../_images/7.jpg" />
+</div>
+<p>添加成功后界面如下所示</p>
+<div class="align-center figure align-default">
+<img alt="../../../_images/8.jpg" src="../../../_images/8.jpg" />
+</div>
+<p>为了验证是否成功，输入以下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -T git@github.com
+</pre></div>
+</div>
+<p>然后输入yes，出现以下命令说明我们已成功连上 Github。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh -T git@github.com
+The authenticity of host &#39;github.com (52.74.223.119)&#39; can&#39;t be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes                  # 输入 yes
+Warning: Permanently added &#39;github.com,52.74.223.119&#39; (RSA) to the list of known hosts.
+Hi linzzz98! You&#39;ve successfully authenticated, but GitHub does not provide shell access. # 成功信息
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">2.2.2. </span>本地仓库<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id6">
+<h4><span class="section-number">2.2.2.1. </span>初次部署<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>在电脑需要同步到GitHub的工程，进入工程文件夹。</p>
+<p>右键点击Git Bash Here，然后依次输入下面的代码</p>
+<ol class="arabic">
+<li><p><strong>初始化</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">init</span>    <span class="c1"># 初始化————把这个文件夹变成Git可管理的仓库</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>这时你会发现test里面多了个.git文件夹，它是Git用来跟踪和管理版本库的，因为它默认是隐藏文件，要是看不到就设置下文件夹和搜索选项。</p>
+</div>
+</li>
+<li><p><strong>添加文件</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>   <span class="c1"># &quot;.&quot;代表这个test这个文件夹下的目录全部都提交。</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>注意. 和前面add 之间的空格</p>
+<p>也可以通过</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">文件名</span>
+</pre></div>
+</div>
+<p>提交指定的文件，把文件添加到缓存区</p>
+</div>
+</li>
+<li><p><strong>提交文件到本地仓库</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;这里面写你的注释&quot;</span>  <span class="c1"># 把文件提交的本地仓库</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>引号里写提交后的注释</p>
+<div class="align-center figure align-default">
+<img alt="../../../_images/10.jpg" src="../../../_images/10.jpg" />
+</div>
+</div>
+</li>
+<li><p><strong>连接远程仓库和本地仓库</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">SSH</span> <span class="c1"># 这里的SSH是GitHub仓库中的 Clone with SSH 里的key</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>在GitHub的仓库里选择自己需要部署的项目，点击code==&gt;SSH==&gt;复制框里的信息。</p>
+<div class="align-center figure align-default">
+<img alt="../../../_images/9.jpg" src="../../../_images/9.jpg" />
+</div>
+<p>替代上面代码的SSH</p>
+</div>
+</li>
+<li><p><strong>把本地库的所有内容推送到远程仓库</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">警告</p>
+<p>由于新建的远程仓库是空的，所以要加上-u这个参数。</p>
+<p>如果新建远程仓库不是空的，例如你勾选了 Initialize this repository with a README。那么你通过命令 $ git push -u origin master是会报错的，如下：</p>
+<p>这是由于你新创建的那个仓库里面的README文件不在本地仓库目录中，这时需要先通过以下命令先将内容合并：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">pull</span> <span class="o">--</span><span class="n">rebase</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+<p>然后再</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id7">
+<h4><span class="section-number">2.2.2.2. </span>后续同步<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>等远程仓库里面有了内容之后，下次再从本地库上传内容的时候只需下面这样就可以了：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
 </div>
 </div>
 
