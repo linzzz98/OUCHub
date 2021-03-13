@@ -1,9 +1,10 @@
-从零开始部署个人博客 |:star:|
-======================================
+从零开始部署个人博客 |:ledger:|
+===============================================
 
 Git
 ----------
-|:point_right:| \ `下载戳我 <https://git-scm.com/downloads>`_
+
+|:point_right:|  \ `下载戳我 <https://git-scm.com/downloads>`_
 
 下载完成后一路安装即可
 
@@ -27,9 +28,10 @@ Git
 
 GitHub
 ----------
-|:point_right:| \ `链接戳我  <https://github.com/>`_
 
-首先创建一个 \ `GitHub账号 <https://github.com/join>`_
+|:point_right:| `链接戳我 <https://github.com>`_
+
+首先创建一个 `GitHub账号 <https://github.com/join>`_
 
 创建完成后，需要新建一个GitHub仓库（Repository）
 
@@ -94,6 +96,7 @@ GitHub
 
 .. figure:: 6.jpg
    :figclass: align-center
+   :scale: 70%
 
 点击左边的SSH and GPG keys，然后点击 New SSH key 按钮,title 设置标题，可以随便填，粘贴在电脑上生成的 key
 
@@ -137,7 +140,7 @@ GitHub
 
    .. code-block::
 
-      git init    # 初始化————把这个文件夹变成Git可管理的仓库
+      git init
 
    .. tip::
 
@@ -147,10 +150,10 @@ GitHub
 
    .. code-block::
 
-      git add .   # "."代表这个test这个文件夹下的目录全部都提交。
+      git add .
 
    .. tip::
-      注意. 和前面add 之间的空格
+      注意. 和前面add 之间的空格，"."代表这个test这个文件夹下的目录全部都提交。
 
       也可以通过
 
@@ -164,7 +167,7 @@ GitHub
 
    .. code-block::
 
-      git commit -m "这里面写你的注释"  # 把文件提交的本地仓库
+      git commit -m "这里面写你的注释"
 
    .. tip::
 
@@ -177,9 +180,12 @@ GitHub
 
    .. code-block::
 
-      git remote add origin SSH # 这里的SSH是GitHub仓库中的 Clone with SSH 里的key
+      git remote add origin SSH
 
    .. tip::
+
+      这里的SSH是GitHub仓库中的 Clone with SSH 里的key
+
       在GitHub的仓库里选择自己需要部署的项目，点击code==>SSH==>复制框里的信息。
 
       .. figure:: 9.jpg
@@ -198,7 +204,6 @@ GitHub
       由于新建的远程仓库是空的，所以要加上-u这个参数。
 
       如果新建远程仓库不是空的，例如你勾选了 Initialize this repository with a README。那么你通过命令 $ git push -u origin master是会报错的，如下：
-
 
       这是由于你新创建的那个仓库里面的README文件不在本地仓库目录中，这时需要先通过以下命令先将内容合并：
 
@@ -219,6 +224,81 @@ GitHub
 
    .. code-block::
 
+      git add .
+
+      git commit -m "更新备注"
+
       git push origin master
 
+ReadTheDocs
+--------------
 
+|:point_right:| \ `官网戳我  <https://readthedocs.org/>`_
+
+进入后右上角注册账号，然后点击我的项目
+
+.. figure:: 11.jpg
+   :figclass: align-center
+   :scale: 70%
+
+进入后点击import project导入github的项目
+
+.. figure:: 12.jpg
+   :figclass: align-center
+   :scale: 70%
+
+如果左边栏没有项目的话，点击手动导入
+
+.. figure:: 13.jpg
+   :figclass: align-center
+
+.. figure:: 14.jpg
+   :figclass: align-center
+   :scale: 70%
+
+.. important::
+
+   记得勾选编辑项目高级属性
+
+在高级属性里选择项目语言为Simplified Chinese
+
+.. figure:: 15.jpg
+   :figclass: align-center
+   :scale: 70%
+
+成功导入后，会显示在项目栏中：
+
+.. figure:: 16.jpg
+   :figclass: align-center
+
+点击进入项目，可以查看项目的详细信息
+
+.. figure:: 17.jpg
+   :figclass: align-center
+   :scale: 70%
+
+点击 ``管理`` ==> ``高级设置`` 修改默认版本和默认分支
+
+.. figure:: 18.jpg
+   :figclass: align-center
+
+.. important::
+
+   需要在项目仓库的本地添加一个txt文档，用于告知ReadTheDocs这个项目添加了什么包
+
+   .. figure:: 19.jpg
+      :figclass: align-center
+      :scale: 70%
+
+   该配置文件内容如下（列出所有pip的文件）
+
+   .. figure:: 20.jpg
+      :figclass: align-center
+      :scale: 70%
+
+成功构建后，点击 ``构建`` 可以查看当前项目的构建完成情况和历史构建情况
+
+.. figure:: 21.jpg
+   :figclass: align-center
+
+当提示通过时，说明构建成功， 点击阅读文档即可进入部署的博客辣 |:+1:|
