@@ -74,7 +74,7 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
    \end{matrix}
    \right]
 
-进而|:point_down:| ：
+进而 |:point_down:| ：
 
 .. math::
 

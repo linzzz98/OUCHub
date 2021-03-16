@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>2.1. P3P &mdash; OUC 0.1 文档</title>
+  <title>2.1. P3P &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -60,7 +60,7 @@
           
 
           
-            <a href="../../../../../../index.html" class="icon icon-home"> OUC
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
           
 
           
@@ -94,14 +94,21 @@
               
             
             
-              <p class="caption"><span class="caption-text">论文学习</span></p>
+              <p class="caption"><span class="caption-text">基础知识</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">Structure from Motion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">Others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../../c_estimator.html">Estimator</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../Utils/Utils.html">1. Utils</a></li>
@@ -119,6 +126,10 @@
 </ul>
 </li>
 </ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
 
             
           
@@ -133,7 +144,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../../../index.html">OUC</a>
+          <a href="../../../../../../index.html">OUCHub</a>
         
       </nav>
 
@@ -166,7 +177,7 @@
     
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../../c_colmap.html">Colmap</a> &raquo;</li>
+          <li><a href="../../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
         
           <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
         
@@ -539,8 +550,8 @@
 </pre></div>
 </div>
 <p>参考：</p>
-<p>《R. A. Horn &amp; C. R. Johnson, Matrix Analysis. Cambridge, UK:
-Cambridge University Press, 1999, pp. 146 3.3.11， 149 11》</p>
+<p>《R. A. Horn &amp; C. R. Johnson, Matrix Analysis. Cambridge, UK: Cambridge University Press, 1999, pp. 146 3.3.11， 149 11》</p>
+<p>《X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang. Complete Solution Classification for the Perspective-Three-Point Problem.》</p>
 <p>回到P3P源码：</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 求解多项式f1的实数解和虚数解</span>
 <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">roots_real</span><span class="p">;</span>

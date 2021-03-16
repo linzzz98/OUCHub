@@ -4,8 +4,8 @@ Refractive laser triangulation and photometric stereo in underwater environment
 
 \ `原文链接 <https://researchportal.port.ac.uk/portal/files/8012742/Refractive_Laser_Triangulation_and_Photometric_OE2017.pdf>`_
 
-.. figure:: 1.png
-    :figclass: align-center
+.. figure:: 2.png
+   :figclass: align-center
 
 相机处于防水外壳中。 相机的光轴垂直于外壳接口。
 根据透视投影，可以将虚拟点设置为沿OM的延长线的任何位置。

@@ -55,7 +55,6 @@ DecomposeEssentialMatrix
 
     .. math::
 
-
        S=kUZU^T
 
     其中，\ :math:`U`\ 是正交矩阵，\ :math:`Z = diag(1,1,0)W`
@@ -64,13 +63,11 @@ DecomposeEssentialMatrix
 
     .. math::
 
-
        S = kUdiag(1,1,0)WU^T
 
     即：
 
     .. math::
-
 
        E = Udiag(1,1,0)WU^TR
 
@@ -78,18 +75,19 @@ DecomposeEssentialMatrix
 
     .. math::
 
-
        WU^TR = V^T
 
     由于\ :math:`E`\ 和\ :math:`-E`\ 等价则有两种可能：
 
     .. math::
 
+      \begin{eqnarray}
+      R &=& UW^TV^T\\
+      R &=& U(-W^T)V^T = UWV^T
+      \end{eqnarray}
 
-       R = UW^TV^T\\
-       R = U(-W^T)V^T = UWV^T
 
-    :math:`t^∧ = S`\ ，忽略\ :math:`k`\ ，化简后得到\ :math:`t = U.col(2)`\ (U的最后一列)
+    :math:`t^∧ = S`\ ，忽略\ :math:`k`\ ，化简后得到\ :math:`t = U.col(2)`\ （U的最后一列）
 
     找到特征点在两个相机位姿下的深度均为正的解。
 
@@ -128,11 +126,15 @@ PoseFromEssentialMatrix
       const std::array<Eigen::Vector3d, 4> t_cmbs{{*t, *t, -*t, -*t}};
 
       points3D->clear();
+
       for (size_t i = 0; i < R_cmbs.size(); ++i) {
+
         std::vector<Eigen::Vector3d> points3D_cmb;
+
         // 进行cheirality约束测试，即确定哪个三角对应关系位于两个摄像机的前面。
         // -- 该函数在pose.h中 -- //
         CheckCheirality(R_cmbs[i], t_cmbs[i], points1, points2, &points3D_cmb);
+
         if (points3D_cmb.size() >= points3D->size()) {
           *R = R_cmbs[i];
           *t = t_cmbs[i];
@@ -165,9 +167,12 @@ EssentialMatrixFromPose
     }
 
     Eigen::Matrix3d CrossProductMatrix(const Eigen::Vector3d& vector) {
+
       Eigen::Matrix3d matrix;
+
       matrix << 0, -vector(2), vector(1), vector(2), 0, -vector(0), -vector(1),
           vector(0), 0;
+
       return matrix;
     }
 
@@ -282,12 +287,19 @@ EpipoleFromEssentialMatrix
     Eigen::Vector3d EpipoleFromEssentialMatrix(const Eigen::Matrix3d& E,
                                                const bool left_image) {
       Eigen::Vector3d e;
+
       if (left_image) {
+
         Eigen::JacobiSVD<Eigen::Matrix3d> svd(E, Eigen::ComputeFullV);
+
         e = svd.matrixV().block<3, 1>(0, 2);
+
       } else {
+
         Eigen::JacobiSVD<Eigen::Matrix3d> svd(E.transpose(), Eigen::ComputeFullV);
+
         e = svd.matrixV().block<3, 1>(0, 2);
+
       }
       return e;
     }
@@ -340,7 +352,9 @@ RefineRelativePose”将基本矩阵分解为旋转和平移分量，并refine�
 
       std::vector<Eigen::Vector2d> inlier_points1(num_inliers);
       std::vector<Eigen::Vector2d> inlier_points2(num_inliers);
+
       size_t j = 0;
+
       for (size_t i = 0; i < inlier_mask.size(); ++i) {
         if (inlier_mask[i]) {
           inlier_points1[j] = points1[i];

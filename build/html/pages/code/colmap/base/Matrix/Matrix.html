@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6. Matrix &mdash; OUC 0.1 文档</title>
+  <title>6. Matrix &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -60,7 +60,7 @@
           
 
           
-            <a href="../../../../../index.html" class="icon icon-home"> OUC
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
           
 
           
@@ -94,14 +94,21 @@
               
             
             
-              <p class="caption"><span class="caption-text">论文学习</span></p>
+              <p class="caption"><span class="caption-text">基础知识</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">Structure from Motion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">Others</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">Colmap</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../Camera/Camera.html">1. Camera</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../VisibilityPyramid/VisibilityPyramid.html">2. VisibilityPyramid</a></li>
@@ -147,6 +154,10 @@
 </ul>
 </li>
 </ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
 
             
           
@@ -161,7 +172,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../../index.html">OUC</a>
+          <a href="../../../../../index.html">OUCHub</a>
         
       </nav>
 
@@ -194,7 +205,7 @@
     
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../c_colmap.html">Colmap</a> &raquo;</li>
+          <li><a href="../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
         
           <li><a href="../../c_base.html">Base</a> &raquo;</li>
         
@@ -279,9 +290,11 @@
 \[WU^TR = V^T\]</div>
 <p>由于<span class="math notranslate nohighlight">\(E\)</span>和<span class="math notranslate nohighlight">\(-E\)</span>等价则有两种可能：</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}R = UW^TV^T\\
-R = U(-W^T)V^T = UWV^T\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(t^∧ = S\)</span>，忽略<span class="math notranslate nohighlight">\(k\)</span>，化简后得到<span class="math notranslate nohighlight">\(t = U.col(2)\)</span>(U的最后一列)</p>
+\[\begin{split}\begin{eqnarray}
+R &amp;=&amp; UW^TV^T\\
+R &amp;=&amp; U(-W^T)V^T = UWV^T
+\end{eqnarray}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(t^∧ = S\)</span>，忽略<span class="math notranslate nohighlight">\(k\)</span>，化简后得到<span class="math notranslate nohighlight">\(t = U.col(2)\)</span>（U的最后一列）</p>
 <p>找到特征点在两个相机位姿下的深度均为正的解。</p>
 </div>
 </div>
@@ -318,11 +331,15 @@ R = U(-W^T)V^T = UWV^T\end{split}\]</div>
   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="p">,</span> <span class="mi">4</span><span class="o">&gt;</span> <span class="n">t_cmbs</span><span class="p">{{</span><span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">-*</span><span class="n">t</span><span class="p">,</span> <span class="o">-*</span><span class="n">t</span><span class="p">}};</span>
 
   <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
+
   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">R_cmbs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D_cmb</span><span class="p">;</span>
+
     <span class="c1">// 进行cheirality约束测试，即确定哪个三角对应关系位于两个摄像机的前面。</span>
     <span class="c1">// -- 该函数在pose.h中 -- //</span>
     <span class="n">CheckCheirality</span><span class="p">(</span><span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points3D_cmb</span><span class="p">);</span>
+
     <span class="k">if</span> <span class="p">(</span><span class="n">points3D_cmb</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">points3D</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
       <span class="o">*</span><span class="n">R</span> <span class="o">=</span> <span class="n">R_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
       <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="n">t_cmbs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
@@ -353,9 +370,12 @@ R = U(-W^T)V^T = UWV^T\end{split}\]</div>
 <span class="p">}</span>
 
 <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">CrossProductMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">vector</span><span class="p">)</span> <span class="p">{</span>
+
   <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">matrix</span><span class="p">;</span>
+
   <span class="n">matrix</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">vector</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
       <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">;</span>
+
   <span class="k">return</span> <span class="n">matrix</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -463,12 +483,19 @@ in right image.</p></li>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">EpipoleFromEssentialMatrix</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span>
                                            <span class="k">const</span> <span class="kt">bool</span> <span class="n">left_image</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">e</span><span class="p">;</span>
+
   <span class="k">if</span> <span class="p">(</span><span class="n">left_image</span><span class="p">)</span> <span class="p">{</span>
+
     <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+
     <span class="n">e</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
     <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">svd</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+
     <span class="n">e</span> <span class="o">=</span> <span class="n">svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">e</span><span class="p">;</span>
 <span class="p">}</span>
@@ -521,7 +548,9 @@ RefineRelativePose”将基本矩阵分解为旋转和平移分量，并refine�
 
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points1</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points2</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
+
   <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inlier_mask</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
       <span class="n">inlier_points1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>

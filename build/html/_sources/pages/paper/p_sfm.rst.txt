@@ -12,6 +12,7 @@
    sfm/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
    sfm/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation
    sfm/View_Graph_Construction/View_Graph_Construction
+   sfm/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
@@ -29,6 +30,7 @@
 
 |:star:| \ **相机位姿(Camera Pose)**\
 
+* :doc:`[TPAMI 2004] An efficient solution to the five-point relative pose problem <sfm/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem>`
 * :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
 * :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
 

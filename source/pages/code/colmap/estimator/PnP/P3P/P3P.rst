@@ -379,8 +379,9 @@ P3P(透视三点)问题的解析求解器。
 
     参考：
 
-    《R. A. Horn & C. R. Johnson, Matrix Analysis. Cambridge, UK:
-    Cambridge University Press, 1999, pp. 146 3.3.11， 149 11》
+    《R. A. Horn & C. R. Johnson, Matrix Analysis. Cambridge, UK: Cambridge University Press, 1999, pp. 146 3.3.11， 149 11》
+
+    《X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang. Complete Solution Classification for the Perspective-Three-Point Problem.》
 
     回到P3P源码：
 

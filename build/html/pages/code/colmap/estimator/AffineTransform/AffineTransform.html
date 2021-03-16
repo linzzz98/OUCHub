@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. AffineTransform &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="prev" title="2.2. EPnP" href="../PnP/EPnP/EPnP.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">1. Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">2. PnP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. AffineTransform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">3.1. 成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.2. 成员函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>AffineTransform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/AffineTransform/AffineTransform.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="affinetransform">
+<h1><span class="section-number">3. </span>AffineTransform<a class="headerlink" href="#affinetransform" title="永久链接至标题">¶</a></h1>
+<p>非齐次坐标的仿射变换：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\tilde{x}\\ \tilde{y}
+\end{matrix}
+\right]=
+\left[
+\begin{matrix}
+a_{11} &amp; a_{12} \\a_{21} &amp; a_{22}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+x\\y
+\end{matrix}
+\right]+
+\left[
+\begin{matrix}
+a_{13}\\a_{23}
+\end{matrix}
+\right]\end{split}\]</div>
+<p>齐次坐标的仿射变换：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\tilde{x}\\ \tilde{y}\\ 1
+\end{matrix}
+\right] = A
+\left[
+\begin{matrix}
+x\\y\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>仿射变换矩阵：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13}\\a_{21}  &amp; a_{22} &amp; a_{23}\\0 &amp; 0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>齐次坐标的平移变换过程：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\tilde{x}\\ \tilde{y}\\ 1
+\end{matrix}
+\right] =
+\left[
+\begin{matrix}
+1 &amp; 0 &amp; \Delta x\\ 0 &amp; 1 &amp; \Delta y \\ 0 &amp; 0 &amp; 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+x\\y\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><span class="math notranslate nohighlight">\(\Delta x &gt; 0\)</span> 表示沿 <span class="math notranslate nohighlight">\(x\)</span> 轴正方向移动，    <span class="math notranslate nohighlight">\(\Delta x &lt; 0\)</span> 表示沿 <span class="math notranslate nohighlight">\(x\)</span> 轴负方向移动</p>
+<p><span class="math notranslate nohighlight">\(\Delta y &gt; 0\)</span> 表示沿 <span class="math notranslate nohighlight">\(y\)</span> 轴正方向移动，    <span class="math notranslate nohighlight">\(\Delta y &lt; 0\)</span> 表示沿 <span class="math notranslate nohighlight">\(y\)</span> 轴负方向移动</p>
+</div>
+<p>齐次坐标的缩放变换过程：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\tilde{x}\\ \tilde{y}\\ 1
+\end{matrix}
+\right] =
+\left[
+\begin{matrix}
+S_x &amp; 0 &amp; 0\\ 0 &amp; S_y &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+x\\y\\1
+\end{matrix}
+\right]\end{split}\]</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>若 <span class="math notranslate nohighlight">\(S_x &gt; 1\)</span> 表示沿着水平方向放大， <span class="math notranslate nohighlight">\(0 &lt; S_x &lt; 1\)</span> 表示沿着水平方向缩小</p>
+<p>若 <span class="math notranslate nohighlight">\(S_y &gt; 1\)</span> 表示沿着垂直方向放大， <span class="math notranslate nohighlight">\(0 &lt; S_y &lt; 1\)</span> 表示沿着垂直方向缩小</p>
+<p>若  <span class="math notranslate nohighlight">\(S_x = S_y\)</span> 则表示等比例缩放</p>
+</div>
+<p>齐次坐标的旋转变换过程：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+\tilde{x}\\ \tilde{y}\\ 1
+\end{matrix}
+\right] =
+\left[
+\begin{matrix}
+cos\theta &amp; -sin\theta &amp; 0 \\ sin\theta &amp; cos\theta &amp; 0 \\ 0 &amp; 0 &amp; 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+x\\y\\1
+\end{matrix}
+\right]\end{split}\]</div>
+</div></blockquote>
+<div class="section" id="id1">
+<h2><span class="section-number">3.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>2D图像特征观察值</p>
+<dl class="object">
+<dt>
+<code class="sig-name descname">typedef Eigen::Vector2d X_t;</code></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>世界框架中观察到的3D特征</p>
+<blockquote>
+<div><dl class="object">
+<dt>
+<code class="sig-name descname">typedef Eigen::Vector2d Y_t;</code></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>从世界到相机框架的转变</p>
+<blockquote>
+<div><dl class="object">
+<dt>
+<code class="sig-name descname">typedef Eigen::Matrix&lt;double, 2, 3&gt; M_t;</code></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+<li><p>估计模型所需的最少样本数</p>
+<blockquote>
+<div><dl class="object">
+<dt>
+<code class="sig-name descname">static const int kMinNumSamples = 3;</code></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">3.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Estimate</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
+<span id="_CPPv3N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="AffineTransformEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><em class="property">static</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43M_t" title="M_t">M_t</a>&gt; <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43X_t" title="X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43Y_t" title="Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">AffineTransformEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">AffineTransformEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+  <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">3</span><span class="p">);</span>
+
+  <span class="c1">// 设置要求解的线性系统，以获得仿射变换的最小二乘解。</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">.</span><span class="n">setZero</span><span class="p">();</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+    <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">x2</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+    <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">x2</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">nullspace</span> <span class="o">=</span>
+      <span class="n">C</span><span class="p">.</span><span class="n">jacobiSvd</span><span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeThinU</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeThinV</span><span class="p">).</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Map</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;&gt;</span> <span class="n">A_t</span><span class="p">(</span><span class="n">nullspace</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="n">A_t</span><span class="p">.</span><span class="n">transpose</span><span class="p">()};</span>
+  <span class="k">return</span> <span class="n">models</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>使用最小二乘解来求解仿射变换矩阵</p>
+<p>分别设起始和结束矩阵的坐标为 <span class="math notranslate nohighlight">\((a_x,a_y),(b_x,b_y),(c_x,c_y)\)</span> ，变换后为 <span class="math notranslate nohighlight">\((a_x',a_y'),(b_x',b_y'),(c_x',c_y')\)</span></p>
+<p>新坐标的 <span class="math notranslate nohighlight">\(X\)</span> 值，是需要原坐标的 <span class="math notranslate nohighlight">\((x,y)\)</span> 值参与过来进行变化的（乘以合适的系数），然后还要加上偏移的系数。</p>
+<p>变换方程为 <span class="math notranslate nohighlight">\(a_x' = a_x m_{00} + a_y m_{01} + m_{02}\)</span></p>
+<p>根据矩阵特征，补充一列1，构造矩阵：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+a_x &amp; a_y &amp; 1\\b_x &amp; b_y &amp; 1\\c_x &amp; c_y &amp; 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+m_{00}\\m_{01}\\m_{02}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+a_x'\\b_x'\\c_x'
+\end{matrix}
+\right]\end{split}\]</div>
+<p>这只是变换了 <span class="math notranslate nohighlight">\(a_x,b_x,c_x\)</span> ，其实也可以认为变换了 <span class="math notranslate nohighlight">\(y\)</span> （原理一样，系数不同）。</p>
+<p>要求另一半，根据坐标相乘的原理，只能把前三列置零，再把后三列复制进去（仿射矩阵变为 <span class="math notranslate nohighlight">\(6\times 1\)</span> ），其实就是上面矩阵乘法的重复，只不过交错一下形成 <span class="math notranslate nohighlight">\(x,y\)</span> 交错的排列：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+a_x &amp; a_y &amp; 1 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; a_x &amp; a_y &amp; 1\\b_x &amp; b_y &amp; 1 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; b_x &amp; b_y &amp; 1\\c_x &amp; c_y &amp; 1 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 0 &amp; c_x &amp; c_y &amp; 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+m_{00}\\m_{01}\\m_{02}\\m_{10}\\m_{11}\\m_{12}
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+a_x'\\a_y'\\b_x'\\b_y'\\c_x'\\c_y'
+\end{matrix}
+\right]\end{split}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">6</span><span class="p">);</span>
+<span class="n">C</span><span class="p">.</span><span class="n">setZero</span><span class="p">();</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">x2</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="n">x1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">x2</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>接下来通过SVD奇异值分解，求解零空间，也就是 <span class="math notranslate nohighlight">\(m_{00} ———— m_{12}\)</span></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">nullspace</span> <span class="o">=</span> <span class="n">C</span><span class="p">.</span><span class="n">jacobiSvd</span><span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeThinU</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeThinV</span><span class="p">).</span><span class="n">solve</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>最后将其变为 <span class="math notranslate nohighlight">\(3\times 2\)</span> 维矩阵 <span class="math notranslate nohighlight">\(A_t\)</span> ，最后求转置即维仿射变换矩阵 <span class="math notranslate nohighlight">\(2\times 3\)</span></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../PnP/EPnP/EPnP.html" class="btn btn-neutral float-left" title="2.2. EPnP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

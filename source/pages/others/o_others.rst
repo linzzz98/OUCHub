@@ -12,3 +12,8 @@
    emoji/emoji
    buildRTD/buildRTD
 
+.. t
+
+* :doc:`从零开始部署个人博客 <buildRTD/buildRTD>` |:fire:| |:fire:| |:fire:|
+
+* :doc:`在Splinx中使用GitHub Emoji <emoji/emoji>` |:laughing:|

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>2. SVD分解 &mdash; OUC 0.1 文档</title>
+  <title>2. SVD奇异值分解 &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -60,7 +60,7 @@
           
 
           
-            <a href="../../../../../index.html" class="icon icon-home"> OUC
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
           
 
           
@@ -99,7 +99,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../../k_MH.html">💊 Math</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../Matrix.html">🍤 Matrix</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../PCA/PCA.html">1. PCA（主成分分析）</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2. SVD分解</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. SVD奇异值分解</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2.1. 特征值和特征向量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.2. 特征分解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.3. SVD分解</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.4. SVD分解的意义</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -135,7 +141,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../../index.html">OUC</a>
+          <a href="../../../../../index.html">OUCHub</a>
         
       </nav>
 
@@ -172,7 +178,7 @@
         
           <li><a href="../Matrix.html">🍤 Matrix</a> &raquo;</li>
         
-      <li><span class="section-number">2. </span>SVD分解</li>
+      <li><span class="section-number">2. </span>SVD奇异值分解</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -192,7 +198,154 @@
            <div itemprop="articleBody">
             
   <div class="section" id="svd">
-<h1><span class="section-number">2. </span>SVD分解<a class="headerlink" href="#svd" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">2. </span>SVD奇异值分解<a class="headerlink" href="#svd" title="永久链接至标题">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本篇部分参考自 👉  <a class="reference external" href="https://zhuanlan.zhihu.com/p/29846048">《奇异值分解（SVD）》</a></p>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">2.1. </span>特征值和特征向量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>特征值和特征向量的定义如下：</p>
+<div class="math notranslate nohighlight">
+\[Ax = \lambda x\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(A\)</span> 一个 <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵，  <span class="math notranslate nohighlight">\(x\)</span> 是一个  <span class="math notranslate nohighlight">\(n\)</span>  维向量， 则 <span class="math notranslate nohighlight">\(\lambda\)</span> 是矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的一个特征值，而 <span class="math notranslate nohighlight">\(x\)</span> 是矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的特征值 <span class="math notranslate nohighlight">\(\lambda\)</span> 所对应的特征向量。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">2.2. </span>特征分解<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>求出特征值和特征向量的好处在于可以将矩阵 <span class="math notranslate nohighlight">\(A\)</span> 进行特征分解。</p>
+<p>如果求出了矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 个特征值 <span class="math notranslate nohighlight">\(\lambda_1 \le \lambda_2 \le ... \lambda_n\)</span> 以及这 <span class="math notranslate nohighlight">\(n\)</span> 个特征值所对应的特征向量 <span class="math notranslate nohighlight">\(w_1, w_2, ..., w_n\)</span></p>
+<p>那么矩阵 <span class="math notranslate nohighlight">\(A\)</span> 就可以用下面的特征分解表示</p>
+<div class="math notranslate nohighlight">
+\[A = W \Sigma W^{-1}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(W\)</span> 是这 <span class="math notranslate nohighlight">\(n\)</span> 个特征向量所组成的 <span class="math notranslate nohighlight">\(n \times n\)</span> 维矩阵，而 <span class="math notranslate nohighlight">\(\Sigma\)</span> 是这 <span class="math notranslate nohighlight">\(n\)</span> 个特征值为主对角线的 <span class="math notranslate nohighlight">\(n \times n\)</span> 维矩阵。</p>
+<p>一般我们会把 <span class="math notranslate nohighlight">\(W\)</span> 的这 <span class="math notranslate nohighlight">\(n\)</span> 个特征向量标准化，即满足 <span class="math notranslate nohighlight">\(||w_i||_2 = 1\)</span> ，或者 <span class="math notranslate nohighlight">\(w_i^Tw_i = 1\)</span> ，此时 <span class="math notranslate nohighlight">\(W\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 个特征向量称为标准正交基，满足 <span class="math notranslate nohighlight">\(W^TW = I\)</span> ， 即 <span class="math notranslate nohighlight">\(W^T = W^{-1}\)</span> ，也就是说 <span class="math notranslate nohighlight">\(W\)</span> 是酉矩阵。</p>
+<p>这样特征分解表达式可以写成</p>
+<div class="math notranslate nohighlight">
+\[A = W \Sigma W^T\]</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>注意到要进行特征分解，矩阵A必须为方阵。</p>
+<p>那么如果A不是方阵，即行和列不相同时，还可以对矩阵进行分解吗？ 👉 SVD 分解</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">2.3. </span>SVD分解<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。</p>
+</div>
+<p>假设矩阵A是一个m×n的矩阵，那么定义矩阵A的SVD为：</p>
+<div class="math notranslate nohighlight">
+\[A = U \Sigma V^T\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(U\)</span>  是一个  <span class="math notranslate nohighlight">\(m \times m\)</span> 的矩阵，  <span class="math notranslate nohighlight">\(\Sigma\)</span> 是一个  <span class="math notranslate nohighlight">\(m \times n\)</span> 的矩阵，除了主对角线上的元素以外全为0，主对角线上的每个元素都称为奇异值。 <span class="math notranslate nohighlight">\(V\)</span> 是一个  <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵， <span class="math notranslate nohighlight">\(U\)</span> 和  <span class="math notranslate nohighlight">\(V\)</span> 都是酉矩阵， 满足：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+U^TU &amp;=&amp; I\\
+V^TV &amp;=&amp; I
+\end{eqnarray}\end{split}\]</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/110.jpg" src="../../../../../_images/110.jpg" />
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>如何求出SVD分解后的 <span class="math notranslate nohighlight">\(U, \Sigma, V\)</span> 这三个矩阵呢？ 😅</p>
+<p>将 <span class="math notranslate nohighlight">\(A^T\)</span> 和 <span class="math notranslate nohighlight">\(A\)</span> 做矩阵乘法，那么会得到 <span class="math notranslate nohighlight">\(n \times n\)</span> 的一个方阵 <span class="math notranslate nohighlight">\(A^TA\)</span></p>
+<p>注意到 <span class="math notranslate nohighlight">\(A^TA\)</span> 是方阵， 那么可以进行特征分解。</p>
+<p>将 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(A^T\)</span> 做矩阵乘法，那么会得到 <span class="math notranslate nohighlight">\(m \times m\)</span> 的一个方阵 <span class="math notranslate nohighlight">\(AA^T\)</span></p>
+<p>注意到 <span class="math notranslate nohighlight">\(AA^T\)</span> 是方阵， 那么可以进行特征分解。</p>
+</div>
+<p>分解 <span class="math notranslate nohighlight">\(A^TA\)</span> 得到特征值和特征向量满足下式：</p>
+<div class="math notranslate nohighlight">
+\[(A^TA)v_i = \lambda_i v_i\]</div>
+<p>这样就可以得到矩阵 <span class="math notranslate nohighlight">\(A^TA\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 个特征值和对应的  <span class="math notranslate nohighlight">\(n\)</span> 个特征向量 <span class="math notranslate nohighlight">\(v\)</span> 了。</p>
+<p>将 <span class="math notranslate nohighlight">\(A^TA\)</span> 的所有特征向量组成一个 <span class="math notranslate nohighlight">\(n\)</span> 的矩阵 <span class="math notranslate nohighlight">\(V\)</span> ，就是SVD公式里的 <span class="math notranslate nohighlight">\(V\)</span> 矩阵。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>一般把  <span class="math notranslate nohighlight">\(V\)</span> 中的每个特征向量叫做 <span class="math notranslate nohighlight">\(A\)</span> 的右奇异向量</p>
+</div>
+<p>分解 <span class="math notranslate nohighlight">\(AA^T\)</span> 得到特征值和特征向量满足下式：</p>
+<div class="math notranslate nohighlight">
+\[(AA^T)u_i = \lambda_i u_i\]</div>
+<p>这样可以得到矩阵 <span class="math notranslate nohighlight">\(AA^T\)</span> 的 <span class="math notranslate nohighlight">\(m\)</span> 个特征值和对应的 <span class="math notranslate nohighlight">\(m\)</span> 个特征向量  <span class="math notranslate nohighlight">\(u\)</span> 了。</p>
+<p>将 <span class="math notranslate nohighlight">\(AA^T\)</span> 的所有特征向量组成一个 <span class="math notranslate nohighlight">\(m\)</span> 的矩阵 <span class="math notranslate nohighlight">\(U\)</span> ，就是SVD公式里的 <span class="math notranslate nohighlight">\(U\)</span> 矩阵。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>一般把  <span class="math notranslate nohighlight">\(U\)</span> 中的每个特征向量叫做 <span class="math notranslate nohighlight">\(A\)</span> 的左奇异向量</p>
+</div>
+<p>由于 <span class="math notranslate nohighlight">\(\Sigma\)</span> 除了对角线上是奇异值其他位置都是0，那我们只需要求出每个奇异值 <span class="math notranslate nohighlight">\(\sigma\)</span> 就可以了。</p>
+<p>注意到：</p>
+<div class="math notranslate nohighlight">
+\[A = U\Sigma V^T \Rightarrow AV = U\Sigma V^T V \Rightarrow AV = U\Sigma \Rightarrow Av_i = \sigma_i u_i \Rightarrow \sigma_i = A v_i / u_i\]</div>
+<p>这样我们可以求出我们的每个奇异值，进而求出奇异值矩阵 <span class="math notranslate nohighlight">\(\Sigma\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>之前说 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的矩阵就是  <span class="math notranslate nohighlight">\(V\)</span>  矩阵，<span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是 <span class="math notranslate nohighlight">\(U\)</span> 矩阵， 依据是什么？</p>
+<p>以  <span class="math notranslate nohighlight">\(V\)</span> 矩阵的证明为例：</p>
+<div class="math notranslate nohighlight">
+\[A = U\Sigma V^T \Rightarrow A^T = V\Sigma U^T \Rightarrow A^TA = V\Sigma U^TU \Sigma V^T = V \Sigma^2 V^T\]</div>
+<p>上式证明使用了 <span class="math notranslate nohighlight">\(U U^T = I\)</span> ，  <span class="math notranslate nohighlight">\(\Sigma ^T = \Sigma\)</span></p>
+<p>可以看出 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的的确就是SVD中的  <span class="math notranslate nohighlight">\(V\)</span> 矩阵。类似的方法可以得到 <span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是SVD中的 <span class="math notranslate nohighlight">\(U\)</span> 矩阵。</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>进一步还可以看出特征值矩阵等于奇异值矩阵的平方，也就是说特征值和奇异值满足如下关系：</p>
+<div class="math notranslate nohighlight">
+\[\sigma_i = \sqrt{\lambda_i}\]</div>
+<p>这样也就是说，可以不用  <span class="math notranslate nohighlight">\(\sigma_i = \frac{A v_i}{u_i}\)</span> 计算奇异值，也可以通过求出 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征值取平方根来求奇异值。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">2.4. </span>SVD分解的意义<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>在奇异值矩阵中奇异值是按照从大到小排列，而且奇异值的减少特别的快，在很多情况下，前10%甚至1%的奇异值的和就占了全部的奇异值之和的99%以上的比例。</p>
+<p>也就是说，可以用最大的k个的奇异值和对应的左右奇异向量来近似描述矩阵。</p>
+<div class="math notranslate nohighlight">
+\[A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T \approx U_{m \times k} \Sigma_{k \times k} V^T_{k \times n}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(k\)</span> 要比 <span class="math notranslate nohighlight">\(n\)</span> 小很多，也就是一个大的矩阵 <span class="math notranslate nohighlight">\(A\)</span> 可以用三个小的矩阵  <span class="math notranslate nohighlight">\(U_{m\times k}\)</span>、 <span class="math notranslate nohighlight">\(\Sigma_{k \times k}\)</span>、  <span class="math notranslate nohighlight">\(V^T_{k \times n}\)</span> 来表示。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/24.jpg" src="../../../../../_images/24.jpg" />
+</div>
+</div>
+<p>SVD分解后，矩阵 <span class="math notranslate nohighlight">\(A\)</span> 可以展开成：</p>
+<div class="math notranslate nohighlight">
+\[A = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + ... + s_k u_k v_k^T (k &lt; n)\]</div>
+<p>其中等式右边每一项前的系数 <span class="math notranslate nohighlight">\(\sigma\)</span> 就是奇异值， <span class="math notranslate nohighlight">\(u\)</span> 和  <span class="math notranslate nohighlight">\(v\)</span> 分别表示列向量， 每一项 <span class="math notranslate nohighlight">\(uv^T\)</span> 都是秩为1的矩阵。 假定奇异值满足： <span class="math notranslate nohighlight">\(\sigma_1 \ge \sigma_2 \ge ... \ge \sigma_r &gt; 0\)</span></p>
+<p>SVD应用就是图像压缩存储，因为数字图像本身就是个矩阵，通过上面所说的近似的低秩小矩阵替代原矩阵，可以大大减少存储量</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/33.jpg" src="../../../../../_images/33.jpg" />
+</div>
+<p>可以看到上面的图像中，只保留第一项 <span class="math notranslate nohighlight">\(A_1 = \sigma_1 u_1 v_1^T\)</span> ，作图为  <span class="math notranslate nohighlight">\(k = 1\)</span> 看不清楚是什么图像。</p>
+<p>随着不断的添加项进来 <span class="math notranslate nohighlight">\(A_5 = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + \sigma_3 u_3 v_3^T + \sigma_4 u_4 v_4^T + \sigma_5 u_5 v_5^T\)</span>，
+基本可以辨别图像的模糊特征。</p>
+<p>当奇异值个数 <span class="math notranslate nohighlight">\(k = 30\)</span> 时基本与原图差别不大了，即当 <span class="math notranslate nohighlight">\(k = 1\)</span> 不断增大时，  <span class="math notranslate nohighlight">\(A_k\)</span> 不断逼近  <span class="math notranslate nohighlight">\(A\)</span>，但存储量却大大下降了。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>用低秩矩阵代替原矩阵，在效果没有太大差别的情况下，大大减少了存储量，从而实现了图像的压缩存储。</p>
+</div>
+<p><strong>附录1 SVD压缩存储数字图像MATLAB代码：</strong></p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">grayValue</span> <span class="p">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">&#39;1.jpg&#39;</span><span class="p">);</span>
+<span class="n">grayValue</span> <span class="p">=</span> <span class="n">rgb2gray</span><span class="p">(</span><span class="n">grayValue</span><span class="p">);</span>
+<span class="n">grayValue</span> <span class="p">=</span> <span class="n">im2double</span><span class="p">(</span><span class="n">grayValue</span><span class="p">);</span>
+<span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]=</span> <span class="nb">size</span><span class="p">(</span><span class="n">grayValue</span><span class="p">);</span>
+<span class="c">%%</span>
+<span class="c">% 奇异值分解</span>
+<span class="n">nr</span> <span class="p">=</span> <span class="mi">30</span><span class="p">;</span> <span class="c">%保留的秩数</span>
+<span class="p">[</span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span> <span class="p">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">grayValue</span><span class="p">);</span>
+<span class="n">grayValue2</span> <span class="p">=</span> <span class="n">u</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">nr</span><span class="p">)</span><span class="o">*</span><span class="n">s</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">nr</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="n">nr</span><span class="p">)</span><span class="o">*</span><span class="n">v</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">nr</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+<span class="n">grayValue2</span> <span class="p">=</span> <span class="n">grayValue2</span><span class="o">*</span><span class="mi">255</span><span class="p">;</span>
+<span class="n">grayValue2</span> <span class="p">=</span> <span class="n">uint8</span><span class="p">(</span><span class="n">grayValue2</span><span class="p">);</span>
+<span class="n">figure</span>
+<span class="s">subplot(1,2,1)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">grayValue</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;原图&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">grayValue2</span><span class="p">)</span>
+<span class="n">title</span><span class="p">([</span><span class="s">&#39;秩r=&#39;</span><span class="p">,</span><span class="n">num2str</span><span class="p">(</span><span class="n">nr</span><span class="p">)])</span>
+<span class="n">imwrite</span><span class="p">(</span><span class="n">grayValue2</span><span class="p">,</span><span class="s">&#39;r30.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
