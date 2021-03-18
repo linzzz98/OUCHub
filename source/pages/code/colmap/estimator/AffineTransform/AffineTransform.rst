@@ -128,21 +128,21 @@ AffineTransform
 成员变量
 -------------------------
 
-1. 2D图像特征观察值
+1. 2D图像特征点
 
-   .. object:: typedef Eigen::Vector2d X_t;
+   .. cpp:type:: Eigen::Vector2d AffineTransformEstimator::X_t;
 
-2. 世界框架中观察到的3D特征
+2. 2D图像仿射变换后的特征点
 
-    .. object:: typedef Eigen::Vector2d Y_t;
+    .. cpp:type:: Eigen::Vector2d AffineTransformEstimator::Y_t;
 
-3. 从世界到相机框架的转变
+3. 仿射变换矩阵
 
-    .. object:: typedef Eigen::Matrix<double, 2, 3> M_t;
+    .. cpp:type:: Eigen::Matrix<double, 2, 3> AffineTransformEstimator::M_t;
 
 4. 估计模型所需的最少样本数
 
-    .. object:: static const int kMinNumSamples = 3;
+    .. cpp:member:: static const int AffineTransformEstimator::kMinNumSamples = 3;
 
 成员函数
 ---------------------
@@ -266,3 +266,51 @@ AffineTransform
       const Eigen::VectorXd nullspace = C.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(b);
 
    最后将其变为 :math:`3\times 2` 维矩阵 :math:`A_t` ，最后求转置即维仿射变换矩阵 :math:`2\times 3`
+
+
+2. **Residuals**
+
+.. cpp:function:: void AffineTransformEstimator::Residuals(const std::vector<X_t>& points1, const std::vector<Y_t>& points2, const M_t& A, std::vector<double>* residuals)
+
+.. code-block:: cpp
+
+   void AffineTransformEstimator::Residuals(const std::vector<X_t>& points1,
+                                         const std::vector<Y_t>& points2,
+                                         const M_t& A,
+                                         std::vector<double>* residuals) {
+     CHECK_EQ(points1.size(), points2.size());
+
+     residuals->resize(points1.size());
+
+     // 请注意，此代码的表达可能不如Eigenb，但在各种测试中却明显更快
+
+     const double A_00 = A(0, 0);
+     const double A_01 = A(0, 1);
+     const double A_02 = A(0, 2);
+     const double A_10 = A(1, 0);
+     const double A_11 = A(1, 1);
+     const double A_12 = A(1, 2);
+
+     for (size_t i = 0; i < points1.size(); ++i) {
+       const double s_0 = points1[i](0);
+       const double s_1 = points1[i](1);
+       const double d_0 = points2[i](0);
+       const double d_1 = points2[i](1);
+
+       const double pd_0 = A_00 * s_0 + A_01 * s_1 + A_02;
+       const double pd_1 = A_10 * s_0 + A_11 * s_1 + A_12;
+
+       const double dd_0 = d_0 - pd_0;
+       const double dd_1 = d_1 - pd_1;
+
+       (*residuals)[i] = dd_0 * dd_0 + dd_1 * dd_1;
+     }
+   }
+
+.. note::
+
+   :math:`dd_0`  = 变换后的理想坐标 :math:`\tilde{x}` - 通过仿射变换变换的实际坐标 :math:`x'`
+
+   :math:`dd_1`  = 变换后的理想坐标 :math:`\tilde{x}` - 通过仿射变换变换的实际坐标 :math:`y'`
+
+   :math:`residuals` =  :math:`{dd_0}^2 + {dd_1}^2`

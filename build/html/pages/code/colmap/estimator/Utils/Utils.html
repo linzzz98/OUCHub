@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>1. Utils &mdash; OUCHub 0.1 文档</title>
+  <title>2. Utils &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="2. PnP" href="../PnP/PnP.html" />
-    <link rel="prev" title="Estimator" href="../../c_estimator.html" /> 
+    <link rel="next" title="3. PnP" href="../PnP/PnP.html" />
+    <link rel="prev" title="1. Pose" href="../Pose/Pose.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -111,13 +111,16 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#centerandnormalizeimagepoints">1.1. CenterAndNormalizeImagePoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#computesquaredsampsonerror">1.2. ComputeSquaredSampsonError</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#computesquaredreprojectionerror">1.3. ComputeSquaredReprojectionError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Pose/Pose.html">1. Pose</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#centerandnormalizeimagepoints">2.1. CenterAndNormalizeImagePoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#computesquaredsampsonerror">2.2. ComputeSquaredSampsonError</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#computesquaredreprojectionerror">2.3. ComputeSquaredReprojectionError</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">2. PnP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +181,7 @@
         
           <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
         
-      <li><span class="section-number">1. </span>Utils</li>
+      <li><span class="section-number">2. </span>Utils</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,9 +201,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="utils">
-<h1><span class="section-number">1. </span>Utils<a class="headerlink" href="#utils" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">2. </span>Utils<a class="headerlink" href="#utils" title="永久链接至标题">¶</a></h1>
 <div class="section" id="centerandnormalizeimagepoints">
-<h2><span class="section-number">1.1. </span>CenterAndNormalizeImagePoints<a class="headerlink" href="#centerandnormalizeimagepoints" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.1. </span>CenterAndNormalizeImagePoints<a class="headerlink" href="#centerandnormalizeimagepoints" title="永久链接至标题">¶</a></h2>
 <p>将图像点居中并归一化。</p>
 <p>这些点以两步过程进行变换，该过程表示为变换矩阵。
 所得点的矩阵通常比原始点的矩阵条件更好。</p>
@@ -269,7 +272,7 @@
 </div>
 </div>
 <div class="section" id="computesquaredsampsonerror">
-<h2><span class="section-number">1.2. </span>ComputeSquaredSampsonError<a class="headerlink" href="#computesquaredsampsonerror" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.2. </span>ComputeSquaredSampsonError<a class="headerlink" href="#computesquaredsampsonerror" title="永久链接至标题">¶</a></h2>
 <p>计算一组对应点和给定的基本矩阵或基本矩阵的残差。</p>
 <p><strong>残差定义为Sampson误差的平方。</strong></p>
 <div class="math notranslate nohighlight">
@@ -328,7 +331,7 @@
 </div>
 </div>
 <div class="section" id="computesquaredreprojectionerror">
-<h2><span class="section-number">1.3. </span>ComputeSquaredReprojectionError<a class="headerlink" href="#computesquaredreprojectionerror" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.3. </span>ComputeSquaredReprojectionError<a class="headerlink" href="#computesquaredreprojectionerror" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -338,8 +341,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../PnP/PnP.html" class="btn btn-neutral float-right" title="2. PnP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../c_estimator.html" class="btn btn-neutral float-left" title="Estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../PnP/PnP.html" class="btn btn-neutral float-right" title="3. PnP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Pose/Pose.html" class="btn btn-neutral float-left" title="1. Pose" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

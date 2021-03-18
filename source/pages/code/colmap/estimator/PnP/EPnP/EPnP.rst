@@ -153,7 +153,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
 成员函数
 ~~~~~~~~~~~
 
-1. **Estimate**
+Estimate
+------------------------
 
 从一组三个2D-3D点对应关系中估计EPnP问题的最可能解决方案。
 
@@ -181,7 +182,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
       return std::vector<EPNPEstimator::M_t>({proj_matrix});
     }
 
-2. **ComputePose**
+ComputePose
+------------------------
 
 .. cpp:function::   bool ComputePose(const std::vector<Eigen::Vector2d>& points2D, const std::vector<Eigen::Vector3d>& points3D, Eigen::Matrix3x4d* proj_matrix);
 
@@ -240,7 +242,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
       return true;
     }
 
-3. **ChooseControlPoints**
+ChooseControlPoints
+------------------------
 
 .. cpp:function:: void EPNPEstimator::ChooseControlPoints()
 
@@ -315,7 +318,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
 
     到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  :math:`c_j` ，每一个3D点的hd坐标  :math:`\alpha_{ij}`  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  :math:`[R|t]` 。
 
-4. **ComputeBarycentricCoordinates**
+ComputeBarycentricCoordinates
+--------------------------------------------------
 
    计算barycentric coodinates
 
@@ -360,7 +364,7 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
             }
          }
 
-      假设上一步得到的控制点为 :math:`X_i = (x_i, y_i, z_i)^T ~~~(i =  1, 2, 3, 4)`， 则：经过变换后（将第一个控制点移动到原点）的控制点坐标组成的矩阵为
+      假设上一步得到的控制点为 :math:`c_i^w = (x_i, y_i, z_i)^T ~~~(i =  1, 2, 3, 4)`， 则：经过变换后（将第一个控制点移动到原点）的控制点坐标组成的矩阵为
 
       .. math::
 
@@ -372,6 +376,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
          \end{matrix}
          \right]
 
+      其中 :math:`x_1` 为世界坐标系下的中心控制点， :math:`x_2,x_3,x_4` 为世界坐标系下的其他控制点
+
       如果QR分解的矩阵的秩 < 3，则返回false
 
       .. code-block:: cpp
@@ -380,24 +386,24 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
           return false;
         }
 
-      由第一节的公式  :math:`p_i^w = \sum\limits_{j=1}^4 \alpha_{ij}c_j^w, ~~~ with \sum\limits_{j=1}^4 \alpha_{ij} = 1` 可知
-
       barycentric coodinates的计算公式为：
 
       .. math::
 
+         \begin{eqnarray}
          \left[
          \begin{matrix}
-         \alpha_{i1}\\ \alpha_{i2}\\ \alpha_{i3}\\ \alpha_{i4}\\
+         \alpha_{i2}\\ \alpha_{i3}\\ \alpha_{i4}\\
          \end{matrix}
-         \right] = C^{-1}
+         \right] &=& (CC)^{-1}
          \left[
          \begin{matrix}
-         p_i^w\\1
+         p_{ix}^w - c_{ix}^w\\p_{iy}^w - c_{iy}^w\\p_{iz}^w - c_{iz}^w
          \end{matrix}
-         \right]
-
-      程序与公式稍稍有些不同，作者选择计算 :math:`\alpha_{i2},\alpha_{i3},\alpha_{i4}`， 并由于 :math:`\sum\limits_{j=1}^4 \alpha_{ij} = 1` ， 所以 :math:`\alpha_{i1} = 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4}`
+         \right]\\\\
+         \alpha_{i1} &=& 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4} \\\\
+         p_i &=& \sum\limits_{j = 1}^4 \alpha_{ij} - c_j
+         \end{eqnarray}
 
       .. code-block:: cpp
 
@@ -411,8 +417,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
           alphas_[i][0] = 1.0 - alphas_[i][1] - alphas_[i][2] - alphas_[i][3];
         }
 
-5. **ComputeM**
-
+ComputeM
+-------------------------
    .. cpp:function::Eigen::Matrix<double, Eigen::Dynamic, 12> EPNPEstimator::ComputeM()
 
    .. code-block:: cpp
@@ -478,7 +484,541 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
 
          Mx = 0
 
+      .. tip::
+
+         直接对 :math:`Mx = 0` 使用SVD分解，其复杂度为 :math:`O(n^3)`
+
+         对上式左右同乘 :math:`M^T` ，转换为对 :math:`M^TMx = 0` 进行奇异值分解，此时 :math:`M^TM` 为方阵，复杂度降为 :math:`O(n)`
+
+      .. important::
+
+         其中 :math:`x` 可以表示为 :math:`x = \sum\limits_{k = 1} ^N \beta_k v_k`
+
+         这样表示的原因在于，由于 :math:`M` 的维数为 :math:`2 n * 12` ，则方程 :math:`Mx = 0` 的解的个数是根据 :math:`n` 来决定。
+
+         如果 :math:`n >=6` 则方程在没有噪声的情况下有唯一解。
+
+         如果 :math:`n < 6` 则方程有多个解，则此时 :math:`x` 由这些解的线性组合所决定，所以 :math:`x` 表示为：
+
+         .. math::
+
+            x = \sum\limits_{k = 1} ^N \beta_k v_k
+
+         这里的 :math:`v_k` 是指的对矩阵 :math:`M^TM` 进行奇异值分解后，最小奇异值对应的特征向量，需要进行求解的是 :math:`\beta_k`
+
+         经过作者的证明， :math:`N` 最多为 :math:`4` ，因此只需要考虑 :math:`N = 1,2,3,4` 这四种情况即可。
+
+         （ :math:`N = 4` 时，方程为欠定方程组，在本章仅考虑 :math:`n = 1,2,3` 的情况）
+
+
    .. error::
 
       这里作者的代码忽略了内参，没看懂为什么？
 
+
+ComputeL6x10
+-------------------------
+
+   .. cpp:function:: Eigen::Matrix<double, 6, 10> EPNPEstimator::ComputeL6x10(const Eigen::Matrix<double, 12, 12>& Ut)
+
+   .. code-block:: cpp
+
+      Eigen::Matrix<double, 6, 10> EPNPEstimator::ComputeL6x10(
+          const Eigen::Matrix<double, 12, 12>& Ut) {
+         Eigen::Matrix<double, 6, 10> L6x10;
+
+         std::array<std::array<Eigen::Vector3d, 6>, 4> dv;
+         for (int i = 0; i < 4; ++i) {
+            int a = 0, b = 1;
+            for (int j = 0; j < 6; ++j) {
+               dv[i][j][0] = Ut(11 - i, 3 * a) - Ut(11 - i, 3 * b);
+               dv[i][j][1] = Ut(11 - i, 3 * a + 1) - Ut(11 - i, 3 * b + 1);
+               dv[i][j][2] = Ut(11 - i, 3 * a + 2) - Ut(11 - i, 3 * b + 2);
+
+               b += 1;
+            if (b > 3) {
+               a += 1;
+               b = a + 1;
+            }
+          }
+        }
+
+         for (int i = 0; i < 6; ++i) {
+            L6x10(i, 0) = dv[0][i].transpose() * dv[0][i];
+            L6x10(i, 1) = 2.0 * dv[0][i].transpose() * dv[1][i];
+            L6x10(i, 2) = dv[1][i].transpose() * dv[1][i];
+            L6x10(i, 3) = 2.0 * dv[0][i].transpose() * dv[2][i];
+            L6x10(i, 4) = 2.0 * dv[1][i].transpose() * dv[2][i];
+            L6x10(i, 5) = dv[2][i].transpose() * dv[2][i];
+            L6x10(i, 6) = 2.0 * dv[0][i].transpose() * dv[3][i];
+            L6x10(i, 7) = 2.0 * dv[1][i].transpose() * dv[3][i];
+            L6x10(i, 8) = 2.0 * dv[2][i].transpose() * dv[3][i];
+            L6x10(i, 9) = dv[3][i].transpose() * dv[3][i];
+         }
+
+         return L6x10;
+      }
+
+   .. note::
+
+      比较让人迷惑的就是L6x10这个函数的含义，通过查阅资料对该函数有了大致的理解。
+
+      由于控制点 :math:`c_i` 之间的距离是不随着坐标系的改变而改变的，因此有
+
+      .. math::
+
+         ||c_i^c - c_j^c||^2 = ||c_i^w - c_j^w||^2
+
+      注意，上面一节的等式 :math:`Mx = 0` 中的 :math:`x` 是  :math:`c_i^c` ，因此上式转换为：
+
+      .. math::
+
+         ||\sum\limits_{k=1}^N \beta_k v_k^{[i]} - \sum\limits_{k=1}^N \beta_k v_k^{[j]}||^2 = ||c_i^w - c_j^w||^2
+
+      这是一个关于 :math:`\{ \beta_k \}_{k=1,...,N}` 的二次方程，没有关于 :math:`\{ \beta_k \}_{k=1,...,N}` 的一次项。
+
+      将二次项 :math:`\beta_i \beta_j` 替换为 :math:`\beta_{ij}` ，那么该方程就是 :math:`\{\beta_{ij}\}_{i,j=1,...,N}` 的线性方程。
+
+      对于  :math:`v_j^{[i]}` ：
+
+      * 下标 :math:`j` 表示该 :math:`v` 向量是 :math:`M^TM` 奇异值分解后的右奇异值矩阵的（ :math:`U` 矩阵）的倒数第 :math:`j` 列。
+
+      * 上标 :math:`i` 是第 :math:`j` 列里的第 :math:`i` 个控制点。
+
+      .. figure:: 1.jpg
+         :figclass: align-center
+         :scale: 60%
+
+      .. important::
+
+         对于4个控制点，可以得到 :math:`C_4^2 = 6` 个方程
+
+         当 :math:`N` 取不同的值时，线性未知数的个数为：
+
+         *  :math:`N = 1` ，线性未知数的个数为1，方程为变为 :math:`x = \beta v`
+
+         .. math::
+
+            || \beta v^{[i]} - \beta v^{[j]} ||^2 = ||c_i^w - c_j^w||^2
+
+         *  :math:`N = 2` ，线性未知数的个数为3，方程为变为 :math:`x = \beta_1 v_1 + \beta_2 v_2`
+
+         .. math::
+
+            || (\beta_1 v_1^{[i]} + \beta_2 v_2^{[i]}) - (\beta_1 v_1^{[j]} + \beta_2 v_2^{[j]})||^2 = ||c_i^w - c_j^w||^2
+
+         *  :math:`N = 3` ，线性未知数的个数为6，方程为变为 :math:`x = \beta_1 v_1 + \beta_2 v_2 + \beta_3 v_3`
+
+         .. math::
+
+            || (\beta_1 v_1^{[i]} + \beta_2 v_2^{[i]} + \beta_3 v_3^{[i]}) - (\beta_1 v_1^{[j]} + \beta_2 v_2^{[j]} + \beta_3 v_3^{[j]})||^2 = ||c_i^w - c_j^w||^2
+
+         *  :math:`N = 4` ，线性未知数的个数为10，此时未知数个数多于方程个数（欠定方程）
+
+         .. math::
+
+            || (\beta_1 v_1^{[i]} + \beta_2 v_2^{[i]} + \beta_3 v_3^{[i]} + \beta_4 v_4^{[i]}) - (...) || = ||c_i^w - c_j^w||^2
+
+
+
+      如何求解 :math:`\beta_k` 呢？
+
+      *  :math:`N = 1` 时， :math:`\beta` 为：
+
+         .. math::
+
+            \beta = \frac{ \sum\limits_{\{i,j\}\in [1,4]}  ||v^{[i]} - v^{[j]} || · || c_i^w - c_j^w || }  {\sum\limits_{\{i,j\}\in[1,4] } || v^{[i]} - v^{[j]} ||^2 }
+
+      *  :math:`N = 2` 时，将方程展开：
+
+         .. math::
+
+            || \beta_1 \underbrace{ (v_1^{[i]} - v_1^{[j]}) }_{S_1} + \beta_2 \underbrace{ (v_2^{[i]} - v_2^{[j]}) }_{S_2}||^2 = \underbrace{ || c_i^w - c_j^w ||^2 }_c\\
+
+         .. math::
+
+            \Downarrow
+
+         .. math::
+
+            \beta_1^2S_1^T S_1 + 2\beta_1\beta_2 S_2 + \beta_2^2 S_2^T S_2 = c
+
+         根据之前定义的 :math:`\beta_{ij} = \beta_i \beta_j` ，从而 :math:`\beta_{11} = \beta_1 ^2, ~~\beta_{12} = \beta_1 * \beta_2, ~~\beta_{22} = \beta_2^2`
+
+         进而方程变为：
+
+         .. math::
+
+            L \beta = \rho
+
+         其中 :math:`\beta = [\beta_{11},\beta_{12},\beta_{22}]^T` ， :math:`L` 为 :math:`6\times 3` 的矩阵， :math:`\rho` 为 :math:`6 \times 1` 的矩阵。
+
+         .. figure:: 2.jpg
+            :scale: 60%
+
+         此时， :math:`\beta` 为：
+
+         .. math::
+
+            \beta = (L^TL)^{-1}L^T \rho
+
+         解出 :math:`\beta` 后可以获得两组 :math:`\beta_1, \beta_2` 的解，再根据控制点在相机前端，即 :math:`c_j^c ` 的 :math:`z > 0` ， 从而唯一确定 :math:`\beta_1, \beta_2`
+
+      *  :math:`N = 3` 时，与 :math:`N = 2` 解法相同：
+
+         此时 :math:`\beta = [\beta_{11},\beta_{12},\beta_{13},\beta_{22},\beta_{23},\beta_{33}]^T` ， :math:`L` 的大小为 :math:`6 \times 6`
+
+         .. figure:: 3.jpg
+            :scale: 60%
+
+         此时， :math:`\beta` 为：
+
+         .. math::
+
+            \beta = L^{-1}\rho
+
+      *  :math:`N = 4` 时，未知数的个数多于方程的个数
+
+      回到代码，可以明显看到 :math:`N = 2,3,4` 的时候， :math:`L` 矩阵是 :math:`N = 4` 的情况下的 :math:`L` 矩阵的子集，因此直接构造  :math:`N = 4` 时的 :math:`L` 矩阵。
+
+      .. tip::
+
+         因为是 :math:`U^T` ，所以这里特征向量为 ``行向量``
+
+         .. math::
+
+            \begin{eqnarray}
+            &Ut&(11,&[0,1,2]&) &\longrightarrow& ~~ v_1^{[1]}~~~~~~~~Ut(11,[9,10,11]) \longrightarrow  v_1^{[4]}\\
+            &Ut&(10,&[0,1,2]&) &\longrightarrow& ~~ v_2^{[1]}\\
+            &Ut&(9,&[0,1,2]&)  &\longrightarrow& ~~ v_3^{[1]}\\
+            &Ut&(8,&[0,1,2]&)  &\longrightarrow& ~~ v_4^{[1]}
+            \end{eqnarray}
+
+
+         .. figure:: 4.jpg
+            :figclass: align-center
+            :scale: 60%
+
+      .. code-block:: cpp
+
+         Eigen::Matrix<double, 6, 10> L6x10;
+
+         std::array<std::array<Eigen::Vector3d, 6>, 4> dv;
+
+         for (int i = 0; i < 4; ++i) {
+            int a = 0, b = 1;
+            for (int j = 0; j < 6; ++j) {
+               dv[i][j][0] = Ut(11 - i, 3 * a) - Ut(11 - i, 3 * b);
+               dv[i][j][1] = Ut(11 - i, 3 * a + 1) - Ut(11 - i, 3 * b + 1);
+               dv[i][j][2] = Ut(11 - i, 3 * a + 2) - Ut(11 - i, 3 * b + 2);
+
+               b += 1;
+               if (b > 3) {
+                  a += 1;
+                  b = a + 1;
+               }
+            }
+         }
+
+      则
+
+      .. math::
+
+         dv[i][0] = v_i^{[1]} - v_i^{[2]}~~~~~~~~dv[i][1] = v_i^{[1]} - v_i^{[3]}~~~~~~~~dv[i][2] = v_i^{[1]} - v_i^{[4]}\\
+         dv[i][3] = v_i^{[2]} - v_i^{[3]}~~~~~~~~dv[i][4] = v_i^{[2]} - v_i^{[4]}~~~~~~~~dv[i][5] = v_i^{[3]} - v_i^{[4]}
+
+
+      接下来需要构造的是 :math:`L` 矩阵
+
+      .. parsed-literal::
+
+                         L (6*10)                       *   bates (10*1)    =  rho (6*1)
+
+         | ||v1i-v1j||^2  2*|(v1i-v1j)(v2i-v2j)|    ..|   | bates1*betas1 |   | dcw0_1 |
+         |      ..                                    |   | betas1*betas2 |   | dcw0_2 |
+         |      ..                                    |   | betas2*betas2 |   | dcw0_3 |
+         |      ..                                    | * | betas1*betas3 | = | dcw1_2 |
+         |      ..                                    |   | betas2*betas3 |   | dcw1_3 |
+         |      ..                                    |   | betas3*betas3 |   | dcw2_3 |
+         |      ..                                    |   | betas1*betas4 |
+         |      ..                                    |   | betas2*betas4 |
+         |      ..                                    |   | betas3*betas4 |
+         |      ..                                    |   | betas4*betas4 |
+
+
+      .. code-block:: cpp
+
+         for (int i = 0; i < 6; ++i) {
+            L6x10(i, 0) = dv[0][i].transpose() * dv[0][i];
+            L6x10(i, 1) = 2.0 * dv[0][i].transpose() * dv[1][i];
+            L6x10(i, 2) = dv[1][i].transpose() * dv[1][i];
+            L6x10(i, 3) = 2.0 * dv[0][i].transpose() * dv[2][i];
+            L6x10(i, 4) = 2.0 * dv[1][i].transpose() * dv[2][i];
+            L6x10(i, 5) = dv[2][i].transpose() * dv[2][i];
+            L6x10(i, 6) = 2.0 * dv[0][i].transpose() * dv[3][i];
+            L6x10(i, 7) = 2.0 * dv[1][i].transpose() * dv[3][i];
+            L6x10(i, 8) = 2.0 * dv[2][i].transpose() * dv[3][i];
+            L6x10(i, 9) = dv[3][i].transpose() * dv[3][i];
+         }
+
+ComputeRho
+-------------------------
+
+   构造 :math:`6 \times 1` 的距离矩阵 :math:`\rho` ，记录4个控制点之间各自的距离
+
+   .. cpp:function:: Eigen::Matrix<double, 6, 1> EPNPEstimator::ComputeRho()
+
+   .. code-block:: cpp
+
+      Eigen::Matrix<double, 6, 1> EPNPEstimator::ComputeRho() {
+        Eigen::Matrix<double, 6, 1> rho;
+        rho[0] = (cws_[0] - cws_[1]).squaredNorm();
+        rho[1] = (cws_[0] - cws_[2]).squaredNorm();
+        rho[2] = (cws_[0] - cws_[3]).squaredNorm();
+        rho[3] = (cws_[1] - cws_[2]).squaredNorm();
+        rho[4] = (cws_[1] - cws_[3]).squaredNorm();
+        rho[5] = (cws_[2] - cws_[3]).squaredNorm();
+        return rho;
+      }
+
+FindBetasApprox1
+-------------------------
+
+   求解 :math:`N = 4` 时的 :math:`\beta`
+
+   .. important::
+
+      注意！这里的程序，包括Opencv里的EPnP，都没有按照正确的方法去求解，而是选择了近似的方法。
+
+      .. parsed-literal::
+
+         betas10        = [B11 B12 B22 B13 B23 B33 B14 B24 B34 B44]
+
+         betas_approx_1 = [B11 B12     B13         B14]
+
+      将应该求的参数 :math:`\betas_10` 由10个减少到了4个 :math:`betas_approx_1` ， 然后求解的线性方程组。
+
+   .. cpp:function:: void EPNPEstimator::FindBetasApprox1(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
+
+   .. code-block:: cpp
+
+      void EPNPEstimator::FindBetasApprox1(const Eigen::Matrix<double, 6, 10>& L6x10,
+                                           const Eigen::Matrix<double, 6, 1>& rho,
+                                           Eigen::Vector4d* betas) {
+         Eigen::Matrix<double, 6, 4> L_6x4;
+         for (int i = 0; i < 6; ++i) {
+            L_6x4(i, 0) = L6x10(i, 0);
+            L_6x4(i, 1) = L6x10(i, 1);
+            L_6x4(i, 2) = L6x10(i, 3);
+            L_6x4(i, 3) = L6x10(i, 6);
+         }
+
+         Eigen::JacobiSVD<Eigen::Matrix<double, 6, 4>> svd(
+               L_6x4, Eigen::ComputeFullV | Eigen::ComputeFullU);
+         Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+         const Eigen::Matrix<double, 4, 1> b4 = svd.solve(Rho_temp);
+
+         if (b4[0] < 0) {
+            (*betas)[0] = std::sqrt(-b4[0]);
+            (*betas)[1] = -b4[1] / (*betas)[0];
+            (*betas)[2] = -b4[2] / (*betas)[0];
+            (*betas)[3] = -b4[3] / (*betas)[0];
+         } else {
+            (*betas)[0] = std::sqrt(b4[0]);
+            (*betas)[1] = b4[1] / (*betas)[0];
+            (*betas)[2] = b4[2] / (*betas)[0];
+            (*betas)[3] = b4[3] / (*betas)[0];
+         }
+      }
+
+   .. note::
+
+      求解线性方程组，求出 :math:`\beta_{11}, \beta_{12}, \beta_{13}, \beta_{14}`
+
+      .. code-block:: cpp
+
+         Eigen::JacobiSVD<Eigen::Matrix<double, 6, 4>> svd(
+               L_6x4, Eigen::ComputeFullV | Eigen::ComputeFullU);
+
+         Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+
+         const Eigen::Matrix<double, 4, 1> b4 = svd.solve(Rho_temp);
+
+      然后求出 :math:`\beta_1, \beta_2, \beta_3, \beta_4`
+
+      .. code-block:: cpp
+
+         if (b4[0] < 0) {
+            (*betas)[0] = std::sqrt(-b4[0]);
+            (*betas)[1] = -b4[1] / (*betas)[0];
+            (*betas)[2] = -b4[2] / (*betas)[0];
+            (*betas)[3] = -b4[3] / (*betas)[0];
+         }
+
+         else {
+            (*betas)[0] = std::sqrt(b4[0]);
+            (*betas)[1] = b4[1] / (*betas)[0];
+            (*betas)[2] = b4[2] / (*betas)[0];
+            (*betas)[3] = b4[3] / (*betas)[0];
+         }
+
+FindBetasApprox2
+-------------------------
+
+   求解 :math:`N = 2` 时的 :math:`\beta`
+
+   .. parsed-literal::
+
+      betas10        = [B11 B12 B22 B13 B23 B33 B14 B24 B34 B44]
+
+      betas_approx_2 = [B11 B12 B22                            ]
+
+   .. cpp:function:: void EPNPEstimator::FindBetasApprox2(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
+
+   .. code-block:: cpp
+
+      void EPNPEstimator::FindBetasApprox2(const Eigen::Matrix<double, 6, 10>& L6x10,
+                                     const Eigen::Matrix<double, 6, 1>& rho,
+                                     Eigen::Vector4d* betas) {
+        Eigen::Matrix<double, 6, 3> L_6x3(6, 3);
+
+        for (int i = 0; i < 6; ++i) {
+          L_6x3(i, 0) = L6x10(i, 0);
+          L_6x3(i, 1) = L6x10(i, 1);
+          L_6x3(i, 2) = L6x10(i, 2);
+        }
+
+        Eigen::JacobiSVD<Eigen::Matrix<double, 6, 3>> svd(
+            L_6x3, Eigen::ComputeFullV | Eigen::ComputeFullU);
+        Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+        const Eigen::Matrix<double, 3, 1> b3 = svd.solve(Rho_temp);
+
+        if (b3[0] < 0) {
+          (*betas)[0] = std::sqrt(-b3[0]);
+          (*betas)[1] = (b3[2] < 0) ? std::sqrt(-b3[2]) : 0.0;
+        } else {
+          (*betas)[0] = std::sqrt(b3[0]);
+          (*betas)[1] = (b3[2] > 0) ? std::sqrt(b3[2]) : 0.0;
+        }
+
+        if (b3[1] < 0) {
+          (*betas)[0] = -(*betas)[0];
+        }
+
+        (*betas)[2] = 0.0;
+        (*betas)[3] = 0.0;
+      }
+
+   .. note::
+
+      解线性方程组 求出 :math:`\beta_{11}, \beta_{12}, \beta_{22}`
+
+      .. code-block:: cpp
+
+         Eigen::JacobiSVD<Eigen::Matrix<double, 6, 3>> svd(
+               L_6x3, Eigen::ComputeFullV | Eigen::ComputeFullU);
+
+         Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+
+         const Eigen::Matrix<double, 3, 1> b3 = svd.solve(Rho_temp);
+
+      然后再求出  :math:`\beta_1, \beta_2` （ :math:`\beta_3, \beta_4 = 0` ）
+
+      .. code-block:: cpp
+
+         if (b3[0] < 0) {
+            (*betas)[0] = std::sqrt(-b3[0]);
+            (*betas)[1] = (b3[2] < 0) ? std::sqrt(-b3[2]) : 0.0;
+         }
+
+         else {
+            (*betas)[0] = std::sqrt(b3[0]);
+            (*betas)[1] = (b3[2] > 0) ? std::sqrt(b3[2]) : 0.0;
+         }
+
+         if (b3[1] < 0) {
+            (*betas)[0] = -(*betas)[0];
+         }
+
+         (*betas)[2] = 0.0;
+         (*betas)[3] = 0.0;
+
+
+
+
+FindBetasApprox3
+-------------------------
+
+   求解 :math:`N = 3` 时的 :math:`\beta`
+
+   .. parsed-literal::
+
+      betas10        = [B11 B12 B22 B13 B23 B33 B14 B24 B34 B44]
+
+      betas_approx_3 = [B11 B12 B22 B13 B23                    ]
+
+   .. cpp:function:: void EPNPEstimator::FindBetasApprox3(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
+
+   .. code-block:: cpp
+
+      void EPNPEstimator::FindBetasApprox3(const Eigen::Matrix<double, 6, 10>& L6x10,
+                                           const Eigen::Matrix<double, 6, 1>& rho,
+                                           Eigen::Vector4d* betas) {
+         Eigen::JacobiSVD<Eigen::Matrix<double, 6, 5>> svd(
+            L6x10.leftCols<5>(), Eigen::ComputeFullV | Eigen::ComputeFullU);
+         Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+         const Eigen::Matrix<double, 5, 1> b5 = svd.solve(Rho_temp);
+
+         if (b5[0] < 0) {
+            (*betas)[0] = std::sqrt(-b5[0]);
+            (*betas)[1] = (b5[2] < 0) ? std::sqrt(-b5[2]) : 0.0;
+         }
+
+         else {
+            (*betas)[0] = std::sqrt(b5[0]);
+            (*betas)[1] = (b5[2] > 0) ? std::sqrt(b5[2]) : 0.0;
+         }
+
+         if (b5[1] < 0) {
+            (*betas)[0] = -(*betas)[0];
+         }
+
+         (*betas)[2] = b5[3] / (*betas)[0];
+         (*betas)[3] = 0.0;
+      }
+
+   .. note::
+
+      解线性方程组 求出 :math:`\beta_{11}, \beta_{12}, \beta_{22}, \beta_{13}, \beta_{23}`
+
+      .. code-block:: cpp
+
+         Eigen::JacobiSVD<Eigen::Matrix<double, 6, 5>> svd(
+               L6x10.leftCols<5>(), Eigen::ComputeFullV | Eigen::ComputeFullU);
+
+         Eigen::Matrix<double, 6, 1> Rho_temp = rho;
+
+         const Eigen::Matrix<double, 5, 1> b5 = svd.solve(Rho_temp);
+
+      然后再求出  :math:`\beta_1, \beta_2, \beta_3` （ :math:`\beta_4 = 0` ）
+
+      .. code-block:: cpp
+
+         if (b5[0] < 0) {
+            (*betas)[0] = std::sqrt(-b5[0]);
+            (*betas)[1] = (b5[2] < 0) ? std::sqrt(-b5[2]) : 0.0;
+         }
+
+         else {
+            (*betas)[0] = std::sqrt(b5[0]);
+            (*betas)[1] = (b5[2] > 0) ? std::sqrt(b5[2]) : 0.0;
+         }
+
+         if (b5[1] < 0)
+            (*betas)[0] = -(*betas)[0];
+
+         (*betas)[2] = b5[3] / (*betas)[0];
+         (*betas)[3] = 0.0;
+
+
+----------------------------

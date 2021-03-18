@@ -103,7 +103,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#id2">2.1. 特征值和特征向量</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">2.2. 特征分解</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">2.3. SVD分解</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">2.4. SVD分解的意义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.4. SVD求解线性方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.5. SVD分解的意义</a></li>
 </ul>
 </li>
 </ul>
@@ -209,6 +210,11 @@
 <div class="math notranslate nohighlight">
 \[Ax = \lambda x\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(A\)</span> 一个 <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵，  <span class="math notranslate nohighlight">\(x\)</span> 是一个  <span class="math notranslate nohighlight">\(n\)</span>  维向量， 则 <span class="math notranslate nohighlight">\(\lambda\)</span> 是矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的一个特征值，而 <span class="math notranslate nohighlight">\(x\)</span> 是矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的特征值 <span class="math notranslate nohighlight">\(\lambda\)</span> 所对应的特征向量。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>一个矩阵乘以一个向量后得到的向量，其实就相当于将这个向量进行了线性变换。</p>
+<p>特征值所对应的特征向量就是描述这个矩阵变化方向，特征值越大的说明变化方向越主要。</p>
+</div>
 </div>
 <div class="section" id="id3">
 <h2><span class="section-number">2.2. </span>特征分解<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
@@ -237,12 +243,20 @@
 <p>假设矩阵A是一个m×n的矩阵，那么定义矩阵A的SVD为：</p>
 <div class="math notranslate nohighlight">
 \[A = U \Sigma V^T\]</div>
-<p>其中 <span class="math notranslate nohighlight">\(U\)</span>  是一个  <span class="math notranslate nohighlight">\(m \times m\)</span> 的矩阵，  <span class="math notranslate nohighlight">\(\Sigma\)</span> 是一个  <span class="math notranslate nohighlight">\(m \times n\)</span> 的矩阵，除了主对角线上的元素以外全为0，主对角线上的每个元素都称为奇异值。 <span class="math notranslate nohighlight">\(V\)</span> 是一个  <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵， <span class="math notranslate nohighlight">\(U\)</span> 和  <span class="math notranslate nohighlight">\(V\)</span> 都是酉矩阵， 满足：</p>
+<p>其中 <span class="math notranslate nohighlight">\(U\)</span>  是一个  <span class="math notranslate nohighlight">\(m \times m\)</span> 的矩阵， <span class="math notranslate nohighlight">\(V\)</span> 是一个  <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵， <span class="math notranslate nohighlight">\(U\)</span> 和  <span class="math notranslate nohighlight">\(V\)</span> 都是酉矩阵， 满足：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 U^TU &amp;=&amp; I\\
 V^TV &amp;=&amp; I
 \end{eqnarray}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\Sigma\)</span> 是一个  <span class="math notranslate nohighlight">\(m \times n\)</span> 的矩阵，主对角线上的每个元素都称为奇异值：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Sigma = \left[
+\begin{matrix}
+\Sigma_1 &amp; 0\\0 &amp; 0
+\end{matrix}
+\right]\end{split}\]</div>
+<p>且 <span class="math notranslate nohighlight">\(\Sigma_1 = diag(\sigma_1,\sigma_2,...,\sigma_r)\)</span> ，对角线按照顺序 <span class="math notranslate nohighlight">\(\sigma_1 \ge \sigma_2 \ge \sigma_r &gt; 0\)</span> ，其中 <span class="math notranslate nohighlight">\(r = Rank(A)\)</span></p>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/110.jpg" src="../../../../../_images/110.jpg" />
 </div>
@@ -295,7 +309,16 @@ V^TV &amp;=&amp; I
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">2.4. </span>SVD分解的意义<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.4. </span>SVD求解线性方程<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>形式为 <span class="math notranslate nohighlight">\(Ax = b\)</span> 的方程组。 设 <span class="math notranslate nohighlight">\(A\)</span> 为 <span class="math notranslate nohighlight">\(m \times n\)</span> 矩阵，有以下三种情况：</p>
+<ol class="arabic simple">
+<li><p>如果m &lt; n，则未知数多于方程式。 在这种情况下，将没有唯一的解，而是解的向量空间。</p></li>
+<li><p>如果m = n，只要A可逆，就有唯一解。</p></li>
+<li><p>如果m &gt; n，则方程式多于未知数。 一般认为没有解。</p></li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">2.5. </span>SVD分解的意义<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>在奇异值矩阵中奇异值是按照从大到小排列，而且奇异值的减少特别的快，在很多情况下，前10%甚至1%的奇异值的和就占了全部的奇异值之和的99%以上的比例。</p>

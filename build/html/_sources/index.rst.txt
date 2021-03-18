@@ -14,13 +14,17 @@
 
 About
 -----
-这里是记录计算机视觉方向的学习库。包括本人平时阅读的论文、源码解析、项目思路等都会放在里面。
-用此方式来记录三年来学习的历程。
+
+OUC_B419_Linzzz代码论文小仓库，随缘更新。
 
 .. attention::
-   |:smile:|
+   git add .
+
+   git commit -m "更新备注"
+
+   git push origin master
 .. caution::
-   |:snake:|
+   https://ouchub.readthedocs.io
 .. danger::
    |:heart_eyes:|
 .. error::
@@ -32,7 +36,7 @@ About
 .. tip::
    1
 .. note::
-   1
+   :ref:`genindex`
 
 
 .. .. highlight:: c++
@@ -69,11 +73,3 @@ About
    :caption: 杂七杂八
 
    pages/others/o_others
-
-
-Links:
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

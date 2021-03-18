@@ -25,6 +25,12 @@ SVD奇异值分解
 
 其中 :math:`A` 一个 :math:`n \times n` 的矩阵，  :math:`x` 是一个  :math:`n`  维向量， 则 :math:`\lambda` 是矩阵 :math:`A` 的一个特征值，而 :math:`x` 是矩阵 :math:`A` 的特征值 :math:`\lambda` 所对应的特征向量。
 
+.. note::
+
+   一个矩阵乘以一个向量后得到的向量，其实就相当于将这个向量进行了线性变换。
+
+   特征值所对应的特征向量就是描述这个矩阵变化方向，特征值越大的说明变化方向越主要。
+
 特征分解
 ---------------------------------
 
@@ -68,7 +74,7 @@ SVD分解
 
    A = U \Sigma V^T
 
-其中 :math:`U`  是一个  :math:`m \times m` 的矩阵，  :math:`\Sigma` 是一个  :math:`m \times n` 的矩阵，除了主对角线上的元素以外全为0，主对角线上的每个元素都称为奇异值。 :math:`V` 是一个  :math:`n \times n` 的矩阵， :math:`U` 和  :math:`V` 都是酉矩阵， 满足：
+其中 :math:`U`  是一个  :math:`m \times m` 的矩阵， :math:`V` 是一个  :math:`n \times n` 的矩阵， :math:`U` 和  :math:`V` 都是酉矩阵， 满足：
 
 .. math::
 
@@ -76,6 +82,18 @@ SVD分解
    U^TU &=& I\\
    V^TV &=& I
    \end{eqnarray}
+
+:math:`\Sigma` 是一个  :math:`m \times n` 的矩阵，主对角线上的每个元素都称为奇异值：
+
+.. math::
+
+   \Sigma = \left[
+   \begin{matrix}
+   \Sigma_1 & 0\\0 & 0
+   \end{matrix}
+   \right]
+
+且 :math:`\Sigma_1 = diag(\sigma_1,\sigma_2,...,\sigma_r)` ，对角线按照顺序 :math:`\sigma_1 \ge \sigma_2 \ge \sigma_r > 0` ，其中 :math:`r = Rank(A)`
 
 .. figure:: 1.jpg
    :figclass: align-center
@@ -151,6 +169,16 @@ SVD分解
       \sigma_i = \sqrt{\lambda_i}
 
    这样也就是说，可以不用  :math:`\sigma_i = \frac{A v_i}{u_i}` 计算奇异值，也可以通过求出 |ATA| 的特征值取平方根来求奇异值。
+
+SVD求解线性方程
+-----------------------------------------
+形式为 :math:`Ax = b` 的方程组。 设 :math:`A` 为 :math:`m \times n` 矩阵，有以下三种情况：
+
+1. 如果m < n，则未知数多于方程式。 在这种情况下，将没有唯一的解，而是解的向量空间。
+2. 如果m = n，只要A可逆，就有唯一解。
+3. 如果m > n，则方程式多于未知数。 一般认为没有解。
+
+
 
 SVD分解的意义
 ------------------------------------------

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>3. AffineTransform &mdash; OUCHub 0.1 文档</title>
+  <title>4. AffineTransform &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
-    <link rel="prev" title="2.2. EPnP" href="../PnP/EPnP/EPnP.html" /> 
+    <link rel="next" title="5. Matrix" href="../Matrix/Matrix.html" />
+    <link rel="prev" title="3.2. EPnP" href="../PnP/EPnP/EPnP.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -111,13 +111,15 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">1. Utils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">2. PnP</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3. AffineTransform</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">3.1. 成员变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">3.2. 成员函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Pose/Pose.html">1. Pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. AffineTransform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">4.1. 成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4.2. 成员函数</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +180,7 @@
         
           <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
         
-      <li><span class="section-number">3. </span>AffineTransform</li>
+      <li><span class="section-number">4. </span>AffineTransform</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,7 +200,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="affinetransform">
-<h1><span class="section-number">3. </span>AffineTransform<a class="headerlink" href="#affinetransform" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">4. </span>AffineTransform<a class="headerlink" href="#affinetransform" title="永久链接至标题">¶</a></h1>
 <p>非齐次坐标的仿射变换：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
@@ -307,38 +309,38 @@ x\\y\\1
 \right]\end{split}\]</div>
 </div></blockquote>
 <div class="section" id="id1">
-<h2><span class="section-number">3.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">4.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
-<li><p>2D图像特征观察值</p>
-<dl class="object">
-<dt>
-<code class="sig-name descname">typedef Eigen::Vector2d X_t;</code></dt>
+<li><p>2D图像特征点</p>
+<dl class="cpp type">
+<dt id="_CPPv4N24AffineTransformEstimator3X_tE">
+<span id="_CPPv3N24AffineTransformEstimator3X_tE"></span><span id="_CPPv2N24AffineTransformEstimator3X_tE"></span><span id="AffineTransformEstimator::X_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">X_t</code>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator3X_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </li>
-<li><p>世界框架中观察到的3D特征</p>
+<li><p>2D图像仿射变换后的特征点</p>
 <blockquote>
-<div><dl class="object">
-<dt>
-<code class="sig-name descname">typedef Eigen::Vector2d Y_t;</code></dt>
+<div><dl class="cpp type">
+<dt id="_CPPv4N24AffineTransformEstimator3Y_tE">
+<span id="_CPPv3N24AffineTransformEstimator3Y_tE"></span><span id="_CPPv2N24AffineTransformEstimator3Y_tE"></span><span id="AffineTransformEstimator::Y_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Y_t</code>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator3Y_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
 </li>
-<li><p>从世界到相机框架的转变</p>
+<li><p>仿射变换矩阵</p>
 <blockquote>
-<div><dl class="object">
-<dt>
-<code class="sig-name descname">typedef Eigen::Matrix&lt;double, 2, 3&gt; M_t;</code></dt>
+<div><dl class="cpp type">
+<dt id="_CPPv4N24AffineTransformEstimator3M_tE">
+<span id="_CPPv3N24AffineTransformEstimator3M_tE"></span><span id="_CPPv2N24AffineTransformEstimator3M_tE"></span><span id="AffineTransformEstimator::M_t"></span><em class="property">typedef </em>Eigen::Matrix&lt;double, 2, 3&gt; <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">M_t</code>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator3M_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
 </li>
 <li><p>估计模型所需的最少样本数</p>
 <blockquote>
-<div><dl class="object">
-<dt>
-<code class="sig-name descname">static const int kMinNumSamples = 3;</code></dt>
+<div><dl class="cpp member">
+<dt id="_CPPv4N24AffineTransformEstimator14kMinNumSamplesE">
+<span id="_CPPv3N24AffineTransformEstimator14kMinNumSamplesE"></span><span id="_CPPv2N24AffineTransformEstimator14kMinNumSamplesE"></span><span id="AffineTransformEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = 3;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
@@ -346,13 +348,13 @@ x\\y\\1
 </ol>
 </div>
 <div class="section" id="id2">
-<h2><span class="section-number">3.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">4.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Estimate</strong></p></li>
 </ol>
 <dl class="cpp function">
 <dt id="_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
-<span id="_CPPv3N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="AffineTransformEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><em class="property">static</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43M_t" title="M_t">M_t</a>&gt; <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43X_t" title="X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43Y_t" title="Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
+<span id="_CPPv3N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="AffineTransformEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><em class="property">static</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3M_tE" title="AffineTransformEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3X_tE" title="AffineTransformEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3Y_tE" title="AffineTransformEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">AffineTransformEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">AffineTransformEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
@@ -457,6 +459,54 @@ a_x'\\a_y'\\b_x'\\b_y'\\c_x'\\c_y'
 </div>
 <p>最后将其变为 <span class="math notranslate nohighlight">\(3\times 2\)</span> 维矩阵 <span class="math notranslate nohighlight">\(A_t\)</span> ，最后求转置即维仿射变换矩阵 <span class="math notranslate nohighlight">\(2\times 3\)</span></p>
 </div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Residuals</strong></p></li>
+</ol>
+<dl class="cpp function">
+<dt id="_CPPv4N24AffineTransformEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3N24AffineTransformEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2N24AffineTransformEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="AffineTransformEstimator::Residuals__std::vector:X_t:CR.std::vector:Y_t:CR.M_tCR.std::vector:double:P"></span>void <code class="sig-prename descclassname">AffineTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3X_tE" title="AffineTransformEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3Y_tE" title="AffineTransformEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4N24AffineTransformEstimator3M_tE" title="AffineTransformEstimator::M_t">M_t</a> &amp;<em>A</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N24AffineTransformEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">AffineTransformEstimator</span><span class="o">::</span><span class="n">Residuals</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="n">M_t</span><span class="o">&amp;</span> <span class="n">A</span><span class="p">,</span>
+                                      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="n">residuals</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="c1">// 请注意，此代码的表达可能不如Eigenb，但在各种测试中却明显更快</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_00</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_01</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_02</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_10</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_11</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">A_12</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">s_0</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">s_1</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">d_0</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">d_1</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">pd_0</span> <span class="o">=</span> <span class="n">A_00</span> <span class="o">*</span> <span class="n">s_0</span> <span class="o">+</span> <span class="n">A_01</span> <span class="o">*</span> <span class="n">s_1</span> <span class="o">+</span> <span class="n">A_02</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">pd_1</span> <span class="o">=</span> <span class="n">A_10</span> <span class="o">*</span> <span class="n">s_0</span> <span class="o">+</span> <span class="n">A_11</span> <span class="o">*</span> <span class="n">s_1</span> <span class="o">+</span> <span class="n">A_12</span><span class="p">;</span>
+
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">dd_0</span> <span class="o">=</span> <span class="n">d_0</span> <span class="o">-</span> <span class="n">pd_0</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">dd_1</span> <span class="o">=</span> <span class="n">d_1</span> <span class="o">-</span> <span class="n">pd_1</span><span class="p">;</span>
+
+    <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd_0</span> <span class="o">*</span> <span class="n">dd_0</span> <span class="o">+</span> <span class="n">dd_1</span> <span class="o">*</span> <span class="n">dd_1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><span class="math notranslate nohighlight">\(dd_0\)</span>  = 变换后的理想坐标 <span class="math notranslate nohighlight">\(\tilde{x}\)</span> - 通过仿射变换变换的实际坐标 <span class="math notranslate nohighlight">\(x'\)</span></p>
+<p><span class="math notranslate nohighlight">\(dd_1\)</span>  = 变换后的理想坐标 <span class="math notranslate nohighlight">\(\tilde{x}\)</span> - 通过仿射变换变换的实际坐标 <span class="math notranslate nohighlight">\(y'\)</span></p>
+<p><span class="math notranslate nohighlight">\(residuals\)</span> =  <span class="math notranslate nohighlight">\({dd_0}^2 + {dd_1}^2\)</span></p>
+</div>
 </div>
 </div>
 
@@ -466,8 +516,8 @@ a_x'\\a_y'\\b_x'\\b_y'\\c_x'\\c_y'
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../PnP/EPnP/EPnP.html" class="btn btn-neutral float-left" title="2.2. EPnP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Matrix/Matrix.html" class="btn btn-neutral float-right" title="5. Matrix" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../PnP/EPnP/EPnP.html" class="btn btn-neutral float-left" title="3.2. EPnP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

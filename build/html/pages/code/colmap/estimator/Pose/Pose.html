@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Pose &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="2. Utils" href="../Utils/Utils.html" />
+    <link rel="prev" title="Estimator" href="../../c_estimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Pose</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">1.1. 结构体</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">1.2. 成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">1.3. 成员函数</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Pose</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/Pose/Pose.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pose">
+<h1><span class="section-number">1. </span>Pose<a class="headerlink" href="#pose" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2><span class="section-number">1.1. </span>结构体<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv429AbsolutePoseEstimationOptions">
+<span id="_CPPv329AbsolutePoseEstimationOptions"></span><span id="_CPPv229AbsolutePoseEstimationOptions"></span><span id="AbsolutePoseEstimationOptions"></span><em class="property">struct </em><code class="sig-name descname">AbsolutePoseEstimationOptions</code><a class="headerlink" href="#_CPPv429AbsolutePoseEstimationOptions" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">AbsolutePoseEstimationOptions</span> <span class="p">{</span>
+  <span class="c1">// 是否估计焦距</span>
+  <span class="kt">bool</span> <span class="n">estimate_focal_length</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+  <span class="c1">// 用于焦距估计的离散样本数</span>
+  <span class="kt">size_t</span> <span class="n">num_focal_length_samples</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+
+  <span class="c1">// 在给定相机焦距附近进行离散焦距采样的最小焦距比</span>
+  <span class="kt">double</span> <span class="n">min_focal_length_ratio</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+
+  <span class="c1">// 在给定相机焦距附近进行离散焦距采样的最大焦距比</span>
+  <span class="kt">double</span> <span class="n">max_focal_length_ratio</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+  <span class="c1">// 并行估计焦距的线程数</span>
+  <span class="kt">int</span> <span class="n">num_threads</span> <span class="o">=</span> <span class="n">ThreadPool</span><span class="o">::</span><span class="n">kMaxNumThreads</span><span class="p">;</span>
+
+  <span class="c1">// 用于P3P RANSAC的选项</span>
+  <span class="n">RANSACOptions</span> <span class="n">ransac_options</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="nf">Check</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">num_focal_length_samples</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">min_focal_length_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">max_focal_length_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CHECK_LT</span><span class="p">(</span><span class="n">min_focal_length_ratio</span><span class="p">,</span> <span class="n">max_focal_length_ratio</span><span class="p">);</span>
+    <span class="n">ransac_options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<dl class="cpp struct">
+<dt id="_CPPv429AbsolutePoseRefinementOptions">
+<span id="_CPPv329AbsolutePoseRefinementOptions"></span><span id="_CPPv229AbsolutePoseRefinementOptions"></span><span id="AbsolutePoseRefinementOptions"></span><em class="property">struct </em><code class="sig-name descname">AbsolutePoseRefinementOptions</code><a class="headerlink" href="#_CPPv429AbsolutePoseRefinementOptions" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">AbsolutePoseRefinementOptions</span> <span class="p">{</span>
+  <span class="c1">// 收敛准则</span>
+  <span class="kt">double</span> <span class="n">gradient_tolerance</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+  <span class="c1">// 求解器最大迭代次数</span>
+  <span class="kt">int</span> <span class="n">max_num_iterations</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+
+  <span class="c1">// Scaling factor determines at which residual robustification takes place.</span>
+  <span class="c1">// 尺度因子决定了发生残留鲁棒性的位置</span>
+  <span class="kt">double</span> <span class="n">loss_function_scale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+
+  <span class="c1">// 是否优化焦距参数组</span>
+  <span class="kt">bool</span> <span class="n">refine_focal_length</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+  <span class="c1">// 是否优化额外参数组</span>
+  <span class="kt">bool</span> <span class="n">refine_extra_params</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+  <span class="c1">// 是否打印summary</span>
+  <span class="kt">bool</span> <span class="n">print_summary</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="nf">Check</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">gradient_tolerance</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+    <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">max_num_iterations</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">loss_function_scale</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">1.2. </span>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<dl class="cpp type">
+<dt id="_CPPv418AbsolutePoseRANSAC">
+<span id="_CPPv318AbsolutePoseRANSAC"></span><span id="_CPPv218AbsolutePoseRANSAC"></span><span id="AbsolutePoseRANSAC"></span><em class="property">typedef </em>LORANSAC&lt;P3PEstimator, EPNPEstimator&gt; <code class="sig-name descname">AbsolutePoseRANSAC</code>;<a class="headerlink" href="#_CPPv418AbsolutePoseRANSAC" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">1.3. </span>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p><strong>EstimateAbsolutePoseKernel</strong></p>
+<dl class="cpp function">
+<dt id="_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE">
+<span id="_CPPv326EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="_CPPv226EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="EstimateAbsolutePoseKernel__CameraCR.doubleC.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.RANSACOptionsCR.AbsolutePoseRANSAC::ReportP"></span>void <code class="sig-name descname">EstimateAbsolutePoseKernel</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera</em>, <em class="property">const</em> double <em>focal_length_factor</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, <em class="property">const</em> RANSACOptions &amp;<em>options</em>, <a class="reference internal" href="#_CPPv418AbsolutePoseRANSAC" title="AbsolutePoseRANSAC">AbsolutePoseRANSAC</a>::Report *<em>report</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">EstimateAbsolutePoseKernel</span><span class="p">(</span><span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="kt">double</span> <span class="n">focal_length_factor</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">,</span>
+                             <span class="k">const</span> <span class="n">RANSACOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+                             <span class="n">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="o">*</span> <span class="n">report</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="n">Camera</span> <span class="n">scaled_camera</span> <span class="o">=</span> <span class="n">camera</span><span class="p">;</span>
+
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">focal_length_idxs</span> <span class="o">=</span> <span class="n">camera</span><span class="p">.</span><span class="n">FocalLengthIdxs</span><span class="p">();</span>
+
+   <span class="c1">// 按尺度因子缩放焦距</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">size_t</span> <span class="nl">idx</span> <span class="p">:</span> <span class="n">focal_length_idxs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">scaled_camera</span><span class="p">.</span><span class="n">Params</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">*=</span> <span class="n">focal_length_factor</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 使用缩放焦距后的相机(with current camera hypothesis)对图像坐标进行归一化</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">points2D_N</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">points2D_N</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_camera</span><span class="p">.</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="n">points2D</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 估计给定焦距的位姿</span>
+   <span class="k">auto</span> <span class="n">custom_options</span> <span class="o">=</span> <span class="n">options</span><span class="p">;</span>
+
+   <span class="n">custom_options</span><span class="p">.</span><span class="n">max_error</span> <span class="o">=</span>
+      <span class="n">scaled_camera</span><span class="p">.</span><span class="n">ImageToWorldThreshold</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">max_error</span><span class="p">);</span>
+
+   <span class="c1">// 定义一个P3P和EPnP的求解器</span>
+   <span class="n">AbsolutePoseRANSAC</span> <span class="n">ransac</span><span class="p">(</span><span class="n">custom_options</span><span class="p">);</span>
+
+   <span class="c1">// 求解返回位姿变换矩阵</span>
+   <span class="o">*</span><span class="n">report</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">points2D_N</span><span class="p">,</span> <span class="n">points3D</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>EstimateAbsolutePose</strong></p>
+<p>根据2D-3D对应关系估算绝对姿势（焦距可选）</p>
+<p>使用给定相机的焦距周围的离散采样执行焦距估计。 导致最大的inliers的焦距被分配给给定的摄像机。</p>
+<dl class="cpp function">
+<dt id="_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE">
+<span id="_CPPv320EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="_CPPv220EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="EstimateAbsolutePose__AbsolutePoseEstimationOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP.sP.std::vector:c:P"></span>bool <code class="sig-name descname">EstimateAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv429AbsolutePoseEstimationOptions" title="AbsolutePoseEstimationOptions">AbsolutePoseEstimationOptions</a> &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em>, Camera *<em>camera</em>, size_t *<em>num_inliers</em>, std::vector&lt;char&gt; *<em>inlier_mask</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">EstimateAbsolutePose</span><span class="p">(</span><span class="k">const</span> <span class="n">AbsolutePoseEstimationOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span>
+                          <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">,</span>
+                          <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">*</span> <span class="n">qvec</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">tvec</span><span class="p">,</span>
+                          <span class="n">Camera</span><span class="o">*</span> <span class="n">camera</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">*</span> <span class="n">num_inliers</span><span class="p">,</span>
+                          <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;*</span> <span class="n">inlier_mask</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">focal_length_factors</span><span class="p">;</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">estimate_focal_length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 使用二次函数生成焦距因子，以便为较小的焦距绘制更多样本</span>
+    <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">num_focal_length_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">fstep</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">options</span><span class="p">.</span><span class="n">num_focal_length_samples</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">fscale</span> <span class="o">=</span>
+        <span class="n">options</span><span class="p">.</span><span class="n">max_focal_length_ratio</span> <span class="o">-</span> <span class="n">options</span><span class="p">.</span><span class="n">min_focal_length_ratio</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">double</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">f</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">;</span> <span class="n">f</span> <span class="o">+=</span> <span class="n">fstep</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">min_focal_length_ratio</span> <span class="o">+</span>
+                                     <span class="n">fscale</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">f</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+      <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// future对象提供访问异步操作结果的机制，很轻松解决从异步任务中返回结果。</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;&gt;</span> <span class="n">futures</span><span class="p">;</span>
+   <span class="n">futures</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="p">,</span>
+              <span class="n">Eigen</span><span class="o">::</span><span class="n">aligned_allocator</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="o">&gt;&gt;</span>
+      <span class="n">reports</span><span class="p">;</span>
+   <span class="n">reports</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">(</span> <span class="p">));</span>
+
+   <span class="n">ThreadPool</span> <span class="n">thread_pool</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span>
+      <span class="n">options</span><span class="p">.</span><span class="n">num_threads</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">())));</span>
+
+   <span class="c1">// 使用多线程估计相机变换矩阵</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">futures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">thread_pool</span><span class="p">.</span><span class="n">AddTask</span><span class="p">(</span>
+         <span class="n">EstimateAbsolutePoseKernel</span><span class="p">,</span> <span class="o">*</span><span class="n">camera</span><span class="p">,</span> <span class="n">focal_length_factors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points2D</span><span class="p">,</span>
+         <span class="n">points3D</span><span class="p">,</span> <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">reports</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+   <span class="p">}</span>
+
+   <span class="kt">double</span> <span class="n">focal_length_factor</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span> <span class="n">proj_matrix</span><span class="p">;</span>
+   <span class="o">*</span><span class="n">num_inliers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">inlier_mask</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
+
+   <span class="c1">// 找到最佳model</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 当共享状态就绪时，返回存储在共享状态中的值(或抛出异常)</span>
+      <span class="n">futures</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">get</span><span class="p">();</span>
+      <span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">reports</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;</span> <span class="o">*</span><span class="n">num_inliers</span><span class="p">)</span> <span class="p">{</span>
+         <span class="o">*</span><span class="n">num_inliers</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+         <span class="n">proj_matrix</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+         <span class="o">*</span><span class="n">inlier_mask</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+         <span class="n">focal_length_factor</span> <span class="o">=</span> <span class="n">focal_length_factors</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">num_inliers</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 以最佳估计焦距缩放输出相机</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">estimate_focal_length</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">num_inliers</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">focal_length_idxs</span> <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">FocalLengthIdxs</span><span class="p">();</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="kt">size_t</span> <span class="nl">idx</span> <span class="p">:</span> <span class="n">focal_length_idxs</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">camera</span><span class="o">-&gt;</span><span class="n">Params</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">*=</span> <span class="n">focal_length_factor</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 提取位姿参数</span>
+   <span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">RotationMatrixToQuaternion</span><span class="p">(</span><span class="n">proj_matrix</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">());</span>
+   <span class="o">*</span><span class="n">tvec</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">IsNaN</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">)</span> <span class="o">||</span> <span class="n">IsNaN</span><span class="p">(</span><span class="o">*</span><span class="n">tvec</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>整个函数的步骤为：</p>
+<ol class="arabic simple">
+<li><p>如果选择了使用估计焦距（即没有给定焦距）， 则通过二次函数来生成焦距因子。</p></li>
+</ol>
+<p>根据样本数的不同，取相同的采样频率:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">fstep</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">options</span><span class="p">.</span><span class="n">num_focal_length_samples</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>用最大可能的焦距系数 - 最小可能的焦距系数来作为尺度放缩因子：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">fscale</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">max_focal_length_ratio</span> <span class="o">-</span> <span class="n">options</span><span class="p">.</span><span class="n">min_focal_length_ratio</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>如果给定焦距，则直接填入即可。</p>
+<ol class="arabic simple" start="2">
+<li><p>通过多线程的异步操作计算位姿变换矩阵，future对象提供访问异步操作结果的机制，从异步任务中返回结果。</p></li>
+</ol>
+<p>对于每一个焦距因子（如果使用估计焦距的话），都会调用一个线程执行 <a class="reference internal" href="#_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE" title="EstimateAbsolutePoseKernel"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">EstimateAbsolutePoseKernel()</span></code></a> 函数来估计该焦距下的相机位姿变换矩阵。使用P3P或EPnP的方法进行计算，将结果存入到futures中。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">futures</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">thread_pool</span><span class="p">.</span><span class="n">AddTask</span><span class="p">(</span>
+      <span class="n">EstimateAbsolutePoseKernel</span><span class="p">,</span> <span class="o">*</span><span class="n">camera</span><span class="p">,</span> <span class="n">focal_length_factors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points2D</span><span class="p">,</span>
+      <span class="n">points3D</span><span class="p">,</span> <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">reports</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>遍历所有的焦距（如果使用估计焦距的话），找到inliers最大的一组作为最佳model。</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// 当共享状态就绪时，返回存储在共享状态中的值(或抛出异常)</span>
+   <span class="n">futures</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">get</span><span class="p">();</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">reports</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;</span> <span class="o">*</span><span class="n">num_inliers</span><span class="p">)</span> <span class="p">{</span>
+      <span class="o">*</span><span class="n">num_inliers</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+      <span class="n">proj_matrix</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+      <span class="o">*</span><span class="n">inlier_mask</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+      <span class="n">focal_length_factor</span> <span class="o">=</span> <span class="n">focal_length_factors</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>*4. 将相机的焦距乘以最佳model对应的焦距因子</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">Params</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">*=</span> <span class="n">focal_length_factor</span><span class="p">;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>从位姿变换矩阵中提取位姿（R，t）</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">RotationMatrixToQuaternion</span><span class="p">(</span><span class="n">proj_matrix</span><span class="p">.</span><span class="n">leftCols</span><span class="o">&lt;</span><span class="mi">3</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="o">*</span><span class="n">tvec</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">.</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><strong>EstimateRelativePose</strong></p>
+<p>从2D-2D对应关系估计相对值</p>
+<p>假定第一台摄像机的位姿是在原点且没有旋转。第二个相机的位姿作为世界到图像的转换而给出，即：</p>
+<div class="math notranslate nohighlight">
+\[x_2 = [R | t] * X_2\]</div>
+<dl class="cpp function">
+<dt id="_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
+<span id="_CPPv320EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv220EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="EstimateRelativePose__RANSACOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span>size_t <code class="sig-name descname">EstimateRelativePose</code><span class="sig-paren">(</span><em class="property">const</em> RANSACOptions &amp;<em>ransac_options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">EstimateRelativePose</span><span class="p">(</span><span class="k">const</span> <span class="n">RANSACOptions</span><span class="o">&amp;</span> <span class="n">ransac_options</span><span class="p">,</span>
+                      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                      <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">*</span> <span class="n">qvec</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">tvec</span><span class="p">)</span> <span class="p">{</span>
+
+   <span class="c1">// 定义五点法本质矩阵求解器</span>
+   <span class="n">RANSAC</span><span class="o">&lt;</span><span class="n">EssentialMatrixFivePointEstimator</span><span class="o">&gt;</span> <span class="n">ransac</span><span class="p">(</span><span class="n">ransac_options</span><span class="p">);</span>
+
+   <span class="c1">// 求解两个点集之间的本质矩阵E</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">report</span><span class="p">.</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inliers1</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">);</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inliers2</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">);</span>
+
+   <span class="c1">// 内点遮罩</span>
+   <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+         <span class="n">inliers1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+         <span class="n">inliers2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+         <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">R</span><span class="p">;</span>
+
+   <span class="c1">// 通过本质矩阵恢复R、t</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D</span><span class="p">;</span>
+   <span class="n">PoseFromEssentialMatrix</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">model</span><span class="p">,</span> <span class="n">inliers1</span><span class="p">,</span> <span class="n">inliers2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R</span><span class="p">,</span> <span class="n">tvec</span><span class="p">,</span>
+                          <span class="o">&amp;</span><span class="n">points3D</span><span class="p">);</span>
+
+   <span class="c1">// 由旋转矩阵获得旋转四元数</span>
+   <span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">RotationMatrixToQuaternion</span><span class="p">(</span><span class="n">R</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">IsNaN</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">)</span> <span class="o">||</span> <span class="n">IsNaN</span><span class="p">(</span><span class="o">*</span><span class="n">tvec</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 返回3D点的个数</span>
+   <span class="k">return</span> <span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>整个函数的步骤为：</p>
+<ol class="arabic simple">
+<li><p>定义本质矩阵的RANSAC求解器，通过pt1和pt2计算本质矩阵</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">RANSAC</span><span class="o">&lt;</span><span class="n">EssentialMatrixFivePointEstimator</span><span class="o">&gt;</span> <span class="n">ransac</span><span class="p">(</span><span class="n">ransac_options</span><span class="p">);</span>
+
+<span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">);</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>内点遮罩，将需要计算的点存入到inliers1和inliers2中</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+   <span class="n">inliers1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="n">inliers2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>分解本质矩阵得到位姿</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PoseFromEssentialMatrix</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">model</span><span class="p">,</span> <span class="n">inliers1</span><span class="p">,</span> <span class="n">inliers2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R</span><span class="p">,</span> <span class="n">tvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points3D</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p><strong>RefineAbsolutePose</strong></p>
+<p>从2D-3D对应关系中细化绝对位姿（焦距可选）</p>
+<dl class="cpp function">
+<dt id="_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera">
+<span id="_CPPv318RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="_CPPv218RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="RefineAbsolutePose__AbsolutePoseRefinementOptionsCR.std::vector:c:CR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP"></span>bool <code class="sig-name descname">RefineAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv429AbsolutePoseRefinementOptions" title="AbsolutePoseRefinementOptions">AbsolutePoseRefinementOptions</a> &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;char&gt; &amp;<em>inlier_mask</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em>, Camera *<em>camera</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">RefineAbsolutePose</span><span class="p">(</span><span class="k">const</span> <span class="n">AbsolutePoseRefinementOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">inlier_mask</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">,</span>
+                        <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">*</span> <span class="n">qvec</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">tvec</span><span class="p">,</span>
+                        <span class="n">Camera</span><span class="o">*</span> <span class="n">camera</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">inlier_mask</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+   <span class="c1">// 定义损失函数 LossFunction 为 柯西核函数</span>
+   <span class="n">ceres</span><span class="o">::</span><span class="n">LossFunction</span><span class="o">*</span> <span class="n">loss_function</span> <span class="o">=</span>
+      <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CauchyLoss</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">loss_function_scale</span><span class="p">);</span>
+
+   <span class="kt">double</span><span class="o">*</span> <span class="n">camera_params_data</span> <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">();</span>
+   <span class="kt">double</span><span class="o">*</span> <span class="n">qvec_data</span> <span class="o">=</span> <span class="n">qvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">();</span>
+   <span class="kt">double</span><span class="o">*</span> <span class="n">tvec_data</span> <span class="o">=</span> <span class="n">tvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">();</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">points3D_copy</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">;</span>
+
+   <span class="c1">// 构建最小二乘问题</span>
+   <span class="n">ceres</span><span class="o">::</span><span class="n">Problem</span> <span class="n">problem</span><span class="p">;</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 跳过 outlier 观测值</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+         <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+   <span class="c1">// 定义代价函数 负责计算残差和雅可比矩阵的向量</span>
+   <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">cost_function</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+   <span class="c1">// \表示下一行属于上一行的末尾（续行）</span>
+
+   <span class="c1">// 对相机模型的2D点进行BA代价函数的定义</span>
+   <span class="k">switch</span> <span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ModelId</span><span class="p">())</span> <span class="p">{</span>
+<span class="cp">#define CAMERA_MODEL_CASE(CameraModel)                                  \</span>
+<span class="cp">   case CameraModel::kModelId:                                           \</span>
+<span class="cp">      cost_function =                                                     \</span>
+<span class="cp">         BundleAdjustmentCostFunction&lt;CameraModel&gt;::Create(points2D[i]); \</span>
+<span class="cp">      break;</span>
+
+      <span class="n">CAMERA_MODEL_SWITCH_CASES</span>
+
+<span class="cp">#undef CAMERA_MODEL_CASE</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 为最小二乘求解设置参数</span>
+      <span class="n">problem</span><span class="p">.</span><span class="n">AddResidualBlock</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="n">loss_function</span><span class="p">,</span> <span class="n">qvec_data</span><span class="p">,</span> <span class="n">tvec_data</span><span class="p">,</span>
+                             <span class="n">points3D_copy</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">(),</span> <span class="n">camera_params_data</span><span class="p">);</span>
+
+      <span class="c1">// 设定对应的参数模块在优化过程中保持不变</span>
+      <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">points3D_copy</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">());</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 残差向量的大小 &gt; 0 （通过对所有残差块的大小求和而获得的）</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">problem</span><span class="p">.</span><span class="n">NumResiduals</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 四元数参数化</span>
+      <span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">NormalizeQuaternion</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">);</span>
+      <span class="n">ceres</span><span class="o">::</span><span class="n">LocalParameterization</span><span class="o">*</span> <span class="n">quaternion_parameterization</span> <span class="o">=</span>
+         <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionParameterization</span><span class="p">;</span>
+      <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">qvec_data</span><span class="p">,</span> <span class="n">quaternion_parameterization</span><span class="p">);</span>
+
+      <span class="c1">// 相机参数化</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_focal_length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_extra_params</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">());</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="c1">// 始终固定主点</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">camera_params_const</span><span class="p">;</span>
+         <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">principal_point_idxs</span> <span class="o">=</span>
+            <span class="n">camera</span><span class="o">-&gt;</span><span class="n">PrincipalPointIdxs</span><span class="p">();</span>
+         <span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                                 <span class="n">principal_point_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                                 <span class="n">principal_point_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_focal_length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">focal_length_idxs</span> <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">FocalLengthIdxs</span><span class="p">();</span>
+            <span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                                   <span class="n">focal_length_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                                   <span class="n">focal_length_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+         <span class="p">}</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_extra_params</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">extra_params_idxs</span> <span class="o">=</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">ExtraParamsIdxs</span><span class="p">();</span>
+            <span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                                   <span class="n">extra_params_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                                   <span class="n">extra_params_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+         <span class="p">}</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">NumParams</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">());</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">ceres</span><span class="o">::</span><span class="n">SubsetParameterization</span><span class="o">*</span> <span class="n">camera_params_parameterization</span> <span class="o">=</span>
+               <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">SubsetParameterization</span><span class="p">(</span>
+                  <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">NumParams</span><span class="p">()),</span> <span class="n">camera_params_const</span><span class="p">);</span>
+
+            <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">(),</span> <span class="n">camera_params_parameterization</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Options</span> <span class="n">solver_options</span><span class="p">;</span>
+   <span class="n">solver_options</span><span class="p">.</span><span class="n">gradient_tolerance</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">gradient_tolerance</span><span class="p">;</span>
+   <span class="n">solver_options</span><span class="p">.</span><span class="n">max_num_iterations</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">max_num_iterations</span><span class="p">;</span>
+   <span class="n">solver_options</span><span class="p">.</span><span class="n">linear_solver_type</span> <span class="o">=</span> <span class="n">ceres</span><span class="o">::</span><span class="n">DENSE_QR</span><span class="p">;</span>
+
+   <span class="c1">// The overhead of creating threads is too large.</span>
+   <span class="n">solver_options</span><span class="p">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="cp">#if CERES_VERSION_MAJOR &lt; 2</span>
+   <span class="n">solver_options</span><span class="p">.</span><span class="n">num_linear_solver_threads</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="cp">#endif  </span><span class="c1">// CERES_VERSION_MAJOR</span>
+
+   <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Summary</span> <span class="n">summary</span><span class="p">;</span>
+   <span class="n">ceres</span><span class="o">::</span><span class="n">Solve</span><span class="p">(</span><span class="n">solver_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">problem</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">summary</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">solver_options</span><span class="p">.</span><span class="n">minimizer_progress_to_stdout</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">print_summary</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">PrintHeading2</span><span class="p">(</span><span class="s">&quot;Pose refinement report&quot;</span><span class="p">);</span>
+      <span class="n">PrintSolverSummary</span><span class="p">(</span><span class="n">summary</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="n">summary</span><span class="p">.</span><span class="n">IsSolutionUsable</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>函数很长，一点点分析。</p>
+<p>这个函数是通过ceres-Solver进行最小二乘优化，对绝对位姿进行细化。</p>
+<ol class="arabic">
+<li><p>定义 LossFunction 为 CauchyLoss。 对 LossFunction 的介绍戳我 👉</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">LossFunction</span><span class="o">*</span> <span class="n">loss_function</span> <span class="o">=</span>  <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CauchyLoss</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">loss_function_scale</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>定义最小二乘解决方法 problem</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">Problem</span> <span class="n">problem</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>定义 CostFunction， 不同的相机模型 影响了 CostFuction里的 :cpp:func: <cite>CameraModel::WorldToImage</cite> 函数</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span>   <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">cost_function</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+   <span class="k">switch</span> <span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ModelId</span><span class="p">())</span> <span class="p">{</span>
+<span class="cp">#define CAMERA_MODEL_CASE(CameraModel)                                  \</span>
+<span class="cp">   case CameraModel::kModelId:                                           \</span>
+<span class="cp">      cost_function =                                                     \</span>
+<span class="cp">         BundleAdjustmentCostFunction&lt;CameraModel&gt;::Create(points2D[i]); \</span>
+<span class="cp">      break;</span>
+
+      <span class="n">CAMERA_MODEL_SWITCH_CASES</span>
+
+<span class="cp">#undef CAMERA_MODEL_CASE</span>
+      <span class="p">}</span>
+</pre></div>
+</div>
+<p>这里的 define 后面的 ‘\’ 实际上是将一行分成了多行去写，指CAMERA_MODEL_CASE实际上定义了后面的一整个case。</p>
+<p>那么这一个switch中，实际上执行的是 <code class="docutils literal notranslate"><span class="pre">CAMERA_MODEL_SWITCH_CASES</span></code> 这个宏定义。这个宏在camera_models.h中定义，定义如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#ifndef CAMERA_MODEL_SWITCH_CASES</span>
+<span class="c1">#define CAMERA_MODEL_SWITCH_CASES         \</span>
+   <span class="n">CAMERA_MODEL_CASES</span>                      \
+   <span class="n">default</span><span class="p">:</span>                                \
+      <span class="n">CAMERA_MODEL_DOES_NOT_EXIST_EXCEPTION</span> \
+   <span class="k">break</span><span class="p">;</span>
+<span class="c1">#endif</span>
+</pre></div>
+</div>
+<p>可以看到， 这个宏执行的是 <code class="docutils literal notranslate"><span class="pre">CAMERA_MODEL_CASES</span></code> 这个宏，下面的 <code class="docutils literal notranslate"><span class="pre">CAMERA_MODEL_DOES_NOT_EXIST_EXCEPTION</span></code> 是输出错误信息，可以先忽略。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#ifndef CAMERA_MODEL_CASES</span>
+<span class="c1">#define CAMERA_MODEL_CASES                          \</span>
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">SimplePinholeCameraModel</span><span class="p">)</span>       \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">PinholeCameraModel</span><span class="p">)</span>             \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">SimpleRadialCameraModel</span><span class="p">)</span>        \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">SimpleRadialFisheyeCameraModel</span><span class="p">)</span> \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">RadialCameraModel</span><span class="p">)</span>              \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">RadialFisheyeCameraModel</span><span class="p">)</span>       \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">OpenCVCameraModel</span><span class="p">)</span>              \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">OpenCVFisheyeCameraModel</span><span class="p">)</span>       \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">FullOpenCVCameraModel</span><span class="p">)</span>          \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">FOVCameraModel</span><span class="p">)</span>                 \
+  <span class="n">CAMERA_MODEL_CASE</span><span class="p">(</span><span class="n">ThinPrismFisheyeCameraModel</span><span class="p">)</span>
+<span class="c1">#endif</span>
+</pre></div>
+</div>
+<p>这下清楚了，最终实际上执行的还是CAMERA_MODEL_CASE(CameraModel)，只是在这个函数里通过宏定义将 <code class="docutils literal notranslate"><span class="pre">CAMERA_MODEL_CASE</span></code> 替换成了</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cost_function</span> <span class="o">=</span> <span class="n">BundleAdjustmentCostFunction</span><span class="o">&lt;</span><span class="n">CameraModel</span><span class="o">&gt;::</span><span class="n">Create</span><span class="p">(</span><span class="n">points2D</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</pre></div>
+</div>
+</li>
+<li><p>向Problem类传递残差模块的信息，传递的参数主要包括代价函数模块、损失函数模块和参数模块。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">AddResidualBlock</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="n">loss_function</span><span class="p">,</span> <span class="n">qvec_data</span><span class="p">,</span> <span class="n">tvec_data</span><span class="p">,</span>
+                         <span class="n">points3D_copy</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">(),</span> <span class="n">camera_params_data</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>设定3D点对应的参数模块在优化过程中保持不变。</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">points3D_copy</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">data</span><span class="p">());</span>
+</pre></div>
+</div>
+</li>
+<li><p>如果残差的数量 &gt; 0，则：首先进行四元数的参数化。</p>
+<p>这里贴上ceres-Solver对QuaternionParameterization的解释：</p>
+<div class="math notranslate nohighlight">
+\[⊞(x, \Delta) = [cos(|\Delta|, \frac{sin(|\Delta|)}{|\Delta|}\Delta)] * x\]</div>
+<p>右侧两个四维向量之间的相乘 <span class="math notranslate nohighlight">\(*\)</span> 是标准四元数乘积。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>⊞ 符号是指 计算沿 <span class="math notranslate nohighlight">\(x\)</span> 的切线空间中的增量沿 <span class="math notranslate nohighlight">\(\Delta\)</span> 移动，然后投影回 <span class="math notranslate nohighlight">\(x\)</span> 所属的流形的结果。</p>
+<p>通过不同的Parameterization函数来定义不同的 ⊞ <span class="math notranslate nohighlight">\((x, \Delta)\)</span> 的含义。</p>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">NormalizeQuaternion</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">);</span>
+<span class="n">ceres</span><span class="o">::</span><span class="n">LocalParameterization</span><span class="o">*</span> <span class="n">quaternion_parameterization</span> <span class="o">=</span>
+   <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionParameterization</span><span class="p">;</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">qvec_data</span><span class="p">,</span> <span class="n">quaternion_parameterization</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>6.1 如果相机不需要优化焦距和外参，则直接将相机的参数设为保持不变</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_focal_length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">refine_extra_params</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.2 否则需要定义一个相机参数序列</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">camera_params_const</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.3 通过向这个参数序列中插入 主点的idx，焦距的idx（如果不需要优化焦距），外参的idx（如果不需要优化外参）</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                  <span class="n">principal_point_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                  <span class="n">principal_point_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+<span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                    <span class="n">focal_length_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                    <span class="n">focal_length_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+<span class="n">camera_params_const</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                    <span class="n">extra_params_idxs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                    <span class="n">extra_params_idxs</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.4 如果相机的参数数量 = 相机参数序列的参数数量，即都不需要优化（或者是某些参数不存在？），则将相机的参数设为保持不变</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">camera_params_const</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">camera</span><span class="o">-&gt;</span><span class="n">NumParams</span><span class="p">())</span>
+   <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterBlockConstant</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">());</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.5 否则，即需要进行相机参数的优化，设置 SubsetParameterization</p>
+<blockquote>
+<div><p>同样贴上 ceres-Solver的解释：</p>
+<p>假设 <span class="math notranslate nohighlight">\(x\)</span> 是一个二维向量，并且用户希望保持第一个坐标不变。 那么， <span class="math notranslate nohighlight">\(\Delta\)</span> 是一个标量， <span class="math notranslate nohighlight">\(⊞\)</span> 被定义为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}⊞(x, \Delta) = x + \left[
+\begin{matrix}
+0\\1
+\end{matrix}
+\right]\Delta\end{split}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">SubsetParameterization</span><span class="o">*</span> <span class="n">camera_params_parameterization</span> <span class="o">=</span>
+      <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">SubsetParameterization</span><span class="p">(</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">NumParams</span><span class="p">()),</span> <span class="n">camera_params_const</span><span class="p">);</span>
+
+<span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">camera</span><span class="o">-&gt;</span><span class="n">ParamsData</span><span class="p">(),</span> <span class="n">camera_params_parameterization</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>设置 Options</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Options</span> <span class="n">solver_options</span><span class="p">;</span>
+<span class="n">solver_options</span><span class="p">.</span><span class="n">gradient_tolerance</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">gradient_tolerance</span><span class="p">;</span>
+<span class="n">solver_options</span><span class="p">.</span><span class="n">max_num_iterations</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">max_num_iterations</span><span class="p">;</span>
+<span class="n">solver_options</span><span class="p">.</span><span class="n">linear_solver_type</span> <span class="o">=</span> <span class="n">ceres</span><span class="o">::</span><span class="n">DENSE_QR</span><span class="p">;</span>
+<span class="n">solver_options</span><span class="p">.</span><span class="n">num_threads</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">solver_options</span><span class="p">.</span><span class="n">num_linear_solver_threads</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>求解最小二乘</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Summary</span> <span class="n">summary</span><span class="p">;</span>
+<span class="n">ceres</span><span class="o">::</span><span class="n">Solve</span><span class="p">(</span><span class="n">solver_options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">problem</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">summary</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li><p><strong>RefineRelativePose</strong></p>
+<p>优化两个相机的相对位姿。</p>
+<p>使用鲁棒的成本函数将对应归一化点之间的Sampson误差最小化，即在给定相对位姿的足够初始猜测的前提下，对应点不一定非是整数。</p>
+<p>假设第一个摄像机位姿具有投影矩阵 <span class="math notranslate nohighlight">\(P = [I | 0]\)</span> ，第二个摄影机的位姿作为从世界到摄影机系统的转换而给出。</p>
+<p>假设已将给定的位移向量归一化，并将位移精确度提高到未知尺度（即，位移向量进行细化还是单位向量）。</p>
+<dl class="cpp function">
+<dt id="_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
+<span id="_CPPv318RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv218RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="RefineRelativePose__ceres::Solver::OptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span>bool <code class="sig-name descname">RefineRelativePose</code><span class="sig-paren">(</span><em class="property">const</em> ceres::Solver::Options &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">RefineRelativePose</span><span class="p">(</span><span class="k">const</span> <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                        <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">*</span> <span class="n">qvec</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">tvec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="c1">// CostFunction 假定单位四元数</span>
+  <span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">NormalizeQuaternion</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">);</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">kMaxL2Error</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+  <span class="n">ceres</span><span class="o">::</span><span class="n">LossFunction</span><span class="o">*</span> <span class="n">loss_function</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CauchyLoss</span><span class="p">(</span><span class="n">kMaxL2Error</span><span class="p">);</span>
+
+  <span class="n">ceres</span><span class="o">::</span><span class="n">Problem</span> <span class="n">problem</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">cost_function</span> <span class="o">=</span>
+        <span class="n">RelativePoseCostFunction</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">problem</span><span class="p">.</span><span class="n">AddResidualBlock</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="n">loss_function</span><span class="p">,</span> <span class="n">qvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span>
+                             <span class="n">tvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">());</span>
+  <span class="p">}</span>
+
+  <span class="n">ceres</span><span class="o">::</span><span class="n">LocalParameterization</span><span class="o">*</span> <span class="n">quaternion_parameterization</span> <span class="o">=</span>
+      <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionParameterization</span><span class="p">;</span>
+  <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">qvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span> <span class="n">quaternion_parameterization</span><span class="p">);</span>
+
+  <span class="n">ceres</span><span class="o">::</span><span class="n">HomogeneousVectorParameterization</span><span class="o">*</span> <span class="n">homogeneous_parameterization</span> <span class="o">=</span>
+      <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">HomogeneousVectorParameterization</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">tvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span> <span class="n">homogeneous_parameterization</span><span class="p">);</span>
+
+  <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Summary</span> <span class="n">summary</span><span class="p">;</span>
+  <span class="n">ceres</span><span class="o">::</span><span class="n">Solve</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">problem</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">summary</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">summary</span><span class="p">.</span><span class="n">IsSolutionUsable</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>整个函数的步骤为：</p>
+<ol class="arabic">
+<li><p>单位化四元数</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">qvec</span> <span class="o">=</span> <span class="n">NormalizeQuaternion</span><span class="p">(</span><span class="o">*</span><span class="n">qvec</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>定义 LossFunction， 并设置L2误差最大值为1.0</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">kMaxL2Error</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="n">ceres</span><span class="o">::</span><span class="n">LossFunction</span><span class="o">*</span> <span class="n">loss_function</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CauchyLoss</span><span class="p">(</span><span class="n">kMaxL2Error</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>定义最小二乘解决方法 problem</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">Problem</span> <span class="n">problem</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>定义 CostFunction 并添加残差模块</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">ceres</span><span class="o">::</span><span class="n">CostFunction</span><span class="o">*</span> <span class="n">cost_function</span> <span class="o">=</span>
+      <span class="n">RelativePoseCostFunction</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+   <span class="n">problem</span><span class="p">.</span><span class="n">AddResidualBlock</span><span class="p">(</span><span class="n">cost_function</span><span class="p">,</span> <span class="n">loss_function</span><span class="p">,</span> <span class="n">qvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span>
+                          <span class="n">tvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>设置 四元数参数 和 单应性向量参数</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">LocalParameterization</span><span class="o">*</span> <span class="n">quaternion_parameterization</span> <span class="o">=</span>
+   <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">QuaternionParameterization</span><span class="p">;</span>
+      <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">qvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span> <span class="n">quaternion_parameterization</span><span class="p">);</span>
+
+<span class="n">ceres</span><span class="o">::</span><span class="n">HomogeneousVectorParameterization</span><span class="o">*</span> <span class="n">homogeneous_parameterization</span> <span class="o">=</span>
+   <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">HomogeneousVectorParameterization</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+      <span class="n">problem</span><span class="p">.</span><span class="n">SetParameterization</span><span class="p">(</span><span class="n">tvec</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">(),</span> <span class="n">homogeneous_parameterization</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>求解最小二乘</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ceres</span><span class="o">::</span><span class="n">Solve</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">problem</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">summary</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Utils/Utils.html" class="btn btn-neutral float-right" title="2. Utils" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../c_estimator.html" class="btn btn-neutral float-left" title="Estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

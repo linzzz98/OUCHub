@@ -12,6 +12,7 @@ Base
    base/Cost_function/Cost_function
    base/Image/Image
    base/Matrix/Matrix
+   base/Triangulation/Triangulation
 
 |:star:|  :doc:`VisibilityPyramid <base/VisibilityPyramid/VisibilityPyramid>`
 
@@ -24,3 +25,5 @@ Base
 |:star:|  :doc:`Image <base/Image/Image>`
 
 |:star:|  :doc:`Matrix <base/Matrix/Matrix>`
+
+|:star:|  :doc:`Triangulation <base/Triangulation/Triangulation>`
