@@ -4,7 +4,7 @@ Estimator
 .. toctree::
    :maxdepth: -1
    :hidden:
-   :numbered:
+   :numbered: 1
 
    estimator/Pose/Pose
    estimator/Utils/Utils

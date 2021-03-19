@@ -679,6 +679,15 @@ ComputeL6x10
 
       *  :math:`N = 4` 时，未知数的个数多于方程的个数
 
+         论文中提到， :math:`\beta_{ab}\beta_{cd} = \beta_{a}\beta_{b}\beta_{c}\beta_{d} = \beta_{a'b'}\beta_{c'd'}`
+
+         其中 :math:`\{a',b',c',d'\}` 是  :math:`\{a,b,c,d\}` 的一个排列。这样就可以减少未知数的个数。例如：
+
+         例如：求出了 :math:`\beta_{11},\beta_{12},\beta_{13}` 那么就可以得到 :math:`\beta{23} = \frac{\beta_{12}\beta_{13}}{\beta_{11}}` ，这样就可以求出 :math:`\{beta_{ij}\}_{i,j = 1,...,N}` 了
+
+
+   .. note::
+
       回到代码，可以明显看到 :math:`N = 2,3,4` 的时候， :math:`L` 矩阵是 :math:`N = 4` 的情况下的 :math:`L` 矩阵的子集，因此直接构造  :math:`N = 4` 时的 :math:`L` 矩阵。
 
       .. tip::
@@ -732,18 +741,18 @@ ComputeL6x10
 
       .. parsed-literal::
 
-                         L (6*10)                       *   bates (10*1)    =  rho (6*1)
+                         L (6*10)                       *   betas (10*1)    =  rho (6*1)
 
-         | ||v1i-v1j||^2  2*|(v1i-v1j)(v2i-v2j)|    ..|   | bates1*betas1 |   | dcw0_1 |
+         | ||v1i-v1j||^2  2*|(v1i-v1j)(v2i-v2j)|    ..|   | betas1*betas1 |   | dcw0_1 |
          |      ..                                    |   | betas1*betas2 |   | dcw0_2 |
          |      ..                                    |   | betas2*betas2 |   | dcw0_3 |
          |      ..                                    | * | betas1*betas3 | = | dcw1_2 |
          |      ..                                    |   | betas2*betas3 |   | dcw1_3 |
          |      ..                                    |   | betas3*betas3 |   | dcw2_3 |
-         |      ..                                    |   | betas1*betas4 |
-         |      ..                                    |   | betas2*betas4 |
-         |      ..                                    |   | betas3*betas4 |
-         |      ..                                    |   | betas4*betas4 |
+                                                          | betas1*betas4 |
+                                                          | betas2*betas4 |
+                                                          | betas3*betas4 |
+                                                          | betas4*betas4 |
 
 
       .. code-block:: cpp
@@ -1021,4 +1030,466 @@ FindBetasApprox3
          (*betas)[3] = 0.0;
 
 
+RunGaussNewton
 ----------------------------
+
+   在使用approx进行 :math:`\beta` 的初值求解后，需要使用GaussNewton的方法进行参数 :math:`\beta` 的优化。
+
+   记：
+
+   .. math::
+
+      Error(\beta) = \sum\limits_{(i,j)~s.t.~i < j} (||c_i^c - c_j^c||^2 - ||c_i^w - c_j^w||^2)
+
+
+   .. math::
+
+      \Downarrow
+
+   .. math::
+
+      Error(\beta) = \sum\limits_{(i,j)~s.t.~i < j} (\sum\limits_{k=1}^4 || \beta_k v_k^{[i]} - \beta_k v_k^{[j]} ||^2 - ||c_i^w - c_j^w||^2)
+
+   高斯牛顿法在此不具体介绍了，会另开一个专题。 主要是要通过偏差对 :math:`\beta_1,\beta_2,\beta_3,\beta_4` 进行求导，这是数对矩阵的求导。
+
+   .. math::
+
+      Error(\beta_0 + \Delta \beta) = Error(\beta_0) + Error'(\beta) \Delta \beta = 0
+
+   从而有等式：
+
+   .. figure:: 6.jpg
+      :figclass: align-center
+      :scale: 75%
+
+   这里分开来看：
+
+   :math:`Error'(\beta)` ，称为 :math:`A` 矩阵。 实际上是 :math:`Error(\beta)` 分别对  :math:`\beta_i` 求偏导：
+
+   .. math::
+
+      \begin{eqnarray}
+      A &=& [\frac{\delta Error(\beta)}{\delta \beta_1}~~~\frac{\delta Error(\beta)}{\delta \beta_2}~~~\frac{\delta Error(\beta)}{\delta \beta_3}~~~\frac{\delta Error(\beta)}{\delta \beta_4}]\\\\
+        &=& [2L_1\beta_1+L_2\beta_2+L_4\beta_3+L_7\beta_4~~~ L_2\beta_1+2L_3\beta_2+L_5\beta_3+L_8\beta_4~~~···~~~···]
+      \end{eqnarray}
+
+   然后对 :math:`A` 矩阵进行 :math:`QR` 分解，得到：
+
+   .. math::
+
+      \Delta \beta = x = R^{-1} Q^{-1} b
+
+   进而进行迭代：
+
+   .. math::
+
+      \beta' = \beta_0 + \Delta \beta
+
+
+   .. cpp:function:: void EPNPEstimator::RunGaussNewton(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
+
+   .. code-block:: cpp
+
+      void EPNPEstimator::RunGaussNewton(const Eigen::Matrix<double, 6, 10>& L6x10,
+                                   const Eigen::Matrix<double, 6, 1>& rho,
+                                   Eigen::Vector4d* betas) {
+        Eigen::Matrix<double, 6, 4> A;
+        Eigen::Matrix<double, 6, 1> b;
+
+        const int kNumIterations = 5;
+        for (int k = 0; k < kNumIterations; ++k) {
+            for (int i = 0; i < 6; ++i) {
+               A(i, 0) = 2 * L6x10(i, 0) * (*betas)[0] + L6x10(i, 1) * (*betas)[1] +
+                      L6x10(i, 3) * (*betas)[2] + L6x10(i, 6) * (*betas)[3];
+               A(i, 1) = L6x10(i, 1) * (*betas)[0] + 2 * L6x10(i, 2) * (*betas)[1] +
+                      L6x10(i, 4) * (*betas)[2] + L6x10(i, 7) * (*betas)[3];
+               A(i, 2) = L6x10(i, 3) * (*betas)[0] + L6x10(i, 4) * (*betas)[1] +
+                      2 * L6x10(i, 5) * (*betas)[2] + L6x10(i, 8) * (*betas)[3];
+               A(i, 3) = L6x10(i, 6) * (*betas)[0] + L6x10(i, 7) * (*betas)[1] +
+                      L6x10(i, 8) * (*betas)[2] + 2 * L6x10(i, 9) * (*betas)[3];
+
+               b(i) = rho[i] - (L6x10(i, 0) * (*betas)[0] * (*betas)[0] +
+                              L6x10(i, 1) * (*betas)[0] * (*betas)[1] +
+                              L6x10(i, 2) * (*betas)[1] * (*betas)[1] +
+                              L6x10(i, 3) * (*betas)[0] * (*betas)[2] +
+                              L6x10(i, 4) * (*betas)[1] * (*betas)[2] +
+                              L6x10(i, 5) * (*betas)[2] * (*betas)[2] +
+                              L6x10(i, 6) * (*betas)[0] * (*betas)[3] +
+                              L6x10(i, 7) * (*betas)[1] * (*betas)[3] +
+                              L6x10(i, 8) * (*betas)[2] * (*betas)[3] +
+                              L6x10(i, 9) * (*betas)[3] * (*betas)[3]);
+            }
+
+            const Eigen::Vector4d x = A.colPivHouseholderQr().solve(b);
+
+            (*betas) += x;
+         }
+      }
+
+   .. note::
+
+      结合代码来看，设定迭代次数为5次
+
+      .. code-block:: cpp
+
+         const int kNumIterations = 5;
+
+      由于 :math:`L` 是 :math:`6 \times 10` 的矩阵，因此对每一行先进行求解。
+
+      .. math::
+
+         L(i,0) * b[0] + L(i,1) * b[1] + ... + L(i,9) * b[9] = r[i]
+
+      那么对于 :math:`\beta_1` 求偏导，只有 :math:`b[0],b[1],b[3],b[6]` 含有 :math:`\beta_1` 项，剩下的项对 :math:`\beta_1` 求偏导后均为 :math:`0`
+
+      因此  :math:`A(i,0)` 是 :math:`Error_{ij}(\beta)` 对 :math:`\beta_1` 求偏导：
+
+      .. math::
+
+         \begin{eqnarray}
+         A(i,0) &=& \frac{\delta L(i,0) * \beta_1^2}{\delta \beta_1} + \frac{\delta L(i,1) * \beta_1 \beta_2}{\delta \beta_1} + \frac{\delta L(i,3) * \beta_1\beta_3}{\delta \beta_1} + \frac{\delta L(i,6) * \beta_1\beta_4}{\delta \beta_1}
+         \\\\&=& 2 * L(i,0) * \beta_1 + L(i,1) * \beta_2 + L(i,3) * \beta_3 + L(i, 6) * \beta_4
+         \end{eqnarray}
+
+      .. parsed-literal::
+
+                         L (6*10)                       *   betas (10*1)    =  rho (6*1)
+
+         | ||v1i-v1j||^2  2*|(v1i-v1j)(v2i-v2j)|    ..|   | betas1*betas1 |   | dcw0_1 |
+         |      ..                                    |   | betas1*betas2 |   | dcw0_2 |
+         |      ..                                    |   | betas2*betas2 |   | dcw0_3 |
+         |      ..                                    | * | betas1*betas3 | = | dcw1_2 |
+         |      ..                                    |   | betas2*betas3 |   | dcw1_3 |
+         |      ..                                    |   | betas3*betas3 |   | dcw2_3 |
+                                                          | betas1*betas4 |
+                                                          | betas2*betas4 |
+                                                          | betas3*betas4 |
+                                                          | betas4*betas4 |
+
+      .. code-block:: cpp
+
+         A(i, 0) = 2 * L6x10(i, 0) * (*betas)[0] + L6x10(i, 1) * (*betas)[1] +
+                  L6x10(i, 3) * (*betas)[2] + L6x10(i, 6) * (*betas)[3];
+
+         A(i, 1) = L6x10(i, 1) * (*betas)[0] + 2 * L6x10(i, 2) * (*betas)[1] +
+                  L6x10(i, 4) * (*betas)[2] + L6x10(i, 7) * (*betas)[3];
+
+         A(i, 2) = L6x10(i, 3) * (*betas)[0] + L6x10(i, 4) * (*betas)[1] +
+                  2 * L6x10(i, 5) * (*betas)[2] + L6x10(i, 8) * (*betas)[3];
+
+         A(i, 3) = L6x10(i, 6) * (*betas)[0] + L6x10(i, 7) * (*betas)[1] +
+                  L6x10(i, 8) * (*betas)[2] + 2 * L6x10(i, 9) * (*betas)[3];
+
+
+      方程 :math:`Ax = b` 的右侧 :math:`b` 为 :math:`\rho - L \beta_0`，使用的是Approx求出的初值 :math:`\beta_0`
+
+      .. code-block:: cpp
+
+         b(i) = rho[i] - (L6x10(i, 0) * (*betas)[0] * (*betas)[0] +
+                        L6x10(i, 1) * (*betas)[0] * (*betas)[1] +
+                        L6x10(i, 2) * (*betas)[1] * (*betas)[1] +
+                        L6x10(i, 3) * (*betas)[0] * (*betas)[2] +
+                        L6x10(i, 4) * (*betas)[1] * (*betas)[2] +
+                        L6x10(i, 5) * (*betas)[2] * (*betas)[2] +
+                        L6x10(i, 6) * (*betas)[0] * (*betas)[3] +
+                        L6x10(i, 7) * (*betas)[1] * (*betas)[3] +
+                        L6x10(i, 8) * (*betas)[2] * (*betas)[3] +
+                        L6x10(i, 9) * (*betas)[3] * (*betas)[3]);
+
+      然后通过 :math:`QR` 分解得到 :math:`\Delta \beta` ，加到 :math:`\beta` 上进行迭代
+
+      .. code-block:: cpp
+
+         const Eigen::Vector4d x = A.colPivHouseholderQr().solve(b);
+
+         (*betas) += x;
+
+ComputeRT
+----------------------
+
+   .. cpp:function:: double EPNPEstimator::ComputeRT(const Eigen::Matrix<double, 12, 12>& Ut,const Eigen::Vector4d& betas,Eigen::Matrix3d* R, Eigen::Vector3d* t)
+
+   .. code-block:: cpp
+
+      double EPNPEstimator::ComputeRT(const Eigen::Matrix<double, 12, 12>& Ut,
+                                const Eigen::Vector4d& betas,
+                                Eigen::Matrix3d* R, Eigen::Vector3d* t) {
+
+         // 计算控制点在相机坐标系下的坐标
+         ComputeCcs(betas, Ut);
+
+         // 计算3D参考点在摄像头参考坐标系下的坐标
+         ComputePcs();
+
+         // 保证pcs和ccs坐标非负
+         SolveForSign();
+
+         //
+         EstimateRT(R, t);
+
+         return ComputeTotalReprojectionError(*R, *t);
+      }
+
+   .. note::
+
+      通过带入 :math:`\beta` 的值到 :math:`x = \sum\limits_{i=1}^N \beta_i v_i ` 中得到相机坐标系下的四个控制点坐标 :math:`c_i^c` ，然后通过控制点的系数 :math:`\alpha_{ij}` 计算相机坐标系下参考点坐标 :math:`p_i^c` 。
+
+      得到的坐标需要使深度值为正数所以得对符号进行处理。
+
+      .. important::
+
+         有了相机坐标系和世界坐标系的对应点就是3D-3D，就可以使用ICP进行求解。
+
+      求解 :math:`R, t` 的步骤为：
+
+      1. 计算控制点在相机坐标系下的坐标
+
+         .. math::
+
+            c_i^c = \sum\limits_{j=1}^N \beta_k v_k^{[i]}, i = 1, ..., 4
+
+         .. code-block:: cpp
+
+            void EPNPEstimator::ComputeCcs(const Eigen::Vector4d& betas,
+                               const Eigen::Matrix<double, 12, 12>& Ut) {
+               for (int i = 0; i < 4; ++i) {
+                  ccs_[i][0] = ccs_[i][1] = ccs_[i][2] = 0.0;
+               }
+
+               for (int i = 0; i < 4; ++i) {
+                  for (int j = 0; j < 4; ++j) {
+                     for (int k = 0; k < 3; ++k) {
+                        ccs_[j][k] += betas[i] * Ut(11 - i, 3 * j + k);
+                     }
+                  }
+               }
+            }
+
+      2. 计算3d点在相机坐标系下的坐标
+
+         .. math::
+
+            p_i^c = \sum\limits_{j=1}^4 \alpha_{ij}c_j^c, i = 1,...,n
+
+         .. code-block:: cpp
+
+            void EPNPEstimator::ComputePcs() {
+              pcs_.resize(points2D_->size());
+              for (size_t i = 0; i < points3D_->size(); ++i) {
+                for (int j = 0; j < 3; ++j) {
+                  pcs_[i][j] = alphas_[i][0] * ccs_[0][j] + alphas_[i][1] * ccs_[1][j] +
+                               alphas_[i][2] * ccs_[2][j] + alphas_[i][3] * ccs_[3][j];
+                }
+              }
+            }
+
+      3. 保证pcs和ccs坐标非负
+
+         检查第一个相机坐标系下的3d点，若发现深度为负，则调整所有ccs和所有pcs使其坐标非负。
+
+         .. code-block:: cpp
+
+            void EPNPEstimator::SolveForSign() {
+              if (pcs_[0][2] < 0.0) {
+                for (int i = 0; i < 4; ++i) {
+                  ccs_[i] = -ccs_[i];
+                }
+                for (size_t i = 0; i < points3D_->size(); ++i) {
+                  pcs_[i] = -pcs_[i];
+                }
+              }
+            }
+
+      4. 计算R和t
+
+         EstimateRT
+
+      5. 计算重投影误差并返回其值
+
+         ComputeTotalReprojectionError
+
+
+EstimateRT
+----------------
+
+   该步骤是使用的ICP求解 :math:`R,t`
+
+   .. cpp:function:: void EPNPEstimator::EstimateRT(Eigen::Matrix3d* R, Eigen::Vector3d* t)
+
+   .. code-block::
+
+      void EPNPEstimator::EstimateRT(Eigen::Matrix3d* R, Eigen::Vector3d* t) {
+        Eigen::Vector3d pc0 = Eigen::Vector3d::Zero();
+        Eigen::Vector3d pw0 = Eigen::Vector3d::Zero();
+
+        for (size_t i = 0; i < points3D_->size(); ++i) {
+          pc0 += pcs_[i];
+          pw0 += (*points3D_)[i];
+        }
+        pc0 /= points3D_->size();
+        pw0 /= points3D_->size();
+
+        Eigen::Matrix3d abt = Eigen::Matrix3d::Zero();
+        for (size_t i = 0; i < points3D_->size(); ++i) {
+          for (int j = 0; j < 3; ++j) {
+            abt(j, 0) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][0] - pw0[0]);
+            abt(j, 1) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][1] - pw0[1]);
+            abt(j, 2) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][2] - pw0[2]);
+          }
+        }
+
+        Eigen::JacobiSVD<Eigen::Matrix3d> svd(
+            abt, Eigen::ComputeFullV | Eigen::ComputeFullU);
+        const Eigen::Matrix3d abt_U = svd.matrixU();
+        const Eigen::Matrix3d abt_V = svd.matrixV();
+
+        for (int i = 0; i < 3; ++i) {
+          for (int j = 0; j < 3; ++j) {
+            (*R)(i, j) = abt_U.row(i) * abt_V.row(j).transpose();
+          }
+        }
+
+        if (R->determinant() < 0) {
+          Eigen::Matrix3d Abt_v_prime = abt_V;
+          Abt_v_prime.col(2) = -abt_V.col(2);
+          for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+              (*R)(i, j) = abt_U.row(i) * Abt_v_prime.row(j).transpose();
+            }
+          }
+        }
+
+        *t = pc0 - *R * pw0;
+      }
+
+   .. note::
+
+      1. 计算世界坐标系和相机坐标系下的质心坐标
+
+         .. math::
+
+            p_0^w = \frac{1}{n} \sum\limits_{i=1}^n p_i^w
+
+         .. math::
+
+            p_0^c = \frac{1}{n} \sum\limits_{i=1}^n p_i^c
+
+         .. code-block:: cpp
+
+            for (size_t i = 0; i < points3D_->size(); ++i) {
+               pc0 += pcs_[i];
+               pw0 += (*points3D_)[i];
+            }
+
+            pc0 /= points3D_->size();
+            pw0 /= points3D_->size();
+
+      2. 计算世界坐标系和相机坐标系去除质心的矩阵 :math:`A,B`
+
+         .. math::
+
+            A = \left[
+            \begin{matrix}
+            p_1^{w^T} - p_0^{w^T}\\···\\p_n^{w^T} - p_0^{w^T}
+            \end{matrix}
+            \right]
+
+         .. math::
+
+            B = \left[
+            \begin{matrix}
+            p_1^{c^T} - p_0^{c^T}\\···\\p_n^{c^T} - p_0^{c^T}
+            \end{matrix}
+            \right]
+
+
+      3. 计算 :math:`W` 矩阵
+
+         .. math::
+
+            W = B^T A
+
+         .. code-block:: cpp
+
+            Eigen::Matrix3d abt = Eigen::Matrix3d::Zero();
+            for (size_t i = 0; i < points3D_->size(); ++i) {
+               for (int j = 0; j < 3; ++j) {
+                  abt(j, 0) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][0] - pw0[0]);
+                  abt(j, 1) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][1] - pw0[1]);
+                  abt(j, 2) += (pcs_[i][j] - pc0[j]) * ((*points3D_)[i][2] - pw0[2]);
+               }
+            }
+
+      4. 对 :math:`W` 进行SVD分解  :math:`W = U \Sigma V^T`
+
+         .. code-block:: cpp
+
+           Eigen::JacobiSVD<Eigen::Matrix3d> svd(abt, Eigen::ComputeFullV | Eigen::ComputeFullU);
+
+      5. 计算旋转 :math:`R`
+
+         .. math::
+
+            R = UV^T
+
+         .. code-block:: cpp
+
+            const Eigen::Matrix3d abt_U = svd.matrixU();
+            const Eigen::Matrix3d abt_V = svd.matrixV();
+
+            for (int i = 0; i < 3; ++i)
+               for (int j = 0; j < 3; ++j)
+                  (*R)(i, j) = abt_U.row(i) * abt_V.row(j).transpose();
+
+         如果 :math:`|R| < 0` ，则 :math:`R(2,:) = -R(2:0)`
+
+         .. code-block:: cpp
+
+            if (R->determinant() < 0) {
+               Eigen::Matrix3d Abt_v_prime = abt_V;
+
+               Abt_v_prime.col(2) = -abt_V.col(2);
+
+               for (int i = 0; i < 3; ++i)
+                  for (int j = 0; j < 3; ++j)
+                     (*R)(i, j) = abt_U.row(i) * Abt_v_prime.row(j).transpose();
+            }
+
+      6. 计算平移 :math:`t` :
+
+         .. math::
+
+            t = p_0^c - Rp_0^w
+
+         .. code-block:: cpp
+
+            *t = pc0 - *R * pw0;
+
+
+ComputeTotalReprojectionError
+----------------------------------
+
+   通过计算出的 :math:`R,t` 组成位姿矩阵，来计算2D点和3D点之间的重投影平方误差
+
+   .. cpp:function:: double EPNPEstimator::ComputeTotalReprojectionError(const Eigen::Matrix3d& R, const Eigen::Vector3d& t)
+
+   .. code-block:: cpp
+
+      double EPNPEstimator::ComputeTotalReprojectionError(const Eigen::Matrix3d& R,
+                                                          const Eigen::Vector3d& t) {
+         Eigen::Matrix3x4d proj_matrix;
+         proj_matrix.leftCols<3>() = R;
+         proj_matrix.rightCols<1>() = t;
+
+         std::vector<double> residuals;
+         ComputeSquaredReprojectionError(*points2D_, *points3D_, proj_matrix,
+                                        &residuals);
+
+         double reproj_error = 0.0;
+         for (const double residual : residuals) {
+            reproj_error += std::sqrt(residual);
+         }
+
+         return reproj_error;
+      }
+

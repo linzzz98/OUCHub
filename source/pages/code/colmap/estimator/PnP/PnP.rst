@@ -5,8 +5,8 @@ PnP
    :maxdepth: -1
    :hidden:
 
-   P3P/P3P
    EPnP/EPnP
+   P3P/P3P
 
 * :doc:`P3P <P3P/P3P>`
 * :doc:`EPnP <EPnP/EPnP>`

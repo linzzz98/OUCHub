@@ -1,5 +1,3 @@
-.. default-domain:: cpp
-
 P3P
 =====
 
