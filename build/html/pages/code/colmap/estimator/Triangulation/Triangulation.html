@@ -46,7 +46,7 @@
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
-    <link rel="prev" title="5.2. HomographyMatrix" href="../Matrix/HomographyMatrix/HomographyMatrix.html" /> 
+    <link rel="prev" title="HomographyMatrix" href="../Matrix/HomographyMatrix/HomographyMatrix.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -335,66 +335,67 @@
 <span id="_CPPv3N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="TriangulationEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span>std::vector&lt;<a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a>::<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3M_tE" title="TriangulationEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3X_tE" title="TriangulationEstimator::X_t">X_t</a>&gt; &amp;<em>point_data</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3Y_tE" title="TriangulationEstimator::Y_t">Y_t</a>&gt; &amp;<em>pose_data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
-    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-    <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
-    <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
+      <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 
-    <span class="c1">// 两视图三角剖分</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
 
-    <span class="c1">// 得到三维点xyz</span>
-    <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulatePoint</span><span class="p">(</span>
-       <span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span>
-       <span class="n">point_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">,</span> <span class="n">point_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">);</span>
+      <span class="c1">// 两视图三角剖分</span>
 
-    <span class="c1">// 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-       <span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-       <span class="n">CalculateTriangulationAngle</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span>
-                                  <span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span>
-                                  <span class="n">xyz</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
-    <span class="p">}</span>
- <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="c1">// 多视图三角剖分</span>
+      <span class="c1">// 得到三维点xyz</span>
+      <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulatePoint</span><span class="p">(</span>
+         <span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span>
+         <span class="n">point_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">,</span> <span class="n">point_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">);</span>
 
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&gt;</span> <span class="n">proj_matrices</span><span class="p">;</span>
-    <span class="n">proj_matrices</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
-    <span class="n">points</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-       <span class="n">proj_matrices</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">);</span>
-       <span class="n">points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">point_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">);</span>
-    <span class="p">}</span>
+      <span class="c1">// 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+         <span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+         <span class="n">CalculateTriangulationAngle</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span>
+                                    <span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span>
+                                    <span class="n">xyz</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
+      <span class="p">}</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// 多视图三角剖分</span>
 
-    <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulateMultiViewPoint</span><span class="p">(</span><span class="n">proj_matrices</span><span class="p">,</span> <span class="n">points</span><span class="p">);</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&gt;</span> <span class="n">proj_matrices</span><span class="p">;</span>
+      <span class="n">proj_matrices</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">points</span><span class="p">;</span>
+      <span class="n">points</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">proj_matrices</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">);</span>
+         <span class="n">points</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">point_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">);</span>
+      <span class="p">}</span>
 
-    <span class="c1">// Check for cheirality constraint.</span>
-    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">pose</span> <span class="p">:</span> <span class="n">pose_data</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">))</span> <span class="p">{</span>
-       <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
-       <span class="p">}</span>
-    <span class="p">}</span>
+      <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulateMultiViewPoint</span><span class="p">(</span><span class="n">proj_matrices</span><span class="p">,</span> <span class="n">points</span><span class="p">);</span>
 
-    <span class="c1">// Check for sufficient triangulation angle.</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-       <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">const</span> <span class="kt">double</span> <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">CalculateTriangulationAngle</span><span class="p">(</span>
-             <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">xyz</span><span class="p">);</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span> <span class="p">{</span>
-          <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
-       <span class="p">}</span>
+      <span class="c1">// Check for cheirality constraint.</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">pose</span> <span class="p">:</span> <span class="n">pose_data</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Check for sufficient triangulation angle.</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">const</span> <span class="kt">double</span> <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">CalculateTriangulationAngle</span><span class="p">(</span>
+               <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">xyz</span><span class="p">);</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-<span class="p">}</span>
 
- <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
+   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>}</p>
 </li>
 </ol>
 </div>
@@ -407,7 +408,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Matrix/HomographyMatrix/HomographyMatrix.html" class="btn btn-neutral float-left" title="5.2. HomographyMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Matrix/HomographyMatrix/HomographyMatrix.html" class="btn btn-neutral float-left" title="HomographyMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

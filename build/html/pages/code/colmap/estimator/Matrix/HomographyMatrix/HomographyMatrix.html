@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>5.2. HomographyMatrix &mdash; OUCHub 0.1 文档</title>
+  <title>HomographyMatrix &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="🍺 Others" href="../../../../../others/o_others.html" />
-    <link rel="prev" title="5.1. FundmentalMatrix" href="../FundamentalMatrix/FundamentalMatrix.html" /> 
+    <link rel="next" title="6. Triangulation" href="../../Triangulation/Triangulation.html" />
+    <link rel="prev" title="FundmentalMatrix" href="../FundamentalMatrix/FundamentalMatrix.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -116,14 +116,15 @@
 <li class="toctree-l3"><a class="reference internal" href="../../PnP/PnP.html">3. PnP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../Matrix.html">5. Matrix</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../FundamentalMatrix/FundamentalMatrix.html">5.1. FundmentalMatrix</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">5.2. HomographyMatrix</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#id1">5.2.1. 成员变量</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#id2">5.2.2. 成员函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../FundamentalMatrix/FundamentalMatrix.html">FundmentalMatrix</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HomographyMatrix</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">成员变量</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id2">成员函数</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../Triangulation/Triangulation.html">6. Triangulation</a></li>
 </ul>
 </li>
 </ul>
@@ -186,7 +187,7 @@
         
           <li><a href="../Matrix.html"><span class="section-number">5. </span>Matrix</a> &raquo;</li>
         
-      <li><span class="section-number">5.2. </span>HomographyMatrix</li>
+      <li>HomographyMatrix</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -206,7 +207,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="homographymatrix">
-<h1><span class="section-number">5.2. </span>HomographyMatrix<a class="headerlink" href="#homographymatrix" title="永久链接至标题">¶</a></h1>
+<h1>HomographyMatrix<a class="headerlink" href="#homographymatrix" title="永久链接至标题">¶</a></h1>
 <p>直接线性变换算法以计算点对之间的单应性。 该算法从至少4个对应关系中计算出单应性的最小二乘估计。</p>
 <p>单应性被定义为一个平面到另一个平面的投影映射。</p>
 <p>单应性矩阵 <span class="math notranslate nohighlight">\(H\)</span> 由两部分组成：相机内参  <span class="math notranslate nohighlight">\(K = \left[\begin{matrix}f_x &amp; 0 &amp; c_x\\0 &amp; f_y &amp; c_y\\0 &amp; 0 &amp; 1\end{matrix}\right]\)</span> 和外参  <span class="math notranslate nohighlight">\(W = [R~~~t]\)</span></p>
@@ -300,7 +301,7 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 <p>总结为：对 <span class="math notranslate nohighlight">\(A\)</span> 进行SVD分解，然后取 <span class="math notranslate nohighlight">\(V\)</span> 矩阵的最后一列，即为 <span class="math notranslate nohighlight">\(h\)</span> 的一个非零解</p>
 </div>
 <div class="section" id="id1">
-<h2><span class="section-number">5.2.1. </span>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <ol class="arabic">
 <li><p>视角1下的特征点</p>
 <dl class="cpp type">
@@ -339,7 +340,7 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 </ol>
 </div>
 <div class="section" id="id2">
-<h2><span class="section-number">5.2.2. </span>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Estimate</strong></p></li>
 </ol>
@@ -408,8 +409,8 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../FundamentalMatrix/FundamentalMatrix.html" class="btn btn-neutral float-left" title="5.1. FundmentalMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../Triangulation/Triangulation.html" class="btn btn-neutral float-right" title="6. Triangulation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../FundamentalMatrix/FundamentalMatrix.html" class="btn btn-neutral float-left" title="FundmentalMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

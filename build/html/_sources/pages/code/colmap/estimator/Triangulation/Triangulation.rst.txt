@@ -116,58 +116,60 @@ Triangulation
       std::vector<TriangulationEstimator::M_t> TriangulationEstimator::Estimate(
          const std::vector<X_t>& point_data,
          const std::vector<Y_t>& pose_data) const {
-         CHECK_GE(point_data.size(), 2);
-         CHECK_EQ(point_data.size(), pose_data.size());
 
-         if (point_data.size() == 2) {
+            CHECK_GE(point_data.size(), 2);
+            CHECK_EQ(point_data.size(), pose_data.size());
 
-         // 两视图三角剖分
+            if (point_data.size() == 2) {
 
-         // 得到三维点xyz
-         const M_t xyz = TriangulatePoint(
-            pose_data[0].proj_matrix, pose_data[1].proj_matrix,
-            point_data[0].point_normalized, point_data[1].point_normalized);
+            // 两视图三角剖分
 
-         // 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值
-         if (HasPointPositiveDepth(pose_data[0].proj_matrix, xyz) &&
-            HasPointPositiveDepth(pose_data[1].proj_matrix, xyz) &&
-            CalculateTriangulationAngle(pose_data[0].proj_center,
-                                       pose_data[1].proj_center,
-                                       xyz) >= min_tri_angle_) {
-            return std::vector<M_t>{xyz};
-         }
-      } else {
-         // 多视图三角剖分
+            // 得到三维点xyz
+            const M_t xyz = TriangulatePoint(
+               pose_data[0].proj_matrix, pose_data[1].proj_matrix,
+               point_data[0].point_normalized, point_data[1].point_normalized);
 
-         std::vector<Eigen::Matrix3x4d> proj_matrices;
-         proj_matrices.reserve(point_data.size());
-         std::vector<Eigen::Vector2d> points;
-         points.reserve(point_data.size());
-         for (size_t i = 0; i < point_data.size(); ++i) {
-            proj_matrices.push_back(pose_data[i].proj_matrix);
-            points.push_back(point_data[i].point_normalized);
-         }
-
-         const M_t xyz = TriangulateMultiViewPoint(proj_matrices, points);
-
-         // Check for cheirality constraint.
-         for (const auto& pose : pose_data) {
-            if (!HasPointPositiveDepth(pose.proj_matrix, xyz)) {
-            return std::vector<M_t>();
-            }
-         }
-
-         // Check for sufficient triangulation angle.
-         for (size_t i = 0; i < pose_data.size(); ++i) {
-            for (size_t j = 0; j < i; ++j) {
-               const double tri_angle = CalculateTriangulationAngle(
-                  pose_data[i].proj_center, pose_data[j].proj_center, xyz);
-            if (tri_angle >= min_tri_angle_) {
+            // 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值
+            if (HasPointPositiveDepth(pose_data[0].proj_matrix, xyz) &&
+               HasPointPositiveDepth(pose_data[1].proj_matrix, xyz) &&
+               CalculateTriangulationAngle(pose_data[0].proj_center,
+                                          pose_data[1].proj_center,
+                                          xyz) >= min_tri_angle_) {
                return std::vector<M_t>{xyz};
             }
-         }
-       }
-     }
+         } else {
+            // 多视图三角剖分
 
-      return std::vector<M_t>();
-   }
+            std::vector<Eigen::Matrix3x4d> proj_matrices;
+            proj_matrices.reserve(point_data.size());
+            std::vector<Eigen::Vector2d> points;
+            points.reserve(point_data.size());
+            for (size_t i = 0; i < point_data.size(); ++i) {
+               proj_matrices.push_back(pose_data[i].proj_matrix);
+               points.push_back(point_data[i].point_normalized);
+            }
+
+            const M_t xyz = TriangulateMultiViewPoint(proj_matrices, points);
+
+            // Check for cheirality constraint.
+            for (const auto& pose : pose_data) {
+               if (!HasPointPositiveDepth(pose.proj_matrix, xyz)) {
+               return std::vector<M_t>();
+               }
+            }
+
+            // Check for sufficient triangulation angle.
+            for (size_t i = 0; i < pose_data.size(); ++i) {
+               for (size_t j = 0; j < i; ++j) {
+                  const double tri_angle = CalculateTriangulationAngle(
+                     pose_data[i].proj_center, pose_data[j].proj_center, xyz);
+               if (tri_angle >= min_tri_angle_) {
+                  return std::vector<M_t>{xyz};
+               }
+            }
+          }
+        }
+
+         return std::vector<M_t>();
+      }
+
