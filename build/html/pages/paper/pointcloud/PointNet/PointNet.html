@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
-    <link rel="next" title="🍒 Others" href="../../p_others.html" />
+    <link rel="next" title="2. Least-Squares Fitting of Two 3-D Point Sets" href="../Least_Squares_Fitting/Least_Squares_Fitting.html" />
     <link rel="prev" title="🍋 Point Cloud" href="../../p_pointcloud.html" /> 
 </head>
 
@@ -117,6 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#theoretical-analysis">1.4. Theoretical Analysis</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../Least_Squares_Fitting/Least_Squares_Fitting.html">2. Least-Squares Fitting of Two 3-D Point Sets</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
@@ -228,7 +229,7 @@
 <li><p>对于语义分割任务，输出 <span class="math notranslate nohighlight">\(n\times m\)</span> 个分数，分别对应n个点相对于m各类别的分数。</p></li>
 </ul>
 <div class="align-center figure align-default" id="id1">
-<img alt="../../../../_images/13.jpg" src="../../../../_images/13.jpg" />
+<img alt="../../../../_images/110.jpg" src="../../../../_images/110.jpg" />
 <p class="caption"><span class="caption-text">PointNet 应用场景</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
 </div>
 </div>
@@ -286,7 +287,7 @@
 <h3><span class="section-number">1.3.3. </span>PointNet Basic Architecture<a class="headerlink" href="#pointnet-basic-architecture" title="永久链接至标题">¶</a></h3>
 <p>👉 分别对每个点进行特征提取（卷积或全连接），再MAX操作得到全局输出。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/31.jpg" src="../../../../_images/31.jpg" />
+<img alt="../../../../_images/34.jpg" src="../../../../_images/34.jpg" />
 </div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -298,7 +299,7 @@
 <div class="section" id="whole-architecture">
 <h3><span class="section-number">1.3.4. </span>Whole Architecture<a class="headerlink" href="#whole-architecture" title="永久链接至标题">¶</a></h3>
 <div class="align-center figure align-default" id="id2">
-<img alt="../../../../_images/21.jpg" src="../../../../_images/21.jpg" />
+<img alt="../../../../_images/25.jpg" src="../../../../_images/25.jpg" />
 <p class="caption"><span class="caption-text">PointNet Architecture</span><a class="headerlink" href="#id2" title="永久链接至图片">¶</a></p>
 </div>
 <div class="admonition warning">
@@ -313,7 +314,7 @@
 <li><p>通过mlp将每个点的维度升至128维，最终升至1024维。（每个点都是1024维特征）</p></li>
 </ol>
 <div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/41.jpg"><img alt="../../../../_images/41.jpg" src="../../../../_images/41.jpg" style="width: 635.2px; height: 385.6px;" /></a>
+<a class="reference internal image-reference" href="../../../../_images/43.jpg"><img alt="../../../../_images/43.jpg" src="../../../../_images/43.jpg" style="width: 635.2px; height: 385.6px;" /></a>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>对于每个维度，对所有的点的该维度进行maxpooling操作（上图的红色方框）得到最终的全局特征。（1024维向量）</p></li>
@@ -325,7 +326,7 @@
 </div>
 <p>分割网络则是分类网络的延伸，它连接全局特征和局部特征，针对每个点分别做分类任务。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/51.jpg" src="../../../../_images/51.jpg" />
+<img alt="../../../../_images/52.jpg" src="../../../../_images/52.jpg" />
 </div>
 <p>全局特征包含n个点的特征信息，所以每个点都拼接相同的全局特征。经过这样的操作，每个点既有自己的特征（64）也有全局的特征（1024）</p>
 <p>经过mlp降维，得到每个点（n）的分类结果（m）      （n x m）</p>
@@ -352,7 +353,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../p_others.html" class="btn btn-neutral float-right" title="🍒 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Least_Squares_Fitting/Least_Squares_Fitting.html" class="btn btn-neutral float-right" title="2. Least-Squares Fitting of Two 3-D Point Sets" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../../p_pointcloud.html" class="btn btn-neutral float-left" title="🍋 Point Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

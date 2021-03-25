@@ -240,11 +240,11 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 <p>这里，<span class="math notranslate nohighlight">\(l(p,q)\)</span>是经过点p且方向为q的线。由于测量噪声，<span class="math notranslate nohighlight">\(l(c_i,c_{ik})\)</span>和<span class="math notranslate nohighlight">\(l(c_j,c_{jk})\)</span>通常是非共面的。</p>
 <p>因此最优解<span class="math notranslate nohighlight">\(c_k\)</span>位于它们共同的垂直线<span class="math notranslate nohighlight">\(AB\)</span>的中点</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/14.png" src="../../../../_images/14.png" />
+<img alt="../../../../_images/16.png" src="../../../../_images/16.png" />
 </div>
 <p>计算为：(3)</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/22.png" src="../../../../_images/22.png" />
+<img alt="../../../../_images/24.png" src="../../../../_images/24.png" />
 </div>
 <p>这里<span class="math notranslate nohighlight">\(||c_i - c_j||\)</span>指<span class="math notranslate nohighlight">\(c_i\)</span>和<span class="math notranslate nohighlight">\(c_j\)</span>之间的距离。</p>
 <p><span class="math notranslate nohighlight">\(s_{ij}^{ik} = sin(\theta_j')/sin(\theta_k') = ||c_i - c_k|| / ||c_i - c_j||\)</span></p>
@@ -256,7 +256,7 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 <p>向量<span class="math notranslate nohighlight">\(c_{ij},c_{ik},c_{jk}\)</span>应该接近共面。从而角度<span class="math notranslate nohighlight">\(∠Ac_ic_k\)</span>接近0，长度<span class="math notranslate nohighlight">\(c_iA\)</span>接近<span class="math notranslate nohighlight">\(c_ic_k\)</span></p>
 <p>计算<span class="math notranslate nohighlight">\(c_ic_k\)</span>的角度为：</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/31.png" src="../../../../_images/31.png" />
+<img alt="../../../../_images/32.png" src="../../../../_images/32.png" />
 </div>
 <p>因为三个向量接近共面，所以<span class="math notranslate nohighlight">\(\theta_j' \approx \theta_j,\theta_k' \approx \theta_k\)</span></p>
 <p>然后，将<span class="math notranslate nohighlight">\(A\)</span>的3D坐标近似为<span class="math notranslate nohighlight">\(c_i + s_{ij}^{ik}||c_i - c_j|| c_{ik}\)</span></p>

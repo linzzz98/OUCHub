@@ -119,9 +119,12 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Triangulation/Triangulation.html">6. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">4. Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Triangulation/Triangulation.html">5. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/AffineTransform/AffineTransform.html">6. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwoViewGeometry/TwoViewGeometry.html">9. TwoViewGeometry</a></li>
 </ul>
 </li>
 </ul>
@@ -212,11 +215,6 @@
 <li><p>使图像点居中，以使新坐标系的原点位于图像点的质心处。</p></li>
 <li><p>标准化图像点，以使这些点到坐标系的平均距离为<span class="math notranslate nohighlight">\(\sqrt{2}\)</span>。</p></li>
 </ol>
-<ul class="simple">
-<li><p>&#64;param points Image coordinates.</p></li>
-<li><p>&#64;param normed_points Transformed image coordinates.</p></li>
-<li><p>&#64;param matrix 3x3 transformation matrix.</p></li>
-</ul>
 <dl class="cpp function">
 <dt id="_CPPv429CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE">
 <span id="_CPPv329CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE"></span><span id="_CPPv229CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE"></span><span id="CenterAndNormalizeImagePoints__vCR.vP.Eigen::Matrix3dP"></span>void <code class="sig-name descname">CenterAndNormalizeImagePoints</code><span class="sig-paren">(</span><em class="property">const</em> std::vector &amp;<em>points</em>, std::vector *<em>normed_points</em>, Eigen::Matrix3d *<em>matrix</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429CenterAndNormalizeImagePointsRKNSt6vectorEPNSt6vectorEPN5Eigen8Matrix3dE" title="永久链接至目标">¶</a><br /></dt>
@@ -261,15 +259,101 @@
   <span class="k">const</span> <span class="kt">double</span> <span class="n">p_0</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
   <span class="k">const</span> <span class="kt">double</span> <span class="n">p_1</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
 
-  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_0</span> <span class="o">=</span> <span class="n">M_00</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_01</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_02</span><span class="p">;</span>   <span class="c1">//np_0 = λ(x-x0)</span>
-  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_1</span> <span class="o">=</span> <span class="n">M_10</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_11</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_12</span><span class="p">;</span>   <span class="c1">//np_1 = λ(y-y0)</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_0</span> <span class="o">=</span> <span class="n">M_00</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_01</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_02</span><span class="p">;</span>   <span class="c1">//np_0 = nf(x-cx)</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">np_1</span> <span class="o">=</span> <span class="n">M_10</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_11</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_12</span><span class="p">;</span>   <span class="c1">//np_1 = nf(y-cy)</span>
   <span class="k">const</span> <span class="kt">double</span> <span class="n">np_2</span> <span class="o">=</span> <span class="n">M_20</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_21</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_22</span><span class="p">;</span>   <span class="c1">//np_2 = 1</span>
 
   <span class="k">const</span> <span class="kt">double</span> <span class="n">inv_np_2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np_2</span><span class="p">;</span>                   <span class="c1">//inv_np_2 = 1</span>
-  <span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_0</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>             <span class="c1">//normed_points = (λ(x-x0),λ(y-y0))</span>
+  <span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_0</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>             <span class="c1">//normed_points = (nf(x-cx),nf(y-cy))</span>
   <span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_1</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic">
+<li><p>定义并计算质心 <span class="math notranslate nohighlight">\(c\)</span></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">centroid</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">point</span> <span class="p">:</span> <span class="n">points</span><span class="p">){</span>
+   <span class="n">centroid</span> <span class="o">+=</span> <span class="n">point</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="n">centroid</span> <span class="o">/=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</pre></div>
+</div>
+</li>
+<li><p>求质心的均方根误差</p>
+<dl class="field-list">
+<dt class="field-odd">计算 <code class="docutils literal notranslate"><span class="pre">点到质心距离的平方范数</span></code></dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="n">rms_mean_dist</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">point</span> <span class="p">:</span> <span class="n">points</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">rms_mean_dist</span> <span class="o">+=</span> <span class="p">(</span><span class="n">point</span> <span class="o">-</span> <span class="n">centroid</span><span class="p">).</span><span class="n">squaredNorm</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">计算 <code class="docutils literal notranslate"><span class="pre">各点质心均方根误差</span></code></dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rms_mean_dist</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rms_mean_dist</span> <span class="o">/</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>构建归一化矩阵</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}nf = \frac{\sqrt{2}}{rms\_mean\_dist},~~~c_x = centroid(0),~~~c_y = centroid(1)\\\\\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}matrix = \left[
+\begin{matrix}
+nf &amp; 0 &amp; -nf*c_x\\
+0 &amp; nf &amp; -nf*c_y\\
+0 &amp; 0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+</li>
+<li><p>应用归一化矩阵</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\({np}_0 = nf(x-c_x) = \frac{\sqrt{2} (x-c_x)}{rms\_mean\_dist}\)</span></p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">np_0</span> <span class="o">=</span> <span class="n">M_00</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_01</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_02</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><span class="math notranslate nohighlight">\({np}_1 = nf(y-c_y) = \frac{\sqrt{2} (y-c_y)}{rms\_mean\_dist}\)</span></p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">np_1</span> <span class="o">=</span> <span class="n">M_10</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_11</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_12</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><span class="math notranslate nohighlight">\({np}_2 = 1\)</span></p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">np_2</span> <span class="o">=</span> <span class="n">M_20</span> <span class="o">*</span> <span class="n">p_0</span> <span class="o">+</span> <span class="n">M_21</span> <span class="o">*</span> <span class="n">p_1</span> <span class="o">+</span> <span class="n">M_22</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><span class="math notranslate nohighlight">\({inv\_np_2} = 1\)</span></p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">inv_np_2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np_2</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><span class="math notranslate nohighlight">\(normed\_points = (nf(x-c_x),nf(y-c_y)) = \sqrt{2}(\frac{(x-c_x)}{rms\_mean\_dist},\frac{(y-c_y)}{rms\_mean\_dist})\)</span></p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_0</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>
+
+<span class="p">(</span><span class="o">*</span><span class="n">normed_points</span><span class="p">)[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">np_1</span> <span class="o">*</span> <span class="n">inv_np_2</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="computesquaredsampsonerror">
@@ -278,12 +362,6 @@
 <p><strong>残差定义为Sampson误差的平方。</strong></p>
 <div class="math notranslate nohighlight">
 \[|| \epsilon||^2 = \frac{(x_2^TEx_1)^2}{(Ex_1)_1^2 + (Ex_1)_2^2 + (E^Tx_2)_1^2 + (E^Tx_2)_2^2}\]</div>
-<ul class="simple">
-<li><p>&#64;param points1 First set of corresponding points as Nx2 matrix.</p></li>
-<li><p>&#64;param points2 Second set of corresponding points as Nx2 matrix.</p></li>
-<li><p>&#64;param E 3x3 fundamental or essential matrix.</p></li>
-<li><p>&#64;param residuals Output vector of residuals.</p></li>
-</ul>
 <dl class="cpp function">
 <dt id="_CPPv426ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE">
 <span id="_CPPv326ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE"></span><span id="_CPPv226ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE"></span><span id="ComputeSquaredSampsonError__vCR.vCR.Eigen::Matrix3dCR.vP"></span>void <code class="sig-name descname">ComputeSquaredSampsonError</code><span class="sig-paren">(</span><em class="property">const</em> std::vector &amp;<em>points1</em>, <em class="property">const</em> std::vector &amp;<em>points2</em>, <em class="property">const</em> Eigen::Matrix3d &amp;<em>E</em>, std::vector *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426ComputeSquaredSampsonErrorRKNSt6vectorERKNSt6vectorERKN5Eigen8Matrix3dEPNSt6vectorE" title="永久链接至目标">¶</a><br /></dt>
@@ -333,6 +411,103 @@
 </div>
 <div class="section" id="computesquaredreprojectionerror">
 <h2>ComputeSquaredReprojectionError<a class="headerlink" href="#computesquaredreprojectionerror" title="永久链接至标题">¶</a></h2>
+<p>给定一组2D-3D点对应关系和一个投影矩阵，计算平方重投影误差。</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P = \left[
+\begin{matrix}
+R &amp; t\\0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ComputeSquaredReprojectionError</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2D</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">points3D</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points3D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="n">residuals</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_00</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_01</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_02</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_03</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_10</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_11</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_12</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_13</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_20</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_21</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_22</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">P_23</span> <span class="o">=</span> <span class="n">proj_matrix</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points2D</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">X_0</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">X_1</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">X_2</span> <span class="o">=</span> <span class="n">points3D</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">2</span><span class="p">);</span>
+
+    <span class="c1">// 将3D点从世界坐标系投影到相机坐标系</span>
+    <span class="k">const</span> <span class="kt">double</span> <span class="n">px_2</span> <span class="o">=</span> <span class="n">P_20</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_21</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_22</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_23</span><span class="p">;</span>
+
+    <span class="c1">// 检查3D点是否在相机前面</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">px_2</span> <span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">epsilon</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">px_0</span> <span class="o">=</span> <span class="n">P_00</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_01</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_02</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_03</span><span class="p">;</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">px_1</span> <span class="o">=</span> <span class="n">P_10</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_11</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_12</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_13</span><span class="p">;</span>
+
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">x_0</span> <span class="o">=</span> <span class="n">points2D</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">0</span><span class="p">);</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">x_1</span> <span class="o">=</span> <span class="n">points2D</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="mi">1</span><span class="p">);</span>
+
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">inv_px_2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">px_2</span><span class="p">;</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">dx_0</span> <span class="o">=</span> <span class="n">x_0</span> <span class="o">-</span> <span class="n">px_0</span> <span class="o">*</span> <span class="n">inv_px_2</span><span class="p">;</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">dx_1</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">-</span> <span class="n">px_1</span> <span class="o">*</span> <span class="n">inv_px_2</span><span class="p">;</span>
+
+      <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dx_0</span> <span class="o">*</span> <span class="n">dx_0</span> <span class="o">+</span> <span class="n">dx_1</span> <span class="o">*</span> <span class="n">dx_1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic">
+<li><p>投影3d点的 <span class="math notranslate nohighlight">\(z\)</span> 坐标（世界坐标系——相机坐标系）</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">px_2</span> <span class="o">=</span> <span class="n">P_20</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_21</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_22</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_23</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>判断 <span class="math notranslate nohighlight">\(z\)</span> 是否相机前面（ <span class="math notranslate nohighlight">\(z &gt; 0\)</span>）</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">px_2</span> <span class="o">&gt;</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">epsilon</span><span class="p">())</span>
+</pre></div>
+</div>
+</li>
+<li><p>如果 <span class="math notranslate nohighlight">\(z\)</span> 在相机前，则计算重投影误差平方</p>
+<dl class="field-list">
+<dt class="field-odd">投影3d点的x坐标</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">px_0</span> <span class="o">=</span> <span class="n">P_00</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_01</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_02</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_03</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">投影3d点的y坐标</dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">px_1</span> <span class="o">=</span> <span class="n">P_10</span> <span class="o">*</span> <span class="n">X_0</span> <span class="o">+</span> <span class="n">P_11</span> <span class="o">*</span> <span class="n">X_1</span> <span class="o">+</span> <span class="n">P_12</span> <span class="o">*</span> <span class="n">X_2</span> <span class="o">+</span> <span class="n">P_13</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-odd">计算2d点到投影点距离</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span> <span class="kt">double</span> <span class="n">inv_px_2</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">px_2</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dx_0</span> <span class="o">=</span> <span class="n">x_0</span> <span class="o">-</span> <span class="n">px_0</span> <span class="o">*</span> <span class="n">inv_px_2</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">dx_1</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">-</span> <span class="n">px_1</span> <span class="o">*</span> <span class="n">inv_px_2</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">计算平方重投影误差</dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dx_0</span> <span class="o">*</span> <span class="n">dx_0</span> <span class="o">+</span> <span class="n">dx_1</span> <span class="o">*</span> <span class="n">dx_1</span><span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
 </div>
 </div>
 

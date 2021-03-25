@@ -46,7 +46,7 @@
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="HomographyMatrix" href="../HomographyMatrix/HomographyMatrix.html" />
-    <link rel="prev" title="5. Matrix" href="../Matrix.html" /> 
+    <link rel="prev" title="4. Matrix" href="../Matrix.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -114,17 +114,37 @@
 <li class="toctree-l3"><a class="reference internal" href="../../Pose/Pose.html">1. Pose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../Utils/Utils.html">2. Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../PnP/PnP.html">3. PnP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../Matrix.html">5. Matrix</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../Matrix.html">4. Matrix</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">FundmentalMatrix</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#id1">成员变量</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#id2">成员函数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id1">七点算法</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id2">成员变量</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id3">成员函数</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#estimate">Estimate</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#residuals">Residuals</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">归一化八点算法</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id5">算法步骤</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id6">成员变量</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id7">成员函数</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#id8">Estimate</a></li>
+<li class="toctree-l7"><a class="reference internal" href="#id9">Residuals</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="../HomographyMatrix/HomographyMatrix.html">HomographyMatrix</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../Triangulation/Triangulation.html">6. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Triangulation/Triangulation.html">5. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/AffineTransform/AffineTransform.html">6. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../TwoViewGeometry/TwoViewGeometry.html">9. TwoViewGeometry</a></li>
 </ul>
 </li>
 </ul>
@@ -185,7 +205,7 @@
         
           <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
         
-          <li><a href="../Matrix.html"><span class="section-number">5. </span>Matrix</a> &raquo;</li>
+          <li><a href="../Matrix.html"><span class="section-number">4. </span>Matrix</a> &raquo;</li>
         
       <li>FundmentalMatrix</li>
     
@@ -208,6 +228,8 @@
             
   <div class="section" id="fundmentalmatrix">
 <h1>FundmentalMatrix<a class="headerlink" href="#fundmentalmatrix" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>七点算法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>7点算法是指使用7个对应点估计基础矩阵，在一般情况下，7个点是能够估计基础矩阵所需要的最少点对应数。</p>
 <p>使用7个点对应可得到下述方程：</p>
 <div class="math notranslate nohighlight">
@@ -240,8 +262,8 @@ u_7'u_7 &amp; u_7'v_7 &amp; u_7' &amp; v_7'u_7 &amp; v_7'v_7 &amp; v_7' &amp; u_
 <li><p>若图像中仅有7个对应点，当基础矩阵有3个解时，不能断定哪一个是真解。如果图像中有多于7个点对应，当基础矩阵有3个解时，可选取匹配点对应数最多的矩阵作为基础矩阵的真解</p></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <ol class="arabic">
 <li><p>视角1下的特征点</p>
 <dl class="cpp type">
@@ -251,39 +273,34 @@ u_7'u_7 &amp; u_7'v_7 &amp; u_7' &amp; v_7'u_7 &amp; v_7'v_7 &amp; v_7' &amp; u_
 
 </li>
 <li><p>视角2下的特征点</p>
-<blockquote>
-<div><dl class="cpp type">
+<dl class="cpp type">
 <dt id="_CPPv4N36FundamentalMatrixSevenPointEstimator3Y_tE">
 <span id="_CPPv3N36FundamentalMatrixSevenPointEstimator3Y_tE"></span><span id="_CPPv2N36FundamentalMatrixSevenPointEstimator3Y_tE"></span><span id="FundamentalMatrixSevenPointEstimator::Y_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">FundamentalMatrixSevenPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Y_t</code>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3Y_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
-</div></blockquote>
 </li>
 <li><p>基础矩阵</p>
-<blockquote>
-<div><dl class="cpp type">
+<dl class="cpp type">
 <dt id="_CPPv4N36FundamentalMatrixSevenPointEstimator3M_tE">
 <span id="_CPPv3N36FundamentalMatrixSevenPointEstimator3M_tE"></span><span id="_CPPv2N36FundamentalMatrixSevenPointEstimator3M_tE"></span><span id="FundamentalMatrixSevenPointEstimator::M_t"></span><em class="property">typedef </em>Eigen::Matrix3d <code class="sig-prename descclassname">FundamentalMatrixSevenPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">M_t</code>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3M_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
-</div></blockquote>
 </li>
 <li><p>估计模型所需的最少样本数</p>
-<blockquote>
-<div><dl class="cpp member">
+<dl class="cpp member">
 <dt id="_CPPv4N36FundamentalMatrixSevenPointEstimator14kMinNumSamplesE">
 <span id="_CPPv3N36FundamentalMatrixSevenPointEstimator14kMinNumSamplesE"></span><span id="_CPPv2N36FundamentalMatrixSevenPointEstimator14kMinNumSamplesE"></span><span id="FundamentalMatrixSevenPointEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname">FundamentalMatrixSevenPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = 7;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
-</div></blockquote>
 </li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<ol class="arabic">
-<li><p><strong>Estimate</strong></p>
-<p>从一组相应的点估计1或3个可能的基本矩阵的解。对应点的数量必须正好为7对。</p>
+<div class="section" id="id3">
+<h3>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="section" id="estimate">
+<h4>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>从一组相应的点估计1或3个可能的基本矩阵的解。对应点的数量必须正好为7对。</p>
 <dl class="cpp function">
 <dt id="_CPPv4N36FundamentalMatrixSevenPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
 <span id="_CPPv3N36FundamentalMatrixSevenPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N36FundamentalMatrixSevenPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="FundamentalMatrixSevenPointEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><em class="property">static</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3M_tE" title="FundamentalMatrixSevenPointEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname">FundamentalMatrixSevenPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3X_tE" title="FundamentalMatrixSevenPointEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3Y_tE" title="FundamentalMatrixSevenPointEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
@@ -386,11 +403,215 @@ u_7'u_7 &amp; u_7'v_7 &amp; u_7' &amp; v_7'u_7 &amp; v_7'v_7 &amp; v_7' &amp; u_
 <span class="p">}</span>
 </pre></div>
 </div>
-</li>
-</ol>
 <div class="admonition error">
 <p class="admonition-title">错误</p>
 <p>程序没看懂！！！ 😭</p>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="residuals">
+<h4>Residuals<a class="headerlink" href="#residuals" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>计算一组对应点和给定基本矩阵的残差（使用SamponError）</p>
+<dl class="cpp function">
+<dt id="_CPPv4N36FundamentalMatrixSevenPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3N36FundamentalMatrixSevenPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2N36FundamentalMatrixSevenPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="FundamentalMatrixSevenPointEstimator::Residuals__std::vector:X_t:CR.std::vector:Y_t:CR.M_tCR.std::vector:double:P"></span>void <code class="sig-prename descclassname">FundamentalMatrixSevenPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3X_tE" title="FundamentalMatrixSevenPointEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3Y_tE" title="FundamentalMatrixSevenPointEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator3M_tE" title="FundamentalMatrixSevenPointEstimator::M_t">M_t</a> &amp;<em>F</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N36FundamentalMatrixSevenPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">FundamentalMatrixSevenPointEstimator</span><span class="o">::</span><span class="n">Residuals</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">M_t</span><span class="o">&amp;</span> <span class="n">F</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">ComputeSquaredSampsonError</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">residuals</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>归一化八点算法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h3>算法步骤<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><dl class="field-list">
+<dt class="field-odd">1. 归一化</dt>
+<dd class="field-odd"><p>根据 <span class="math notranslate nohighlight">\(\hat{x_i} = Tx_i, \hat{x_i'} = T'x_i'\)</span> 变换图像坐标。其中 <span class="math notranslate nohighlight">\(T,T'\)</span> 是由平移和缩放组成的归一化变换</p>
+</dd>
+<dt class="field-even">2. 求解对应匹配的基本矩阵</dt>
+<dd class="field-even"><p><strong>求线性解</strong>：用由对应点集 <span class="math notranslate nohighlight">\(\{\hat{x_i} \leftrightarrow \hat{x_i'} \}\)</span> 确定的系数矩阵 <span class="math notranslate nohighlight">\(\hat{A}\)</span> 的最小奇异值的奇异向量确定 <span class="math notranslate nohighlight">\(\hat{F}\)</span></p>
+<p><strong>奇异值约束</strong>：用SVD对 <span class="math notranslate nohighlight">\(\hat{F}\)</span> 进行分解，强制约束其最小的奇异值为 <span class="math notranslate nohighlight">\(0\)</span> ，得到 <span class="math notranslate nohighlight">\(\hat{F'}\)</span> ，使得 <span class="math notranslate nohighlight">\(det(\hat{F}') = 0\)</span></p>
+</dd>
+<dt class="field-odd">3. 解除归一化</dt>
+<dd class="field-odd"><p>令 <span class="math notranslate nohighlight">\(F = T'^T \hat{F}' T\)</span> ，矩阵 <span class="math notranslate nohighlight">\(F\)</span> 就是 <span class="math notranslate nohighlight">\(x_i \leftrightarrow x_i'\)</span> 对应的基础矩阵</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>基本矩阵由下述方程定义：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[x'^T F x = 0\]</div>
+</div></blockquote>
+<p>其中 <span class="math notranslate nohighlight">\(x \leftrightarrow x'\)</span> 是两幅图像的任意一对匹配点。</p>
+<p>对应的方程为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[x~~~y~~~1] \left[
+\begin{matrix}
+f_{11} &amp; f_{12} &amp; f_{13}\\
+f_{21} &amp; f_{22} &amp; f_{23}\\
+f_{31} &amp; f_{32} &amp; f_{33}
+\end{matrix}
+\right] \left[
+\begin{matrix}
+x'\\y'\\1
+\end{matrix}
+\right] = 0\end{split}\]</div>
+<p>展开写成列向量为：</p>
+<div class="math notranslate nohighlight">
+\[[x'x~~~x'y~~~x'~~~y'x~~~y'y~~~y'~~~x~~~y~~~1] f = 0\]</div>
+<p>给定n组点构造方程：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Af = \left[
+\begin{matrix}
+x_1'x_1 &amp; x_1'y_1 &amp; x_1' &amp; y_1'x_1 &amp; y_1'y_1 &amp; y_1' &amp; x_1 &amp; y_1 &amp; 1\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots\\
+x_n'x_n &amp; x_n'y_n &amp; x_n' &amp; y_n'x_n &amp; y_n'y_n &amp; y_n' &amp; x_n &amp; y_n &amp; 1
+\end{matrix}
+\right]f = 0\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>如果 <span class="math notranslate nohighlight">\(A\)</span> 的秩恰好为8，则 <span class="math notranslate nohighlight">\(f\)</span> 存在唯一解，可以通过线性算法求解 <span class="math notranslate nohighlight">\(f\)</span> ，在差一个尺度因子的情况下解是唯一的。</p>
+<p>但是由于存在噪声，需要构建多于8对点的对应关系，构建一个超定方程，需要通过最小二乘法求解。</p>
+</div>
+<p>使用SVD分解， <span class="math notranslate nohighlight">\(f\)</span> 的解是系数矩阵 <span class="math notranslate nohighlight">\(A\)</span> 最小特征值对应的奇异向量，也就是对 <span class="math notranslate nohighlight">\(A\)</span> 进行奇异值分解后 <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> 中矩阵 <span class="math notranslate nohighlight">\(V\)</span> 的最后一行列向量。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>实质是解矢量 <span class="math notranslate nohighlight">\(f\)</span> 在约束 <span class="math notranslate nohighlight">\(||f||\)</span> 下取 <span class="math notranslate nohighlight">\(||Af||\)</span> 最小的解</p>
+</div>
+<p>由于基本矩阵的奇异性，上述方法求得的 <span class="math notranslate nohighlight">\(f\)</span> 转换的 <span class="math notranslate nohighlight">\(F\)</span> 一般不满足秩为2的约束，需要进行修正。</p>
+<p>如果矩阵非奇异，则计算的对极线将不重合。</p>
+<p>在八点算法求解基本矩阵后，会增加一个奇异性约束，需要将奇异值由3个修正为2个</p>
+<p>步骤为：使用SVD对F进行分解，强制约束最小的奇异值为0，再使用 <span class="math notranslate nohighlight">\(F‘ = U\Sigma 'V\)</span> 代替原 <span class="math notranslate nohighlight">\(F\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>解除归一化</strong></p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}&amp;&amp;\hat{x} = Tx,~~~\hat{x}' = T'x'\\\\
+&amp;\Rightarrow&amp; (\hat{x}')^T F \hat{x} = 0\\\\
+&amp;\Rightarrow&amp; (T'x')^TF Tx = 0\\\\
+&amp;\Rightarrow&amp; (x')^T \underbrace{(T')^TFT}_{F'} x = 0\end{split}\]</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>成员变量<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<ol class="arabic">
+<li><p>视角1下的特征点</p>
+<dl class="cpp type">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator3X_tE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator3X_tE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator3X_tE"></span><span id="FundamentalMatrixEightPointEstimator::X_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">X_t</code>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3X_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>视角2下的特征点</p>
+<dl class="cpp type">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator3Y_tE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator3Y_tE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator3Y_tE"></span><span id="FundamentalMatrixEightPointEstimator::Y_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Y_t</code>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3Y_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>基础矩阵</p>
+<dl class="cpp type">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator3M_tE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator3M_tE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator3M_tE"></span><span id="FundamentalMatrixEightPointEstimator::M_t"></span><em class="property">typedef </em>Eigen::Matrix3d <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">M_t</code>;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3M_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>估计模型所需的最少样本数</p>
+<dl class="cpp member">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE"></span><span id="FundamentalMatrixEightPointEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = 8;<a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+</ol>
+</div>
+<div class="section" id="id7">
+<h3>成员函数<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id8">
+<h4>Estimate<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>从一组对应点估计基本矩阵</p>
+<dl class="cpp function">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="FundamentalMatrixEightPointEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span>std::vector&lt;FundamentalMatrixEightPointEstimator::<a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3M_tE" title="FundamentalMatrixEightPointEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3X_tE" title="FundamentalMatrixEightPointEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3Y_tE" title="FundamentalMatrixEightPointEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FundamentalMatrixEightPointEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span>
+<span class="n">FundamentalMatrixEightPointEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points2</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+  <span class="c1">// 对图像点进行居中和归一化以获得更好的数值稳定性</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;</span> <span class="n">normed_points1</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;</span> <span class="n">normed_points2</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">points1_norm_matrix</span><span class="p">;</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">points2_norm_matrix</span><span class="p">;</span>
+  <span class="n">CenterAndNormalizeImagePoints</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">normed_points1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points1_norm_matrix</span><span class="p">);</span>
+  <span class="n">CenterAndNormalizeImagePoints</span><span class="p">(</span><span class="n">points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">normed_points2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">points2_norm_matrix</span><span class="p">);</span>
+
+  <span class="c1">// 将齐次线性方程设置为 x2&#39; * F * x1 = 0.</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">9</span><span class="o">&gt;</span> <span class="n">cmatrix</span><span class="p">(</span><span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">9</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cmatrix</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="n">normed_points1</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">homogeneous</span><span class="p">();</span>
+    <span class="n">cmatrix</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*=</span> <span class="n">normed_points2</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span><span class="p">();</span>
+    <span class="n">cmatrix</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="n">normed_points1</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">homogeneous</span><span class="p">();</span>
+    <span class="n">cmatrix</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*=</span> <span class="n">normed_points2</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">();</span>
+    <span class="n">cmatrix</span><span class="p">.</span><span class="n">block</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="n">normed_points1</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">homogeneous</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 解约束矩阵的零空间</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="p">,</span> <span class="mi">9</span><span class="o">&gt;&gt;</span> <span class="n">cmatrix_svd</span><span class="p">(</span>
+      <span class="n">cmatrix</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">cmatrix_nullspace</span> <span class="o">=</span> <span class="n">cmatrix_svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">col</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Map</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">ematrix_t</span><span class="p">(</span><span class="n">cmatrix_nullspace</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+
+  <span class="c1">// 强制执行以下两个约束：两个奇异值必须非零，一个奇异值必须为零</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">JacobiSVD</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span><span class="o">&gt;</span> <span class="n">fmatrix_svd</span><span class="p">(</span>
+      <span class="n">ematrix_t</span><span class="p">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span> <span class="o">|</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullV</span><span class="p">);</span>
+  <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">singular_values</span> <span class="o">=</span> <span class="n">fmatrix_svd</span><span class="p">.</span><span class="n">singularValues</span><span class="p">();</span>
+  <span class="n">singular_values</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">F</span> <span class="o">=</span> <span class="n">fmatrix_svd</span><span class="p">.</span><span class="n">matrixU</span><span class="p">()</span> <span class="o">*</span>
+                            <span class="n">singular_values</span><span class="p">.</span><span class="n">asDiagonal</span><span class="p">()</span> <span class="o">*</span>
+                            <span class="n">fmatrix_svd</span><span class="p">.</span><span class="n">matrixV</span><span class="p">().</span><span class="n">transpose</span><span class="p">();</span>
+
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="n">points2_norm_matrix</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">F</span> <span class="o">*</span>
+                                   <span class="n">points1_norm_matrix</span><span class="p">};</span>
+  <span class="k">return</span> <span class="n">models</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h4>Residuals<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>计算一组对应点和给定基本矩阵的残差（使用SamponError）</p>
+<dl class="cpp function">
+<dt id="_CPPv4N36FundamentalMatrixEightPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3N36FundamentalMatrixEightPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2N36FundamentalMatrixEightPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="FundamentalMatrixEightPointEstimator::Residuals__std::vector:X_t:CR.std::vector:Y_t:CR.M_tCR.std::vector:double:P"></span>void <code class="sig-prename descclassname">FundamentalMatrixEightPointEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3X_tE" title="FundamentalMatrixEightPointEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3Y_tE" title="FundamentalMatrixEightPointEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4N36FundamentalMatrixEightPointEstimator3M_tE" title="FundamentalMatrixEightPointEstimator::M_t">M_t</a> &amp;<em>E</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N36FundamentalMatrixEightPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">FundamentalMatrixEightPointEstimator</span><span class="o">::</span><span class="n">Residuals</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">M_t</span><span class="o">&amp;</span> <span class="n">E</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">ComputeSquaredSampsonError</span><span class="p">(</span><span class="n">points1</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">residuals</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </div>
 </div>
 </div>
@@ -402,7 +623,7 @@ u_7'u_7 &amp; u_7'v_7 &amp; u_7' &amp; v_7'u_7 &amp; v_7'v_7 &amp; v_7' &amp; u_
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../HomographyMatrix/HomographyMatrix.html" class="btn btn-neutral float-right" title="HomographyMatrix" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Matrix.html" class="btn btn-neutral float-left" title="5. Matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Matrix.html" class="btn btn-neutral float-left" title="4. Matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

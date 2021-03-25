@@ -1,6 +1,3 @@
-.. default-domain:: cpp
-.. default-domain:: cpp
-
 EPnP
 =====
 
@@ -316,7 +313,7 @@ ChooseControlPoints
 
 
 
-    到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  :math:`c_j` ，每一个3D点的hd坐标  :math:`\alpha_{ij}`  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  :math:`[R|t]` 。
+    到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  :math:`c_j` ，每一个3D点的坐标  :math:`\alpha_{ij}`  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  :math:`[R|t]` 。
 
 ComputeBarycentricCoordinates
 --------------------------------------------------
@@ -805,7 +802,7 @@ FindBetasApprox1
 
          betas_approx_1 = [B11 B12     B13         B14]
 
-      将应该求的参数 :math:`\betas_10` 由10个减少到了4个 :math:`betas_approx_1` ， 然后求解的线性方程组。
+      将应该求的参数 :math:`\betas\_10` 由10个减少到了4个 :math:`betas\_approx\_1` ， 然后求解的线性方程组。
 
    .. cpp:function:: void EPNPEstimator::FindBetasApprox1(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
 
@@ -1239,6 +1236,8 @@ ComputeRT
       .. important::
 
          有了相机坐标系和世界坐标系的对应点就是3D-3D，就可以使用ICP进行求解。
+
+         |:point_right:| :doc:`SVD求解ICP方法 </pages/paper/pointcloud/Least_Squares_Fitting/Least_Squares_Fitting>`
 
       求解 :math:`R, t` 的步骤为：
 

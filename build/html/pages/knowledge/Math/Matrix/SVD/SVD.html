@@ -240,7 +240,7 @@
 <p class="admonition-title">小技巧</p>
 <p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。</p>
 </div>
-<p>假设矩阵A是一个m×n的矩阵，那么定义矩阵A的SVD为：</p>
+<p>假设矩阵A是一个 <span class="math notranslate nohighlight">\(m \times n\)</span> 的矩阵，那么定义矩阵A的SVD为：</p>
 <div class="math notranslate nohighlight">
 \[A = U \Sigma V^T\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(U\)</span>  是一个  <span class="math notranslate nohighlight">\(m \times m\)</span> 的矩阵， <span class="math notranslate nohighlight">\(V\)</span> 是一个  <span class="math notranslate nohighlight">\(n \times n\)</span> 的矩阵， <span class="math notranslate nohighlight">\(U\)</span> 和  <span class="math notranslate nohighlight">\(V\)</span> 都是酉矩阵， 满足：</p>
@@ -258,11 +258,15 @@ V^TV &amp;=&amp; I
 \right]\end{split}\]</div>
 <p>且 <span class="math notranslate nohighlight">\(\Sigma_1 = diag(\sigma_1,\sigma_2,...,\sigma_r)\)</span> ，对角线按照顺序 <span class="math notranslate nohighlight">\(\sigma_1 \ge \sigma_2 \ge \sigma_r &gt; 0\)</span> ，其中 <span class="math notranslate nohighlight">\(r = Rank(A)\)</span></p>
 <div class="align-center figure align-default">
-<img alt="../../../../../_images/110.jpg" src="../../../../../_images/110.jpg" />
+<img alt="../../../../../_images/13.jpg" src="../../../../../_images/13.jpg" />
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>SVD 分解 相当于将 <span class="math notranslate nohighlight">\(M\)</span> 的线性变换分解为 旋转（ <span class="math notranslate nohighlight">\(U\)</span> ） 、拉伸（ <span class="math notranslate nohighlight">\(\Sigma\)</span> ）、旋转（ <span class="math notranslate nohighlight">\(V^T\)</span> ）</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">小技巧</p>
-<p>如何求出SVD分解后的 <span class="math notranslate nohighlight">\(U, \Sigma, V\)</span> 这三个矩阵呢？ 😅</p>
+<p>如何求出SVD分解后的 <span class="math notranslate nohighlight">\(U, \Sigma, V^T\)</span> 这三个矩阵呢？ 😅</p>
 <p>将 <span class="math notranslate nohighlight">\(A^T\)</span> 和 <span class="math notranslate nohighlight">\(A\)</span> 做矩阵乘法，那么会得到 <span class="math notranslate nohighlight">\(n \times n\)</span> 的一个方阵 <span class="math notranslate nohighlight">\(A^TA\)</span></p>
 <p>注意到 <span class="math notranslate nohighlight">\(A^TA\)</span> 是方阵， 那么可以进行特征分解。</p>
 <p>将 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(A^T\)</span> 做矩阵乘法，那么会得到 <span class="math notranslate nohighlight">\(m \times m\)</span> 的一个方阵 <span class="math notranslate nohighlight">\(AA^T\)</span></p>
@@ -272,10 +276,10 @@ V^TV &amp;=&amp; I
 <div class="math notranslate nohighlight">
 \[(A^TA)v_i = \lambda_i v_i\]</div>
 <p>这样就可以得到矩阵 <span class="math notranslate nohighlight">\(A^TA\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 个特征值和对应的  <span class="math notranslate nohighlight">\(n\)</span> 个特征向量 <span class="math notranslate nohighlight">\(v\)</span> 了。</p>
-<p>将 <span class="math notranslate nohighlight">\(A^TA\)</span> 的所有特征向量组成一个 <span class="math notranslate nohighlight">\(n\)</span> 的矩阵 <span class="math notranslate nohighlight">\(V\)</span> ，就是SVD公式里的 <span class="math notranslate nohighlight">\(V\)</span> 矩阵。</p>
+<p>将 <span class="math notranslate nohighlight">\(A^TA\)</span> 的所有特征向量组成一个 <span class="math notranslate nohighlight">\(n\)</span> 的矩阵 <span class="math notranslate nohighlight">\(V^T\)</span> ，就是SVD公式里的 <span class="math notranslate nohighlight">\(V^T\)</span> 矩阵。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>一般把  <span class="math notranslate nohighlight">\(V\)</span> 中的每个特征向量叫做 <span class="math notranslate nohighlight">\(A\)</span> 的右奇异向量</p>
+<p>一般把  <span class="math notranslate nohighlight">\(V^T\)</span> 中的每个特征向量叫做 <span class="math notranslate nohighlight">\(A\)</span> 的右奇异向量</p>
 </div>
 <p>分解 <span class="math notranslate nohighlight">\(AA^T\)</span> 得到特征值和特征向量满足下式：</p>
 <div class="math notranslate nohighlight">
@@ -293,12 +297,12 @@ V^TV &amp;=&amp; I
 <p>这样我们可以求出我们的每个奇异值，进而求出奇异值矩阵 <span class="math notranslate nohighlight">\(\Sigma\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>之前说 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的矩阵就是  <span class="math notranslate nohighlight">\(V\)</span>  矩阵，<span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是 <span class="math notranslate nohighlight">\(U\)</span> 矩阵， 依据是什么？</p>
+<p>之前说 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的矩阵就是  <span class="math notranslate nohighlight">\(V^T\)</span>  矩阵，<span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是 <span class="math notranslate nohighlight">\(U\)</span> 矩阵， 依据是什么？</p>
 <p>以  <span class="math notranslate nohighlight">\(V\)</span> 矩阵的证明为例：</p>
 <div class="math notranslate nohighlight">
 \[A = U\Sigma V^T \Rightarrow A^T = V\Sigma U^T \Rightarrow A^TA = V\Sigma U^TU \Sigma V^T = V \Sigma^2 V^T\]</div>
 <p>上式证明使用了 <span class="math notranslate nohighlight">\(U U^T = I\)</span> ，  <span class="math notranslate nohighlight">\(\Sigma ^T = \Sigma\)</span></p>
-<p>可以看出 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的的确就是SVD中的  <span class="math notranslate nohighlight">\(V\)</span> 矩阵。类似的方法可以得到 <span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是SVD中的 <span class="math notranslate nohighlight">\(U\)</span> 矩阵。</p>
+<p>可以看出 <span class="math notranslate nohighlight">\(A^TA\)</span> 的特征向量组成的的确就是SVD中的  <span class="math notranslate nohighlight">\(V^T\)</span> 矩阵。类似的方法可以得到 <span class="math notranslate nohighlight">\(AA^T\)</span> 的特征向量组成的就是SVD中的 <span class="math notranslate nohighlight">\(U\)</span> 矩阵。</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -327,7 +331,7 @@ V^TV &amp;=&amp; I
 \[A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T \approx U_{m \times k} \Sigma_{k \times k} V^T_{k \times n}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(k\)</span> 要比 <span class="math notranslate nohighlight">\(n\)</span> 小很多，也就是一个大的矩阵 <span class="math notranslate nohighlight">\(A\)</span> 可以用三个小的矩阵  <span class="math notranslate nohighlight">\(U_{m\times k}\)</span>、 <span class="math notranslate nohighlight">\(\Sigma_{k \times k}\)</span>、  <span class="math notranslate nohighlight">\(V^T_{k \times n}\)</span> 来表示。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../../_images/24.jpg" src="../../../../../_images/24.jpg" />
+<img alt="../../../../../_images/23.jpg" src="../../../../../_images/23.jpg" />
 </div>
 </div>
 <p>SVD分解后，矩阵 <span class="math notranslate nohighlight">\(A\)</span> 可以展开成：</p>
@@ -336,7 +340,7 @@ V^TV &amp;=&amp; I
 <p>其中等式右边每一项前的系数 <span class="math notranslate nohighlight">\(\sigma\)</span> 就是奇异值， <span class="math notranslate nohighlight">\(u\)</span> 和  <span class="math notranslate nohighlight">\(v\)</span> 分别表示列向量， 每一项 <span class="math notranslate nohighlight">\(uv^T\)</span> 都是秩为1的矩阵。 假定奇异值满足： <span class="math notranslate nohighlight">\(\sigma_1 \ge \sigma_2 \ge ... \ge \sigma_r &gt; 0\)</span></p>
 <p>SVD应用就是图像压缩存储，因为数字图像本身就是个矩阵，通过上面所说的近似的低秩小矩阵替代原矩阵，可以大大减少存储量</p>
 <div class="align-center figure align-default">
-<img alt="../../../../../_images/33.jpg" src="../../../../../_images/33.jpg" />
+<img alt="../../../../../_images/32.jpg" src="../../../../../_images/32.jpg" />
 </div>
 <p>可以看到上面的图像中，只保留第一项 <span class="math notranslate nohighlight">\(A_1 = \sigma_1 u_1 v_1^T\)</span> ，作图为  <span class="math notranslate nohighlight">\(k = 1\)</span> 看不清楚是什么图像。</p>
 <p>随着不断的添加项进来 <span class="math notranslate nohighlight">\(A_5 = \sigma_1 u_1 v_1^T + \sigma_2 u_2 v_2^T + \sigma_3 u_3 v_3^T + \sigma_4 u_4 v_4^T + \sigma_5 u_5 v_5^T\)</span>，

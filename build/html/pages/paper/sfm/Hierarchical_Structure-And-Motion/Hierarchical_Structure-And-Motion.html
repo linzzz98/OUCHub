@@ -230,7 +230,7 @@
 <p>在结构和运动中要解决的主要问题是计算复杂度，其主要是BA调整阶段，然后是特征提取和匹配。</p>
 <p>本文描述了一种结构和运动的分层和可并行化方案。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/16.png" src="../../../../_images/16.png" />
+<img alt="../../../../_images/18.png" src="../../../../_images/18.png" />
 </div>
 <p>管道的前端是关键点提取和匹配，其中关键点提取和匹配分为两个阶段：</p>
 <p>第一个“广泛阶段”致力于发现对极图的暂定拓扑；</p>
@@ -269,7 +269,7 @@ Consensus(MSAC）计算匹配图像对之间的单应性和基本矩阵，这是
 <p>令<span class="math notranslate nohighlight">\(e_i\)</span>为MSAC之后所有N个关键点的残差，令<span class="math notranslate nohighlight">\(S^∗\)</span>为获得最佳分数的样本。
 规模的可靠估计是：</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/16.png" src="../../../../_images/16.png" />
+<img alt="../../../../_images/18.png" src="../../../../_images/18.png" />
 </div>
 <p>所得的一组内点是这样的点：</p>
 <div class="math notranslate nohighlight">
@@ -278,7 +278,7 @@ Consensus(MSAC）计算匹配图像对之间的单应性和基本矩阵，这是
 <p>通过(几何误差的(一阶近似））最小二乘最小化，在此组内点上重新估计模型参数。</p>
 <p>根据几何鲁棒信息准则(GRIC）选择更可能的模型(单应性或基本矩阵）：</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/33.png" src="../../../../_images/33.png" />
+<img alt="../../../../_images/34.png" src="../../../../_images/34.png" />
 </div>
 <p>其中<span class="math notranslate nohighlight">\(σ\)</span>是测量误差的标准偏差，<span class="math notranslate nohighlight">\(k\)</span>是模型参数的数量，<span class="math notranslate nohighlight">\(d\)</span>是流体的尺寸，<span class="math notranslate nohighlight">\(r\)</span>是测量尺寸。</p>
 <p>在本文中，对于基本矩阵，k = 7，d = 3，r = 4，对于单应性，k = 8，d = 2，r
@@ -302,7 +302,7 @@ track是<span class="math notranslate nohighlight">\(G\)</span>的连接组成�
 结果，问题被分解为较小的实例，然后分别解决和合并。</p>
 <p>通过考虑两个图像中可见的联系点的数量及其投影(关键点）在图像上的分布程度来计算，令<span class="math notranslate nohighlight">\(S_i\)</span>和<span class="math notranslate nohighlight">\(S_j\)</span>分别为图像<span class="math notranslate nohighlight">\(I_i\)</span>和<span class="math notranslate nohighlight">\(I_j\)</span>中的可见联系点集合：</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/16.png" src="../../../../_images/16.png" />
+<img alt="../../../../_images/18.png" src="../../../../_images/18.png" />
 </div>
 <p>其中<span class="math notranslate nohighlight">\(CH(·)\)</span>是一组图像点的凸包(<em>convex
 Hull</em>一般指凸包。凸包(<em>Convex
@@ -503,7 +503,7 @@ recovery》计算得到。</p>
 <p>最后，通过方程(15）的非线性最小化对选定的解进行细化。
 由于通常非常接近最小值，因此仅需对Levenberg-Marquardt求解器进行几次迭代即可收敛。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/17.png" src="../../../../_images/17.png" />
+<img alt="../../../../_images/171.png" src="../../../../_images/171.png" />
 </div>
 <p>从两个图像开始的模型触发自动校准， 结果是近似的Euclidean upgrade；
 实际上，在达到足够的基数之前，这些模型仍被认为是投影模型。
@@ -514,7 +514,7 @@ recovery》计算得到。</p>
 <h3><span class="section-number">2.6.2. </span>Projective stereo-modeling<a class="headerlink" href="#projective-stereo-modeling" title="永久链接至标题">¶</a></h3>
 <p>从两个未经校准的图像获得的模型始终是投影的。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/18.png" src="../../../../_images/18.png" />
+<img alt="../../../../_images/181.png" src="../../../../_images/181.png" />
 </div>
 </div>
 <div class="section" id="resection-intersection">

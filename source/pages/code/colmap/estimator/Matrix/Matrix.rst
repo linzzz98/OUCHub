@@ -8,5 +8,6 @@ Matrix
    FundamentalMatrix/FundamentalMatrix
    HomographyMatrix/HomographyMatrix
 
-* :doc:`FundamentalMatrix <FundamentalMatrix/FundamentalMatrix>`
-* :doc:`HomographyMatrix <HomographyMatrix/HomographyMatrix>`
+|:fire:| :doc:`FundamentalMatrix <FundamentalMatrix/FundamentalMatrix>`
+
+|:fire:| :doc:`HomographyMatrix <HomographyMatrix/HomographyMatrix>`

@@ -250,12 +250,12 @@ Order Cone Programming）的标准技术来估计摄像机的位移。</p></li>
 <p>当至少给出<span class="math notranslate nohighlight">\(m\)</span>个相对旋转时，方程超定。由于噪声的存在没有精确解，需要使用最小二乘法进行求解。</p>
 <p>使用四元数的话，可以变为：（3）</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/24.png" src="../../../../_images/24.png" />
+<img alt="../../../../_images/26.png" src="../../../../_images/26.png" />
 </div>
 <p>其中<span class="math notranslate nohighlight">\(\dot{r}^i\)</span>和<span class="math notranslate nohighlight">\(\dot{r}^j\)</span>分别是第<span class="math notranslate nohighlight">\(i\)</span>个和第<span class="math notranslate nohighlight">\(j\)</span>个摄像机旋转的未知四元数，而<span class="math notranslate nohighlight">\(\dot{r}^{ij}\)</span>是摄像机<span class="math notranslate nohighlight">\(i\)</span>和<span class="math notranslate nohighlight">\(j\)</span>之间的已知相对旋转。</p>
 <p>每个四元数都可以被认为是四个向量，从而方程改写为：(4)</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/34.png" src="../../../../_images/34.png" />
+<img alt="../../../../_images/35.png" src="../../../../_images/35.png" />
 </div>
 <p>其中<span class="math notranslate nohighlight">\(\dot{r}^i = r_0^i + ir_x^i+jr_y^i + kr_z^i\)</span>(<span class="math notranslate nohighlight">\(ir_x^i\)</span>的两个<span class="math notranslate nohighlight">\(i\)</span>不是表示同一个)和<span class="math notranslate nohighlight">\(\dot{r}^{ij} = r_0 + ir_x + jr_y + kr_z\)</span>，其中<span class="math notranslate nohighlight">\(i,j,k\)</span>都是虚数单位。</p>
 <p>从现在开始，第<span class="math notranslate nohighlight">\(i\)</span>个四元数可以由四维向量<span class="math notranslate nohighlight">\((r_0^i,r_x^i,r_y^i,r_z^i)^T\)</span>表示。</p>

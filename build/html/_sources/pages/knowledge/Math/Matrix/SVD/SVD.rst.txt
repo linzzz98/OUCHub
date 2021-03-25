@@ -68,7 +68,7 @@ SVD分解
 
    SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。
 
-假设矩阵A是一个m×n的矩阵，那么定义矩阵A的SVD为：
+假设矩阵A是一个 :math:`m \times n` 的矩阵，那么定义矩阵A的SVD为：
 
 .. math::
 
@@ -98,8 +98,12 @@ SVD分解
 .. figure:: 1.jpg
    :figclass: align-center
 
+.. important::
+
+    SVD 分解 相当于将 :math:`M` 的线性变换分解为 旋转（ :math:`U` ） 、拉伸（ :math:`\Sigma` ）、旋转（ :math:`V^T` ）
+
 .. tip::
-   如何求出SVD分解后的 :math:`U, \Sigma, V` 这三个矩阵呢？ |:sweat_smile:|
+   如何求出SVD分解后的 :math:`U, \Sigma, V^T` 这三个矩阵呢？ |:sweat_smile:|
 
    将 :math:`A^T` 和 :math:`A` 做矩阵乘法，那么会得到 :math:`n \times n` 的一个方阵 :math:`A^TA`
 
@@ -117,11 +121,11 @@ SVD分解
 
 这样就可以得到矩阵 :math:`A^TA` 的 :math:`n` 个特征值和对应的  :math:`n` 个特征向量 :math:`v` 了。
 
-将 :math:`A^TA` 的所有特征向量组成一个 |n| 的矩阵 :math:`V` ，就是SVD公式里的 :math:`V` 矩阵。
+将 :math:`A^TA` 的所有特征向量组成一个 |n| 的矩阵 :math:`V^T` ，就是SVD公式里的 :math:`V^T` 矩阵。
 
 .. important::
 
-   一般把  :math:`V` 中的每个特征向量叫做 |A| 的右奇异向量
+   一般把  :math:`V^T` 中的每个特征向量叫做 |A| 的右奇异向量
 
 分解 |AAT| 得到特征值和特征向量满足下式：
 
@@ -148,7 +152,7 @@ SVD分解
 这样我们可以求出我们的每个奇异值，进而求出奇异值矩阵 :math:`\Sigma`
 
 .. note::
-   之前说 |ATA| 的特征向量组成的矩阵就是  :math:`V`  矩阵，|AAT| 的特征向量组成的就是 :math:`U` 矩阵， 依据是什么？
+   之前说 |ATA| 的特征向量组成的矩阵就是  :math:`V^T`  矩阵，|AAT| 的特征向量组成的就是 :math:`U` 矩阵， 依据是什么？
 
    以  :math:`V` 矩阵的证明为例：
 
@@ -158,7 +162,7 @@ SVD分解
 
    上式证明使用了 :math:`U U^T = I` ，  :math:`\Sigma ^T = \Sigma`
 
-   可以看出 |ATA| 的特征向量组成的的确就是SVD中的  :math:`V` 矩阵。类似的方法可以得到 |AAT| 的特征向量组成的就是SVD中的 :math:`U` 矩阵。
+   可以看出 |ATA| 的特征向量组成的的确就是SVD中的  :math:`V^T` 矩阵。类似的方法可以得到 |AAT| 的特征向量组成的就是SVD中的 :math:`U` 矩阵。
 
 .. important::
 

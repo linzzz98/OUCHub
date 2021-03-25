@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Generalized_RelativePose &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Generalized_RelativePose</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="generalized-relativepose">
+<h1>Generalized_RelativePose<a class="headerlink" href="#generalized-relativepose" title="永久链接至标题">¶</a></h1>
+<p>使用最少8个2D-2D对应关系求解广义相对姿势问题。</p>
+<pre class="literal-block"><a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2014/papers/Kneip_Efficient_Computation_of_2014_CVPR_paper.pdf">Efficient Computation of Relative Pose for Multi-Camera Systems</a></pre>
+<dl class="cpp class">
+<dt id="_CPPv413GR6PEstimator">
+<span id="_CPPv313GR6PEstimator"></span><span id="_CPPv213GR6PEstimator"></span><span id="GR6PEstimator"></span><em class="property">class </em><code class="sig-name descname">GR6PEstimator</code><a class="headerlink" href="#_CPPv413GR6PEstimator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="section" id="id1">
+<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv43X_t">
+<span id="_CPPv33X_t"></span><span id="_CPPv23X_t"></span><span id="X_t"></span><em class="property">struct </em><code class="sig-name descname">X_t</code><br /></dt>
+<dd></dd></dl>
+
+<dl class="field-list">
+<dt class="field-odd">X_t</dt>
+<dd class="field-odd"><dl class="cpp member">
+<dt id="_CPPv49rel_tform">
+<span id="_CPPv39rel_tform"></span><span id="_CPPv29rel_tform"></span><span id="rel_tform__Eigen::Matrix3x4d"></span>Eigen::Matrix3x4d <code class="sig-name descname">rel_tform</code>;<a class="headerlink" href="#_CPPv49rel_tform" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>从广义摄像机到观测摄像机的框架的相对转换</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv42xy">
+<span id="_CPPv32xy"></span><span id="_CPPv22xy"></span><span id="xy__Eigen::Vector2d"></span>Eigen::Vector2d <code class="sig-name descname">xy</code>;<a class="headerlink" href="#_CPPv42xy" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>2D图像特征观察值</p>
+</dd></dl>
+
+</dd>
+</dl>
+<dl class="cpp type">
+<dt>
+<code class="sig-name descname">X_t, Y_t;</code></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

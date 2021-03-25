@@ -32,7 +32,15 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
 .. hint::
    1
 .. important::
-   1
+   **顶级期刊**
+      * PAMI, IEEE Transactions on Pattern Analysis and Machine Intelligence
+      * IJCV, International Journal of Computer Vision
+
+   **顶级会议**
+      * ICCV, IEEE International Conference on Computer Vision（两年一次）
+      * CVPR,IEEE Conference on Computer Vision and Pattern Recognition（一年一次）
+      * ECCV,European Conference on Computer Vision（两年一次）
+
 .. tip::
    1
 .. note::

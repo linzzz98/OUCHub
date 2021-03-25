@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>6. Triangulation &mdash; OUCHub 0.1 文档</title>
+  <title>5. Triangulation &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="next" title="6. AffineTransform" href="../Transform/AffineTransform/AffineTransform.html" />
     <link rel="prev" title="HomographyMatrix" href="../Matrix/HomographyMatrix/HomographyMatrix.html" /> 
 </head>
 
@@ -114,14 +114,24 @@
 <li class="toctree-l3"><a class="reference internal" href="../Pose/Pose.html">1. Pose</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">6. Triangulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">4. Matrix</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5. Triangulation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">结构体</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">成员变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">成员函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">成员函数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#setmintriangle">SetMinTriAngle</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#setresidualtype">SetResidualType</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimate">Estimate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#residuals">Residuals</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimatetriangulation">EstimateTriangulation</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/AffineTransform/AffineTransform.html">6. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../TwoViewGeometry/TwoViewGeometry.html">9. TwoViewGeometry</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +192,7 @@
         
           <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
         
-      <li><span class="section-number">6. </span>Triangulation</li>
+      <li><span class="section-number">5. </span>Triangulation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,7 +212,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="triangulation">
-<h1><span class="section-number">6. </span>Triangulation<a class="headerlink" href="#triangulation" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">5. </span>Triangulation<a class="headerlink" href="#triangulation" title="永久链接至标题">¶</a></h1>
 <p>三角剖分估计器可从多个观测值中估计3D点。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -263,7 +273,8 @@
 </div>
 <div class="section" id="id2">
 <h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<dl class="cpp type">
+<blockquote>
+<div><dl class="cpp type">
 <dt id="_CPPv4N22TriangulationEstimator3X_tE">
 <span id="_CPPv3N22TriangulationEstimator3X_tE"></span><span id="_CPPv2N22TriangulationEstimator3X_tE"></span><span id="TriangulationEstimator::X_t"></span><em class="property">typedef </em><a class="reference internal" href="#_CPPv49PointData" title="PointData">PointData</a> <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">X_t</code>;<a class="headerlink" href="#_CPPv4N22TriangulationEstimator3X_tE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
@@ -287,14 +298,14 @@
 <span id="_CPPv3N22TriangulationEstimator14kMinNumSamplesE"></span><span id="_CPPv2N22TriangulationEstimator14kMinNumSamplesE"></span><span id="TriangulationEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = 2;<a class="headerlink" href="#_CPPv4N22TriangulationEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
+</div></blockquote>
 </div>
 <div class="section" id="id3">
 <h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<ol class="arabic">
-<li><p><strong>SetMinTriAngle</strong></p>
-<p>设置最小三角剖分角度</p>
-</li>
-</ol>
+<div class="section" id="setmintriangle">
+<h3>SetMinTriAngle<a class="headerlink" href="#setmintriangle" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>设置最小三角剖分角度</p>
 <dl class="cpp function">
 <dt id="_CPPv4N22TriangulationEstimator14SetMinTriAngleEKd">
 <span id="_CPPv3N22TriangulationEstimator14SetMinTriAngleEKd"></span><span id="_CPPv2N22TriangulationEstimator14SetMinTriAngleEKd"></span><span id="TriangulationEstimator::SetMinTriAngle__doubleC"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetMinTriAngle</code><span class="sig-paren">(</span><em class="property">const</em> double <em>min_tri_angle</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N22TriangulationEstimator14SetMinTriAngleEKd" title="永久链接至目标">¶</a><br /></dt>
@@ -306,17 +317,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<ol class="arabic" start="2">
-<li><p><strong>SetResidualType</strong></p>
-<p>设置残差类型</p>
+</div></blockquote>
+</div>
+<div class="section" id="setresidualtype">
+<h3>SetResidualType<a class="headerlink" href="#setresidualtype" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>设置残差类型</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="k">class</span> <span class="nc">ResidualType</span> <span class="p">{</span>
    <span class="n">ANGULAR_ERROR</span><span class="p">,</span>
    <span class="n">REPROJECTION_ERROR</span><span class="p">,</span>
 <span class="p">};</span>
 </pre></div>
 </div>
-</li>
-</ol>
 <dl class="cpp function">
 <dt id="_CPPv4N22TriangulationEstimator15SetResidualTypeEK12ResidualType">
 <span id="_CPPv3N22TriangulationEstimator15SetResidualTypeEK12ResidualType"></span><span id="_CPPv2N22TriangulationEstimator15SetResidualTypeEK12ResidualType"></span><span id="TriangulationEstimator::SetResidualType__ResidualTypeC"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetResidualType</code><span class="sig-paren">(</span><em class="property">const</em> ResidualType <em>residual_type</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N22TriangulationEstimator15SetResidualTypeEK12ResidualType" title="永久链接至目标">¶</a><br /></dt>
@@ -327,31 +339,31 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<ol class="arabic" start="3">
-<li><p><strong>Estimate</strong></p>
-<p>从两视图观察值估计3D点</p>
+</div></blockquote>
+</div>
+<div class="section" id="estimate">
+<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>从两视图观察值估计3D点</p>
 <dl class="cpp function">
 <dt id="_CPPv4N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
 <span id="_CPPv3N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="TriangulationEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span>std::vector&lt;<a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a>::<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3M_tE" title="TriangulationEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3X_tE" title="TriangulationEstimator::X_t">X_t</a>&gt; &amp;<em>point_data</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3Y_tE" title="TriangulationEstimator::Y_t">Y_t</a>&gt; &amp;<em>pose_data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N22TriangulationEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
-   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
-   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+   <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 
-      <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
-      <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-
-      <span class="k">if</span> <span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
 
       <span class="c1">// 两视图三角剖分</span>
 
-      <span class="c1">// 得到三维点xyz</span>
       <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulatePoint</span><span class="p">(</span>
          <span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span>
          <span class="n">point_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">,</span> <span class="n">point_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">);</span>
 
-      <span class="c1">// 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
          <span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
          <span class="n">CalculateTriangulationAngle</span><span class="p">(</span><span class="n">pose_data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span>
@@ -360,6 +372,7 @@
          <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
       <span class="p">}</span>
    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+
       <span class="c1">// 多视图三角剖分</span>
 
       <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&gt;</span> <span class="n">proj_matrices</span><span class="p">;</span>
@@ -373,31 +386,117 @@
 
       <span class="k">const</span> <span class="n">M_t</span> <span class="n">xyz</span> <span class="o">=</span> <span class="n">TriangulateMultiViewPoint</span><span class="p">(</span><span class="n">proj_matrices</span><span class="p">,</span> <span class="n">points</span><span class="p">);</span>
 
-      <span class="c1">// Check for cheirality constraint.</span>
-      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">pose</span> <span class="p">:</span> <span class="n">pose_data</span><span class="p">)</span> <span class="p">{</span>
-         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">))</span> <span class="p">{</span>
+       <span class="c1">// 检查cheirality约束</span>
+       <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">pose</span> <span class="p">:</span> <span class="n">pose_data</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">HasPointPositiveDepth</span><span class="p">(</span><span class="n">pose</span><span class="p">.</span><span class="n">proj_matrix</span><span class="p">,</span> <span class="n">xyz</span><span class="p">))</span>
          <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
-         <span class="p">}</span>
-      <span class="p">}</span>
+       <span class="p">}</span>
 
-      <span class="c1">// Check for sufficient triangulation angle.</span>
+      <span class="c1">// 检查三角剖分角度</span>
       <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
          <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">const</span> <span class="kt">double</span> <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">CalculateTriangulationAngle</span><span class="p">(</span>
-               <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">xyz</span><span class="p">);</span>
-         <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="kt">double</span> <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">CalculateTriangulationAngle</span><span class="p">(</span>
+            <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">xyz</span><span class="p">);</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&gt;=</span> <span class="n">min_tri_angle_</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{</span><span class="n">xyz</span><span class="p">};</span>
          <span class="p">}</span>
       <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+   <span class="p">}</span>
 
    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</li>
-</ol>
+</div></blockquote>
+</div>
+<div class="section" id="residuals">
+<h3>Residuals<a class="headerlink" href="#residuals" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4N22TriangulationEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3N22TriangulationEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2N22TriangulationEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="TriangulationEstimator::Residuals__std::vector:X_t:CR.std::vector:Y_t:CR.M_tCR.std::vector:double:P"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3X_tE" title="TriangulationEstimator::X_t">X_t</a>&gt; &amp;<em>point_data</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N22TriangulationEstimator3Y_tE" title="TriangulationEstimator::Y_t">Y_t</a>&gt; &amp;<em>pose_data</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4N22TriangulationEstimator3M_tE" title="TriangulationEstimator::M_t">M_t</a> &amp;<em>xyz</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N22TriangulationEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">Residuals</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">,</span>
+                                       <span class="k">const</span> <span class="n">M_t</span><span class="o">&amp;</span> <span class="n">xyz</span><span class="p">,</span>
+                                       <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="n">residuals</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 如果残差类型是重投影误差</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">residual_type_</span> <span class="o">==</span> <span class="n">ResidualType</span><span class="o">::</span><span class="n">REPROJECTION_ERROR</span><span class="p">)</span> <span class="p">{</span>
+         <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">CalculateSquaredReprojectionError</span><span class="p">(</span>
+            <span class="n">point_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">camera</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 如果残差类型是重投影误差</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">residual_type_</span> <span class="o">==</span> <span class="n">ResidualType</span><span class="o">::</span><span class="n">ANGULAR_ERROR</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="kt">double</span> <span class="n">angular_error</span> <span class="o">=</span> <span class="n">CalculateNormalizedAngularError</span><span class="p">(</span>
+            <span class="n">point_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point_normalized</span><span class="p">,</span> <span class="n">xyz</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">proj_matrix</span><span class="p">);</span>
+         <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">angular_error</span> <span class="o">*</span> <span class="n">angular_error</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="estimatetriangulation">
+<h3>EstimateTriangulation<a class="headerlink" href="#estimatetriangulation" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv421EstimateTriangulationRK28EstimateTriangulationOptionsRKNSt6vectorIN22TriangulationEstimator9PointDataEEERKNSt6vectorIN22TriangulationEstimator8PoseDataEEEPNSt6vectorIcEEPN5Eigen8Vector3dE">
+<span id="_CPPv321EstimateTriangulationRK28EstimateTriangulationOptionsRKNSt6vectorIN22TriangulationEstimator9PointDataEEERKNSt6vectorIN22TriangulationEstimator8PoseDataEEEPNSt6vectorIcEEPN5Eigen8Vector3dE"></span><span id="_CPPv221EstimateTriangulationRK28EstimateTriangulationOptionsRKNSt6vectorIN22TriangulationEstimator9PointDataEEERKNSt6vectorIN22TriangulationEstimator8PoseDataEEEPNSt6vectorIcEEPN5Eigen8Vector3dE"></span><span id="EstimateTriangulation__EstimateTriangulationOptionsCR.std::vector:TriangulationEstimator::PointData:CR.std::vector:TriangulationEstimator::PoseData:CR.std::vector:c:P.Eigen::Vector3dP"></span>bool <code class="sig-name descname">EstimateTriangulation</code><span class="sig-paren">(</span><em class="property">const</em> EstimateTriangulationOptions &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a>::PointData&gt; &amp;<em>point_data</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv422TriangulationEstimator" title="TriangulationEstimator">TriangulationEstimator</a>::PoseData&gt; &amp;<em>pose_data</em>, std::vector&lt;char&gt; *<em>inlier_mask</em>, Eigen::Vector3d *<em>xyz</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421EstimateTriangulationRK28EstimateTriangulationOptionsRKNSt6vectorIN22TriangulationEstimator9PointDataEEERKNSt6vectorIN22TriangulationEstimator8PoseDataEEEPNSt6vectorIcEEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">EstimateTriangulation</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">EstimateTriangulationOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">PointData</span><span class="o">&gt;&amp;</span> <span class="n">point_data</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="o">::</span><span class="n">PoseData</span><span class="o">&gt;&amp;</span> <span class="n">pose_data</span><span class="p">,</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;*</span> <span class="n">inlier_mask</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">xyz</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">inlier_mask</span><span class="p">);</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">xyz</span><span class="p">);</span>
+   <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">point_data</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">pose_data</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+   <span class="c1">// 使用LORANSAC方法鲁棒的估算轨道</span>
+   <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">TriangulationEstimator</span><span class="p">,</span> <span class="n">TriangulationEstimator</span><span class="p">,</span>
+           <span class="n">InlierSupportMeasurer</span><span class="p">,</span> <span class="n">CombinationSampler</span><span class="o">&gt;</span> <span class="n">ransac</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">);</span>
+
+   <span class="c1">// 设置最小三角剖分角度</span>
+   <span class="n">ransac</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="n">SetMinTriAngle</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">min_tri_angle</span><span class="p">);</span>
+
+   <span class="c1">// 设置残差类型</span>
+   <span class="n">ransac</span><span class="p">.</span><span class="n">estimator</span><span class="p">.</span><span class="n">SetResidualType</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">residual_type</span><span class="p">);</span>
+
+   <span class="c1">// 设置局部估计最小三角剖分角度</span>
+   <span class="n">ransac</span><span class="p">.</span><span class="n">local_estimator</span><span class="p">.</span><span class="n">SetMinTriAngle</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">min_tri_angle</span><span class="p">);</span>
+
+   <span class="c1">// 设置局部估计残差类型</span>
+   <span class="n">ransac</span><span class="p">.</span><span class="n">local_estimator</span><span class="p">.</span><span class="n">SetResidualType</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">residual_type</span><span class="p">);</span>
+
+   <span class="c1">// LORANSAC方法计算三角剖分</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">point_data</span><span class="p">,</span> <span class="n">pose_data</span><span class="p">);</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">report</span><span class="p">.</span><span class="n">success</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 得到inlier掩码和三维坐标xyz</span>
+   <span class="o">*</span><span class="n">inlier_mask</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+   <span class="o">*</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+   <span class="k">return</span> <span class="n">report</span><span class="p">.</span><span class="n">success</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
 </div>
 </div>
 
@@ -407,7 +506,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Transform/AffineTransform/AffineTransform.html" class="btn btn-neutral float-right" title="6. AffineTransform" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../Matrix/HomographyMatrix/HomographyMatrix.html" class="btn btn-neutral float-left" title="HomographyMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

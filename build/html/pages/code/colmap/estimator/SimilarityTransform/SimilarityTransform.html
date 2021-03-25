@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>7. SimilarityTransform &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="prev" title="6. Triangulation" href="../Triangulation/Triangulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Pose/Pose.html">1. Pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">5. Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Triangulation/Triangulation.html">6. Triangulation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7. SimilarityTransform</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">成员函数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#estimate">Estimate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#residuals">Residuals</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+      <li><span class="section-number">7. </span>SimilarityTransform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/SimilarityTransform/SimilarityTransform.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="similaritytransform">
+<h1><span class="section-number">7. </span>SimilarityTransform<a class="headerlink" href="#similaritytransform" title="永久链接至标题">¶</a></h1>
+<p>通过Eigen::umeyama函数来计算两组向量的旋转变换</p>
+<p><code class="docutils literal notranslate"><span class="pre">Umeyama</span></code> 算法是为了计算两组数据之间的位置关系，比如说，现在有两组位于不同坐标系下的点位数据（可以是2D，也可是是3D），若事先已经知道点位之间的对应关系，则利用 <code class="docutils literal notranslate"><span class="pre">Umeyama</span></code> 算法可以计算出两组数据间的旋转与平移矩阵。</p>
+<pre class="literal-block"><a class="reference external" href="http://www.stanford.edu/class/cs273/refs/umeyama.pdf">Least-Squares Estimation of Transformation Parameters Between Two Point Patterns</a></pre>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>该算法的目标是计算一组 <span class="math notranslate nohighlight">\(R,t\)</span> 使得目标函数最优：</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{n} \sum\limits_{i=1}^n||q_i - (cRp_i + t)||_2^2\]</div>
+<p>最终的判断标准是距离的平方和，也就是一个最小二乘估计问题。</p>
+<p>计算结果为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T = \left[
+\begin{matrix}
+cR &amp; t \\ 0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(c\)</span> 为缩放系数</p>
+</div>
+<div class="section" id="id1">
+<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><dl class="cpp type">
+<dt id="_CPPv4N28SimilarityTransformEstimator3X_tE">
+<span id="_CPPv3N28SimilarityTransformEstimator3X_tE"></span><span id="_CPPv2N28SimilarityTransformEstimator3X_tE"></span><span id="SimilarityTransformEstimator::X_t"></span><em class="property">typedef </em>Eigen::Matrix&lt;double, kDim, 1&gt; <code class="sig-prename descclassname">SimilarityTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">X_t</code>;<a class="headerlink" href="#_CPPv4N28SimilarityTransformEstimator3X_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt id="_CPPv4N28SimilarityTransformEstimator3Y_tE">
+<span id="_CPPv3N28SimilarityTransformEstimator3Y_tE"></span><span id="_CPPv2N28SimilarityTransformEstimator3Y_tE"></span><span id="SimilarityTransformEstimator::Y_t"></span><em class="property">typedef </em>Eigen::Matrix&lt;double, kDim, 1&gt; <code class="sig-prename descclassname">SimilarityTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Y_t</code>;<a class="headerlink" href="#_CPPv4N28SimilarityTransformEstimator3Y_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt id="_CPPv4N28SimilarityTransformEstimator3M_tE">
+<span id="_CPPv3N28SimilarityTransformEstimator3M_tE"></span><span id="_CPPv2N28SimilarityTransformEstimator3M_tE"></span><span id="SimilarityTransformEstimator::M_t"></span><em class="property">typedef </em>Eigen::Matrix&lt;double, kDim, kDim + 1&gt; <code class="sig-prename descclassname">SimilarityTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">M_t</code>;<a class="headerlink" href="#_CPPv4N28SimilarityTransformEstimator3M_tE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv4N28SimilarityTransformEstimator14kMinNumSamplesE">
+<span id="_CPPv3N28SimilarityTransformEstimator14kMinNumSamplesE"></span><span id="_CPPv2N28SimilarityTransformEstimator14kMinNumSamplesE"></span><span id="SimilarityTransformEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname">SimilarityTransformEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = kDim;<a class="headerlink" href="#_CPPv4N28SimilarityTransformEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="estimate">
+<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">kDim</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">kEstimateScale</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">SimilarityTransformEstimator</span><span class="o">&lt;</span><span class="n">kDim</span><span class="p">,</span> <span class="n">kEstimateScale</span><span class="o">&gt;::</span><span class="n">M_t</span><span class="o">&gt;</span>
+<span class="n">SimilarityTransformEstimator</span><span class="o">&lt;</span><span class="n">kDim</span><span class="p">,</span> <span class="n">kEstimateScale</span><span class="o">&gt;::</span><span class="n">Estimate</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">src</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">dst</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">dst</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">kDim</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="o">&gt;</span> <span class="n">src_mat</span><span class="p">(</span><span class="n">kDim</span><span class="p">,</span> <span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">kDim</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Dynamic</span><span class="o">&gt;</span> <span class="n">dst_mat</span><span class="p">(</span><span class="n">kDim</span><span class="p">,</span> <span class="n">dst</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">src_mat</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+      <span class="n">dst_mat</span><span class="p">.</span><span class="n">col</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+   <span class="p">}</span>
+
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">model</span> <span class="o">=</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">umeyama</span><span class="p">(</span><span class="n">src_mat</span><span class="p">,</span> <span class="n">dst_mat</span><span class="p">,</span> <span class="n">kEstimateScale</span><span class="p">)</span>
+                         <span class="p">.</span><span class="n">topLeftCorner</span><span class="p">(</span><span class="n">kDim</span><span class="p">,</span> <span class="n">kDim</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">array</span><span class="p">().</span><span class="n">isNaN</span><span class="p">().</span><span class="n">any</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">M_t</span><span class="o">&gt;</span><span class="p">{};</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="p">{</span><span class="n">model</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="residuals">
+<h3>Residuals<a class="headerlink" href="#residuals" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><dl class="cpp function">
+<dt id="_CPPv4I_i_bEN28SimilarityTransformEstimatorI4kDim14kEstimateScaleE9ResidualsEvRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">
+<span id="_CPPv3I_i_bEN28SimilarityTransformEstimatorI4kDim14kEstimateScaleE9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span><span id="_CPPv2I_i_bEN28SimilarityTransformEstimatorI4kDim14kEstimateScaleE9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE"></span>template&lt;int <code class="sig-name descname">kDim</code>, bool <code class="sig-name descname">kEstimateScale</code>&gt;<br />void <code class="sig-prename descclassname">SimilarityTransformEstimator&lt;kDim, kEstimateScale&gt;<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Residuals</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43X_t" title="X_t">X_t</a>&gt; &amp;<em>src</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="../PnP/PnP.html#_CPPv43Y_t" title="Y_t">Y_t</a>&gt; &amp;<em>dst</em>, <em class="property">const</em> <a class="reference internal" href="../PnP/PnP.html#_CPPv43M_t" title="M_t">M_t</a> &amp;<em>matrix</em>, std::vector&lt;double&gt; *<em>residuals</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I_i_bEN28SimilarityTransformEstimatorI4kDim14kEstimateScaleE9ResidualsEvRKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">kDim</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">kEstimateScale</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">SimilarityTransformEstimator</span><span class="o">&lt;</span><span class="n">kDim</span><span class="p">,</span> <span class="n">kEstimateScale</span><span class="o">&gt;::</span><span class="n">Residuals</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">X_t</span><span class="o">&gt;&amp;</span> <span class="n">src</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Y_t</span><span class="o">&gt;&amp;</span> <span class="n">dst</span><span class="p">,</span> <span class="k">const</span> <span class="n">M_t</span><span class="o">&amp;</span> <span class="n">matrix</span><span class="p">,</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;*</span> <span class="n">residuals</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">dst</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="n">residuals</span><span class="o">-&gt;</span><span class="n">resize</span><span class="p">(</span><span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">src</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="n">Y_t</span> <span class="n">dst_transformed</span> <span class="o">=</span> <span class="n">matrix</span> <span class="o">*</span> <span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">homogeneous</span><span class="p">();</span>
+      <span class="p">(</span><span class="o">*</span><span class="n">residuals</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dst_transformed</span><span class="p">).</span><span class="n">squaredNorm</span><span class="p">();</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Triangulation/Triangulation.html" class="btn btn-neutral float-left" title="6. Triangulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

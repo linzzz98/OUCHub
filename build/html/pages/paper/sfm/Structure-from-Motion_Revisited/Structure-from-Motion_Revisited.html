@@ -236,7 +236,7 @@
 <p>SfM是将一系列从不同角度拍摄的图像投影重建成三维结构的过程。</p>
 <p>增量式SfM是具有迭代重建组件的顺序处理管道，它通常从特征提取和匹配开始，然后是几何验证。最终的场景图为重建阶段奠定了基础，该阶段通过仔细选择两视图重建为模型种子，然后逐步配准新图像，对场景点进行三角测量，过滤离群值并使用BA调整细化重建。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/25.png" src="../../../../_images/25.png" />
+<img alt="../../../../_images/27.png" src="../../../../_images/27.png" />
 </div>
 <div class="section" id="correspondence-search">
 <h3><span class="section-number">1.3.1. </span>Correspondence Search<a class="headerlink" href="#correspondence-search" title="永久链接至标题">¶</a></h3>
@@ -348,7 +348,7 @@ BA是摄像机参数<span class="math notranslate nohighlight">\(P_c\)</span>和
 <p>为了实现此目标，我们将图像离散化为固定尺寸的网格，在两个维度上均带有Kl箱。
 每个单元格都有两种不同的状态：空和满。在重建过程中，只要在空白单元格中出现一个点，该单元格的状态就会变满，并且图像的分数<span class="math notranslate nohighlight">\(S_i\)</span>会增加权重<span class="math notranslate nohighlight">\(w_l\)</span>。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/35.png" src="../../../../_images/35.png" />
+<img alt="../../../../_images/36.png" src="../../../../_images/36.png" />
 </div>
 <p>通过这种方案，我们可以量化可见点的数量。
 由于单元仅一次对总分做出贡献，因此与将点聚集在图像的一部分中(即只有几个单元包含所有可见点)的情况相比，我们倾向于更均匀的分布。</p>

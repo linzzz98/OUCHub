@@ -1,0 +1,905 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9. TwoViewGeometry &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="prev" title="8. TranslationTransform" href="../Transform/TranslationTransform/TranslationTransform.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../c_colmap.html">🍑 Colmap</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../c_estimator.html">Estimator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../Pose/Pose.html">1. Pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PnP/PnP.html">3. PnP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">4. Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Triangulation/Triangulation.html">5. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/AffineTransform/AffineTransform.html">6. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">9. TwoViewGeometry</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">结构体</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">成员函数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#invert">Invert</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimate">Estimate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimatemultiple">EstimateMultiple</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimatecalibrated">EstimateCalibrated</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimateuncalibrated">EstimateUncalibrated</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#detectwatermark">DetectWatermark</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
+        
+          <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
+        
+      <li><span class="section-number">9. </span>TwoViewGeometry</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/colmap/estimator/TwoViewGeometry/TwoViewGeometry.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="twoviewgeometry">
+<h1><span class="section-number">9. </span>TwoViewGeometry<a class="headerlink" href="#twoviewgeometry" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>结构体<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv415TwoViewGeometry">
+<span id="_CPPv315TwoViewGeometry"></span><span id="_CPPv215TwoViewGeometry"></span><span id="TwoViewGeometry"></span><em class="property">struct </em><code class="sig-name descname">TwoViewGeometry</code><a class="headerlink" href="#_CPPv415TwoViewGeometry" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enum">
+<dt id="_CPPv417ConfigurationType">
+<span id="_CPPv317ConfigurationType"></span><span id="_CPPv217ConfigurationType"></span><em class="property">enum </em><code class="sig-name descname">ConfigurationType</code><a class="headerlink" href="#_CPPv417ConfigurationType" title="永久链接至目标">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">UNDEFINED = 0</dt>
+<dd class="field-odd"><p>未定义</p>
+</dd>
+<dt class="field-even">DEGENERATE = 1</dt>
+<dd class="field-even"><p>退化的配置（如没有重叠或没有足够多的内点）</p>
+</dd>
+<dt class="field-odd">CALIBRATED = 2</dt>
+<dd class="field-odd"><p>本质矩阵</p>
+</dd>
+<dt class="field-even">UNCALIBRATED = 3</dt>
+<dd class="field-even"><p>基础矩阵</p>
+</dd>
+<dt class="field-odd">PLANAR = 4</dt>
+<dd class="field-odd"><p>单应性，带有基线的平面场景</p>
+</dd>
+<dt class="field-even">PANORAMIC = 5</dt>
+<dd class="field-even"><p>单应性，无基线的纯旋转</p>
+</dd>
+<dt class="field-odd">PLANAR_OR_PANORAMIC = 6</dt>
+<dd class="field-odd"><p>平面或全景的单应性</p>
+</dd>
+<dt class="field-even">WATERMARK = 7</dt>
+<dd class="field-even"><p>水印，图像边界中的纯2D转换</p>
+</dd>
+<dt class="field-odd">MULTIPLE = 8</dt>
+<dd class="field-odd"><p>多模型配置，（内点的匹配来自多个单独的，非退化的配置）</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h2>配置<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<dl class="cpp struct">
+<dt id="_CPPv47Options">
+<span id="_CPPv37Options"></span><span id="_CPPv27Options"></span><span id="Options"></span><em class="property">struct </em><code class="sig-name descname">Options</code><a class="headerlink" href="#_CPPv47Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="field-list">
+<dt class="field-odd">size_t min_num_inliers = 15</dt>
+<dd class="field-odd"><p>非退化两视图几何的最小内点数</p>
+</dd>
+<dt class="field-even">double min_E_F_inlier_ratio = 0.95</dt>
+<dd class="field-even"><p>如果两个摄像机都已校准，则可通过估计基本矩阵和基本矩阵并比较其像素数量的分数来验证校准。</p>
+<p>如果基本矩阵产生相似数量的inlier（<cite>min_E_F_inlier_ratio * F_num_inliers</cite>），则认为校准是正确的。</p>
+</dd>
+<dt class="field-odd">double max_H_inlier_ratio = 0.8</dt>
+<dd class="field-odd"><p>如果可以验证对极几何，检查该几何是否描述了单应性描述的平面场景或全景视图（纯旋转）。</p>
+<p>这是一个退化的情况，因为对极几何仅定义在移动的相机上。</p>
+<p>如果单应性的inlier比率接近对极几何的inlier比率，则假定其为平面（带有基线的平面场景）或全景（无基线的纯旋转）配置。</p>
+</dd>
+<dt class="field-even">double watermark_min_inlier_ratio = 0.7</dt>
+<dd class="field-even"><p>在有效的两视图几何情况下，检查几何图形是否在图像的边界区域中描述了纯平移。</p>
+<p>如果超过一定比例的内点与纯图像平移相符，则假定其为水印。</p>
+</dd>
+<dt class="field-odd">double watermark_border_size = 0.1</dt>
+<dd class="field-odd"><p>水印匹配必须在图像的边界区域中。</p>
+<p>边界区域定义为图像边界周围的区域，并定义为图像对角线的一小部分。</p>
+</dd>
+<dt class="field-even">bool detect_watermark = true</dt>
+<dd class="field-even"><p>是否启用水印检测。</p>
+<p>水印会在图像空间中产生纯平移，并且边界区域中会包含内点。</p>
+</dd>
+<dt class="field-odd">bool multiple_ignore_watermark = true</dt>
+<dd class="field-odd"><p>在多模型估计中是否忽略水印模型。</p>
+</dd>
+<dt class="field-even">RANSACOptions ransac_options</dt>
+<dd class="field-even"><p>用于鲁棒估计几何形状的选项。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h2>成员变量<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>配置类型</p>
+<dl class="cpp member">
+<dt id="_CPPv46config">
+<span id="_CPPv36config"></span><span id="_CPPv26config"></span><span id="config__i"></span>int <code class="sig-name descname">config</code>;<a class="headerlink" href="#_CPPv46config" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>本质矩阵</p>
+<dl class="cpp member">
+<dt id="_CPPv41E">
+<span id="_CPPv31E"></span><span id="_CPPv21E"></span><span id="E__Eigen::Matrix3d"></span>Eigen::Matrix3d <code class="sig-name descname">E</code>;<a class="headerlink" href="#_CPPv41E" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>基础矩阵</p>
+<dl class="cpp member">
+<dt id="_CPPv41F">
+<span id="_CPPv31F"></span><span id="_CPPv21F"></span><span id="F__Eigen::Matrix3d"></span>Eigen::Matrix3d <code class="sig-name descname">F</code>;<a class="headerlink" href="#_CPPv41F" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>单应矩阵</p>
+<dl class="cpp member">
+<dt id="_CPPv41H">
+<span id="_CPPv31H"></span><span id="_CPPv21H"></span><span id="H__Eigen::Matrix3d"></span>Eigen::Matrix3d <code class="sig-name descname">H</code>;<a class="headerlink" href="#_CPPv41H" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>相对位姿</p>
+<dl class="cpp member">
+<dt id="_CPPv44qvec">
+<span id="_CPPv34qvec"></span><span id="_CPPv24qvec"></span><span id="qvec__Eigen::Vector4d"></span>Eigen::Vector4d <code class="sig-name descname">qvec</code>;<a class="headerlink" href="#_CPPv44qvec" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv44tvec">
+<span id="_CPPv34tvec"></span><span id="_CPPv24tvec"></span><span id="tvec__Eigen::Vector3d"></span>Eigen::Vector3d <code class="sig-name descname">tvec</code>;<a class="headerlink" href="#_CPPv44tvec" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>配置的内点匹配</p>
+<dl class="cpp member">
+<dt id="_CPPv414inlier_matches">
+<span id="_CPPv314inlier_matches"></span><span id="_CPPv214inlier_matches"></span><span id="inlier_matches__FeatureMatches"></span>FeatureMatches <code class="sig-name descname">inlier_matches</code>;<a class="headerlink" href="#_CPPv414inlier_matches" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+<li><p>三角剖分中位角</p>
+<dl class="cpp member">
+<dt id="_CPPv49tri_angle">
+<span id="_CPPv39tri_angle"></span><span id="_CPPv29tri_angle"></span><span id="tri_angle__double"></span>double <code class="sig-name descname">tri_angle</code>;<a class="headerlink" href="#_CPPv49tri_angle" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>成员函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="invert">
+<h3>Invert<a class="headerlink" href="#invert" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>反转两视图几何</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry6InvertEv">
+<span id="_CPPv3N15TwoViewGeometry6InvertEv"></span><span id="_CPPv2N15TwoViewGeometry6InvertEv"></span><span id="TwoViewGeometry::Invert"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Invert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry6InvertEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">Invert</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">F</span><span class="p">.</span><span class="n">transposeInPlace</span><span class="p">();</span>
+   <span class="n">E</span><span class="p">.</span><span class="n">transposeInPlace</span><span class="p">();</span>
+   <span class="n">H</span> <span class="o">=</span> <span class="n">H</span><span class="p">.</span><span class="n">inverse</span><span class="p">().</span><span class="n">eval</span><span class="p">();</span>
+
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span> <span class="n">orig_qvec</span> <span class="o">=</span> <span class="n">qvec</span><span class="p">;</span>
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">orig_tvec</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">;</span>
+   <span class="n">InvertPose</span><span class="p">(</span><span class="n">orig_qvec</span><span class="p">,</span> <span class="n">orig_tvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">qvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvec</span><span class="p">);</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">match</span> <span class="p">:</span> <span class="n">inlier_matches</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">match</span><span class="p">.</span><span class="n">point2D_idx1</span><span class="p">,</span> <span class="n">match</span><span class="p">.</span><span class="n">point2D_idx2</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic">
+<li><p>在Eigen里，如果让一个矩阵 = 其转置，则</p>
+<div class="math notranslate nohighlight">
+\[A = A.transpose()\]</div>
+<p>这种表达是错误的，必须使用</p>
+<div class="math notranslate nohighlight">
+\[a.transposeInPlace();\]</div>
+</li>
+<li><p>交换两视图位姿</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">InvertPose</span><span class="p">(</span><span class="n">orig_qvec</span><span class="p">,</span> <span class="n">orig_tvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">qvec</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tvec</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>InvertPose</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">InvertPose</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span> <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">tvec</span><span class="p">,</span>
+                <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">*</span> <span class="n">inv_qvec</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">inv_tvec</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">inv_qvec</span> <span class="o">=</span> <span class="n">InvertQuaternion</span><span class="p">(</span><span class="n">qvec</span><span class="p">);</span>
+  <span class="o">*</span><span class="n">inv_tvec</span> <span class="o">=</span> <span class="o">-</span><span class="n">QuaternionRotatePoint</span><span class="p">(</span><span class="o">*</span><span class="n">inv_qvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>InvertQuaternion</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span> <span class="n">InvertQuaternion</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="p">(</span><span class="n">qvec</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="n">qvec</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="n">qvec</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="o">-</span><span class="n">qvec</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>QuaternionRotatePoint</strong></p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">QuaternionRotatePoint</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span><span class="o">&amp;</span> <span class="n">qvec</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">point</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector4d</span> <span class="n">normalized_qvec</span> <span class="o">=</span> <span class="n">NormalizeQuaternion</span><span class="p">(</span><span class="n">qvec</span><span class="p">);</span>
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Quaterniond</span> <span class="n">quat</span><span class="p">(</span><span class="n">normalized_qvec</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">normalized_qvec</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                                <span class="n">normalized_qvec</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">normalized_qvec</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+   <span class="k">return</span> <span class="n">quat</span> <span class="o">*</span> <span class="n">point</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="estimate">
+<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>根据已给定或未给定的焦距，从已校准或未校准的图像对估计两视图几何形状。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry8EstimateERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options">
+<span id="_CPPv3N15TwoViewGeometry8EstimateERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="_CPPv2N15TwoViewGeometry8EstimateERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="TwoViewGeometry::Estimate__CameraCR.std::vector:Eigen::Vector2d:CR.CameraCR.std::vector:Eigen::Vector2d:CR.FeatureMatchesCR.OptionsCR"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> Camera &amp;<em>camera2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> FeatureMatches &amp;<em>matches</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv47Options" title="Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry8EstimateERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span><span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">FeatureMatches</span><span class="o">&amp;</span> <span class="n">matches</span><span class="p">,</span>
+                               <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">camera1</span><span class="p">.</span><span class="n">HasPriorFocalLength</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">camera2</span><span class="p">.</span><span class="n">HasPriorFocalLength</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">EstimateCalibrated</span><span class="p">(</span><span class="n">camera1</span><span class="p">,</span> <span class="n">points1</span><span class="p">,</span> <span class="n">camera2</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">EstimateUncalibrated</span><span class="p">(</span><span class="n">camera1</span><span class="p">,</span> <span class="n">points1</span><span class="p">,</span> <span class="n">camera2</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="estimatemultiple">
+<h3>EstimateMultiple<a class="headerlink" href="#estimatemultiple" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>通过从匹配中不断删除之前的一组内点，直到找不到足够多的内点，来递归估计多个配置。</p>
+<p>如果可以估计多个模型，则串联内点的匹配，并且配置类型为“ MULTIPLE”。 这对于估计场景中具有较大失真或多个刚性移动对象的图像的两视图几何结构很有用。</p>
+<p>请注意，如果模型类型为“ MULTIPLE”，则只会初始化“ inlier_matches”字段。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry16EstimateMultipleERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options">
+<span id="_CPPv3N15TwoViewGeometry16EstimateMultipleERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="_CPPv2N15TwoViewGeometry16EstimateMultipleERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="TwoViewGeometry::EstimateMultiple__CameraCR.std::vector:Eigen::Vector2d:CR.CameraCR.std::vector:Eigen::Vector2d:CR.FeatureMatchesCR.OptionsCR"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateMultiple</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> Camera &amp;<em>camera2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> FeatureMatches &amp;<em>matches</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv47Options" title="Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry16EstimateMultipleERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">EstimateMultiple</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">FeatureMatches</span><span class="o">&amp;</span> <span class="n">matches</span><span class="p">,</span> <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">FeatureMatches</span> <span class="n">remaining_matches</span> <span class="o">=</span> <span class="n">matches</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TwoViewGeometry</span><span class="o">&gt;</span> <span class="n">two_view_geometries</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">TwoViewGeometry</span> <span class="n">two_view_geometry</span><span class="p">;</span>
+    <span class="n">two_view_geometry</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">camera1</span><span class="p">,</span> <span class="n">points1</span><span class="p">,</span> <span class="n">camera2</span><span class="p">,</span> <span class="n">points2</span><span class="p">,</span>
+                               <span class="n">remaining_matches</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">two_view_geometry</span><span class="p">.</span><span class="n">config</span> <span class="o">==</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">multiple_ignore_watermark</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">two_view_geometry</span><span class="p">.</span><span class="n">config</span> <span class="o">!=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">WATERMARK</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">two_view_geometries</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">two_view_geometry</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">two_view_geometries</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">two_view_geometry</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 不断删除内点，留下外点进行迭代</span>
+    <span class="n">remaining_matches</span> <span class="o">=</span> <span class="n">ExtractOutlierMatches</span><span class="p">(</span><span class="n">remaining_matches</span><span class="p">,</span>
+                                              <span class="n">two_view_geometry</span><span class="p">.</span><span class="n">inlier_matches</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">two_view_geometries</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">two_view_geometries</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="k">this</span> <span class="o">=</span> <span class="n">two_view_geometries</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">MULTIPLE</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">two_view_geometry</span> <span class="p">:</span> <span class="n">two_view_geometries</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">inlier_matches</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">inlier_matches</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+                            <span class="n">two_view_geometry</span><span class="p">.</span><span class="n">inlier_matches</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span>
+                            <span class="n">two_view_geometry</span><span class="p">.</span><span class="n">inlier_matches</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="estimatecalibrated">
+<h3>EstimateCalibrated<a class="headerlink" href="#estimatecalibrated" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>从校准的图像对中估计两视图几何形状</p>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry18EstimateCalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options">
+<span id="_CPPv3N15TwoViewGeometry18EstimateCalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="_CPPv2N15TwoViewGeometry18EstimateCalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="TwoViewGeometry::EstimateCalibrated__CameraCR.std::vector:Eigen::Vector2d:CR.CameraCR.std::vector:Eigen::Vector2d:CR.FeatureMatchesCR.OptionsCR"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateCalibrated</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> Camera &amp;<em>camera2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> FeatureMatches &amp;<em>matches</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv47Options" title="Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry18EstimateCalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">EstimateCalibrated</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">FeatureMatches</span><span class="o">&amp;</span> <span class="n">matches</span><span class="p">,</span> <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+   <span class="c1">// 匹配数过少</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 提取相应的点</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points1</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points2</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points1_normalized</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points2_normalized</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="n">point2D_t</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point2D_idx1</span><span class="p">;</span>
+      <span class="k">const</span> <span class="n">point2D_t</span> <span class="n">idx2</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point2D_idx2</span><span class="p">;</span>
+      <span class="n">matched_points1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">idx1</span><span class="p">];</span>
+      <span class="n">matched_points2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">idx2</span><span class="p">];</span>
+      <span class="n">matched_points1_normalized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera1</span><span class="p">.</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="n">points1</span><span class="p">[</span><span class="n">idx1</span><span class="p">]);</span>
+      <span class="n">matched_points2_normalized</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">camera2</span><span class="p">.</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="n">points2</span><span class="p">[</span><span class="n">idx2</span><span class="p">]);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 估计对极几何模型</span>
+
+   <span class="k">auto</span> <span class="n">E_ransac_options</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">;</span>
+   <span class="n">E_ransac_options</span><span class="p">.</span><span class="n">max_error</span> <span class="o">=</span>
+         <span class="p">(</span><span class="n">camera1</span><span class="p">.</span><span class="n">ImageToWorldThreshold</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">max_error</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">camera2</span><span class="p">.</span><span class="n">ImageToWorldThreshold</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">max_error</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+   <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">EssentialMatrixFivePointEstimator</span><span class="p">,</span> <span class="n">EssentialMatrixFivePointEstimator</span><span class="o">&gt;</span>
+         <span class="n">E_ransac</span><span class="p">(</span><span class="n">E_ransac_options</span><span class="p">);</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">E_report</span> <span class="o">=</span>
+         <span class="n">E_ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">matched_points1_normalized</span><span class="p">,</span> <span class="n">matched_points2_normalized</span><span class="p">);</span>
+   <span class="n">E</span> <span class="o">=</span> <span class="n">E_report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+   <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">FundamentalMatrixSevenPointEstimator</span><span class="p">,</span>
+            <span class="n">FundamentalMatrixEightPointEstimator</span><span class="o">&gt;</span>
+         <span class="n">F_ransac</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">);</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">F_report</span> <span class="o">=</span> <span class="n">F_ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">matched_points1</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">);</span>
+   <span class="n">F</span> <span class="o">=</span> <span class="n">F_report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+  <span class="c1">// 估计 平面 还是 全景模型</span>
+
+   <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">HomographyMatrixEstimator</span><span class="p">,</span> <span class="n">HomographyMatrixEstimator</span><span class="o">&gt;</span> <span class="n">H_ransac</span><span class="p">(</span>
+      <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">);</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">H_report</span> <span class="o">=</span> <span class="n">H_ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">matched_points1</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">);</span>
+   <span class="n">H</span> <span class="o">=</span> <span class="n">H_report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+   <span class="k">if</span> <span class="p">((</span><span class="o">!</span><span class="n">E_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">F_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">H_report</span><span class="p">.</span><span class="n">success</span><span class="p">)</span> <span class="o">||</span>
+      <span class="p">(</span><span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span> <span class="o">&amp;&amp;</span>
+       <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span> <span class="o">&amp;&amp;</span>
+       <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 决定不同模型之间的内点比率</span>
+
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">E_F_inlier_ratio</span> <span class="o">=</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="o">/</span>
+      <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">H_F_inlier_ratio</span> <span class="o">=</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="o">/</span>
+      <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">H_E_inlier_ratio</span> <span class="o">=</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="o">/</span>
+      <span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;*</span> <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+   <span class="kt">size_t</span> <span class="n">num_inliers</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">E_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="n">E_F_inlier_ratio</span> <span class="o">&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_E_F_inlier_ratio</span> <span class="o">&amp;&amp;</span>
+      <span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;=</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 标定配置</span>
+
+    <span class="c1">// 使用有最大匹配数的模型</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;=</span> <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">E_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+      <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">E_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+    <span class="p">}</span>
+   <span class="k">else</span> <span class="p">{</span>
+      <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+      <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">F_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">H_E_inlier_ratio</span> <span class="o">&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">max_H_inlier_ratio</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">config</span> <span class="o">=</span> <span class="n">PLANAR_OR_PANORAMIC</span><span class="p">;</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;</span> <span class="n">num_inliers</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+            <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">H_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+         <span class="p">}</span>
+    <span class="p">}</span>
+   <span class="k">else</span>
+         <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">CALIBRATED</span><span class="p">;</span>
+
+   <span class="p">}</span>
+
+   <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">F_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span>
+             <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;=</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 未标定配置</span>
+
+    <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+    <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">F_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">H_F_inlier_ratio</span> <span class="o">&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">max_H_inlier_ratio</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">PLANAR_OR_PANORAMIC</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;</span> <span class="n">num_inliers</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+        <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">H_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">UNCALIBRATED</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span>
+             <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&gt;=</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">num_inliers</span> <span class="o">=</span> <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+    <span class="n">best_inlier_mask</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">H_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">PLANAR_OR_PANORAMIC</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">best_inlier_mask</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">inlier_matches</span> <span class="o">=</span>
+        <span class="n">ExtractInlierMatches</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">num_inliers</span><span class="p">,</span> <span class="o">*</span><span class="n">best_inlier_mask</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">detect_watermark</span> <span class="o">&amp;&amp;</span>
+        <span class="n">DetectWatermark</span><span class="p">(</span><span class="n">camera1</span><span class="p">,</span> <span class="n">matched_points1</span><span class="p">,</span> <span class="n">camera2</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">,</span>
+                        <span class="n">num_inliers</span><span class="p">,</span> <span class="o">*</span><span class="n">best_inlier_mask</span><span class="p">,</span> <span class="n">options</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">WATERMARK</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list simple">
+<dt class="field-odd">算法步骤</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>提取匹配特征点</p></li>
+<li><p>估计 <span class="math notranslate nohighlight">\(E,F,H\)</span> 矩阵</p></li>
+<li><p>计算不同模型之间的内点比率 <span class="math notranslate nohighlight">\(EF,HF,HE\)</span></p></li>
+<li><p>根据内点比率判断是标定模型、未标点模型、平面/全景模型、退化模型</p></li>
+<li><p>内点遮罩过滤</p></li>
+<li><p>水印检测</p></li>
+</ol>
+</dd>
+</dl>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="estimateuncalibrated">
+<h3>EstimateUncalibrated<a class="headerlink" href="#estimateuncalibrated" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>从未校准的图像对估计两视图几何形状。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry20EstimateUncalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options">
+<span id="_CPPv3N15TwoViewGeometry20EstimateUncalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="_CPPv2N15TwoViewGeometry20EstimateUncalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options"></span><span id="TwoViewGeometry::EstimateUncalibrated__CameraCR.std::vector:Eigen::Vector2d:CR.CameraCR.std::vector:Eigen::Vector2d:CR.FeatureMatchesCR.OptionsCR"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateUncalibrated</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> Camera &amp;<em>camera2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> FeatureMatches &amp;<em>matches</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv47Options" title="Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry20EstimateUncalibratedERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK14FeatureMatchesRK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">EstimateUncalibrated</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">FeatureMatches</span><span class="o">&amp;</span> <span class="n">matches</span><span class="p">,</span> <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 提取特征匹配点</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points1</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">matched_points2</span><span class="p">(</span><span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matches</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">matched_points1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point2D_idx1</span><span class="p">];</span>
+    <span class="n">matched_points2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">point2D_idx2</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 估计对极几何模型</span>
+
+  <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">FundamentalMatrixSevenPointEstimator</span><span class="p">,</span>
+           <span class="n">FundamentalMatrixEightPointEstimator</span><span class="o">&gt;</span>
+      <span class="n">F_ransac</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">);</span>
+  <span class="k">const</span> <span class="k">auto</span> <span class="n">F_report</span> <span class="o">=</span> <span class="n">F_ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">matched_points1</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">);</span>
+  <span class="n">F</span> <span class="o">=</span> <span class="n">F_report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+  <span class="c1">// 估计 平面 还是 全景模型</span>
+
+  <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">HomographyMatrixEstimator</span><span class="p">,</span> <span class="n">HomographyMatrixEstimator</span><span class="o">&gt;</span> <span class="n">H_ransac</span><span class="p">(</span>
+      <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">);</span>
+  <span class="k">const</span> <span class="k">auto</span> <span class="n">H_report</span> <span class="o">=</span> <span class="n">H_ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">matched_points1</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">);</span>
+  <span class="n">H</span> <span class="o">=</span> <span class="n">H_report</span><span class="p">.</span><span class="n">model</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">((</span><span class="o">!</span><span class="n">F_report</span><span class="p">.</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">H_report</span><span class="p">.</span><span class="n">success</span><span class="p">)</span> <span class="o">||</span>
+      <span class="p">(</span><span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span> <span class="o">&amp;&amp;</span>
+       <span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">min_num_inliers</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">DEGENERATE</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 决定不同模型之间的内点比率</span>
+
+  <span class="k">const</span> <span class="kt">double</span> <span class="n">H_F_inlier_ratio</span> <span class="o">=</span>
+      <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">H_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="o">/</span>
+      <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">H_F_inlier_ratio</span> <span class="o">&gt;</span> <span class="n">options</span><span class="p">.</span><span class="n">max_H_inlier_ratio</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">PLANAR_OR_PANORAMIC</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">UNCALIBRATED</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 内点遮罩提取内点匹配</span>
+
+  <span class="n">inlier_matches</span> <span class="o">=</span> <span class="n">ExtractInlierMatches</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">,</span>
+                                        <span class="n">F_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">);</span>
+
+  <span class="c1">// 检测水印</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">detect_watermark</span> <span class="o">&amp;&amp;</span>
+      <span class="n">DetectWatermark</span><span class="p">(</span><span class="n">camera1</span><span class="p">,</span> <span class="n">matched_points1</span><span class="p">,</span> <span class="n">camera2</span><span class="p">,</span> <span class="n">matched_points2</span><span class="p">,</span>
+                      <span class="n">F_report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">,</span> <span class="n">F_report</span><span class="p">.</span><span class="n">inlier_mask</span><span class="p">,</span>
+                      <span class="n">options</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigurationType</span><span class="o">::</span><span class="n">WATERMARK</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list simple">
+<dt class="field-odd">算法步骤</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>提取匹配特征点（与Calibrated不同的是，因为不需要估计 <span class="math notranslate nohighlight">\(E\)</span> 矩阵，所以不需要归一化点）</p></li>
+<li><p>估计 <span class="math notranslate nohighlight">\(F,H\)</span> 矩阵</p></li>
+<li><p>计算不同模型之间的内点比率 <span class="math notranslate nohighlight">\(HF\)</span></p></li>
+<li><p>根据内点比率判断是未标定、平面/全景模型、退化模型</p></li>
+<li><p>内点遮罩过滤</p></li>
+<li><p>水印检测</p></li>
+</ol>
+</dd>
+</dl>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="detectwatermark">
+<h3>DetectWatermark<a class="headerlink" href="#detectwatermark" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>检测内部匹配是否由水印引起。
+水印会导致图像边框的纯平移。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N15TwoViewGeometry15DetectWatermarkERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEEK6size_tRKNSt6vectorIcEERK7Options">
+<span id="_CPPv3N15TwoViewGeometry15DetectWatermarkERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEEK6size_tRKNSt6vectorIcEERK7Options"></span><span id="_CPPv2N15TwoViewGeometry15DetectWatermarkERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEEK6size_tRKNSt6vectorIcEERK7Options"></span><span id="TwoViewGeometry::DetectWatermark__CameraCR.std::vector:Eigen::Vector2d:CR.CameraCR.std::vector:Eigen::Vector2d:CR.sC.std::vector:c:CR.OptionsCR"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">DetectWatermark</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> Camera &amp;<em>camera2</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, <em class="property">const</em> size_t <em>num_inliers</em>, <em class="property">const</em> std::vector&lt;char&gt; &amp;<em>inlier_mask</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv47Options" title="Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15TwoViewGeometry15DetectWatermarkERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEERK6CameraRKNSt6vectorIN5Eigen8Vector2dEEEK6size_tRKNSt6vectorIcEERK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">TwoViewGeometry</span><span class="o">::</span><span class="n">DetectWatermark</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points1</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points2</span><span class="p">,</span>
+      <span class="k">const</span> <span class="kt">size_t</span> <span class="n">num_inliers</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">inlier_mask</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">();</span>
+
+   <span class="c1">// 检查边界区域是否有内点，并提取内点匹配对</span>
+
+   <span class="c1">// 两视图对角线长度</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">diagonal1</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">camera1</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">*</span> <span class="n">camera1</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">+</span>
+                                     <span class="n">camera1</span><span class="p">.</span><span class="n">Height</span><span class="p">()</span> <span class="o">*</span> <span class="n">camera1</span><span class="p">.</span><span class="n">Height</span><span class="p">());</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">diagonal2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">camera2</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">*</span> <span class="n">camera2</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">+</span>
+                                     <span class="n">camera2</span><span class="p">.</span><span class="n">Height</span><span class="p">()</span> <span class="o">*</span> <span class="n">camera2</span><span class="p">.</span><span class="n">Height</span><span class="p">());</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">minx1</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">watermark_border_size</span> <span class="o">*</span> <span class="n">diagonal1</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">miny1</span> <span class="o">=</span> <span class="n">minx1</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">maxx1</span> <span class="o">=</span> <span class="n">camera1</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">-</span> <span class="n">minx1</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">maxy1</span> <span class="o">=</span> <span class="n">camera1</span><span class="p">.</span><span class="n">Height</span><span class="p">()</span> <span class="o">-</span> <span class="n">miny1</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">minx2</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">watermark_border_size</span> <span class="o">*</span> <span class="n">diagonal2</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">miny2</span> <span class="o">=</span> <span class="n">minx2</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">maxx2</span> <span class="o">=</span> <span class="n">camera2</span><span class="p">.</span><span class="n">Width</span><span class="p">()</span> <span class="o">-</span> <span class="n">minx2</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">maxy2</span> <span class="o">=</span> <span class="n">camera2</span><span class="p">.</span><span class="n">Height</span><span class="p">()</span> <span class="o">-</span> <span class="n">miny2</span><span class="p">;</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points1</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;</span> <span class="n">inlier_points2</span><span class="p">(</span><span class="n">num_inliers</span><span class="p">);</span>
+
+   <span class="kt">size_t</span> <span class="n">num_matches_in_border</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+   <span class="kt">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inlier_mask</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">inlier_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">point1</span> <span class="o">=</span> <span class="n">points1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+         <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">point2</span> <span class="o">=</span> <span class="n">points2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+         <span class="n">inlier_points1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">point1</span><span class="p">;</span>
+         <span class="n">inlier_points2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">point2</span><span class="p">;</span>
+         <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IsImagePointInBoundingBox</span><span class="p">(</span><span class="n">point1</span><span class="p">,</span> <span class="n">minx1</span><span class="p">,</span> <span class="n">maxx1</span><span class="p">,</span> <span class="n">miny1</span><span class="p">,</span> <span class="n">maxy1</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+            <span class="o">!</span><span class="n">IsImagePointInBoundingBox</span><span class="p">(</span><span class="n">point2</span><span class="p">,</span> <span class="n">minx2</span><span class="p">,</span> <span class="n">maxx2</span><span class="p">,</span> <span class="n">miny2</span><span class="p">,</span> <span class="n">maxy2</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">num_matches_in_border</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">matches_in_border_ratio</span> <span class="o">=</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">num_matches_in_border</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_inliers</span><span class="p">;</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">matches_in_border_ratio</span> <span class="o">&lt;</span> <span class="n">options</span><span class="p">.</span><span class="n">watermark_min_inlier_ratio</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 检查匹配是否遵循位移模型</span>
+
+   <span class="n">RANSACOptions</span> <span class="n">ransac_options</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">;</span>
+   <span class="n">ransac_options</span><span class="p">.</span><span class="n">min_inlier_ratio</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">watermark_min_inlier_ratio</span><span class="p">;</span>
+
+   <span class="n">LORANSAC</span><span class="o">&lt;</span><span class="n">TranslationTransformEstimator</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">TranslationTransformEstimator</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;&gt;</span>
+         <span class="n">ransac</span><span class="p">(</span><span class="n">ransac_options</span><span class="p">);</span>
+   <span class="k">const</span> <span class="k">auto</span> <span class="n">report</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">.</span><span class="n">Estimate</span><span class="p">(</span><span class="n">inlier_points1</span><span class="p">,</span> <span class="n">inlier_points2</span><span class="p">);</span>
+
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">inlier_ratio</span> <span class="o">=</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">report</span><span class="p">.</span><span class="n">support</span><span class="p">.</span><span class="n">num_inliers</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_inliers</span><span class="p">;</span>
+
+   <span class="k">return</span> <span class="n">inlier_ratio</span> <span class="o">&gt;=</span> <span class="n">options</span><span class="p">.</span><span class="n">watermark_min_inlier_ratio</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv425IsImagePointInBoundingBoxRKN5Eigen8Vector2dEKdKdKdKd">
+<span id="_CPPv325IsImagePointInBoundingBoxRKN5Eigen8Vector2dEKdKdKdKd"></span><span id="_CPPv225IsImagePointInBoundingBoxRKN5Eigen8Vector2dEKdKdKdKd"></span><span id="IsImagePointInBoundingBox__Eigen::Vector2dCR.doubleC.doubleC.doubleC.doubleC"></span><em class="property">inline</em> bool <code class="sig-name descname">IsImagePointInBoundingBox</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector2d &amp;<em>point</em>, <em class="property">const</em> double <em>minx</em>, <em class="property">const</em> double <em>maxx</em>, <em class="property">const</em> double <em>miny</em>, <em class="property">const</em> double <em>maxy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425IsImagePointInBoundingBoxRKN5Eigen8Vector2dEKdKdKdKd" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="kt">bool</span> <span class="nf">IsImagePointInBoundingBox</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="kt">double</span> <span class="n">minx</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">maxx</span><span class="p">,</span>
+                                      <span class="k">const</span> <span class="kt">double</span> <span class="n">miny</span><span class="p">,</span> <span class="k">const</span> <span class="kt">double</span> <span class="n">maxy</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">minx</span> <span class="o">&amp;&amp;</span> <span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">maxx</span> <span class="o">&amp;&amp;</span> <span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">miny</span> <span class="o">&amp;&amp;</span>
+         <span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">maxy</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Transform/TranslationTransform/TranslationTransform.html" class="btn btn-neutral float-left" title="8. TranslationTransform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

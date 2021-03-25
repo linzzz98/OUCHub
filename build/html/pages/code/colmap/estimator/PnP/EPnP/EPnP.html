@@ -139,9 +139,12 @@
 <li class="toctree-l4"><a class="reference internal" href="../P3P/P3P.html">P3P</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../AffineTransform/AffineTransform.html">4. AffineTransform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Matrix/Matrix.html">5. Matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../Triangulation/Triangulation.html">6. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Matrix/Matrix.html">4. Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Triangulation/Triangulation.html">5. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/AffineTransform/AffineTransform.html">6. AffineTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../TwoViewGeometry/TwoViewGeometry.html">9. TwoViewGeometry</a></li>
 </ul>
 </li>
 </ul>
@@ -511,7 +514,7 @@ c_3^w = c_1^w + \sqrt{ \frac{\lambda_2}{n} } v_2 \\
 c_4^w = c_1^w + \sqrt{ \frac{\lambda_3}{n} } v_3 \\
 \end{cases}\end{split}\]</div>
 <p>上述操作实际上是找到点云的重心，以及点云的三个主方向。<a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">主成分分析(PCA)</a></p>
-<p>到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  <span class="math notranslate nohighlight">\(c_j\)</span> ，每一个3D点的hd坐标  <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span>  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  <span class="math notranslate nohighlight">\([R|t]\)</span> 。</p>
+<p>到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  <span class="math notranslate nohighlight">\(c_j\)</span> ，每一个3D点的坐标  <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span>  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  <span class="math notranslate nohighlight">\([R|t]\)</span> 。</p>
 </div>
 </div>
 <div class="section" id="computebarycentriccoordinates">
@@ -745,7 +748,7 @@ x_j^c\\ y_j^c \\ z_j^c
 <li><p>上标 <span class="math notranslate nohighlight">\(i\)</span> 是第 <span class="math notranslate nohighlight">\(j\)</span> 列里的第 <span class="math notranslate nohighlight">\(i\)</span> 个控制点。</p></li>
 </ul>
 <div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/112.jpg"><img alt="../../../../../../_images/112.jpg" src="../../../../../../_images/112.jpg" style="width: 184.2px; height: 247.2px;" /></a>
+<a class="reference internal image-reference" href="../../../../../../_images/1.jpg"><img alt="../../../../../../_images/1.jpg" src="../../../../../../_images/1.jpg" style="width: 184.2px; height: 247.2px;" /></a>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -791,7 +794,7 @@ x_j^c\\ y_j^c \\ z_j^c
 \[L \beta = \rho\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\beta = [\beta_{11},\beta_{12},\beta_{22}]^T\)</span> ， <span class="math notranslate nohighlight">\(L\)</span> 为 <span class="math notranslate nohighlight">\(6\times 3\)</span> 的矩阵， <span class="math notranslate nohighlight">\(\rho\)</span> 为 <span class="math notranslate nohighlight">\(6 \times 1\)</span> 的矩阵。</p>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/26.jpg"><img alt="../../../../../../_images/26.jpg" src="../../../../../../_images/26.jpg" style="width: 573.0px; height: 100.2px;" /></a>
+<a class="reference internal image-reference" href="../../../../../../_images/2.jpg"><img alt="../../../../../../_images/2.jpg" src="../../../../../../_images/2.jpg" style="width: 573.0px; height: 100.2px;" /></a>
 </div>
 <p>此时， <span class="math notranslate nohighlight">\(\beta\)</span> 为：</p>
 <div class="math notranslate nohighlight">
@@ -801,7 +804,7 @@ x_j^c\\ y_j^c \\ z_j^c
 <li><p><span class="math notranslate nohighlight">\(N = 3\)</span> 时，与 <span class="math notranslate nohighlight">\(N = 2\)</span> 解法相同：</p>
 <p>此时 <span class="math notranslate nohighlight">\(\beta = [\beta_{11},\beta_{12},\beta_{13},\beta_{22},\beta_{23},\beta_{33}]^T\)</span> ， <span class="math notranslate nohighlight">\(L\)</span> 的大小为 <span class="math notranslate nohighlight">\(6 \times 6\)</span></p>
 <div class="figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/34.jpg"><img alt="../../../../../../_images/34.jpg" src="../../../../../../_images/34.jpg" style="width: 763.8px; height: 128.4px;" /></a>
+<a class="reference internal image-reference" href="../../../../../../_images/3.jpg"><img alt="../../../../../../_images/3.jpg" src="../../../../../../_images/3.jpg" style="width: 763.8px; height: 128.4px;" /></a>
 </div>
 <p>此时， <span class="math notranslate nohighlight">\(\beta\)</span> 为：</p>
 <div class="math notranslate nohighlight">
@@ -828,7 +831,7 @@ x_j^c\\ y_j^c \\ z_j^c
 &amp;Ut&amp;(8,&amp;[0,1,2]&amp;)  &amp;\longrightarrow&amp; ~~ v_4^{[1]}
 \end{eqnarray}\end{split}\]</div>
 <div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/43.jpg"><img alt="../../../../../../_images/43.jpg" src="../../../../../../_images/43.jpg" style="width: 254.39999999999998px; height: 208.2px;" /></a>
+<a class="reference internal image-reference" href="../../../../../../_images/4.jpg"><img alt="../../../../../../_images/4.jpg" src="../../../../../../_images/4.jpg" style="width: 254.39999999999998px; height: 208.2px;" /></a>
 </div>
 </div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">L6x10</span><span class="p">;</span>
@@ -922,7 +925,7 @@ dv[i][3] = v_i^{[2]} - v_i^{[3]}~~~~~~~~dv[i][4] = v_i^{[2]} - v_i^{[4]}~~~~~~~~
 <span class="n">betas_approx_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">B11</span> <span class="n">B12</span>     <span class="n">B13</span>         <span class="n">B14</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>将应该求的参数 <span class="math notranslate nohighlight">\(\betas_10\)</span> 由10个减少到了4个 <span class="math notranslate nohighlight">\(betas_approx_1\)</span> ， 然后求解的线性方程组。</p>
+<p>将应该求的参数 <span class="math notranslate nohighlight">\(\betas\_10\)</span> 由10个减少到了4个 <span class="math notranslate nohighlight">\(betas\_approx\_1\)</span> ， 然后求解的线性方程组。</p>
 </div>
 <dl class="cpp function">
 <dt id="_CPPv4N13EPNPEstimator16FindBetasApprox1ERKN5Eigen6MatrixIdXL6EEXL10EEEERKN5Eigen6MatrixIdXL6EEXL1EEEEPN5Eigen8Vector4dE">
@@ -1158,7 +1161,7 @@ dv[i][3] = v_i^{[2]} - v_i^{[3]}~~~~~~~~dv[i][4] = v_i^{[2]} - v_i^{[4]}~~~~~~~~
 \[Error(\beta_0 + \Delta \beta) = Error(\beta_0) + Error'(\beta) \Delta \beta = 0\]</div>
 <p>从而有等式：</p>
 <div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/62.jpg"><img alt="../../../../../../_images/62.jpg" src="../../../../../../_images/62.jpg" style="width: 377.25px; height: 86.25px;" /></a>
+<a class="reference internal image-reference" href="../../../../../../_images/6.jpg"><img alt="../../../../../../_images/6.jpg" src="../../../../../../_images/6.jpg" style="width: 377.25px; height: 86.25px;" /></a>
 </div>
 <p>这里分开来看：</p>
 <p><span class="math notranslate nohighlight">\(Error'(\beta)\)</span> ，称为 <span class="math notranslate nohighlight">\(A\)</span> 矩阵。 实际上是 <span class="math notranslate nohighlight">\(Error(\beta)\)</span> 分别对  <span class="math notranslate nohighlight">\(\beta_i\)</span> 求偏导：</p>
@@ -1315,6 +1318,7 @@ A(i,0) &amp;=&amp; \frac{\delta L(i,0) * \beta_1^2}{\delta \beta_1} + \frac{\del
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>有了相机坐标系和世界坐标系的对应点就是3D-3D，就可以使用ICP进行求解。</p>
+<p>👉 <a class="reference internal" href="../../../../../paper/pointcloud/Least_Squares_Fitting/Least_Squares_Fitting.html"><span class="doc">SVD求解ICP方法</span></a></p>
 </div>
 <p>求解 <span class="math notranslate nohighlight">\(R, t\)</span> 的步骤为：</p>
 <ol class="arabic">

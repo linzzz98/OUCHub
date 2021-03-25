@@ -275,7 +275,7 @@ structure-from-motion》从边缘具有相似性分数的树构造最优子图�
 <div class="section" id="view-graph-construction-algorithm">
 <h2><span class="section-number">6.4. </span>View-graph construction algorithm<a class="headerlink" href="#view-graph-construction-algorithm" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/26.png" src="../../../../_images/26.png" />
+<img alt="../../../../_images/28.png" src="../../../../_images/28.png" />
 </div>
 <p>通过使用特征匹配内点的数量对边缘进行优先级排序，首先构建经过验证的最大生成树（VMST）。然后，对于VMST中的每个边缘，执行两视图局部重建和配准。例如，在上图（c）中重建了局部场景，并且相应的可见摄像机以灰色虚线示出。</p>
 <p>根据2D-3D对应关系，在这些可见摄像机上执行local
@@ -297,7 +297,7 @@ registration。给定local相机的姿势，将计算成对相机之间的相对
 <p>直观地，通过用相应数量的特征匹配对边缘进行加权，可以选择匹配图的最大生成树（MST）。</p>
 <p>下图显示了所选MST和完整视图之间的几何精度比较的两个示例。</p>
 <div class="align-center figure align-default">
-<img alt="../../../../_images/36.png" src="../../../../_images/36.png" />
+<img alt="../../../../_images/37.png" src="../../../../_images/37.png" />
 </div>
 <p>可以看到，MST中边缘内点的百分比远大于整个视图的百分比。
 但是，可以使用MST作为种子视图吗？答案大多是不。</p>

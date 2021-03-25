@@ -36,6 +36,9 @@ html_show_sphinx = False
 
 sphinxemoji_style = 'twemoji'
 
+# The name of the Pygments (syntax highlighting) style to use.
+#pygments_style = 'sphinx'
+
 ######################################
 
 # -- General configuration ---------------------------------------------------
@@ -111,3 +114,4 @@ html_css_files = ['custom.css']
 #         'enable_eval_rst': True,
 #     }, True)
 #     app.add_transform(AutoStructify)
+

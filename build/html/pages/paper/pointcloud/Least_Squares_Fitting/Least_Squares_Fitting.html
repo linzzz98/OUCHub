@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Least-Squares Fitting of Two 3-D Point Sets &mdash; OUCHub 0.1 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="🍒 Others" href="../../p_others.html" />
+    <link rel="prev" title="1. PointNet" href="../PointNet/PointNet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../p_pointcloud.html">🍋 Point Cloud</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../PointNet/PointNet.html">1. PointNet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Least-Squares Fitting of Two 3-D Point Sets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">2.1. INTRODUCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decoupling-translation-and-rotation">2.2. DECOUPLING TRANSLATION AND ROTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#an-svd-algorithm-for-finding-hat-r">2.3. AN SVD ALGORITHM FOR FINDING  <span class="math notranslate nohighlight">\(\hat{R}\)</span></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#noiseless-case">2.4. NOISELESS CASE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-algorithm">2.5. SUMMARY OF ALGORITHM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../p_pointcloud.html">🍋 Point Cloud</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/paper/pointcloud/Least_Squares_Fitting/Least_Squares_Fitting.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="least-squares-fitting-of-two-3-d-point-sets">
+<h1><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets<a class="headerlink" href="#least-squares-fitting-of-two-3-d-point-sets" title="永久链接至标题">¶</a></h1>
+<p>👉 <a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4767965">原文链接</a></p>
+<div class="section" id="introduction">
+<h2><span class="section-number">2.1. </span>INTRODUCTION<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>给定两组3D点云集合 <span class="math notranslate nohighlight">\(\{p_i\}\)</span> 和 <span class="math notranslate nohighlight">\(\{p_i'\}\)</span> （ <span class="math notranslate nohighlight">\(3 \times 1\)</span> ），从而有</p>
+<div class="math notranslate nohighlight">
+\[p_i' = Rp_i + T + N_i\]</div>
+<p>目标是求一个 <span class="math notranslate nohighlight">\(R,T\)</span> 去最小化：</p>
+<div class="math notranslate nohighlight">
+\[\Sigma^2 = \sum\limits_{i=1}^N ||p_i' - (Rp_i + T)||^2\]</div>
+</div>
+<div class="section" id="decoupling-translation-and-rotation">
+<h2><span class="section-number">2.2. </span>DECOUPLING TRANSLATION AND ROTATION<a class="headerlink" href="#decoupling-translation-and-rotation" title="永久链接至标题">¶</a></h2>
+<p>定义质心：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}p  \triangleq \frac{1}{N} \sum\limits_{i=1}^N p_i \\\end{split}\\\begin{split}p' \triangleq \frac{1}{N} \sum\limits_{i=1}^N p_i' \\\end{split}\end{aligned}\end{align} \]</div>
+<p>对 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 函数进行变形：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\Sigma^2 &amp;=&amp; \sum\limits_{i=1}^N ||p_i' - (Rp_i + T)||^2\\
+&amp;=&amp; \sum\limits_{i=1}^N || p_i' - Rp_i -T + p' - p' + Rp - Rp||\\
+&amp;=&amp; \sum\limits_{i=1}^N || (p_i' - p' - R(p_i - p)) + (p' - (Rp + T))||^2\\
+&amp;=&amp; \sum\limits_{i=1}^N (|| p_i' - p' - R(p_i - p)  || ^2 + || p' - (Rp + T) || ^2 \\
+&amp;~&amp;~~~ +2(p_i' - p' - R(p_i - p))(p' - (Rp + T)))
+\end{eqnarray}\end{split}\]</div>
+<p>令：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}q_i \triangleq p_i - p\\\\\end{split}\\q_i' \triangleq p_i' - p'\end{aligned}\end{align} \]</div>
+<p>因为：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^N (p_i' - p' - R(p_i - p))(p' - (Rp + T)) = 0\]</div>
+<p>因此问题转换为：</p>
+<div class="math notranslate nohighlight">
+\[\Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2\]</div>
+<p>因为左右两边都 <span class="math notranslate nohighlight">\(\ge 0\)</span>，且左边只与 <span class="math notranslate nohighlight">\(R\)</span> 相关，因此可以先求出 <span class="math notranslate nohighlight">\(R\)</span> 再利用 <span class="math notranslate nohighlight">\(R\)</span> 求出第二项。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>经过变形，最小二乘问题变换成两个子问题：</p>
+<ol class="arabic simple">
+<li><p>找到 <span class="math notranslate nohighlight">\(\hat{R}\)</span> 去最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span></p></li>
+<li><p>通过 <span class="math notranslate nohighlight">\(\hat{T} = p' - \hat{R} p\)</span> 计算位移</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="an-svd-algorithm-for-finding-hat-r">
+<h2><span class="section-number">2.3. </span>AN SVD ALGORITHM FOR FINDING  <span class="math notranslate nohighlight">\(\hat{R}\)</span><a class="headerlink" href="#an-svd-algorithm-for-finding-hat-r" title="永久链接至标题">¶</a></h2>
+<p>将 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 的右边展开：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\Sigma^2 &amp;=&amp; \sum\limits_{i=1}^N (q_i' - Rq_i)^T(q_i' - Rq_i)\\
+&amp;=&amp; \sum\limits_{i=1}^N (q_i'^Tq_i' + q_i^TR^TRq_i - q_i'^TRq_i - q_i^TR^Tq_i')\\
+&amp;=&amp; \sum\limits_{i=1}^N (q_i'^Tq_i' + q_i^Tq_i - 2q_i'^TRq_i)
+\end{eqnarray}\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">向量的内积</dt>
+<dd class="field-odd"><div class="math notranslate nohighlight">
+\[\begin{split}\alpha = (a_1,a_2,...,a_n)^T, \beta = (b_1,b_2,...,b_n)^T\\\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\Downarrow\]</div>
+<div class="math notranslate nohighlight">
+\[\beta^T\alpha = \alpha^T\beta = a_1b_1 + a_2b_2 +...+a_nb_n （向量内积）\]</div>
+</dd>
+</dl>
+<p>因为  <span class="math notranslate nohighlight">\(q_i^TR^T\)</span> 为 <span class="math notranslate nohighlight">\(1\times 3 * 3\times 3 = 1 \times 3\)</span> ，且 <span class="math notranslate nohighlight">\(q_i'\)</span> 为 <span class="math notranslate nohighlight">\(3 \times 1\)</span> ，从而：</p>
+<div class="math notranslate nohighlight">
+\[q_i^TR^T q_i' = q_i'^T Rq_i\]</div>
+<p>所以：</p>
+<div class="math notranslate nohighlight">
+\[q_i'^TRq_i + q_i^TR^Tq_i' = 2q_i'^TRq_i\]</div>
+</div>
+<p>因此，最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 问题转换为最大化</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+F &amp;=&amp; \sum\limits_{i=1}^N q_i'^TRq_i \\
+&amp;=&amp; Trace(\sum\limits_{i=1}^N Rq_iq_i'^T) = Trace(RH)
+\end{eqnarray}\end{split}\]</div>
+<p>定义：</p>
+<div class="math notranslate nohighlight">
+\[H \triangleq \sum\limits_{i=1}^N q_iq_i'^T\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">二次型的迹的性质</dt>
+<dd class="field-odd"><p>设 <span class="math notranslate nohighlight">\(x\)</span> 是一个 <span class="math notranslate nohighlight">\(n \times 1\)</span> 的列向量，二次型为 <span class="math notranslate nohighlight">\(x'Ax\)</span> ，二次型是一个 <span class="math notranslate nohighlight">\(1\times 1\)</span>  的矩阵，其迹为自身：</p>
+<div class="math notranslate nohighlight">
+\[x'Ax = Trace(x'Ax) = Trace(Axx') = tr(xx'A)\]</div>
+</dd>
+</dl>
+<p>根据这个性质，由于 <span class="math notranslate nohighlight">\(q_i'^TRq_i\)</span> 为 <span class="math notranslate nohighlight">\(1 \times 1\)</span> 的“伪二次型”，且 <span class="math notranslate nohighlight">\(q_i,q_i'\)</span> 均为  <span class="math notranslate nohighlight">\(3 \times 1\)</span> 维，因此有：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^N q_i'^TRq_i = Trace(\sum\limits_{i=1}^N Rq_iq_i'^T)\]</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<dl class="field-list">
+<dt class="field-odd">引理</dt>
+<dd class="field-odd"><p>对于任何正定矩阵 <span class="math notranslate nohighlight">\(AA'\)</span> 和任何正交矩阵 <span class="math notranslate nohighlight">\(B\)</span> ，有</p>
+<div class="math notranslate nohighlight">
+\[Trace(AA^T) \ge Trace(BAA^T)\]</div>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">证明</dt>
+<dd class="field-odd"><p>令 <span class="math notranslate nohighlight">\(a_i\)</span> 为矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的第 <span class="math notranslate nohighlight">\(i\)</span> 列，从而</p>
+<div class="math notranslate nohighlight">
+\[Trace(BAA^T) = Trace(A^TBA) = \sum\limits_{i} a_i^T(Ba_i)\]</div>
+<p>根据柯西-施瓦茨不等式，对于欧式空间中任意向量 <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> 有：</p>
+<div class="math notranslate nohighlight">
+\[(\alpha, \beta)^2 \le (\alpha,\alpha)(\beta,\beta)\]</div>
+<p>其中定义 <span class="math notranslate nohighlight">\((\alpha, \beta)\)</span> 是向量 <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> 的内积，当且仅当 <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> 线性相关时，<span class="math notranslate nohighlight">\(&quot;=&quot;\)</span>  成立</p>
+<p>从而：</p>
+<div class="math notranslate nohighlight">
+\[a_i^T(Ba_i) \le \sqrt{(a_i^Ta_i)(a_i^TB^TBa_i)} = a_i^Ta_i\]</div>
+<p>所以：</p>
+<div class="math notranslate nohighlight">
+\[Trace(BAA^T) \le \sum\limits_i a_i^Ta_i = Trace(AA^T)\]</div>
+</dd>
+</dl>
+</div>
+</div>
+<p>对 <span class="math notranslate nohighlight">\(H\)</span> 矩阵进行SVD奇异值分解：</p>
+<div class="math notranslate nohighlight">
+\[H = U \Sigma V^T\]</div>
+<p>可以得到：</p>
+<div class="math notranslate nohighlight">
+\[X = VU^T\]</div>
+<p>从而：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+XH &amp;=&amp; VU^TU\Sigma V^T\\
+&amp;=&amp; V\Sigma V^T
+\end{eqnarray}\end{split}\]</div>
+<p>这是对称且正定的。 因此，根据引理，对于任何 <span class="math notranslate nohighlight">\(3\times 3\)</span> 的正交矩阵 <span class="math notranslate nohighlight">\(B\)</span> ，</p>
+<div class="math notranslate nohighlight">
+\[Trace(XH) \ge Trace(BXH)\]</div>
+<p>因此，在所有 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵中， <span class="math notranslate nohighlight">\(X\)</span> 使 <span class="math notranslate nohighlight">\(F\)</span> 最大化。 如果 <span class="math notranslate nohighlight">\(det(X) = +1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是所求的旋转。</p>
+<p>但是，如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是 <code class="docutils literal notranslate"><span class="pre">reflection</span></code></p>
+</div>
+<div class="section" id="noiseless-case">
+<h2><span class="section-number">2.4. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题">¶</a></h2>
+<p>假设没有噪声（ <span class="math notranslate nohighlight">\(N_i = 0\)</span> ），很显然有一个解 <span class="math notranslate nohighlight">\(\hat{R}\)</span> （ <span class="math notranslate nohighlight">\(det(\hat{R}) = 1\)</span> ）。</p>
+<p>因为 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span>，所以 <span class="math notranslate nohighlight">\(\{q_i'\}\)</span> 和 <span class="math notranslate nohighlight">\(\{\hat{R} q_i\}\)</span> 是全等的。</p>
+<p>从几何方面考虑，很容易看出对于 <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 上的点有三种情况：</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list simple">
+<dt class="field-odd">不共面</dt>
+<dd class="field-odd"><p>解有唯一的旋转，没有反射解使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+</dd>
+<dt class="field-even">共面但不共线</dt>
+<dd class="field-even"><p>解有一个唯一的旋转以及一个唯一的反射使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+</dd>
+<dt class="field-odd">共线</dt>
+<dd class="field-odd"><p>解有无限多的旋转和反射使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+</dd>
+</dl>
+</div>
+<p>回到共面的情况下，可以很容易的证明，当且仅当 <span class="math notranslate nohighlight">\(H\)</span> 的三个奇异值之一为0时，点 <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 是共面的。 令三个奇异值分别为 <span class="math notranslate nohighlight">\(\lambda_1 &gt; \lambda_2 &gt; \lambda_3 = 0\)</span> ，从而</p>
+<div class="math notranslate nohighlight">
+\[H = \lambda_1 u_1v_1^T + \lambda_2 u_2 v_2^T + 0· u_3v_3^T\]</div>
+<p>这里的 <span class="math notranslate nohighlight">\(u_i\)</span> 和 <span class="math notranslate nohighlight">\(v_i\)</span> 是 <span class="math notranslate nohighlight">\(U,V\)</span> 的列向量。</p>
+<div class="admonition caution">
+<p class="admonition-title">警告</p>
+<p>更改 <span class="math notranslate nohighlight">\(u_3\)</span> 或 <span class="math notranslate nohighlight">\(v_3\)</span> 的符号不会更改 <span class="math notranslate nohighlight">\(H\)</span> 的值。</p>
+<p>因此，如果 <span class="math notranslate nohighlight">\(X = VU^T\)</span> 最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> ，那么 <span class="math notranslate nohighlight">\(X' = V'U^T\)</span> 也会最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 。</p>
+<p>这里 <span class="math notranslate nohighlight">\(V' = [v_1,v_2,-v_3]\)</span></p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>如果 <span class="math notranslate nohighlight">\(X\)</span> 是反射，则 <span class="math notranslate nohighlight">\(X'\)</span> 是旋转，反之亦然。</p>
+<p>因此，如果SVD算法给出的解 <span class="math notranslate nohighlight">\(X\)</span> 为 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X'= V'U^T\)</span> 即为所需的旋转。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>顺带一提，当且仅当 <span class="math notranslate nohighlight">\(H\)</span> 的三个奇异值中的两个相等时， <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 是共线的。</p>
+</div>
+</div>
+<div class="section" id="summary-of-algorithm">
+<h2><span class="section-number">2.5. </span>SUMMARY OF ALGORITHM<a class="headerlink" href="#summary-of-algorithm" title="永久链接至标题">¶</a></h2>
+<dl class="field-list">
+<dt class="field-odd">step 1</dt>
+<dd class="field-odd"><p>从点云 <span class="math notranslate nohighlight">\(\{p_i\}, \{p_i'\}\)</span> 中计算质心 <span class="math notranslate nohighlight">\(p,p'\)</span> ，然后得到去质心点云 <span class="math notranslate nohighlight">\(\{q_i\}, \{q_i'\}\)</span></p>
+</dd>
+<dt class="field-even">step 2</dt>
+<dd class="field-even"><p>计算 <span class="math notranslate nohighlight">\(3\times 3\)</span> 的矩阵：</p>
+<div class="math notranslate nohighlight">
+\[H \triangleq \sum\limits_{i=1}^N q_i q_i'^T\]</div>
+</dd>
+<dt class="field-odd">step 3</dt>
+<dd class="field-odd"><p>通过SVD分解 <span class="math notranslate nohighlight">\(H\)</span></p>
+<div class="math notranslate nohighlight">
+\[H = U \Sigma V^T\]</div>
+</dd>
+<dt class="field-even">step 4</dt>
+<dd class="field-even"><p>计算 <span class="math notranslate nohighlight">\(X\)</span></p>
+<div class="math notranslate nohighlight">
+\[X = VU^T\]</div>
+</dd>
+<dt class="field-odd">step 5</dt>
+<dd class="field-odd"><p>计算 <span class="math notranslate nohighlight">\(X\)</span> 的行列式 <span class="math notranslate nohighlight">\(det(X)\)</span></p>
+<ul>
+<li><p>如果 <span class="math notranslate nohighlight">\(det(X) = +1\)</span> ，那么 <span class="math notranslate nohighlight">\(\hat{R} = X\)</span></p></li>
+<li><p>如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span></p>
+<blockquote>
+<div><ul>
+<li><p><span class="math notranslate nohighlight">\(H\)</span> 的一个奇异值（例如 <span class="math notranslate nohighlight">\(\lambda_3\)</span> ）为零，那么</p>
+<div class="math notranslate nohighlight">
+\[\hat{R} = X' = V'U^T\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(V'\)</span> 是 <span class="math notranslate nohighlight">\(V\)</span> 的第三列的符号取反得到的。</p>
+</li>
+<li><p><span class="math notranslate nohighlight">\(H\)</span> 的奇异值没有0，则最小二乘解无法求解，需要使用类似RANSAC的技术。</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../p_others.html" class="btn btn-neutral float-right" title="🍒 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../PointNet/PointNet.html" class="btn btn-neutral float-left" title="1. PointNet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

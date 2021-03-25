@@ -1,0 +1,29 @@
+Generalized_RelativePose
+==============================
+
+使用最少8个2D-2D对应关系求解广义相对姿势问题。
+
+.. parsed-literal::
+
+    \ `Efficient Computation of Relative Pose for Multi-Camera Systems <https://openaccess.thecvf.com/content_cvpr_2014/papers/Kneip_Efficient_Computation_of_2014_CVPR_paper.pdf>`_
+
+
+.. cpp:class:: GR6PEstimator
+
+成员变量
+-------------------
+
+.. cpp:struct:: X_t
+
+:X_t:
+
+   .. cpp:member:: Eigen::Matrix3x4d rel_tform;
+
+      从广义摄像机到观测摄像机的框架的相对转换
+
+   .. cpp:member:: Eigen::Vector2d xy;
+
+      2D图像特征观察值
+
+.. cpp:type:: X_t, Y_t;
+

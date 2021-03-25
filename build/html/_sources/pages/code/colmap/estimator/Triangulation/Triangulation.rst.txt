@@ -58,35 +58,37 @@ Triangulation
 成员变量
 -----------------
 
-.. cpp:type:: PointData TriangulationEstimator::X_t;
+   .. cpp:type:: PointData TriangulationEstimator::X_t;
 
-.. cpp:type:: PoseData TriangulationEstimator::Y_t;
+   .. cpp:type:: PoseData TriangulationEstimator::Y_t;
 
-.. important::
+   .. important::
 
-   这里特别要注意，X_t是点的数据，而Y_t是位姿数据
+      这里特别要注意，X_t是点的数据，而Y_t是位姿数据
 
-.. cpp:type:: Eigen::Vector3d TriangulationEstimator::M_t;
+   .. cpp:type:: Eigen::Vector3d TriangulationEstimator::M_t;
 
-.. cpp:member:: static const int TriangulationEstimator::kMinNumSamples = 2;
+   .. cpp:member:: static const int TriangulationEstimator::kMinNumSamples = 2;
 
 成员函数
 -----------------
 
-1. **SetMinTriAngle**
+SetMinTriAngle
+~~~~~~~~~~~~~~~
 
    设置最小三角剖分角度
 
-.. cpp:function:: void TriangulationEstimator::SetMinTriAngle(const double min_tri_angle);
+   .. cpp:function:: void TriangulationEstimator::SetMinTriAngle(const double min_tri_angle);
 
-.. code-block:: cpp
+   .. code-block:: cpp
 
-   void TriangulationEstimator::SetMinTriAngle(const double min_tri_angle) {
-     CHECK_GE(min_tri_angle, 0);
-     min_tri_angle_ = min_tri_angle;
-   }
+      void TriangulationEstimator::SetMinTriAngle(const double min_tri_angle) {
+        CHECK_GE(min_tri_angle, 0);
+        min_tri_angle_ = min_tri_angle;
+      }
 
-2. **SetResidualType**
+SetResidualType
+~~~~~~~~~~~~~~~~~~~~~~
 
    设置残差类型
 
@@ -97,15 +99,16 @@ Triangulation
          REPROJECTION_ERROR,
       };
 
-.. cpp:function:: void TriangulationEstimator::SetResidualType(const ResidualType residual_type);
+   .. cpp:function:: void TriangulationEstimator::SetResidualType(const ResidualType residual_type);
 
-.. code-block:: cpp
+   .. code-block:: cpp
 
-   void TriangulationEstimator::SetResidualType(const ResidualType residual_type) {
-     residual_type_ = residual_type;
-   }
+      void TriangulationEstimator::SetResidualType(const ResidualType residual_type) {
+        residual_type_ = residual_type;
+      }
 
-3. **Estimate**
+Estimate
+~~~~~~~~~~~~~~~
 
    从两视图观察值估计3D点
 
@@ -114,22 +117,19 @@ Triangulation
    .. code-block:: cpp
 
       std::vector<TriangulationEstimator::M_t> TriangulationEstimator::Estimate(
-         const std::vector<X_t>& point_data,
-         const std::vector<Y_t>& pose_data) const {
+          const std::vector<X_t>& point_data,
+          const std::vector<Y_t>& pose_data) const {
+         CHECK_GE(point_data.size(), 2);
+         CHECK_EQ(point_data.size(), pose_data.size());
 
-            CHECK_GE(point_data.size(), 2);
-            CHECK_EQ(point_data.size(), pose_data.size());
-
-            if (point_data.size() == 2) {
+         if (point_data.size() == 2) {
 
             // 两视图三角剖分
 
-            // 得到三维点xyz
             const M_t xyz = TriangulatePoint(
                pose_data[0].proj_matrix, pose_data[1].proj_matrix,
                point_data[0].point_normalized, point_data[1].point_normalized);
 
-            // 检测3D点是否通过了cheirality约束 并且 计算三角剖分角度是否大于最小值
             if (HasPointPositiveDepth(pose_data[0].proj_matrix, xyz) &&
                HasPointPositiveDepth(pose_data[1].proj_matrix, xyz) &&
                CalculateTriangulationAngle(pose_data[0].proj_center,
@@ -138,6 +138,7 @@ Triangulation
                return std::vector<M_t>{xyz};
             }
          } else {
+
             // 多视图三角剖分
 
             std::vector<Eigen::Matrix3x4d> proj_matrices;
@@ -151,25 +152,104 @@ Triangulation
 
             const M_t xyz = TriangulateMultiViewPoint(proj_matrices, points);
 
-            // Check for cheirality constraint.
-            for (const auto& pose : pose_data) {
-               if (!HasPointPositiveDepth(pose.proj_matrix, xyz)) {
+             // 检查cheirality约束
+             for (const auto& pose : pose_data) {
+               if (!HasPointPositiveDepth(pose.proj_matrix, xyz))
                return std::vector<M_t>();
-               }
-            }
+             }
 
-            // Check for sufficient triangulation angle.
+            // 检查三角剖分角度
             for (size_t i = 0; i < pose_data.size(); ++i) {
                for (size_t j = 0; j < i; ++j) {
-                  const double tri_angle = CalculateTriangulationAngle(
-                     pose_data[i].proj_center, pose_data[j].proj_center, xyz);
-               if (tri_angle >= min_tri_angle_) {
+               const double tri_angle = CalculateTriangulationAngle(
+                  pose_data[i].proj_center, pose_data[j].proj_center, xyz);
+               if (tri_angle >= min_tri_angle_)
                   return std::vector<M_t>{xyz};
                }
             }
-          }
-        }
+         }
 
          return std::vector<M_t>();
       }
 
+Residuals
+~~~~~~~~~~~~~~~
+
+   .. cpp:function:: void TriangulationEstimator::Residuals(const std::vector<X_t>& point_data,const std::vector<Y_t>& pose_data,const M_t& xyz,std::vector<double>* residuals)
+
+   .. code-block:: cpp
+
+      void TriangulationEstimator::Residuals(const std::vector<X_t>& point_data,
+                                             const std::vector<Y_t>& pose_data,
+                                             const M_t& xyz,
+                                             std::vector<double>* residuals) const {
+         CHECK_EQ(point_data.size(), pose_data.size());
+
+         residuals->resize(point_data.size());
+
+
+         for (size_t i = 0; i < point_data.size(); ++i) {
+            // 如果残差类型是重投影误差
+            if (residual_type_ == ResidualType::REPROJECTION_ERROR) {
+               (*residuals)[i] = CalculateSquaredReprojectionError(
+                  point_data[i].point, xyz, pose_data[i].proj_matrix,
+                  *pose_data[i].camera);
+            }
+
+            // 如果残差类型是重投影误差
+            else if (residual_type_ == ResidualType::ANGULAR_ERROR) {
+               const double angular_error = CalculateNormalizedAngularError(
+                  point_data[i].point_normalized, xyz, pose_data[i].proj_matrix);
+               (*residuals)[i] = angular_error * angular_error;
+            }
+         }
+      }
+
+
+EstimateTriangulation
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+   .. cpp:function:: bool EstimateTriangulation(const EstimateTriangulationOptions& options,const std::vector<TriangulationEstimator::PointData>& point_data,const std::vector<TriangulationEstimator::PoseData>& pose_data,std::vector<char>* inlier_mask, Eigen::Vector3d* xyz)
+
+   .. code-block:: cpp
+
+
+      bool EstimateTriangulation(
+            const EstimateTriangulationOptions& options,
+            const std::vector<TriangulationEstimator::PointData>& point_data,
+            const std::vector<TriangulationEstimator::PoseData>& pose_data,
+            std::vector<char>* inlier_mask, Eigen::Vector3d* xyz) {
+         CHECK_NOTNULL(inlier_mask);
+         CHECK_NOTNULL(xyz);
+         CHECK_GE(point_data.size(), 2);
+         CHECK_EQ(point_data.size(), pose_data.size());
+         options.Check();
+
+         // 使用LORANSAC方法鲁棒的估算轨道
+         LORANSAC<TriangulationEstimator, TriangulationEstimator,
+                 InlierSupportMeasurer, CombinationSampler> ransac(options.ransac_options);
+
+         // 设置最小三角剖分角度
+         ransac.estimator.SetMinTriAngle(options.min_tri_angle);
+
+         // 设置残差类型
+         ransac.estimator.SetResidualType(options.residual_type);
+
+         // 设置局部估计最小三角剖分角度
+         ransac.local_estimator.SetMinTriAngle(options.min_tri_angle);
+
+         // 设置局部估计残差类型
+         ransac.local_estimator.SetResidualType(options.residual_type);
+
+         // LORANSAC方法计算三角剖分
+         const auto report = ransac.Estimate(point_data, pose_data);
+         if (!report.success) {
+            return false;
+         }
+
+         // 得到inlier掩码和三维坐标xyz
+         *inlier_mask = report.inlier_mask;
+         *xyz = report.model;
+
+         return report.success;
+      }
