@@ -13,6 +13,8 @@ Base
    base/Image/Image
    base/Matrix/Matrix
    base/Triangulation/Triangulation
+   base/Reconstruction/Reconstruction
+
 
 |:star:|  :doc:`VisibilityPyramid <base/VisibilityPyramid/VisibilityPyramid>`
 
@@ -27,3 +29,5 @@ Base
 |:star:|  :doc:`Matrix <base/Matrix/Matrix>`
 
 |:star:|  :doc:`Triangulation <base/Triangulation/Triangulation>`
+
+|:star:|  :doc:`Reconstruction <base/Reconstruction/Reconstruction>`

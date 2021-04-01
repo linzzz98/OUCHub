@@ -7,6 +7,7 @@
 
    colmap/c_base
    colmap/c_estimator
+   colmap/c_sfm
 
 .. |ball| image:: /images/index/ball.gif
 
@@ -14,4 +15,5 @@
 
 |:star:|  :doc:`Estimator <colmap/c_estimator>`
 
+|:star:|  :doc:`Sfm Pipeline <colmap/c_sfm>`
 

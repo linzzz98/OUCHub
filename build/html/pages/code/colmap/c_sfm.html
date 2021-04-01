@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Base &mdash; OUCHub 0.1 文档</title>
+  <title>SfM Pipeline &mdash; OUCHub 0.1 文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
-    <link rel="next" title="1. Camera" href="base/Camera/Camera.html" />
-    <link rel="prev" title="🍑 Colmap" href="../c_colmap.html" /> 
+    <link rel="next" title="1. Incremental_Mapper" href="sfm/Incremental/Mapper/Mapper.html" />
+    <link rel="prev" title="10. Generalized_RelativePose" href="estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,18 +109,12 @@
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../c_colmap.html">🍑 Colmap</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Base</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="base/Camera/Camera.html">1. Camera</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/VisibilityPyramid/VisibilityPyramid.html">2. VisibilityPyramid</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Correspondence_graph/Correspondence_graph.html">3. Correspondence_graph</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Cost_function/Cost_function.html">4. CostFunctions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Image/Image.html">5. Image</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Matrix/Matrix.html">6. Matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Triangulation/Triangulation.html">7. Triangulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="base/Reconstruction/Reconstruction.html">8. Reconstrucion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c_base.html">Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="c_estimator.html">Estimator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SfM Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sfm/Incremental/Mapper/Mapper.html">1. Incremental_Mapper</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="c_estimator.html">Estimator</a></li>
 </ul>
 </li>
 </ul>
@@ -177,13 +171,13 @@
         
           <li><a href="../c_colmap.html">🍑 Colmap</a> &raquo;</li>
         
-      <li>Base</li>
+      <li>SfM Pipeline</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../_sources/pages/code/colmap/c_base.rst.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../../_sources/pages/code/colmap/c_sfm.rst.txt" rel="nofollow"> 查看页面源码</a>
           
         
       </li>
@@ -196,18 +190,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="base">
-<h1>Base<a class="headerlink" href="#base" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="sfm-pipeline">
+<h1>SfM Pipeline<a class="headerlink" href="#sfm-pipeline" title="永久链接至标题">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>⭐  <a class="reference internal" href="base/VisibilityPyramid/VisibilityPyramid.html"><span class="doc">VisibilityPyramid</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Camera/Camera.html"><span class="doc">Camera</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Correspondence_graph/Correspondence_graph.html"><span class="doc">Correspondence_graph</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Cost_function/Cost_function.html"><span class="doc">Cost_function</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Image/Image.html"><span class="doc">Image</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Matrix/Matrix.html"><span class="doc">Matrix</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Triangulation/Triangulation.html"><span class="doc">Triangulation</span></a></p>
-<p>⭐  <a class="reference internal" href="base/Reconstruction/Reconstruction.html"><span class="doc">Reconstruction</span></a></p>
+<p>🔥 <strong>增量式SfM(Incremental Structure-from-Motion Pipeline)</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="sfm/Incremental/Mapper/Mapper.html"><span class="doc">Incremental_Mapper</span></a></p></li>
+</ul>
+</div></blockquote>
 </div>
 
 
@@ -216,8 +208,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="base/Camera/Camera.html" class="btn btn-neutral float-right" title="1. Camera" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../c_colmap.html" class="btn btn-neutral float-left" title="🍑 Colmap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sfm/Incremental/Mapper/Mapper.html" class="btn btn-neutral float-right" title="1. Incremental_Mapper" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html" class="btn btn-neutral float-left" title="10. Generalized_RelativePose" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
