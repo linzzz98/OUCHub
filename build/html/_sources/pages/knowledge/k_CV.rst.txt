@@ -4,4 +4,7 @@
 .. toctree::
    :maxdepth: -1
    :hidden:
-   :numbered:
+
+   ComputerVision/DeepLearning/DeepLearning
+
+* :doc:`DeepLearning <ComputerVision/DeepLearning/DeepLearning>` |:fire:|

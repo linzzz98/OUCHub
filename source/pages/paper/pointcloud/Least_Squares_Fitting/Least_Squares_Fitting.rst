@@ -61,7 +61,7 @@ DECOUPLING TRANSLATION AND ROTATION
 
 .. math::
 
-   \Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2
+   \Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2 + n||p' - (Rp + T)||
 
 因为左右两边都 :math:`\ge 0`，且左边只与 :math:`R` 相关，因此可以先求出 :math:`R` 再利用 :math:`R` 求出第二项。
 
@@ -216,7 +216,7 @@ AN SVD ALGORITHM FOR FINDING  :math:`\hat{R}`
 
 因此，在所有 :math:`3 \times 3` 的正交矩阵中， :math:`X` 使 :math:`F` 最大化。 如果 :math:`det(X) = +1` ，则 :math:`X` 是所求的旋转。
 
-但是，如果 :math:`det(X) = -1` ，则 :math:`X` 是 ``reflection``
+但是，如果 :math:`det(X) = -1` ，则 :math:`X` 是 ``reflection（镜像对称）``
 
 NOISELESS CASE
 ---------------
@@ -231,15 +231,15 @@ NOISELESS CASE
 
    :不共面:
 
-      解有唯一的旋转，没有反射解使 :math:`\Sigma^2 = 0`
+      解有唯一的旋转，没有镜像对称解使 :math:`\Sigma^2 = 0`
 
    :共面但不共线:
 
-      解有一个唯一的旋转以及一个唯一的反射使 :math:`\Sigma^2 = 0`
+      解有一个唯一的旋转以及一个唯一的镜像对称使 :math:`\Sigma^2 = 0`
 
    :共线:
 
-      解有无限多的旋转和反射使 :math:`\Sigma^2 = 0`
+      解有无限多的旋转和镜像对称使 :math:`\Sigma^2 = 0`
 
 回到共面的情况下，可以很容易的证明，当且仅当 :math:`H` 的三个奇异值之一为0时，点 :math:`\{q_i\}` 是共面的。 令三个奇异值分别为 :math:`\lambda_1 > \lambda_2 > \lambda_3 = 0` ，从而
 
@@ -259,7 +259,7 @@ NOISELESS CASE
 
 .. important::
 
-   如果 :math:`X` 是反射，则 :math:`X'` 是旋转，反之亦然。
+   如果 :math:`X` 镜像对称，则 :math:`X'` 是旋转，反之亦然。
 
    因此，如果SVD算法给出的解 :math:`X` 为 :math:`det(X) = -1` ，则 :math:`X'= V'U^T` 即为所需的旋转。
 

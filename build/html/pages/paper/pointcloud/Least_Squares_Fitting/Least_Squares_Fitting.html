@@ -227,7 +227,7 @@
 \[\sum\limits_{i=1}^N (p_i' - p' - R(p_i - p))(p' - (Rp + T)) = 0\]</div>
 <p>因此问题转换为：</p>
 <div class="math notranslate nohighlight">
-\[\Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2\]</div>
+\[\Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2 + n||p' - (Rp + T)||\]</div>
 <p>因为左右两边都 <span class="math notranslate nohighlight">\(\ge 0\)</span>，且左边只与 <span class="math notranslate nohighlight">\(R\)</span> 相关，因此可以先求出 <span class="math notranslate nohighlight">\(R\)</span> 再利用 <span class="math notranslate nohighlight">\(R\)</span> 求出第二项。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -334,7 +334,7 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <div class="math notranslate nohighlight">
 \[Trace(XH) \ge Trace(BXH)\]</div>
 <p>因此，在所有 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵中， <span class="math notranslate nohighlight">\(X\)</span> 使 <span class="math notranslate nohighlight">\(F\)</span> 最大化。 如果 <span class="math notranslate nohighlight">\(det(X) = +1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是所求的旋转。</p>
-<p>但是，如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是 <code class="docutils literal notranslate"><span class="pre">reflection</span></code></p>
+<p>但是，如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是 <code class="docutils literal notranslate"><span class="pre">reflection（镜像对称）</span></code></p>
 </div>
 <div class="section" id="noiseless-case">
 <h2><span class="section-number">2.4. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题">¶</a></h2>
@@ -345,13 +345,13 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <p class="admonition-title">注解</p>
 <dl class="field-list simple">
 <dt class="field-odd">不共面</dt>
-<dd class="field-odd"><p>解有唯一的旋转，没有反射解使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+<dd class="field-odd"><p>解有唯一的旋转，没有镜像对称解使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
 </dd>
 <dt class="field-even">共面但不共线</dt>
-<dd class="field-even"><p>解有一个唯一的旋转以及一个唯一的反射使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+<dd class="field-even"><p>解有一个唯一的旋转以及一个唯一的镜像对称使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
 </dd>
 <dt class="field-odd">共线</dt>
-<dd class="field-odd"><p>解有无限多的旋转和反射使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+<dd class="field-odd"><p>解有无限多的旋转和镜像对称使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
 </dd>
 </dl>
 </div>
@@ -367,7 +367,7 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
-<p>如果 <span class="math notranslate nohighlight">\(X\)</span> 是反射，则 <span class="math notranslate nohighlight">\(X'\)</span> 是旋转，反之亦然。</p>
+<p>如果 <span class="math notranslate nohighlight">\(X\)</span> 镜像对称，则 <span class="math notranslate nohighlight">\(X'\)</span> 是旋转，反之亦然。</p>
 <p>因此，如果SVD算法给出的解 <span class="math notranslate nohighlight">\(X\)</span> 为 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X'= V'U^T\)</span> 即为所需的旋转。</p>
 </div>
 <div class="admonition note">
