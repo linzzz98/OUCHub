@@ -781,25 +781,217 @@ FindNextImages
                   return static_cast<float>(image.Point3DVisibilityScore());
                }
 
-      2.  ``SortAndAppendNextImages`` 是根据上一步图像的得分对图像进行排序，并加入新的图像进去。
+   2.  ``SortAndAppendNextImages`` 是根据上一步图像的得分对图像进行排序，并加入新的图像进去。
 
-            .. code-block:: cpp
+      .. code-block:: cpp
 
-               void SortAndAppendNextImages(std::vector<std::pair<image_t, float>> image_ranks,
-                             std::vector<image_t>* sorted_images_ids) {
-                  std::sort(image_ranks.begin(), image_ranks.end(),
-                           [](const std::pair<image_t, float>& image1,
-                              const std::pair<image_t, float>& image2) {
-                             return image1.second > image2.second;
-                           });
+         void SortAndAppendNextImages(std::vector<std::pair<image_t, float>> image_ranks,
+                       std::vector<image_t>* sorted_images_ids) {
+            std::sort(image_ranks.begin(), image_ranks.end(),
+                     [](const std::pair<image_t, float>& image1,
+                        const std::pair<image_t, float>& image2) {
+                       return image1.second > image2.second;
+                     });
 
-                  sorted_images_ids->reserve(sorted_images_ids->size() + image_ranks.size());
-                  for (const auto& image : image_ranks) {
-                     sorted_images_ids->push_back(image.first);
-                  }
+            sorted_images_ids->reserve(sorted_images_ids->size() + image_ranks.size());
+            for (const auto& image : image_ranks) {
+               sorted_images_ids->push_back(image.first);
+            }
 
-                  image_ranks.clear();
+            image_ranks.clear();
+         }
+
+
+FindLocalBundle
+~~~~~~~~~~~~~~~~~~
+
+在重建中找到给定图像的局部bundle。
+
+.. note::
+
+   局部bundle定义为与给定图像的连接最多的图像，即最大共享3D点的数量。
+
+.. cpp:function:: std::vector<image_t> IncrementalMapper::FindLocalBundle(const Options& options, const image_t image_id) const
+
+.. code-block:: cpp
+
+   std::vector<image_t> IncrementalMapper::FindLocalBundle(
+         const Options& options, const image_t image_id) const {
+      CHECK(options.Check());
+
+      const Image& image = reconstruction_->Image(image_id);
+      CHECK(image.IsRegistered());
+
+      // 提取与查询的图片至少有一个共同的3D点的所有图片，同时计算公共3D点的数量
+
+      std::unordered_map<image_t, size_t> shared_observations;
+
+      std::unordered_set<point3D_t> point3D_ids;
+      point3D_ids.reserve(image.NumPoints3D());
+
+      // 遍历图像中每一个2D特征点
+      for (const Point2D& point2D : image.Points2D()) {
+         // 如果2D点有对应的3D点
+         if (point2D.HasPoint3D()) {
+            // 插入该3D点的id
+            point3D_ids.insert(point2D.Point3DId());
+            // 从重建中根据该id得到对应的3D点
+            const Point3D& point3D = reconstruction_->Point3D(point2D.Point3DId());
+            // 遍历该3D点的轨道的所有元素
+            for (const TrackElement& track_el : point3D.Track().Elements()) {
+               // 如果轨道的图像与观测图像不是一个图像，则将其加入到共享观测序列中
+               if (track_el.image_id != image_id) {
+                  shared_observations[track_el.image_id] += 1;
                }
+            }
+         }
+      }
+
+      // 根据共享观测的数量对重叠的图像进行排序
+      std::vector<std::pair<image_t, size_t>> overlapping_images(
+         shared_observations.begin(), shared_observations.end());
+      std::sort(overlapping_images.begin(), overlapping_images.end(),
+               [](const std::pair<image_t, size_t>& image1,
+                  const std::pair<image_t, size_t>& image2) {
+                 return image1.second > image2.second;
+               });
+
+
+      // 局部bundle由给定图像及其连接最紧密的相邻图像组成，因此减去1 （为什么-1？）
+
+      const size_t num_images =
+            static_cast<size_t>(options.local_ba_num_images - 1);
+      const size_t num_eff_images = std::min(num_images, overlapping_images.size());
+
+      // 提取最多连接的图像，并确保足够的三角剖分角度
+
+      std::vector<image_t> local_bundle_image_ids;
+      local_bundle_image_ids.reserve(num_eff_images);
+
+      // 如果重叠图像的数量等于本地bundle中所需图像的数量，则只需复制图像标识符即可
+
+      if (overlapping_images.size() == num_eff_images) {
+         for (const auto& overlapping_image : overlapping_images) {
+            local_bundle_image_ids.push_back(overlapping_image.first);
+         }
+         return local_bundle_image_ids;
+      }
+
+      // 在下面的迭代中，从重叠最多的图像开始，并检查其是否具有足够的三角剖分角度。
+      // 如果没有一个重叠的图像具有足够的三角剖分角度，则放宽三角剖分阈值，然后从最重叠的图像重新开始。
+      // 最后如果仍然找不到足够的图像，则仅使用重叠度最高的图像
+
+      const double min_tri_angle_rad = DegToRad(options.local_ba_min_tri_angle);
+
+      // 选择阈值（最小三角剖分，共享观测值的最小数量）被依次放宽
+      const std::array<std::pair<double, double>, 8> selection_thresholds = {{
+         std::make_pair(min_tri_angle_rad / 1.0, 0.6 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 1.5, 0.6 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 2.0, 0.5 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 2.5, 0.4 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 3.0, 0.3 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 4.0, 0.2 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 5.0, 0.1 * image.NumPoints3D()),
+         std::make_pair(min_tri_angle_rad / 6.0, 0.1 * image.NumPoints3D()),
+      }};
+
+      const Eigen::Vector3d proj_center = image.ProjectionCenter();
+      std::vector<Eigen::Vector3d> shared_points3D;
+      shared_points3D.reserve(image.NumPoints3D());
+      std::vector<double> tri_angles(overlapping_images.size(), -1.0);
+      std::vector<char> used_overlapping_images(overlapping_images.size(), false);
+
+      // 遍历每个三角剖分阈值
+      for (const auto& selection_threshold : selection_thresholds) {
+         // 遍历每个重叠的图像
+         for (size_t overlapping_image_idx = 0;
+            overlapping_image_idx < overlapping_images.size();
+            ++overlapping_image_idx) {
+            // 检查图像是否有足够的重叠。 由于图像是根据重叠进行排序的，因此在重叠不够后可以跳过其余图像。
+            if (overlapping_images[overlapping_image_idx].second <
+               selection_threshold.second)
+               break;
+
+            // 检查图像是否已经在本地bundle中
+            if (used_overlapping_images[overlapping_image_idx])
+              continue;
+
+            // 得到重叠的图像
+            const auto& overlapping_image = reconstruction_->Image(
+                overlapping_images[overlapping_image_idx].first);
+
+            // 得到重叠图像的投影中心
+            const Eigen::Vector3d overlapping_proj_center =
+                overlapping_image.ProjectionCenter();
+
+            // 在第一次迭代中，计算三角剖分角度。 在以后的迭代中，重用先前计算的值
+            double& tri_angle = tri_angles[overlapping_image_idx];
+            if (tri_angle < 0.0) {
+              // 收集观察到的3D点
+              shared_points3D.clear();
+              for (const Point2D& point2D : image.Points2D()) {
+                if (point2D.HasPoint3D() && point3D_ids.count(point2D.Point3DId())) {
+                  shared_points3D.push_back(
+                      reconstruction_->Point3D(point2D.Point3DId()).XYZ());
+                  }
+               }
+
+              // 计算一定百分比的三角剖分角度
+              const double kTriangulationAnglePercentile = 75;
+              tri_angle = Percentile(
+                  CalculateTriangulationAngles(proj_center, overlapping_proj_center,
+                                               shared_points3D),
+                  kTriangulationAnglePercentile);
+            }
+
+            // 检查图像是否具有足够的三角剖分角度
+            if (tri_angle >= selection_threshold.first) {
+               local_bundle_image_ids.push_back(overlapping_image.ImageId());
+               used_overlapping_images[overlapping_image_idx] = true;
+               // 检查是否已经收集了足够的图像
+               if (local_bundle_image_ids.size() >= num_eff_images)
+                  break;
+               }
+            }
+
+         // 检查是否已经收集了足够的图像
+         if (local_bundle_image_ids.size() >= num_eff_images) {
+            break;
+         }
+      }
+
+      // 如果没有足够的具有足够三角剖分角的图像，只需用最重叠的图像填充其余图像即可
+
+      if (local_bundle_image_ids.size() < num_eff_images) {
+         for (size_t overlapping_image_idx = 0;
+            overlapping_image_idx < overlapping_images.size();
+            ++overlapping_image_idx) {
+            // 收集图像（如果尚未在局部bundle中）
+            if (!used_overlapping_images[overlapping_image_idx]) {
+               local_bundle_image_ids.push_back(
+                  overlapping_images[overlapping_image_idx].first);
+               used_overlapping_images[overlapping_image_idx] = true;
+
+               // 检测是否已经收集了足够的图像
+               if (local_bundle_image_ids.size() >= num_eff_images)
+                  break;
+            }
+         }
+      }
+
+      // 返回局部bundle的图像id序列
+      return local_bundle_image_ids;
+   }
+
+.. note::
+
+   该函数的要求是在重建中找到给定图像的局部bundle。
+
+   该函数的步骤为：
+
+      遍历给定图像的所有2D特征点的3D轨道，每条轨道都会计算其所有经过的图像的序号，最终所有特征点的3D点的轨道经过的图像在次数上会进行排序，称为 ``overlapping_images`` ，
+      对该重叠图像的序列进行排序，通过控制三角剖分的阈值，从重叠最多的图像开始，并检查其是否具有足够的三角剖分角度，符合要求的加入到 ``local_bundle_image_ids`` 中，最后如果仍然找不到足够的图像，则仅使用重叠度最高的图像。
+      最终返回局部bundle的图像id序列。
 
 
 EstimateInitialTwoViewGeometry
@@ -1055,11 +1247,13 @@ RegisterNextImage
             }
 
             const Point2D& corr_point2D = corr_image.Point2D(corr.point2D_idx);
+
+            // 如果匹配点没有重建好的3D点，则跳过
             if (!corr_point2D.HasPoint3D()) {
                continue;
             }
 
-            // Avoid duplicate correspondences.
+            // 避免重复的匹配关系
             if (point3D_ids.count(corr_point2D.Point3DId()) > 0) {
                continue;
             }
@@ -1077,6 +1271,7 @@ RegisterNextImage
             const Point3D& point3D =
                reconstruction_->Point3D(corr_point2D.Point3DId());
 
+            // 图像2d点和对应匹配3d点关联
             tri_corrs.emplace_back(point2D_idx, corr_point2D.Point3DId());
             point3D_ids.insert(corr_point2D.Point3DId());
             tri_points2D.push_back(point2D.XY());
@@ -1084,9 +1279,8 @@ RegisterNextImage
          }
       }
 
-      // The size of `next_image.num_tri_obs` and `tri_corrs_point2D_idxs.size()`
-      // can only differ, when there are images with bogus camera parameters, and
-      // hence we skip some of the 2D-3D correspondences.
+      // 仅当存在带有伪造相机参数的图像时，“ next_image.num_tri_obs”和“ tri_corrs_point2D_idxs.size（）”的大小才能不同，
+      // 因此跳过了一些2D-3D对应关系。
       if (tri_points2D.size() <
             static_cast<size_t>(options.abs_pose_min_num_inliers)) {
          return false;
@@ -1106,20 +1300,18 @@ RegisterNextImage
       abs_pose_options.ransac_options.max_error = options.abs_pose_max_error;
       abs_pose_options.ransac_options.min_inlier_ratio =
             options.abs_pose_min_inlier_ratio;
-      // Use high confidence to avoid preemptive termination of P3P RANSAC
-      // - too early termination may lead to bad registration.
+      // 使用高可信度来避免提前终止P3P RANSAC————太早终止可能会导致注册错误。
       abs_pose_options.ransac_options.min_num_trials = 100;
       abs_pose_options.ransac_options.max_num_trials = 10000;
       abs_pose_options.ransac_options.confidence = 0.99999;
 
       AbsolutePoseRefinementOptions abs_pose_refinement_options;
       if (num_reg_images_per_camera_[image.CameraId()] > 0) {
-         // Camera already refined from another image with the same camera.
+         // 相机已经因为另外的图像而优化过。
          if (camera.HasBogusParams(options.min_focal_length_ratio,
                                     options.max_focal_length_ratio,
                                     options.max_extra_param)) {
-            // Previously refined camera has bogus parameters,
-            // so reset parameters and try to re-estimage.
+            // 先前优化的相机具有伪造的参数，因此重置参数并尝试重新建立图像。
             camera.SetParams(database_cache_->Camera(image.CameraId()).Params());
             abs_pose_options.estimate_focal_length = !camera.HasPriorFocalLength();
             abs_pose_refinement_options.refine_focal_length = true;
@@ -1130,9 +1322,8 @@ RegisterNextImage
             abs_pose_refinement_options.refine_extra_params = false;
          }
       } else {
-         // Camera not refined before. Note that the camera parameters might have
-         // been changed before but the image was filtered, so we explicitly reset
-         // the camera parameters and try to re-estimate them.
+
+         // 相机未优化过。 之前可能已经更改了相机参数，但已过滤了图像，因此重置相机参数并尝试重新估计。
          camera.SetParams(database_cache_->Camera(image.CameraId()).Params());
          abs_pose_options.estimate_focal_length = !camera.HasPriorFocalLength();
          abs_pose_refinement_options.refine_focal_length = true;
@@ -1162,7 +1353,7 @@ RegisterNextImage
       }
 
      //////////////////////////////////////////////////////////////////////////////
-     // Pose refinement
+     // 位姿BA优化
      //////////////////////////////////////////////////////////////////////////////
 
       if (!RefineAbsolutePose(abs_pose_refinement_options, inlier_mask,
@@ -1193,3 +1384,207 @@ RegisterNextImage
 
       return true;
    }
+
+
+Triangulate
+~~~~~~~~~~~~~~~~~~~
+|:point_right:|
+
+**TriangulateImage**
+
+对图像进行三角测量
+
+.. cpp:function:: size_t IncrementalMapper::TriangulateImage(const IncrementalTriangulator::Options& tri_options,const image_t image_id)
+
+.. code-block:: cpp
+
+   size_t IncrementalMapper::TriangulateImage(
+         const IncrementalTriangulator::Options& tri_options,
+         const image_t image_id) {
+      CHECK_NOTNULL(reconstruction_);
+      return triangulator_->TriangulateImage(tri_options, image_id);
+   }
+
+
+**Retriangulate**
+
+重新三角测量在场景图中有共同观测结果但不会引起漂移的图像对。
+
+要处理场景漂移，所采用的重投影误差阈值应相对较大。
+
+* 如果阈值太大，则非鲁棒的BA调整将失败。
+
+* 如果阈值太小，将无法有效地解决漂移问题。
+
+.. cpp:function:: size_t IncrementalMapper::Retriangulate(const IncrementalTriangulator::Options& tri_options)
+
+.. code-block:: cpp
+
+   size_t IncrementalMapper::Retriangulate(
+         const IncrementalTriangulator::Options& tri_options) {
+      CHECK_NOTNULL(reconstruction_);
+      return triangulator_->Retriangulate(tri_options);
+   }
+
+
+**CompleteTracks**
+
+通过过渡性地遵循场景图对应关系来完成轨道。
+
+BA调整后，此函数特别有效，因为许多摄像机和点的位置可能已得到改善。
+
+完成轨道后，可以更好地注册新图像。
+
+.. cpp:function:: size_t IncrementalMapper::CompleteTracks(const IncrementalTriangulator::Options& tri_options)
+
+.. code-block:: cpp
+
+   size_t IncrementalMapper::CompleteTracks(
+         const IncrementalTriangulator::Options& tri_options) {
+      CHECK_NOTNULL(reconstruction_);
+      return triangulator_->CompleteAllTracks(tri_options);
+   }
+
+
+**MergeTracks**
+
+使用场景图对应关系来合并轨道，这在BA调整后有效，并改善了后续BA调整中的冗余性。
+
+.. cpp:function:: size_t IncrementalMapper::MergeTracks(const IncrementalTriangulator::Options& tri_options)
+
+.. code-block:: cpp
+
+   size_t IncrementalMapper::MergeTracks(
+         const IncrementalTriangulator::Options& tri_options) {
+      CHECK_NOTNULL(reconstruction_);
+      return triangulator_->MergeAllTracks(tri_options);
+   }
+
+AdjustLocalBundle
+~~~~~~~~~~~~~~~~~~~
+
+调整局部连接的图像和参考图像的点。
+
+此外，优化提供的3D点。 仅优化连接到参考图像的图像。 如果提供的3D点未局部连接到参考图像，则在调整中将其观察图像设置为常数。
+
+.. cpp:function:: IncrementalMapper::AdjustLocalBundle(const Options& options, const BundleAdjustmentOptions& ba_options,const IncrementalTriangulator::Options& tri_options, const image_t image_id,const std::unordered_set<point3D_t>& point3D_ids)
+
+.. code-block:: cpp
+
+   IncrementalMapper::LocalBundleAdjustmentReport
+   IncrementalMapper::AdjustLocalBundle(
+         const Options& options, const BundleAdjustmentOptions& ba_options,
+         const IncrementalTriangulator::Options& tri_options, const image_t image_id,
+         const std::unordered_set<point3D_t>& point3D_ids) {
+      CHECK_NOTNULL(reconstruction_);
+      CHECK(options.Check());
+
+      LocalBundleAdjustmentReport report;
+
+      // 查找与给定的图像有最多公共3D点的图像
+      const std::vector<image_t> local_bundle = FindLocalBundle(options, image_id);
+
+      // 仅在有连接的图像的情况下进行BA调整
+      if (local_bundle.size() > 0) {
+         BundleAdjustmentConfig ba_config;
+         ba_config.AddImage(image_id);
+         for (const image_t local_image_id : local_bundle)
+            ba_config.AddImage(local_image_id);
+
+         // 如果指定了选项，则修复现有图像
+         if (options.fix_existing_images) {
+            for (const image_t local_image_id : local_bundle) {
+               if (existing_image_ids_.count(local_image_id))
+                  ba_config.SetConstantPose(local_image_id);
+            }
+         }
+
+         // 当并非所有注册的图像都在当前局部BA中时，确定要修复的摄像机。
+         std::unordered_map<camera_t, size_t> num_images_per_camera;
+         for (const image_t image_id : ba_config.Images()) {
+            const Image& image = reconstruction_->Image(image_id);
+            num_images_per_camera[image.CameraId()] += 1;
+         }
+
+         for (const auto& camera_id_and_num_images_pair : num_images_per_camera) {
+            const size_t num_reg_images_for_camera =
+                num_reg_images_per_camera_.at(camera_id_and_num_images_pair.first);
+            if (camera_id_and_num_images_pair.second < num_reg_images_for_camera) {
+               ba_config.SetConstantCamera(camera_id_and_num_images_pair.first);
+            }
+         }
+
+         // 修复7自由度，以避免在BA调整中出现比例/旋转/平移漂移
+         if (local_bundle.size() == 1) {
+            ba_config.SetConstantPose(local_bundle[0]);
+            ba_config.SetConstantTvec(image_id, {0});
+         } else if (local_bundle.size() > 1) {
+            const image_t image_id1 = local_bundle[local_bundle.size() - 1];
+            const image_t image_id2 = local_bundle[local_bundle.size() - 2];
+            ba_config.SetConstantPose(image_id1);
+            if (!options.fix_existing_images ||
+                !existing_image_ids_.count(image_id2)) {
+              ba_config.SetConstantTvec(image_id2, {0});
+            }
+         }
+
+         // Make sure, we refine all new and short-track 3D points, no matter if
+         // they are fully contained in the local image set or not. Do not include
+         // long track 3D points as they are usually already very stable and adding
+         // to them to bundle adjustment and track merging/completion would slow
+         // down the local bundle adjustment significantly.
+
+         // 确保完善所有新的和短轨道的3D点，无论它们是否完全包含在局部图像集中。
+         // 注意: 不要包括长距离3D点，因为它们通常已经非常稳定，将它们添加到BA调整中的轨道合并/完成会大大减慢局部BA调整的速度。
+         std::unordered_set<point3D_t> variable_point3D_ids;
+         for (const point3D_t point3D_id : point3D_ids) {
+            const Point3D& point3D = reconstruction_->Point3D(point3D_id);
+            const size_t kMaxTrackLength = 15;
+            if (!point3D.HasError() || point3D.Track().Length() <= kMaxTrackLength) {
+               ba_config.AddVariablePoint(point3D_id);
+               variable_point3D_ids.insert(point3D_id);
+            }
+         }
+
+         // 调整局部bundle
+         BundleAdjuster bundle_adjuster(ba_options, ba_config);
+         bundle_adjuster.Solve(reconstruction_);
+
+         report.num_adjusted_observations =
+            bundle_adjuster.Summary().num_residuals / 2;
+
+         // 将完善的轨道与其他现有点合并
+         report.num_merged_observations =
+            triangulator_->MergeTracks(tri_options, variable_point3D_ids);
+
+         // 完整的轨道可能在完善相机位姿和进行BA调整中的校准之前进行三角化会失败
+         // 这样可以避免对某些点进行过滤，并有助于后续的图像配准
+         report.num_completed_observations =
+            triangulator_->CompleteTracks(tri_options, variable_point3D_ids);
+         report.num_completed_observations +=
+            triangulator_->CompleteImage(tri_options, image_id);
+      }
+
+      // 过滤修改的图像和所有更改的3D点，以确保模型中没有异常点。
+      // 这将导致重复工作，因为许多提供的3D点也可能包含在调整后的图像中。
+      std::unordered_set<image_t> filter_image_ids;
+      filter_image_ids.insert(image_id);
+      filter_image_ids.insert(local_bundle.begin(), local_bundle.end());
+      report.num_filtered_observations = reconstruction_->FilterPoints3DInImages(
+         options.filter_max_reproj_error, options.filter_min_tri_angle,
+         filter_image_ids);
+      report.num_filtered_observations += reconstruction_->FilterPoints3D(
+         options.filter_max_reproj_error, options.filter_min_tri_angle,
+         point3D_ids);
+
+      return report;
+   }
+
+.. attention::
+
+   没看懂， 有空再看。
+
+
+
+
+

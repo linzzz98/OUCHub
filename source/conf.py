@@ -27,7 +27,7 @@ copyright = '2021, linzzz'
 author = 'linzzz'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+# release = '0.1'
 
 ######################################
 primary_domain = 'cpp'

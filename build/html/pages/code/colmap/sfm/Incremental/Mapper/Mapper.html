@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>1. Incremental_Mapper &mdash; OUCHub 0.1 文档</title>
+  <title>1. Incremental_Mapper &mdash; OUCHub  文档</title>
   
 
   
@@ -124,9 +124,12 @@
 <li class="toctree-l5"><a class="reference internal" href="#findfirstinitialimage">FindFirstInitialImage</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#findsecondinitialimage">FindSecondInitialImage</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#findnextimages">FindNextImages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#findlocalbundle">FindLocalBundle</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#estimateinitialtwoviewgeometry">EstimateInitialTwoViewGeometry</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#registerinitialimagepair">RegisterInitialImagePair</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#registernextimage">RegisterNextImage</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#triangulate">Triangulate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#adjustlocalbundle">AdjustLocalBundle</a></li>
 </ul>
 </li>
 </ul>
@@ -1071,8 +1074,9 @@
 </div>
 </div></blockquote>
 </div></blockquote>
-<ol class="arabic" start="2">
-<li><p><code class="docutils literal notranslate"><span class="pre">SortAndAppendNextImages</span></code> 是根据上一步图像的得分对图像进行排序，并加入新的图像进去。</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SortAndAppendNextImages</span></code> 是根据上一步图像的得分对图像进行排序，并加入新的图像进去。</p></li>
+</ol>
 <blockquote>
 <div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">SortAndAppendNextImages</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">image_t</span><span class="p">,</span> <span class="kt">float</span><span class="o">&gt;&gt;</span> <span class="n">image_ranks</span><span class="p">,</span>
               <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;*</span> <span class="n">sorted_images_ids</span><span class="p">)</span> <span class="p">{</span>
@@ -1092,10 +1096,198 @@
 </pre></div>
 </div>
 </div></blockquote>
-</li>
-</ol>
-</li>
-</ol>
+</div>
+</div>
+<div class="section" id="findlocalbundle">
+<h3>FindLocalBundle<a class="headerlink" href="#findlocalbundle" title="永久链接至标题">¶</a></h3>
+<p>在重建中找到给定图像的局部bundle。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>局部bundle定义为与给定图像的连接最多的图像，即最大共享3D点的数量。</p>
+</div>
+<dl class="cpp function">
+<dt id="_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t">
+<span id="_CPPv3NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="_CPPv2NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="IncrementalMapper::FindLocalBundle__OptionsCR.image_tCC"></span>std::vector&lt;image_t&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindLocalBundle</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindLocalBundle</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span> <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+   <span class="n">CHECK</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">());</span>
+
+   <span class="k">const</span> <span class="n">Image</span><span class="o">&amp;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Image</span><span class="p">(</span><span class="n">image_id</span><span class="p">);</span>
+   <span class="n">CHECK</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">IsRegistered</span><span class="p">());</span>
+
+   <span class="c1">// 提取与查询的图片至少有一个共同的3D点的所有图片，同时计算公共3D点的数量</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">image_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">shared_observations</span><span class="p">;</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">point3D_t</span><span class="o">&gt;</span> <span class="n">point3D_ids</span><span class="p">;</span>
+   <span class="n">point3D_ids</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">());</span>
+
+   <span class="c1">// 遍历图像中每一个2D特征点</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">Point2D</span><span class="o">&amp;</span> <span class="nl">point2D</span> <span class="p">:</span> <span class="n">image</span><span class="p">.</span><span class="n">Points2D</span><span class="p">())</span> <span class="p">{</span>
+      <span class="c1">// 如果2D点有对应的3D点</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">HasPoint3D</span><span class="p">())</span> <span class="p">{</span>
+         <span class="c1">// 插入该3D点的id</span>
+         <span class="n">point3D_ids</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">());</span>
+         <span class="c1">// 从重建中根据该id得到对应的3D点</span>
+         <span class="k">const</span> <span class="n">Point3D</span><span class="o">&amp;</span> <span class="n">point3D</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Point3D</span><span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">());</span>
+         <span class="c1">// 遍历该3D点的轨道的所有元素</span>
+         <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">TrackElement</span><span class="o">&amp;</span> <span class="nl">track_el</span> <span class="p">:</span> <span class="n">point3D</span><span class="p">.</span><span class="n">Track</span><span class="p">().</span><span class="n">Elements</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// 如果轨道的图像与观测图像不是一个图像，则将其加入到共享观测序列中</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">track_el</span><span class="p">.</span><span class="n">image_id</span> <span class="o">!=</span> <span class="n">image_id</span><span class="p">)</span> <span class="p">{</span>
+               <span class="n">shared_observations</span><span class="p">[</span><span class="n">track_el</span><span class="p">.</span><span class="n">image_id</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 根据共享观测的数量对重叠的图像进行排序</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">image_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;&gt;</span> <span class="n">overlapping_images</span><span class="p">(</span>
+      <span class="n">shared_observations</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">shared_observations</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">overlapping_images</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+            <span class="p">[](</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">image_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">image1</span><span class="p">,</span>
+               <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">image_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;&amp;</span> <span class="n">image2</span><span class="p">)</span> <span class="p">{</span>
+              <span class="k">return</span> <span class="n">image1</span><span class="p">.</span><span class="n">second</span> <span class="o">&gt;</span> <span class="n">image2</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+            <span class="p">});</span>
+
+
+   <span class="c1">// 局部bundle由给定图像及其连接最紧密的相邻图像组成，因此减去1 （为什么-1？）</span>
+
+   <span class="k">const</span> <span class="kt">size_t</span> <span class="n">num_images</span> <span class="o">=</span>
+         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">local_ba_num_images</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+   <span class="k">const</span> <span class="kt">size_t</span> <span class="n">num_eff_images</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">num_images</span><span class="p">,</span> <span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+   <span class="c1">// 提取最多连接的图像，并确保足够的三角剖分角度</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">local_bundle_image_ids</span><span class="p">;</span>
+   <span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">num_eff_images</span><span class="p">);</span>
+
+   <span class="c1">// 如果重叠图像的数量等于本地bundle中所需图像的数量，则只需复制图像标识符即可</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">num_eff_images</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">overlapping_image</span> <span class="p">:</span> <span class="n">overlapping_images</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">overlapping_image</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">local_bundle_image_ids</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 在下面的迭代中，从重叠最多的图像开始，并检查其是否具有足够的三角剖分角度。</span>
+   <span class="c1">// 如果没有一个重叠的图像具有足够的三角剖分角度，则放宽三角剖分阈值，然后从最重叠的图像重新开始。</span>
+   <span class="c1">// 最后如果仍然找不到足够的图像，则仅使用重叠度最高的图像</span>
+
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">min_tri_angle_rad</span> <span class="o">=</span> <span class="n">DegToRad</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">local_ba_min_tri_angle</span><span class="p">);</span>
+
+   <span class="c1">// 选择阈值（最小三角剖分，共享观测值的最小数量）被依次放宽</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">8</span><span class="o">&gt;</span> <span class="n">selection_thresholds</span> <span class="o">=</span> <span class="p">{{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">min_tri_angle_rad</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">()),</span>
+   <span class="p">}};</span>
+
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">proj_center</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">ProjectionCenter</span><span class="p">();</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">shared_points3D</span><span class="p">;</span>
+   <span class="n">shared_points3D</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">());</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">tri_angles</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">used_overlapping_images</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
+
+   <span class="c1">// 遍历每个三角剖分阈值</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">selection_threshold</span> <span class="p">:</span> <span class="n">selection_thresholds</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 遍历每个重叠的图像</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">overlapping_image_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="n">overlapping_image_idx</span> <span class="o">&lt;</span> <span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+         <span class="o">++</span><span class="n">overlapping_image_idx</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// 检查图像是否有足够的重叠。 由于图像是根据重叠进行排序的，因此在重叠不够后可以跳过其余图像。</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">].</span><span class="n">second</span> <span class="o">&lt;</span>
+            <span class="n">selection_threshold</span><span class="p">.</span><span class="n">second</span><span class="p">)</span>
+            <span class="k">break</span><span class="p">;</span>
+
+         <span class="c1">// 检查图像是否已经在本地bundle中</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">used_overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">])</span>
+           <span class="k">continue</span><span class="p">;</span>
+
+         <span class="c1">// 得到重叠的图像</span>
+         <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">overlapping_image</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Image</span><span class="p">(</span>
+             <span class="n">overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+
+         <span class="c1">// 得到重叠图像的投影中心</span>
+         <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">overlapping_proj_center</span> <span class="o">=</span>
+             <span class="n">overlapping_image</span><span class="p">.</span><span class="n">ProjectionCenter</span><span class="p">();</span>
+
+         <span class="c1">// 在第一次迭代中，计算三角剖分角度。 在以后的迭代中，重用先前计算的值</span>
+         <span class="kt">double</span><span class="o">&amp;</span> <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">tri_angles</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">];</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)</span> <span class="p">{</span>
+           <span class="c1">// 收集观察到的3D点</span>
+           <span class="n">shared_points3D</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+           <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">Point2D</span><span class="o">&amp;</span> <span class="nl">point2D</span> <span class="p">:</span> <span class="n">image</span><span class="p">.</span><span class="n">Points2D</span><span class="p">())</span> <span class="p">{</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">HasPoint3D</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">point3D_ids</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">()))</span> <span class="p">{</span>
+               <span class="n">shared_points3D</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+                   <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Point3D</span><span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">()).</span><span class="n">XYZ</span><span class="p">());</span>
+               <span class="p">}</span>
+            <span class="p">}</span>
+
+           <span class="c1">// 计算一定百分比的三角剖分角度</span>
+           <span class="k">const</span> <span class="kt">double</span> <span class="n">kTriangulationAnglePercentile</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+           <span class="n">tri_angle</span> <span class="o">=</span> <span class="n">Percentile</span><span class="p">(</span>
+               <span class="n">CalculateTriangulationAngles</span><span class="p">(</span><span class="n">proj_center</span><span class="p">,</span> <span class="n">overlapping_proj_center</span><span class="p">,</span>
+                                            <span class="n">shared_points3D</span><span class="p">),</span>
+               <span class="n">kTriangulationAnglePercentile</span><span class="p">);</span>
+         <span class="p">}</span>
+
+         <span class="c1">// 检查图像是否具有足够的三角剖分角度</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">tri_angle</span> <span class="o">&gt;=</span> <span class="n">selection_threshold</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">overlapping_image</span><span class="p">.</span><span class="n">ImageId</span><span class="p">());</span>
+            <span class="n">used_overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="c1">// 检查是否已经收集了足够的图像</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">num_eff_images</span><span class="p">)</span>
+               <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+
+      <span class="c1">// 检查是否已经收集了足够的图像</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">num_eff_images</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 如果没有足够的具有足够三角剖分角的图像，只需用最重叠的图像填充其余图像即可</span>
+
+   <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">num_eff_images</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">overlapping_image_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="n">overlapping_image_idx</span> <span class="o">&lt;</span> <span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+         <span class="o">++</span><span class="n">overlapping_image_idx</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// 收集图像（如果尚未在局部bundle中）</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">used_overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">])</span> <span class="p">{</span>
+            <span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+               <span class="n">overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+            <span class="n">used_overlapping_images</span><span class="p">[</span><span class="n">overlapping_image_idx</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+            <span class="c1">// 检测是否已经收集了足够的图像</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle_image_ids</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">num_eff_images</span><span class="p">)</span>
+               <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 返回局部bundle的图像id序列</span>
+   <span class="k">return</span> <span class="n">local_bundle_image_ids</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>该函数的要求是在重建中找到给定图像的局部bundle。</p>
+<p>该函数的步骤为：</p>
+<blockquote>
+<div><p>遍历给定图像的所有2D特征点的3D轨道，每条轨道都会计算其所有经过的图像的序号，最终所有特征点的3D点的轨道经过的图像在次数上会进行排序，称为 <code class="docutils literal notranslate"><span class="pre">overlapping_images</span></code> ，
+对该重叠图像的序列进行排序，通过控制三角剖分的阈值，从重叠最多的图像开始，并检查其是否具有足够的三角剖分角度，符合要求的加入到 <code class="docutils literal notranslate"><span class="pre">local_bundle_image_ids</span></code> 中，最后如果仍然找不到足够的图像，则仅使用重叠度最高的图像。
+最终返回局部bundle的图像id序列。</p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="estimateinitialtwoviewgeometry">
@@ -1351,11 +1543,13 @@
          <span class="p">}</span>
 
          <span class="k">const</span> <span class="n">Point2D</span><span class="o">&amp;</span> <span class="n">corr_point2D</span> <span class="o">=</span> <span class="n">corr_image</span><span class="p">.</span><span class="n">Point2D</span><span class="p">(</span><span class="n">corr</span><span class="p">.</span><span class="n">point2D_idx</span><span class="p">);</span>
+
+         <span class="c1">// 如果匹配点没有重建好的3D点，则跳过</span>
          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">corr_point2D</span><span class="p">.</span><span class="n">HasPoint3D</span><span class="p">())</span> <span class="p">{</span>
             <span class="k">continue</span><span class="p">;</span>
          <span class="p">}</span>
 
-         <span class="c1">// Avoid duplicate correspondences.</span>
+         <span class="c1">// 避免重复的匹配关系</span>
          <span class="k">if</span> <span class="p">(</span><span class="n">point3D_ids</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">corr_point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">continue</span><span class="p">;</span>
          <span class="p">}</span>
@@ -1373,6 +1567,7 @@
          <span class="k">const</span> <span class="n">Point3D</span><span class="o">&amp;</span> <span class="n">point3D</span> <span class="o">=</span>
             <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Point3D</span><span class="p">(</span><span class="n">corr_point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">());</span>
 
+         <span class="c1">// 图像2d点和对应匹配3d点关联</span>
          <span class="n">tri_corrs</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">point2D_idx</span><span class="p">,</span> <span class="n">corr_point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">());</span>
          <span class="n">point3D_ids</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">corr_point2D</span><span class="p">.</span><span class="n">Point3DId</span><span class="p">());</span>
          <span class="n">tri_points2D</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">point2D</span><span class="p">.</span><span class="n">XY</span><span class="p">());</span>
@@ -1380,9 +1575,8 @@
       <span class="p">}</span>
    <span class="p">}</span>
 
-   <span class="c1">// The size of `next_image.num_tri_obs` and `tri_corrs_point2D_idxs.size()`</span>
-   <span class="c1">// can only differ, when there are images with bogus camera parameters, and</span>
-   <span class="c1">// hence we skip some of the 2D-3D correspondences.</span>
+   <span class="c1">// 仅当存在带有伪造相机参数的图像时，“ next_image.num_tri_obs”和“ tri_corrs_point2D_idxs.size（）”的大小才能不同，</span>
+   <span class="c1">// 因此跳过了一些2D-3D对应关系。</span>
    <span class="k">if</span> <span class="p">(</span><span class="n">tri_points2D</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;</span>
          <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">abs_pose_min_num_inliers</span><span class="p">))</span> <span class="p">{</span>
       <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
@@ -1402,20 +1596,18 @@
    <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">max_error</span> <span class="o">=</span> <span class="n">options</span><span class="p">.</span><span class="n">abs_pose_max_error</span><span class="p">;</span>
    <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">min_inlier_ratio</span> <span class="o">=</span>
          <span class="n">options</span><span class="p">.</span><span class="n">abs_pose_min_inlier_ratio</span><span class="p">;</span>
-   <span class="c1">// Use high confidence to avoid preemptive termination of P3P RANSAC</span>
-   <span class="c1">// - too early termination may lead to bad registration.</span>
+   <span class="c1">// 使用高可信度来避免提前终止P3P RANSAC————太早终止可能会导致注册错误。</span>
    <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">min_num_trials</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
    <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">max_num_trials</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">;</span>
    <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">ransac_options</span><span class="p">.</span><span class="n">confidence</span> <span class="o">=</span> <span class="mf">0.99999</span><span class="p">;</span>
 
    <span class="n">AbsolutePoseRefinementOptions</span> <span class="n">abs_pose_refinement_options</span><span class="p">;</span>
    <span class="k">if</span> <span class="p">(</span><span class="n">num_reg_images_per_camera_</span><span class="p">[</span><span class="n">image</span><span class="p">.</span><span class="n">CameraId</span><span class="p">()]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// Camera already refined from another image with the same camera.</span>
+      <span class="c1">// 相机已经因为另外的图像而优化过。</span>
       <span class="k">if</span> <span class="p">(</span><span class="n">camera</span><span class="p">.</span><span class="n">HasBogusParams</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">min_focal_length_ratio</span><span class="p">,</span>
                                  <span class="n">options</span><span class="p">.</span><span class="n">max_focal_length_ratio</span><span class="p">,</span>
                                  <span class="n">options</span><span class="p">.</span><span class="n">max_extra_param</span><span class="p">))</span> <span class="p">{</span>
-         <span class="c1">// Previously refined camera has bogus parameters,</span>
-         <span class="c1">// so reset parameters and try to re-estimage.</span>
+         <span class="c1">// 先前优化的相机具有伪造的参数，因此重置参数并尝试重新建立图像。</span>
          <span class="n">camera</span><span class="p">.</span><span class="n">SetParams</span><span class="p">(</span><span class="n">database_cache_</span><span class="o">-&gt;</span><span class="n">Camera</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">CameraId</span><span class="p">()).</span><span class="n">Params</span><span class="p">());</span>
          <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">estimate_focal_length</span> <span class="o">=</span> <span class="o">!</span><span class="n">camera</span><span class="p">.</span><span class="n">HasPriorFocalLength</span><span class="p">();</span>
          <span class="n">abs_pose_refinement_options</span><span class="p">.</span><span class="n">refine_focal_length</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
@@ -1426,9 +1618,8 @@
          <span class="n">abs_pose_refinement_options</span><span class="p">.</span><span class="n">refine_extra_params</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
       <span class="p">}</span>
    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="c1">// Camera not refined before. Note that the camera parameters might have</span>
-      <span class="c1">// been changed before but the image was filtered, so we explicitly reset</span>
-      <span class="c1">// the camera parameters and try to re-estimate them.</span>
+
+      <span class="c1">// 相机未优化过。 之前可能已经更改了相机参数，但已过滤了图像，因此重置相机参数并尝试重新估计。</span>
       <span class="n">camera</span><span class="p">.</span><span class="n">SetParams</span><span class="p">(</span><span class="n">database_cache_</span><span class="o">-&gt;</span><span class="n">Camera</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">CameraId</span><span class="p">()).</span><span class="n">Params</span><span class="p">());</span>
       <span class="n">abs_pose_options</span><span class="p">.</span><span class="n">estimate_focal_length</span> <span class="o">=</span> <span class="o">!</span><span class="n">camera</span><span class="p">.</span><span class="n">HasPriorFocalLength</span><span class="p">();</span>
       <span class="n">abs_pose_refinement_options</span><span class="p">.</span><span class="n">refine_focal_length</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
@@ -1458,7 +1649,7 @@
    <span class="p">}</span>
 
   <span class="c1">//////////////////////////////////////////////////////////////////////////////</span>
-  <span class="c1">// Pose refinement</span>
+  <span class="c1">// 位姿BA优化</span>
   <span class="c1">//////////////////////////////////////////////////////////////////////////////</span>
 
    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">RefineAbsolutePose</span><span class="p">(</span><span class="n">abs_pose_refinement_options</span><span class="p">,</span> <span class="n">inlier_mask</span><span class="p">,</span>
@@ -1490,6 +1681,198 @@
    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="triangulate">
+<h3>Triangulate<a class="headerlink" href="#triangulate" title="永久链接至标题">¶</a></h3>
+<p>👉</p>
+<p><strong>TriangulateImage</strong></p>
+<p>对图像进行三角测量</p>
+<dl class="cpp function">
+<dt id="_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t">
+<span id="_CPPv3N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="_CPPv2N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="IncrementalMapper::TriangulateImage__IncrementalTriangulator::OptionsCR.image_tC"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">TriangulateImage</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em>, <em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">TriangulateImage</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">TriangulateImage</span><span class="p">(</span><span class="n">tri_options</span><span class="p">,</span> <span class="n">image_id</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Retriangulate</strong></p>
+<p>重新三角测量在场景图中有共同观测结果但不会引起漂移的图像对。</p>
+<p>要处理场景漂移，所采用的重投影误差阈值应相对较大。</p>
+<ul class="simple">
+<li><p>如果阈值太大，则非鲁棒的BA调整将失败。</p></li>
+<li><p>如果阈值太小，将无法有效地解决漂移问题。</p></li>
+</ul>
+<dl class="cpp function">
+<dt id="_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::Retriangulate__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Retriangulate</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">Retriangulate</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">Retriangulate</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>CompleteTracks</strong></p>
+<p>通过过渡性地遵循场景图对应关系来完成轨道。</p>
+<p>BA调整后，此函数特别有效，因为许多摄像机和点的位置可能已得到改善。</p>
+<p>完成轨道后，可以更好地注册新图像。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::CompleteTracks__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CompleteTracks</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">CompleteTracks</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">CompleteAllTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>MergeTracks</strong></p>
+<p>使用场景图对应关系来合并轨道，这在BA调整后有效，并改善了后续BA调整中的冗余性。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::MergeTracks__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">MergeTracks</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">MergeTracks</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+   <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">MergeAllTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adjustlocalbundle">
+<h3>AdjustLocalBundle<a class="headerlink" href="#adjustlocalbundle" title="永久链接至标题">¶</a></h3>
+<p>调整局部连接的图像和参考图像的点。</p>
+<p>此外，优化提供的3D点。 仅优化连接到参考图像的图像。 如果提供的3D点未局部连接到参考图像，则在调整中将其观察图像设置为常数。</p>
+<dl class="cpp function">
+<dt id="_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE">
+<span id="_CPPv3N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="_CPPv2N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="IncrementalMapper::AdjustLocalBundle__OptionsCR.BundleAdjustmentOptionsCR.IncrementalTriangulator::OptionsCR.image_tC.std::unordered_set:point3D_t:CR"></span><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">AdjustLocalBundle</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> BundleAdjustmentOptions &amp;<em>ba_options</em>, <em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em>, <em class="property">const</em> image_t <em>image_id</em>, <em class="property">const</em> std::unordered_set&lt;point3D_t&gt; &amp;<em>point3D_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">LocalBundleAdjustmentReport</span>
+<span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">AdjustLocalBundle</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span> <span class="k">const</span> <span class="n">BundleAdjustmentOptions</span><span class="o">&amp;</span> <span class="n">ba_options</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">,</span> <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">point3D_t</span><span class="o">&gt;&amp;</span> <span class="n">point3D_ids</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+   <span class="n">CHECK</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">());</span>
+
+   <span class="n">LocalBundleAdjustmentReport</span> <span class="n">report</span><span class="p">;</span>
+
+   <span class="c1">// 查找与给定的图像有最多公共3D点的图像</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">local_bundle</span> <span class="o">=</span> <span class="n">FindLocalBundle</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">image_id</span><span class="p">);</span>
+
+   <span class="c1">// 仅在有连接的图像的情况下进行BA调整</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">BundleAdjustmentConfig</span> <span class="n">ba_config</span><span class="p">;</span>
+      <span class="n">ba_config</span><span class="p">.</span><span class="n">AddImage</span><span class="p">(</span><span class="n">image_id</span><span class="p">);</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="nl">local_image_id</span> <span class="p">:</span> <span class="n">local_bundle</span><span class="p">)</span>
+         <span class="n">ba_config</span><span class="p">.</span><span class="n">AddImage</span><span class="p">(</span><span class="n">local_image_id</span><span class="p">);</span>
+
+      <span class="c1">// 如果指定了选项，则修复现有图像</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">fix_existing_images</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="nl">local_image_id</span> <span class="p">:</span> <span class="n">local_bundle</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">existing_image_ids_</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">local_image_id</span><span class="p">))</span>
+               <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantPose</span><span class="p">(</span><span class="n">local_image_id</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 当并非所有注册的图像都在当前局部BA中时，确定要修复的摄像机。</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">camera_t</span><span class="p">,</span> <span class="kt">size_t</span><span class="o">&gt;</span> <span class="n">num_images_per_camera</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="nl">image_id</span> <span class="p">:</span> <span class="n">ba_config</span><span class="p">.</span><span class="n">Images</span><span class="p">())</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="n">Image</span><span class="o">&amp;</span> <span class="n">image</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Image</span><span class="p">(</span><span class="n">image_id</span><span class="p">);</span>
+         <span class="n">num_images_per_camera</span><span class="p">[</span><span class="n">image</span><span class="p">.</span><span class="n">CameraId</span><span class="p">()]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">camera_id_and_num_images_pair</span> <span class="p">:</span> <span class="n">num_images_per_camera</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="kt">size_t</span> <span class="n">num_reg_images_for_camera</span> <span class="o">=</span>
+             <span class="n">num_reg_images_per_camera_</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">camera_id_and_num_images_pair</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">camera_id_and_num_images_pair</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;</span> <span class="n">num_reg_images_for_camera</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantCamera</span><span class="p">(</span><span class="n">camera_id_and_num_images_pair</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 修复7自由度，以避免在BA调整中出现比例/旋转/平移漂移</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantPose</span><span class="p">(</span><span class="n">local_bundle</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+         <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantTvec</span><span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">});</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span> <span class="o">=</span> <span class="n">local_bundle</span><span class="p">[</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+         <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span> <span class="o">=</span> <span class="n">local_bundle</span><span class="p">[</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span>
+         <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantPose</span><span class="p">(</span><span class="n">image_id1</span><span class="p">);</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">options</span><span class="p">.</span><span class="n">fix_existing_images</span> <span class="o">||</span>
+             <span class="o">!</span><span class="n">existing_image_ids_</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">image_id2</span><span class="p">))</span> <span class="p">{</span>
+           <span class="n">ba_config</span><span class="p">.</span><span class="n">SetConstantTvec</span><span class="p">(</span><span class="n">image_id2</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">});</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// Make sure, we refine all new and short-track 3D points, no matter if</span>
+      <span class="c1">// they are fully contained in the local image set or not. Do not include</span>
+      <span class="c1">// long track 3D points as they are usually already very stable and adding</span>
+      <span class="c1">// to them to bundle adjustment and track merging/completion would slow</span>
+      <span class="c1">// down the local bundle adjustment significantly.</span>
+
+      <span class="c1">// 确保完善所有新的和短轨道的3D点，无论它们是否完全包含在局部图像集中。</span>
+      <span class="c1">// 注意: 不要包括长距离3D点，因为它们通常已经非常稳定，将它们添加到BA调整中的轨道合并/完成会大大减慢局部BA调整的速度。</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">point3D_t</span><span class="o">&gt;</span> <span class="n">variable_point3D_ids</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">point3D_t</span> <span class="nl">point3D_id</span> <span class="p">:</span> <span class="n">point3D_ids</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">const</span> <span class="n">Point3D</span><span class="o">&amp;</span> <span class="n">point3D</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">Point3D</span><span class="p">(</span><span class="n">point3D_id</span><span class="p">);</span>
+         <span class="k">const</span> <span class="kt">size_t</span> <span class="n">kMaxTrackLength</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">point3D</span><span class="p">.</span><span class="n">HasError</span><span class="p">()</span> <span class="o">||</span> <span class="n">point3D</span><span class="p">.</span><span class="n">Track</span><span class="p">().</span><span class="n">Length</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">kMaxTrackLength</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ba_config</span><span class="p">.</span><span class="n">AddVariablePoint</span><span class="p">(</span><span class="n">point3D_id</span><span class="p">);</span>
+            <span class="n">variable_point3D_ids</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">point3D_id</span><span class="p">);</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 调整局部bundle</span>
+      <span class="n">BundleAdjuster</span> <span class="n">bundle_adjuster</span><span class="p">(</span><span class="n">ba_options</span><span class="p">,</span> <span class="n">ba_config</span><span class="p">);</span>
+      <span class="n">bundle_adjuster</span><span class="p">.</span><span class="n">Solve</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+
+      <span class="n">report</span><span class="p">.</span><span class="n">num_adjusted_observations</span> <span class="o">=</span>
+         <span class="n">bundle_adjuster</span><span class="p">.</span><span class="n">Summary</span><span class="p">().</span><span class="n">num_residuals</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+      <span class="c1">// 将完善的轨道与其他现有点合并</span>
+      <span class="n">report</span><span class="p">.</span><span class="n">num_merged_observations</span> <span class="o">=</span>
+         <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">MergeTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">,</span> <span class="n">variable_point3D_ids</span><span class="p">);</span>
+
+      <span class="c1">// 完整的轨道可能在完善相机位姿和进行BA调整中的校准之前进行三角化会失败</span>
+      <span class="c1">// 这样可以避免对某些点进行过滤，并有助于后续的图像配准</span>
+      <span class="n">report</span><span class="p">.</span><span class="n">num_completed_observations</span> <span class="o">=</span>
+         <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">CompleteTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">,</span> <span class="n">variable_point3D_ids</span><span class="p">);</span>
+      <span class="n">report</span><span class="p">.</span><span class="n">num_completed_observations</span> <span class="o">+=</span>
+         <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">CompleteImage</span><span class="p">(</span><span class="n">tri_options</span><span class="p">,</span> <span class="n">image_id</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 过滤修改的图像和所有更改的3D点，以确保模型中没有异常点。</span>
+   <span class="c1">// 这将导致重复工作，因为许多提供的3D点也可能包含在调整后的图像中。</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">filter_image_ids</span><span class="p">;</span>
+   <span class="n">filter_image_ids</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">image_id</span><span class="p">);</span>
+   <span class="n">filter_image_ids</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">local_bundle</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">local_bundle</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+   <span class="n">report</span><span class="p">.</span><span class="n">num_filtered_observations</span> <span class="o">=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">FilterPoints3DInImages</span><span class="p">(</span>
+      <span class="n">options</span><span class="p">.</span><span class="n">filter_max_reproj_error</span><span class="p">,</span> <span class="n">options</span><span class="p">.</span><span class="n">filter_min_tri_angle</span><span class="p">,</span>
+      <span class="n">filter_image_ids</span><span class="p">);</span>
+   <span class="n">report</span><span class="p">.</span><span class="n">num_filtered_observations</span> <span class="o">+=</span> <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">FilterPoints3D</span><span class="p">(</span>
+      <span class="n">options</span><span class="p">.</span><span class="n">filter_max_reproj_error</span><span class="p">,</span> <span class="n">options</span><span class="p">.</span><span class="n">filter_min_tri_angle</span><span class="p">,</span>
+      <span class="n">point3D_ids</span><span class="p">);</span>
+
+   <span class="k">return</span> <span class="n">report</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>没看懂， 有空再看。</p>
 </div>
 </div>
 </div>

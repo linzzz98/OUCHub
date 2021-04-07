@@ -7,7 +7,6 @@ Generalized_RelativePose
 
     \ `Efficient Computation of Relative Pose for Multi-Camera Systems <https://openaccess.thecvf.com/content_cvpr_2014/papers/Kneip_Efficient_Computation_of_2014_CVPR_paper.pdf>`_
 
-
 .. cpp:class:: GR6PEstimator
 
 成员变量
@@ -31,11 +30,11 @@ Generalized_RelativePose
 
    左图像的归一化图像特征点
 
-.. cpp:type:: Eigen::Matrix3x4d M_t;
+.. cpp:type:: Eigen::Matrix3x4d GR6PEstimator::M_t;
 
    两个广义相机之间的相对转换
 
-.. cpp:member:: static const int kMinNumSamples = 8;
+.. cpp:member:: static const int GR6PEstimator::kMinNumSamples = 8;
 
    估计模型所需的最少样本数
 
@@ -48,5 +47,3 @@ Generalized_RelativePose
 
 Estimate
 ~~~~~~~~~
-
-   .. cpp:function::

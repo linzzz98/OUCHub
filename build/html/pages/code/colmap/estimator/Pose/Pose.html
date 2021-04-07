@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>1. Pose &mdash; OUCHub 0.1 文档</title>
+  <title>1. Pose &mdash; OUCHub  文档</title>
   
 
   
@@ -114,7 +114,14 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1. Pose</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">结构体</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">成员变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">成员函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">成员函数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#estimateabsoluteposekernel">EstimateAbsolutePoseKernel</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimateabsolutepose">EstimateAbsolutePose</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimaterelativepose">EstimateRelativePose</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#refineabsolutepose">RefineAbsolutePose</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#refinerelativepose">RefineRelativePose</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../Utils/Utils.html">2. Utils</a></li>
@@ -125,8 +132,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../Transform/SimilarityTransform/SimilarityTransform.html">7. SimilarityTransform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Transform/TranslationTransform/TranslationTransform.html">8. TranslationTransform</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../TwoViewGeometry/TwoViewGeometry.html">9. TwoViewGeometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html">10. Generalized_RelativePose</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../c_sfm.html">SfM Pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -286,9 +295,10 @@
 </div>
 <div class="section" id="id3">
 <h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<ol class="arabic">
-<li><p><strong>EstimateAbsolutePoseKernel</strong></p>
-<dl class="cpp function">
+<div class="section" id="estimateabsoluteposekernel">
+<h3>EstimateAbsolutePoseKernel<a class="headerlink" href="#estimateabsoluteposekernel" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><dl class="cpp function">
 <dt id="_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE">
 <span id="_CPPv326EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="_CPPv226EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="EstimateAbsolutePoseKernel__CameraCR.doubleC.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.RANSACOptionsCR.AbsolutePoseRANSAC::ReportP"></span>void <code class="sig-name descname">EstimateAbsolutePoseKernel</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera</em>, <em class="property">const</em> double <em>focal_length_factor</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, <em class="property">const</em> RANSACOptions &amp;<em>options</em>, <a class="reference internal" href="#_CPPv418AbsolutePoseRANSAC" title="AbsolutePoseRANSAC">AbsolutePoseRANSAC</a>::Report *<em>report</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
@@ -330,9 +340,12 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</li>
-<li><p><strong>EstimateAbsolutePose</strong></p>
-<p>根据2D-3D对应关系估算绝对姿势（焦距可选）</p>
+</div></blockquote>
+</div>
+<div class="section" id="estimateabsolutepose">
+<h3>EstimateAbsolutePose<a class="headerlink" href="#estimateabsolutepose" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>根据2D-3D对应关系估算绝对姿势（焦距可选）</p>
 <p>使用给定相机的焦距周围的离散采样执行焦距估计。 导致最大的inliers的焦距被分配给给定的摄像机。</p>
 <dl class="cpp function">
 <dt id="_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE">
@@ -478,9 +491,12 @@
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>EstimateRelativePose</strong></p>
-<p>从2D-2D对应关系估计相对值</p>
+</div></blockquote>
+</div>
+<div class="section" id="estimaterelativepose">
+<h3>EstimateRelativePose<a class="headerlink" href="#estimaterelativepose" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>从2D-2D对应关系估计相对值</p>
 <p>假定第一台摄像机的位姿是在原点且没有旋转。第二个相机的位姿作为世界到图像的转换而给出，即：</p>
 <div class="math notranslate nohighlight">
 \[x_2 = [R | t] * X_2\]</div>
@@ -564,9 +580,12 @@
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>RefineAbsolutePose</strong></p>
-<p>从2D-3D对应关系中细化绝对位姿（焦距可选）</p>
+</div></blockquote>
+</div>
+<div class="section" id="refineabsolutepose">
+<h3>RefineAbsolutePose<a class="headerlink" href="#refineabsolutepose" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>从2D-3D对应关系中细化绝对位姿（焦距可选）</p>
 <dl class="cpp function">
 <dt id="_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera">
 <span id="_CPPv318RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="_CPPv218RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="RefineAbsolutePose__AbsolutePoseRefinementOptionsCR.std::vector:c:CR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP"></span>bool <code class="sig-name descname">RefineAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv429AbsolutePoseRefinementOptions" title="AbsolutePoseRefinementOptions">AbsolutePoseRefinementOptions</a> &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;char&gt; &amp;<em>inlier_mask</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em>, Camera *<em>camera</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera" title="永久链接至目标">¶</a><br /></dt>
@@ -865,9 +884,12 @@
 </li>
 </ol>
 </div>
-</li>
-<li><p><strong>RefineRelativePose</strong></p>
-<p>优化两个相机的相对位姿。</p>
+</div></blockquote>
+</div>
+<div class="section" id="refinerelativepose">
+<h3>RefineRelativePose<a class="headerlink" href="#refinerelativepose" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>优化两个相机的相对位姿。</p>
 <p>使用鲁棒的成本函数将对应归一化点之间的Sampson误差最小化，即在给定相对位姿的足够初始猜测的前提下，对应点不一定非是整数。</p>
 <p>假设第一个摄像机位姿具有投影矩阵 <span class="math notranslate nohighlight">\(P = [I | 0]\)</span> ，第二个摄影机的位姿作为从世界到摄影机系统的转换而给出。</p>
 <p>假设已将给定的位移向量归一化，并将位移精确度提高到未知尺度（即，位移向量进行细化还是单位向量）。</p>
@@ -960,8 +982,8 @@
 </li>
 </ol>
 </div>
-</li>
-</ol>
+</div></blockquote>
+</div>
 </div>
 </div>
 

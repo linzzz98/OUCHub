@@ -77,7 +77,8 @@ Pose
 成员函数
 -----------------
 
-1. **EstimateAbsolutePoseKernel**
+EstimateAbsolutePoseKernel
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    .. cpp:function:: void EstimateAbsolutePoseKernel(const Camera& camera,const double focal_length_factor,const std::vector<Eigen::Vector2d>& points2D,const std::vector<Eigen::Vector3d>& points3D,const RANSACOptions& options,AbsolutePoseRANSAC::Report* report)
 
@@ -119,7 +120,8 @@ Pose
          *report = ransac.Estimate(points2D_N, points3D);
       }
 
-2. **EstimateAbsolutePose**
+EstimateAbsolutePose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    根据2D-3D对应关系估算绝对姿势（焦距可选）
 
@@ -274,7 +276,8 @@ Pose
          *qvec = RotationMatrixToQuaternion(proj_matrix.leftCols<3>());
          *tvec = proj_matrix.rightCols<1>();
 
-3. **EstimateRelativePose**
+EstimateRelativePose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    从2D-2D对应关系估计相对值
 
@@ -363,7 +366,8 @@ Pose
          PoseFromEssentialMatrix(report.model, inliers1, inliers2, &R, tvec, &points3D);
 
 
-4. **RefineAbsolutePose**
+RefineAbsolutePose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    从2D-3D对应关系中细化绝对位姿（焦距可选）
 
@@ -687,7 +691,8 @@ Pose
             ceres::Solver::Summary summary;
             ceres::Solve(solver_options, &problem, &summary);
 
-5. **RefineRelativePose**
+RefineRelativePose
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    优化两个相机的相对位姿。
 

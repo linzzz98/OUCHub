@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>1. Camera &mdash; OUCHub 0.1 文档</title>
+  <title>1. Camera &mdash; OUCHub  文档</title>
   
 
   
@@ -132,9 +132,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../Image/Image.html">5. Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Matrix/Matrix.html">6. Matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Triangulation/Triangulation.html">7. Triangulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Reconstruction/Reconstruction.html">8. Reconstrucion</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../c_estimator.html">Estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../c_sfm.html">SfM Pipeline</a></li>
 </ul>
 </li>
 </ul>
@@ -821,7 +823,7 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>假设设备中至少有一对摄像机的基线为非零，否则该函数返回NaN。</p>
 <dl class="cpp function">
 <dt id="_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction">
-<span id="_CPPv3NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="_CPPv2NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="CameraRig::ComputeScale__ReconstructionCRC"></span>double <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeScale</code><span class="sig-paren">(</span><em class="property">const</em> Reconstruction &amp;<em>reconstruction</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<span id="_CPPv3NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="_CPPv2NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="CameraRig::ComputeScale__ReconstructionCRC"></span>double <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeScale</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="6">
@@ -831,7 +833,7 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>参考摄像机的姿势将是Identity。 这假定摄影机装置有在重建中配准的快照。</p>
 <dl class="cpp function">
 <dt id="_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction">
-<span id="_CPPv3N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="_CPPv2N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="CameraRig::ComputeRelativePoses__ReconstructionCR"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeRelativePoses</code><span class="sig-paren">(</span><em class="property">const</em> Reconstruction &amp;<em>reconstruction</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<span id="_CPPv3N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="_CPPv2N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="CameraRig::ComputeRelativePoses__ReconstructionCR"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeRelativePoses</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="7">
@@ -840,7 +842,7 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>装置的绝对摄影机位姿计算为装置中所有相对摄影机位姿及其在重建中对应图像位姿的平均值。</p>
 <dl class="cpp function">
 <dt id="_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
-<span id="_CPPv3NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv2NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="CameraRig::ComputeAbsolutePose__sC.ReconstructionCR.Eigen::Vector4dP.Eigen::Vector3dPC"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>snapshot_idx</em>, <em class="property">const</em> Reconstruction &amp;<em>reconstruction</em>, Eigen::Vector4d *<em>abs_qvec</em>, Eigen::Vector3d *<em>abs_tvec</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<span id="_CPPv3NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv2NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="CameraRig::ComputeAbsolutePose__sC.ReconstructionCR.Eigen::Vector4dP.Eigen::Vector3dPC"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>snapshot_idx</em>, <em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em>, Eigen::Vector4d *<em>abs_qvec</em>, Eigen::Vector3d *<em>abs_tvec</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
