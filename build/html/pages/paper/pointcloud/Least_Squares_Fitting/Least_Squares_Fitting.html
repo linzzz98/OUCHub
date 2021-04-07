@@ -195,7 +195,7 @@
             
   <div class="section" id="least-squares-fitting-of-two-3-d-point-sets">
 <h1><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets<a class="headerlink" href="#least-squares-fitting-of-two-3-d-point-sets" title="永久链接至标题">¶</a></h1>
-<p>👉 <a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4767965">原文链接</a></p>
+<p>👉 <a class="reference external" href="https://www.math.pku.edu.cn/teachers/yaoy/Fall2011/arun.pdf">原文链接</a></p>
 <div class="section" id="introduction">
 <h2><span class="section-number">2.1. </span>INTRODUCTION<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
 <p>给定两组3D点云集合 <span class="math notranslate nohighlight">\(\{p_i\}\)</span> 和 <span class="math notranslate nohighlight">\(\{p_i'\}\)</span> （ <span class="math notranslate nohighlight">\(3 \times 1\)</span> ），从而有</p>
@@ -270,29 +270,31 @@
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 F &amp;=&amp; \sum\limits_{i=1}^N q_i'^TRq_i \\
-&amp;=&amp; Trace(\sum\limits_{i=1}^N Rq_iq_i'^T) = Trace(RH)
+&amp;=&amp; \sum\limits_{i=1}^N Trace(q_i'^TRq_i)\\
+&amp;=&amp; \sum\limits_{i=1}^N Trace(Rq_iq_i'^T)\\
+&amp;=&amp; Trace (\sum\limits_{i=1}^N Rq_iq_i'^T)\\
+&amp;=&amp; Trace (R \sum\limits_{i=1}^N q_iq_i'^T)\\
+&amp;=&amp; Trace(RH)
 \end{eqnarray}\end{split}\]</div>
 <p>定义：</p>
 <div class="math notranslate nohighlight">
 \[H \triangleq \sum\limits_{i=1}^N q_iq_i'^T\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<dl class="field-list">
-<dt class="field-odd">二次型的迹的性质</dt>
-<dd class="field-odd"><p>设 <span class="math notranslate nohighlight">\(x\)</span> 是一个 <span class="math notranslate nohighlight">\(n \times 1\)</span> 的列向量，二次型为 <span class="math notranslate nohighlight">\(x'Ax\)</span> ，二次型是一个 <span class="math notranslate nohighlight">\(1\times 1\)</span>  的矩阵，其迹为自身：</p>
-<div class="math notranslate nohighlight">
-\[x'Ax = Trace(x'Ax) = Trace(Axx') = tr(xx'A)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">性质</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(Trace(AB) = Trace(BA)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Trace(A+B) = Trace(A) + Trace(B)\)</span></p></li>
+</ol>
 </dd>
 </dl>
-<p>根据这个性质，由于 <span class="math notranslate nohighlight">\(q_i'^TRq_i\)</span> 为 <span class="math notranslate nohighlight">\(1 \times 1\)</span> 的“伪二次型”，且 <span class="math notranslate nohighlight">\(q_i,q_i'\)</span> 均为  <span class="math notranslate nohighlight">\(3 \times 1\)</span> 维，因此有：</p>
-<div class="math notranslate nohighlight">
-\[\sum\limits_{i=1}^N q_i'^TRq_i = Trace(\sum\limits_{i=1}^N Rq_iq_i'^T)\]</div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <dl class="field-list">
 <dt class="field-odd">引理</dt>
-<dd class="field-odd"><p>对于任何正定矩阵 <span class="math notranslate nohighlight">\(AA'\)</span> 和任何正交矩阵 <span class="math notranslate nohighlight">\(B\)</span> ，有</p>
+<dd class="field-odd"><p>对于任何正定矩阵 <span class="math notranslate nohighlight">\(AA^T\)</span> 和任何正交矩阵 <span class="math notranslate nohighlight">\(B\)</span> ，有</p>
 <div class="math notranslate nohighlight">
 \[Trace(AA^T) \ge Trace(BAA^T)\]</div>
 </dd>
@@ -318,10 +320,11 @@ F &amp;=&amp; \sum\limits_{i=1}^N q_i'^TRq_i \\
 </dl>
 </div>
 </div>
+<p>从而问题转换为：求一个  <span class="math notranslate nohighlight">\(X\)</span>  ，使  <span class="math notranslate nohighlight">\(XH\)</span>  可以表示为  <span class="math notranslate nohighlight">\(AA^T\)</span>  的形式</p>
 <p>对 <span class="math notranslate nohighlight">\(H\)</span> 矩阵进行SVD奇异值分解：</p>
 <div class="math notranslate nohighlight">
 \[H = U \Sigma V^T\]</div>
-<p>可以得到：</p>
+<p>令：</p>
 <div class="math notranslate nohighlight">
 \[X = VU^T\]</div>
 <p>从而：</p>

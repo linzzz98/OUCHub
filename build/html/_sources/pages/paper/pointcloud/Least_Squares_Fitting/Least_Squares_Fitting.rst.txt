@@ -1,7 +1,7 @@
 Least-Squares Fitting of Two 3-D Point Sets
 =================================================
 
-|:point_right:| \ `原文链接 <https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4767965>`_
+|:point_right:| \ `原文链接 <https://www.math.pku.edu.cn/teachers/yaoy/Fall2011/arun.pdf>`_
 
 INTRODUCTION
 --------------
@@ -122,7 +122,11 @@ AN SVD ALGORITHM FOR FINDING  :math:`\hat{R}`
 
    \begin{eqnarray}
    F &=& \sum\limits_{i=1}^N q_i'^TRq_i \\
-   &=& Trace(\sum\limits_{i=1}^N Rq_iq_i'^T) = Trace(RH)
+   &=& \sum\limits_{i=1}^N Trace(q_i'^TRq_i)\\
+   &=& \sum\limits_{i=1}^N Trace(Rq_iq_i'^T)\\
+   &=& Trace (\sum\limits_{i=1}^N Rq_iq_i'^T)\\
+   &=& Trace (R \sum\limits_{i=1}^N q_iq_i'^T)\\
+   &=& Trace(RH)
    \end{eqnarray}
 
 定义：
@@ -133,25 +137,17 @@ AN SVD ALGORITHM FOR FINDING  :math:`\hat{R}`
 
 .. note::
 
-   :二次型的迹的性质:
+   :性质:
 
-      设 :math:`x` 是一个 :math:`n \times 1` 的列向量，二次型为 :math:`x'Ax` ，二次型是一个 :math:`1\times 1`  的矩阵，其迹为自身：
+      (1) :math:`Trace(AB) = Trace(BA)`
 
-      .. math::
-
-         x'Ax = Trace(x'Ax) = Trace(Axx') = tr(xx'A)
-
-   根据这个性质，由于 :math:`q_i'^TRq_i` 为 :math:`1 \times 1` 的“伪二次型”，且 :math:`q_i,q_i'` 均为  :math:`3 \times 1` 维，因此有：
-
-   .. math::
-
-      \sum\limits_{i=1}^N q_i'^TRq_i = Trace(\sum\limits_{i=1}^N Rq_iq_i'^T)
+      (2) :math:`Trace(A+B) = Trace(A) + Trace(B)`
 
 .. important::
 
    :引理:
 
-      对于任何正定矩阵 :math:`AA'` 和任何正交矩阵 :math:`B` ，有
+      对于任何正定矩阵 :math:`AA^T` 和任何正交矩阵 :math:`B` ，有
 
       .. math::
 
@@ -187,13 +183,15 @@ AN SVD ALGORITHM FOR FINDING  :math:`\hat{R}`
 
             Trace(BAA^T) \le \sum\limits_i a_i^Ta_i = Trace(AA^T)
 
+从而问题转换为：求一个  :math:`X`  ，使  :math:`XH`  可以表示为  :math:`AA^T`  的形式
+
 对 :math:`H` 矩阵进行SVD奇异值分解：
 
 .. math::
 
    H = U \Sigma V^T
 
-可以得到：
+令：
 
 .. math::
 
