@@ -61,7 +61,7 @@ DECOUPLING TRANSLATION AND ROTATION
 
 .. math::
 
-   \Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2 + n||p' - (Rp + T)||
+   \Sigma^2 =  \sum\limits_{i=1}^N ||q_i' - Rq_i||^2 + n||p' - (Rp + T)||^2
 
 因为左右两边都 :math:`\ge 0`，且左边只与 :math:`R` 相关，因此可以先求出 :math:`R` 再利用 :math:`R` 求出第二项。
 
