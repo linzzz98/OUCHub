@@ -339,7 +339,7 @@ SUMMARY OF ALGORITHM
 
    * 如果 :math:`det(X) = -1`
 
-      *  :math:`H` 的一个奇异值（例如 :math:`\lambda_3` ）为零，那么
+      *  :math:`H` 的一个奇异值（例如 :math:`\sigma_3` ）为零，那么
 
          .. math::
 
