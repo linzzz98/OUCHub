@@ -359,7 +359,7 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <p>根据性质，一定可以把任意一个镜面变换拆成一个关于  <span class="math notranslate nohighlight">\(Z = 0\)</span>  的镜面变换与一个旋转变换。也就是变成：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}R' = \left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right] R\end{split}\]</div>
-<p>之前使用SVD求解的 <span class="math notranslate nohighlight">\(R\)</span> 一定是一个正交矩阵，但是并不是所有的正交矩阵都是旋转矩阵，也可能是一个反射矩阵（或者说包含了反射变换的矩阵）。因此我们还需要对所求得的 R 进行行列式判断：</p>
+<p>之前使用SVD求解的 <span class="math notranslate nohighlight">\(X\)</span> 一定是一个正交矩阵，但是并不是所有的正交矩阵都是旋转矩阵，也可能是一个反射矩阵（或者说包含了反射变换的矩阵）。因此我们还需要对所求得的 <span class="math notranslate nohighlight">\(X\)</span> 进行行列式判断：</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(det(X) = 1\)</span>  ，则所求的 <span class="math notranslate nohighlight">\(R\)</span> 是所求的旋转矩阵。</p></li>
 <li><p><span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则所求的 <span class="math notranslate nohighlight">\(R\)</span> 包含了镜像。</p></li>
