@@ -109,8 +109,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#introduction">2.1. INTRODUCTION</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#decoupling-translation-and-rotation">2.2. DECOUPLING TRANSLATION AND ROTATION</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#an-svd-algorithm-for-finding-hat-r">2.3. AN SVD ALGORITHM FOR FINDING  <span class="math notranslate nohighlight">\(\hat{R}\)</span></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#noiseless-case">2.4. NOISELESS CASE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#summary-of-algorithm">2.5. SUMMARY OF ALGORITHM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reflection">2.4. REFLECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#noiseless-case">2.5. NOISELESS CASE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-algorithm">2.6. SUMMARY OF ALGORITHM</a></li>
 </ul>
 </li>
 </ul>
@@ -339,8 +340,33 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <p>因此，在所有 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵中， <span class="math notranslate nohighlight">\(X\)</span> 使 <span class="math notranslate nohighlight">\(F\)</span> 最大化。 如果 <span class="math notranslate nohighlight">\(det(X) = +1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是所求的旋转。</p>
 <p>但是，如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是 <code class="docutils literal notranslate"><span class="pre">reflection（镜像对称）</span></code></p>
 </div>
+<div class="section" id="reflection">
+<h2><span class="section-number">2.4. </span>REFLECTION<a class="headerlink" href="#reflection" title="永久链接至标题">¶</a></h2>
+<p>Reflection称为反射变换（镜面反射），在数学上反射是把一个物体变换成它的镜像的映射。要反射一个平面图形，需要“镜子”是一条直线（反射轴），对于三维空间中的反射就要使用平面作为镜子。</p>
+<p>反射变换同样是一个 <strong>正交矩阵</strong> ，显而易见它满足如下性质：</p>
+<ul class="simple">
+<li><p>镜面反射是正交变换。</p></li>
+<li><p>镜面反射的逆变换为镜面反射。</p></li>
+<li><p>任意一个正交变换都可以表示成若干个镜面反射的乘积。</p></li>
+</ul>
+<p>旋转变换和反射变换具有如下特性：</p>
+<ul class="simple">
+<li><p>旋转矩阵和反射矩阵都是正交矩阵</p></li>
+<li><p>旋转矩阵的行列式值为 +1，反射矩阵的行列值为 -1</p></li>
+<li><p>旋转矩阵  <span class="math notranslate nohighlight">\(R(\theta)\)</span>  的逆矩阵为 <span class="math notranslate nohighlight">\(R(-\theta)\)</span>，反射矩阵的逆矩阵为其本身。也可以记为：旋转矩阵 <span class="math notranslate nohighlight">\(RR^T = I\)</span>，反射矩阵 <span class="math notranslate nohighlight">\(R'R'=I\)</span></p></li>
+</ul>
+<p>最简单的反射变换是沿某个轴/面的镜像，例如相对于 <span class="math notranslate nohighlight">\(Z = 0\)</span> 平面的镜像变换为：  <span class="math notranslate nohighlight">\(\left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right]\)</span></p>
+<p>根据性质，一定可以把任意一个镜面变换拆成一个关于  <span class="math notranslate nohighlight">\(Z = 0\)</span>  的镜面变换与一个旋转变换。也就是变成：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R' = \left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right] R\end{split}\]</div>
+<p>之前使用SVD求解的 <span class="math notranslate nohighlight">\(R\)</span> 一定是一个正交矩阵，但是并不是所有的正交矩阵都是旋转矩阵，也可能是一个反射矩阵（或者说包含了反射变换的矩阵）。因此我们还需要对所求得的 R 进行行列式判断：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(det(X) = 1\)</span>  ，则所求的 <span class="math notranslate nohighlight">\(R\)</span> 是所求的旋转矩阵。</p></li>
+<li><p><span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则所求的 <span class="math notranslate nohighlight">\(R\)</span> 包含了镜像。</p></li>
+</ul>
+</div>
 <div class="section" id="noiseless-case">
-<h2><span class="section-number">2.4. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.5. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题">¶</a></h2>
 <p>假设没有噪声（ <span class="math notranslate nohighlight">\(N_i = 0\)</span> ），很显然有一个解 <span class="math notranslate nohighlight">\(\hat{R}\)</span> （ <span class="math notranslate nohighlight">\(det(\hat{R}) = 1\)</span> ）。</p>
 <p>因为 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span>，所以 <span class="math notranslate nohighlight">\(\{q_i'\}\)</span> 和 <span class="math notranslate nohighlight">\(\{\hat{R} q_i\}\)</span> 是全等的。</p>
 <p>从几何方面考虑，很容易看出对于 <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 上的点有三种情况：</p>
@@ -354,32 +380,33 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <dd class="field-even"><p>解有一个唯一的旋转以及一个唯一的镜像对称使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
 </dd>
 <dt class="field-odd">共线</dt>
-<dd class="field-odd"><p>解有无限多的旋转和镜像对称使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
+<dd class="field-odd"><p>有无限多的旋转和镜像对称的解使 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span></p>
 </dd>
 </dl>
 </div>
-<p>回到共面的情况下，可以很容易的证明，当且仅当 <span class="math notranslate nohighlight">\(H\)</span> 的三个奇异值之一为0时，点 <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 是共面的。 令三个奇异值分别为 <span class="math notranslate nohighlight">\(\lambda_1 &gt; \lambda_2 &gt; \lambda_3 = 0\)</span> ，从而</p>
+<p>对于共面的情况， <span class="math notranslate nohighlight">\(H\)</span> 的秩为2，即：</p>
 <div class="math notranslate nohighlight">
-\[H = \lambda_1 u_1v_1^T + \lambda_2 u_2 v_2^T + 0· u_3v_3^T\]</div>
-<p>这里的 <span class="math notranslate nohighlight">\(u_i\)</span> 和 <span class="math notranslate nohighlight">\(v_i\)</span> 是 <span class="math notranslate nohighlight">\(U,V\)</span> 的列向量。</p>
-<div class="admonition caution">
-<p class="admonition-title">警告</p>
-<p>更改 <span class="math notranslate nohighlight">\(u_3\)</span> 或 <span class="math notranslate nohighlight">\(v_3\)</span> 的符号不会更改 <span class="math notranslate nohighlight">\(H\)</span> 的值。</p>
-<p>因此，如果 <span class="math notranslate nohighlight">\(X = VU^T\)</span> 最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> ，那么 <span class="math notranslate nohighlight">\(X' = V'U^T\)</span> 也会最小化 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 。</p>
-<p>这里 <span class="math notranslate nohighlight">\(V' = [v_1,v_2,-v_3]\)</span></p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">重要</p>
-<p>如果 <span class="math notranslate nohighlight">\(X\)</span> 镜像对称，则 <span class="math notranslate nohighlight">\(X'\)</span> 是旋转，反之亦然。</p>
-<p>因此，如果SVD算法给出的解 <span class="math notranslate nohighlight">\(X\)</span> 为 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X'= V'U^T\)</span> 即为所需的旋转。</p>
-</div>
+\[\begin{split}H = U \Sigma V^T = U \left[\begin{matrix}\sigma_1 &amp; 0 &amp; 0\\0 &amp; \sigma_2 &amp; 0\\0 &amp; 0 &amp; 0\end{matrix}\right]\end{split}\]</div>
+<p>由于 SVD 分解特征值是从大到小排序，则一定有：</p>
+<div class="math notranslate nohighlight">
+\[H = \sigma_1 u_1v_1^T + \sigma_2 u_2 v_2^T + \sigma_3· u_3v_3^T = \sigma_1 u_1v_1^T + \sigma_2 u_2 v_2^T + 0 · u_3v_3^T\]</div>
+<div class="math notranslate nohighlight">
+\[\sigma_1 &gt; \sigma_2 &gt; \sigma_3 = 0\]</div>
+<p>如果存在一个解  <span class="math notranslate nohighlight">\(X = VU^T = [v_1,v_2,v_3]U^T\)</span> 满足以上 <span class="math notranslate nohighlight">\(H\)</span> 取得极大值，则一定有镜像变换：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R' = V'U^T = [v_1,v_2,-v_3]^T = [v_1,v_2,v_3] \left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right]U^T\end{split}\]</div>
+<p>满足上式 <span class="math notranslate nohighlight">\(H\)</span> 取得极大值。</p>
+<p>所以当 <span class="math notranslate nohighlight">\(det(VU^T) = -1\)</span> 时，想要求得的 <span class="math notranslate nohighlight">\(R\)</span> 只需要去除中间乘的反射变换矩阵 <span class="math notranslate nohighlight">\(\left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right]\)</span></p>
+<p>也即：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R = VU^T = V'\left[\begin{matrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; -1\end{matrix}\right]U^T\end{split}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>顺带一提，当且仅当 <span class="math notranslate nohighlight">\(H\)</span> 的三个奇异值中的两个相等时， <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 是共线的。</p>
 </div>
 </div>
 <div class="section" id="summary-of-algorithm">
-<h2><span class="section-number">2.5. </span>SUMMARY OF ALGORITHM<a class="headerlink" href="#summary-of-algorithm" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">2.6. </span>SUMMARY OF ALGORITHM<a class="headerlink" href="#summary-of-algorithm" title="永久链接至标题">¶</a></h2>
 <dl class="field-list">
 <dt class="field-odd">step 1</dt>
 <dd class="field-odd"><p>从点云 <span class="math notranslate nohighlight">\(\{p_i\}, \{p_i'\}\)</span> 中计算质心 <span class="math notranslate nohighlight">\(p,p'\)</span> ，然后得到去质心点云 <span class="math notranslate nohighlight">\(\{q_i\}, \{q_i'\}\)</span></p>

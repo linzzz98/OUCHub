@@ -216,6 +216,40 @@ AN SVD ALGORITHM FOR FINDING  :math:`\hat{R}`
 
 但是，如果 :math:`det(X) = -1` ，则 :math:`X` 是 ``reflection（镜像对称）``
 
+REFLECTION
+--------------
+Reflection称为反射变换（镜面反射），在数学上反射是把一个物体变换成它的镜像的映射。要反射一个平面图形，需要“镜子”是一条直线（反射轴），对于三维空间中的反射就要使用平面作为镜子。
+
+反射变换同样是一个 **正交矩阵** ，显而易见它满足如下性质：
+
+*  镜面反射是正交变换。
+
+*  镜面反射的逆变换为镜面反射。
+
+*  任意一个正交变换都可以表示成若干个镜面反射的乘积。
+
+旋转变换和反射变换具有如下特性：
+
+*  旋转矩阵和反射矩阵都是正交矩阵
+
+*  旋转矩阵的行列式值为 +1，反射矩阵的行列值为 -1
+
+*  旋转矩阵  :math:`R(\theta)`  的逆矩阵为 :math:`R(-\theta)`，反射矩阵的逆矩阵为其本身。也可以记为：旋转矩阵 :math:`RR^T = I`，反射矩阵 :math:`R'R'=I`
+
+最简单的反射变换是沿某个轴/面的镜像，例如相对于 :math:`Z = 0` 平面的镜像变换为：  :math:`\left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & -1\end{matrix}\right]`
+
+根据性质，一定可以把任意一个镜面变换拆成一个关于  :math:`Z = 0`  的镜面变换与一个旋转变换。也就是变成：
+
+.. math::
+
+   R' = \left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & -1\end{matrix}\right] R
+
+之前使用SVD求解的 :math:`R` 一定是一个正交矩阵，但是并不是所有的正交矩阵都是旋转矩阵，也可能是一个反射矩阵（或者说包含了反射变换的矩阵）。因此我们还需要对所求得的 R 进行行列式判断：
+
+*  :math:`det(X) = 1`  ，则所求的 :math:`R` 是所求的旋转矩阵。
+
+*  :math:`det(X) = -1` ，则所求的 :math:`R` 包含了镜像。
+
 NOISELESS CASE
 ---------------
 
@@ -237,29 +271,39 @@ NOISELESS CASE
 
    :共线:
 
-      解有无限多的旋转和镜像对称使 :math:`\Sigma^2 = 0`
+      有无限多的旋转和镜像对称的解使 :math:`\Sigma^2 = 0`
 
-回到共面的情况下，可以很容易的证明，当且仅当 :math:`H` 的三个奇异值之一为0时，点 :math:`\{q_i\}` 是共面的。 令三个奇异值分别为 :math:`\lambda_1 > \lambda_2 > \lambda_3 = 0` ，从而
+对于共面的情况， :math:`H` 的秩为2，即：
 
 .. math::
 
-   H = \lambda_1 u_1v_1^T + \lambda_2 u_2 v_2^T + 0· u_3v_3^T
+   H = U \Sigma V^T = U \left[\begin{matrix}\sigma_1 & 0 & 0\\0 & \sigma_2 & 0\\0 & 0 & 0\end{matrix}\right]
 
-这里的 :math:`u_i` 和 :math:`v_i` 是 :math:`U,V` 的列向量。
+由于 SVD 分解特征值是从大到小排序，则一定有：
 
-.. caution::
+.. math::
 
-   更改 :math:`u_3` 或 :math:`v_3` 的符号不会更改 :math:`H` 的值。
+   H = \sigma_1 u_1v_1^T + \sigma_2 u_2 v_2^T + \sigma_3· u_3v_3^T = \sigma_1 u_1v_1^T + \sigma_2 u_2 v_2^T + 0 · u_3v_3^T
 
-   因此，如果 :math:`X = VU^T` 最小化 :math:`\Sigma^2` ，那么 :math:`X' = V'U^T` 也会最小化 :math:`\Sigma^2` 。
+.. math::
 
-   这里 :math:`V' = [v_1,v_2,-v_3]`
+   \sigma_1 > \sigma_2 > \sigma_3 = 0
 
-.. important::
+如果存在一个解  :math:`X = VU^T = [v_1,v_2,v_3]U^T` 满足以上 :math:`H` 取得极大值，则一定有镜像变换：
 
-   如果 :math:`X` 镜像对称，则 :math:`X'` 是旋转，反之亦然。
+.. math::
 
-   因此，如果SVD算法给出的解 :math:`X` 为 :math:`det(X) = -1` ，则 :math:`X'= V'U^T` 即为所需的旋转。
+   R' = V'U^T = [v_1,v_2,-v_3]^T = [v_1,v_2,v_3] \left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & -1\end{matrix}\right]U^T
+
+满足上式 :math:`H` 取得极大值。
+
+所以当 :math:`det(VU^T) = -1` 时，想要求得的 :math:`R` 只需要去除中间乘的反射变换矩阵 :math:`\left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & -1\end{matrix}\right]`
+
+也即：
+
+.. math::
+
+   R = VU^T = V'\left[\begin{matrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & -1\end{matrix}\right]U^T
 
 .. note::
 
