@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍑 Colmap" href="../../../../code/c_colmap.html" />
+    <link rel="prev" title="1. Refractive laser triangulation and photometric stereo in underwater environment" href="../Refractive_laser_triangulation/Refractive_laser_triangulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_others.html">🍒 Others</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Refractive_laser_triangulation/Refractive_laser_triangulation.html">1. Refractive laser triangulation and photometric stereo in underwater environment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">2.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ray-tracing-using-snells-law">2.2. Ray Tracing using Snell’s Law</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#camera-calibration">2.2.1. Camera Calibration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#projecting-a-2d-point-into-a-ray">2.2.2. Projecting a 2D Point Into a Ray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#identifying-the-plane-ray-intersection">2.2.3. Identifying the Plane-Ray Intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#calculating-the-refracted-rays">2.2.4. Calculating the Refracted Rays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#triangulation-using-rays">2.2.5. Triangulation using Rays</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_others.html">🍒 Others</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/others/Refraction/Underwater_3D_Reconstruction/Underwater_3D_Reconstruction.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="camera-calibration-for-underwater-3d-reconstruction-based-on-ray-tracing-using-snells-law">
+<h1><span class="section-number">2. </span>Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law<a class="headerlink" href="#camera-calibration-for-underwater-3d-reconstruction-based-on-ray-tracing-using-snells-law" title="永久链接至标题">¶</a></h1>
+<div class="section" id="introduction">
+<h2><span class="section-number">2.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<p>使用斯涅尔定律描述在介质界面（例如边界）处发生的折射：</p>
+<div class="math notranslate nohighlight">
+\[\frac{sin\theta_1}{sin\theta_2} = \frac{v_1}{v_2} = \frac{n_2}{n_1}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\theta\)</span> 是表面法线和光线之间的夹角， <span class="math notranslate nohighlight">\(v\)</span> 是光速， <span class="math notranslate nohighlight">\(n\)</span> 是相应介质的折射率。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/115.jpg" src="../../../../../_images/115.jpg" />
+</div>
+<p>下图说明了折射如何影响相机。在这里，多束光线从水传播到空气，直到被相机镜头捕获为止。说明了光线在进入相机光圈之前由于折射而如何弯曲。 透明相机代表由折射引起的虚拟视点。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/27.jpg" src="../../../../../_images/27.jpg" />
+</div>
+<p>折射本质上使相机体验到了从 <span class="math notranslate nohighlight">\(n\)</span> 个视点（ <span class="math notranslate nohighlight">\(vp_n\)</span> ）观察到的场景，从而使单个视点的假设无效。</p>
+</div>
+<div class="section" id="ray-tracing-using-snells-law">
+<h2><span class="section-number">2.2. </span>Ray Tracing using Snell’s Law<a class="headerlink" href="#ray-tracing-using-snells-law" title="永久链接至标题">¶</a></h2>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/35.jpg" src="../../../../../_images/35.jpg" />
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">步骤</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>相机标定</p></li>
+<li><p>将2D点投影到射线中</p></li>
+<li><p>识别平面射线的相交点</p></li>
+<li><p>计算折射射线</p></li>
+<li><p>使用射线进行三角测量</p></li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="camera-calibration">
+<h3><span class="section-number">2.2.1. </span>Camera Calibration<a class="headerlink" href="#camera-calibration" title="永久链接至标题">¶</a></h3>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/44.jpg" src="../../../../../_images/44.jpg" />
+</div>
+<p>外参描述了从世界坐标到摄影机坐标的转换，而内参描述了摄影机坐标与图像中2D像素坐标之间的关系。</p>
+<dl class="field-list">
+<dt class="field-odd">内参</dt>
+<dd class="field-odd"><p>使用张正友标定法使用 <code class="docutils literal notranslate"><span class="pre">空气中</span></code> 的棋盘格进行标定，为每个摄像机捕获25张图像。</p>
+</dd>
+<dt class="field-even">外参</dt>
+<dd class="field-even"><p>通过手动确定水面和水箱角落之间的交点，可以找到所需的点对应关系。使用每个摄像机的四个3D-2D点对应关系找到外参。</p>
+<p>使用基于Levenberg-Marquardt优化的迭代方法，最小化每个摄像机中四个点的重投影误差进行迭代。 此方法依赖于内参，因为它们用于计算重投影误差，即相机坐标和图像坐标之间的3D到2D转换。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="projecting-a-2d-point-into-a-ray">
+<h3><span class="section-number">2.2.2. </span>Projecting a 2D Point Into a Ray<a class="headerlink" href="#projecting-a-2d-point-into-a-ray" title="永久链接至标题">¶</a></h3>
+<p>将2D图像坐标投影到世界空间坐标系中的射线中。每个射线的特征是：</p>
+<div class="math notranslate nohighlight">
+\[r(\lambda) = \lambda(\overline{r}) + r_0\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\overline{r}\)</span> 是射线的方向， <span class="math notranslate nohighlight">\(r_0\)</span> 是射线上的点， <span class="math notranslate nohighlight">\(\lambda\)</span> 定义了沿射线的所有坐标。</p>
+<p>方向向量 <span class="math notranslate nohighlight">\(\overline{r}\)</span> 可以被描述为：</p>
+<div class="math notranslate nohighlight">
+\[\overline{r} = R^{-1}K^{-1}[x~~~y~~~1]^T\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(R^{-1}\)</span> 是相机的旋转矩阵的逆矩阵， <span class="math notranslate nohighlight">\(K^{-1}\)</span> 是相机内参矩阵的逆矩阵， <span class="math notranslate nohighlight">\([x~~~y]^T\)</span> 是2D点的背向投影到射线中的图像坐标。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>实际上就是像素坐标系到世界坐标系的转换（为什么  <span class="math notranslate nohighlight">\(t\)</span> 没有了？）</p>
+</div>
+<p>沿光线的点 <span class="math notranslate nohighlight">\(r_0\)</span> 设置为相机中心，因为向后投射的光线必须通过此位置，可以通过以下方法找到该位置：</p>
+<div class="math notranslate nohighlight">
+\[r_0 = -R^{-1} * t\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(t\)</span> 是外参的位移向量</p>
+</div>
+<div class="section" id="identifying-the-plane-ray-intersection">
+<h3><span class="section-number">2.2.3. </span>Identifying the Plane-Ray Intersection<a class="headerlink" href="#identifying-the-plane-ray-intersection" title="永久链接至标题">¶</a></h3>
+<p>为了找到折射，必须找到射线与介质界面平面之间的交点。</p>
+<p>例如，分隔空气和水的平面。</p>
+<p>确定该点本质上是识别 <span class="math notranslate nohighlight">\(\lambda_0\)</span> 的问题，使得 <span class="math notranslate nohighlight">\(r(\lambda_0) = p\)</span> ，其中 <span class="math notranslate nohighlight">\(p\)</span> 是平面上的一个点。 这一点 <span class="math notranslate nohighlight">\(p\)</span> 必须满足平面方程：</p>
+<div class="math notranslate nohighlight">
+\[(p - p_0) · \overline{n} = 0\]</div>
+<p>其中， <span class="math notranslate nohighlight">\(n\)</span> 是平面法线， <span class="math notranslate nohighlight">\(p_0\)</span> 是平面上的已知点。 然后将组合等式：</p>
+<div class="math notranslate nohighlight">
+\[\lambda_0 = \frac{(p_0 - r_0) · \overline{n}}{\overline{r} · \overline{n}}\]</div>
+<p>然后可以通过将 <span class="math notranslate nohighlight">\(\lambda_0\)</span> 插入等式 <span class="math notranslate nohighlight">\(r(\lambda) = \lambda(\overline{r}) + r_0\)</span> 来找到平面与射线 <span class="math notranslate nohighlight">\(I\)</span> 的交点：</p>
+<div class="math notranslate nohighlight">
+\[I = \lambda_0 \overline{r} + r_0\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>上述计算需要了解平面范数 <span class="math notranslate nohighlight">\(n\)</span> ，可知为 <span class="math notranslate nohighlight">\(n = v_1 \times v_2\)</span> 。</p>
+<p>向量 <span class="math notranslate nohighlight">\(v_1\)</span> 和 <span class="math notranslate nohighlight">\(v_2\)</span> 是平面上的两个向量，可以从平面上的三个非共线点中找到。</p>
+<p>这三个点是从相机校准期间手动标注的点集中提取的。 也可以从这些手动注释的点中选择平面上所需的已知点 <span class="math notranslate nohighlight">\(p_0\)</span> 。</p>
+</div>
+</div>
+<div class="section" id="calculating-the-refracted-rays">
+<h3><span class="section-number">2.2.4. </span>Calculating the Refracted Rays<a class="headerlink" href="#calculating-the-refracted-rays" title="永久链接至标题">¶</a></h3>
+<p>射线在介质之间的交点处的折射 <span class="math notranslate nohighlight">\(r(\lambda)\)</span> 是根据斯涅尔定律计算的。</p>
+<p>以下描述了计算传入向量 <span class="math notranslate nohighlight">\(r\)</span> 的折射向量 <span class="math notranslate nohighlight">\(r'\)</span> 的步骤：</p>
+<ol class="arabic">
+<li><p>计算余弦角 <span class="math notranslate nohighlight">\(\theta_1\)</span>：</p>
+<div class="math notranslate nohighlight">
+\[cos(\theta_1) = - \overline{n} · \overline{r}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\theta_1\)</span> 是 <span class="math notranslate nohighlight">\(\overline{R}\)</span> 和介质之间的表面法线 <span class="math notranslate nohighlight">\(\overline{n}\)</span> 之间的夹角。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/53.jpg" src="../../../../../_images/53.jpg" />
+</div>
+</li>
+<li><p>计算余弦角  <span class="math notranslate nohighlight">\(\theta_2\)</span>：</p>
+<div class="math notranslate nohighlight">
+\[cos(\theta_2) = \sqrt{1 - (\frac{n_1}{n_2})^2(1 - cos(\theta_1)^2)}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\theta_2\)</span> 是 <span class="math notranslate nohighlight">\(\overline{r}'\)</span> 和 <span class="math notranslate nohighlight">\(\overline{n}\)</span> 的夹角。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">证明</dt>
+<dd class="field-odd"><div class="math notranslate nohighlight">
+\[\because \frac{n_1}{n_2} = \frac{sin(\theta_2)}{sin(\theta_1)}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\therefore &amp;\sqrt{1-(\frac{n_1}{n_2})^2(1-cos^2(\theta_1))} \\
+=&amp; \sqrt{1 - (\frac{sin(\theta_2)}{sin(\theta_1)})^2 sin^2(\theta_1)}\\
+=&amp; cos(\theta_2)
+\end{eqnarray}\end{split}\]</div>
+</dd>
+</dl>
+</div>
+</li>
+<li><p>描述折射向量 <span class="math notranslate nohighlight">\(\overline{r}'\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\overline{r}' = (\frac{n_1}{n_2}) \overline{r} + (\frac{n_1}{n_2} cos(\theta_1) - cos(\theta_2)) \overline{n}\]</div>
+<p>其中， <span class="math notranslate nohighlight">\(n_1\)</span> 是射线穿过前的介质的折射率，  <span class="math notranslate nohighlight">\(n_2\)</span> 是射线穿过后的介质的折射率。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>对于放在水箱前面的摄像机，分别将 <span class="math notranslate nohighlight">\(n_1 = \)</span> 用于介质是空气和水。</p>
+<p>没有考虑到由水族箱的塑料或玻璃面引起的折射，因为影响很小，但大型鱼缸的侧面非常厚。</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="triangulation-using-rays">
+<h3><span class="section-number">2.2.5. </span>Triangulation using Rays<a class="headerlink" href="#triangulation-using-rays" title="永久链接至标题">¶</a></h3>
+<p>最后一步是使用来自各个摄像机的折射光线 <span class="math notranslate nohighlight">\(r_1(\lambda)'\)</span> 和  <span class="math notranslate nohighlight">\(r_2(\lambda)'\)</span> 对2D图像坐标的3D坐标进行三角测量。</p>
+<p>折射光线仍然满足公式 <span class="math notranslate nohighlight">\(r(\lambda) = \lambda(\overline{r}) + r_0\)</span> ，并使用折射方向矢量 <span class="math notranslate nohighlight">\(r'\)</span> 以及平面射线交点 <span class="math notranslate nohighlight">\(I\)</span></p>
+<p>采用的三角剖分方法通常称为中点算法。思想是识别两条射线 <span class="math notranslate nohighlight">\(r_1(\lambda)'\)</span> 和 <span class="math notranslate nohighlight">\(r_2(\lambda_2)'\)</span> 之间的向量 <span class="math notranslate nohighlight">\(\overline{m}\)</span> ，以使长度 <span class="math notranslate nohighlight">\(||\overline{m}||\)</span> 被最小化。
+最终的3D位置是向量 <span class="math notranslate nohighlight">\(\overline{m}\)</span> 的中点。</p>
+<p>中点算法基于以下事实：当 <span class="math notranslate nohighlight">\(\overline{m}\)</span> 垂直于两条光线时， <span class="math notranslate nohighlight">\(||\oberline{m}||\)</span> 的长度是最小的。</p>
+<p>因此，主要思想是确定一个向量，使得：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\overline{m} · \overline{r_1}' = 0\\
+\overline{m} · \overline{r_2}' = 0\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\overline{r_1}\)</span> 和 <span class="math notranslate nohighlight">\(\overline{r_2}\)</span> 是两条折射光线的方向向量。</p>
+<p>通过计算沿折射光线的向量的起始位置 <span class="math notranslate nohighlight">\(M_1\)</span> 和结束位置 <span class="math notranslate nohighlight">\(M_2\)</span> ，可以找到向量 <span class="math notranslate nohighlight">\(m\)</span> 。 这两个点可以由以下公式计算：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/63.jpg" src="../../../../../_images/63.jpg" />
+</div>
+<p>其中 <span class="math notranslate nohighlight">\(I_1\)</span> 和  <span class="math notranslate nohighlight">\(I_2\)</span> 是两个视图的平面射线交点。</p>
+<p>最终的3D坐标 <span class="math notranslate nohighlight">\(P\)</span> 的位置为：</p>
+<div class="math notranslate nohighlight">
+\[P = \frac{(M_1 + M_2)}{2}\]</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../code/c_colmap.html" class="btn btn-neutral float-right" title="🍑 Colmap" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Refractive_laser_triangulation/Refractive_laser_triangulation.html" class="btn btn-neutral float-left" title="1. Refractive laser triangulation and photometric stereo in underwater environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
