@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8. Unsupervised Learning of Depth and Ego-Motion from Video &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍋 Point Cloud" href="../../../p_pointcloud.html" />
+    <link rel="prev" title="7. An Effcient Solution to the Five-Point Relative Pose Problem" href="../../LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8. Unsupervised Learning of Depth and Ego-Motion from Video</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#view-synthesis-as-supervision">8.1. View synthesis as supervision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#differentiable-depth-image-based-rendering">8.2. Differentiable depth image-based rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-model-limitation">8.3. Modeling the model limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overcoming-the-gradient-locality">8.4. Overcoming the gradient locality</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">8. </span>Unsupervised Learning of Depth and Ego-Motion from Video</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/DeepLearning/SFMLearner/SFMLearner.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="unsupervised-learning-of-depth-and-ego-motion-from-video">
+<h1><span class="section-number">8. </span>Unsupervised Learning of Depth and Ego-Motion from Video<a class="headerlink" href="#unsupervised-learning-of-depth-and-ego-motion-from-video" title="永久链接至标题">¶</a></h1>
+<p>本文提出了一种非监督的学习框架，采用端到端的学习方法，用于从非结构化视频序列进行单眼深度和摄像机运动估计的任务。</p>
+<p>该方法使用单视图深度估计和多视图位姿融合网络，其损失基于使用计算出的深度和位姿将附近的视图扭曲到目标上。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/112.jpg" src="../../../../../_images/112.jpg" />
+</div>
+<p>作者提出一个框架，用于联合训练未标记的视频序列的单视角深度CNN网络和相机位姿估计CNN网络。假设场景是刚性的，即不同相机帧的场景外观变化主要由相机运动决定。</p>
+<div class="section" id="view-synthesis-as-supervision">
+<h2><span class="section-number">8.1. </span>View synthesis as supervision<a class="headerlink" href="#view-synthesis-as-supervision" title="永久链接至标题">¶</a></h2>
+<p>本文将视觉合成作为深度和位姿估计的关键监督信息：给定一个场景的输入视图，合成从不同相机姿态看到的场景的新图像。</p>
+<p>给定该图像中每个像素的深度，加上附近视图的位姿和可见性，可以合成目标视图。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list simple">
+<dt class="field-odd">思路</dt>
+<dd class="field-odd"><p>将目标图像的像素点经过重投影映射到源图像上，然后将源图像中的像素点扭曲到目标图像上对应像素点的同一位置，然后求这同一位置对应点的像素差进行训练。</p>
+</dd>
+</dl>
+</div>
+<p><span class="math notranslate nohighlight">\(&lt;I_1,...,I_n&gt;\)</span> 作为训练图像序列，其中一帧 <span class="math notranslate nohighlight">\(I_t\)</span> 是目标视图，其余的帧是源视图 <span class="math notranslate nohighlight">\(I_s\)</span> （ <span class="math notranslate nohighlight">\(1 \le s \le N, s \ne t\)</span> ）</p>
+<p>则视图合成目标可以计算为：</p>
+<div class="math notranslate nohighlight">
+\[\mathscr{L}_{vs} = \sum\limits_{s} \sum\limits_{p} |I_t(p) - \hat{I}_s (p)|\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(p\)</span> 表示像素坐标， <span class="math notranslate nohighlight">\(\hat{I_s}\)</span> 表示源视图 <span class="math notranslate nohighlight">\(I_s\)</span> 根据深度图像渲染模型，扭曲到目标坐标系下的视图。</p>
+<p>该模型的输入是：</p>
+<ol class="arabic simple">
+<li><p>预测深度 <span class="math notranslate nohighlight">\(\hat{D_t}\)</span></p></li>
+<li><p>预测的 <span class="math notranslate nohighlight">\(4 \times 4\)</span> 摄像机变换矩阵 <span class="math notranslate nohighlight">\(\hat{T}_{t \rightarrow s}\)</span></p></li>
+<li><p>源图像 <span class="math notranslate nohighlight">\(I_s\)</span></p></li>
+</ol>
+<p>该框架可以在没有位姿先验信息的情况下应用于标准视频。 此外，它可以将位姿作为学习框架的一部分进行预测。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/29.jpg" src="../../../../../_images/29.jpg" />
+</div>
+<p>对于深度网络（Depth CNN），输入为目标视图 <span class="math notranslate nohighlight">\(I_t\)</span>，输出为该视图的深度 <span class="math notranslate nohighlight">\(\hat{D}_t(p)\)</span></p>
+<p>对于位姿网络（Pose CNN），输入为目标视图 <span class="math notranslate nohighlight">\(I_t\)</span> 和周围视图/源视图 <span class="math notranslate nohighlight">\(I_{t-1},I_{t+1},...\)</span> （多个视图），
+输出为源视图相对于目标视图的相机位姿 <span class="math notranslate nohighlight">\(\hat{T}_{t \rightarrow t-1} ，\hat{T}_{t \rightarrow t+1}\)</span></p>
+<p>然后将两个网络的输出用于反扭曲源视图以重建目标视图，并使用光度重建损失来训练CNN。</p>
+</div>
+<div class="section" id="differentiable-depth-image-based-rendering">
+<h2><span class="section-number">8.2. </span>Differentiable depth image-based rendering<a class="headerlink" href="#differentiable-depth-image-based-rendering" title="永久链接至标题">¶</a></h2>
+<p>上一节的框架中重要的组成是基于深度图 <span class="math notranslate nohighlight">\(\hat{D_t}\)</span> 和 相对位姿 <span class="math notranslate nohighlight">\(\hat{T_s}\)</span> 对源视图 <span class="math notranslate nohighlight">\(I_s\)</span> 的像素采样后创建目标视图 <span class="math notranslate nohighlight">\(I_t\)</span> ，该方式是可微分的图像渲染。</p>
+<p>令 <span class="math notranslate nohighlight">\(p_t\)</span> 表示目标视图中像素的齐次坐标， <span class="math notranslate nohighlight">\(K\)</span> 表示相机的内参矩阵，可以通过以下方式获得 <span class="math notranslate nohighlight">\(p_t\)</span> 在源视图上的投影坐标 <span class="math notranslate nohighlight">\(p_s\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[p_s \sim K\hat{T}_{t \rightarrow s} \hat{D}_t(p_t) K^{-1} p_t\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>下面推导该公式：</p>
+<p>相机坐标系三维点投影到像素坐标系二维点的公式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z\left(
+\begin{matrix}
+u\\v\\1
+\end{matrix}
+\right) = \left(
+\begin{matrix}
+f_x &amp; 0 &amp; c_x\\0 &amp; f_y &amp; c_y\\0 &amp; 0 &amp; 1
+\end{matrix}
+\right)\left(
+\begin{matrix}
+X \\ Y \\ Z
+\end{matrix}
+\right) \triangleq K P\end{split}\]</div>
+<p>世界坐标系三维点投影到像素坐标系二维点的公式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z \left(
+\begin{matrix}
+u\\v\\1
+\end{matrix}
+\right) = KTP_w\end{split}\]</div>
+<p>当两个相机同时观测同一物体时，设相机为 <span class="math notranslate nohighlight">\(C_1,C_2\)</span>，观测到的点云坐标在各自的相机坐标系下的坐标为 <span class="math notranslate nohighlight">\(P_{c_1}, P_{c_2}\)</span>，像素坐标分别为 <span class="math notranslate nohighlight">\(p_{c_1},p_{c_2}\)</span>
+深度为 <span class="math notranslate nohighlight">\(d_{c_1},d_{c_2}\)</span> ，两者的变换矩阵为 <span class="math notranslate nohighlight">\(T_{12}\)</span></p>
+<p>则两个相机坐标系下的点云坐标转换为：</p>
+<div class="math notranslate nohighlight">
+\[P_{c_2} = T_{12} P_{c_1}\]</div>
+<p>根据相机坐标系 <span class="math notranslate nohighlight">\(\longrightarrow\)</span> 像素坐标系，有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}d_{c_1} * p_{c_1} = K * P_{c_1} \\
+d_{c_2} * p_{c_2} = K * P_{c_2}\end{split}\]</div>
+<p>从而有：</p>
+<div class="math notranslate nohighlight">
+\[d_{c_1} * K^{-1} * p_{c_1} = P_{c_1}\]</div>
+<p>再结合点云转换公式，有：</p>
+<div class="math notranslate nohighlight">
+\[P_{c_2} = T_{12} * d_{c_1} * K^{-1} * p_{c_1}\]</div>
+<p>再结合相机2的相机坐标系到图像坐标系公式：</p>
+<div class="math notranslate nohighlight">
+\[d_{c_2} * p_{c_2} = K * T_{12} * d_{c_1} * K^{-1} * p_{c_1}\]</div>
+<p>与论文中的公式比较：</p>
+<div class="math notranslate nohighlight">
+\[p_s \sim K\hat{T}_{t \rightarrow s} \hat{D}_t(p_t) K^{-1} p_t\]</div>
+<p>论文中的公式把 <span class="math notranslate nohighlight">\(d_{c_2}\)</span> 省略了。</p>
+<p>为什么可以省略呢？ 参考网上的回答，注意论文中的公式并不是等式，而是一个近似。</p>
+<p>整体流程为：在target view上找一个点 <span class="math notranslate nohighlight">\(p_1(x,y)\)</span> 对应相机坐标系下的点 <span class="math notranslate nohighlight">\((X,Y,Z,1)^T\)</span> 然后投影到source view上。</p>
+<p>因此，之关系target的点投影到source上的位置，而不关系深度，因此可以省略深度。</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>由于投影坐标 <span class="math notranslate nohighlight">\(p_s\)</span> 是连续的值，直接将像素点投影到 <span class="math notranslate nohighlight">\(p_s\)</span> 会出现问题，这个点的坐标很有可能没有落在源视图的像素点上，就会出现下图中间视图的情况。</p>
+<p>因此需要采用双线性采样机制来加权得到 <span class="math notranslate nohighlight">\(p_s\)</span> 的灰度值（像素值）。将与 <span class="math notranslate nohighlight">\(p_s\)</span> 点相近的上下左右四个点按距离做权值进行加权得到 <span class="math notranslate nohighlight">\(p_s\)</span> 的灰度值。</p>
+<div class="math notranslate nohighlight">
+\[\hat{I}_s(p_t) = I_s(p_s) = \sum\limits_{i \in \{t,b\}, j \in \{l, r\}} \omega^{ij} I_s(p_s^{ij})\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\sum\limits_{i,j} \omega^{ij} = 1\)</span></p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/37.jpg" src="../../../../../_images/37.jpg" />
+</div>
+</div>
+<div class="section" id="modeling-the-model-limitation">
+<h2><span class="section-number">8.3. </span>Modeling the model limitation<a class="headerlink" href="#modeling-the-model-limitation" title="永久链接至标题">¶</a></h2>
+<p>单目视图需要以下假设：</p>
+<p>1）场景是静态的，没有运动的物体。</p>
+<p>2）在目标视图和源视图之间没有遮挡/离合的物体。</p>
+<p>3）表面符合朗伯模型以保证图像一致性误差有意义。</p>
+<p>当不满足任意一个假设时，训练将会无法完成。为了提升系统的鲁棒性，增加了另一个训练网络（explainability prediction network）与深度和位姿网络联合，得到每一个（target-source）的视图对的逐像素的mask <span class="math notranslate nohighlight">\(\hat{E}_s\)</span></p>
+<p>将合成视图的目标函数与该权重相乘：</p>
+<div class="math notranslate nohighlight">
+\[\mathscr{L}_{vs} = \sum\limits_{&lt;I_1,...,I_N&gt; \in S} \sum\limits_p \hat{E}_s(p)|I_t(p) - \hat{I}_s(p)|\]</div>
+<p>由于对于 <span class="math notranslate nohighlight">\(\hat{E}_s\)</span> 缺少直接的监督信息，使用上述损失函数进行训练将会导致网络始终预测 <span class="math notranslate nohighlight">\(\hat{E}_s\)</span> 为0，此时loss最小。</p>
+<p>为了解决这个问题，对 <span class="math notranslate nohighlight">\(\hat{E}_s\)</span> 加入正则项，使之成为 <span class="math notranslate nohighlight">\(\mathscr{L}_{reg}(\hat{E}_s)\)</span> ，它通过最小化交叉熵损失来实现非零预测。</p>
+</div>
+<div class="section" id="overcoming-the-gradient-locality">
+<h2><span class="section-number">8.4. </span>Overcoming the gradient locality<a class="headerlink" href="#overcoming-the-gradient-locality" title="永久链接至标题">¶</a></h2>
+<p>上面的学习管道的另一个问题是，梯度主要由 <span class="math notranslate nohighlight">\(I(p_t)\)</span> 和其四个邻域 <span class="math notranslate nohighlight">\(I(p_s)\)</span> 之间的像素强度差得到，
+如果 <span class="math notranslate nohighlight">\(p_s\)</span> 位于一个缺少纹理的区域或者当前估计不准确，则可能会训练失败。</p>
+<p>作者考虑了两个策略：</p>
+<ol class="arabic simple">
+<li></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" class="btn btn-neutral float-left" title="7. An Effcient Solution to the Five-Point Relative Pose Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

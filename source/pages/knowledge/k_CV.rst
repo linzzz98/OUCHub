@@ -6,5 +6,8 @@
    :hidden:
 
    ComputerVision/DeepLearning/DeepLearning
+   ComputerVision/LocalMethod/LocalMethod
 
-* :doc:`DeepLearning <ComputerVision/DeepLearning/DeepLearning>` |:fire:|
+* :doc:`Deep Learning <ComputerVision/DeepLearning/DeepLearning>` |:fire:|
+
+* :doc:`Local Method <ComputerVision/LocalMethod/LocalMethod>` |:fire:|

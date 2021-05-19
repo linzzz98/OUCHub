@@ -1,0 +1,26 @@
+Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions
+===============================================================================================
+
+本文提出了一个健壮，高度准确的基准系统，其标记由同心环组成，并提供了其理论基础。
+
+:fiducial marker:
+
+   是指以平面模式编码的一组（共面）点，从而可以跨视图进行可靠的检测和识别。
+
+   fiducial marker system 是一个（一组）fiducial marker，这些标记与专用的计算机视觉算法相结合，可以解决检测和识别问题。
+
+一般来说，marker可以用来估计相机的运动或其位置，因此，健壮的marker system需要做到的是克服以下困难条件：
+
+1. 大部分遮挡
+
+2. 在偏斜的角度下或从长距离看
+
+3. 照明非常差或不规则
+
+4. 当照相机进行非常快速的运动而产生模糊时
+
+.. figure::1.jpg
+   :figclass: align-center
+   :alt: 模糊干扰下的精确识别
+
+

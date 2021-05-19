@@ -26,7 +26,10 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
 .. caution::
    https://ouchub.readthedocs.io
 .. danger::
-   |:heart_eyes:|
+
+   .. figure:: images/math.png
+    :figclass: align-center
+
 .. error::
    1
 .. hint::

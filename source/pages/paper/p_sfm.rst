@@ -6,31 +6,37 @@
    :hidden:
    :numbered:
 
-   sfm/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited
-   sfm/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion
-   sfm/HSfM/HSfM
-   sfm/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
-   sfm/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation
-   sfm/View_Graph_Construction/View_Graph_Construction
-   sfm/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem
+   sfm/LocalMethod/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited
+   sfm/LocalMethod/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion
+   sfm/LocalMethod/HSfM/HSfM
+   sfm/LocalMethod/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
+   sfm/LocalMethod/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation
+   sfm/LocalMethod/View_Graph_Construction/View_Graph_Construction
+   sfm/LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem
+   sfm/DeepLearning/SFMLearner/SFMLearner
+   sfm/LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
-* :doc:`[CVIU 2015] Hierarchical structure-and-motion recovery from uncalibrated images <sfm/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion>`
-* :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
+* :doc:`[CVIU 2015] Hierarchical structure-and-motion recovery from uncalibrated images <sfm/LocalMethod/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion>`
+* :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/LocalMethod/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
 
 
 |:star:| \ **全局式SfM(Global Structure-from-Motion)**\
 
+* :doc:`[CVPR 2018] Very Large-Scale Global SfM by Distributed Motion Averaging <sfm/LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM>`
 
 |:star:| \ **混合式SfM(Hybrid Structure-from-Motion)**\
 
-* :doc:`[ICCV 2017] HSfM: Hybrid Structure-from-Motion <sfm/HSfM/HSfM>` |:fire:|
-* :doc:`[PR 2021] View-graph construction framework for robust and efficient structure-from-motion <sfm/View_Graph_Construction/View_Graph_Construction>`
+* :doc:`[ICCV 2017] HSfM: Hybrid Structure-from-Motion <sfm/LocalMethod/HSfM/HSfM>` |:fire:|
+* :doc:`[PR 2021] View-graph construction framework for robust and efficient structure-from-motion <sfm/LocalMethod/View_Graph_Construction/View_Graph_Construction>`
 
 |:star:| \ **相机位姿(Camera Pose)**\
 
-* :doc:`[TPAMI 2004] An efficient solution to the five-point relative pose problem <sfm/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem>`
-* :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
-* :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
+* :doc:`[TPAMI 2004] An efficient solution to the five-point relative pose problem <sfm/LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem>`
+* :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/LocalMethod/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
+* :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/LocalMethod/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
 
+|:star:| \ **深度学习(Deep Learning)**\
+
+* :doc:`[CVPR 2017] Unsupervised Learning of Depth and Ego-Motion from Video <sfm/DeepLearning/SFMLearner/SFMLearner>` |:fire:|
