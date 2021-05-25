@@ -99,9 +99,10 @@ Marker Constraints for Bundle Adjustment
 
    \mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]
 
- :math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）
 
- :math:`w_R,w_S,w_O` 是权重，重投影误差为：
+:math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）
+
+:math:`w_R,w_S,w_O` 是权重，重投影误差为：
 
 .. math::
 

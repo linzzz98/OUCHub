@@ -99,13 +99,31 @@ Marker Constraints for Bundle Adjustment
 
    \mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]
 
- :math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）
 
- :math:`w_R,w_S,w_O` 是权重，重投影误差为：
+:math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）
+
+:math:`w_R,w_S,w_O` 是权重，重投影误差为：
 
 .. math::
 
-   E_R(P,X)
+   E_R(P,X) = \sum\limits_{i=1}^C \sum\limits_{j=1}^N L(x_{ij}, P_i(X^j))
 
+其中 :math:`C` 是相机的数量， :math:`N` 是3D点（marker点和特征点）的数量， :math:`L` 是损失函数， :math:`x_{ij}` 是3D点 :math:`X^j` 的图像 :math:`i` 中对应的2D位置， :math:`P_i` 是相机的投影函数。
+
+本文还包括marker比例（ES）和marker正交性（EO）的误差项。
+
+重建中marker角点之间的距离应与已知marker的大小匹配，将该误差定义为 :math:`E_S(V)` ：
+
+.. math::
+
+   \sum\limits_{i=1}^T (||V_{12}^i||_2 - S)^2 + (||V_{23}^i||_2 - S)^2 + (||V_{34}^i||_2 - S)^2 + (||V_{41}^i||_2 - S)^2
+
+其中 :math:`V_{NM}^i` 是第i个marker上从角点 :math:`N` 的3D点到 :math:`M` 的3D点的3D矢量， :math:`T` 是marker的数量， :math:`S` 是marker的size。
+
+marker的相邻侧面应垂直，将该误差定义为： :math:`E_O(V)` ：
+
+.. math::
+
+   \sum\limits_{i=1}^T (V_{12}^i · V_{23}^i)^2 + (V_{23}^i · V_{34}^i)^2 + (V_{34}^i · V_{41}^i)^2 + (V_{41}^i · V_{12}^i)^2
 
 

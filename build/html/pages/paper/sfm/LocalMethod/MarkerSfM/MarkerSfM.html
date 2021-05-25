@@ -271,9 +271,20 @@
 <h3><span class="section-number">10.2.3. </span>Marker Constraints for Bundle Adjustment<a class="headerlink" href="#marker-constraints-for-bundle-adjustment" title="永久链接至标题">¶</a></h3>
 <p>在BA调整中，求解相机位姿 <span class="math notranslate nohighlight">\(P\)</span> 和3D点 <span class="math notranslate nohighlight">\(X\)</span> ，以优化以下各项：</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}  \mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]\\:math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）\\:math:`w_R,w_S,w_O` 是权重，重投影误差为：\end{aligned}\end{align} \]</div>
+\[\mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]\]</div>
+<p><span class="math notranslate nohighlight">\(V\)</span> 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）</p>
+<p><span class="math notranslate nohighlight">\(w_R,w_S,w_O\)</span> 是权重，重投影误差为：</p>
 <div class="math notranslate nohighlight">
-\[E_R(P,X)\]</div>
+\[E_R(P,X) = \sum\limits_{i=1}^C \sum\limits_{j=1}^N L(x_{ij}, P_i(X^j))\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(C\)</span> 是相机的数量， <span class="math notranslate nohighlight">\(N\)</span> 是3D点（marker点和特征点）的数量， <span class="math notranslate nohighlight">\(L\)</span> 是损失函数， <span class="math notranslate nohighlight">\(x_{ij}\)</span> 是3D点 <span class="math notranslate nohighlight">\(X^j\)</span> 的图像 <span class="math notranslate nohighlight">\(i\)</span> 中对应的2D位置， <span class="math notranslate nohighlight">\(P_i\)</span> 是相机的投影函数。</p>
+<p>本文还包括marker比例（ES）和marker正交性（EO）的误差项。</p>
+<p>重建中marker角点之间的距离应与已知marker的大小匹配，将该误差定义为 <span class="math notranslate nohighlight">\(E_S(V)\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^T (||V_{12}^i||_2 - S)^2 + (||V_{23}^i||_2 - S)^2 + (||V_{34}^i||_2 - S)^2 + (||V_{41}^i||_2 - S)^2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(V_{NM}^i\)</span> 是第i个marker上从角点 <span class="math notranslate nohighlight">\(N\)</span> 的3D点到 <span class="math notranslate nohighlight">\(M\)</span> 的3D点的3D矢量， <span class="math notranslate nohighlight">\(T\)</span> 是marker的数量， <span class="math notranslate nohighlight">\(S\)</span> 是marker的size。</p>
+<p>marker的相邻侧面应垂直，将该误差定义为： <span class="math notranslate nohighlight">\(E_O(V)\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^T (V_{12}^i · V_{23}^i)^2 + (V_{23}^i · V_{34}^i)^2 + (V_{34}^i · V_{41}^i)^2 + (V_{41}^i · V_{12}^i)^2\]</div>
 </div>
 </div>
 </div>
