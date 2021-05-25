@@ -15,11 +15,14 @@
    sfm/LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem
    sfm/DeepLearning/SFMLearner/SFMLearner
    sfm/LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM
+   sfm/LocalMethod/MarkerSfM/MarkerSfM
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
 * :doc:`[CVIU 2015] Hierarchical structure-and-motion recovery from uncalibrated images <sfm/LocalMethod/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion>`
 * :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/LocalMethod/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
+* :doc:`[ECCV 2018] Improved Structure from Motion Using Fiducial Marker Matching <sfm/LocalMethod/MarkerSfM/MarkerSfM>` |:fire:|
+
 
 
 |:star:| \ **全局式SfM(Global Structure-from-Motion)**\

@@ -24,3 +24,6 @@ Detection and Accurate Localization of Circular Fiducials under Highly Challengi
    :alt: 模糊干扰下的精确识别
 
 
+在本文工作中提出的检测方法依赖于流量守恒性质：通过最外层椭圆弧的梯度量的入射量必须等于通过最内层椭圆弧的梯度量的出射量。
+
+该属性在运动模糊的情况下也保持不变，因为圆形基准点的图像不受沿垂直于运动模糊方向的直线的模糊影响。

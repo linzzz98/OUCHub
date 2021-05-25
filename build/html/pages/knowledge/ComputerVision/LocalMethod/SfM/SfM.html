@@ -206,13 +206,37 @@
 </ol>
 <div class="section" id="incremental-sfm">
 <h2><span class="section-number">1.1. </span>Incremental SfM<a class="headerlink" href="#incremental-sfm" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default">
+<div class="align-center figure align-default" id="id15">
 <img alt="../../../../../_images/incremental_1.jpg" src="../../../../../_images/incremental_1.jpg" />
+<p class="caption"><span class="caption-text">incremental pipeline in colmap</span><a class="headerlink" href="#id15" title="永久链接至图片">¶</a></p>
 </div>
-<p>该方法最早可以追溯到 <a href="#id3"><span class="problematic" id="id1">[1]_</span></a></p>
-<p>对于特征匹配以及外极几何关系的外点比较鲁棒，重建场景精度高:</p>
+<p>该方法最早可以追溯到 <a class="footnote-reference brackets" href="#id8" id="id1">1</a> ，目前使用较多的方法 <a class="footnote-reference brackets" href="#id9" id="id2">2</a> <a class="footnote-reference brackets" href="#id10" id="id3">3</a> <a class="footnote-reference brackets" href="#id11" id="id4">4</a> <a class="footnote-reference brackets" href="#id12" id="id5">5</a> <a class="footnote-reference brackets" href="#id13" id="id6">6</a> <a class="footnote-reference brackets" href="#id14" id="id7">7</a> 也是以其为基础。</p>
+<p>增量式重建对于特征匹配以及外极几何关系的外点比较鲁棒，重建场景精度高:</p>
 <p>1.标定过程中通过RANSAC不断地过滤外点</p>
 <p>2.捆绑调整（Bundle Adjustment, BA）不断地优化场景结构</p>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Seitz S M, Szeliski R, Snavely N. Photo Tourism: Exploring Photo Collections in 3D[J]. Acm Transactions on Graphics, 2006, 25(3):835-846.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Agarwal S, Snavely N, Simon I, et al. Building Rome in a day[J]. Communications of the Acm, 2011, 54(10):105-112.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Snavely K N. Scene reconstruction and visualization from internet photo collections[M]. University of Washington, 2008.</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Frahm J M, Fite-Georgel P, Gallup D, et al. Building Rome on a cloudless day[C] European Conference on Computer Vision. Springer-Verlag, 2010:368-381.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Wu C. Towards Linear-Time Incremental Structure from Motion[C] International Conference on 3dtv-Conference. IEEE, 2013:127-134.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>Moulon P, Monasse P, Marlet R. Adaptive structure from motion with a contrario, model estimation[C] Asian Conference on Computer Vision. Springer Berlin Heidelberg, 2012:257-270.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>Schönberger J L, Frahm J M. Structure-from-Motion Revisited[C] Computer Vision and Pattern Recognition. IEEE, 2016.</p>
+</dd>
+</dl>
 </div>
 </div>
 

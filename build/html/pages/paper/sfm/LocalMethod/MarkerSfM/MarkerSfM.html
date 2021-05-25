@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10. Improved Structure from Motion Using Fiducial Marker Matching &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍋 Point Cloud" href="../../../p_pointcloud.html" />
+    <link rel="prev" title="9. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SFMLearner/SFMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. Improved Structure from Motion Using Fiducial Marker Matching</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#increnmental-sfm-overview">10.1. Increnmental SfM Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detect-markers">10.2. Detect Markers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#marker-informed-image-pairs">10.2.1. Marker Informed Image Pairs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#marker-informed-resectioning">10.2.2. Marker Informed Resectioning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#marker-constraints-for-bundle-adjustment">10.2.3. Marker Constraints for Bundle Adjustment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">10. </span>Improved Structure from Motion Using Fiducial Marker Matching</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/LocalMethod/MarkerSfM/MarkerSfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="improved-structure-from-motion-using-fiducial-marker-matching">
+<h1><span class="section-number">10. </span>Improved Structure from Motion Using Fiducial Marker Matching<a class="headerlink" href="#improved-structure-from-motion-using-fiducial-marker-matching" title="永久链接至标题">¶</a></h1>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/118.jpg" src="../../../../../_images/118.jpg" />
+</div>
+<div class="section" id="increnmental-sfm-overview">
+<h2><span class="section-number">10.1. </span>Increnmental SfM Overview<a class="headerlink" href="#increnmental-sfm-overview" title="永久链接至标题">¶</a></h2>
+<p>增量SfM将图像集合作为输入。</p>
+<p>对于每个图像，焦距（和其他先验值）是根据元数据（metadata）（或在元数据不可用时使用启发式方法）估算的。</p>
+<p>从每个图像中提取图像特征（SIFT）并在图像对之间匹配。 尝试在所有图像对的集合之间使用基于（例如GPS，Vocab树）的筛选条件来选择的图像对的子集之间进行匹配。</p>
+<p>从特征匹配中估计出一个基本矩阵（fundamental matrix），以过滤出不好的匹配并验证每个图像对是否匹配良好。</p>
+<p>匹配之后开始重建。 两个图像中的特征匹配用于创建初始3D重建（两个图像具有3D三角测量的位姿）。然后，一次将一个新图像添加到重建中。
+通常基于该图像与已经重构的图像共享的特征匹配的数量来选择该图像。 这些共享的特征匹配用于估计此新相机的姿势并对新的3D点进行三角测量。</p>
+<p>然后，BA调整可优化所有相机位姿和3D点位置，以最大程度地减少重投影误差。</p>
+<p>最后，将异常点删除。 重复添加图像和BA操作以将所有图像添加到重建中。</p>
+<p>最终输出是重建物体的稀疏点云和一组摄影机位姿。</p>
+</div>
+<div class="section" id="detect-markers">
+<h2><span class="section-number">10.2. </span>Detect Markers<a class="headerlink" href="#detect-markers" title="永久链接至标题">¶</a></h2>
+<p>本文在每个输入图像上运行正方形marker检测算法，并并行处理图像。 每次检测时，保存图像名称，标记id，角位置（corner location）和角像素颜色。</p>
+<div class="section" id="marker-informed-image-pairs">
+<h3><span class="section-number">10.2.1. </span>Marker Informed Image Pairs<a class="headerlink" href="#marker-informed-image-pairs" title="永久链接至标题">¶</a></h3>
+<p>在进行匹配和验证之前，首先创建一组可能匹配的图像对，仅尝试匹配该集合中的图像对。
+一种方法是添加所有可能的图像对。 然而，这大大增加了匹配时间，并可能导致不良的图像匹配，从而导致重建错误。</p>
+<p>本文应用三个规则来使用marker检测来指示要添加的图像：</p>
+<ol class="arabic simple">
+<li><p>如果在两个图像中都检测到相同的marker（至少一个），添加该图像对。</p></li>
+<li><p>如果某个图像与其他任何图像都不共享检测到的marker（没有一个marker其他图像里有），则添加包含该图像的所有可能的图像对。（将所有和该图像有关的图像对都添加到集合）</p></li>
+<li><p>如果所有添加对的集合都不构成一个相连的组件（component），则通过将单独组件中每个图像的对添加到不在单独组件中的每个图像，来连接单独组件。（比较绕，下面解释）</p></li>
+</ol>
+<p>如下图所示：每个带字母的方框代表一幅图像，每个带编号的边代表与这些图像共享的标记匹配的数量。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/212.jpg" src="../../../../../_images/212.jpg" />
+</div>
+<p>左上方的图将图像描绘为带字母的方框，其边表示图像对之间匹配标记的数量。</p>
+<p>上方中间的图和右上方的图描述了图像之间共同特征匹配的次数。</p>
+<p>底部图根据两个规则描绘了图像A到G的resection顺序（添加新图像的顺序）：（1）添加与重建物体共享最多marker匹配的图像；  （2）使用大多数共享的特征匹配来break ties。</p>
+<p>目前的图像对有： <span class="math notranslate nohighlight">\((A,B),(A,C),(B,C),(B,D),(C,E),(F,H)\)</span>  没有包含图像 <span class="math notranslate nohighlight">\(G\)</span> 的对。</p>
+<p>根据规则2，添加 <span class="math notranslate nohighlight">\((G,A),(G,B),...,(G,H)\)</span></p>
+<p>根据规则3，由于 <span class="math notranslate nohighlight">\((F,H)\)</span> 是一个单独的component，因此添加 <span class="math notranslate nohighlight">\((F,A),(F,B),...,(F,E)\)</span> 和 <span class="math notranslate nohighlight">\((H,A),(H,B),...,(H,E)\)</span></p>
+<p>在结果中表明，该策略可以极大地加快处理速度并消除许多不良的图像匹配。</p>
+<div class="admonition caution">
+<p class="admonition-title">警告</p>
+<p>请注意，其他过滤方法（例如，Vocab树）可以与该方法结合使用，以添加或过滤图像对。</p>
+</div>
+</div>
+<div class="section" id="marker-informed-resectioning">
+<h3><span class="section-number">10.2.2. </span>Marker Informed Resectioning<a class="headerlink" href="#marker-informed-resectioning" title="永久链接至标题">¶</a></h3>
+<p>Resectioning是指添加新图像到现存重建中的过程，添加的顺序很重要，因为不好的图像注册可能会带来较大误差导致重建失败。</p>
+<p>一种Resectioning的方法是选择与重建图像共享最多特征匹配的图像。当图像特征明显且丰富时，此方法效果很好。但是当场景具有挑战性时，需要使用新的规则来使用marker dection来表明Resectioning的顺序。</p>
+<ol class="arabic simple">
+<li><p>下一个Resectioning的图像与当前重建图共享最多的marker匹配。</p></li>
+<li><p>如果多个图像共享与当前重建相同数量的marker匹配，选择共享最多feature匹配的图像。</p></li>
+</ol>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>先看marker匹配数，相同则看feature匹配数。</p>
+</div>
+<p>考虑上面的图，在左上方的图中，每个边代表与这些图像共享的标记匹配的数量。在中上方和右上方的图中，每个编号的边表示与这些图像共享匹配的图像特征的数量。</p>
+<p>底部图描绘了Resectioning过程。</p>
+<p>首先，将图像A和B用于初始重构。Resectioning的下一个图像是C，因为它与当前重建共享4个marker（3个和A，1个和B），</p>
+<p>此后，添加图像E，因为E和D都与重建共享3个标记匹配，但是E共享了100个特征匹配，而D仅共享了60个。</p>
+<p>然后添加图像D，没有剩余的图像与当前重建共享标记匹配，因此，基于共享的图像特征匹配添加图像H。 接下来添加F，因为它现在与重建共享标记匹配项（因为添加了H）。 最后，添加G。</p>
+</div>
+<div class="section" id="marker-constraints-for-bundle-adjustment">
+<h3><span class="section-number">10.2.3. </span>Marker Constraints for Bundle Adjustment<a class="headerlink" href="#marker-constraints-for-bundle-adjustment" title="永久链接至标题">¶</a></h3>
+<p>在BA调整中，求解相机位姿 <span class="math notranslate nohighlight">\(P\)</span> 和3D点 <span class="math notranslate nohighlight">\(X\)</span> ，以优化以下各项：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}  \mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]\\:math:`V` 是在每个marker上的相邻3D角点之间形成的向量集（？）（即，每个marker检测有四个向量）\\:math:`w_R,w_S,w_O` 是权重，重投影误差为：\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight">
+\[E_R(P,X)\]</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-left" title="9. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

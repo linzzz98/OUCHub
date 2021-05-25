@@ -30,9 +30,23 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
    .. figure:: images/math.png
     :figclass: align-center
 
-.. error::
-   1
 .. hint::
+
+   :用语解释:
+
+      在局部参考系中表示的一组摄影机和3D点(具有两个摄影机的stereo-models）称为\ **Model**\ 。
+
+      从多个图像中的对应点计算3D点坐标的过程称为\ **intersection**\ (也称为\ **triangulation**\ ）。
+
+      从已知的3D-2D对应关系恢复相机矩阵(完全或仅限于外部参数）称为\ **resection**\ 。
+
+      从两个图像中的对应点检索两个摄像机的相对位置和姿态的任务称为\ **relative
+      orientation**\ 。
+
+      计算将两个共享一些tie-points的模型带到一个公共参考系中的刚性(或相似性）变换的任务称为\ **absolute
+      orientation**\ 。
+
+.. error::
    1
 .. important::
    **顶级期刊**
