@@ -126,4 +126,36 @@ marker的相邻侧面应垂直，将该误差定义为： :math:`E_O(V)` ：
 
    \sum\limits_{i=1}^T (V_{12}^i · V_{23}^i)^2 + (V_{23}^i · V_{34}^i)^2 + (V_{34}^i · V_{41}^i)^2 + (V_{41}^i · V_{12}^i)^2
 
+Results
+-------
 
+.. figure:: 5.jpg
+   :figclass: alignter
+
+   marker
+
+.. figure:: 4.jpg
+   :figclass: algin-center
+
+   数据集
+
+.. figure:: 3.jpg
+   :figclass: align-center
+
+   实验结果
+
+.. figure:: 6.jpg
+   :figclass: align-center
+
+   不同方法数据比较1
+
+.. figure:: 7.jpg
+   :figclass: align-center
+
+   不同方法数据比较2
+
+
+
+使用marker来限制图像匹配对可以显着减少运行时间。 添加时间以检测每个图像中的标记，但是与匹配中节省的时间相比，通常可以忽略不计。
+
+重建时间通常会增加。 这是因为使用本文的方法注册了更多图像。

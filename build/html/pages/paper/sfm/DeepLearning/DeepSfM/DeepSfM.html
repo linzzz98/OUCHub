@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="10. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../../LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" />
+    <link rel="prev" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" href="../SfMLearner/SfMLearner.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">9. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/DeepLearning/DeepSfM/DeepSfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deepsfm-structure-from-motion-via-deep-bundle-adjustment">
+<h1><span class="section-number">9. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment<a class="headerlink" href="#deepsfm-structure-from-motion-via-deep-bundle-adjustment" title="永久链接至标题">¶</a></h1>
+<p>早期的努力将深度神经网络用作强大的映射功能，可以直接回归结构和运动（regresses the structures and motions）。
+由于没有明确强制执行结构和运动的几何约束，因此网络无法学习基本的物理原理，因此容易出现过拟合现象。 因此，它们的性能不如传统的SfM方法，并且泛化能力极差。</p>
+<p>最近的研究引入了3D cost volume，以可区分的方式显式地利用照片一致性，从而显着提高基于深度学习的3D重建的性能。</p>
+<p>本文受BA和深度估计 cost volume 的启发，为SfM提出了一个深度学习框架，该框架根据明确建立用于测量照片一致性和几何一致性的成本量来迭代地改善深度和相机姿态。
+该方法不需要精确的位姿（粗略的估计就足够）。 特别的，网络包括基于深度的cost volume（D-CV）和基于位姿的cost volume（P-CV）。</p>
+<p>D-CV使用当前相机位姿优化每个像素的深度值，而P-CV使用当前深度估算值优化照相机的位姿。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/112.jpg" src="../../../../../_images/112.jpg" />
+</div>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>DeepSFM会根据附近的一些原始图像来优化目标图像的深度和相机位姿。 该网络包括基于深度的cost volume（D-CV）和基于位姿的cost volume（P-CV），将图像一致性和几何一致性强制为3D cost volume， 整个过程迭代执行。</p>
+</div>
+<p>常规的3D cost volume 通过将像素不投影到离散的相机的正面和平行平面中并计算光度（即图像特征）差异作为cost来增强照片一致性。注意，可以使用常规3D cost volume获得初始深度估计。</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../LocalMethod/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-right" title="10. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../SfMLearner/SfMLearner.html" class="btn btn-neutral float-left" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

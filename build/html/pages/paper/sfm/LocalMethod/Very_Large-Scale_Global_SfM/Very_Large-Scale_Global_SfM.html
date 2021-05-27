@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9. Very Large-Scale Global SfM by Distributed Motion Averaging &mdash; OUCHub  文档</title>
+  <title>10. Very Large-Scale Global SfM by Distributed Motion Averaging &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="🍋 Point Cloud" href="../../../p_pointcloud.html" />
-    <link rel="prev" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SFMLearner/SFMLearner.html" /> 
+    <link rel="next" title="11. Improved Structure from Motion Using Fiducial Marker Matching" href="../MarkerSfM/MarkerSfM.html" />
+    <link rel="prev" title="9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../../DeepLearning/DeepSfM/DeepSfM.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -110,14 +110,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SFMLearner/SFMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#motion-averaging-review">9.1. Motion Averaging Review</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#distributed-motion-averaging">9.2. Distributed Motion Averaging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#system-architecture">9.3. System Architecture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#camera-partitioning">9.4. Camera Partitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motion-averaging-review">10.1. Motion Averaging Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distributed-motion-averaging">10.2. Distributed Motion Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-architecture">10.3. System Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#camera-partitioning">10.4. Camera Partitioning</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
@@ -180,7 +182,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">9. </span>Very Large-Scale Global SfM by Distributed Motion Averaging</li>
+      <li><span class="section-number">10. </span>Very Large-Scale Global SfM by Distributed Motion Averaging</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -200,7 +202,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="very-large-scale-global-sfm-by-distributed-motion-averaging">
-<h1><span class="section-number">9. </span>Very Large-Scale Global SfM by Distributed Motion Averaging<a class="headerlink" href="#very-large-scale-global-sfm-by-distributed-motion-averaging" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">10. </span>Very Large-Scale Global SfM by Distributed Motion Averaging<a class="headerlink" href="#very-large-scale-global-sfm-by-distributed-motion-averaging" title="永久链接至标题">¶</a></h1>
 <p>这篇论文的工作提出了一个分而治之（divide-and-conquer）的框架来解决超大规模的全局式SfM，具体步骤如下：</p>
 <ol class="arabic simple">
 <li><p>将所有图像划分为多个分区，这些分区保留了强大的数据关联性，来进行适当定位和并行的局部运动平均。</p></li>
@@ -220,7 +222,7 @@
 还引入了相似度转换，以参数化每个子图的相机姿态，从而使线性化在全局运动平均中保持不变。
 由于在全局运动平均中仅考虑分隔符（即连接多个子图的摄像机）和相似度转换，因此避免了将整个重建立即缓存在核心内存中。</p>
 <div class="section" id="motion-averaging-review">
-<h2><span class="section-number">9.1. </span>Motion Averaging Review<a class="headerlink" href="#motion-averaging-review" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.1. </span>Motion Averaging Review<a class="headerlink" href="#motion-averaging-review" title="永久链接至标题">¶</a></h2>
 <p>相机的绝对位姿 <span class="math notranslate nohighlight">\(P_i = [R_i|t_i]\)</span> , 其中 <span class="math notranslate nohighlight">\(R_i \in R^{3\times 3}\)</span> 是3D旋转向量， <span class="math notranslate nohighlight">\(c_i \in R^{3 \times 1}\)</span> 是相机的光学中心位置。</p>
 <p>对于每一对相机 <span class="math notranslate nohighlight">\(C_i\)</span> 和  <span class="math notranslate nohighlight">\(C_j\)</span> 都有两个相对位移约束：</p>
 <div class="math notranslate nohighlight">
@@ -245,7 +247,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 </div>
 </div>
 <div class="section" id="distributed-motion-averaging">
-<h2><span class="section-number">9.2. </span>Distributed Motion Averaging<a class="headerlink" href="#distributed-motion-averaging" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.2. </span>Distributed Motion Averaging<a class="headerlink" href="#distributed-motion-averaging" title="永久链接至标题">¶</a></h2>
 <p>目标是按照分布方式从相对旋转 <span class="math notranslate nohighlight">\(\mathcal{R}_{rel} = \{R_{ij}\}\)</span> 和平移 <span class="math notranslate nohighlight">\(\mathcal{T}_{rel} = \{t_{ij}\}\)</span> 计算大量摄像机 <span class="math notranslate nohighlight">\(\mathcal{C} = \{C_i\}\)</span> 的全局位姿  <span class="math notranslate nohighlight">\(P = \{P_i\}\)</span> 。</p>
 <p><strong>假设大多数错误的对极几何和特征对应关系已被对极滤波器丢弃。</strong></p>
 <p>文章定义了几个名词，上图图(a)显示了一个相机分区，其中相同分区中的相机具有相同的颜色。如果摄像机仅链接到同一分区中的摄像机，则将其命名为 <strong>intra-camera</strong> ，所有这些相机的集合称为 <span class="math notranslate nohighlight">\(C_{intra}\)</span> 。</p>
@@ -278,7 +280,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 </dl>
 </div>
 <div class="section" id="system-architecture">
-<h2><span class="section-number">9.3. </span>System Architecture<a class="headerlink" href="#system-architecture" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.3. </span>System Architecture<a class="headerlink" href="#system-architecture" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/210.jpg" src="../../../../../_images/210.jpg" />
 </div>
@@ -289,7 +291,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 <p>在全局运动平均中，通过将所有 <strong>intra-camera</strong> 位姿固定在其局部坐标系中的相对位姿来优化与每个分区相关联的摄像机之间姿势和相似性变换。</p>
 </div>
 <div class="section" id="camera-partitioning">
-<h2><span class="section-number">9.4. </span>Camera Partitioning<a class="headerlink" href="#camera-partitioning" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.4. </span>Camera Partitioning<a class="headerlink" href="#camera-partitioning" title="永久链接至标题">¶</a></h2>
 <p>从摄像机图 <span class="math notranslate nohighlight">\(\mathcal{G} = \{\mathcal{V},\mathcal{\epsilon}\}\)</span> 开始，然后递归应用归一化割算法将相机图划分为两个子图，直到每个子图所对应的局部平均运动可以通过单台计算机计算出。</p>
 </div>
 </div>
@@ -300,8 +302,8 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../DeepLearning/SFMLearner/SFMLearner.html" class="btn btn-neutral float-left" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../MarkerSfM/MarkerSfM.html" class="btn btn-neutral float-right" title="11. Improved Structure from Motion Using Fiducial Marker Matching" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../DeepLearning/DeepSfM/DeepSfM.html" class="btn btn-neutral float-left" title="9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
