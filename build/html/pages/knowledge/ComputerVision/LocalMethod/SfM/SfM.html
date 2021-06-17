@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="next" title="2. Robust Optimization in 3D Vision" href="../Robust_Optimization/Robust_Optimization.html" />
     <link rel="prev" title="🍤 Local Method" href="../LocalMethod.html" /> 
 </head>
 
@@ -102,8 +102,17 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1. Structure from Motion</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#incremental-sfm">1.1. Incremental SfM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#glboal-sfm">1.2. Glboal SfM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">1.3. 旋转平均</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id16">1.3.1. 不同的距离度量函数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id17">1.3.2. 不同的代价函数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id18">1.3.3. 构造矩阵方程</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
 </ul>
 </li>
 </ul>
@@ -119,6 +128,7 @@
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -206,9 +216,9 @@
 </ol>
 <div class="section" id="incremental-sfm">
 <h2><span class="section-number">1.1. </span>Incremental SfM<a class="headerlink" href="#incremental-sfm" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default" id="id15">
+<div class="align-center figure align-default" id="id19">
 <img alt="../../../../../_images/incremental_1.jpg" src="../../../../../_images/incremental_1.jpg" />
-<p class="caption"><span class="caption-text">incremental pipeline in colmap</span><a class="headerlink" href="#id15" title="永久链接至图片">¶</a></p>
+<p class="caption"><span class="caption-text">incremental pipeline in colmap</span><a class="headerlink" href="#id19" title="永久链接至图片">¶</a></p>
 </div>
 <p>该方法最早可以追溯到 <a class="footnote-reference brackets" href="#id8" id="id1">1</a> ，目前使用较多的方法 <a class="footnote-reference brackets" href="#id9" id="id2">2</a> <a class="footnote-reference brackets" href="#id10" id="id3">3</a> <a class="footnote-reference brackets" href="#id11" id="id4">4</a> <a class="footnote-reference brackets" href="#id12" id="id5">5</a> <a class="footnote-reference brackets" href="#id13" id="id6">6</a> <a class="footnote-reference brackets" href="#id14" id="id7">7</a> 也是以其为基础。</p>
 <p>增量式重建对于特征匹配以及外极几何关系的外点比较鲁棒，重建场景精度高:</p>
@@ -238,6 +248,119 @@
 </dd>
 </dl>
 </div>
+<div class="section" id="glboal-sfm">
+<h2><span class="section-number">1.2. </span>Glboal SfM<a class="headerlink" href="#glboal-sfm" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="id15">
+<h2><span class="section-number">1.3. </span>旋转平均<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<p>假设一个数据集包含N张图像，那么就存在 <span class="math notranslate nohighlight">\(C_2^N = \frac{N(N-1)}{2}\)</span> 对的相机运动可以被估计。可以用一个图 <span class="math notranslate nohighlight">\(G = \{v, \epsilon\}\)</span> 来表示所有相机之间的关系，将其称为视图。
+其中 <span class="math notranslate nohighlight">\(v\)</span> 中的每个顶点对应不同的相机，而边 <span class="math notranslate nohighlight">\((i,j) \in \epsilon\)</span> 意味着相机 <span class="math notranslate nohighlight">\(i\)</span> 和相机 <span class="math notranslate nohighlight">\(j\)</span> 之间的相对旋转矩阵可以被估计。相对旋转矩阵和全局旋转矩阵都是 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵，用 <span class="math notranslate nohighlight">\(R\)</span> 表示旋转矩阵，则每个旋转矩阵满足：</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(RR^T = I\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(|R| = \pm 1\)</span></p></li>
+</ol>
+<p>在全局坐标系中，全局旋转矩阵的集合可以用 <span class="math notranslate nohighlight">\(R_v = \{R_1,R_2,...,R_N\}\)</span> 来表示。相机 <span class="math notranslate nohighlight">\(i\)</span> 和相机 <span class="math notranslate nohighlight">\(j\)</span> 之间的相对旋转矩阵可以表示为 <span class="math notranslate nohighlight">\(R_{ij}\)</span> ，相对旋转矩阵的集合可以用 <span class="math notranslate nohighlight">\(R_{\epsilon} = \{R_{ij},\{i,j\} \in \epsilon \}\)</span> 。</p>
+<p>相对旋转矩阵 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与全局旋转矩阵 <span class="math notranslate nohighlight">\(R_i\)</span> 和  <span class="math notranslate nohighlight">\(R_j\)</span> 之间的关系可以表示为：</p>
+<div class="math notranslate nohighlight">
+\[R_{ij} = R_j R_i^{-1}, \forall \{i,j\} \in \epsilon\]</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/ra.jpg" src="../../../../../_images/ra.jpg" />
+</div>
+<p>相对旋转平均的问题可以表述如下：给定足够数量的相对旋转 <span class="math notranslate nohighlight">\(R_{ij} \in R_{\epsilon}\)</span> ，寻求全局相机旋转的估计，即  <span class="math notranslate nohighlight">\(R_v\)</span> 。</p>
+<p>在实际中，总是有比遍历视图图所需的更多边（ <span class="math notranslate nohighlight">\(|\epsilon| &gt; N - 1\)</span> ），这意味着肯定有冗余的观察项。</p>
+<p>由于噪声或异常值的存在，相对旋转的集合是不一致的，即无法找到完全满足所有约束的解  <span class="math notranslate nohighlight">\(R_v = \{R_1,R_2,···,R_N\}\)</span> 。</p>
+<p>因此需要通过最小化成本函数找到与观察到的相对旋转最一致的估计 <span class="math notranslate nohighlight">\(R_v\)</span> 。</p>
+<p>即求解最小化代价函数：</p>
+<div class="math notranslate nohighlight">
+\[R_v = \mathop{argmin}_\{R_1, R_2, ···, R_N\} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(d(·)\)</span> 是 SO(3) 中两个旋转之间的距离度量，而 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 是在此距离度量上定义的损失函数。</p>
+<div class="section" id="id16">
+<h3><span class="section-number">1.3.1. </span>不同的距离度量函数<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<p>在本文中使用 SO(3) 上的测地距离作为距离度量，但是也有一些方法忽略将旋转定义为 SO(3) 组元素的内在约束，而是计算外在距离。这些方法使用距离 <span class="math notranslate nohighlight">\(d_{chordal}(R_1,R_2) = ||R_1 - R_2||_F\)</span> ，也称为 <strong>弦距离</strong> 。</p>
+<p>如果旋转 <span class="math notranslate nohighlight">\(R_1,R_2\)</span> 由单位四元数  <span class="math notranslate nohighlight">\(q_1,q_2\)</span>  等价表示，则它们之间的四元数距离定义为：</p>
+<div class="math notranslate nohighlight">
+\[d_{quaternion}(R_1,R_2) = min(||q_1+q_2||), (||q_1-q_2||)\]</div>
+<p>如果将两个旋转 <span class="math notranslate nohighlight">\(R_1,R_2\)</span> 之间的测地线距离表示为 <span class="math notranslate nohighlight">\(\theta\)</span> ，那么它们之间的弦距离：</p>
+<div class="math notranslate nohighlight">
+\[d_{chordal}(R_1,R_2) = 2 \sqrt{2}sin(\theta / 2)\]</div>
+<p>转换成四元数的写法：</p>
+<div class="math notranslate nohighlight">
+\[d_{quaternion}(R_1,R_2) = 2 sin(\theta / 4)\]</div>
+</div>
+<div class="section" id="id17">
+<h3><span class="section-number">1.3.2. </span>不同的代价函数<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p>距离度量 <span class="math notranslate nohighlight">\(d(·,·)\)</span> 可用于测量 <span class="math notranslate nohighlight">\(\epsilon\)</span> 中单个边上的相对旋转观察的残余拟合误差。（residual fitting error），同样的，还需要定义一个损失函数 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 来确定各个误差的相对贡献。</p>
+<p>尽管与欧几里德空间不同，SO(3) 的流形上的距离以 <span class="math notranslate nohighlight">\(\pi\)</span> 弧度为界，但与估计的相对旋转中的噪声水平相比，该边界总是非常大。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/lf.jpg" src="../../../../../_images/lf.jpg" />
+</div>
+</div>
+<div class="section" id="id18">
+<h3><span class="section-number">1.3.3. </span>构造矩阵方程<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p>想要得到最优的全局旋转，就需要最小化相对旋转集合与估计的全局旋转集合之间的差异。</p>
+<p>设 <span class="math notranslate nohighlight">\(R\)</span> 是某个相机的旋转，随时间而连续变换，即 <span class="math notranslate nohighlight">\(R\)</span> 为关于时间 <span class="math notranslate nohighlight">\(t\)</span> 的函数 <span class="math notranslate nohighlight">\(R(t)\)</span> 。由于 <span class="math notranslate nohighlight">\(R\)</span> 是正交阵，则有：</p>
+<div class="math notranslate nohighlight">
+\[R(t)R(t)^T = I\]</div>
+<p>等式两边对 <span class="math notranslate nohighlight">\(t\)</span> 求导，则有 <span class="math notranslate nohighlight">\(\frac{\partial{R(t)}}{\partial t} R(t)^T + R(t) \frac{\partial R(t)^T}{\partial t} = 0\)</span> 整理可得：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{R(t)}}{\partial t} R(t)^T = -R(t) \frac{\partial R(t)^T}{\partial t} = -R(t)\frac{\partial R(t)^T}{\partial t} = -(\frac{\partial R(t)}{\partial t}R(t)^T)^T\]</div>
+<p>由上式可以看出 <span class="math notranslate nohighlight">\(\frac{\partial R(t)}{\partial t} R(t)^T\)</span> 是一个反对称矩阵（ <span class="math notranslate nohighlight">\(A = -A^T\)</span>）</p>
+<p>而对于反对称矩阵，总能找到一个三维向量 <span class="math notranslate nohighlight">\(w\)</span> 与之对应。 一般的， <span class="math notranslate nohighlight">\(w = [w_1,w_2,w_3]\)</span> 是一个三矢量，令 <span class="math notranslate nohighlight">\([w]_x\)</span> 表示向量到反对称阵的变换。 因此有：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial R(t)}{\partial t} R^T = [w]_x\]</div>
+<p>对上面的公式，左右同时右乘 <span class="math notranslate nohighlight">\(R(t)\)</span> 可得</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial R(t)}{\partial t} = [w]_x R(t)\]</div>
+<p>上面的公式是形如 <span class="math notranslate nohighlight">\(\frac{dy}{dx} = ay\)</span> 的常微分方程，对方程两边同时取倒数，有 <span class="math notranslate nohighlight">\(\frac{dx}{dy} = \frac{1}{ay}\)</span> 。显然 <span class="math notranslate nohighlight">\(dx = \frac{1}{y} dy\)</span> 的解为 <span class="math notranslate nohighlight">\(x = ln~ay\)</span> 进一步可得 <span class="math notranslate nohighlight">\(y = e^{ax}\)</span> 。将上面的公式代入可得</p>
+<div class="math notranslate nohighlight">
+\[R(t) = R(0)e^{[w]_x~t} = R(0)e^{[wt]_x}\]</div>
+<p>假设 <span class="math notranslate nohighlight">\(R(0) = I\)</span> ，在经过了 <span class="math notranslate nohighlight">\(\Delta t\)</span> 的时间之后，此时定义向量 <span class="math notranslate nohighlight">\(v \triangleq w \Delta t\)</span> ，则可以得到：</p>
+<div class="math notranslate nohighlight">
+\[R = e^{[v]_x}\]</div>
+<p>上式中的 <span class="math notranslate nohighlight">\(v\)</span> 就是转换得到的三维旋转向量，又名旋转的轴角表示。</p>
+<ul class="simple">
+<li><p>旋转向量的模表示物体绕轴逆时针旋转的角度，等于欧拉角。</p></li>
+<li><p>旋转轴就是旋转向量除以模后的单位向量。</p></li>
+</ul>
+<p>令旋转向量为 <span class="math notranslate nohighlight">\(v = (v_x, v_y, v_z)^T\)</span> ，则旋转角为 <span class="math notranslate nohighlight">\(\theta = norm(v)\)</span> ，旋转轴为 <span class="math notranslate nohighlight">\(n = v / \theta\)</span></p>
+<p><strong>基于旋转向量的矩阵方程</strong></p>
+<p>根据公式 <span class="math notranslate nohighlight">\(R_{ij} = R_jR_i^{-1} \)</span> 可以用旋转向量 <span class="math notranslate nohighlight">\(v\)</span> 表示全局旋转和相对旋转之间的关系：</p>
+<div class="math notranslate nohighlight">
+\[e^{[v_{ij}]_x} = e^{[v_j]_x} e^{-[v_i]_x}\]</div>
+<p>根据反对称矩阵的定义，可以得到：</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = v_j - v_i\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>其实上面公式的确切关系是： <span class="math notranslate nohighlight">\(v_{ij} = BCH(v_j, -v_i)\)</span> ，其中 <span class="math notranslate nohighlight">\(BCH(.,.)\)</span> 是Baker-Campbell-Hausdorff公式</p>
+<div class="math notranslate nohighlight">
+\[BCH(x,y) = x + y + \frac{1}{2}[x,y] + \frac{1}{12}[x-y,[x,y]] + o(|(x,y)|^4)\]</div>
+<p>如果只使用BCH公式的一阶估计 <span class="math notranslate nohighlight">\(BCH(x,y) \approx x + y\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = BCH(v_j, -v_i) = v_j - v_i\]</div>
+</div>
+<p>将上式转化为矩阵的表示形式：</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = v_j - v_i = [···-I···I···] v_{global}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(v_{global} = [v_1, v_2, ··· , v_N]^T\)</span> 是由所有全局旋转向量组成的列向量，其中 <span class="math notranslate nohighlight">\(N\)</span> 表示视图中相机的个数。此时列出所有相机对的方程并进行整合：</p>
+<div class="math notranslate nohighlight">
+\[A v_{global} = v_{rel}\]</div>
+<p><span class="math notranslate nohighlight">\(v_{rel}\)</span> 是由根据估计的全局旋转得到的所有的相对旋转向量的列向量， <span class="math notranslate nohighlight">\(v_{rel}^{c}\)</span> 是输入的计算好的相对选择向量组成的列向量。然后根据下面的公式来求解全局旋转的更新量 <span class="math notranslate nohighlight">\(\Delta v_{global}\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[A \Delta v_{global} = v_{rel} - v_{rel}^{c}\]</div>
+<p>令 <span class="math notranslate nohighlight">\(\Delta v_{rel} = v_{rel} - v_{rel}^{c}\)</span></p>
+<p>可以得到：</p>
+<div class="math notranslate nohighlight">
+\[A \Delta v_{global} = \Delta v_{rel}\]</div>
+<p>可以把上式看作：</p>
+<div class="math notranslate nohighlight">
+\[A x = b\]</div>
+<p>将 <span class="math notranslate nohighlight">\(\Delta v_{global}\)</span> 视为 <span class="math notranslate nohighlight">\(x\)</span> ， <span class="math notranslate nohighlight">\(\Delta v_{rel}\)</span> 视为 <span class="math notranslate nohighlight">\(b\)</span> ，问题转化为求解矩阵方程最优解的问题。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/ra_algorithm_1.jpg"><img alt="../../../../../_images/ra_algorithm_1.jpg" src="../../../../../_images/ra_algorithm_1.jpg" style="width: 465.0px; height: 242.25px;" /></a>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -246,7 +369,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Robust_Optimization/Robust_Optimization.html" class="btn btn-neutral float-right" title="2. Robust Optimization in 3D Vision" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../LocalMethod.html" class="btn btn-neutral float-left" title="🍤 Local Method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

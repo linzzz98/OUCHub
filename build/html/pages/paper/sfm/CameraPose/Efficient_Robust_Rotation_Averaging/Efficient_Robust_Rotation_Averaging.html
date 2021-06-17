@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>15. Efficient and Robust Large-Scale Rotation Averaging &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍋 Point Cloud" href="../../../p_pointcloud.html" />
+    <link rel="prev" title="14. Optimizing the Viewing Graph for Structure-from-Motion" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">13. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">15. Efficient and Robust Large-Scale Rotation Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rotation-averaging">15.1. Rotation  Averaging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">15. </span>Efficient and Robust Large-Scale Rotation Averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="efficient-and-robust-large-scale-rotation-averaging">
+<h1><span class="section-number">15. </span>Efficient and Robust Large-Scale Rotation Averaging<a class="headerlink" href="#efficient-and-robust-large-scale-rotation-averaging" title="永久链接至标题">¶</a></h1>
+<p>本文的方法适用于 3D 旋转的李群结构，并通过两种方式解决了大规模鲁棒旋转平均的问题。</p>
+<ol class="arabic simple">
+<li><p>使用现代L1优化器对相对旋转进行稳健的平均，对于异常值（outliers）是相当有效的。</p></li>
+<li><p>开发了一种两步法，它使用L1的解作为迭代重新加权最小二乘 (IRLS) 方法的初始化。</p></li>
+</ol>
+<p>与BA调整相反，全局相机运动估计的另一种方法是平均相对运动。</p>
+<p>在 SfM 的上下文中，运动平均利用了观察结果，即在一组 N 个图像中，存在多达 <span class="math notranslate nohighlight">\(^N C_2 = \frac{N(N-1)}{2}\)</span> ，使用其中2对可以估计相对运动。</p>
+<p>可以通过称为视图图的图 <span class="math notranslate nohighlight">\(G = {V,E}\)</span> 来表示所有相机之间的关系，其中 <span class="math notranslate nohighlight">\(V\)</span> 中的每个顶点代表一个相机，边  <span class="math notranslate nohighlight">\((i,j) \in \epsilon\)</span> 意味着
+可以估计相机 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 之间的运动。</p>
+<p>如果相当于全局参考系，将第 <span class="math notranslate nohighlight">\(k\)</span> 个摄像机的绝对3D旋转表示为 <span class="math notranslate nohighlight">\(R_k\)</span> ，则相机 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 之间的相对旋转 <span class="math notranslate nohighlight">\(R_{ij}\)</span>
+可以写成相机 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 的全局运动， 如下</p>
+<div class="math notranslate nohighlight">
+\[R_{ij} = R_j {R_i}^{-1}, \forall \{i,j\} \in \epsilon\]</div>
+<p>所有 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 旋转矩阵形成一个封闭群，称为特殊正交群 <span class="math notranslate nohighlight">\(SO(3)\)</span> ，</p>
+<p>李群的一个重要性质是李代数和群之间存在直接映射，反之亦然。 这些映射分别是熟悉的指数和对数函数。 在 3D 旋转的情况下，李代数表示为  <span class="math notranslate nohighlight">\(so(3)\)</span> 。</p>
+<p>如果表示 <span class="math notranslate nohighlight">\(w = \theta n \in so(3)\)</span> 其中 <span class="math notranslate nohighlight">\(\theta\)</span> 是绕单位范数轴 <span class="math notranslate nohighlight">\(n\)</span> 的旋转角度，那么李群和对应的 3D 旋转李代数之间的指数和对数映射为 <span class="math notranslate nohighlight">\(R = e^{[w]_x} \in SO(3)\)</span> 和 <span class="math notranslate nohighlight">\([w]_x = log(R) \in so(3)\)</span>
+其中  <span class="math notranslate nohighlight">\([w]_x \in so(3)\)</span>  是 <span class="math notranslate nohighlight">\(w\)</span> 的偏对称形式。</p>
+<p>SO(3)上的固有双不变度量， <span class="math notranslate nohighlight">\(d(R_1,R_2) = \frac{1}{\sqrt{2}} ||log(R_1 R_2^{-1})||_F = \frac{1}{\sqrt{2}}||log(R_2 R_1 ^{-1})||_F\)</span> 其中  <span class="math notranslate nohighlight">\(||·||\)</span> 是 Frobenius 范数。
+这导致了一组旋转 {R1, … , Rn } 的 Frechet 均值或内在平均值 μ ∈ SO(3)，其定义为：</p>
+<div class="math notranslate nohighlight">
+\[arg~~\mathop{min}_{\mu \in SO(3)} \sum\limits_{k=1}^n d^2 (R_k,\mu)\]</div>
+<p>和估计平均旋转相似，可以使用内在距离（intrinsic distance）将全局或绝对旋转拟合到一组给定的相对旋转观测值。</p>
+<p>如果相对于给定的参考系，我们将全局旋转定义为 <span class="math notranslate nohighlight">\(R_{global} = \{R_1,R_2,···,R_N\}\)</span> ，使用等式 <span class="math notranslate nohighlight">\(R_{ij} = R_j {R_i}^{-1}\)</span> 可以将全局旋转估计定义为：</p>
+<div class="math notranslate nohighlight">
+\[arg~~\mathop{min}_{R_{global}} \sum\limits_{(i,j)\in \epsilon} d^2 (R_{ij},R_jR_i^{-1})\]</div>
+<p>如果考虑由边  <span class="math notranslate nohighlight">\((i,j) \in E\)</span> 表示的单个关系 <span class="math notranslate nohighlight">\(R_{ij} = R_j R_i^{-1}\)</span> ，则对应的李代数关系的一阶近似可以写成 <span class="math notranslate nohighlight">\(w_{ij} = w_j - w_{i}\)</span></p>
+<p>进一步将所有旋转的角度表示表示为  <span class="math notranslate nohighlight">\(w_{global} = [w_1,···,w_N]^T\)</span> 。 因此，可以写：</p>
+<div class="math notranslate nohighlight">
+\[w_{ij} = w_j - w_i = \underbrace{[···-I···I···]}_{A_{ij}}w_{global}\]</div>
+<p>其中在 <span class="math notranslate nohighlight">\(A_{ij}\)</span> 中， <span class="math notranslate nohighlight">\(I\)</span> 和  <span class="math notranslate nohighlight">\(-I\)</span>  分别作为 <span class="math notranslate nohighlight">\(3\times 3\)</span> 块放置在 <span class="math notranslate nohighlight">\(j\)</span> 和 <span class="math notranslate nohighlight">\(i\)</span> 的适当位置。</p>
+<p>上面的式子表示从 <span class="math notranslate nohighlight">\(\epsilon\)</span> 中的单个相对运动边缘获得的关系，可以将所有这些关系统一到一个方程组中，如：</p>
+<div class="math notranslate nohighlight">
+\[A w_{global} = w_{rel}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(w_{rel}\)</span> 是通过叠加所有相对旋转观测值 <span class="math notranslate nohighlight">\(w_{ij}\)</span> 得到的向量， <span class="math notranslate nohighlight">\(A\)</span>  是通过叠加相应的矩阵 <span class="math notranslate nohighlight">\(A_{ij}\)</span> 得到的。</p>
+<dl class="field-list">
+<dt class="field-odd">算法 1</dt>
+<dd class="field-odd"><div class="align-center figure align-default">
+<img alt="../../../../../_images/122.jpg" src="../../../../../_images/122.jpg" />
+</div>
+</dd>
+</dl>
+<div class="section" id="rotation-averaging">
+<h2><span class="section-number">15.1. </span>Rotation  Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h2>
+<p>如果特定的相对旋转是异常值，那么李代数中的 l2 平均值将导致错误的旋转估计。</p>
+<p>使用稳健的李代数平均。 在这种情况下， <span class="math notranslate nohighlight">\(R_{global}\)</span>  的整体估计不受个别异常值的影响。 通过利用 l1 成本函数的凸优化的最新进展，我们可以在存在异常值的情况下实现准确性和可扩展性的双重目标。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-left" title="14. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

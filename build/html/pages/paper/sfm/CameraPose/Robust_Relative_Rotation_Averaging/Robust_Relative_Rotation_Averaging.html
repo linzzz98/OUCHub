@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>16. Robust Relative Rotation Averaging &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍋 Point Cloud" href="../../../p_pointcloud.html" />
+    <link rel="prev" title="15. Efficient and Robust Large-Scale Rotation Averaging" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">13. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">15. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">16. Robust Relative Rotation Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reduction-to-iteratively-reweighted-least-squares">16.1. Reduction to Iteratively Reweighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimization-using-quasi-newton-method">16.2. Optimization using Quasi-Newton Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">16. </span>Robust Relative Rotation Averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="robust-relative-rotation-averaging">
+<h1><span class="section-number">16. </span>Robust Relative Rotation Averaging<a class="headerlink" href="#robust-relative-rotation-averaging" title="永久链接至标题">¶</a></h1>
+<p>SfM 恢复三维点云和相机结构最流行的方法是BA的非线性优化方法，将3D结构和相机的生成模型与观察到的匹配图像点相匹配。BA的原理是最小化相机平面上的重投影误差。</p>
+<p>但是作为非线性优化算法，BA需要良好的初始化，因为它只保证收敛到局部最小值，并且BA受异常值过多鲁棒性不足和无法收敛的问题所困扰。</p>
+<p>使用两帧之间的对极几何，只能恢复第二个相机相对于第一个的航向方向（heading direction），而不是它们之间实际3D translation 的比例。 但是，可以使用它们的对极几何恢复相机对之间的3D相对旋转。</p>
+<p>因此，一种常见的方法是首先单独解决3D旋转的运动平均问题，然后在3D平移的估计中利用该解决方案。一旦解决了相机的运动，使用多视图三角剖分找到3D结构点的位置就明显容易得多，这为BA求解提供了一个很好的初值。</p>
+<p>本文以几个重要的方式概括和改进了《Efficient and Robust Large-Scale Rotation Averaging》中的解决方案：</p>
+<div class="section" id="reduction-to-iteratively-reweighted-least-squares">
+<h2><span class="section-number">16.1. </span>Reduction to Iteratively Reweighted Least Squares<a class="headerlink" href="#reduction-to-iteratively-reweighted-least-squares" title="永久链接至标题">¶</a></h2>
+<p>文章将最小化代价函数：</p>
+<div class="math notranslate nohighlight">
+\[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
+<p>简化为迭代优化问题。 在每次迭代中，这个优化问题都使用拟牛顿法解决，从而得到一种对异常值既有效又鲁棒的整体平均方法。</p>
+<p>上面的代价函数可以进一步写为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\\
+    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(R_j^{-1}R_{ij}R_i)||)\\
+    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(\Delta R_{ij})||)\\
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\Delta R_{ij} = R_j^{-1} R_{ij} R_i\)</span> ，需要注意的是给定旋转 <span class="math notranslate nohighlight">\(R_v\)</span> 的当前估计值，对于摄像机（ <span class="math notranslate nohighlight">\(V\)</span> 中的顶点），<span class="math notranslate nohighlight">\(||\Delta R_{ij}||\)</span>  表示 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 的摄像机  <span class="math notranslate nohighlight">\(i\)</span>  和  <span class="math notranslate nohighlight">\(j\)</span>  之间观察到的相对旋转 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与当前用 <span class="math notranslate nohighlight">\(R_jR_i^{-1}\)</span> 所估计相对旋转之间的差异</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在李代数表示中选择canonical或欧几里得度量会对旋转群 SO(3) 上测地线距离进行直观定义。这个距离很容易通过熟悉的 3D 旋转轴角度参数化来指定。</p>
+<p>在轴角形式中， <span class="math notranslate nohighlight">\(3 \times 1\)</span> 矢量 <span class="math notranslate nohighlight">\(\omega\)</span> 表示角  <span class="math notranslate nohighlight">\(||\omega||\)</span>  绕轴 <span class="math notranslate nohighlight">\(\omega / ||\omega||\)</span> 旋转。</p>
+<p>旋转矩阵 <span class="math notranslate nohighlight">\(R\)</span> 与其轴角 <span class="math notranslate nohighlight">\(\omega\)</span> 之间的关系由下式给出：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+   &amp;&amp;R &amp;=&amp; exp([\omega]_x)\\
+   &amp;&amp;[\omega]_x &amp;=&amp; log(R)
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\([\omega]_x\)</span> 是 <span class="math notranslate nohighlight">\(\omega\)</span> 的反对称矩阵：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[\omega]_x = \left[
+\begin{matrix}
+0 &amp; -\omega_3 &amp; \omega_2\\
+\omega_3 &amp; 0 &amp; -\omega_1\\
+-\omega_2 &amp; \omega_1 &amp; 0
+\end{matrix}
+\right]\end{split}\]</div>
+<p>反对称矩阵 <span class="math notranslate nohighlight">\([\omega]_x\)</span> 定义了旋转群 SO(3) 的李代数。</p>
+<p>通常情况下：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(R(\omega)\)</span>  表示通过应用于  <span class="math notranslate nohighlight">\([\omega]_x \in so(3)\)</span> 的指数映射获得的 3D 旋转；</p></li>
+<li><p><span class="math notranslate nohighlight">\(\omega(R)\)</span> 表示从 <span class="math notranslate nohighlight">\(R \in SO(3)\)</span> 中提取的  <span class="math notranslate nohighlight">\(\omega\)</span> 的 <span class="math notranslate nohighlight">\(3 \times 1\)</span>  的向量。</p></li>
+</ul>
+<p>对于绕不同轴的两个 3D 旋转， <span class="math notranslate nohighlight">\(R(\omega_1) R(\omega_2) \ne R(\omega_1 + \omega_2)\)</span></p>
+<p>反而， <span class="math notranslate nohighlight">\(R(\omega_1) R(\omega_2) = R(BCH(\omega_1, \omega_2))\)</span> ，其中 <span class="math notranslate nohighlight">\(BCH(·,·)\)</span> 是Baker-Campbell-Hausdorff 形式，表示为两个李代数项 <span class="math notranslate nohighlight">\(\omega_1\)</span> 和  <span class="math notranslate nohighlight">\(\omega_2\)</span>  的级数。</p>
+<p>对于旋转群 SO(3)，BCH 级数有一个闭式表达式  <span class="math notranslate nohighlight">\(BCH(\omega_1,\omega_2) = \alpha \omega_1 + \beta \omega_2 + \gamma \omega_1 \times \omega_2\)</span> ，其中标量  <span class="math notranslate nohighlight">\(\alpha,\beta,\gamma\)</span>  是  <span class="math notranslate nohighlight">\(\omega_1,\omega_2\)</span> 的函数。</p>
+<p>由于SO(3) 上的距离度量本质上是bi-invariant的，所以有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+&amp;&amp; d(R_1,R_2) = d(R_2,R_1) = d(I,R_2R_1^{-1})\\
+&amp;=&amp; \frac{1}{\sqrt{2}} ||log(R_2R_1^{-1})||_F = ||\omega(R_2R_1^{-1}||\\
+&amp;=&amp; ||BCH(\omega_2,-\omega_1)||
+\end{eqnarray}\end{split}\]</div>
+<p>从而：<span class="math notranslate nohighlight">\(d(R_{ij},R_jR_i^{-1}) = ||\omega(R_j^{-1}R_{ij}R_i)||\)</span></p>
+</div>
+<p>下面考虑一种迭代方法来最小化的目标函数。</p>
+<p>令当前对 <span class="math notranslate nohighlight">\(R_v\)</span> 的估计为 <span class="math notranslate nohighlight">\(\{R_1,···,R_N\}\)</span> ，在当前的迭代中、对 <span class="math notranslate nohighlight">\(R_v\)</span> 进行更新来使损失函数的值下降。</p>
+<p>令此次更新为 <span class="math notranslate nohighlight">\(\{\Delta R_1, ···, \Delta R_N\}\)</span> ，则更新后的 <span class="math notranslate nohighlight">\(R_v\)</span> 为 <span class="math notranslate nohighlight">\(\{R_1\Delta R_1, ···, R_N\Delta R_N\}\)</span> 。</p>
+<p>因此，在给定的迭代中，目标是最小化：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{(i,j) \in \epsilon} \rho (||\omega(\Delta R_j^{-1} \Delta R_{ij} \Delta R_i)||)\]</div>
+<p>对于每个单独的旋转更新 <span class="math notranslate nohighlight">\(\Delta R_i\)</span> ，对于所有 <span class="math notranslate nohighlight">\(i \in \{1,···,N\}\)</span> ，让等效的轴角表示表示为 <span class="math notranslate nohighlight">\(\Delta \omega_i\)</span> 。</p>
+<p>将所有这些向量放到一个  <span class="math notranslate nohighlight">\(3 N \times 1\)</span>  的向量  <span class="math notranslate nohighlight">\(\Delta \Omega_v = [\Delta \omega^T_1, ···, \Delta \omega^T_N]^T\)</span> 中。</p>
+<p>对于每个残差旋转项  <span class="math notranslate nohighlight">\(\Delta R_{ij}\)</span> 来说 ，所有的 <span class="math notranslate nohighlight">\((i,j)\in \epsilon\)</span> ，等效轴角表示为 <span class="math notranslate nohighlight">\(\Delta \omega_{ij}\)</span> 。</p>
+<p>所有这些向量串联成一个 <span class="math notranslate nohighlight">\(3 M \times 1\)</span> 的向量表示为 <span class="math notranslate nohighlight">\(\Delta \Omega_\epsilon\)</span></p>
+<p>那么上面的等式就等价于找到最小化成本函数 <span class="math notranslate nohighlight">\(F(\Delta \Omega_v)\)</span> 的 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+   F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \rho(||\omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))||)\\
+   &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \rho(||r_{ij} (\Delta \Omega_v)||)
+\end{eqnarray}\end{split}\]</div>
+<p>其中:</p>
+<div class="math notranslate nohighlight">
+\[r_{ij}(\Delta \Omega_v) = \omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))\]</div>
+<p>梯度 <span class="math notranslate nohighlight">\(F(\Delta \Omega_v)\)</span> 由下面的式子给出：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\nabla F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \nabla \rho(||r_{ij}(\Delta \Omega_v)||)\\
+&amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \psi(||r_{ij} (\Delta \Omega_v)||) \nabla (||r_{ij}(\Delta \Omega_v)||)
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\psi(r) = \frac{\partial \rho(r)}{\partial  r}\)</span> 称为 influence function。</p>
+<p>定义 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(\Delta \Omega_v)||) = \frac{\psi(||r_{ij} (\Delta \Omega_v)||)}{||r_{ij} (\Delta \Omega_v)||}\)</span></p>
+<p>从而有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+&amp;&amp; F(\Delta \Omega_v)\\
+&amp;=&amp; \frac{1}{2} \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||)2||r_{ij}(\Delta \Omega_v)|| \nabla(||r_{ij}(\Delta \Omega_v)||)\\
+&amp;=&amp; \frac{1}{2}  \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||) \nabla(||r_{ij}(\Delta \Omega_v)||^2)
+\end{eqnarray}\end{split}\]</div>
+<p>可以通过将 <span class="math notranslate nohighlight">\(\nabla F(\Delta \Omega_v)\)</span> 等于零来找到最佳的 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span> 。</p>
+<p>在这里，使用 <strong>IRLS优化</strong> ，因此，在每次迭代期间，将  <span class="math notranslate nohighlight">\(\phi(||r_{ij}(\Delta \Omega_v)||)\)</span> 视为由 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(0)||)\)</span> 给出的常数。</p>
+<p>记 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(0)||)\)</span> 为 <span class="math notranslate nohighlight">\(\phi_{ij}\)</span> ，则问题变为：</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\]</div>
+<p>等价于下面的最小化问题：</p>
+<div class="math notranslate nohighlight">
+\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j)\in \epsilon} \phi_{ij} ||r_{ij}(\Delta \Omega_v)||^2\]</div>
+<p>权重  <span class="math notranslate nohighlight">\(\phi_{ij} = \phi(||r_{ij}(0)||)\)</span> 是在每次迭代时为每条边 <span class="math notranslate nohighlight">\((i,j) \in \epsilon\)</span> 计算的。</p>
+<p>至此，已将相对旋转平均问题简化为迭代重新加权的非线性最小二乘问题。 现在将看到如何在每次迭代中使用拟牛顿法解决加权非线性最小二乘问题。</p>
+</div>
+<div class="section" id="optimization-using-quasi-newton-method">
+<h2><span class="section-number">16.2. </span>Optimization using Quasi-Newton Method<a class="headerlink" href="#optimization-using-quasi-newton-method" title="永久链接至标题">¶</a></h2>
+<p>在拟牛顿优化方法中，代价函数的 Hessian 近似为正半定矩阵。在高斯-牛顿算法的每次迭代中，函数在一阶意义上被局部逼近，因此优化问题归结为线性最小二乘问题。</p>
+<p>方程 <span class="math notranslate nohighlight">\(\sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\)</span> 等价于</p>
+<div class="math notranslate nohighlight">
+\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j) \in \epsilon} \phi_{ij} · ||r_{ij}(0) + \mathbb{J} r_{ij}(0)^T \Delta \Omega_v||^2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\mathbb{J}_{ij}(0)\)</span> 是当前点 <span class="math notranslate nohighlight">\(\Delta \Omega_v = 0\)</span> 处  <span class="math notranslate nohighlight">\(r_{ij}(\Delta \Omega_v)\)</span>  的雅可比矩阵（相对于要估计的未知数 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span>）。</p>
+<p>最小化上面公式中的cost等效于在最小二乘意义上求解以下线性方程组：</p>
+<div class="math notranslate nohighlight">
+\[\sqrt{\phi_{ij}} \mathbb{J} r_{ij}(0)^T \Delta \Omega_v = - \sqrt{\phi_{ij}} r_{ij} (0)~~ \forall(i,j) \in \epsilon\]</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" class="btn btn-neutral float-left" title="15. Efficient and Robust Large-Scale Rotation Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

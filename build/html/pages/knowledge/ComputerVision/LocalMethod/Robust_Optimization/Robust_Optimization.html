@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Robust Optimization in 3D Vision &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="3. 三维重建中的旋转" href="../Rotation/Rotation.html" />
+    <link rel="prev" title="1. Structure from Motion" href="../SfM/SfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. Robust Optimization in 3D Vision</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2.1. 凸优化和非凸优化</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id3">2.1.1. 凸函数</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">2.1.2. 非凸函数</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#l1-l2">2.2. l1-范数和l2-范数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.3. 最小二乘法</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id6">2.3.1. 最小二乘问题</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id7">2.3.2. 最小二乘来源</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#irls">2.4. 鲁棒最小二乘和迭代重加权（IRLS）问题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">2.5. 优化问题在三维视觉中的应用</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#rotation-averaging">2.5.1. Rotation Averaging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Robust Optimization in 3D Vision</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/Robust_Optimization/Robust_Optimization.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="robust-optimization-in-3d-vision">
+<h1><span class="section-number">2. </span>Robust Optimization in 3D Vision<a class="headerlink" href="#robust-optimization-in-3d-vision" title="永久链接至标题">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本篇转载自 👉  <a class="reference external" href="https://zhuanlan.zhihu.com/p/77428255">《Robust Optimization in 3D Vision》</a></p>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">2.1. </span>凸优化和非凸优化<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>凸优化问题的一般形式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+min~~&amp;~&amp;f(x)\\
+s.t.~~&amp;~&amp;h_i(x) = 0,\forall i = 1,...,n \\
+&amp;~&amp; g_j(x) &lt; 0, \forall j = 1, ..., m
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(f(x),g_j(x)\)</span> 都是凸函数， <span class="math notranslate nohighlight">\(h_i(x)\)</span> 为仿射函数（既凸又凹）</p>
+<div class="section" id="id3">
+<h3><span class="section-number">2.1.1. </span>凸函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>凸函数的定义：</p>
+<p>对于定义在凸集上的函数 <span class="math notranslate nohighlight">\(f\)</span> ，如果对任意 <span class="math notranslate nohighlight">\(0 \le \theta \le 1\)</span> ，都有：</p>
+<div class="math notranslate nohighlight">
+\[f(\theta x + (1-\theta) y ) \le \theta f(x) + (1 - \theta) f(y)\]</div>
+<p>例如 函数任意两点之间的弦都在函数的上方：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/120.jpg" src="../../../../../_images/120.jpg" />
+</div>
+<p>实际中，要验证一个函数是否是凸函数，以上定义很不好用。因此，存在一些其他方法判断是否是凸函数。</p>
+<p>（1） 导数和二阶导数判断：</p>
+<blockquote>
+<div><p>对于一个光滑的函数，可通过以下导数的信息判断是否为凸函数：</p>
+<p>（一阶充要条件） <span class="math notranslate nohighlight">\(f(y) \ge f(x) + \nabla f(x)^T (y - x)\)</span></p>
+<p>（二阶充要条件） <span class="math notranslate nohighlight">\({\nabla}^2 f(x) \ge 0\)</span></p>
+</div></blockquote>
+<p>（2）利用凸函数的结构叠加性质：</p>
+<blockquote>
+<div><p>利用凸函数的结构叠加性质判断是否为凸函数复合而成：</p>
+<ul class="simple">
+<li><p>非负加权求和： <span class="math notranslate nohighlight">\(f(x) = \sum\limits_{i} \alpha_i f_i(x), \forall \alpha_i \ge 0\)</span></p></li>
+<li><p>仿射变换：<span class="math notranslate nohighlight">\(f(x) = f_i(Ax + b)\)</span></p></li>
+<li><p>取最大值： <span class="math notranslate nohighlight">\(f(x) = max\{f_1(x),...,f_m(x)\}\)</span></p></li>
+<li><p>标量复合、向量复合、最小化等</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">2.1.2. </span>非凸函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>凸函数（凹函数，拟凸函数）的一个对立就是非凸函数。凸函数的一个好处就是，对于优化得到的局部最优点，一定是一个全局最优点，因为凸函数只存在一个全局最优。而对于非凸函数，则存在非常多的局部最优点，还有非常多的鞍点。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/213.jpg" src="../../../../../_images/213.jpg" />
+</div>
+<p>对于非凸优化问题，当优化算法收敛的时候，不利用其他信息，很难判断是否收敛到全局最优。因而非凸优化问题的求解要想尽可能的逼近全局最优，需要有较为可靠的初始值。目前面临的大多数问题都是非凸优化问题。</p>
+</div>
+</div>
+<div class="section" id="l1-l2">
+<h2><span class="section-number">2.2. </span>l1-范数和l2-范数<a class="headerlink" href="#l1-l2" title="永久链接至标题">¶</a></h2>
+<p>对于优化问题，最小化估计值 <span class="math notranslate nohighlight">\(f(x)\)</span> 和目标值 <span class="math notranslate nohighlight">\(y\)</span> 之间的残差：</p>
+<div class="math notranslate nohighlight">
+\[min~~~d(y,f(x))^p\]</div>
+<p>其中， <span class="math notranslate nohighlight">\(d(,)^p\)</span> 表示误差度量范数。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>对于向量来说，误差度量范数常见的为 <span class="math notranslate nohighlight">\(l_1-\)</span> 范数和 <span class="math notranslate nohighlight">\(l_2-\)</span> 范数</p>
+<p>其中 <span class="math notranslate nohighlight">\(l_1-\)</span> 范数，残差是目标值和估计值之差的绝对值之和：</p>
+<div class="math notranslate nohighlight">
+\[S = \sum\limits_{i=1}^n|y_i - f(x_i)|\]</div>
+<p>如果是 <span class="math notranslate nohighlight">\(l_2-\)</span> 范数，残差是目标值和估计值之差的平方和：</p>
+<div class="math notranslate nohighlight">
+\[S = \sum\limits_{i=1}^n(y_i - f(x_i))^2\]</div>
+</div>
+<p>真实的观测数据通常存在外点 （outliers）。outlier的存在会导致优化时的最优点偏离真实的最优点。
+在外点存在的情况下，  <span class="math notranslate nohighlight">\(l_1\)</span> -范数会比 <span class="math notranslate nohighlight">\(l_2\)</span> -范数鲁棒。从直观上来讲，由于  <span class="math notranslate nohighlight">\(l_2\)</span> -范数对误差进行了平方，因此相比 <span class="math notranslate nohighlight">\(l_1\)</span> -范数来说，外点会贡献更多的误差。而优化算法又需要最小化误差，因此会导致优化会更多地朝着外点的方向去调整。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>两种范数度量的比较：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(l_1\)</span> -范数比 <span class="math notranslate nohighlight">\(l_2\)</span> -范数更鲁棒</p></li>
+<li><p><span class="math notranslate nohighlight">\(l_2\)</span> -范数比 <span class="math notranslate nohighlight">\(l_1\)</span> -范数更稳定</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">2.3. </span>最小二乘法<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h3><span class="section-number">2.3.1. </span>最小二乘问题<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>最小二乘问题定义为：</p>
+<div class="math notranslate nohighlight">
+\[min f(x) = \frac{1}{2} \sum\limits_{i=1}^m r_i^2(x) = \frac{1}{2} r(x)^Tr(x), x \in \mathbb{R}^n, m \ge n\]</div>
+<p>这里 <span class="math notranslate nohighlight">\(r(x) = [r_1(x),r_2(x),...,r_m(x)]^T\)</span> 称作残差。</p>
+<p>若 <span class="math notranslate nohighlight">\(r_i(x)\)</span> 为线性函数，则问题为 <strong>线性最小二乘问题</strong> ，若至少有一个 <span class="math notranslate nohighlight">\(r_i(x)\)</span> 为非线性函数，则问题为 <strong>非线性最小二乘问题</strong> 。</p>
+<p>设 <span class="math notranslate nohighlight">\(J(x)\)</span> 是 <span class="math notranslate nohighlight">\(r(x)\)</span> 的Jacobi矩阵：</p>
+<div class="math notranslate nohighlight">
+\[J(x) = [\nabla r_1(x), ... , \nabla r_m(x)]^T \in \mathbb{R}^{m \times n}\]</div>
+<p>则 <span class="math notranslate nohighlight">\(f(x)\)</span> 的梯度为：</p>
+<div class="math notranslate nohighlight">
+\[g(x) = \sum\limits_{i=1}^m r_i(x) \nabla r_i(x) = J(x)^T r(x)\]</div>
+<p><span class="math notranslate nohighlight">\(f(x)\)</span> 的Hessian矩阵为：</p>
+<div class="math notranslate nohighlight">
+\[G(x) = \sum\limits_{i=1}^m \nabla r_i(x) \nabla r_i(x)^T + \sum\limits_{i=1}^m r_i(x) \nabla^2 r_i(x) = J(x)^TJ(x) + S(x)\]</div>
+<p>其中， <span class="math notranslate nohighlight">\(S(x) = \sum\limits_{i=1}^m r_i(x) \nabla^2 r_i(x)\)</span></p>
+</div>
+<div class="section" id="id7">
+<h3><span class="section-number">2.3.2. </span>最小二乘来源<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>最小二乘问题大量产生数据拟合问题：给定一组实验数据 <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> 和函数模型 <span class="math notranslate nohighlight">\(f(x)\)</span> ，要确定 <span class="math notranslate nohighlight">\(x\)</span> 使得 <span class="math notranslate nohighlight">\(f(x)\)</span> 在残差的平方和意义下尽可能地拟合给定的数据。即：</p>
+<div class="math notranslate nohighlight">
+\[\mathop{argmin}\limits_{x} \sum\limits_{i=1}^n ||y_i - f(x_i)||^2_2\]</div>
+<p>最小二乘问题和极大似然估计之间存在联系。通常假定误差遵循高斯（正态）分布。
+具体来讲，假定目标值和观测值之间都具有零均值和标准差为 <span class="math notranslate nohighlight">\(\sigma\)</span> 的高斯噪声。
+若真值为 <span class="math notranslate nohighlight">\(y_i\)</span> ，估计值为 <span class="math notranslate nohighlight">\(f(x_i)\)</span> ，那么每个估计值的概率密度函数是：</p>
+<div class="math notranslate nohighlight">
+\[Pr(x_i) = \frac{1}{2 \pi \sigma^2} e^{- \frac{(y_i - f(x_i))^2}{2\sigma^2}}\]</div>
+<p>假设误差独立同分布，那么联合概率密度函数为：</p>
+<div class="math notranslate nohighlight">
+\[Pr(x) = \prod_i Pr(x_i) = \prod_i \frac{1}{2 \pi \sigma^2} e^{-\frac{(y_i - f(x_i))^2}{2 \sigma^2}}\]</div>
+<p>对应的对数似然函数为：</p>
+<div class="math notranslate nohighlight">
+\[logPr(x) = -\frac{1}{2 \pi \sigma^2} \sum\limits_i(y_i - f(x_i))^2 + c\]</div>
+<p>最大似然估计最大化这个对数似然函数，也即最小化</p>
+<div class="math notranslate nohighlight">
+\[\sum\limits_i (y_i - f(x_i))^2 \leftrightarrow \sum\limits_i ||y_i - f(x_i)||^2_2\]</div>
+</div>
+</div>
+<div class="section" id="irls">
+<h2><span class="section-number">2.4. </span>鲁棒最小二乘和迭代重加权（IRLS）问题<a class="headerlink" href="#irls" title="永久链接至标题">¶</a></h2>
+<p>常规的最小二乘对其中噪声符合高斯分布的观测值来说是一个合适的选择，然而在存在外点的时，需要更鲁棒的最小二乘。
+这种情况下，最好用M-估计（M-estimator），它对残差施加一个鲁棒惩罚函数  <span class="math notranslate nohighlight">\(\rho(r)\)</span>  （也称为 loss function）</p>
+<div class="math notranslate nohighlight">
+\[E_{RLS(\Delta x)} = \sum\limits_{i} \rho(||r_i||)\]</div>
+<p>来代替它们的平方</p>
+<div class="math notranslate nohighlight">
+\[E_{LS(\Delta x)} = \sum\limits_i ||r_i||^2_2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(r_i = y_i - f(x_i)\)</span> ，对 <span class="math notranslate nohighlight">\(x\)</span> 求偏导有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+&amp;&amp;\sum\limits_i \frac{\partial \rho(||r_i||)}{\partial ||r_i||} · \frac{\partial ||r_i||}{\partial x}
+\\&amp;=&amp; \sum\limits_i \frac{\partial \rho(||r_i||)}{\partial ||r_i|| · ||r_i||} · r_i^T \frac{\partial ||r_i||}{\partial x}
+\\&amp;=&amp; \sum\limits_i \frac{\Psi (||r_i||)}{||r_i||} · r_i^T \frac{\partial ||r_i||}{\partial x}
+\\&amp;=&amp; \sum\limits_i w(||r_i||) · r_i^T \frac{\partial ||r_i||}{\partial x} = 0
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\Psi(||r_i||) = \frac{\partial \rho(||r_i||)}{\partial ||r_i||}\)</span> ，称为影响函数， <span class="math notranslate nohighlight">\(w(r) = \frac{\Psi(r)}{r}\)</span>
+称为加权函数。</p>
+<p>可以看出用对数似然函数求解估计值的概率密度函数的极小值等于最小化 <strong>迭代重加权最小二乘 (Iteratively Reweighted Least Squares, IRLS)问题</strong></p>
+<div class="math notranslate nohighlight">
+\[E_{IRLS} = \sum\limits_{i} w(||r_i||)||r_i||^2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(w(||r_i||)\)</span> 起着局部加权作用。IRLS 算法在计算影响函数 <span class="math notranslate nohighlight">\(w(||r_i||)\)</span> 和求解得到的加权最小二乘问题(固定的 <span class="math notranslate nohighlight">\(w\)</span> 值) 之间交替。
+M-estimator 一定能够减少外点的影响，但是在一些情况中，从太多外点起步的话会使得 IRLS（或者其他梯度下降算法） 不能收敛到全局最优。</p>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">2.5. </span>优化问题在三维视觉中的应用<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<div class="section" id="rotation-averaging">
+<h3><span class="section-number">2.5.1. </span>Rotation Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h3>
+<p><strong>相对运动和全局姿态的约束关系</strong></p>
+<p>Rotation Averaging 是 Structure from Motion （SfM） 的一个子问题，摄像机的位姿由旋转 （rotation，或是朝向 orientation） 和平移 （translation，也可以说是摄像机位置）构成。</p>
+<p>问题描述为: 给定 <span class="math notranslate nohighlight">\(N\)</span> 张图片，全局运动可以用 <span class="math notranslate nohighlight">\(N - 1\)</span> 个运动模型描述。
+两个相机之间的相对运动关系可以通过对极几何估计 <strong>本质矩阵（Essential Matrix）</strong> ，再进行矩阵分解（对本质矩阵的奇异值分解）得到。
+可以通过相对相机运动来估计全局相机运动模型。如果每对图片之间都有足够的重叠，那么我们可以得到 <span class="math notranslate nohighlight">\(\frac{N(N-1)}{2}\)</span> 对约束(虽然实际上不可能存在这么多对，但一般也存在远多于 <span class="math notranslate nohighlight">\(N\)</span> 的约束)。</p>
+<p>为了求解 Rotation Averaging 问题，首先来推几个公式。假设已知两个相机在全局坐标系下的运动，求这两个相机之间的相对运动关系。</p>
+<p>已知点 <span class="math notranslate nohighlight">\(P\)</span> 在世界坐标系中的坐标，记为 <span class="math notranslate nohighlight">\(P_0\)</span> 。对于两个不同的相机 <span class="math notranslate nohighlight">\(i\)</span> 和  <span class="math notranslate nohighlight">\(j\)</span> ，对应于全局坐标系中的旋转和平移分别为 <span class="math notranslate nohighlight">\(R_i, t_i, R_j, t_j\)</span> 。
+将点 <span class="math notranslate nohighlight">\(P_0\)</span> 分别投影到相机 <span class="math notranslate nohighlight">\(i、j\)</span> 的坐标系，那么有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_i = R_i P_0 + t_i\\
+P_j = R_j P_0 + t_j\end{split}\]</div>
+<p>由上面的第一个公式可以得到</p>
+<div class="math notranslate nohighlight">
+\[P_0 = R_i^{-1} (P_i - t_i)\]</div>
+<p>将上式公式带入到上面的第二个公式有</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+   P_j &amp;=&amp; R_j(R_i^{-1}(P_i - t_i)) + t_j\\
+       &amp;=&amp; R_jR_i^{-1}P_i + (t_j - R_jR_i^{-1}t_i)
+\end{eqnarray}\end{split}\]</div>
+<p>由上式可以得到相机 <span class="math notranslate nohighlight">\(i\)</span> 到相机 <span class="math notranslate nohighlight">\(j\)</span> 的相对运动关系：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+&amp;&amp;R_{ij} = R_jR_i^{-1} = R_jR_i^T\\
+&amp;&amp;t_{ij} = t_j - R_jR_i^{-1}t_i = t_j - R_{ij}t_i
+\end{eqnarray}\end{split}\]</div>
+<p>这里需要注意的是 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 和  <span class="math notranslate nohighlight">\(t_{ij}\)</span> 是相机 <span class="math notranslate nohighlight">\(i\)</span> 相对于 <span class="math notranslate nohighlight">\(j\)</span> 的运动。</p>
+<p><strong>Rotation Averaging 问题求解</strong></p>
+<p>给定参考系和一系列相对旋转 <span class="math notranslate nohighlight">\(\{R_{ij}\}\)</span> ，求解 <span class="math notranslate nohighlight">\(R_{global} = \{R_1,...,R_N\}\)</span> 。最小化代价函数：</p>
+<div class="math notranslate nohighlight">
+\[\mathop{argmin}\limits_{R_i} = \sum\limits_{(i,j)\in \epsilon} d^2(R_{ij}, R_jR_i^{-1})\]</div>
+<p>考虑使用李代数来进行优化， <span class="math notranslate nohighlight">\(R_{ij} = exp([w_{ij}]_x),R_i = exp([w_i]_x)\)</span> ，其中 <span class="math notranslate nohighlight">\(w_{ij}\)</span> 和 <span class="math notranslate nohighlight">\(w_i\)</span> 分别是 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 和 <span class="math notranslate nohighlight">\(R_i\)</span> 对应的李代数。</p>
+<p>假设只考虑其中一对关系 <span class="math notranslate nohighlight">\(R_{ij} = R_jR_i^{-1}\)</span> 。由BCH公式：</p>
+<div class="math notranslate nohighlight">
+\[BCH(x,y) = x + y + \frac{1}{2}[x,y] + \frac{1}{12}[x-y,[x,y]] + o(|(x,y)|^4)\]</div>
+<p>如果只使用BCH公式的一阶估计 <span class="math notranslate nohighlight">\(BCH(x,y) \approx x + y\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[w_{ij} = BCH(w_j, -w_i) = w_j - w_i\]</div>
+<p>令全局坐标系下旋转的李代数表示为  <span class="math notranslate nohighlight">\(w_{global} = [w_1,...,w_N]^T\)</span> ，则有：</p>
+<div class="math notranslate nohighlight">
+\[w_{ij} = w_j - w_i = [···~~~-I~~~···~~~I~~~···]w_{global} = A_{ij}w_{global}\]</div>
+<p>在 <span class="math notranslate nohighlight">\(A_{ij}\)</span> 中， <span class="math notranslate nohighlight">\(I\)</span> 和 <span class="math notranslate nohighlight">\(-I\)</span> 为在 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 处的 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的块矩阵。
+将所有的相对运动关系拼起来，有：</p>
+<div class="math notranslate nohighlight">
+\[Aw_{global} = w_{rel}\]</div>
+<p>如何求解这个非线性方程式？</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Rotation/Rotation.html" class="btn btn-neutral float-right" title="3. 三维重建中的旋转" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../SfM/SfM.html" class="btn btn-neutral float-left" title="1. Structure from Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -7,5 +7,11 @@
    :numbered:
 
    SfM/SfM
+   Robust_Optimization/Robust_Optimization
+   Rotation/Rotation
 
 * :doc:`Structure from Motion <SfM/SfM>` |:fire:|
+
+* :doc:`Rotation <Rotation/Rotation>` |:fire:|
+
+* :doc:`Robust Optimization in 3D Vision <Robust_Optimization/Robust_Optimization>` |:fire:|

@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Hierarchical structure-and-motion recovery from uncalibrated images &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="3. HSfM: Hybrid Structure-from-Motion" href="../../Hybrid/HSfM/HSfM.html" />
+    <link rel="prev" title="1. Structure-from-Motion Revisited" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Hierarchical structure-and-motion recovery from uncalibrated images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#keypoint-detection-and-matching-in">2.1. Keypoint detection and matching In</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keypoint-detection">2.1.1. Keypoint detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matching-broad-phase">2.1.2. Matching: broad phase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#matching-narrow-phase">2.1.3. Matching: narrow phase</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-images">2.2. Clustering images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hierarchical-structure-and-motion">2.3. Hierarchical structure-and-motion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2.3.1. 用语解释</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stereo-modeling">2.3.2. Stereo-modeling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#intersection">2.3.3. Intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resection">2.3.4. Resection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#merging-two-models">2.3.5. Merging two models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dendrogram-balancing">2.4. Dendrogram balancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-bundle-adjustment">2.5. Local bundle adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uncalibrated-hierarchical-structure-and-motion">2.6. Uncalibrated hierarchical structure-and-motion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#autocalibration">2.6.1. Autocalibration</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#estimation-of-the-plane-at-infinity">2.6.1.1. Estimation of the plane at infinity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#estimation-of-the-internal-parameters">2.6.1.2. Estimation of the internal parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#projective-stereo-modeling">2.6.2. Projective stereo-modeling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resection-intersection">2.6.3. Resection-intersection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.6.4. Merging two models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-settings">2.7. Parameter Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">13. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Hierarchical structure-and-motion recovery from uncalibrated images</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hierarchical-structure-and-motion-recovery-from-uncalibrated-images">
+<h1><span class="section-number">2. </span>Hierarchical structure-and-motion recovery from uncalibrated images<a class="headerlink" href="#hierarchical-structure-and-motion-recovery-from-uncalibrated-images" title="永久链接至标题">¶</a></h1>
+<p>👉 <a class="reference external" href="https://arxiv.org/pdf/1506.00395.pdf">原文链接</a></p>
+<p>为了SfM解决效率问题，文章建议将整个结构和运动过程描述为通过对图像集进行聚集聚类而构造的二叉树(称为树状图）。</p>
+<p>每片叶子对应一个图像，而内部节点则代表通过合并左右子节点而获得的部分模型。计算从底部到顶部，从几个种子对开始，最终到达根节点，与完整模型相对应。</p>
+<p>在结构和运动中要解决的主要问题是计算复杂度，其主要是BA调整阶段，然后是特征提取和匹配。</p>
+<p>本文描述了一种结构和运动的分层和可并行化方案。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/110.png" src="../../../../../../_images/110.png" />
+</div>
+<p>管道的前端是关键点提取和匹配，其中关键点提取和匹配分为两个阶段：</p>
+<p>第一个“广泛阶段”致力于发现对极图的暂定拓扑；</p>
+<p>第二个“狭窄阶段”则进行精细匹配 并计算对极几何。</p>
+<p>然后根据图像的重叠将图像聚类，从而将图像组织成树状图。本文引入了一种从简单链接派生的新聚类策略，该方法使树状图更加平衡，从而接近该方法的最佳情况复杂性。结构和运动计算沿着这棵树从叶子到根分层进行。</p>
+<p>根据节点的类型，可以进行三种操作：立体建模(图像-图像），后方交集(图像模型）或合并(模型模型）。</p>
+<p>BA调整在每个节点上以“局部”形式进行。</p>
+<p>在树状图遍历过程中，对部分模型执行自动校准：在给定两个透视投影矩阵及其内部参数的猜测的情况下，得出平面在无限远处的位置，然后使用此过程迭代内部参数的空间，以寻找使其余相机具有欧几里得的最佳对齐方式。</p>
+<div class="section" id="keypoint-detection-and-matching-in">
+<h2><span class="section-number">2.1. </span>Keypoint detection and matching In<a class="headerlink" href="#keypoint-detection-and-matching-in" title="永久链接至标题">¶</a></h2>
+<div class="section" id="keypoint-detection">
+<h3><span class="section-number">2.1.1. </span>Keypoint detection<a class="headerlink" href="#keypoint-detection" title="永久链接至标题">¶</a></h3>
+<p>在所有n张图像中提取关键点。</p>
+</div>
+<div class="section" id="matching-broad-phase">
+<h3><span class="section-number">2.1.2. </span>Matching: broad phase<a class="headerlink" href="#matching-broad-phase" title="永久链接至标题">¶</a></h3>
+<p>由于图像是无序的，因此第一个目标是恢复对极图，即表明哪些图像相互重叠(或可以匹配）。</p>
+<p>关键点匹配的消耗是很大的，所以希望从<span class="math notranslate nohighlight">\(O(n^2)\)</span>降低到<span class="math notranslate nohighlight">\(O(n)\)</span>，即只为每个图像考虑少量恒定的描述符——考虑具有最高尺度的关键点，因为它们的描述符更能代表整个图像内容。</p>
+<p>将每个关键点描述符与其特征空间中的近似最近邻居进行匹配：</p>
+<p>使用<span class="math notranslate nohighlight">\(\epsilon = 0.5\)</span>的ANN库，建立2D直方图，该直方图在每条中记录相应图像之间的匹配数。</p>
+<p>考虑完整的加权图<span class="math notranslate nohighlight">\(G =(V,E)\)</span>，其中<span class="math notranslate nohighlight">\(V\)</span>是图像，加权邻接矩阵是2D直方图。该图通常是稠密的，<span class="math notranslate nohighlight">\(|V| = O(n^2)\)</span>，目的是提取具有在<span class="math notranslate nohighlight">\(n\)</span>中呈线性的多个边的子图G。每个图像(在极线图中）被连接到<span class="math notranslate nohighlight">\(m\)</span>个具有最大关键点匹配数的图像。
+这将创建一个具有<span class="math notranslate nohighlight">\(O(mn)\)</span>个边的图形，其中平均度为<span class="math notranslate nohighlight">\(O(m)\)</span></p>
+<p>本文设计了一种策略来构建<span class="math notranslate nohighlight">\(G\)</span>的子图<span class="math notranslate nohighlight">\(G'\)</span>：</p>
+<p>(1）建立<span class="math notranslate nohighlight">\(G\)</span>的最大生成树：该树由n − 1条边组成；</p>
+<p>(2）从<span class="math notranslate nohighlight">\(G\)</span>中删除它们并将其添加到<span class="math notranslate nohighlight">\(G'\)</span>；</p>
+<p>(3）重复m次；</p>
+<p>在可以从<span class="math notranslate nohighlight">\(G\)</span>提取m个生成树的假设下，该算法会生成一个m-edge-connected的子图<span class="math notranslate nohighlight">\(G'\)</span>，通过采用最大生成树，偏重于具有高权重的边缘。<strong>可以将这种策略视为在直方图中选择得分最高的对与创建强连接的极线图之间的折衷方案。</strong></p>
+</div>
+<div class="section" id="matching-narrow-phase">
+<h3><span class="section-number">2.1.3. </span>Matching: narrow phase<a class="headerlink" href="#matching-narrow-phase" title="永久链接至标题">¶</a></h3>
+<p>关键点匹配遵循最近邻方法，不采用那些最近邻居距离与第二最近邻居距离之比大于阈值的关键点。</p>
+<p>为了加快匹配阶段，文章采用类似于VF-SIFT的关键点聚类技术。每个关键点根据其主导角度与不同的群集关联。
+只有属于同一聚类的关键点才被匹配在一起。这打破了匹配阶段的二次方的复杂性，但代价是在聚类的边界失去了一些匹配。</p>
+<p>然后使用SAmple
+Consensus(MSAC）计算匹配图像对之间的单应性和基本矩阵，这是RANSAC的一种变体，它为外点提供了固定的惩罚，对内点的拟合程度进行了评分。</p>
+<p>令<span class="math notranslate nohighlight">\(e_i\)</span>为MSAC之后所有N个关键点的残差，令<span class="math notranslate nohighlight">\(S^∗\)</span>为获得最佳分数的样本。
+规模的可靠估计是：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/110.png" src="../../../../../../_images/110.png" />
+</div>
+<p>所得的一组内点是这样的点：</p>
+<div class="math notranslate nohighlight">
+\[|e_i| &lt; \theta \sigma ^*\]</div>
+<p>其中<span class="math notranslate nohighlight">\(\theta\)</span>是常数。</p>
+<p>通过(几何误差的(一阶近似））最小二乘最小化，在此组内点上重新估计模型参数。</p>
+<p>根据几何鲁棒信息准则(GRIC）选择更可能的模型(单应性或基本矩阵）：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/36.png" src="../../../../../../_images/36.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(σ\)</span>是测量误差的标准偏差，<span class="math notranslate nohighlight">\(k\)</span>是模型参数的数量，<span class="math notranslate nohighlight">\(d\)</span>是流体的尺寸，<span class="math notranslate nohighlight">\(r\)</span>是测量尺寸。</p>
+<p>在本文中，对于基本矩阵，k = 7，d = 3，r = 4，对于单应性，k = 8，d = 2，r
+= 4。</p>
+<p>最后，如果两个图像之间的剩余匹配数<span class="math notranslate nohighlight">\(n_i\)</span>小于MSAC之前的匹配总数的20％，则将其丢弃。</p>
+<p>之后，将多个图像中的关键点匹配连接到轨道中：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/45.png" src="../../../../../../_images/45.png" />
+</div>
+<p>考虑无向图<span class="math notranslate nohighlight">\(G =(V,E)\)</span>，其中<span class="math notranslate nohighlight">\(V\)</span>是关键点，<span class="math notranslate nohighlight">\(E\)</span>表示匹配；
+track是<span class="math notranslate nohighlight">\(G\)</span>的连接组成部分。</p>
+<p>顶点标记有关键点所属的图像：当在track中多次出现标签时，就会出现不一致的情况。</p>
+<p>不一致的轨道和少于3帧的轨道将被丢弃。</p>
+<p>track表示成像为多次出现的单个3D点的投影； 这样的3D点称为tie-point。</p>
+</div>
+</div>
+<div class="section" id="clustering-images">
+<h2><span class="section-number">2.2. </span>Clustering images<a class="headerlink" href="#clustering-images" title="永久链接至标题">¶</a></h2>
+<p>使用重叠量度作为距离，将图像组织成具有聚集聚类的树。
+然后，结构和运动计算从叶子到根都遵循这棵树。
+结果，问题被分解为较小的实例，然后分别解决和合并。</p>
+<p>通过考虑两个图像中可见的联系点的数量及其投影(关键点）在图像上的分布程度来计算，令<span class="math notranslate nohighlight">\(S_i\)</span>和<span class="math notranslate nohighlight">\(S_j\)</span>分别为图像<span class="math notranslate nohighlight">\(I_i\)</span>和<span class="math notranslate nohighlight">\(I_j\)</span>中的可见联系点集合：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/110.png" src="../../../../../../_images/110.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(CH(·)\)</span>是一组图像点的凸包(<em>convex
+Hull</em>一般指凸包。凸包(<em>Convex
+Hull</em>）是一个计算几何(图形学）中的概念。在一个实数向量空间V中，对于给定集合X，所有包含X的凸集的交集S被称为X的凸包。在二维欧几里得空间中，凸包可想象为一条刚好包著所有点的橡皮圈的面积，而<span class="math notranslate nohighlight">\(A_i(A_j)\)</span>是图像<span class="math notranslate nohighlight">\(I_i(I_j)\)</span>的总面积。</p>
+<p>公式的第一项是集合之间的亲和力索引(affinity
+index），也称为Jaccard索引。距离为<span class="math notranslate nohighlight">\((1-a_{i,j})\)</span>，因为<span class="math notranslate nohighlight">\(a_{i,j}\)</span>的范围是<span class="math notranslate nohighlight">\([0，1]\)</span>。</p>
+<p>本文选择了简单的链接规则：两个聚类之间的距离由不同聚类中两个最近的对象(最近的邻居）的距离确定。</p>
+<p>简单的链接聚类适合于我们的情况，因为：</p>
+<p>(1）聚类问题本身很容易，</p>
+<p>(2）ANN可以很容易地获得最近的邻居信息，</p>
+<p>(3）它会产生“elongated”或“stringy”(细长）的聚类，非常适合扫描特定区域或建筑物的图像的典型空间布置。</p>
+</div>
+<div class="section" id="hierarchical-structure-and-motion">
+<h2><span class="section-number">2.3. </span>Hierarchical structure-and-motion<a class="headerlink" href="#hierarchical-structure-and-motion" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3><span class="section-number">2.3.1. </span>用语解释<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>在局部参考系中表示的一组摄影机和3D点(具有两个摄影机的stereo-models）称为<strong>Model</strong>。</p>
+<p>从多个图像中的对应点计算3D点坐标的过程称为<strong>intersection</strong>(也称为<strong>triangulation</strong>）。</p>
+<p>从已知的3D-2D对应关系恢复相机矩阵(完全或仅限于外部参数）称为<strong>resection</strong>。</p>
+<p>从两个图像中的对应点检索两个摄像机的相对位置和姿态的任务称为<strong>relative
+orientation</strong>。</p>
+<p>计算将两个共享一些tie-points的模型带到一个公共参考系中的刚性(或相似性）变换的任务称为<strong>absolute
+orientation</strong>。</p>
+<p>通过聚集聚类将图像分组在一起产生一个称为树状图的层次结构二叉树。树中的每个节点代表一个局部的独立模型。</p>
+<p>可能执行三种操作：</p>
+<p>(1）合并两个图像时，将建立一个立体模型(relative orientation +
+intersection）。</p>
+<p>(2）当将图像添加到群集中时，将执行resection-intersection
+步骤(如在标准顺序管线中一样）。</p>
+<p>(3）当两个非平凡的聚类合并时，必须通过解决absolute
+orientation问题(随后是intersection）来合并各个模型。</p>
+<p>圆圈对应于立体模型的创建，三角形对应于resection-intersection，菱形对应于两个部分独立模型的融合。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/64.png" src="../../../../../../_images/64.png" />
+</div>
+<p>虽然从概念上将聚类与建模分开是有用的，但实际上同时发生了两个阶段：在简单的链接迭代期间，每次尝试合并时，都会采取相应的建模动作。
+如果失败，则合并将被丢弃，并考虑下一个可能的合并。</p>
+</div>
+<div class="section" id="stereo-modeling">
+<h3><span class="section-number">2.3.2. </span>Stereo-modeling<a class="headerlink" href="#stereo-modeling" title="永久链接至标题">¶</a></h3>
+<p>两个给定相机的 relative orientation 参数是通过基本矩阵的分解而获得的。
+这等效于在本地参考系中知道两个摄像机的外参，并且由于已经知道内参，因此可以轻松设置两个摄像机矩阵，然后通过intersection
+获得tie-points,并通过BA调整对模型进行细化。</p>
+<p>为了使 stereo-modeling
+成功，两个图像必须满足两个相互矛盾的要求：既要有大量相同的连接点，又要有足够大的基线以允许条件良好的解决方案。</p>
+<p>第一个要求是通过上面的公式中定义的相似性实现的，但没有考虑第二个要求；结果，就
+relative orientation问题而言，由图像聚类确定的配对并不总是最佳选择。</p>
+<p>由于在本文的pipeline中聚类以及SfM同时发生，因此在尝试执行stereo-modeling之前和之后，通过简单的鲁棒性检查将丢弃这些配对。</p>
+<p>先验检查要求根据GRIC分数，用基本矩阵(而不是单应性）描述两个图像之间的关系。后验算例考虑了在BA调整前后的点的残余误差和对<a class="reference external" href="https://blog.csdn.net/weixin_39461878/article/details/106366558">cheirality</a>的验算。</p>
+</div>
+<div class="section" id="intersection">
+<h3><span class="section-number">2.3.3. </span>Intersection<a class="headerlink" href="#intersection" title="永久链接至标题">¶</a></h3>
+<p>Intersection (triangulation) 是通过迭代线性LS方法进行的。
+通过分析线性系统的条件数和重投影误差来消减点。</p>
+<p>第一个测试使用线性系统的条件数阈值(本文为104）来丢弃 ill-conditioned
+intersections 。</p>
+<p>第二个测试应用了所谓的X84规则：如果<span class="math notranslate nohighlight">\(e_i\)</span>是残差，则inliers是满足下面条件的点：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/73.png" src="../../../../../../_images/73.png" />
+</div>
+<p>通常，Intersection模块遵循以下策略：</p>
+<p>只要一条track在给定模型中达到长度2(即track的至少两个图像都属于该模型），就会通过intersection来计算对应的tie-points的坐标。</p>
+<p>如果操作失败(由于上述鲁棒性检查之一），则暂时丢弃3D点，但保留track。
+每当模型中track的长度增加时，便会尝试计算tie-points坐标。</p>
+</div>
+<div class="section" id="resection">
+<h3><span class="section-number">2.3.4. </span>Resection<a class="headerlink" href="#resection" title="永久链接至标题">¶</a></h3>
+<p>属于模型的tie-point在要添加的图像中也可见，因此提供了一组3D-2D对应关系，这些对应关系可用于将图像粘贴到局部模型。这是通过resection完成的，其中仅要计算摄像机的外参。</p>
+<p>在MSAC内部使用了PPnP算法，最后对重投影误差进行了非线性最小化。
+resection后，将一个图像添加到模型中，通过intersection更新tie-points，并对生成的模型进行BA调整。</p>
+</div>
+<div class="section" id="merging-two-models">
+<h3><span class="section-number">2.3.5. </span>Merging two models<a class="headerlink" href="#merging-two-models" title="永久链接至标题">¶</a></h3>
+<p>当要将两个部分独立的模型(即具有不同的参考系）合并为一个模型时，第一步是通过相似度转换将一个模型配准到另一个模型上。</p>
+<p>共同的tie-points用于解决MSAC的绝对方向(带比例尺）问题。</p>
+<p>由于尺度模糊性，很难设置MSAC的内部阈值。本文不考虑将对应点连接的3D片段的长度作为残差，而是查看图像中2D投影的平均长度；这样可以设置像素内部阈值。</p>
+<p>用Orthogonal
+Procrustean(OP）方法计算的最终变换使适当的几何残差(3D点的平方距离之和）最小
+。</p>
+<p>一旦配准了模型，便会通过intersection更新tie-points，并通过BA调整来完善新模型。</p>
+<p>分层算法可以总结如下：</p>
+<p>(1）在树的叶子上解决许多独立的relative
+orientation问题，从而产生许多独立的stereo-models。</p>
+<p>(2）遍历树。在每个节点中，将执行以下操作之一：</p>
+<p>​ (a）通过先resection 后intersection 的方式添加一个新的图像来更新模型。</p>
+<p>​ (b）合并两个具有absolute orientation的独立模型。</p>
+<p>与标准顺序方法相比，此框架的计算复杂度较低，与初始图像对无关，并且可以更好地应对顺序方案中常见的漂移问题。</p>
+</div>
+</div>
+<div class="section" id="dendrogram-balancing">
+<h2><span class="section-number">2.4. </span>Dendrogram balancing<a class="headerlink" href="#dendrogram-balancing" title="永久链接至标题">¶</a></h2>
+<p>上节提出的图像聚类能够将可用图像组织成一个层次聚类结构(树），该结构将指导SfM。
+这种方法降低了计算复杂度，在最佳情况下(当树平衡良好时）从<span class="math notranslate nohighlight">\(O(n^5)\)</span>降低到<span class="math notranslate nohighlight">\(O(n^4)\)</span>——(n是图像数）。
+如果树不平衡，则此计算增益将消失。 因此，树的平衡至关重要。</p>
+<p>只要所生成的树平衡良好，分层框架就可以提供计算增益。</p>
+<p>为了产生更好的平衡树，文章对聚类策略进行了如下修改：从所有单例开始，算法的每次扫描都将<span class="math notranslate nohighlight">\(l\)</span>对最接近的集群对中具有最小基数的对合并。</p>
+<p>距离是根据简单链接规则计算的。一对的基数是两个群集的基数之和。</p>
+<p>平衡量由参数L调节：当<span class="math notranslate nohighlight">\(l= 1\)</span>时，这是标准的聚集聚类，没有平衡；
+当<span class="math notranslate nohighlight">\(l ≥n / 2\)</span>(n是图像数）时，可以获得完美的平衡树，但是聚类效果很差，因为距离被大大忽略了。</p>
+<p>右边的图是使用上述规则生成的树：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/82.png" src="../../../../../../_images/82.png" />
+</div>
+</div>
+<div class="section" id="local-bundle-adjustment">
+<h2><span class="section-number">2.5. </span>Local bundle adjustment<a class="headerlink" href="#local-bundle-adjustment" title="永久链接至标题">¶</a></h2>
+<p>为了进一步降低复杂度，采用了一种策略，该策略是减少BA调整中要使用的图像数量来代替整个模型。</p>
+<p>这种策略是local BA调整的一个实例，通常用于视频序列。</p>
+<p>集中讨论模型合并步骤，因为resection是后者的特例。
+考虑两个模型A和B，其中A的图像少于B。我们总是将最小的图像转换为最大的图像(如果一个是投影的，则总是最小的）。</p>
+<p>BA调整涉及A的所有图像和B的图像子集，这些图像与A共享一些track(在两个模型的图像中可见的tie-points）。称此子集为<span class="math notranslate nohighlight">\(B'\)</span>。BA调整中会考虑所有链接<span class="math notranslate nohighlight">\(B'\)</span>和<span class="math notranslate nohighlight">\(A\)</span>的联系点。<span class="math notranslate nohighlight">\(B \ B'\)</span>中的图像不会通过BA调整进行移动，但仍会在最小化中考虑其tie-points，以便通过其公共tie-points锚定<span class="math notranslate nohighlight">\(B'\)</span>。不考虑仅在<span class="math notranslate nohighlight">\(B \ B'\)</span>中链接摄像机的tie-points。</p>
+<p>此策略是次优的，因为在适当的BA调整中，应该包括<span class="math notranslate nohighlight">\(B\)</span>中的所有图像，即使那些与<span class="math notranslate nohighlight">\(A\)</span>没有共享任何结点的图像也是如此。但是，对所有图像和所有tie-points进行BA调整可以最后运行以获得最佳解决方案。</p>
+</div>
+<div class="section" id="uncalibrated-hierarchical-structure-and-motion">
+<h2><span class="section-number">2.6. </span>Uncalibrated hierarchical structure-and-motion<a class="headerlink" href="#uncalibrated-hierarchical-structure-and-motion" title="永久链接至标题">¶</a></h2>
+<p>一种因投影性与真实模型不同的模型称为投射模型。一种因相似性而与真实模型不同的模型被称为欧几里得模型。后者可以在已知校准参数时实现，而前者可以在图像未校准时获得。</p>
+<p>在本节中放宽了对图像进行校准的假设，并将自动校准算法集成到我们的管道中，因此生成的模型仍然是欧几里得。</p>
+<div class="section" id="autocalibration">
+<h3><span class="section-number">2.6.1. </span>Autocalibration<a class="headerlink" href="#autocalibration" title="永久链接至标题">¶</a></h3>
+<p>假定欧几里得模型的第一台摄像机为<span class="math notranslate nohighlight">\(P_1^E=[K_1|0]\)</span>，所以Euclidean
+upgrade <span class="math notranslate nohighlight">\(H\)</span>具有以下结构<span class="math notranslate nohighlight">\(P_1^E = P_1H\)</span>：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \left[
+\begin{matrix}
+K_1 &amp; 0\\r^T &amp; \lambda
+\end{matrix}
+\right]\end{split}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(K_1\)</span>是第一个相机的标定矩阵，<span class="math notranslate nohighlight">\(r\)</span>是确定平面在无穷远处的位置的向量，而<span class="math notranslate nohighlight">\(λ\)</span>是比例因子。</p>
+<p>自动校准技术基于两个阶段：</p>
+<p>(1）给定两个摄像机的内部参数的猜测，计算出一致的upgrading
+collineation(n. 直射，共线；[数]
+直射变换）。这样可以得出除第一个摄像机以外的所有摄像机的估计值。</p>
+<p>(2）根据偏斜的可能性，纵横比和主点对这<span class="math notranslate nohighlight">\(n -1\)</span>个摄像机的内参进行评分。</p>
+<div class="section" id="estimation-of-the-plane-at-infinity">
+<h4><span class="section-number">2.6.1.1. </span>Estimation of the plane at infinity<a class="headerlink" href="#estimation-of-the-plane-at-infinity" title="永久链接至标题">¶</a></h4>
+<p>本节描述了给定两个透视投影矩阵及其内部参数的无穷大平面(即向量<span class="math notranslate nohighlight">\(r\)</span>）的封闭形式解。</p>
+<p>第一个摄像机是<span class="math notranslate nohighlight">\(P_1 = [I |0]\)</span>，第二个投影摄像机可以写为<span class="math notranslate nohighlight">\(P_2 = [A_2 | e_2]\)</span>。那么Euclidean
+upgrade 可以写作:</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/92.png" src="../../../../../../_images/92.png" />
+</div>
+<p>因此，旋转<span class="math notranslate nohighlight">\(R_2\)</span>可以等于：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/10.png" src="../../../../../../_images/10.png" />
+</div>
+<p>使用旋转矩阵的行或列之间的正交性约束，可以求解<span class="math notranslate nohighlight">\(r\)</span>使上式的right
+hand在一定比例下等于旋转。</p>
+<p>始终存在旋转矩阵<span class="math notranslate nohighlight">\(R^∗\)</span>，可以得到封闭形式的解，如：<span class="math notranslate nohighlight">\(R^* t_2 = [||t_2||~~0~~0]^T\)</span>，这里的<span class="math notranslate nohighlight">\(t_2 = K_2^{-1}e_2\)</span>，左乘以上面的公式可得：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/111.png" src="../../../../../../_images/111.png" />
+</div>
+<p>定义<span class="math notranslate nohighlight">\(W = R^*K_2^{-1}A_2K_1\)</span>和行向量<span class="math notranslate nohighlight">\(w_i^T\)</span>，可以得到下面的形式：(13）</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/121.png" src="../../../../../../_images/121.png" />
+</div>
+<p>其中最后两行与<span class="math notranslate nohighlight">\(r\)</span>的值无关，并且已经恢复了正确的尺度，将等式的每一侧均标准化为单位范数。</p>
+<p>由于<span class="math notranslate nohighlight">\(R^ ∗ R_2\)</span>的行是正交的，因此我们可以取另两个的叉积来恢复第一个。
+因此，向量<span class="math notranslate nohighlight">\(r\)</span>等于：(14）</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/131.png" src="../../../../../../_images/131.png" />
+</div>
+<p>并用到上面的公式来计算Euclidean upgrade <span class="math notranslate nohighlight">\(H\)</span>：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \left[
+\begin{matrix}
+K_1 &amp; 0\\r^T &amp; \lambda
+\end{matrix}
+\right]\end{split}\]</div>
+<p>当校准参数仅是近似已知时，(13）的右侧不再是旋转矩阵。
+但是，(14）仍将得出<span class="math notranslate nohighlight">\(r\)</span>的值，这将产生一个近似的欧几里得模型。</p>
+</div>
+<div class="section" id="estimation-of-the-internal-parameters">
+<h4><span class="section-number">2.6.1.2. </span>Estimation of the internal parameters<a class="headerlink" href="#estimation-of-the-internal-parameters" title="永久链接至标题">¶</a></h4>
+<p>在上一节中，介绍了在给定投影模型的两个摄像机的校准参数的情况下如何计算Euclidean
+upgrade <span class="math notranslate nohighlight">\(H\)</span>。</p>
+<p>为了对校准参数的空间进行采样，习惯假定为零偏斜和单位长宽比：这将焦距和主点位置留为自由参数。但是，平面在无穷远处的值通常对焦距值的估计误差比图像中心的误差敏感得多。</p>
+<p>从而可以在焦距<span class="math notranslate nohighlight">\(f_1\)</span>和<span class="math notranslate nohighlight">\(f_2\)</span>上进行迭代，并假设主点位于图像的中心。</p>
+<p>为了对每个样本<span class="math notranslate nohighlight">\((f_1,f_2)\)</span>进行评分，文章考虑了upgrade
+后(即用<span class="math notranslate nohighlight">\(H\)</span>转换）的相机矩阵的纵横比，偏斜和主点位置，并将它们各自的值汇总为一个成本函数：(15）</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/141.png" src="../../../../../../_images/141.png" />
+</div>
+<p>其中，K表示由<span class="math notranslate nohighlight">\((f_1,f_2)\)</span>确定的欧几里德式升级后第<span class="math notranslate nohighlight">\(l\)</span>台相机的内部参数矩阵，而<span class="math notranslate nohighlight">\(C(K)\)</span>反映了<span class="math notranslate nohighlight">\(K\)</span>满足先验期望的程度。</p>
+<p>考虑摄像机的viewport矩阵，定义为：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/151.png" src="../../../../../../_images/151.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(w\)</span>和<span class="math notranslate nohighlight">\(h\)</span>分别是每个图像的宽度和高度。相机矩阵使用<span class="math notranslate nohighlight">\(P←V^{− 1}P/||P_{3,1:3} ||\)</span>进行归一化。</p>
+<p>通过这种方式，主点期望值是<span class="math notranslate nohighlight">\((0,0)\)</span>，并且焦点范围是<span class="math notranslate nohighlight">\([1 / 3，3]\)</span>。</p>
+<p>因此，成本函数项写为：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/161.png" src="../../../../../../_images/161.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(k_{i,j}\)</span>表示了<span class="math notranslate nohighlight">\(K\)</span>的第<span class="math notranslate nohighlight">\((i,j)\)</span>个元素，<span class="math notranslate nohighlight">\(w\)</span>是适合的权重，由《Surviving
+dominant planes in uncalibrated structure and motion
+recovery》计算得到。</p>
+<p>第一项考虑了偏斜系数(预期为0），第二项对宽高比不同于1的摄影机进行了“惩罚”，最后两项对主点偏离<span class="math notranslate nohighlight">\((0,0)\)</span>的摄影机进行了权衡。</p>
+<p>最后，通过方程(15）的非线性最小化对选定的解进行细化。
+由于通常非常接近最小值，因此仅需对Levenberg-Marquardt求解器进行几次迭代即可收敛。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/171.png" src="../../../../../../_images/171.png" />
+</div>
+<p>从两个图像开始的模型触发自动校准， 结果是近似的Euclidean upgrade；
+实际上，在达到足够的基数之前，这些模型仍被认为是投影模型。
+此后，不再进行自动校准，并且随着计算的进行，仅通过BA调整进一步完善每个摄像机的内部参数。在将摄像机的内部参数与给定数量的摄像机一起进行BA调整后，固定摄像机的内参。</p>
+</div>
+</div>
+<div class="section" id="projective-stereo-modeling">
+<h3><span class="section-number">2.6.2. </span>Projective stereo-modeling<a class="headerlink" href="#projective-stereo-modeling" title="永久链接至标题">¶</a></h3>
+<p>从两个未经校准的图像获得的模型始终是投影的。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/181.png" src="../../../../../../_images/181.png" />
+</div>
+</div>
+<div class="section" id="resection-intersection">
+<h3><span class="section-number">2.6.3. </span>Resection-intersection<a class="headerlink" href="#resection-intersection" title="永久链接至标题">¶</a></h3>
+<p>使用直接线性变换(DLT）算法进行resection,，因为单个图像始终未校准。
+PPnP仅计算摄像机的外参，而DLT计算完整的摄像机矩阵。</p>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">2.6.4. </span>Merging two models<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>局部模型存在于两个不同的参考系中，如果两者都是欧几里得，则通过相似性关联；如果一个是投影的，则通过投影性关联，在这种情况下，寻求将投影模型引入欧几里得模型上的投影，从而恢复其正确的欧几里得参考系。</p>
+<p>步骤与校准后的情况相同，唯一的区别是在计算投影率时应使用DLT算法而不是OP。</p>
+</div>
+</div>
+<div class="section" id="parameter-settings">
+<h2><span class="section-number">2.7. </span>Parameter Settings<a class="headerlink" href="#parameter-settings" title="永久链接至标题">¶</a></h2>
+<p>Samantha是具有许多内部参数的复杂管道。</p>
+<p>(1）完全避免使用自由参数；</p>
+<p>(2）使它们与数据相关；</p>
+<p>(3）使用户指定的参数易于理解并易于接受猜测。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/191.png" src="../../../../../../_images/191.png" />
+</div>
+<ul>
+<li><p>Keypoint detection：</p>
+<blockquote>
+<div><p>从所有图像中提取的关键点按其响应值排序，保留最高响应的关键点，而其他关键点则被丢弃。
+要保留的关键点总数是图像数量的倍数，以便使每个图像的平均关键点配额保持不变。</p>
+</div></blockquote>
+</li>
+<li><p>Autocalibration：</p>
+<blockquote>
+<div><p>一旦群集达到满足以下不等式[73]的足够基数k(“用于自动校准的摄像机数量”），欧几里德升级即停止。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/20.png" src="../../../../../../_images/20.png" />
+</div>
+<p>其中<span class="math notranslate nohighlight">\(p_k\)</span>内部参数已知，而<span class="math notranslate nohighlight">\(p_c\)</span>内部参数恒定。
+四个具有已知(或猜测）的偏斜和纵横比(<span class="math notranslate nohighlight">\(p_k\)</span> = 2和<span class="math notranslate nohighlight">\(p_c\)</span> =0）的摄像机就足够了。</p>
+<p>在BA调整中将内部参数保持固定的簇基数设置为25，这是一个相当高的值，可以确保所有内部参数(尤其是径向变形参数）稳定。</p>
+</div></blockquote>
+</li>
+<li><dl class="simple">
+<dt>Prologue：</dt><dd><p>最后一个BA调整始终是完整的(不是局部的），并且以较低的保障阈值运行以应对重投影误差。
+为了增加模型的密度，还使用长度为2的轨迹执行最后的intersection步骤。</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Hybrid/HSfM/HSfM.html" class="btn btn-neutral float-right" title="3. HSfM: Hybrid Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html" class="btn btn-neutral float-left" title="1. Structure-from-Motion Revisited" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

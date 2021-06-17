@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. 三维重建中的旋转 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="prev" title="2. Robust Optimization in 3D Vision" href="../Robust_Optimization/Robust_Optimization.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3. 三维重建中的旋转</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.1. 旋转矩阵</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.2. 李群和李代数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id4">3.2.1. 旋转空间上的李代数推导</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#so-3">3.2.2. 李代数SO（3）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id5">3.2.3. 推导指数映射</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">3.3. 四元数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id7">3.3.1. 四元数的运算</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id8">3.3.2. 四元数表示旋转</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">3.4. 旋转矩阵、角轴表示法、四元数之间的转换</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id10">3.4.1. 旋转矩阵与四元数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>三维重建中的旋转</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/Rotation/Rotation.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">3. </span>三维重建中的旋转<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本篇转载自 👉  <a class="reference external" href="https://zhuanlan.zhihu.com/p/62665006">《三维重建中的旋转(Rotation)》</a></p>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">3.1. </span>旋转矩阵<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>设某个 <strong>单位正交基</strong> <span class="math notranslate nohighlight">\((e_1,e_2,e_3)\)</span> 经过一次旋转变成了 <span class="math notranslate nohighlight">\((e_1',e_2',e_3')\)</span> 。那么对于同一个向量 <span class="math notranslate nohighlight">\(a\)</span> （该向量没有跟随坐标系旋转而发生运动），
+它在两个坐标系下的坐标为 <span class="math notranslate nohighlight">\((a_1,a_2,a_3)^T\)</span> 和  <span class="math notranslate nohighlight">\((a_1‘,a_2’,a_3‘)^T\)</span></p>
+<p>由坐标的定义，有：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}\left[\begin{matrix}e_1 &amp; e_2 &amp; e_3\end{matrix}\right]\left[\begin{matrix}a_1\\a_2\\a_3\end{matrix}\right]=
+\left[\begin{matrix}e_1' &amp; e_2' &amp; e_3'\end{matrix}\right]\left[\begin{matrix}a_1'\\a_2'\\a_3'\end{matrix}\right]\end{split}\\:label: eq:1\end{aligned}\end{align} \]</div>
+<p>为了描述两个坐标之间的关系，上式两边同时乘 <span class="math notranslate nohighlight">\((e_1^T,e_2^T,e_3^T)^T\)</span> ，则有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+a_1\\a_2\\a_3
+\end{matrix}
+\right] = \left[
+\begin{matrix}
+e_1^Te_1' &amp; e_1^Te_2' &amp; e_1^Te_3'\\
+e_2^Te_1' &amp; e_2^Te_2' &amp; e_2^Te_3'\\
+e_3^Te_1' &amp; e_3^Te_2' &amp; e_3^Te_3'\\
+\end{matrix}
+\right]\left[
+\begin{matrix}
+a_1'\\a_2'\\a_3'
+\end{matrix}
+\right] = Ra'\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(R\)</span> 为旋转矩阵，旋转矩阵的集合定义为：</p>
+<div class="math notranslate nohighlight">
+\[SO(n) = \{R \in \mathbb{R}^{n\times n} |RR^T = I,det(R) = I\}\]</div>
+<p>由于旋转矩阵是正交阵，它的逆（转置）描述了相反的旋转，则有 <span class="math notranslate nohighlight">\(a' = R^{-1}a = R^Ta\)</span>，即 <span class="math notranslate nohighlight">\(R^T\)</span> 为相反的旋转。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">3.2. </span>李群和李代数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3><span class="section-number">3.2.1. </span>旋转空间上的李代数推导<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>设 <span class="math notranslate nohighlight">\(R\)</span> 是某个相机的旋转，随时间而连续变换，即 <span class="math notranslate nohighlight">\(R\)</span> 为关于时间 <span class="math notranslate nohighlight">\(t\)</span> 的函数 <span class="math notranslate nohighlight">\(R(t)\)</span> 。由于 <span class="math notranslate nohighlight">\(R\)</span> 是正交阵，则有：</p>
+<div class="math notranslate nohighlight">
+\[R(t)R(t)^T = I\]</div>
+<p>等式两边对 <span class="math notranslate nohighlight">\(t\)</span> 求导，则有 <span class="math notranslate nohighlight">\(\frac{\partial{R(t)}}{\partial t} R(t)^T + R(t) \frac{\partial R(t)^T}{\partial t} = 0\)</span> 整理可得：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{R(t)}}{\partial t} R(t)^T = -R(t) \frac{\partial R(t)^T}{\partial t} = -R(t)\frac{\partial R(t)^T}{\partial t} = -(\frac{\partial R(t)}{\partial t}R(t)^T)^T\]</div>
+<p>由上式可以看出 <span class="math notranslate nohighlight">\(\frac{\partial R(t)}{\partial t} R(t)^T\)</span> 是一个反对称矩阵（ <span class="math notranslate nohighlight">\(A = -A^T\)</span>）</p>
+<p>而对于反对称矩阵，总能找到一个三维向量 <span class="math notranslate nohighlight">\(w\)</span> 与之对应。 一般的， <span class="math notranslate nohighlight">\(w = [w_1,w_2,w_3]\)</span> 是一个三矢量，令 <span class="math notranslate nohighlight">\([w]_x\)</span> 表示向量到反对称阵的变换。 因此有：</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial R(t)}{\partial t} R^T = [w]_x\]</div>
+<p>对上面的公式，左右同时右乘 <span class="math notranslate nohighlight">\(R(t)\)</span> 可得</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial R(t)}{\partial t} = [w]_x R(t)\]</div>
+<p>上面的公式是形如 <span class="math notranslate nohighlight">\(\frac{dy}{dx} = ay\)</span> 的常微分方程，对方程两边同时取倒数，有 <span class="math notranslate nohighlight">\(\frac{dx}{dy} = \frac{1}{ay}\)</span> 。显然 <span class="math notranslate nohighlight">\(dx = \frac{1}{y} dy\)</span> 的解为 <span class="math notranslate nohighlight">\(x = ln~ay\)</span> 进一步可得 <span class="math notranslate nohighlight">\(y = e^{ax}\)</span> 。将上面的公式代入可得</p>
+<div class="math notranslate nohighlight">
+\[R(t) = R(0)e^{[w]_x~t} = R(0)e^{[wt]_x}\]</div>
+<p>假设 <span class="math notranslate nohighlight">\(R(0) = I\)</span> ，在经过了 <span class="math notranslate nohighlight">\(\Delta t\)</span> 的时间之后，此时定义向量 <span class="math notranslate nohighlight">\(v \triangleq w \Delta t\)</span> ，则可以得到：</p>
+<div class="math notranslate nohighlight">
+\[R = e^{[v]_x}\]</div>
+<p>上式中的 <span class="math notranslate nohighlight">\(v\)</span> 就是转换得到的三维旋转向量，又名旋转的轴角表示。</p>
+<ul class="simple">
+<li><p>旋转向量的模表示物体绕轴逆时针旋转的角度，等于欧拉角。</p></li>
+<li><p>旋转轴就是旋转向量除以模后的单位向量。</p></li>
+</ul>
+<p>令旋转向量为 <span class="math notranslate nohighlight">\(v = (v_x, v_y, v_z)^T\)</span> ，则旋转角为 <span class="math notranslate nohighlight">\(\theta = norm(v)\)</span> ，旋转轴为 <span class="math notranslate nohighlight">\(n = v / \theta\)</span></p>
+<p><strong>基于旋转向量的矩阵方程</strong></p>
+<p>根据公式 <span class="math notranslate nohighlight">\(R_{ij} = R_jR_i^{-1} \)</span> 可以用旋转向量 <span class="math notranslate nohighlight">\(v\)</span> 表示全局旋转和相对旋转之间的关系：</p>
+<div class="math notranslate nohighlight">
+\[e^{[v_{ij}_x]} = e^{[v_j]_x} e^{-[v_i]_x}\]</div>
+<p>根据反对称矩阵的定义，可以得到：</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = v_j - v_i\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>其实上面公式的确切关系是： <span class="math notranslate nohighlight">\(v_{ij} = BCH(v_j, -v_i)\)</span> ，其中 <span class="math notranslate nohighlight">\(BCH(.,.)\)</span> 是Baker-Campbell-Hausdorff公式</p>
+<div class="math notranslate nohighlight">
+\[BCH(x,y) = x + y + \frac{1}{2}[x,y] + \frac{1}{12}[x-y,[x,y]] + o(|(x,y)|^4)\]</div>
+<p>如果只使用BCH公式的一阶估计 <span class="math notranslate nohighlight">\(BCH(x,y) \approx x + y\)</span> ，则</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = BCH(v_j, -v_i) = v_j - v_i\]</div>
+</div>
+<p>将上式转化为矩阵的表示形式：</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = v_j - v_i = [···-I···I···] v_{global}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(v_{global} = [v_1, v_2, ··· , v_N]^T\)</span> 是由所有全局旋转向量组成的列向量，其中 <span class="math notranslate nohighlight">\(N\)</span> 表示视图中相机的个数。此时列出所有相机对的方程并进行整合：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}  A v_{global} = v_{rel}\\:math:`v_rel` 是由根据估计的全局旋转得到的所有的相对旋转向量的列向量， :math:`v_{rel}^{x}` 是一开始计算得到的相对选择向量组成的列向量。\end{aligned}\end{align} \]</div>
+</div>
+<div class="section" id="so-3">
+<h3><span class="section-number">3.2.2. </span>李代数SO（3）<a class="headerlink" href="#so-3" title="永久链接至标题">¶</a></h3>
+<p>李群 <span class="math notranslate nohighlight">\(SO(3)\)</span> 对应的李代数是定义在 <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> 上的向量，记为 <span class="math notranslate nohighlight">\(w\)</span> 。每个 <span class="math notranslate nohighlight">\(w\)</span> 都可以生成一个反对此矩阵 <span class="math notranslate nohighlight">\(\Phi\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Phi = [w]_x = \left[
+\begin{matrix}
+0 &amp; -w_3 &amp; w_2\\w_3 &amp; 0 &amp; -w_1\\-w_2 &amp; w_1 &amp; 0
+\end{matrix}
+\right] \in \mathbb{R}^{3\times 3}\end{split}\]</div>
+<p>一般来说， <span class="math notranslate nohighlight">\(so(3)\)</span> 的元素是三维向量或者三维反对称矩阵：</p>
+<div class="math notranslate nohighlight">
+\[so(3) = \{w \in R, \Phi = [w]_x \in \mathbb{R}^{3\times 3} \}\]</div>
+<p>总结为： <span class="math notranslate nohighlight">\(so(3)\)</span> 是一个由三维向量组成的集合，每个向量对应到一个反对称矩阵，可以表达旋转矩阵的倒数。它与 <span class="math notranslate nohighlight">\(so(3)\)</span> 的关系通过指数映射给定：</p>
+<div class="math notranslate nohighlight">
+\[R = exp([w]_x)\]</div>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">3.2.3. </span>推导指数映射<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>由上面的公式 <span class="math notranslate nohighlight">\(R = exp([w]_x)\)</span> 可知，其为一个矩阵的指数，在李群和李代数中，称为 <strong>指数映射</strong> 。</p>
+<p>指数函数的幂级数为：</p>
+<div class="math notranslate nohighlight">
+\[exp(x) = \sum\limits_{n=0}^\infty \frac{x^n}{n!}\]</div>
+<p>同样的，对于 <span class="math notranslate nohighlight">\(so(3)\)</span> 中的任意元素 <span class="math notranslate nohighlight">\([w]_x\)</span> ，指数映射为：</p>
+<div class="math notranslate nohighlight">
+\[exp([w]_x) = \sum\limits_{n=0}^\infty \frac{([w]_x)^n}{n!}\]</div>
+<p>令 <span class="math notranslate nohighlight">\(w = \theta a\)</span>，其中 <span class="math notranslate nohighlight">\(\theta\)</span> 为方向， <span class="math notranslate nohighlight">\(a\)</span> 为长度为1的方向向量。对于 <span class="math notranslate nohighlight">\([a]_x\)</span> 由两个性质：</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\([a]_x [a]_x = aa^T - I\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\([a]_x [a]_x [a]_x = -[a]_x\)</span></p></li>
+</ol>
+<p>利用这两个性质，可以将指数映射写成：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+exp([w]_x) &amp;=&amp; exp(\theta [a]_x) = \sum\limits_{n = 0}^\infty \frac{(\theta [a]_x)^n}{n!}\\\\
+&amp;=&amp; I + \theta[a]_x + \frac{1}{2!} \theta^2 [a]_x [a]_x + \frac{1}{3!} \theta^3 [a]_x [a]_x [a]_x + ··· \\\\
+&amp;=&amp; aa^T - [a]_x [a]_x + \theta [a]_x + \frac{1}{2!} \theta^2 ([a]_x)^2 + \frac{1}{3!} \theta^3 ([a]_x)^3 + ··· \\\\
+&amp;=&amp; aa^T - [a]_x [a]_x + \theta [a]_x + \frac{1}{2!} \theta^2 ([a]_x)^2 - \frac{1}{3!} \theta^3 [a]_x - \frac{1}{4!}([a]_x)^2 + ··· \\\\
+&amp;=&amp; aa^T + (\theta - \frac{1}{3!}\theta^3 + \frac{1}{5!} \theta^5 -···)[a]_x - (1-\frac{1}{2!} \theta^2 + \frac{1}{4!}\theta^4 - ···)([a]_x)^2 \\\\
+&amp;=&amp; ([a]_x)^2 + I + [a]_x sin\theta - ([a]_x)^2 cos\theta \\\\
+&amp;=&amp; (1 - cos\theta) ([a]_x)^2 + I + [a]_x sin\theta\\\\
+&amp;=&amp; cos\theta I + (1-cos\theta) aa^T + [a]_x sin\theta
+\end{eqnarray}\end{split}\]</div>
+<p>同样可以定义 <strong>对数映射</strong> ，把 <span class="math notranslate nohighlight">\(SO(3)\)</span> 中的元素对应到 <span class="math notranslate nohighlight">\(\mathfrak{so}(3)\)</span> 中：</p>
+<div class="math notranslate nohighlight">
+\[[w]_x = ln(R)^V = (\sum\limits_{n=0}^\infty \frac{(-1)^n}{n + 1} (R-I)^{n+1})^V\]</div>
+<p>一般不会按照泰勒展开计算对数映射，而是通过旋转矩阵恢复李代数。</p>
+<p>令转轴为 <span class="math notranslate nohighlight">\(n\)</span> ，转角为 <span class="math notranslate nohighlight">\(\theta\)</span> ，</p>
+<p>（1）计算转角 <span class="math notranslate nohighlight">\(\theta\)</span> 。对于转角 <span class="math notranslate nohighlight">\(\theta\)</span> ，由罗德里格斯公式可得：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+   tr(R) &amp;=&amp; cos(\theta) tr(I) + (1 - cos\theta) tr(n n^T) + sin\theta tr([n]_x) \\\\
+   &amp;=&amp; 3cos\theta + (1-cos\theta)\\\\
+   &amp;=&amp; 1 + 2cos\theta
+\end{eqnarray}\end{split}\]</div>
+<p>因此， <span class="math notranslate nohighlight">\(\theta = arccos \frac{tr(R) - 1}{2}\)</span></p>
+</div></blockquote>
+<p>（2）计算转轴 <span class="math notranslate nohighlight">\(n\)</span> ，由于旋转轴上的向量在旋转后不发生改变，有 <span class="math notranslate nohighlight">\(Rn = n\)</span>，因此转轴 <span class="math notranslate nohighlight">\(n\)</span> 是矩阵 <span class="math notranslate nohighlight">\(R\)</span> 特征值为1 对应的特征向量。 求解此方程再归一化就得到了转轴。</p>
+<p>最后李代数可以写为 <span class="math notranslate nohighlight">\(w = \theta n\)</span></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">3.3. </span>四元数<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>四元数拥有一个实部和三个虚部，可表示为：</p>
+<div class="math notranslate nohighlight">
+\[q = (c,v) = (q_0,q_1,q_2,q_3) = q_0 + q_1 i + q_2 j + q_3 k\]</div>
+<p>这三个虚部满足如下关系：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+   &amp; i^2 = j^2 = k^2 = -1\\\\
+   &amp; ij = k, ji = -k\\\\
+   &amp; jk = i, kj = -i\\\\
+   &amp; ki = j, ik = -j
+\end{align*}\end{split}\]</div>
+<div class="section" id="id7">
+<h3><span class="section-number">3.3.1. </span>四元数的运算<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>设 <span class="math notranslate nohighlight">\(q = (c_1, v_1), q_2 = (c_2, v_2)\)</span> ，则：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp; q_1 \pm q_2 = (c_1 \pm c_2, v_1 \pm v_2)\\\\
+&amp; q_1 · q_2 = (c_1c_2 - v_1^Tv_2, c_1v_2 + c_2v_1 + v_1\times v_2)\\\\
+&amp; ||q|| = \sqrt{q_0^2 + q_1^2 + q_2^2 + q_3^2}, q^{-1} = \frac{1}{|q|^2}(c, -v)\\\\
+&amp; ||q_1·q_2|| = ||q_1||·||q_2||
+\end{align*}\end{split}\]</div>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">3.3.2. </span>四元数表示旋转<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>假设旋转绕单位向量 <span class="math notranslate nohighlight">\(n = (n_x, n_y, n_z)^T\)</span> 进行了角度为 <span class="math notranslate nohighlight">\(\theta\)</span> 的旋转，则该旋转的四元数定义为：</p>
+<div class="math notranslate nohighlight">
+\[q = (cos \frac{\theta}{2}, n_x sin \frac{\theta}{2},  n_y sin \frac{\theta}{2}, n_z sin \frac{\theta}{2})^T\]</div>
+<p>令 <span class="math notranslate nohighlight">\(\theta = \theta + 2\pi\)</span>， 则 <span class="math notranslate nohighlight">\(q =  (-cos \frac{\theta}{2}, -n_x sin \frac{\theta}{2},  -n_y sin \frac{\theta}{2}, -n_z sin \frac{\theta}{2})^T = -q\)</span> ，即 <span class="math notranslate nohighlight">\(q\)</span> 和 <span class="math notranslate nohighlight">\(-q\)</span> 表示同一个旋转。</p>
+<p>令 <span class="math notranslate nohighlight">\(v = (n_x, n_y, n_z), ~ w = \theta v\)</span> 则 <span class="math notranslate nohighlight">\(R = exp([w]_x)\)</span></p>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><span class="section-number">3.4. </span>旋转矩阵、角轴表示法、四元数之间的转换<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3><span class="section-number">3.4.1. </span>旋转矩阵与四元数<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>四元数-&gt;旋转矩阵</p>
+<p>通过3.2节</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Robust_Optimization/Robust_Optimization.html" class="btn btn-neutral float-left" title="2. Robust Optimization in 3D Vision" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

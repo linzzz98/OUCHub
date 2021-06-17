@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10. Very Large-Scale Global SfM by Distributed Motion Averaging &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="11. Improved Structure from Motion Using Fiducial Marker Matching" href="../../Incremental/MarkerSfM/MarkerSfM.html" />
+    <link rel="prev" title="9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../../../DeepLearning/DeepSfM/DeepSfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">7. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motion-averaging-review">10.1. Motion Averaging Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distributed-motion-averaging">10.2. Distributed Motion Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-architecture">10.3. System Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#camera-partitioning">10.4. Camera Partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">13. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">10. </span>Very Large-Scale Global SfM by Distributed Motion Averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="very-large-scale-global-sfm-by-distributed-motion-averaging">
+<h1><span class="section-number">10. </span>Very Large-Scale Global SfM by Distributed Motion Averaging<a class="headerlink" href="#very-large-scale-global-sfm-by-distributed-motion-averaging" title="永久链接至标题">¶</a></h1>
+<p>这篇论文的工作提出了一个分而治之（divide-and-conquer）的框架来解决超大规模的全局式SfM，具体步骤如下：</p>
+<ol class="arabic simple">
+<li><p>将所有图像划分为多个分区，这些分区保留了强大的数据关联性，来进行适当定位和并行的局部运动平均。</p></li>
+<li><p>解决在分割边界上确定摄像机的全局运动平均和每个分割的相似性变换来将所有摄像机登记在一个单一坐标系中。</p></li>
+<li><p>迭代局部和全局运动平均直到收敛。</p></li>
+</ol>
+<p>由于局部摄像机的位姿在全局平均运动期间是固定的，因此可以避免将整个重建立即缓存在内存中。</p>
+<p>这种分布式框架显着提高了大规模运动平均的效率和鲁棒性。</p>
+<p><strong>全局SfM方法的关键是运动平均</strong></p>
+<p>随着输入图像数量的急剧增加，全局平均运动迅速达到了内存和效率瓶颈。</p>
+<p>作者受到广义嵌套分割算法（nested dissection algorithm）的启发，提出了一种分布式且鲁棒的运动平均方法。</p>
+<p>在摄像机图上制定大规模运动平均问题，其中每个摄像机是一个顶点，并且具有相对运动约束的摄像机通过边链接。
+通过将原始摄像机图划分为多个小比例子图，将每个子图的变量分组，并首先对其在Hessian矩阵中进行排序，而连接多个子图的称为分隔符的变量排在第二位。
+由于不包含分隔符的子图是相互独立的，因此我们可以首先以分布式方式解决不包含分隔符的每个子图的Cholesky分解，然后再对分隔符进行因式分解。
+为了进一步减少子图之间的通信开销，在求解分隔符之前迭代每个子图直到收敛。
+在本文中，将每个子图的优化过程称为局部运动平均，将分离器的优化过程称为全局运动平均。
+还引入了相似度转换，以参数化每个子图的相机姿态，从而使线性化在全局运动平均中保持不变。
+由于在全局运动平均中仅考虑分隔符（即连接多个子图的摄像机）和相似度转换，因此避免了将整个重建立即缓存在核心内存中。</p>
+<div class="section" id="motion-averaging-review">
+<h2><span class="section-number">10.1. </span>Motion Averaging Review<a class="headerlink" href="#motion-averaging-review" title="永久链接至标题">¶</a></h2>
+<p>相机的绝对位姿 <span class="math notranslate nohighlight">\(P_i = [R_i|t_i]\)</span> , 其中 <span class="math notranslate nohighlight">\(R_i \in R^{3\times 3}\)</span> 是3D旋转向量， <span class="math notranslate nohighlight">\(c_i \in R^{3 \times 1}\)</span> 是相机的光学中心位置。</p>
+<p>对于每一对相机 <span class="math notranslate nohighlight">\(C_i\)</span> 和  <span class="math notranslate nohighlight">\(C_j\)</span> 都有两个相对位移约束：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}R_{ij} = R_i R_i^T\\
+\lambda_{ij} \hat{t}_{ij} = R_i(c_i - c_j)\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(R_ij\)</span> 表示相对旋转矩阵， <span class="math notranslate nohighlight">\(\hat{t}_{ij} \in R^{3\times 1}\)</span> 表示相对位移方向的单位向量， <span class="math notranslate nohighlight">\(\lambda_{ij}\)</span> 是一个尺度因子。</p>
+<p>给定一个参考帧和一组相对旋转 <span class="math notranslate nohighlight">\(R_{rel}\)</span>  = {R_{ij}}，全局旋转平均算法通过解决以下最小化问题来获得摄像机旋转 <span class="math notranslate nohighlight">\(R = \{R_i\}\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[arg \mathop{min}\limits_{\mathcal{R}} \sum\limits_{R_{ij} \in R_{rel}} d^R(R_{ij}, R_jR_i^T)^p\]</div>
+<p>其中变量 <span class="math notranslate nohighlight">\(p = 1,2\)</span> 选择 <span class="math notranslate nohighlight">\(\mathcal{l}1\)</span> 或 <span class="math notranslate nohighlight">\(\mathcal{l}2\)</span> 范数，距离量度 <span class="math notranslate nohighlight">\(d^R(S,R)\)</span> 在SO(3)上定义，例如 角距，弦距，四元数距等。</p>
+<p>给定固定的全局方向 <span class="math notranslate nohighlight">\(\mathcal{R} = \{R_i\}\)</span> 以及一些已知的相机到相机之间的相对平移  <span class="math notranslate nohighlight">\(\mathcal{T}_{rel} = \{t_{ij}\}\)</span> 和摄像机到点之间的相对平移 <span class="math notranslate nohighlight">\(\mathcal{U}_{rel} = \{u_{ij}\}\)</span> ，平移平均问题通过最小化下面的函数来计算全局相机位置 <span class="math notranslate nohighlight">\(\mathcal{T} = \{c_i\}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_rel}&amp; d^T(t_{ij}, R_j(c_i - c_j))^p + \\
+&amp;\sum\limits_{u_{ij} \in \mathcal{U}_rel}&amp; d^T(u_{ij}, R_i^T(x_j - c_i))^p
+\end{eqnarray}\end{split}\]</div>
+<p>其中差异度量  <span class="math notranslate nohighlight">\(d^T(u,v)\)</span> 可以是欧几里得距离，角距离，弦距离，还可以考虑使用不同的标准 <span class="math notranslate nohighlight">\(p = 1、2\)</span> 。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>上面的两个最小化问题通常通过基于梯度和基于Hessian的优化方法来解决，它们的每次迭代计算复杂度为 :math:` O((m + n)^3)`，内存需求为O(mn(m + n)) ，其中 <span class="math notranslate nohighlight">\(m\)</span> 是摄影机数量， <span class="math notranslate nohighlight">\(n\)</span> 是位移平均中场景点数量。</p>
+<p>在解决涉及数百万个图像的问题时，计算复杂度和内存需求逐渐成为运动平均的瓶颈。</p>
+</div>
+</div>
+<div class="section" id="distributed-motion-averaging">
+<h2><span class="section-number">10.2. </span>Distributed Motion Averaging<a class="headerlink" href="#distributed-motion-averaging" title="永久链接至标题">¶</a></h2>
+<p>目标是按照分布方式从相对旋转 <span class="math notranslate nohighlight">\(\mathcal{R}_{rel} = \{R_{ij}\}\)</span> 和平移 <span class="math notranslate nohighlight">\(\mathcal{T}_{rel} = \{t_{ij}\}\)</span> 计算大量摄像机 <span class="math notranslate nohighlight">\(\mathcal{C} = \{C_i\}\)</span> 的全局位姿  <span class="math notranslate nohighlight">\(P = \{P_i\}\)</span> 。</p>
+<p><strong>假设大多数错误的对极几何和特征对应关系已被对极滤波器丢弃。</strong></p>
+<p>文章定义了几个名词，上图图(a)显示了一个相机分区，其中相同分区中的相机具有相同的颜色。如果摄像机仅链接到同一分区中的摄像机，则将其命名为 <strong>intra-camera</strong> ，所有这些相机的集合称为 <span class="math notranslate nohighlight">\(C_{intra}\)</span> 。</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(C_{intra}\)</span> 中相机之间的边称为 <strong>intra-relative-poses</strong> 。</p>
+</div></blockquote>
+<p>如果摄像机链接到其他分区中的摄像机，称为 <strong>inter-cameras</strong> ， （which are the separators in the nest dissection）？， 形成了集合 <span class="math notranslate nohighlight">\(\mathcal{C}_{inter}\)</span></p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(C_{inter}\)</span> 中涉及摄影机的边称为 <strong>inter-relative-poses</strong> 。</p>
+</div></blockquote>
+<p>此外，仅 <strong>intra-cameras</strong> 可见的点被定义为 <strong>intra-3D-points</strong> 即 <span class="math notranslate nohighlight">\(\mathcal{X}_{intra}\)</span></p>
+<p>其他的为 <strong>inter-3D-points</strong> 即 <span class="math notranslate nohighlight">\(\mathcal{X}_{inter}\)</span></p>
+<p>看上图的（b）， 同一个颜色的为 <strong>intra</strong> ， 不同颜色之间的即绿色的为 <strong>inter</strong></p>
+<p>对相机分区后，通过局部运动平均重建每个分区，可以通过分区数量轻松控制其复杂性。</p>
+<p>对于摄像机分区 <span class="math notranslate nohighlight">\(C^k = \{C_i^k\}\)</span> ，其中的 <strong>inter-cameras</strong> 和对应的3D点通过相似性变换进行参数化：</p>
+<div class="math notranslate nohighlight">
+\[S^k = [\alpha^k Q^k | l^k]\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\alpha^k\)</span> 是尺度因子， <span class="math notranslate nohighlight">\(Q^k\)</span> 是旋转矩阵， <span class="math notranslate nohighlight">\(I^k\)</span> 是位移向量。</p>
+<p>这样，简化了全局优化，仅考虑了摄像机之间以及不同分区的相似性转换，从而大大减少了所涉及的参数数量。</p>
+<p>现在我们可以有以下符号：</p>
+<dl class="field-list">
+<dt class="field-odd">intra-camera</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(C_i^k \in \mathcal{C}^k_{intra}\)</span> 的位移和旋转分别由局部坐标系内的 <span class="math notranslate nohighlight">\(R^k_i\)</span> 和 <span class="math notranslate nohighlight">\(c_i^k\)</span> 表示。</p>
+<p>通过相似性变换 <span class="math notranslate nohighlight">\(S^k = [\alpha^k Q^k | l^k]\)</span> ，将该局部坐标系注册到全局坐标系。</p>
+<p>因此 <span class="math notranslate nohighlight">\(C_i^k\)</span> 在全局坐标系中的旋转和位移是  <span class="math notranslate nohighlight">\(R_i = R_i^k Q^{k^T}\)</span>  和 <span class="math notranslate nohighlight">\(c_i = \alpha^k Q^k c_i^k + l^k\)</span></p>
+</dd>
+<dt class="field-even">inter-camera</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(C_j\in \mathcal{C}_{inter}\)</span> 的旋转和位移相对于全局坐标系表示为 <span class="math notranslate nohighlight">\(R_j\)</span> 和 <span class="math notranslate nohighlight">\(c_j\)</span> 。</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="system-architecture">
+<h2><span class="section-number">10.3. </span>System Architecture<a class="headerlink" href="#system-architecture" title="永久链接至标题">¶</a></h2>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/210.jpg" src="../../../../../../_images/210.jpg" />
+</div>
+<p>首先根据它们之间的关联将输入图像划分为几个分区，然后，将通过旋转平均和平移平均两个步骤完成运动平均。</p>
+<p>在每一步中，系统都会在分布式局部运动平均和全局运动平均之间进行迭代，直到达到收敛准则为止。</p>
+<p>在局部运动平均的第一次迭代中，遵循传统平均运动pipeline，以重构摄像机旋转或每个分区的平移。</p>
+<p>从第二次迭代开始，固定所有 <strong>inter-camera</strong> 的位姿和相似度转换的同时优化 <strong>intra-camera</strong> 的位姿。</p>
+<p>在全局运动平均中，通过将所有 <strong>intra-camera</strong> 位姿固定在其局部坐标系中的相对位姿来优化与每个分区相关联的摄像机之间姿势和相似性变换。</p>
+</div>
+<div class="section" id="camera-partitioning">
+<h2><span class="section-number">10.4. </span>Camera Partitioning<a class="headerlink" href="#camera-partitioning" title="永久链接至标题">¶</a></h2>
+<p>从摄像机图 <span class="math notranslate nohighlight">\(\mathcal{G} = \{\mathcal{V},\mathcal{\epsilon}\}\)</span> 开始，然后递归应用归一化割算法将相机图划分为两个子图，直到每个子图所对应的局部平均运动可以通过单台计算机计算出。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Incremental/MarkerSfM/MarkerSfM.html" class="btn btn-neutral float-right" title="11. Improved Structure from Motion Using Fiducial Marker Matching" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../../DeepLearning/DeepSfM/DeepSfM.html" class="btn btn-neutral float-left" title="9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

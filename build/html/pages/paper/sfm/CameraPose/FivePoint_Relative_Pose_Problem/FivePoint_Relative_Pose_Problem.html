@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>7. An Effcient Solution to the Five-Point Relative Pose Problem &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="6. View-graph construction framework for robust and efficient structure-from-motion" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">3. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">4. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">5. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">6. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. An Effcient Solution to the Five-Point Relative Pose Problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preliminaries">7.1. Preliminaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-five-point-algorithm">7.2. The Five-Point Algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">8. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">9. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">11. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfMSA/GlobalSfMSA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">13. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">7. </span>An Effcient Solution to the Five-Point Relative Pose Problem</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="an-effcient-solution-to-the-five-point-relative-pose-problem">
+<h1><span class="section-number">7. </span>An Effcient Solution to the Five-Point Relative Pose Problem<a class="headerlink" href="#an-effcient-solution-to-the-five-point-relative-pose-problem" title="永久链接至标题">¶</a></h1>
+<p>作者提出了一种有效的经典五点相对位姿问题的算法解决方案。在给定五个对应点的情况下，找到两个校准视图之间的相对摄像机位姿的可能解决方案。</p>
+<p>该算法包括以封闭形式计算十次多项式的系数，然后查找其根。</p>
+<div class="section" id="preliminaries">
+<h2><span class="section-number">7.1. </span>Preliminaries<a class="headerlink" href="#preliminaries" title="永久链接至标题">¶</a></h2>
+<p>两个视图中的图像点被表示为三维齐次形式 <span class="math notranslate nohighlight">\(q\)</span> 和 <span class="math notranslate nohighlight">\(q'\)</span></p>
+<p>世界点被表示为四维齐次形式： <span class="math notranslate nohighlight">\(Q\)</span></p>
+<p>透视图由表示图像投影  <span class="math notranslate nohighlight">\(q ~ PQ\)</span> 的 <span class="math notranslate nohighlight">\(3 \times 4\)</span> 摄像机矩阵  <span class="math notranslate nohighlight">\(P\)</span> 表示，其中 <span class="math notranslate nohighlight">\(~\)</span> 表示比例相等。</p>
+<p>具有有限投影中心的视图可以分解为 <span class="math notranslate nohighlight">\(P = K[R|t]\)</span></p>
+<p>令两个视图的相机矩阵为 <span class="math notranslate nohighlight">\(K_1[I|0]\)</span> 和 <span class="math notranslate nohighlight">\(P = K_2[R|t]\)</span></p>
+<p>令 <span class="math notranslate nohighlight">\([t]_x\)</span> 表示偏斜对称矩阵</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[t]_x = \left[
+\begin{matrix}
+0 &amp; -t_3 &amp; t_2\\t_3 &amp; 0 &amp; -t_1\\-t_2 &amp; t_1 &amp; 0
+\end{matrix}
+\right]\end{split}\]</div>
+<p>因此，对于所有 <span class="math notranslate nohighlight">\(x\)</span>， 有 <span class="math notranslate nohighlight">\([t]_x x = t \times x\)</span></p>
+<p>从而基础矩阵为：</p>
+<div class="math notranslate nohighlight">
+\[F \equiv K_2^{-T} [t]_x R K_1^{-1}\]</div>
+<p>矩阵的对极约束为：</p>
+<div class="math notranslate nohighlight">
+\[q'^T F q = 0\]</div>
+<p>当不知道内参时，可以使用本质矩阵：</p>
+<div class="math notranslate nohighlight">
+\[q'^T E q = 0\]</div>
+<p>其中  <span class="math notranslate nohighlight">\(E \equiv [t]_x R\)</span> 被称作本质矩阵。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>当且仅当满足以下等式时，实数非零 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 矩阵 <span class="math notranslate nohighlight">\(F\)</span> 才是基础矩阵</p>
+<div class="math notranslate nohighlight">
+\[det(F) = 0\]</div>
+<p>基础矩阵有两个非零的相等的奇异值，第三个奇异值为0。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>当且仅当满足以下等式时，实数非零 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 矩阵 <span class="math notranslate nohighlight">\(E\)</span> 才是本质矩阵</p>
+<div class="math notranslate nohighlight">
+\[EE^TE - \frac{1}{2} trace(EE^T)E = 0\]</div>
+</div>
+</div>
+<div class="section" id="the-five-point-algorithm">
+<h2><span class="section-number">7.2. </span>The Five-Point Algorithm<a class="headerlink" href="#the-five-point-algorithm" title="永久链接至标题">¶</a></h2>
+<p>五点对应关系中的每一个都产生形式为 <span class="math notranslate nohighlight">\(q'^TEq = 0\)</span> 的约束，也可以写为：</p>
+<div class="math notranslate nohighlight">
+\[\tilde{q}^T \tilde{E} = 0\]</div>
+<p>其中</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\tilde{q} &amp;\equiv&amp; [q_1q_1'~~q_2q_1'~~q_3q_1'~~ q_1q_2'~~q_2q_2'~~q_3q_2'~~q_1q_3'~~q_21q_3'~~q_3q_3']^T\\\\
+\tilde{E} &amp;\equiv&amp; [E_{11}~~E_{12}~~E_{13}~~E_{21}~~E_{22}~~E_{23}~~E_{31}~~E_{32}~~E_{33}]^T
+\end{eqnarray}\end{split}\]</div>
+<p>通过将所有五个点的向量 <span class="math notranslate nohighlight">\(\tilde{q}^T\)</span> 堆叠，可以得到 <span class="math notranslate nohighlight">\(5 \times 9\)</span> 的矩阵。</p>
+<p>计算该矩阵右零空间的四个向量 <span class="math notranslate nohighlight">\(\tilde{X},\tilde{Y},\tilde{Z},\tilde{W}\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>计算 <span class="math notranslate nohighlight">\(\tilde{X},\tilde{Y},\tilde{Z},\tilde{W}\)</span> 最常见方法是对堆叠的矩阵 <span class="math notranslate nohighlight">\(\tilde{q}^T\)</span> 进行SVD奇异值分解，但QR分解效率更高。</p>
+</div>
+<p>四个向量直接对应于四个 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 矩阵 <span class="math notranslate nohighlight">\(X,Y,Z,W\)</span>， 本质矩阵可以由一些系数 <span class="math notranslate nohighlight">\(x,y,z,w\)</span> 表示为：</p>
+<div class="math notranslate nohighlight">
+\[E = xX + yY + zZ + wW\]</div>
+<p>只需要把这四个系数定下来，这个本质矩阵就唯一确定了。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>由于构造的是一个齐次方程组，解包含一个可以任意缩放的尺度  <span class="math notranslate nohighlight">\(Ax = 0 \)</span> 。</p>
+<p>因此，不失一般性，可以让  <span class="math notranslate nohighlight">\(w = 1\)</span> ,这样只有三个需要求解的未知数  <span class="math notranslate nohighlight">\(x, y, z\)</span>  。</p>
+</div>
+<p>通过本质矩阵的性质，将 <span class="math notranslate nohighlight">\(E = xX + yY + zZ + wW\)</span> 代入到 <span class="math notranslate nohighlight">\(EE^TE - \frac{1}{2} trace(EE^T)E = 0\)</span> ，可以构造出一个关于 <span class="math notranslate nohighlight">\(x, y, z\)</span> 的三阶多项式。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>由于 <span class="math notranslate nohighlight">\(E\)</span> 是 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的矩阵，他们经过乘法运算之后要等于0，相当于每一个元素都要等于0，一共可以得到九个方程。</p>
+<p><span class="math notranslate nohighlight">\(EE^TE - \frac{1}{2} trace(EE^T)E = 0\)</span> 这个方程因为矩阵乘了三次，所以最高会有三次项，也就是会得到9个方程，每个方程都是三元三次。</p>
+</div>
+<p>所以现在有九个三元三次方程构成的齐次线性方程组，这样的方程组是有唯一解的。</p>
+<p>接下来看一个有意思的图</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/117.jpg" src="../../../../../_images/117.jpg" />
+</div>
+<p>第一行是三元三次方程，对应的各个多项式子项，这些子项记为向量 <span class="math notranslate nohighlight">\(\tilde{x}\)</span></p>
+<p>第一列是方程对应的代号，（a）代表的是从上到下的第一个方程，（i）代表第9个方程，依次类推</p>
+<p>右下角的大型矩阵称为 <span class="math notranslate nohighlight">\(A\)</span> ，为9个齐次方程组的系数矩阵在部分主元消元后的样子。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>对角线区域为1</p></li>
+<li><p>所有的 “.” 和 大写字母L——S所对应的区域都是非零系数项</p></li>
+<li><p>空白的区域都是0</p></li>
+<li><p>[3]表示关于 <span class="math notranslate nohighlight">\(z\)</span> 的3阶多项式，即 <span class="math notranslate nohighlight">\(az^3 + bz^2 + cz + d\)</span> 的形式，同样的，[n]表示关于 <span class="math notranslate nohighlight">\(z\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 阶多项式</p></li>
+</ol>
+</div>
+<p>由于3元3次方程很难解，思路是用换元或其他的方法来构造一元多次方程，解出其中的未知数（ <span class="math notranslate nohighlight">\(z\)</span> ），然后带入降元为2元方程，就方便求解。</p>
+<p>九个方程会构成一个齐次方程组 <span class="math notranslate nohighlight">\(A \tilde{x} = 0\)</span> ， 任意一行的每个方程也都为0，也就是（a）= 0，（b）= 0，…，（i）= 0</p>
+<p>然后第（i）个方程，实际上可以写成这样的形式</p>
+<div class="math notranslate nohighlight">
+\[(i) = xy[1] + x[2] + y[2] + [3] = 0\]</div>
+<p>再构造几个关于关于xy, x, y的齐次方程就能想办法消元了</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+(j) &amp;\equiv&amp; (e) - z(g)\\\\
+(k) &amp;\equiv&amp; (f) - z(h)\\\\
+(l) &amp;\equiv&amp; (d) - x(h) + P(c) + zQ(e) + R(e) + S(g)\\\\
+(m) &amp;\equiv&amp; (c) - y(g) + L(d) + zM(f) + N(f) + O(h)
+\end{eqnarray}\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>能这样构造的原因是，以（j）为例子：（e） = 0 且 （g）= 0， 所以（j）= 0</p>
+</div>
+<p>因此得到了五个等式：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+(i) &amp;=&amp; xy[1] + x[2] + y[2] + [3] = 0\\\\
+(j) &amp;=&amp; xy[1] + x[3] + y[3] + [4] = 0\\\\
+(k) &amp;=&amp; xy[1] + x[3] + y[3] + [4] = 0\\\\
+(l) &amp;=&amp; xy[2] + x[3] + y[3] + [4] = 0\\\\
+(m) &amp;=&amp; xy[2] + x[3] + y[3] + [4] = 0
+\end{eqnarray}\end{split}\]</div>
+<p>（i）到（m）这5个方程都是关于 <span class="math notranslate nohighlight">\(xy, x, y, 1\)</span> 的方程，可以写成系数矩阵的形式：</p>
+<div class="math notranslate nohighlight">
+\[\tilde{x} = (xy, x, y, 1)^T\]</div>
+<p>5个方程构造2个 <span class="math notranslate nohighlight">\(4 \times 4\)</span> 的系数矩阵，分别定义为 <span class="math notranslate nohighlight">\(B\)</span> 和  <span class="math notranslate nohighlight">\(C\)</span></p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/26.jpg" src="../../../../../_images/26.jpg" />
+</div>
+<p>进而有齐次方程组：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}B \tilde{x} = 0\\\\
+C \tilde{x} = 0\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>这两个系数矩阵B和C中的每一个元素，都是z的多项式。而且这两个齐次方程组，都是有非零解。</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p><span class="math notranslate nohighlight">\(\tilde{x} = (xy,x,y,1)^T\)</span> 至少有一个非零项。所以系数矩阵， <span class="math notranslate nohighlight">\(B\)</span> 和 <span class="math notranslate nohighlight">\(C\)</span> 的行列式，应该都是0，或者说他们肯定是非满秩的。</p>
+</div>
+<p><span class="math notranslate nohighlight">\(4 \times 4\)</span> 矩阵的行列式每一个元素都是关于 <span class="math notranslate nohighlight">\(z\)</span> 的多项式，行列式本身也是 <span class="math notranslate nohighlight">\(z\)</span> 的多项式，记作：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(n) = det(B) = [11] = 0\\
+(o) = det(C) = [11] = 0\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>11阶的原因是因为行列式的值是不同行不同列乘加的结果， <span class="math notranslate nohighlight">\(B\)</span> 和 <span class="math notranslate nohighlight">\(C\)</span> 中最高可以搞出11次项</p>
+</div>
+<p>两个11阶齐次方程如果可以把11阶项消元，就可以得到一个10阶多项式</p>
+<div class="math notranslate nohighlight">
+\[(p) \equiv (n)0_{11} - (o)n_{11} = [10] = 0\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>关于求解10元一次方程组，论文中使用Sturm sequence去一点一点逼近。</p>
+<p>基本求解的思路是用Sturm的理论，可以确定一个多项式，在一个区间 <span class="math notranslate nohighlight">\([a,b]\)</span> 之间的符号变化。如果在 <span class="math notranslate nohighlight">\([a,b]\)</span> 直接有符号变化，则在这个区间一定是有解的，一点一点缩小区域去逼近即可。</p>
+<p>当然，10阶多项式的解不止一个，需要把求的每一个 <span class="math notranslate nohighlight">\(z\)</span> 的解带回  <span class="math notranslate nohighlight">\(B\tilde{x} = 0\)</span> 和 <span class="math notranslate nohighlight">\(C\tilde{x} = 0\)</span> 解出 <span class="math notranslate nohighlight">\(x,y\)</span> ，然后对于每一个 <span class="math notranslate nohighlight">\(x,y,z\)</span> 的组合都可以得到一个本质矩阵。</p>
+</div>
+<p>之后的工作就是需要通过本质矩阵恢复  <span class="math notranslate nohighlight">\(R,t\)</span> ，对恢复的 <span class="math notranslate nohighlight">\(R,t\)</span> 三角测量恢复点的三维坐标，来判断正确的解。</p>
+<p>总结步骤如下 👉 ：</p>
+<ol class="arabic simple">
+<li><p>提取 <span class="math notranslate nohighlight">\(5 \times 9\)</span> 矩阵的零空间</p></li>
+<li><p>扩大 <span class="math notranslate nohighlight">\(EE^TE - \frac{1}{2} trace(EE^T)E = 0\)</span> 三次约束</p></li>
+<li><p>在 <span class="math notranslate nohighlight">\(9 \times 20\)</span> 的矩阵 <span class="math notranslate nohighlight">\(A\)</span> 上进行Gauss-Jordan消除</p></li>
+<li><p>扩展两个 <span class="math notranslate nohighlight">\(4\times 4\)</span> 多项式矩阵 <span class="math notranslate nohighlight">\(B\)</span> 和 <span class="math notranslate nohighlight">\(C\)</span> 的行列式多项式，然后进行求和以获得十次多项式</p></li>
+<li><p>从10阶多项式中提取根</p></li>
+<li><p>恢复R和t，选出正确的解</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="8. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" class="btn btn-neutral float-left" title="6. View-graph construction framework for robust and efficient structure-from-motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
