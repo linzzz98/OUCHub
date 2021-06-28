@@ -135,8 +135,8 @@
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -280,7 +280,7 @@ a_1'\\a_2'\\a_3'
 <p><strong>基于旋转向量的矩阵方程</strong></p>
 <p>根据公式 <span class="math notranslate nohighlight">\(R_{ij} = R_jR_i^{-1} \)</span> 可以用旋转向量 <span class="math notranslate nohighlight">\(v\)</span> 表示全局旋转和相对旋转之间的关系：</p>
 <div class="math notranslate nohighlight">
-\[e^{[v_{ij}_x]} = e^{[v_j]_x} e^{-[v_i]_x}\]</div>
+\[e^{ [v_{ij}]_x } = e^{[v_j]_x} e^{-[v_i]_x}\]</div>
 <p>根据反对称矩阵的定义，可以得到：</p>
 <div class="math notranslate nohighlight">
 \[v_{ij} = v_j - v_i\]</div>
@@ -298,7 +298,8 @@ a_1'\\a_2'\\a_3'
 \[v_{ij} = v_j - v_i = [···-I···I···] v_{global}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(v_{global} = [v_1, v_2, ··· , v_N]^T\)</span> 是由所有全局旋转向量组成的列向量，其中 <span class="math notranslate nohighlight">\(N\)</span> 表示视图中相机的个数。此时列出所有相机对的方程并进行整合：</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}  A v_{global} = v_{rel}\\:math:`v_rel` 是由根据估计的全局旋转得到的所有的相对旋转向量的列向量， :math:`v_{rel}^{x}` 是一开始计算得到的相对选择向量组成的列向量。\end{aligned}\end{align} \]</div>
+\[A v_{global} = v_{rel}\]</div>
+<p>啊 <span class="math notranslate nohighlight">\(v_rel\)</span> 是由根据估计的全局旋转得到的所有的相对旋转向量的列向量， <span class="math notranslate nohighlight">\(v_{rel}^{x}\)</span> 是一开始计算得到的相对选择向量组成的列向量。</p>
 </div>
 <div class="section" id="so-3">
 <h3><span class="section-number">3.2.2. </span>李代数SO（3）<a class="headerlink" href="#so-3" title="永久链接至标题">¶</a></h3>

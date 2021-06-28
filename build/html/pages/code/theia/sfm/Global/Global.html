@@ -1,0 +1,1311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Global Structure from Motion Pipeline &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="prev" title="SfM Pipeline" href="../../t_sfm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../t_sfm.html">SfM Pipeline</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Global Structure from Motion Pipeline</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">配置选项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">成员变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">成员函数</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#estimate">Estimate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#filterinitialviewgraph">FilterInitialViewGraph</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#removedisconnectedviewpairs">RemoveDisconnectedViewPairs</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#calibratecameras">CalibrateCameras</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#setcameraintrinsicsfrompriors">SetCameraIntrinsicsFromPriors</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#estimateglobalrotations">EstimateGlobalRotations</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#orientationsfrommaximumspanningtree">OrientationsFromMaximumSpanningTree</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#addedgestoheap">AddEdgesToHeap</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#filterrotations">FilterRotations</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#filterviewpairsfromorientation">FilterViewPairsFromOrientation</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#optimizepairwisetranslations">OptimizePairwiseTranslations</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#refinerelativetranslationswithknownrotations">RefineRelativeTranslationsWithKnownRotations</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#getnormalizedfeaturecorrespondences">GetNormalizedFeatureCorrespondences</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#optimizerelativepositionwithknownrotation">OptimizeRelativePositionWithKnownRotation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../theiasfm.html">🍑 TheiaSfM</a> &raquo;</li>
+        
+          <li><a href="../../t_sfm.html">SfM Pipeline</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Global Structure from Motion Pipeline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/theia/sfm/Global/Global.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="global-structure-from-motion-pipeline">
+<h1><span class="section-number">1. </span>Global Structure from Motion Pipeline<a class="headerlink" href="#global-structure-from-motion-pipeline" title="永久链接至标题">¶</a></h1>
+<p>使用全局方法来估计场景的相机位置和 3D 结构以估计相机位姿。 首先，全局估计旋转，然后使用全局优化估计位置。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/123.jpg" src="../../../../../_images/123.jpg" />
+</div>
+<p>步骤如下：</p>
+<ol class="arabic simple">
+<li><p>从2视图匹配和 <strong>TwoViewInfo</strong> 创建初始视图图，描述匹配图像之间的相对位姿。</p></li>
+<li><p>过滤初始视图图并删除2视图匹配异常值。</p></li>
+<li><p>校准所有相机的内参。</p></li>
+<li><p>估计每个相机的全局方向。</p></li>
+<li><p>过滤视图图：删除相对旋转与估计的全局旋转不一致的任何 <strong>TwoViewInfos</strong> 。</p></li>
+<li><p>在已知旋转的情况下优化相对平移，并过滤潜在的不良相对平移。</p></li>
+<li><p>根据相对平移过滤任何错误的 <strong>TwoViewInfo</strong> 。</p></li>
+<li><p>从估计的旋转和 <strong>TwoViewInfo</strong> 估计所有摄像机的全局位置。</p></li>
+<li><p>估计3D点。</p></li>
+<li><p>BA优化。</p></li>
+</ol>
+<p>在每个过滤步骤之后，删除不再连接到视图图中最大连接组件的任何视图。</p>
+<dl class="cpp class">
+<dt id="_CPPv429GlobalReconstructionEstimator">
+<span id="_CPPv329GlobalReconstructionEstimator"></span><span id="_CPPv229GlobalReconstructionEstimator"></span><span id="GlobalReconstructionEstimator"></span><em class="property">class </em><code class="sig-name descname">GlobalReconstructionEstimator</code><a class="headerlink" href="#_CPPv429GlobalReconstructionEstimator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GlobalReconstructionEstimator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ReconstructionEstimator</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+   <span class="n">GlobalReconstructionEstimator</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">ReconstructionEstimatorOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">);</span>
+
+   <span class="n">ReconstructionEstimatorSummary</span> <span class="nf">Estimate</span><span class="p">(</span><span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">,</span>
+                                          <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+   <span class="kt">bool</span> <span class="n">FilterInitialViewGraph</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">CalibrateCameras</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">EstimateGlobalRotations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">FilterRotations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">OptimizePairwiseTranslations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">FilterRelativeTranslation</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">EstimatePosition</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">EstimateStructure</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">BundleAdjustment</span><span class="p">();</span>
+   <span class="c1">// Bundle adjust only the camera positions and points. The camera orientations</span>
+   <span class="c1">// and intrinsics are held constant.</span>
+   <span class="kt">bool</span> <span class="nf">BundleAdjustCameraPositionsAndPoints</span><span class="p">();</span>
+
+   <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph_</span><span class="p">;</span>
+   <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction_</span><span class="p">;</span>
+
+   <span class="c1">// Options</span>
+   <span class="n">ReconstructionEstimatorOptions</span> <span class="n">options_</span><span class="p">;</span>
+   <span class="n">FilterViewPairsFromRelativeTranslationOptions</span> <span class="n">translation_filter_options_</span><span class="p">;</span>
+   <span class="n">BundleAdjustmentOptions</span> <span class="n">bundle_adjustment_options_</span><span class="p">;</span>
+   <span class="n">RansacParameters</span> <span class="n">ransac_params_</span><span class="p">;</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">orientations_</span><span class="p">;</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">positions_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="section" id="id1">
+<h2>配置选项<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="cpp member">
+<dt id="_CPPv48options_">
+<span id="_CPPv38options_"></span><span id="_CPPv28options_"></span><span id="options___theia::ReconstructionEstimatorOptions"></span>theia::ReconstructionEstimatorOptions <code class="sig-name descname">options_</code>;<a class="headerlink" href="#_CPPv48options_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>重建估计器的选项。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv427translation_filter_options_">
+<span id="_CPPv327translation_filter_options_"></span><span id="_CPPv227translation_filter_options_"></span><span id="translation_filter_options___theia::FilterViewPairsFromRelativeTranslationOptions"></span>theia::FilterViewPairsFromRelativeTranslationOptions <code class="sig-name descname">translation_filter_options_</code>;<a class="headerlink" href="#_CPPv427translation_filter_options_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>基于相对平移估计 过滤视图对的选项。</p>
+<p>该算法通过将平移投影到一维子问题来确定可能是异常值的平移方向。 相对平移被重复投影到（半）随机向量上，并被排序以找到一致的嵌入。 与排序不一致的平移预测可能是异常值。 这个过程在多次迭代中重复以确定可能是异常值的平移方向。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv426bundle_adjustment_options_">
+<span id="_CPPv326bundle_adjustment_options_"></span><span id="_CPPv226bundle_adjustment_options_"></span><span id="bundle_adjustment_options___theia::BundleAdjustmentOptions"></span>theia::BundleAdjustmentOptions <code class="sig-name descname">bundle_adjustment_options_</code>;<a class="headerlink" href="#_CPPv426bundle_adjustment_options_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>BA调整选项。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv414ransac_params_">
+<span id="_CPPv314ransac_params_"></span><span id="_CPPv214ransac_params_"></span><span id="ransac_params___theia::RansacParameters"></span>theia::RansacParameters <code class="sig-name descname">ransac_params_</code>;<a class="headerlink" href="#_CPPv414ransac_params_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>RANSAC选项。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<dl class="cpp member">
+<dt id="_CPPv411view_graph_">
+<span id="_CPPv311view_graph_"></span><span id="_CPPv211view_graph_"></span><span id="view_graph___theia::ViewGraphP"></span>theia::ViewGraph *<code class="sig-name descname">view_graph_</code>;<a class="headerlink" href="#_CPPv411view_graph_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>包含SfM重建视图的无向图。 顶点保存视图 id ，边值为两视图信息 TwoViewInfos。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv416reconstruction__">
+<span id="_CPPv316reconstruction__"></span><span id="_CPPv216reconstruction__"></span><span id="reconstruction____theia::ReconstructionP"></span>theia::Reconstruction *<code class="sig-name descname">reconstruction__</code>;<a class="headerlink" href="#_CPPv416reconstruction__" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>SfM构建的主要对象，包含所有 3D 和相机信息以及可见性约束。即包含轨道和视图以及它们之间的约束。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv413orientations_">
+<span id="_CPPv313orientations_"></span><span id="_CPPv213orientations_"></span><span id="orientations___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span>theia::std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; <code class="sig-name descname">orientations_</code>;<a class="headerlink" href="#_CPPv413orientations_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>相机全局方向。</p>
+</dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv410positions_">
+<span id="_CPPv310positions_"></span><span id="_CPPv210positions_"></span><span id="positions___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span>theia::std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; <code class="sig-name descname">positions_</code>;<a class="headerlink" href="#_CPPv410positions_" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>相机全局位置。</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="estimate">
+<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h3>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction">
+<span id="_CPPv3N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="_CPPv2N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="GlobalReconstructionEstimator::Estimate__ViewGraphP.ReconstructionP"></span>ReconstructionEstimatorSummary <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span>ViewGraph *<em>view_graph</em>, <a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> *<em>reconstruction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ReconstructionEstimatorSummary</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+    <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">,</span> <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction</span><span class="p">);</span>
+   <span class="n">reconstruction_</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="p">;</span>
+   <span class="n">view_graph_</span> <span class="o">=</span> <span class="n">view_graph</span><span class="p">;</span>
+   <span class="n">orientations_</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+   <span class="n">positions_</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+
+   <span class="n">ReconstructionEstimatorSummary</span> <span class="n">summary</span><span class="p">;</span>
+   <span class="n">GlobalReconstructionEstimatorTimings</span> <span class="n">global_estimator_timings</span><span class="p">;</span>
+   <span class="n">Timer</span> <span class="n">total_timer</span><span class="p">;</span>
+   <span class="n">Timer</span> <span class="n">timer</span><span class="p">;</span>
+
+   <span class="c1">// Step 1. 过滤初始视图图形并删除任何不良的两个视图几何图形</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Filtering the intial view graph.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">FilterInitialViewGraph</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Insufficient view pairs to perform estimation.&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">summary</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">initial_view_graph_filtering_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 2. 校准任何未校准的相机</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Calibrating any uncalibrated cameras.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="n">CalibrateCameras</span><span class="p">();</span>
+   <span class="n">summary</span><span class="p">.</span><span class="n">camera_intrinsics_calibration_time</span> <span class="o">=</span> <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 3. 估计全局旋转</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Estimating the global rotations of all cameras.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">EstimateGlobalRotations</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">LOG</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Rotation estimation failed!&quot;</span><span class="p">;</span>
+      <span class="n">summary</span><span class="p">.</span><span class="n">success</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">summary</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_estimation_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 4. 过滤不良旋转</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Filtering any bad rotation estimations.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="n">FilterRotations</span><span class="p">();</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_filtering_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 5. 优化相对平移</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Optimizing the pairwise translation estimations.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="n">OptimizePairwiseTranslations</span><span class="p">();</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_optimization_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 6. 过滤不好的相对平移</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Filtering any bad relative translations.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="n">FilterRelativeTranslation</span><span class="p">();</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_filtering_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// Step 7. 估计全局位置</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Estimating the positions of all cameras.&quot;</span><span class="p">;</span>
+   <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">EstimatePosition</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Position estimation failed!&quot;</span><span class="p">;</span>
+    <span class="n">summary</span><span class="p">.</span><span class="n">success</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">summary</span><span class="p">;</span>
+   <span class="p">}</span>
+   <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">positions_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; camera positions were estimated successfully.&quot;</span><span class="p">;</span>
+   <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">position_estimation_time</span> <span class="o">=</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="n">summary</span><span class="p">.</span><span class="n">pose_estimation_time</span> <span class="o">=</span>
+      <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_estimation_time</span> <span class="o">+</span>
+      <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_filtering_time</span> <span class="o">+</span>
+      <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_optimization_time</span> <span class="o">+</span>
+      <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_filtering_time</span> <span class="o">+</span>
+      <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">position_estimation_time</span><span class="p">;</span>
+
+   <span class="c1">// 在重建中设置位姿</span>
+   <span class="n">SetReconstructionFromEstimatedPoses</span><span class="p">(</span><span class="n">orientations_</span><span class="p">,</span>
+                                      <span class="n">positions_</span><span class="p">,</span>
+                                      <span class="n">reconstruction_</span><span class="p">);</span>
+
+
+   <span class="c1">// 始终三角测量一次，然后根据重建估计器选项进行三角测量并删除异常值</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">options_</span><span class="p">.</span><span class="n">num_retriangulation_iterations</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Step 8. 三角化特征值</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Triangulating all features.&quot;</span><span class="p">;</span>
+    <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+    <span class="n">EstimateStructure</span><span class="p">();</span>
+    <span class="n">summary</span><span class="p">.</span><span class="n">triangulation_time</span> <span class="o">+=</span> <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+    <span class="n">SetUnderconstrainedAsUnestimated</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+
+    <span class="c1">// 执行单步BA，其中仅优化相机位置和 3D 点。 仅在第一次BA迭代中完成。</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span>
+        <span class="n">options_</span><span class="p">.</span><span class="n">refine_camera_positions_and_points_after_position_estimation</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Performing partial bundle adjustment to optimize only the &quot;</span>
+                   <span class="s">&quot;camera positions and 3d points.&quot;</span><span class="p">;</span>
+      <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+      <span class="n">BundleAdjustCameraPositionsAndPoints</span><span class="p">();</span>
+      <span class="n">summary</span><span class="p">.</span><span class="n">bundle_adjustment_time</span> <span class="o">+=</span> <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+    <span class="p">}</span>
+
+
+    <span class="c1">// Step 9. Bundle Adjustment</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Performing bundle adjustment.&quot;</span><span class="p">;</span>
+    <span class="n">timer</span><span class="p">.</span><span class="n">Reset</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">BundleAdjustment</span><span class="p">())</span> <span class="p">{</span>
+      <span class="n">summary</span><span class="p">.</span><span class="n">success</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="n">LOG</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Bundle adjustment failed!&quot;</span><span class="p">;</span>
+      <span class="k">return</span> <span class="n">summary</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">summary</span><span class="p">.</span><span class="n">bundle_adjustment_time</span> <span class="o">+=</span> <span class="n">timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">num_points_removed</span> <span class="o">=</span> <span class="n">SetOutlierTracksToUnestimated</span><span class="p">(</span>
+        <span class="n">options_</span><span class="p">.</span><span class="n">max_reprojection_error_in_pixels</span><span class="p">,</span>
+        <span class="n">options_</span><span class="p">.</span><span class="n">min_triangulation_angle_degrees</span><span class="p">,</span>
+        <span class="n">reconstruction_</span><span class="p">);</span>
+    <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">num_points_removed</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; outlier points were removed.&quot;</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 设置输出参数</span>
+   <span class="n">GetEstimatedViewsFromReconstruction</span><span class="p">(</span><span class="o">*</span><span class="n">reconstruction_</span><span class="p">,</span>
+                                      <span class="o">&amp;</span><span class="n">summary</span><span class="p">.</span><span class="n">estimated_views</span><span class="p">);</span>
+   <span class="n">GetEstimatedTracksFromReconstruction</span><span class="p">(</span><span class="o">*</span><span class="n">reconstruction_</span><span class="p">,</span>
+                                       <span class="o">&amp;</span><span class="n">summary</span><span class="p">.</span><span class="n">estimated_tracks</span><span class="p">);</span>
+   <span class="n">summary</span><span class="p">.</span><span class="n">success</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="n">summary</span><span class="p">.</span><span class="n">total_time</span> <span class="o">=</span> <span class="n">total_timer</span><span class="p">.</span><span class="n">ElapsedTimeInSeconds</span><span class="p">();</span>
+
+   <span class="c1">// 输出计时统计信息</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">string_stream</span><span class="p">;</span>
+   <span class="n">string_stream</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;Global Reconstruction Estimator timings:&quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Initial view graph filtering time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">initial_view_graph_filtering_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Camera intrinsic calibration time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">summary</span><span class="p">.</span><span class="n">camera_intrinsics_calibration_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Rotation estimation time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_estimation_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Rotation filtering time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">rotation_filtering_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Relative translation optimization time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_optimization_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Relative translation filtering time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">relative_translation_filtering_time</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\t</span><span class="s">Position estimation time = &quot;</span>
+      <span class="o">&lt;&lt;</span> <span class="n">global_estimator_timings</span><span class="p">.</span><span class="n">position_estimation_time</span><span class="p">;</span>
+   <span class="n">summary</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">string_stream</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
+
+   <span class="k">return</span> <span class="n">summary</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filterinitialviewgraph">
+<h3>FilterInitialViewGraph<a class="headerlink" href="#filterinitialviewgraph" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>删除所有没有足够内点的的视图对</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="GlobalReconstructionEstimator::FilterInitialViewGraph"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterInitialViewGraph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterInitialViewGraph</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewIdPair</span><span class="o">&gt;</span> <span class="n">view_pairs_to_remove</span><span class="p">;</span>
+
+   <span class="c1">// 得到视图图的所有边的视图匹配对</span>
+   <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph_</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">view_pair</span> <span class="p">:</span> <span class="n">view_pairs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 如果小于两视图的最小lnliers，则放入移除队列</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">view_pair</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">num_verified_matches</span> <span class="o">&lt;</span>
+        <span class="n">options_</span><span class="p">.</span><span class="n">min_num_two_view_inliers</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">view_pairs_to_remove</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+    <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 将移除队列的视图匹配在视图图中对应的边删除</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewIdPair</span> <span class="nl">view_id_pair</span> <span class="p">:</span> <span class="n">view_pairs_to_remove</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">view_graph_</span><span class="o">-&gt;</span><span class="n">RemoveEdge</span><span class="p">(</span><span class="n">view_id_pair</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">view_id_pair</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 仅重建最大的连接组件</span>
+   <span class="n">RemoveDisconnectedViewPairs</span><span class="p">(</span><span class="n">view_graph_</span><span class="p">);</span>
+
+   <span class="c1">// 经过以上操作，删除了很多视图，所以view_graph 的边和点发生了变化</span>
+   <span class="k">return</span> <span class="n">view_graph_</span><span class="o">-&gt;</span><span class="n">NumEdges</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="removedisconnectedviewpairs">
+<h4>RemoveDisconnectedViewPairs<a class="headerlink" href="#removedisconnectedviewpairs" title="永久链接至标题">¶</a></h4>
+<dl class="cpp function">
+<dt id="_CPPv427RemoveDisconnectedViewPairsP9ViewGraph">
+<span id="_CPPv327RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="_CPPv227RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="RemoveDisconnectedViewPairs__ViewGraphP"></span>std::unordered_set&lt;ViewId&gt; <code class="sig-name descname">RemoveDisconnectedViewPairs</code><span class="sig-paren">(</span>ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427RemoveDisconnectedViewPairsP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dd><p>删除所有不属于最大连接组件的视图对</p>
+</dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">RemoveDisconnectedViewPairs</span><span class="p">(</span><span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">view_graph</span><span class="p">);</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">removed_views</span><span class="p">;</span>
+
+   <span class="c1">// 提取所有连接组件</span>
+   <span class="n">ConnectedComponents</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">cc_extractor</span><span class="p">;</span>
+   <span class="c1">// 得到视图图的所有边</span>
+   <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
+   <span class="c1">// 将两视图的id加入到cc_extractor</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">view_pair</span> <span class="p">:</span> <span class="n">view_pairs</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">cc_extractor</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">connected_components</span><span class="p">;</span>
+   <span class="n">cc_extractor</span><span class="p">.</span><span class="n">Extract</span><span class="p">(</span><span class="o">&amp;</span><span class="n">connected_components</span><span class="p">);</span>
+
+   <span class="c1">// 查找最大的连接组件.</span>
+   <span class="kt">int</span> <span class="n">max_cc_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">ViewId</span> <span class="n">largest_cc_root_id</span> <span class="o">=</span> <span class="n">kInvalidViewId</span><span class="p">;</span>
+   <span class="c1">// 遍历所有的连接组件</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">connected_component</span> <span class="p">:</span> <span class="n">connected_components</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 如果组件的孩子个数比最大的连接组件个数大</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">connected_component</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">max_cc_size</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// 更新最大连接组件个数</span>
+         <span class="n">max_cc_size</span> <span class="o">=</span> <span class="n">connected_component</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+         <span class="c1">// 将根节点设置为largest_cc_root_id</span>
+         <span class="n">largest_cc_root_id</span> <span class="o">=</span> <span class="n">connected_component</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 删除所有包含要删除的视图的视图对（即不在最大连接组件中的视图对）.</span>
+   <span class="k">const</span> <span class="kt">int</span> <span class="n">num_view_pairs_before_filtering</span> <span class="o">=</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">NumEdges</span><span class="p">();</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">connected_component</span> <span class="p">:</span> <span class="n">connected_components</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 跳过最大连接组件id</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">connected_component</span><span class="p">.</span><span class="n">first</span> <span class="o">==</span> <span class="n">largest_cc_root_id</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+    <span class="c1">// 注意：连接的组件也将包含根ID，因此我们不必明确删除connected_component.first，因为它将存在于connected_components.second中。</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewId</span> <span class="nl">view_id2</span> <span class="p">:</span> <span class="n">connected_component</span><span class="p">.</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// 从视图图中删除不在最大连接组件中的view</span>
+         <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">RemoveView</span><span class="p">(</span><span class="n">view_id2</span><span class="p">);</span>
+         <span class="n">removed_views</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">view_id2</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="k">const</span> <span class="kt">int</span> <span class="n">num_removed_view_pairs</span> <span class="o">=</span>
+      <span class="n">num_view_pairs_before_filtering</span> <span class="o">-</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">NumEdges</span><span class="p">();</span>
+   <span class="n">LOG_IF</span><span class="p">(</span><span class="n">INFO</span><span class="p">,</span> <span class="n">num_removed_view_pairs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="o">&lt;&lt;</span> <span class="n">num_removed_view_pairs</span>
+      <span class="o">&lt;&lt;</span> <span class="s">&quot; view pairs were disconnected from the largest connected component &quot;</span>
+         <span class="s">&quot;of the view graph and were removed.&quot;</span><span class="p">;</span>
+   <span class="c1">// 返回移除的视图</span>
+   <span class="k">return</span> <span class="n">removed_views</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>以上函数的流程是：</p>
+<p>view_graph指一个视图的图，节点表示视图，边表示两个节点的连接关系（TwoViewInfo），获取view_graph的所有边即为获取整个重建的所有视图的匹配关系对。</p>
+<p>将这些匹配关系对加入到连接组件即cc_extractor中，比如（1，3）、（2，4）、（3，5)..等匹配对，
+加入之后，会将所有有匹配关系的归为一个序列，即变为（1，3，5）、（2，4）..
+那么什么是最大的连接组件呢？通俗易懂的话讲即为有公共匹配关系对最多的视图序列，如果（1，3）（3，5）（5，7）为三个匹配视图对，
+那么（1，3，5，7）为一个匹配序列对，说明这四个视图匹配组有公共关系，为一个连接组件。那么最大连接组件就是找到以上连接组件的最长组件，即含有最多视图的组件。
+那么非最多视图的组件里的视图即为匹配关系较少的bad view，需要被删除。还是上面的例子，（1，3）（3，5）（5，7）（2，4），那么会产生两个组件，最长连接组件（1，3，5，7）和组件（2，4），
+可以看出视图2和视图4只有一个配对关系，与其他视图均无配对关系，所以这两个视图含有信息量较少，将这些非最长连接组件的视图全部删除，
+剩下的最长连接组件即为所求。</p>
+<p>注意，这里需要特别讲一下ConnectedComponents。</p>
+<p>ConnectedComponents可以理解为一个含有根节点和子节点的组合。</p>
+<p>比如：看下面这段程序：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 创建一个ConnectedComponents，内部存储int型数据</span>
+<span class="n">ConnectedComponents</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">connected_components</span><span class="p">;</span>
+<span class="c1">// 为connected_components添加边</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">connected_components</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 建立一个set用于提取connected_components，类型为unordered_map&lt;int, unordered_set&lt;int&gt;&gt;</span>
+<span class="c1">// int指根节点的值， unordered_set&lt;int&gt;是父节点和子节点的值</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">disjoint_sets</span><span class="p">;</span>
+<span class="c1">// 提取connected_components</span>
+<span class="n">connected_components</span><span class="p">.</span><span class="n">Extract</span><span class="p">(</span><span class="o">&amp;</span><span class="n">disjoint_sets</span><span class="p">);</span>
+
+<span class="c1">// 遍历每一个disjoint_sets</span>
+<span class="k">for</span><span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">cc</span> <span class="p">:</span> <span class="n">disjoint_sets</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 输出根节点的值</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">cc</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="c1">// 依次输出子节点的值</span>
+    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">cc</span><span class="p">.</span><span class="n">second</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; &quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cm">/*</span>
+<span class="cm">1</span>
+<span class="cm">0 0 1 2 3 4 5 6 7 8 9</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
+<p>可以看到，由于添加的边为（0，1）（1，2）（2，3）…（8，9），所以（1，2）的1可以作为（0，1）的子节点，
+同理（2，3）的2可以作为（1，2）的子节点，因此只有一个序列，父节点为0，子节点依次是1-9，
+需要特殊注意的是，unordered_set&lt;int&gt;也存放父节点的值。</p>
+<p>同理，看第二个程序：这个程序把上面的i+1变成了i+5</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">connected_components</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm">5</span>
+<span class="cm">4 9 4</span>
+<span class="cm">2 12 7 2</span>
+<span class="cm">1 11 6 1</span>
+<span class="cm">0 10 5 0</span>
+<span class="cm">3 8 3 13</span>
+<span class="cm">*/</span>
+</pre></div>
+</div>
+<p>可以看到结果为5个序列。</p>
+<p>由此可以发现规律，即ConnectedComponents添加新边时，检查添加的两个节点值，如果在已有序列中存在，则遵循以下规律</p>
+<ul>
+<li><p>如果两个节点都不存在，则新开辟一个序列，如：（3，5）、（1，7），新添加（2，4），则序列变为（3，5）、（1，7）、（2，4</p></li>
+<li><p>如果其中一个节点存在，一个节点不存在，则将其添加到存在的节点序列中，如：（3，5）、（1，7），新添加（5，10），则序列变为（3，5，10）、（1，7）</p></li>
+<li><p>如果两个节点都存在</p>
+<blockquote>
+<div><ul>
+<li><p>如果两个节点存在在同一个序列中，如：</p>
+<p>（3，5）、（1，7），新添加（3，5），则原序列不变。</p>
+</li>
+<li><p>如果两个节点存在在不同序列中，则将两个序列合并，如：</p>
+<p>（3，5）、（1，7），新添加（5，7），则原序列变为（3，5，1，7）</p>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="calibratecameras">
+<h3>CalibrateCameras<a class="headerlink" href="#calibratecameras" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>校准所有未校准的摄像机</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="GlobalReconstructionEstimator::CalibrateCameras"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CalibrateCameras</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">CalibrateCameras</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">SetCameraIntrinsicsFromPriors</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="setcameraintrinsicsfrompriors">
+<h4>SetCameraIntrinsicsFromPriors<a class="headerlink" href="#setcameraintrinsicsfrompriors" title="永久链接至标题">¶</a></h4>
+<p>从每个视图的 CameraIntrinsicsPrior 设置相机内部函数。 没有先验焦距的视图将设置一个与中间视角相对应的值。
+先验信息中如果没有提高主点，则默认初始化为图像的尺寸的一半（1024 x 768 =&gt; （512， 384）））</p>
+<dl class="cpp function">
+<dt id="_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction">
+<span id="_CPPv329SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="_CPPv229SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="SetCameraIntrinsicsFromPriors__ReconstructionP"></span>void <code class="sig-name descname">SetCameraIntrinsicsFromPriors</code><span class="sig-paren">(</span><a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> *<em>reconstruction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">SetCameraIntrinsicsFromPriors</span><span class="p">(</span><span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// 一次从一组先验设置摄像机内参</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">CameraIntrinsicsGroupId</span><span class="o">&gt;</span>
+      <span class="n">camera_intrinsics_group_ids</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="o">-&gt;</span><span class="n">CameraIntrinsicsGroupIds</span><span class="p">();</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">CameraIntrinsicsGroupId</span> <span class="nl">intrinsics_group_id</span> <span class="p">:</span>
+       <span class="n">camera_intrinsics_group_ids</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 获取此相机内在函数组中的所有视图</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">views_in_intrinsics_group</span> <span class="o">=</span>
+         <span class="n">reconstruction</span><span class="o">-&gt;</span><span class="n">GetViewsInCameraIntrinsicGroup</span><span class="p">(</span><span class="n">intrinsics_group_id</span><span class="p">);</span>
+
+      <span class="c1">// 内在函数组选择一个“代表性视图”。 从先验中为该视图设置内在函数，然后将同一内在函数组中所有其他视图的内在函数设置为指向代表性内在函数。</span>
+      <span class="c1">//由于使用了shared_ptrs，因此共享的内在函数将保持活动状态，直到该组中的所有摄影机都脱离上下文为止。</span>
+      <span class="k">const</span> <span class="n">ViewId</span> <span class="n">representative_view_id</span> <span class="o">=</span> <span class="n">InitializeRepresentativeCameraInGroup</span><span class="p">(</span>
+         <span class="n">views_in_intrinsics_group</span><span class="p">,</span> <span class="n">reconstruction</span><span class="p">);</span>
+      <span class="c1">// 设置代表性的view</span>
+      <span class="n">View</span><span class="o">*</span> <span class="n">representative_view</span> <span class="o">=</span>
+         <span class="n">reconstruction</span><span class="o">-&gt;</span><span class="n">MutableView</span><span class="p">(</span><span class="n">representative_view_id</span><span class="p">);</span>
+      <span class="n">Camera</span><span class="o">*</span> <span class="n">representative_camera</span> <span class="o">=</span> <span class="n">representative_view</span><span class="o">-&gt;</span><span class="n">MutableCamera</span><span class="p">();</span>
+      <span class="n">representative_camera</span><span class="o">-&gt;</span><span class="n">SetFromCameraIntrinsicsPriors</span><span class="p">(</span>
+         <span class="n">representative_view</span><span class="o">-&gt;</span><span class="n">CameraIntrinsicsPrior</span><span class="p">());</span>
+      <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">representative_camera</span><span class="o">-&gt;</span><span class="n">CameraIntrinsics</span><span class="p">().</span><span class="n">get</span><span class="p">());</span>
+
+      <span class="c1">// 设置该组的所有内部函数</span>
+      <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewId</span> <span class="nl">view_in_intrinsics_group</span> <span class="p">:</span> <span class="n">views_in_intrinsics_group</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">View</span><span class="o">*</span> <span class="n">view</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="o">-&gt;</span><span class="n">MutableView</span><span class="p">(</span><span class="n">view_in_intrinsics_group</span><span class="p">);</span>
+         <span class="c1">// 如果重建中不存在该视图或该视图是代表性视图，请跳过此视图。</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">view</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">||</span>
+             <span class="n">representative_view_id</span> <span class="o">==</span> <span class="n">view_in_intrinsics_group</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">continue</span><span class="p">;</span>
+         <span class="p">}</span>
+
+         <span class="c1">// 将视图的内在函数设置为指向共享的内在函数。 这包括估计的视图，这些视图可能具有与共享的内部函数不同的估计内部函数参数</span>
+         <span class="n">view</span><span class="o">-&gt;</span><span class="n">MutableCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">MutableCameraIntrinsics</span><span class="p">()</span> <span class="o">=</span>
+             <span class="n">representative_camera</span><span class="o">-&gt;</span><span class="n">CameraIntrinsics</span><span class="p">();</span>
+         <span class="n">view</span><span class="o">-&gt;</span><span class="n">MutableCamera</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">SetImageSize</span><span class="p">(</span><span class="n">representative_camera</span><span class="o">-&gt;</span><span class="n">ImageWidth</span><span class="p">(),</span>
+                                             <span class="n">representative_camera</span><span class="o">-&gt;</span><span class="n">ImageHeight</span><span class="p">());</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+</pre></div>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/214.jpg" src="../../../../../_images/214.jpg" />
+</div>
+</div>
+</div>
+<div class="section" id="estimateglobalrotations">
+<h3>EstimateGlobalRotations<a class="headerlink" href="#estimateglobalrotations" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>估计相机全局旋转</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="GlobalReconstructionEstimator::EstimateGlobalRotations"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateGlobalRotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">EstimateGlobalRotations</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// 得到所有视图图的匹配对关系</span>
+   <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph_</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
+
+   <span class="c1">// 选择全局旋转估计类型</span>
+   <span class="c1">// * ROBUST_L1L2</span>
+   <span class="c1">// * NONLINEAR</span>
+   <span class="c1">// * LINEAR</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">RotationEstimator</span><span class="o">&gt;</span> <span class="n">rotation_estimator</span><span class="p">;</span>
+   <span class="k">switch</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">global_rotation_estimator_type</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="k">case</span> <span class="n">GlobalRotationEstimatorType</span><span class="o">::</span><span class="nl">ROBUST_L1L2</span><span class="p">:</span> <span class="p">{</span>
+         <span class="c1">// 通过沿着最大生成树行走来初始化方向估计</span>
+         <span class="n">OrientationsFromMaximumSpanningTree</span><span class="p">(</span><span class="o">*</span><span class="n">view_graph_</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">orientations_</span><span class="p">);</span>
+         <span class="n">RobustRotationEstimator</span><span class="o">::</span><span class="n">Options</span> <span class="n">robust_rotation_estimator_options</span><span class="p">;</span>
+         <span class="n">rotation_estimator</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span>
+             <span class="k">new</span> <span class="n">RobustRotationEstimator</span><span class="p">(</span><span class="n">robust_rotation_estimator_options</span><span class="p">));</span>
+         <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">case</span> <span class="n">GlobalRotationEstimatorType</span><span class="o">::</span><span class="nl">NONLINEAR</span><span class="p">:</span> <span class="p">{</span>
+         <span class="c1">// 通过沿着最大生成树行走来初始化方向估计</span>
+         <span class="n">OrientationsFromMaximumSpanningTree</span><span class="p">(</span><span class="o">*</span><span class="n">view_graph_</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">orientations_</span><span class="p">);</span>
+         <span class="n">rotation_estimator</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span> <span class="n">NonlinearRotationEstimator</span><span class="p">());</span>
+         <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">case</span> <span class="n">GlobalRotationEstimatorType</span><span class="o">::</span><span class="nl">LINEAR</span><span class="p">:</span> <span class="p">{</span>
+         <span class="c1">// 将构造函数变量设置为 true 以通过内点计数对每个项进行加权</span>
+         <span class="n">rotation_estimator</span><span class="p">.</span><span class="n">reset</span><span class="p">(</span><span class="k">new</span> <span class="n">LinearRotationEstimator</span><span class="p">());</span>
+         <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+         <span class="n">LOG</span><span class="p">(</span><span class="n">FATAL</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Invalid type of global rotation estimation chosen.&quot;</span><span class="p">;</span>
+         <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="n">rotation_estimator</span><span class="o">-&gt;</span><span class="n">EstimateRotations</span><span class="p">(</span><span class="n">view_pairs</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">orientations_</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>对于以上三种方法的解读会在 Average Rotation 专栏中。</p>
+</div>
+<div class="section" id="orientationsfrommaximumspanningtree">
+<h4>OrientationsFromMaximumSpanningTree<a class="headerlink" href="#orientationsfrommaximumspanningtree" title="永久链接至标题">¶</a></h4>
+<p>通过计算最大生成树（按边权重）并通过链接旋转求解全局方向来计算视图图中每个视图的方向。</p>
+<p>仅针对视图图的最大连通分量估计方向。</p>
+<dl class="cpp function">
+<dt id="_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE">
+<span id="_CPPv335OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="_CPPv235OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="OrientationsFromMaximumSpanningTree__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:P"></span>bool <code class="sig-name descname">OrientationsFromMaximumSpanningTree</code><span class="sig-paren">(</span><em class="property">const</em> ViewGraph &amp;<em>view_graph</em>, std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; *<em>orientations</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">OrientationsFromMaximumSpanningTree</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">ViewGraph</span><span class="o">&amp;</span> <span class="n">view_graph</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;*</span> <span class="n">orientations</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">orientations</span><span class="p">);</span>
+
+  <span class="c1">// 因为最大生成树仅在单个连接的组件上有效，所以计算输入视图图中最大的连接的组件</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">theia</span><span class="o">::</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">largest_cc</span><span class="p">;</span>
+
+  <span class="c1">// 得到最大连接组件</span>
+  <span class="n">view_graph</span><span class="p">.</span><span class="n">GetLargestConnectedComponentIds</span><span class="p">(</span><span class="o">&amp;</span><span class="n">largest_cc</span><span class="p">);</span>
+  <span class="n">ViewGraph</span> <span class="n">largest_cc_subgraph</span><span class="p">;</span>
+
+  <span class="c1">// 从view_graph中提取最大连接组件largest_cc的子图largest_cc_subgraph（最大连接子图）</span>
+  <span class="n">view_graph</span><span class="p">.</span><span class="n">ExtractSubgraph</span><span class="p">(</span><span class="n">largest_cc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">largest_cc_subgraph</span><span class="p">);</span>
+
+  <span class="c1">// 计算最大生成树</span>
+
+  <span class="c1">// 得到最大连接子图的所有边</span>
+  <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">all_edges</span> <span class="o">=</span> <span class="n">largest_cc_subgraph</span><span class="p">.</span><span class="n">GetAllEdges</span><span class="p">();</span>
+
+  <span class="c1">// 使用Kruskal的贪婪算法提取图的最小生成树的类。 最小生成树是一个子图，它包含图中的所有节点，并且仅包含以最小边权重总和连接这些节点的边。 该算法在O（E * log（V））中运行，其中E是边数，V是图中的节点数。</span>
+  <span class="n">MinimumSpanningTree</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mst_extractor</span><span class="p">;</span>
+
+  <span class="c1">// 遍历所有的边值</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">edge</span> <span class="p">:</span> <span class="n">all_edges</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 由于需要最大生成树，因此将最小生成树的边权取负值</span>
+    <span class="n">mst_extractor</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span>
+        <span class="n">edge</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">edge</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="o">-</span><span class="n">edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">num_verified_matches</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// 给mst_extractor添加边</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewIdPair</span><span class="o">&gt;</span> <span class="n">mst</span><span class="p">;</span>
+
+  <span class="c1">// 提取最小生成树。 成功返回true，失败返回false。 如果返回true，则输出变量包含最小生成树的边缘列表。</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mst_extractor</span><span class="p">.</span><span class="n">Extract</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mst</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">VLOG</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="o">&lt;&lt;</span> <span class="s">&quot;Could not extract the maximum spanning tree from the view graph&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 创建一个MST视图图</span>
+  <span class="n">ViewGraph</span> <span class="n">mst_view_graph</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewIdPair</span><span class="o">&amp;</span> <span class="nl">edge</span> <span class="p">:</span> <span class="n">mst</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">mst_view_graph</span><span class="p">.</span><span class="n">AddEdge</span><span class="p">(</span>
+        <span class="n">edge</span><span class="p">.</span><span class="n">first</span><span class="p">,</span>
+        <span class="n">edge</span><span class="p">.</span><span class="n">second</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">largest_cc_subgraph</span><span class="p">.</span><span class="n">GetEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">edge</span><span class="p">.</span><span class="n">second</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 将相对旋转链接在一起以计算方向。 使用堆来确定要添加到最小生成树的下一条边。</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapElement</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+
+  <span class="c1">// 设置根值</span>
+  <span class="k">const</span> <span class="n">ViewId</span> <span class="n">root_view_id</span> <span class="o">=</span> <span class="n">mst</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">first</span><span class="p">;</span>
+  <span class="p">(</span><span class="o">*</span><span class="n">orientations</span><span class="p">)[</span><span class="n">root_view_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">::</span><span class="n">Zero</span><span class="p">();</span>
+
+  <span class="c1">// 将root_view_id的所有边缘添加到堆中。 仅添加尚未具有方向估计的边缘</span>
+  <span class="c1">// 按照匹配数进行排序</span>
+  <span class="n">AddEdgesToHeap</span><span class="p">(</span><span class="n">mst_view_graph</span><span class="p">,</span> <span class="o">*</span><span class="n">orientations</span><span class="p">,</span> <span class="n">root_view_id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">heap</span><span class="p">);</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">heap</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="n">HeapElement</span> <span class="n">next_edge</span> <span class="o">=</span> <span class="n">heap</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+
+    <span class="c1">// 将堆顶(所给范围的最前面)元素移动到所给范围的最后，并且将新的最大值置于所给范围的最前面</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">pop_heap</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">heap</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">SortHeapElement</span><span class="p">);</span>
+    <span class="c1">// 弹出最后一个元素（刚才的最大值）</span>
+    <span class="n">heap</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+
+    <span class="c1">// 如果该图像已经有方向，则跳过</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ContainsKey</span><span class="p">(</span><span class="o">*</span><span class="n">orientations</span><span class="p">,</span> <span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">second</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 计算图像方向</span>
+    <span class="p">(</span><span class="o">*</span><span class="n">orientations</span><span class="p">)[</span><span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">second</span><span class="p">]</span> <span class="o">=</span>
+        <span class="n">ComputeOrientation</span><span class="p">(</span><span class="n">FindOrDie</span><span class="p">(</span><span class="o">*</span><span class="n">orientations</span><span class="p">,</span> <span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">first</span><span class="p">),</span>
+                           <span class="n">next_edge</span><span class="p">.</span><span class="n">first</span><span class="p">,</span>
+                           <span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">first</span><span class="p">,</span>
+                           <span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+
+    <span class="c1">// 将 view_id 的所有边添加到堆中。 仅添加尚未具有方向估计的边缘。</span>
+    <span class="n">AddEdgesToHeap</span><span class="p">(</span>
+        <span class="n">mst_view_graph</span><span class="p">,</span> <span class="o">*</span><span class="n">orientations</span><span class="p">,</span> <span class="n">next_edge</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">heap</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>一. 什么是最大生成树：</p>
+<blockquote>
+<div><p>在一个图的所有生成树中边权值和最大的生成树即为最大生成树。</p>
+</div></blockquote>
+<p>二. 怎么生成最大生成树：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>将图中所有边的边权变为相反数，再跑一遍最小生成树算法。相反数最小，原数就最大。</p></li>
+<li><p>修改最小生成树算法：</p>
+<ul class="simple">
+<li><p>kruskal：将“从小到大排序”改为“从大到小排序”；</p></li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<p>　　　　　 * prim：将“每次选到所有蓝点代价最小的白点”改为“每次选到所有蓝点代价最大的点”。</p>
+<blockquote>
+<div><p><strong>orientations</strong> 即对应每个视图的方向，即为相机方向，也即全局旋转。</p>
+<p>首先定义一个unordered_set&lt;ViewId&gt;类型的largest_cc作为最大连接组件，从传入的view_graph中得到最大的连接组件id传入largest_cc中。</p>
+<p>定义一个最大连接组件子图，从视图图view_graph中，选取最大连接组件相关的子图。
+（通俗来讲，视图图中存储的顶点为所有的视图id，边为两者之间的视图关系TwoViewInfo，
+通过最大连接组件得到最大连接的视图id序列，将序列中的id相关的边和点的子图提取出来，舍弃非最大连接组件的视图点和匹配关系边，仅保留最大连接组件的子视图）。</p>
+<p>得到最大连接子图的所有边值（所有的TwoViewInfo），定义一个克鲁斯卡尔算法的最小生成树mst_extractor。</p>
+<p>遍历最大连接子图的所有边all_edges，注意这里的edge的类型为&lt;ViewIdPair, TwoViewInfo&gt;，那么两视图的id分别为edge.first.first和edge.first.second，将其作为顶点加入到mst_extractor中，由于是最大生成树，所以权重取两视图的匹配数的相反数。</p>
+<p>定义一个存放ViewIdPair的集合mst，从mst_extractor中提取最小生成树存放在mst中。注意，之前的最大连接组件虽然视图是唯一的，但是其中的匹配关系不是唯一的，通过最小生成树提取，获得一个唯一的视图匹配关系。</p>
+<p>建立一个最小生成树子图，存放唯一视图匹配关系的id和两视图信息TwoViewInfo。（这里就一共涉及到了三个图，1、视图图，2、最大连接子图，3、最大连接子图的最小生成树图）</p>
+<p>定义一个heap，类型为vector&lt;HeapElement&gt;，这里的HeapElement实际上是typedef pair&lt;TwoViewInfo, ViewIdPair&gt;，注意和前面的edge的类型&lt;ViewIdPair, TwoViewInfo&gt;区分，一个是TwoViewInfo做键ViewIdPair做值，一个正好相反。</p>
+<p>设置根视图id，也就是初始视图的id为mst.begin()-&gt;first。将根视图的方向（即选做第一个视图的摄像机的旋转）设置为零矩阵。</p>
+<p>将view_id的所有边缘添加到堆中。 仅添加尚未具有方向估计的边缘。步骤为：得到view_id的邻居视图id，遍历所有的邻居id，如果邻居视图已经有方向了，跳过，否则将view 和邻居两个视图的信息和两个视图id添加到heap中，然后调整堆为小顶堆。</p>
+<p>while循环，当堆不为空时，得到堆顶元素，因为堆顶元素已经刚刚设置了方向，所以将其pop掉，然后第二个视图的方向，直到全部计算完。</p>
+</div></blockquote>
+</div>
+<div class="section" id="addedgestoheap">
+<h4>AddEdgesToHeap<a class="headerlink" href="#addedgestoheap" title="永久链接至标题">¶</a></h4>
+<dl class="cpp function">
+<dt id="_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE">
+<span id="_CPPv314AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="_CPPv214AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="AddEdgesToHeap__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewIdC.std::vector:HeapElement:P"></span>void <code class="sig-name descname">AddEdgesToHeap</code><span class="sig-paren">(</span><em class="property">const</em> ViewGraph &amp;<em>view_graph</em>, <em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> ViewId <em>view_id</em>, std::vector&lt;HeapElement&gt; *<em>heap</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">AddEdgesToHeap</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">ViewGraph</span><span class="o">&amp;</span> <span class="n">view_graph</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">orientations</span><span class="p">,</span>
+    <span class="k">const</span> <span class="n">ViewId</span> <span class="n">view_id</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HeapElement</span><span class="o">&gt;*</span> <span class="n">heap</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 得到view_id的邻居视图id</span>
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;*</span> <span class="n">edge_ids</span> <span class="o">=</span>
+      <span class="n">view_graph</span><span class="p">.</span><span class="n">GetNeighborIdsForView</span><span class="p">(</span><span class="n">view_id</span><span class="p">);</span>
+  <span class="c1">// 遍历邻居视图id</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewId</span> <span class="nl">edge_id</span> <span class="p">:</span> <span class="o">*</span><span class="n">edge_ids</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 如果邻居视图id已经有方向了，即邻居视图的摄像机有旋转了，则跳过。</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">edge_id</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 将view_id和邻居id(edge_id)和两者的信息ViewInfo添加到heap中</span>
+    <span class="n">heap</span><span class="o">-&gt;</span><span class="n">emplace_back</span><span class="p">(</span><span class="o">*</span><span class="n">view_graph</span><span class="p">.</span><span class="n">GetEdge</span><span class="p">(</span><span class="n">view_id</span><span class="p">,</span> <span class="n">edge_id</span><span class="p">),</span>
+                       <span class="n">ViewIdPair</span><span class="p">(</span><span class="n">view_id</span><span class="p">,</span> <span class="n">edge_id</span><span class="p">));</span>
+    <span class="c1">// push_heap()是向堆中插入一个元素，按照SortHeapElement（匹配数从大到小）的规则进行建堆</span>
+    <span class="cm">/*</span>
+<span class="cm">    bool SortHeapElement(const HeapElement&amp; h1, const HeapElement&amp; h2) {</span>
+<span class="cm">      return h1.first.num_verified_matches &gt; h2.first.num_verified_matches;</span>
+<span class="cm">    }</span>
+<span class="cm">    */</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">push_heap</span><span class="p">(</span><span class="n">heap</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">(),</span> <span class="n">heap</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">(),</span> <span class="n">SortHeapElement</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filterrotations">
+<h3>FilterRotations<a class="headerlink" href="#filterrotations" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>基于相对旋转和估计的全局方向过滤视图对。</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="GlobalReconstructionEstimator::FilterRotations"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterRotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterRotations</span><span class="p">()</span> <span class="p">{</span>
+   <span class="n">FilterViewPairsFromOrientation</span><span class="p">(</span>
+      <span class="n">orientations_</span><span class="p">,</span>
+      <span class="n">options_</span><span class="p">.</span><span class="n">rotation_filtering_max_difference_degrees</span><span class="p">,</span>
+      <span class="n">view_graph_</span><span class="p">);</span>
+
+   <span class="c1">// 删除不属于最大连接组件的所有视图对，并返回已删除视图的ViewId</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">removed_views</span> <span class="o">=</span>
+      <span class="n">RemoveDisconnectedViewPairs</span><span class="p">(</span><span class="n">view_graph_</span><span class="p">);</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewId</span> <span class="nl">removed_view</span> <span class="p">:</span> <span class="n">removed_views</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">orientations_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">removed_view</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="filterviewpairsfromorientation">
+<h4>FilterViewPairsFromOrientation<a class="headerlink" href="#filterviewpairsfromorientation" title="永久链接至标题">¶</a></h4>
+<dl class="cpp function">
+<dt id="_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph">
+<span id="_CPPv330FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="_CPPv230FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="FilterViewPairsFromOrientation__std::unordered_map:ViewId.Eigen::Vector3d:CR.doubleC.ViewGraphP"></span>void <code class="sig-name descname">FilterViewPairsFromOrientation</code><span class="sig-paren">(</span><em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> double <em>max_relative_rotation_difference_degrees</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">FilterViewPairsFromOrientation</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">orientations</span><span class="p">,</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">max_relative_rotation_difference_degrees</span><span class="p">,</span>
+      <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">view_graph</span><span class="p">);</span>
+   <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">max_relative_rotation_difference_degrees</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+
+   <span class="c1">// 预先计算以弧度为单位的平方阈值</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">max_relative_rotation_difference_radians</span> <span class="o">=</span>
+      <span class="n">DegToRad</span><span class="p">(</span><span class="n">max_relative_rotation_difference_degrees</span><span class="p">);</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">sq_max_relative_rotation_difference_radians</span> <span class="o">=</span>
+      <span class="n">max_relative_rotation_difference_radians</span> <span class="o">*</span>
+      <span class="n">max_relative_rotation_difference_radians</span><span class="p">;</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewIdPair</span><span class="o">&gt;</span> <span class="n">view_pairs_to_remove</span><span class="p">;</span>
+   <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
+
+   <span class="c1">// 遍历视图所有边缘</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">view_pair</span> <span class="p">:</span> <span class="n">view_pairs</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">orientation1</span> <span class="o">=</span>
+        <span class="n">FindOrNull</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">orientation2</span> <span class="o">=</span>
+        <span class="n">FindOrNull</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+
+      <span class="c1">// 如果视图对包含没有方向的视图，则将其删除</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">orientation1</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">||</span> <span class="n">orientation2</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">LOG</span><span class="p">(</span><span class="n">WARNING</span><span class="p">)</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot;View pair (&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span>
+            <span class="o">&lt;&lt;</span> <span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">.</span><span class="n">second</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot;) contains a view that does not exist! Removing the view pair.&quot;</span><span class="p">;</span>
+         <span class="n">view_pairs_to_remove</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+         <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 如果相对旋转估计不在容差范围内，则移除视图对</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">AngularDifferenceIsAcceptable</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">orientation1</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">orientation2</span><span class="p">,</span>
+            <span class="n">view_pair</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">rotation_2</span><span class="p">,</span>
+            <span class="n">sq_max_relative_rotation_difference_radians</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">view_pairs_to_remove</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">view_pair</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 移除所有不好的相对位姿</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewIdPair</span> <span class="nl">view_id_pair</span> <span class="p">:</span> <span class="n">view_pairs_to_remove</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">RemoveEdge</span><span class="p">(</span><span class="n">view_id_pair</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">view_id_pair</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="n">VLOG</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Removed &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">view_pairs_to_remove</span><span class="p">.</span><span class="n">size</span><span class="p">()</span>
+          <span class="o">&lt;&lt;</span> <span class="s">&quot; view pairs by rotation filtering.&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>需要移除的视图对（边）：</p>
+<ol class="arabic simple">
+<li><p>视图对包含没有方向的视图</p></li>
+<li><p>视图对的相对旋转估计不在容差范围内</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="optimizepairwisetranslations">
+<h3>OptimizePairwiseTranslations<a class="headerlink" href="#optimizepairwisetranslations" title="永久链接至标题">¶</a></h3>
+<blockquote>
+<div><p>（可选择）在计算绝对旋转后，细化相对平移估计，可以帮助提高位置估计的准确性。</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="GlobalReconstructionEstimator::OptimizePairwiseTranslations"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">OptimizePairwiseTranslations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">OptimizePairwiseTranslations</span><span class="p">()</span> <span class="p">{</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">refine_relative_translations_after_rotation_estimation</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">RefineRelativeTranslationsWithKnownRotations</span><span class="p">(</span><span class="o">*</span><span class="n">reconstruction_</span><span class="p">,</span>
+                                                 <span class="n">orientations_</span><span class="p">,</span>
+                                                 <span class="n">options_</span><span class="p">.</span><span class="n">num_threads</span><span class="p">,</span>
+                                                 <span class="n">view_graph_</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="refinerelativetranslationswithknownrotations">
+<h4>RefineRelativeTranslationsWithKnownRotations<a class="headerlink" href="#refinerelativetranslationswithknownrotations" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>给定已知旋转估，通过优化对极约束细化视图对之间的相对平移估计。</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph">
+<span id="_CPPv344RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="_CPPv244RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="RefineRelativeTranslationsWithKnownRotations__ReconstructionCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.iC.ViewGraphP"></span>void <code class="sig-name descname">RefineRelativeTranslationsWithKnownRotations</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em>, <em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> int <em>num_threads</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">RefineRelativeTranslationsWithKnownRotations</span><span class="p">(</span>
+      <span class="n">const</span> <span class="n">Reconstruction</span><span class="o">&amp;</span> <span class="n">reconstruction</span><span class="p">,</span>
+      <span class="n">const</span> <span class="n">std</span><span class="p">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="p">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">orientations</span><span class="p">,</span>
+      <span class="n">const</span> <span class="nb">int</span> <span class="n">num_threads</span><span class="p">,</span>
+      <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">num_threads</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+   <span class="n">const</span> <span class="n">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
+
+   <span class="n">ThreadPool</span> <span class="n">pool</span><span class="p">(</span><span class="n">num_threads</span><span class="p">);</span>
+   <span class="o">//</span> <span class="n">优化每个视图对的位移估计</span>
+   <span class="k">for</span> <span class="p">(</span><span class="n">const</span> <span class="n">auto</span><span class="o">&amp;</span> <span class="n">view_pair</span> <span class="p">:</span> <span class="n">view_pairs</span><span class="p">)</span> <span class="p">{</span>
+      <span class="o">//</span> <span class="n">获取两个视图共有的所有特征对应关系</span>
+      <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FeatureCorrespondence</span><span class="o">&gt;</span> <span class="n">matches</span><span class="p">;</span>
+      <span class="n">const</span> <span class="n">View</span><span class="o">*</span> <span class="n">view1</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="o">.</span><span class="n">View</span><span class="p">(</span><span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">first</span><span class="p">);</span>
+      <span class="n">const</span> <span class="n">View</span><span class="o">*</span> <span class="n">view2</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="o">.</span><span class="n">View</span><span class="p">(</span><span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">second</span><span class="p">);</span>
+      <span class="n">GetNormalizedFeatureCorrespondences</span><span class="p">(</span><span class="o">*</span><span class="n">view1</span><span class="p">,</span> <span class="o">*</span><span class="n">view2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">matches</span><span class="p">);</span>
+
+      <span class="n">TwoViewInfo</span><span class="o">*</span> <span class="n">info</span> <span class="o">=</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">GetMutableEdge</span><span class="p">(</span><span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">first</span><span class="p">,</span>
+                                                   <span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">second</span><span class="p">);</span>
+      <span class="n">pool</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">OptimizeRelativePositionWithKnownRotation</span><span class="p">,</span>
+             <span class="n">matches</span><span class="p">,</span>
+             <span class="n">FindOrDie</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">first</span><span class="p">),</span>
+             <span class="n">FindOrDie</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span> <span class="n">view_pair</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">second</span><span class="p">),</span>
+             <span class="o">&amp;</span><span class="n">info</span><span class="o">-&gt;</span><span class="n">position_2</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getnormalizedfeaturecorrespondences">
+<h4>GetNormalizedFeatureCorrespondences<a class="headerlink" href="#getnormalizedfeaturecorrespondences" title="永久链接至标题">¶</a></h4>
+<p>得到输入视图之间的所有两个视图特征匹配。 根据相机内参对特征点进行归一化。</p>
+<dl class="cpp function">
+<dt id="_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE">
+<span id="_CPPv335GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="_CPPv235GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="GetNormalizedFeatureCorrespondences__ViewCR.ViewCR.std::vector:FeatureCorrespondence:P"></span>void <code class="sig-name descname">GetNormalizedFeatureCorrespondences</code><span class="sig-paren">(</span><em class="property">const</em> View &amp;<em>view1</em>, <em class="property">const</em> View &amp;<em>view2</em>, std::vector&lt;FeatureCorrespondence&gt; *<em>matches</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GetNormalizedFeatureCorrespondences</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">View</span><span class="o">&amp;</span> <span class="n">view1</span><span class="p">,</span> <span class="k">const</span> <span class="n">View</span><span class="o">&amp;</span> <span class="n">view2</span><span class="p">,</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FeatureCorrespondence</span><span class="o">&gt;*</span> <span class="n">matches</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera1</span> <span class="o">=</span> <span class="n">view1</span><span class="p">.</span><span class="n">Camera</span><span class="p">();</span>
+   <span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera2</span> <span class="o">=</span> <span class="n">view2</span><span class="p">.</span><span class="n">Camera</span><span class="p">();</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">TrackId</span><span class="o">&gt;&amp;</span> <span class="n">tracks</span> <span class="o">=</span> <span class="n">view1</span><span class="p">.</span><span class="n">TrackIds</span><span class="p">();</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">TrackId</span> <span class="nl">track_id</span> <span class="p">:</span> <span class="n">tracks</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="n">Feature</span><span class="o">*</span> <span class="n">feature2</span> <span class="o">=</span> <span class="n">view2</span><span class="p">.</span><span class="n">GetFeature</span><span class="p">(</span><span class="n">track_id</span><span class="p">);</span>
+      <span class="c1">// 如果视图 2 不包含当前track，则它不能是对应关系</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">feature2</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">FeatureCorrespondence</span> <span class="n">match</span><span class="p">;</span>
+      <span class="k">const</span> <span class="n">Feature</span><span class="o">*</span> <span class="n">feature1</span> <span class="o">=</span> <span class="n">view1</span><span class="p">.</span><span class="n">GetFeature</span><span class="p">(</span><span class="n">track_id</span><span class="p">);</span>
+      <span class="n">match</span><span class="p">.</span><span class="n">feature1</span> <span class="o">=</span> <span class="o">*</span><span class="n">feature1</span><span class="p">;</span>
+      <span class="n">match</span><span class="p">.</span><span class="n">feature2</span> <span class="o">=</span> <span class="o">*</span><span class="n">feature2</span><span class="p">;</span>
+
+      <span class="c1">// 归一化</span>
+      <span class="n">match</span><span class="p">.</span><span class="n">feature1</span> <span class="o">=</span>
+         <span class="n">camera1</span><span class="p">.</span><span class="n">PixelToNormalizedCoordinates</span><span class="p">(</span><span class="n">match</span><span class="p">.</span><span class="n">feature1</span><span class="p">).</span><span class="n">hnormalized</span><span class="p">();</span>
+      <span class="n">match</span><span class="p">.</span><span class="n">feature2</span> <span class="o">=</span>
+         <span class="n">camera2</span><span class="p">.</span><span class="n">PixelToNormalizedCoordinates</span><span class="p">(</span><span class="n">match</span><span class="p">.</span><span class="n">feature2</span><span class="p">).</span><span class="n">hnormalized</span><span class="p">();</span>
+      <span class="n">matches</span><span class="o">-&gt;</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">match</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optimizerelativepositionwithknownrotation">
+<h4>OptimizeRelativePositionWithKnownRotation<a class="headerlink" href="#optimizerelativepositionwithknownrotation" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>使用已知的相对旋转，优化相对位置，以最小化所有对应的对极约束  <span class="math notranslate nohighlight">\(x_2' * [t]_x * R * x_1 = 0\)</span> 。 注意：位置是  :math:` -R’ * t`，旋转对应于相机 1 和 2 的绝对方向。</p>
+<p>[CVPR2015] &lt;Robust Camera Location Estimation by Convex Programming&gt;</p>
+</div></blockquote>
+<dl class="cpp function">
+<dt id="_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE">
+<span id="_CPPv341OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="_CPPv241OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="OptimizeRelativePositionWithKnownRotation__std::vector:FeatureCorrespondence:CR.Eigen::Vector3dCR.Eigen::Vector3dCR.Eigen::Vector3dP"></span>bool <code class="sig-name descname">OptimizeRelativePositionWithKnownRotation</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;FeatureCorrespondence&gt; &amp;<em>correspondences</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>rotation1</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>rotation2</em>, Eigen::Vector3d *<em>relative_position</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">OptimizeRelativePositionWithKnownRotation</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">FeatureCorrespondence</span><span class="o">&gt;&amp;</span> <span class="n">correspondences</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">rotation1</span><span class="p">,</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">rotation2</span><span class="p">,</span>
+      <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">*</span> <span class="n">relative_position</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">relative_position</span><span class="p">);</span>
+
+   <span class="c1">// 将初始相对位置设置为随机值。 这有助于避免由于初始化不良而导致的不良局部最小值。</span>
+   <span class="n">relative_position</span><span class="o">-&gt;</span><span class="n">setRandom</span><span class="p">();</span>
+
+   <span class="c1">// 用于 IRLS 求解的常数</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">int</span> <span class="n">kMaxIterations</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">int</span> <span class="n">kMaxInnerIterations</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+   <span class="k">const</span> <span class="kt">double</span> <span class="n">kMinWeight</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">;</span>
+
+   <span class="c1">// 从已知的对应关系和旋转创建约束矩阵</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">constraint_matrix</span><span class="p">;</span>
+   <span class="n">CreateConstraintMatrix</span><span class="p">(</span><span class="n">correspondences</span><span class="p">,</span>
+                         <span class="n">rotation1</span><span class="p">,</span>
+                         <span class="n">rotation2</span><span class="p">,</span>
+                         <span class="o">&amp;</span><span class="n">constraint_matrix</span><span class="p">);</span>
+
+   <span class="c1">// 初始化每个对应的加权项</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">VectorXd</span> <span class="n">weights</span><span class="p">(</span><span class="n">correspondences</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">weights</span><span class="p">.</span><span class="n">setConstant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">);</span>
+
+   <span class="c1">// 使用鲁棒的 IRLS 求解相对位置</span>
+   <span class="kt">double</span> <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="kt">int</span> <span class="n">num_inner_iterations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="n">i</span> <span class="o">&lt;</span> <span class="n">kMaxIterations</span> <span class="o">&amp;&amp;</span> <span class="n">num_inner_iterations</span> <span class="o">&lt;</span> <span class="n">kMaxInnerIterations</span><span class="p">;</span>
+         <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 将最小权重限制在 kMinWeight</span>
+      <span class="n">weights</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights</span><span class="p">.</span><span class="n">array</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">kMinWeight</span><span class="p">).</span><span class="n">select</span><span class="p">(</span><span class="n">kMinWeight</span><span class="p">,</span> <span class="n">weights</span><span class="p">);</span>
+
+      <span class="c1">// 将权重应用于约束矩阵</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3d</span> <span class="n">lhs</span> <span class="o">=</span> <span class="n">constraint_matrix</span> <span class="o">*</span>
+                                <span class="n">weights</span><span class="p">.</span><span class="n">asDiagonal</span><span class="p">().</span><span class="n">inverse</span><span class="p">()</span> <span class="o">*</span>
+                                <span class="n">constraint_matrix</span><span class="p">.</span><span class="n">transpose</span><span class="p">();</span>
+
+      <span class="c1">// 求解作为加权约束的零向量的相对位置.</span>
+      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">new_relative_position</span> <span class="o">=</span>
+        <span class="n">lhs</span><span class="p">.</span><span class="n">jacobiSvd</span><span class="p">(</span><span class="n">Eigen</span><span class="o">::</span><span class="n">ComputeFullU</span><span class="p">).</span><span class="n">matrixU</span><span class="p">().</span><span class="n">rightCols</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">();</span>
+
+      <span class="c1">// 根据当前误差更新权重</span>
+      <span class="n">weights</span> <span class="o">=</span>
+        <span class="p">(</span><span class="n">new_relative_position</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span> <span class="n">constraint_matrix</span><span class="p">).</span><span class="n">array</span><span class="p">().</span><span class="n">abs</span><span class="p">();</span>
+
+      <span class="c1">// 计算新的cost</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">new_cost</span> <span class="o">=</span> <span class="n">weights</span><span class="p">.</span><span class="n">sum</span><span class="p">();</span>
+
+      <span class="c1">// 检查收敛情况</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">abs</span><span class="p">(</span><span class="n">cost</span> <span class="o">-</span> <span class="n">new_cost</span><span class="p">),</span>
+                                  <span class="mi">1</span> <span class="o">-</span> <span class="n">new_relative_position</span><span class="p">.</span><span class="n">squaredNorm</span><span class="p">());</span>
+
+      <span class="c1">// 如果我们有很好的收敛性，请尝试内部迭代</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">delta</span> <span class="o">&lt;=</span> <span class="n">eps</span><span class="p">)</span> <span class="p">{</span>
+         <span class="o">++</span><span class="n">num_inner_iterations</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="n">num_inner_iterations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">cost</span> <span class="o">=</span> <span class="n">new_cost</span><span class="p">;</span>
+      <span class="o">*</span><span class="n">relative_position</span> <span class="o">=</span> <span class="n">new_relative_position</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// The position solver above does not consider the sign of the relative</span>
+   <span class="c1">// position. We can determine the sign by choosing the sign that puts the most</span>
+   <span class="c1">// points in front of the camera.</span>
+   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">MajorityOfPointsInFrontOfCameras</span><span class="p">(</span><span class="n">correspondences</span><span class="p">,</span>
+                                        <span class="n">rotation1</span><span class="p">,</span>
+                                        <span class="n">rotation2</span><span class="p">,</span>
+                                        <span class="o">*</span><span class="n">relative_position</span><span class="p">))</span> <span class="p">{</span>
+      <span class="o">*</span><span class="n">relative_position</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../t_sfm.html" class="btn btn-neutral float-left" title="SfM Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

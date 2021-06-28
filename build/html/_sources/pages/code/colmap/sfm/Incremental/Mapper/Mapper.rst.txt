@@ -160,7 +160,7 @@ Incremental_Mapper
 
    该类将数据库中所有必需的数据保存在内存中
 
-.. cpp:member:: Reconstruction* reconstruction_;
+.. cpp:member:: colmap::Reconstruction* reconstruction_;
 
    保存重建数据的类
 

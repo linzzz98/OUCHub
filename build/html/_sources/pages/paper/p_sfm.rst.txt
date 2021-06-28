@@ -22,6 +22,7 @@
    sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph
    sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging
    sfm/CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging
+   sfm/CameraPose/Lie_Averaging/Lie_Averaging
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
@@ -43,10 +44,11 @@
 |:star:| \ **相机位姿(Camera Pose)**\
 
 * :doc:`[TPAMI 2004] An efficient solution to the five-point relative pose problem <sfm/CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem>`
+* :doc:`[CVPR 2005] Lie-Algebraic Averaging For Globally Consistent Motion Estimation <sfm/CameraPose/Lie_Averaging/Lie_Averaging>`
 * :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
 * :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
 * :doc:`[ICCV 2013] Efficient and Robust Large-Scale Rotation Averaging <sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging>`
-* :doc:`[TPAMI 2017] Robust Relative Rotation Averagingmake <sfm/CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging>`
+* :doc:`[TPAMI 2017] Robust Relative Rotation Averaging <sfm/CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging>`
 * :doc:`[CVPR 2018] Hybrid Camera Pose Estimation <sfm/CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation>`
 
 |:star:| \ **深度学习(Deep Learning)**\

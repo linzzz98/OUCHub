@@ -82,7 +82,7 @@ Glboal SfM
 
 .. math::
 
-   R_v = \mathop{argmin}_\{R_1, R_2, ···, R_N\} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))
+   R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))
 
 其中 :math:`d(·)` 是 SO(3) 中两个旋转之间的距离度量，而 :math:`\rho(·)` 是在此距离度量上定义的损失函数。
 

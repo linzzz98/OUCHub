@@ -216,14 +216,14 @@
 <h2><span class="section-number">16.1. </span>Reduction to Iteratively Reweighted Least Squares<a class="headerlink" href="#reduction-to-iteratively-reweighted-least-squares" title="永久链接至标题">¶</a></h2>
 <p>文章将最小化代价函数：</p>
 <div class="math notranslate nohighlight">
-\[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
+\[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
 <p>简化为迭代优化问题。 在每次迭代中，这个优化问题都使用拟牛顿法解决，从而得到一种对异常值既有效又鲁棒的整体平均方法。</p>
 <p>上面的代价函数可以进一步写为：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
-R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\\
-    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(R_j^{-1}R_{ij}R_i)||)\\
-    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(\Delta R_{ij})||)\\
+R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(d(R_{ij},R_jR_i^{-1}))\\
+    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(||\omega(R_j^{-1}R_{ij}R_i)||)\\
+    &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(||\omega(\Delta R_{ij})||)\\
 \end{eqnarray}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\Delta R_{ij} = R_j^{-1} R_{ij} R_i\)</span> ，需要注意的是给定旋转 <span class="math notranslate nohighlight">\(R_v\)</span> 的当前估计值，对于摄像机（ <span class="math notranslate nohighlight">\(V\)</span> 中的顶点），<span class="math notranslate nohighlight">\(||\Delta R_{ij}||\)</span>  表示 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 的摄像机  <span class="math notranslate nohighlight">\(i\)</span>  和  <span class="math notranslate nohighlight">\(j\)</span>  之间观察到的相对旋转 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与当前用 <span class="math notranslate nohighlight">\(R_jR_i^{-1}\)</span> 所估计相对旋转之间的差异</p>
 <div class="admonition note">
@@ -268,16 +268,16 @@ R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\i
 <p>令此次更新为 <span class="math notranslate nohighlight">\(\{\Delta R_1, ···, \Delta R_N\}\)</span> ，则更新后的 <span class="math notranslate nohighlight">\(R_v\)</span> 为 <span class="math notranslate nohighlight">\(\{R_1\Delta R_1, ···, R_N\Delta R_N\}\)</span> 。</p>
 <p>因此，在给定的迭代中，目标是最小化：</p>
 <div class="math notranslate nohighlight">
-\[\sum\limits_{(i,j) \in \epsilon} \rho (||\omega(\Delta R_j^{-1} \Delta R_{ij} \Delta R_i)||)\]</div>
+\[\sum\limits_{(i,j) \in \varepsilon} \rho (||\omega(\Delta R_j^{-1} \Delta R_{ij} \Delta R_i)||)\]</div>
 <p>对于每个单独的旋转更新 <span class="math notranslate nohighlight">\(\Delta R_i\)</span> ，对于所有 <span class="math notranslate nohighlight">\(i \in \{1,···,N\}\)</span> ，让等效的轴角表示表示为 <span class="math notranslate nohighlight">\(\Delta \omega_i\)</span> 。</p>
 <p>将所有这些向量放到一个  <span class="math notranslate nohighlight">\(3 N \times 1\)</span>  的向量  <span class="math notranslate nohighlight">\(\Delta \Omega_v = [\Delta \omega^T_1, ···, \Delta \omega^T_N]^T\)</span> 中。</p>
-<p>对于每个残差旋转项  <span class="math notranslate nohighlight">\(\Delta R_{ij}\)</span> 来说 ，所有的 <span class="math notranslate nohighlight">\((i,j)\in \epsilon\)</span> ，等效轴角表示为 <span class="math notranslate nohighlight">\(\Delta \omega_{ij}\)</span> 。</p>
-<p>所有这些向量串联成一个 <span class="math notranslate nohighlight">\(3 M \times 1\)</span> 的向量表示为 <span class="math notranslate nohighlight">\(\Delta \Omega_\epsilon\)</span></p>
+<p>对于每个残差旋转项  <span class="math notranslate nohighlight">\(\Delta R_{ij}\)</span> 来说 ，所有的 <span class="math notranslate nohighlight">\((i,j)\in \varepsilon\)</span> ，等效轴角表示为 <span class="math notranslate nohighlight">\(\Delta \omega_{ij}\)</span> 。</p>
+<p>所有这些向量串联成一个 <span class="math notranslate nohighlight">\(3 M \times 1\)</span> 的向量表示为 <span class="math notranslate nohighlight">\(\Delta \Omega_\varepsilon\)</span></p>
 <p>那么上面的等式就等价于找到最小化成本函数 <span class="math notranslate nohighlight">\(F(\Delta \Omega_v)\)</span> 的 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span> ：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
-   F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \rho(||\omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))||)\\
-   &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \rho(||r_{ij} (\Delta \Omega_v)||)
+   F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \varepsilon} \rho(||\omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))||)\\
+   &amp;=&amp; \sum\limits_{(i,j) \in \varepsilon} \rho(||r_{ij} (\Delta \Omega_v)||)
 \end{eqnarray}\end{split}\]</div>
 <p>其中:</p>
 <div class="math notranslate nohighlight">
@@ -285,8 +285,8 @@ R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\i
 <p>梯度 <span class="math notranslate nohighlight">\(F(\Delta \Omega_v)\)</span> 由下面的式子给出：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
-\nabla F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \nabla \rho(||r_{ij}(\Delta \Omega_v)||)\\
-&amp;=&amp; \sum\limits_{(i,j) \in \epsilon} \psi(||r_{ij} (\Delta \Omega_v)||) \nabla (||r_{ij}(\Delta \Omega_v)||)
+\nabla F(\Delta \Omega_v) &amp;=&amp; \sum\limits_{(i,j) \in \varepsilon} \nabla \rho(||r_{ij}(\Delta \Omega_v)||)\\
+&amp;=&amp; \sum\limits_{(i,j) \in \varepsilon} \psi(||r_{ij} (\Delta \Omega_v)||) \nabla (||r_{ij}(\Delta \Omega_v)||)
 \end{eqnarray}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\psi(r) = \frac{\partial \rho(r)}{\partial  r}\)</span> 称为 influence function。</p>
 <p>定义 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(\Delta \Omega_v)||) = \frac{\psi(||r_{ij} (\Delta \Omega_v)||)}{||r_{ij} (\Delta \Omega_v)||}\)</span></p>
@@ -294,30 +294,59 @@ R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\i
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 &amp;&amp; F(\Delta \Omega_v)\\
-&amp;=&amp; \frac{1}{2} \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||)2||r_{ij}(\Delta \Omega_v)|| \nabla(||r_{ij}(\Delta \Omega_v)||)\\
-&amp;=&amp; \frac{1}{2}  \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||) \nabla(||r_{ij}(\Delta \Omega_v)||^2)
+&amp;=&amp; \frac{1}{2} \sum\limits_{(i,j) \in \varepsilon} \phi(||r_{ij}(\Delta \Omega_v)||)2||r_{ij}(\Delta \Omega_v)|| \nabla(||r_{ij}(\Delta \Omega_v)||)\\
+&amp;=&amp; \frac{1}{2}  \sum\limits_{(i,j) \in \varepsilon} \phi(||r_{ij}(\Delta \Omega_v)||) \nabla(||r_{ij}(\Delta \Omega_v)||^2)
 \end{eqnarray}\end{split}\]</div>
 <p>可以通过将 <span class="math notranslate nohighlight">\(\nabla F(\Delta \Omega_v)\)</span> 等于零来找到最佳的 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span> 。</p>
 <p>在这里，使用 <strong>IRLS优化</strong> ，因此，在每次迭代期间，将  <span class="math notranslate nohighlight">\(\phi(||r_{ij}(\Delta \Omega_v)||)\)</span> 视为由 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(0)||)\)</span> 给出的常数。</p>
 <p>记 <span class="math notranslate nohighlight">\(\phi(||r_{ij}(0)||)\)</span> 为 <span class="math notranslate nohighlight">\(\phi_{ij}\)</span> ，则问题变为：</p>
 <div class="math notranslate nohighlight">
-\[\sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\]</div>
+\[\sum\limits_{(i,j) \in \varepsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\]</div>
 <p>等价于下面的最小化问题：</p>
 <div class="math notranslate nohighlight">
-\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j)\in \epsilon} \phi_{ij} ||r_{ij}(\Delta \Omega_v)||^2\]</div>
-<p>权重  <span class="math notranslate nohighlight">\(\phi_{ij} = \phi(||r_{ij}(0)||)\)</span> 是在每次迭代时为每条边 <span class="math notranslate nohighlight">\((i,j) \in \epsilon\)</span> 计算的。</p>
+\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j)\in \varepsilon} \phi_{ij} ||r_{ij}(\Delta \Omega_v)||^2\]</div>
+<p>权重  <span class="math notranslate nohighlight">\(\phi_{ij} = \phi(||r_{ij}(0)||)\)</span> 是在每次迭代时为每条边 <span class="math notranslate nohighlight">\((i,j) \in \varepsilon\)</span> 计算的。</p>
 <p>至此，已将相对旋转平均问题简化为迭代重新加权的非线性最小二乘问题。 现在将看到如何在每次迭代中使用拟牛顿法解决加权非线性最小二乘问题。</p>
 </div>
 <div class="section" id="optimization-using-quasi-newton-method">
 <h2><span class="section-number">16.2. </span>Optimization using Quasi-Newton Method<a class="headerlink" href="#optimization-using-quasi-newton-method" title="永久链接至标题">¶</a></h2>
 <p>在拟牛顿优化方法中，代价函数的 Hessian 近似为正半定矩阵。在高斯-牛顿算法的每次迭代中，函数在一阶意义上被局部逼近，因此优化问题归结为线性最小二乘问题。</p>
-<p>方程 <span class="math notranslate nohighlight">\(\sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\)</span> 等价于</p>
+<p>方程 <span class="math notranslate nohighlight">\(\sum\limits_{(i,j) \in \varepsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\)</span> 等价于</p>
 <div class="math notranslate nohighlight">
-\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j) \in \epsilon} \phi_{ij} · ||r_{ij}(0) + \mathbb{J} r_{ij}(0)^T \Delta \Omega_v||^2\]</div>
+\[\mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j) \in \varepsilon} \phi_{ij} · ||r_{ij}(0) + \mathbb{J} r_{ij}(0)^T \Delta \Omega_v||^2\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mathbb{J}_{ij}(0)\)</span> 是当前点 <span class="math notranslate nohighlight">\(\Delta \Omega_v = 0\)</span> 处  <span class="math notranslate nohighlight">\(r_{ij}(\Delta \Omega_v)\)</span>  的雅可比矩阵（相对于要估计的未知数 <span class="math notranslate nohighlight">\(\Delta \Omega_v\)</span>）。</p>
 <p>最小化上面公式中的cost等效于在最小二乘意义上求解以下线性方程组：</p>
 <div class="math notranslate nohighlight">
-\[\sqrt{\phi_{ij}} \mathbb{J} r_{ij}(0)^T \Delta \Omega_v = - \sqrt{\phi_{ij}} r_{ij} (0)~~ \forall(i,j) \in \epsilon\]</div>
+\[\sqrt{\phi_{ij}} \mathbb{J} r_{ij}(0)^T \Delta \Omega_v = - \sqrt{\phi_{ij}} r_{ij} (0)~~ \forall(i,j) \in \varepsilon\]</div>
+<p>从等式 <span class="math notranslate nohighlight">\(r_{ij}(\Delta \Omega_v) = \omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))\)</span> 可知， <span class="math notranslate nohighlight">\(r_{ij}(0) = \Delta \omega_{ij}\)</span></p>
+<p>过对附录中的成本函数进行微分，推导出了 <span class="math notranslate nohighlight">\(\mathbb{J} r_{ij}(0)\)</span> 的形式，因此有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\mathbb{J} r_{ij}(0) = &amp;&amp;\alpha_{ij} \underbrace{[···+I···-I···]}_{A_{ij}}\\
+&amp;&amp; + (1-\alpha_{ij}) \underbrace{[···+\frac{\Delta \omega_{ij} \Delta \omega_{ij}^T}{\theta^2_{ij}}···-\frac{\Delta \omega_{ij} \Delta \omega_{ij}^T}{\theta^2_{ij}}···]}_{B_{ij}}\\
+&amp;&amp; + \frac{1}{2} \underbrace{[···+[\Delta \omega_{ij}]_x ··· + [\Delta \omega_{ij}]_x ···]}_{C_{ij}}
+\end{eqnarray}\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>证明如下：</p>
+<p>考虑两个旋转 <span class="math notranslate nohighlight">\(u,v\)</span> 的轴角形式 <span class="math notranslate nohighlight">\(\theta = ||u||,\varphi = ||v||\)</span></p>
+<p>他们的四元数形式分别是 <span class="math notranslate nohighlight">\([cos(\frac{\theta}{2}), \frac{g(\theta)}{2} u]\)</span> 和  <span class="math notranslate nohighlight">\([cos(\frac{\phi}{2}), \frac{g(\phi)}{2} v]\)</span></p>
+<p>其中：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g(x) = \begin{cases}
+\frac{sin(x/2)}{x/2}~~~if~x \ne 0\\
+~~~~~1~~~~~~~~if~x = 0
+\end{cases}\end{split}\]</div>
+<p>请注意，<span class="math notranslate nohighlight">\(g(0) = 0\)</span> ， <span class="math notranslate nohighlight">\(u\)</span>  在  <span class="math notranslate nohighlight">\(v\)</span>  之后运算的组合可以使用四元数乘法规则写为： <span class="math notranslate nohighlight">\([(cos(\frac{\theta}{2}) cos(\frac{\phi}{2}) - \frac{g(\theta) g(\phi)}{4} u^Tv), (a \frac{u}{2}+b \frac{v}{2} + c \frac{u \times v}{4})]\)</span></p>
+<p>其中 <span class="math notranslate nohighlight">\(a = cos(\frac{\phi}{2})g(\theta); b = cos(\frac{\theta}{2}) g(\phi), c = g(\theta) g(\phi)\)</span></p>
+<p>将 <span class="math notranslate nohighlight">\(u\)</span> 在 <span class="math notranslate nohighlight">\(v\)</span> 之后操作的这种组合的轴角表示表示为 <span class="math notranslate nohighlight">\(w\)</span> ，即 <span class="math notranslate nohighlight">\(w = u◦v\)</span> 。</p>
+<p>令 <span class="math notranslate nohighlight">\(\psi = ||w||\)</span> ，因此 <span class="math notranslate nohighlight">\(sin(\frac{\psi}{2})\frac{w}{\psi} = a \frac{u}{2} + b\frac{v}{2} + c \frac{u \times v}{4}\)</span></p>
+<p>对于 <span class="math notranslate nohighlight">\(\theta &lt; \pi\)</span> 和足够小的 <span class="math notranslate nohighlight">\(\phi\)</span> ， <span class="math notranslate nohighlight">\([(cos(\frac{\theta}{2}) cos(\frac{\phi}{2}) - \frac{g(\theta) g(\phi)}{4} u^Tv)\)</span> 是非负的，可以写成：</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<p>w = 2 frac{sin^{-1}(d)}{d} (a frac{u}{2} + b frac{v}{2} + c frac{u times v}{4}</p>
+<p>其中 <span class="math notranslate nohighlight">\(d = ||a \frac{u}{2} + b \frac{v}{2} + c \frac{u \times v}{4}\)</span></p>
+</div>
 </div>
 </div>
 

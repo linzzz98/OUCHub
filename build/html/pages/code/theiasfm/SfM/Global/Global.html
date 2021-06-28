@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Global Structure from Motion Pipeline &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Global Structure from Motion Pipeline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/code/theiasfm/sfm/Global/Global.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="global-structure-from-motion-pipeline">
+<h1><span class="section-number">1. </span>Global Structure from Motion Pipeline<a class="headerlink" href="#global-structure-from-motion-pipeline" title="永久链接至标题">¶</a></h1>
+<p>使用全局方法来估计场景的相机位置和 3D 结构以估计相机位姿。 首先，全局估计旋转，然后使用全局优化估计位置。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/123.jpg" src="../../../../../_images/123.jpg" />
+</div>
+<p>步骤如下：</p>
+<ol class="arabic simple">
+<li><p>从2视图匹配和 <strong>TwoViewInfo</strong> 创建初始视图图，描述匹配图像之间的相对位姿。</p></li>
+<li><p>过滤初始视图图并删除2视图匹配异常值。</p></li>
+<li><p>校准所有相机的内参。</p></li>
+<li><p>估计每个相机的全局方向。</p></li>
+<li><p>过滤视图图：删除相对旋转与估计的全局旋转不一致的任何 <strong>TwoViewInfos</strong> 。</p></li>
+<li><p>在已知旋转的情况下优化相对平移，并过滤潜在的不良相对平移。</p></li>
+<li><p>根据相对平移过滤任何错误的 <strong>TwoViewInfo</strong> 。</p></li>
+<li><p>从估计的旋转和 <strong>TwoViewInfo</strong> 估计所有摄像机的全局位置。</p></li>
+<li><p>估计3D点。</p></li>
+<li><p>BA优化。</p></li>
+</ol>
+<p>在每个过滤步骤之后，删除不再连接到视图图中最大连接组件的任何视图。</p>
+<dl class="cpp class">
+<dt id="_CPPv429GlobalReconstructionEstimator">
+<span id="_CPPv329GlobalReconstructionEstimator"></span><span id="_CPPv229GlobalReconstructionEstimator"></span><span id="GlobalReconstructionEstimator"></span><em class="property">class </em><code class="sig-name descname">GlobalReconstructionEstimator</code><a class="headerlink" href="#_CPPv429GlobalReconstructionEstimator" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GlobalReconstructionEstimator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ReconstructionEstimator</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+   <span class="n">GlobalReconstructionEstimator</span><span class="p">(</span>
+      <span class="k">const</span> <span class="n">ReconstructionEstimatorOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">);</span>
+
+   <span class="n">ReconstructionEstimatorSummary</span> <span class="nf">Estimate</span><span class="p">(</span><span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">,</span>
+                                          <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+   <span class="kt">bool</span> <span class="n">FilterInitialViewGraph</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">CalibrateCameras</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">EstimateGlobalRotations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">FilterRotations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">OptimizePairwiseTranslations</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">FilterRelativeTranslation</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">EstimatePosition</span><span class="p">();</span>
+   <span class="kt">void</span> <span class="nf">EstimateStructure</span><span class="p">();</span>
+   <span class="kt">bool</span> <span class="nf">BundleAdjustment</span><span class="p">();</span>
+   <span class="c1">// Bundle adjust only the camera positions and points. The camera orientations</span>
+   <span class="c1">// and intrinsics are held constant.</span>
+   <span class="kt">bool</span> <span class="nf">BundleAdjustCameraPositionsAndPoints</span><span class="p">();</span>
+
+   <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph_</span><span class="p">;</span>
+   <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction_</span><span class="p">;</span>
+
+   <span class="n">ReconstructionEstimatorOptions</span> <span class="n">options_</span><span class="p">;</span>
+   <span class="n">FilterViewPairsFromRelativeTranslationOptions</span> <span class="n">translation_filter_options_</span><span class="p">;</span>
+   <span class="n">BundleAdjustmentOptions</span> <span class="n">bundle_adjustment_options_</span><span class="p">;</span>
+   <span class="n">RansacParameters</span> <span class="n">ransac_params_</span><span class="p">;</span>
+
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">orientations_</span><span class="p">;</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">positions_</span><span class="p">;</span>
+
+   <span class="n">DISALLOW_COPY_AND_ASSIGN</span><span class="p">(</span><span class="n">GlobalReconstructionEstimator</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

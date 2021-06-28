@@ -127,8 +127,8 @@
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_colmap.html">🍑 Colmap</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -272,7 +272,7 @@
 <p>因此需要通过最小化成本函数找到与观察到的相对旋转最一致的估计 <span class="math notranslate nohighlight">\(R_v\)</span> 。</p>
 <p>即求解最小化代价函数：</p>
 <div class="math notranslate nohighlight">
-\[R_v = \mathop{argmin}_\{R_1, R_2, ···, R_N\} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
+\[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(d(·)\)</span> 是 SO(3) 中两个旋转之间的距离度量，而 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 是在此距离度量上定义的损失函数。</p>
 <div class="section" id="id16">
 <h3><span class="section-number">1.3.1. </span>不同的距离度量函数<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>

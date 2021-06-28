@@ -18,7 +18,7 @@ Reduction to Iteratively Reweighted Least Squares
 
 .. math::
 
-   R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))
+   R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(d(R_{ij},R_jR_i^{-1}))
 
 简化为迭代优化问题。 在每次迭代中，这个优化问题都使用拟牛顿法解决，从而得到一种对异常值既有效又鲁棒的整体平均方法。
 
@@ -27,9 +27,9 @@ Reduction to Iteratively Reweighted Least Squares
 .. math::
 
    \begin{eqnarray}
-   R_v &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\\
-       &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(R_j^{-1}R_{ij}R_i)||)\\
-       &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(||\omega(\Delta R_{ij})||)\\
+   R_v &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(d(R_{ij},R_jR_i^{-1}))\\
+       &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(||\omega(R_j^{-1}R_{ij}R_i)||)\\
+       &=& \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(||\omega(\Delta R_{ij})||)\\
    \end{eqnarray}
 
 其中 :math:`\Delta R_{ij} = R_j^{-1} R_{ij} R_i` ，需要注意的是给定旋转 :math:`R_v` 的当前估计值，对于摄像机（ :math:`V` 中的顶点），:math:`||\Delta R_{ij}||`  表示 :math:`R_{ij}` 的摄像机  :math:`i`  和  :math:`j`  之间观察到的相对旋转 :math:`R_{ij}` 与当前用 :math:`R_jR_i^{-1}` 所估计相对旋转之间的差异
@@ -98,23 +98,23 @@ Reduction to Iteratively Reweighted Least Squares
 
 .. math::
 
-   \sum\limits_{(i,j) \in \epsilon} \rho (||\omega(\Delta R_j^{-1} \Delta R_{ij} \Delta R_i)||)
+   \sum\limits_{(i,j) \in \varepsilon} \rho (||\omega(\Delta R_j^{-1} \Delta R_{ij} \Delta R_i)||)
 
 对于每个单独的旋转更新 :math:`\Delta R_i` ，对于所有 :math:`i \in \{1,···,N\}` ，让等效的轴角表示表示为 :math:`\Delta \omega_i` 。
 
 将所有这些向量放到一个  :math:`3 N \times 1`  的向量  :math:`\Delta \Omega_v = [\Delta \omega^T_1, ···, \Delta \omega^T_N]^T` 中。
 
-对于每个残差旋转项  :math:`\Delta R_{ij}` 来说 ，所有的 :math:`(i,j)\in \epsilon` ，等效轴角表示为 :math:`\Delta \omega_{ij}` 。
+对于每个残差旋转项  :math:`\Delta R_{ij}` 来说 ，所有的 :math:`(i,j)\in \varepsilon` ，等效轴角表示为 :math:`\Delta \omega_{ij}` 。
 
-所有这些向量串联成一个 :math:`3 M \times 1` 的向量表示为 :math:`\Delta \Omega_\epsilon`
+所有这些向量串联成一个 :math:`3 M \times 1` 的向量表示为 :math:`\Delta \Omega_\varepsilon`
 
 那么上面的等式就等价于找到最小化成本函数 :math:`F(\Delta \Omega_v)` 的 :math:`\Delta \Omega_v` ：
 
 .. math::
 
    \begin{eqnarray}
-      F(\Delta \Omega_v) &=& \sum\limits_{(i,j) \in \epsilon} \rho(||\omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))||)\\
-      &=& \sum\limits_{(i,j) \in \epsilon} \rho(||r_{ij} (\Delta \Omega_v)||)
+      F(\Delta \Omega_v) &=& \sum\limits_{(i,j) \in \varepsilon} \rho(||\omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))||)\\
+      &=& \sum\limits_{(i,j) \in \varepsilon} \rho(||r_{ij} (\Delta \Omega_v)||)
    \end{eqnarray}
 
 其中:
@@ -128,8 +128,8 @@ Reduction to Iteratively Reweighted Least Squares
 .. math::
 
    \begin{eqnarray}
-   \nabla F(\Delta \Omega_v) &=& \sum\limits_{(i,j) \in \epsilon} \nabla \rho(||r_{ij}(\Delta \Omega_v)||)\\
-   &=& \sum\limits_{(i,j) \in \epsilon} \psi(||r_{ij} (\Delta \Omega_v)||) \nabla (||r_{ij}(\Delta \Omega_v)||)
+   \nabla F(\Delta \Omega_v) &=& \sum\limits_{(i,j) \in \varepsilon} \nabla \rho(||r_{ij}(\Delta \Omega_v)||)\\
+   &=& \sum\limits_{(i,j) \in \varepsilon} \psi(||r_{ij} (\Delta \Omega_v)||) \nabla (||r_{ij}(\Delta \Omega_v)||)
    \end{eqnarray}
 
 其中 :math:`\psi(r) = \frac{\partial \rho(r)}{\partial  r}` 称为 influence function。
@@ -142,8 +142,8 @@ Reduction to Iteratively Reweighted Least Squares
 
    \begin{eqnarray}
    && F(\Delta \Omega_v)\\
-   &=& \frac{1}{2} \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||)2||r_{ij}(\Delta \Omega_v)|| \nabla(||r_{ij}(\Delta \Omega_v)||)\\
-   &=& \frac{1}{2}  \sum\limits_{(i,j) \in \epsilon} \phi(||r_{ij}(\Delta \Omega_v)||) \nabla(||r_{ij}(\Delta \Omega_v)||^2)
+   &=& \frac{1}{2} \sum\limits_{(i,j) \in \varepsilon} \phi(||r_{ij}(\Delta \Omega_v)||)2||r_{ij}(\Delta \Omega_v)|| \nabla(||r_{ij}(\Delta \Omega_v)||)\\
+   &=& \frac{1}{2}  \sum\limits_{(i,j) \in \varepsilon} \phi(||r_{ij}(\Delta \Omega_v)||) \nabla(||r_{ij}(\Delta \Omega_v)||^2)
    \end{eqnarray}
 
 可以通过将 :math:`\nabla F(\Delta \Omega_v)` 等于零来找到最佳的 :math:`\Delta \Omega_v` 。
@@ -154,15 +154,15 @@ Reduction to Iteratively Reweighted Least Squares
 
 .. math::
 
-   \sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0
+   \sum\limits_{(i,j) \in \varepsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0
 
 等价于下面的最小化问题：
 
 .. math::
 
-   \mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j)\in \epsilon} \phi_{ij} ||r_{ij}(\Delta \Omega_v)||^2
+   \mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j)\in \varepsilon} \phi_{ij} ||r_{ij}(\Delta \Omega_v)||^2
 
-权重  :math:`\phi_{ij} = \phi(||r_{ij}(0)||)` 是在每次迭代时为每条边 :math:`(i,j) \in \epsilon` 计算的。
+权重  :math:`\phi_{ij} = \phi(||r_{ij}(0)||)` 是在每次迭代时为每条边 :math:`(i,j) \in \varepsilon` 计算的。
 
 至此，已将相对旋转平均问题简化为迭代重新加权的非线性最小二乘问题。 现在将看到如何在每次迭代中使用拟牛顿法解决加权非线性最小二乘问题。
 
@@ -171,11 +171,11 @@ Optimization using Quasi-Newton Method
 
 在拟牛顿优化方法中，代价函数的 Hessian 近似为正半定矩阵。在高斯-牛顿算法的每次迭代中，函数在一阶意义上被局部逼近，因此优化问题归结为线性最小二乘问题。
 
-方程 :math:`\sum\limits_{(i,j) \in \epsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0` 等价于
+方程 :math:`\sum\limits_{(i,j) \in \varepsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0` 等价于
 
 .. math::
 
-   \mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j) \in \epsilon} \phi_{ij} · ||r_{ij}(0) + \mathbb{J} r_{ij}(0)^T \Delta \Omega_v||^2
+   \mathop{minimize}_{\Delta \Omega_v} \sum\limits_{(i,j) \in \varepsilon} \phi_{ij} · ||r_{ij}(0) + \mathbb{J} r_{ij}(0)^T \Delta \Omega_v||^2
 
 其中 :math:`\mathbb{J}_{ij}(0)` 是当前点 :math:`\Delta \Omega_v = 0` 处  :math:`r_{ij}(\Delta \Omega_v)`  的雅可比矩阵（相对于要估计的未知数 :math:`\Delta \Omega_v`）。
 
@@ -183,5 +183,49 @@ Optimization using Quasi-Newton Method
 
 .. math::
 
-   \sqrt{\phi_{ij}} \mathbb{J} r_{ij}(0)^T \Delta \Omega_v = - \sqrt{\phi_{ij}} r_{ij} (0)~~ \forall(i,j) \in \epsilon
+   \sqrt{\phi_{ij}} \mathbb{J} r_{ij}(0)^T \Delta \Omega_v = - \sqrt{\phi_{ij}} r_{ij} (0)~~ \forall(i,j) \in \varepsilon
 
+从等式 :math:`r_{ij}(\Delta \Omega_v) = \omega (R(-\Delta \omega_j)R(\Delta \omega_{ij}) R(\Delta \omega_j))` 可知， :math:`r_{ij}(0) = \Delta \omega_{ij}`
+
+过对附录中的成本函数进行微分，推导出了 :math:`\mathbb{J} r_{ij}(0)` 的形式，因此有：
+
+.. math::
+
+   \begin{eqnarray}
+   \mathbb{J} r_{ij}(0) = &&\alpha_{ij} \underbrace{[···+I···-I···]}_{A_{ij}}\\
+   && + (1-\alpha_{ij}) \underbrace{[···+\frac{\Delta \omega_{ij} \Delta \omega_{ij}^T}{\theta^2_{ij}}···-\frac{\Delta \omega_{ij} \Delta \omega_{ij}^T}{\theta^2_{ij}}···]}_{B_{ij}}\\
+   && + \frac{1}{2} \underbrace{[···+[\Delta \omega_{ij}]_x ··· + [\Delta \omega_{ij}]_x ···]}_{C_{ij}}
+   \end{eqnarray}
+
+.. note::
+
+   证明如下：
+
+   考虑两个旋转 :math:`u,v` 的轴角形式 :math:`\theta = ||u||,\varphi = ||v||`
+
+   他们的四元数形式分别是 :math:`[cos(\frac{\theta}{2}), \frac{g(\theta)}{2} u]` 和  :math:`[cos(\frac{\phi}{2}), \frac{g(\phi)}{2} v]`
+
+   其中：
+
+   .. math::
+
+      g(x) = \begin{cases}
+      \frac{sin(x/2)}{x/2}~~~if~x \ne 0\\
+      ~~~~~1~~~~~~~~if~x = 0
+      \end{cases}
+
+   请注意，:math:`g(0) = 0` ， :math:`u`  在  :math:`v`  之后运算的组合可以使用四元数乘法规则写为： :math:`[(cos(\frac{\theta}{2}) cos(\frac{\phi}{2}) - \frac{g(\theta) g(\phi)}{4} u^Tv), (a \frac{u}{2}+b \frac{v}{2} + c \frac{u \times v}{4})]`
+
+   其中 :math:`a = cos(\frac{\phi}{2})g(\theta); b = cos(\frac{\theta}{2}) g(\phi), c = g(\theta) g(\phi)`
+
+   将 :math:`u` 在 :math:`v` 之后操作的这种组合的轴角表示表示为 :math:`w` ，即 :math:`w = u◦v` 。
+
+   令 :math:`\psi = ||w||` ，因此 :math:`sin(\frac{\psi}{2})\frac{w}{\psi} = a \frac{u}{2} + b\frac{v}{2} + c \frac{u \times v}{4}`
+
+   对于 :math:`\theta < \pi` 和足够小的 :math:`\phi` ， :math:`[(cos(\frac{\theta}{2}) cos(\frac{\phi}{2}) - \frac{g(\theta) g(\phi)}{4} u^Tv)` 是非负的，可以写成：
+
+   .. math::
+
+   w = 2 \frac{sin^{-1}(d)}{d} (a \frac{u}{2} + b \frac{v}{2} + c \frac{u \times v}{4}
+
+   其中 :math:`d = ||a \frac{u}{2} + b \frac{v}{2} + c \frac{u \times v}{4}`

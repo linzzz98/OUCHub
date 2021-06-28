@@ -106,8 +106,8 @@
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/code/c_colmap.html">🍑 Colmap</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/code/c_theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/code/theiasfm.html">🍑 TheiaSfM</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -230,6 +230,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/code/colmap/base/Correspondence_graph/Correspondence_graph.html#_CPPv418AddCorrespondencesK7image_tK7image_tRK14FeatureMatches">AddCorrespondences (C++ function)</a>
 </li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE">AddEdgesToHeap (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/base/Correspondence_graph/Correspondence_graph.html#_CPPv48AddImageK7image_tK6size_t">AddImage (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Transform/AffineTransform/AffineTransform.html#_CPPv4N24AffineTransformEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">AffineTransformEstimator::Estimate (C++ function)</a>
@@ -251,6 +253,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/code/colmap/base/Camera/Camera.html#_CPPv4N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T">BaseCameraModel::IterativeUndistortion (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv426bundle_adjustment_options_">bundle_adjustment_options_ (C++ member)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -450,6 +456,8 @@
 </li>
       <li><a href="pages/code/colmap/sfm/Incremental/Mapper/Mapper.html#_CPPv416filtered_images_">filtered_images_ (C++ member)</a>
 </li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph">FilterViewPairsFromOrientation (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/base/Correspondence_graph/Correspondence_graph.html#_CPPv4NK19FindCorrespondencesEK7image_tK9point2D_t">FindCorrespondences (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/base/Correspondence_graph/Correspondence_graph.html#_CPPv4NK32FindCorrespondencesBetweenImagesEK7image_tK7image_t">FindCorrespondencesBetweenImages (C++ function)</a>
@@ -460,10 +468,10 @@
 </li>
       <li><a href="pages/code/colmap/estimator/Matrix/FundamentalMatrix/FundamentalMatrix.html#_CPPv4N36FundamentalMatrixEightPointEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">FundamentalMatrixEightPointEstimator::Estimate (C++ function)</a>
 </li>
-      <li><a href="pages/code/colmap/estimator/Matrix/FundamentalMatrix/FundamentalMatrix.html#_CPPv4N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE">FundamentalMatrixEightPointEstimator::kMinNumSamples (C++ member)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/colmap/estimator/Matrix/FundamentalMatrix/FundamentalMatrix.html#_CPPv4N36FundamentalMatrixEightPointEstimator14kMinNumSamplesE">FundamentalMatrixEightPointEstimator::kMinNumSamples (C++ member)</a>
+</li>
       <li><a href="pages/code/colmap/estimator/Matrix/FundamentalMatrix/FundamentalMatrix.html#_CPPv4N36FundamentalMatrixEightPointEstimator3M_tE">FundamentalMatrixEightPointEstimator::M_t (C++ type)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Matrix/FundamentalMatrix/FundamentalMatrix.html#_CPPv4N36FundamentalMatrixEightPointEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">FundamentalMatrixEightPointEstimator::Residuals (C++ function)</a>
@@ -490,14 +498,30 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE">GetNormalizedFeatureCorrespondences (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv429GlobalReconstructionEstimator">GlobalReconstructionEstimator (C++ class)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv">GlobalReconstructionEstimator::CalibrateCameras (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction">GlobalReconstructionEstimator::Estimate (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv">GlobalReconstructionEstimator::EstimateGlobalRotations (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv">GlobalReconstructionEstimator::FilterInitialViewGraph (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv">GlobalReconstructionEstimator::FilterRotations (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv">GlobalReconstructionEstimator::OptimizePairwiseTranslations (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html#_CPPv413GR6PEstimator">GR6PEstimator (C++ class)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html#_CPPv4N13GR6PEstimator14kMinNumSamplesE">GR6PEstimator::kMinNumSamples (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html#_CPPv4N13GR6PEstimator3M_tE">GR6PEstimator::M_t (C++ type)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html#_CPPv4N13GR6PEstimator9rel_tformE">GR6PEstimator::rel_tform (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Generalized/Generalized_Relative_Pose/Generalized_Relative_Pose.html#_CPPv4N13GR6PEstimator3X_tE">GR6PEstimator::X_t (C++ struct)</a>
@@ -732,7 +756,17 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE">OptimizeRelativePositionWithKnownRotation (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/estimator/TwoViewGeometry/TwoViewGeometry.html#_CPPv47Options">Options (C++ struct)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv48options_">options_ (C++ member)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv413orientations_">orientations_ (C++ member)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE">OrientationsFromMaximumSpanningTree (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -763,6 +797,8 @@
       <li><a href="pages/code/colmap/base/Matrix/Matrix.html#_CPPv423PoseFromEssentialMatrixRKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE">PoseFromEssentialMatrix (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/base/Matrix/Matrix.html#_CPPv424PoseFromHomographyMatrixRKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKN5Eigen8Matrix3dERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Matrix3dEPN5Eigen8Vector3dEPN5Eigen8Vector3dEPNSt6vectorIN5Eigen8Vector3dEEE">PoseFromHomographyMatrix (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv410positions_">positions_ (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/sfm/Incremental/Mapper/Mapper.html#_CPPv424prev_init_image_pair_id_">prev_init_image_pair_id_ (C++ member)</a>
 </li>
@@ -798,11 +834,15 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv414ransac_params_">ransac_params_ (C++ member)</a>
+</li>
       <li><a href="pages/code/colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction">Reconstruction (C++ class)</a>
 </li>
       <li><a href="pages/code/colmap/base/Reconstruction/Reconstruction.html#_CPPv4N14Reconstruction5SetUpEPK19CorrespondenceGraph">Reconstruction::SetUp (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/sfm/Incremental/Mapper/Mapper.html#_CPPv415reconstruction_">reconstruction_ (C++ member)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv416reconstruction__">reconstruction__ (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Pose/Pose.html#_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera">RefineAbsolutePose (C++ function)</a>
 </li>
@@ -812,7 +852,11 @@
 </li>
       <li><a href="pages/code/colmap/estimator/Pose/Pose.html#_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">RefineRelativePose (C++ function)</a>
 </li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph">RefineRelativeTranslationsWithKnownRotations (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/base/Image/Image.html#_CPPv411registered_">registered_ (C++ member)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv427RemoveDisconnectedViewPairsP9ViewGraph">RemoveDisconnectedViewPairs (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/base/Image/Image.html#_CPPv4NK14RotationMatrixEv">RotationMatrix (C++ function)</a>
 </li>
@@ -825,6 +869,8 @@
       <li><a href="pages/code/colmap/base/VisibilityPyramid/VisibilityPyramid.html#_CPPv46score_">score_ (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/base/Image/Image.html#_CPPv411SetCameraIdK8camera_t">SetCameraId (C++ function)</a>
+</li>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction">SetCameraIntrinsicsFromPriors (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/base/Image/Image.html#_CPPv410SetImageIdK7image_t">SetImageId (C++ function)</a>
 </li>
@@ -864,6 +910,8 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv427translation_filter_options_">translation_filter_options_ (C++ member)</a>
+</li>
       <li><a href="pages/code/colmap/estimator/Transform/TranslationTransform/TranslationTransform.html#_CPPv4N29TranslationTransformEstimator14kMinNumSamplesE">TranslationTransformEstimator::kMinNumSamples (C++ member)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Transform/TranslationTransform/TranslationTransform.html#_CPPv4N29TranslationTransformEstimator3M_tE">TranslationTransformEstimator::M_t (C++ type)</a>
@@ -890,10 +938,10 @@
 </li>
       <li><a href="pages/code/colmap/estimator/Triangulation/Triangulation.html#_CPPv4N22TriangulationEstimator9ResidualsERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEERK3M_tPNSt6vectorIdEE">TriangulationEstimator::Residuals (C++ function)</a>
 </li>
-      <li><a href="pages/code/colmap/estimator/Triangulation/Triangulation.html#_CPPv4N22TriangulationEstimator14SetMinTriAngleEKd">TriangulationEstimator::SetMinTriAngle (C++ function)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/colmap/estimator/Triangulation/Triangulation.html#_CPPv4N22TriangulationEstimator14SetMinTriAngleEKd">TriangulationEstimator::SetMinTriAngle (C++ function)</a>
+</li>
       <li><a href="pages/code/colmap/estimator/Triangulation/Triangulation.html#_CPPv4N22TriangulationEstimator15SetResidualTypeEK12ResidualType">TriangulationEstimator::SetResidualType (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/estimator/Triangulation/Triangulation.html#_CPPv4N22TriangulationEstimator3X_tE">TriangulationEstimator::X_t (C++ type)</a>
@@ -936,6 +984,8 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/code/theia/sfm/Global/Global.html#_CPPv411view_graph_">view_graph_ (C++ member)</a>
+</li>
       <li><a href="pages/code/colmap/base/Image/Image.html#_CPPv4NK16ViewingDirectionEv">ViewingDirection (C++ function)</a>
 </li>
       <li><a href="pages/code/colmap/base/VisibilityPyramid/VisibilityPyramid.html#_CPPv4NK17VisibilityPyramid12CellForPointEKdKdP6size_tP6size_t">VisibilityPyramid::CellForPoint (C++ function)</a>

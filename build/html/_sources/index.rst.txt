@@ -89,8 +89,8 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
    :hidden:
    :caption: 源码解析
 
-   pages/code/c_colmap
-   pages/code/c_theiasfm
+   pages/code/colmap
+   pages/code/theiasfm
 
 
 .. toctree::

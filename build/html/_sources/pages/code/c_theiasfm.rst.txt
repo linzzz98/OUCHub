@@ -1,2 +1,12 @@
 |:peach:| TheiaSfM
 ====================================
+
+.. toctree::
+   :maxdepth: -1
+   :hidden:
+
+   theia/sfm
+
+.. |ball| image:: /images/index/ball.gif
+
+|:star:|  :doc:`Sfm Pipeline <theia/sfm>`
