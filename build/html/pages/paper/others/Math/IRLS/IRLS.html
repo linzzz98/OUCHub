@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. Iterative Reweighted Least Squares &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍑 Colmap" href="../../../../code/colmap.html" />
+    <link rel="prev" title="4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions" href="../../Marker/CCTag/CCTag.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_others.html">🍒 Others</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Refraction/Refractive_laser_triangulation/Refractive_laser_triangulation.html">1. Refractive laser triangulation and photometric stereo in underwater environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Refraction/Underwater_3D_Reconstruction/Underwater_3D_Reconstruction.html">2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Refraction/Refractive_Plate_Absolute_Pose/Refractive_Plate_Absolute_Pose.html">3. Absolute Scale Structure from Motion Using a Refractive Plate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Marker/CCTag/CCTag.html">4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Iterative Reweighted Least Squares</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#least-squared-error-approximation">5.1. Least Squared Error Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weighted-least-squared-error-approximation">5.2. Weighted Least Squared Error Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approximation-with-other-norms-and-error-measures">5.3. Approximation with Other Norms and Error Measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-lp-norm-approximation">5.4. The lp Norm Approximation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">5.4.1. 方程多于未知数的超定系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#irls">5.4.2. 迭代重加权最小二乘法 (IRLS)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_others.html">🍒 Others</a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Iterative Reweighted Least Squares</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/others/Math/IRLS/IRLS.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="iterative-reweighted-least-squares">
+<h1><span class="section-number">5. </span>Iterative Reweighted Least Squares<a class="headerlink" href="#iterative-reweighted-least-squares" title="永久链接至标题">¶</a></h1>
+<p>对IRLS的具体介绍可以移步：<a class="reference internal" href="../../../../knowledge/Math/LeastSquares/IRLS/IRLS.html"><span class="doc">Iterative Reweighted Least Squares</span></a></p>
+<p>为了说明这个算法，将把问题看作是寻找一组联立线性方程组的最优近似解：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+a_{11} &amp; a_{12} &amp; a_{13} &amp; ··· &amp; a_{1N}\\
+a_{21} &amp; a_{22} &amp; a_{23}\\
+a_{31} &amp; a_{32} &amp; a_{33}\\
+\vdots &amp;  &amp;  &amp;  &amp; \vdots\\
+a_{M1} &amp;  &amp;  &amp; ··· &amp; a_{MN}
+\end{matrix}
+\right] \left[
+\begin{matrix}
+x_1\\x_2\\x_3\\ \vdots \\x_N
+\end{matrix}
+\right]=
+\left[
+\begin{matrix}
+b_1\\b_2\\b_3\\ \vdots \\ b_M
+\end{matrix}
+\right]\end{split}\]</div>
+<p>或者，以矩阵表示法</p>
+<div class="math notranslate nohighlight">
+\[Ax = b\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>上式给出了一个  <span class="math notranslate nohighlight">\(M \times N\)</span> 实矩阵 <span class="math notranslate nohighlight">\(A\)</span> 和一个 <span class="math notranslate nohighlight">\(M \times 1\)</span> 向量 <span class="math notranslate nohighlight">\(b\)</span> ，并且想要找到 <span class="math notranslate nohighlight">\(N \times 1\)</span>
+向量 <span class="math notranslate nohighlight">\(x\)</span> 。 只有当 <span class="math notranslate nohighlight">\(A\)</span> 是非奇异的（平方和满秩）时，才有唯一的精确解。 否则，根据某种近似标准寻求近似解。</p>
+</div>
+<p>如果 <span class="math notranslate nohighlight">\(b\)</span> 不在 <span class="math notranslate nohighlight">\(A\)</span> 的范围空间（ <span class="math notranslate nohighlight">\(A\)</span> 的列所跨越的空间），则没有精确的的解，因此，通过最小化由下式定义的方程误差向量的范数（或其他一些度量）来解决近似问题</p>
+<div class="math notranslate nohighlight">
+\[e = Ax - b\]</div>
+<div class="section" id="least-squared-error-approximation">
+<h2><span class="section-number">5.1. </span>Least Squared Error Approximation<a class="headerlink" href="#least-squared-error-approximation" title="永久链接至标题">¶</a></h2>
+<p><span class="math notranslate nohighlight">\(Ax = b\)</span> 的广义解（最佳近似解）通常被认为是使 <span class="math notranslate nohighlight">\(e\)</span> 的某个范数或其他度量最小化的 <span class="math notranslate nohighlight">\(x\)</span> 。</p>
+<p>如果该问题没有唯一解，则施加进一步的条件，例如最小化 <span class="math notranslate nohighlight">\(x\)</span> 的范数，并且该组合问题始终有唯一解。</p>
+<p><span class="math notranslate nohighlight">\(l_2\)</span> 或均方根误差或欧几里得范数是 <span class="math notranslate nohighlight">\(\sqrt{e^Te}\)</span> 并且其最小化具有解析解（Analytical solution）。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list simple">
+<dt class="field-odd">解析解</dt>
+<dd class="field-odd"><p>解析解(Analytical solution) 就是根据严格的公式推导，给出任意的自变量就可以求出其因变量，也就是问题的解，然后可以利用这些公式计算相应的问题。所谓的解析解是一种包含分式、三角函数、指数、对数甚至无限级数等基本函数的解的形式。用来求得解析解的方法称为解析法(Analytical techniques)，解析法即是常见的微积分技巧，例如分离变量法等。解析解是一个封闭形式(Closed-form) 的函数，因此对任一自变量，我们皆可将其带入解析函数求得正确的因变量。因此，解析解也被称为封闭解(Closed-form solution)。</p>
+</dd>
+<dt class="field-even">数值解</dt>
+<dd class="field-even"><p>数值解(Numerical solution) 是采用某种计算方法，如有限元法， 数值逼近法，插值法等得到的解。别人只能利用数值计算的结果，而不能随意给出自变量并求出计算值。当无法藉由微积分技巧求得解析解时，这时便只能利用数值分析的方式来求得其数值解。在数值分析的过程中，首先会将原方程加以简化，以利于后来的数值分析。例如，会先将微分符号改为差分（微分的离散形式）符号等，然后再用传统的代数方法将原方程改写成另一种方便求解的形式。这时的求解步骤就是将一自变量带入，求得因变量的近似解，因此利用此方法所求得的因变量为一个个离散的数值，不像解析解为一连续的分布，而且因为经过上述简化的操作，其正确性也不如解析法可靠。</p>
+</dd>
+</dl>
+</div>
+<p>则这个平方误差定义为：</p>
+<div class="math notranslate nohighlight">
+\[||e||^2_2 = \sum\limits_i e^2_i = e^Te\]</div>
+<p>如果 <span class="math notranslate nohighlight">\(A\)</span> 具有完整的行或列秩，则最小化时会产生 <span class="math notranslate nohighlight">\(Ax = b\)</span> 的精确或近似解。</p>
+<ul>
+<li><p>如果 <span class="math notranslate nohighlight">\(A\)</span> 有 <span class="math notranslate nohighlight">\(M = N\)</span> ，（平方和非奇异），那么精确解是：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[x = A^{-1} b\]</div>
+</div></blockquote>
+</li>
+<li><p>如果 <span class="math notranslate nohighlight">\(A\)</span> 有 <span class="math notranslate nohighlight">\(M &gt; N\)</span> ，（over specified）那么具有最小二乘方程误差的近似解是：</p>
+<div class="math notranslate nohighlight">
+\[A^TAx = A^Tb \rightarrow  x = [A^TA]^{-1}A^Tb\]</div>
+</li>
+<li><p>如果 <span class="math notranslate nohighlight">\(A\)</span> 有 <span class="math notranslate nohighlight">\(M &lt; N\)</span> ，（under specified）那么具有最小范数的近似解是：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[Ax = AA^T(AA^T)^{-1}b \rightarrow x = A^T[AA^T]^{-1}b\]</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>这些公式假设 <span class="math notranslate nohighlight">\(A\)</span> 具有完整的行或列秩，但如果不是，则使用伪逆求广义解。</p>
+</div>
+</div>
+<div class="section" id="weighted-least-squared-error-approximation">
+<h2><span class="section-number">5.2. </span>Weighted Least Squared Error Approximation<a class="headerlink" href="#weighted-least-squared-error-approximation" title="永久链接至标题">¶</a></h2>
+<p>使用加权的二范数来强调或不强调方程组中的某些分量：</p>
+<div class="math notranslate nohighlight">
+\[||We||^2_2 = \sum\limits_i w_i^2e_i^2 = e^T W^T W e\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(W\)</span> 是一个对角矩阵，对角线元素是权重 <span class="math notranslate nohighlight">\(w_i\)</span> ：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W = \left[
+\begin{matrix}
+w_1 &amp;  &amp; \\ &amp; ··· &amp; \\ &amp;  &amp; w_p
+\end{matrix}
+\right]_{p\times p}\end{split}\]</div>
+<ul>
+<li><p>如果 <span class="math notranslate nohighlight">\(A\)</span> 有 <span class="math notranslate nohighlight">\(M &gt; N\)</span> ，（over specified），那么最小加权方程误差解是：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[x = [A^TW^TWA]^{-1}A^TW^TWb\]</div>
+</div></blockquote>
+</li>
+<li><p>如果 <span class="math notranslate nohighlight">\(A\)</span> 有 <span class="math notranslate nohighlight">\(M &lt; N\)</span> ，（under specified）那么最小加权范数解是：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[x = [W^TW]^{-1}A^T[A[W^TW]^{-1}A^T]^{-1}b\]</div>
+</div></blockquote>
+</li>
+</ul>
+<p>这些加权近似问题的解可以作为接下来开发的迭代重加权最小二乘 (IRLS) 算法的基础。</p>
+</div>
+<div class="section" id="approximation-with-other-norms-and-error-measures">
+<h2><span class="section-number">5.3. </span>Approximation with Other Norms and Error Measures<a class="headerlink" href="#approximation-with-other-norms-and-error-measures" title="永久链接至标题">¶</a></h2>
+<p>大多数关于 <span class="math notranslate nohighlight">\(Ax = b\)</span> 的近似解的讨论都是关于最小化 <span class="math notranslate nohighlight">\(l2\)</span> 方程误差 <span class="math notranslate nohighlight">\(||Ax = b||\)</span> 或解  <span class="math notranslate nohighlight">\(||x||_2\)</span> 的 l2 范数的结果</p>
+<p>更一般的情况下，即对于 <span class="math notranslate nohighlight">\(p\)</span> 大于 1 时向量 <span class="math notranslate nohighlight">\(x\)</span> 的 <span class="math notranslate nohighlight">\(l_p\)</span> 范数的定义是：</p>
+<div class="math notranslate nohighlight">
+\[||e||_p = (\sum\limits_{i}|e_i|^p)^{\frac{1}{p}}\]</div>
+<p>上式等价于优化：</p>
+<div class="math notranslate nohighlight">
+\[||e||_p^p = \sum\limits_i |e_i|^p\]</div>
+<p>对于秩小于 <span class="math notranslate nohighlight">\(M\)</span> 或 <span class="math notranslate nohighlight">\(N\)</span> 的情况，可以使用一种范数来最小化方程误差范数，而使用另一种范数来最小化范数的解。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/125.jpg"><img alt="../../../../../_images/125.jpg" src="../../../../../_images/125.jpg" style="width: 663.75px; height: 497.25px;" /></a>
+</div>
+<p>上图为 <span class="math notranslate nohighlight">\(l_p\)</span> 范数的不同的 <span class="math notranslate nohighlight">\(p\)</span> 取值（0.2，0.1，1，2，10）</p>
+<p><span class="math notranslate nohighlight">\(p=0.2\)</span> 时对小值依然有较大的惩罚，使它们趋于零，（和1范数一样）可以实现解的稀疏性。因此在某些场景，比如去模糊过程中常使用1（0.2）范数作为解约束。</p>
+</div>
+<div class="section" id="the-lp-norm-approximation">
+<h2><span class="section-number">5.4. </span>The lp Norm Approximation<a class="headerlink" href="#the-lp-norm-approximation" title="永久链接至标题">¶</a></h2>
+<p>IRLS（迭代重加权最小二乘法）算法允许从加权最小二乘法的解析解构建迭代算法，并通过迭代重加权收敛到最佳 <span class="math notranslate nohighlight">\(l_p\)</span> 近似。</p>
+<div class="section" id="id1">
+<h3><span class="section-number">5.4.1. </span>方程多于未知数的超定系统<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
+<p>如果在求解一组超定方程时提出 <span class="math notranslate nohighlight">\(l_p\)</span> 近似问题，它来自定义方程误差向量</p>
+<div class="math notranslate nohighlight">
+\[e = Ax - b\]</div>
+<p>并最小化在 <span class="math notranslate nohighlight">\(||e||_p = (\sum\limits_{i}|e_i|^p)^{\frac{1}{p}}\)</span> 或等价的 <span class="math notranslate nohighlight">\(||e||_p^p = \sum\limits_i |e_i|^p\)</span> 中定义的 <span class="math notranslate nohighlight">\(p\)</span> 范数，注意：这些都不能直接最小化。</p>
+<p>然而，确实有公式来结束加权平方误差的最小值：</p>
+<div class="math notranslate nohighlight">
+\[||We||_2^2 = \sum\limits_n w_n^2 |e_n|^2\]</div>
+<p>其中之一是：</p>
+<div class="math notranslate nohighlight">
+\[x = [A^TW^TWA]^{-1}A^TW^TWb\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(W\)</span> 是误差权重 <span class="math notranslate nohighlight">\(w_i\)</span> 的对角矩阵。</p>
+</div>
+<div class="section" id="irls">
+<h3><span class="section-number">5.4.2. </span>迭代重加权最小二乘法 (IRLS)<a class="headerlink" href="#irls" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[||e||_p^p = \sum\limits_i |e_i|^p = \sum\limits_i |e_i|^{(p-2)}|e_i|^2 = \sum\limits_i w_n^2|e_i|^2 = ||We||_2^2\]</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>该算法的核心：等价于解加权最小平方误差近似问题，只是权值 <span class="math notranslate nohighlight">\(W\)</span> 在迭代过程中不断变化。</p>
+<div class="math notranslate nohighlight">
+\[w_n = e(n)^{(p-2)}/2\]</div>
+<p>因为对角阵 <span class="math notranslate nohighlight">\(W\)</span> 根据上次误差 <span class="math notranslate nohighlight">\(e\)</span> 计算得到，因此会不断变化。</p>
+<p>该算法以 <span class="math notranslate nohighlight">\(W = I\)</span> 的初始加权值开始， 用 <span class="math notranslate nohighlight">\(x = [A^TW^TWA]^{-1}A^TW^TWb\)</span> 求解初始 <span class="math notranslate nohighlight">\(x\)</span> 的值。然后用 <span class="math notranslate nohighlight">\(e = Ax - b\)</span> 求解新误差，然后用于设置一个新的加权矩阵 <span class="math notranslate nohighlight">\(W\)</span> ，其中对角元素为：</p>
+<div class="math notranslate nohighlight">
+\[w(n) = e(n)^{(p-2) / 2}\]</div>
+<p>在 <span class="math notranslate nohighlight">\(x = [A^TW^TWA]^{-1}A^TW^TWb\)</span> 的下一次迭代中使用，并得到一个新的解 <span class="math notranslate nohighlight">\(x\)</span> 并重复步骤直到收敛。</p>
+<p>伪代码为：</p>
+<div class="algin-center figure align-default">
+<img alt="../../../../../_images/216.jpg" src="../../../../../_images/216.jpg" />
+</div>
+</div>
+<p>如果在求解一组超定方程时提出 <span class="math notranslate nohighlight">\(l_p\)</span> 近似问题，它来自将方程误差范数定义为：</p>
+<div class="math notranslate nohighlight">
+\[||e||_p = (\sum\limits_n |e(n)|^p)^{1/p}\]</div>
+<p>并找到 <span class="math notranslate nohighlight">\(x\)</span> 以最小化方程误差的 <span class="math notranslate nohighlight">\(p\)</span> 范数。</p>
+<p>这等效于解决适当权重的最小加权平方误差问题：</p>
+<div class="math notranslate nohighlight">
+\[||e||_p = (\sum\limits_n w(n)^2 |e(n)|^2 )^{1/2}\]</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../code/colmap.html" class="btn btn-neutral float-right" title="🍑 Colmap" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../Marker/CCTag/CCTag.html" class="btn btn-neutral float-left" title="4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

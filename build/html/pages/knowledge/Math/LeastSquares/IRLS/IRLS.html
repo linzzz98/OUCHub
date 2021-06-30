@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Iteratively reweighted least squares &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍤 Computer Vision" href="../../../k_CV.html" />
+    <link rel="prev" title="☁️ LeastSquares" href="../LeastSquares.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_MH.html">💊 Math</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Matrix/Matrix.html">🍤 Matrix</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LeastSquares.html">☁️ LeastSquares</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Iteratively reweighted least squares</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">1.1. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_MH.html">💊 Math</a> &raquo;</li>
+        
+          <li><a href="../LeastSquares.html">☁️ LeastSquares</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Iteratively reweighted least squares</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/Math/LeastSquares/IRLS/IRLS.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="iteratively-reweighted-least-squares">
+<h1><span class="section-number">1. </span>Iteratively reweighted least squares<a class="headerlink" href="#iteratively-reweighted-least-squares" title="永久链接至标题">¶</a></h1>
+<p>迭代重加权最小二乘法 (IRLS) 用于解决某些具有 <span class="math notranslate nohighlight">\(p\)</span> 范数形式的目标函数的优化问题：</p>
+<div class="math notranslate nohighlight">
+\[\mathop{argmin}_{\beta} \sum\limits_{i=1}^n |y_i - f_i(\beta)|^p\]</div>
+<p>（通过迭代方法）其中每个步骤都涉及解决以下形式的加权最小二乘问题：</p>
+<div class="math notranslate nohighlight">
+\[\beta^{(t + 1)} = \mathop{argmin}_{\beta} \sum\limits_{i=1}^n w_i(\beta^{(t)}) |y_i - f_i(\beta)|^2\]</div>
+<p>IRLS 用于找到广义线性模型的最大似然估计，并在稳健回归中找到 <span class="math notranslate nohighlight">\(M\)</span> 估计量，作为减轻其他正态分布数据集中异常值影响的一种方式。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>例如，通过最小化最小绝对误差而不是最小二乘误差。</p>
+</div>
+<p>IRLS 相对于线性规划和凸规划的优势之一是它可以与 Gauss-Newton 和 Levenberg-Marquardt 数值算法一起使用。</p>
+<div class="section" id="example">
+<h2><span class="section-number">1.1. </span>Example<a class="headerlink" href="#example" title="永久链接至标题">¶</a></h2>
+<dl class="field-list">
+<dt class="field-odd">Lp范数线性回归</dt>
+<dd class="field-odd"><p>要找到最小化线性回归问题的 <span class="math notranslate nohighlight">\(L^p\)</span> 范数的参数 <span class="math notranslate nohighlight">\(\beta = (\beta_1,···,\beta_k)^T\)</span></p>
+<div class="math notranslate nohighlight">
+\[\mathop{argmin}_{\beta} ||y - X \beta||_p =  \mathop{argmin}_{\beta} \sum\limits_{i=1}^n |y_i - X_i \beta|^p\]</div>
+<p>第t + 1步的IRLS 算法涉及解决加权线性最小二乘问题：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+\beta^{t+1} &amp;=&amp; \mathop{argmin}_{\beta} \sum\limits_{i=1}^n w_i^{(t)} |y_i - X_i\beta|^2\\
+&amp;=&amp; (X^TW^{(t)}X)^{-1}X^TW^{(t)}y
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(W(t)\)</span> 是权重的对角矩阵，通常所有元素最初设置为：</p>
+<div class="math notranslate nohighlight">
+\[w_i^{(0)} = 1\]</div>
+<p>并在每次迭代后更新为：</p>
+<div class="math notranslate nohighlight">
+\[w_i^{(t)} = |y_i - X_i \beta^{(t)}|^{p-2}\]</div>
+<p>在 p = 1 的情况下，这对应于最小绝对偏差回归：</p>
+<div class="math notranslate nohighlight">
+\[w_i^{(t)} = \frac{1}{|y_i-X_i \beta^{(t)}|}\]</div>
+<p>为了避免被零除，必须进行正则化，因此在实际使用中公式为：</p>
+<div class="math notranslate nohighlight">
+\[w_i^{(t)} = \frac{1}{max \{\delta,|y_i-X_i \beta^{(t)}|\}}\]</div>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_CV.html" class="btn btn-neutral float-right" title="🍤 Computer Vision" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../LeastSquares.html" class="btn btn-neutral float-left" title="☁️ LeastSquares" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

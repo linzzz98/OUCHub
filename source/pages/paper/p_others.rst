@@ -12,6 +12,8 @@
 
    others/Marker/CCTag/CCTag
 
+   others/Math/IRLS/IRLS
+
 |:star:| \ **折射模型(Refraction Model)**\
 
 * :doc:`Refractive laser triangulation and photometric stereo in underwater environment <others/Refraction/Refractive_laser_triangulation/Refractive_laser_triangulation>`
@@ -24,3 +26,7 @@
 |:star:| \ **Marker(Fiducials Marker)**\
 
 * :doc:`[CVPR2016] Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions <others/Marker/CCTag/CCTag>`
+
+|:star:| \ **数学推导(Math)**\
+
+* :doc:`Iterative Reweighted Least Squares <others/Math/IRLS/IRLS>`

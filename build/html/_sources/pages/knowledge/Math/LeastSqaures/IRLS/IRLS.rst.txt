@@ -1,0 +1,8 @@
+Iteratively reweighted least squares
+=====================================
+
+迭代重加权最小二乘法 (IRLS) 用于解决某些具有 :math:`p` 范数形式的目标函数的优化问题：
+
+.. math::
+
+   \mathop{argmin}_{\beta}

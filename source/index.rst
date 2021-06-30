@@ -27,7 +27,7 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
    https://ouchub.readthedocs.io
 .. danger::
 
-   .. figure:: images/math.png
+   .. figure:: images/font.jpg
     :figclass: align-center
 
 .. hint::
@@ -49,6 +49,7 @@ OUC_B419_Linzzz代码论文小仓库，随缘更新。
 .. error::
    1
 .. important::
+
    **顶级期刊**
       * PAMI, IEEE Transactions on Pattern Analysis and Machine Intelligence
       * IJCV, International Journal of Computer Vision

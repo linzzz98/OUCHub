@@ -123,6 +123,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#lie-group-introduction">17.1. Lie-Group Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#averaging-on-the-lie-group">17.2. Averaging on the Lie Group</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#lie-algebras-of-so-3-and-se-3">17.3. Lie Algebras of SO(3) and SE(3)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#globally-consistent-motion-estimation">17.4. Globally Consistent Motion Estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#lie-averaging-of-relative-motions">17.4.1. Lie Averaging of Relative Motions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -311,9 +315,7 @@ R &amp; t\\0 &amp; 1
 \right]\end{split}\]</div>
 <p>其中  <span class="math notranslate nohighlight">\(R \in SO(3)\)</span> 和  <span class="math notranslate nohighlight">\(t \in \mathbb{R}^3\)</span> 分别是三维旋转和平移。</p>
 <p><strong>此变换的流程是先旋转，然后进行平移。</strong></p>
-<blockquote>
-<div><p><span class="math notranslate nohighlight">\(M\)</span> 的对数是李代数  <span class="math notranslate nohighlight">\(m \in se(3)\)</span> 的一个元素，由下式给出：</p>
-</div></blockquote>
+<p><span class="math notranslate nohighlight">\(M\)</span> 的对数是李代数  <span class="math notranslate nohighlight">\(m \in se(3)\)</span> 的一个元素，由下式给出：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}m = \left[
 \begin{matrix}
@@ -331,6 +333,79 @@ R &amp; t\\0 &amp; 1
 <p>通过这一系列表达式，可以证明以下关系成立：</p>
 <div class="align-center figure align-default">
 <a class="reference internal image-reference" href="../../../../../_images/215.jpg"><img alt="../../../../../_images/215.jpg" src="../../../../../_images/215.jpg" style="width: 573.0px; height: 235.5px;" /></a>
+</div>
+</div>
+<div class="section" id="globally-consistent-motion-estimation">
+<h2><span class="section-number">17.4. </span>Globally Consistent Motion Estimation<a class="headerlink" href="#globally-consistent-motion-estimation" title="永久链接至标题">¶</a></h2>
+<p>对于 N 个图像，全局一致的运动可以用 N-1 个运动来描述。
+通常，选择第一幅图像作为参考帧，然后根据该参考帧估计序列的其余部分。
+将帧 i 和参考帧之间的运动表示为  <span class="math notranslate nohighlight">\(M_i\)</span> ，将两帧 i 和 j 之间的相对运动表示为  <span class="math notranslate nohighlight">\(M_{ij}\)</span> ，其中  <span class="math notranslate nohighlight">\(M_{ij} = M_jM_i^{-1}\)</span> 。
+从帧 i 开始到结束帧 j 的任何一系列变换的组合都应该与 <span class="math notranslate nohighlight">\(M_{ij}\)</span> 相同。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/39.jpg"><img alt="../../../../../_images/39.jpg" src="../../../../../_images/39.jpg" style="width: 743.4px; height: 431.4px;" /></a>
+</div>
+<p>由于观察中存在噪声，各种变换估计将彼此不一致。 因此 <span class="math notranslate nohighlight">\(M_{ij} \ne M_jM_i^{-1}\)</span> ，其中 <span class="math notranslate nohighlight">\(M_{ij}\)</span> 是帧 i 和 j 之间的估计变换。</p>
+<p>可以将给定的关系重写为对完整描述运动的全局运动模型  <span class="math notranslate nohighlight">\({M_2 , ... , M_N }\)</span> 的约束。</p>
+<p>由于通常有多达 :math:` frac{N(N-1)}{2}` 个这样的约束，我们有一个超定方程组。</p>
+<div class="math notranslate nohighlight">
+\[M_jM_i^{-1} = M_{ij}, \forall i \ne j\]</div>
+<p>其中左侧的变量是根据右侧的观测数据 <span class="math notranslate nohighlight">\(M_{ij}\)</span> 估计（“拟合”）的未知数。直观地说，我们想要估计一个全局运动模型  <span class="math notranslate nohighlight">\(\{M_i\}\)</span>，它与从数据导出的测量值  <span class="math notranslate nohighlight">\(\{M_{ij}\}\)</span> 最一致。</p>
+<p>因此， <span class="math notranslate nohighlight">\(M_{ij}\)</span> 的单个估计中的误差被“平均”掉，这对于长环或闭环非常有用，其中的解通常由于累积误差而漂移。</p>
+<p>考虑序列中的最后一帧接近第一帧的场景。在传统方法中，相邻帧之间的错误会累积导致大错误。但是在该框架中，可以结合对最后一帧和第一帧之间的相对运动的估计，从而产生一个约束，该约束将“close”循环并导致错误减少并且沿着序列更均匀地分布。</p>
+<div class="section" id="lie-averaging-of-relative-motions">
+<h3><span class="section-number">17.4.1. </span>Lie Averaging of Relative Motions<a class="headerlink" href="#lie-averaging-of-relative-motions" title="永久链接至标题">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(M_{ij}\)</span> 和 <span class="math notranslate nohighlight">\(m_{ij}\)</span> 是从图像估计的相对运动，而 <span class="math notranslate nohighlight">\(M_k\)</span> 和 <span class="math notranslate nohighlight">\(m_k\)</span> 是想要估计的全局运动模型。</p>
+<p>这里 <span class="math notranslate nohighlight">\(M_k\)</span> 表示第 <span class="math notranslate nohighlight">\(k\)</span> 帧相对于第一帧的运动。从约束条件  <span class="math notranslate nohighlight">\(M_{ij} = M_j M_i^{-1}\)</span> 开始，通过将一阶近似应用于方程中给出的黎曼距离（ <span class="math notranslate nohighlight">\(d(X,Y) \approx ||log(Y) - log(X) || = ||y - x||\)</span> ）。
+有 <span class="math notranslate nohighlight">\(M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i\)</span> ，因为 <span class="math notranslate nohighlight">\(m = log(M)\)</span></p>
+<p>现在矩阵 <span class="math notranslate nohighlight">\(m\)</span> 可以分别由 <span class="math notranslate nohighlight">\(m \in so(3)\)</span> 和  <span class="math notranslate nohighlight">\(m \in se(3)\)</span> 的 3 或 6 个参数来描述。</p>
+<p>如果以列向量的形式排列这些参数，比如  <span class="math notranslate nohighlight">\(v = vec(m)\)</span> （其中  <span class="math notranslate nohighlight">\(vec(.)\)</span> 返回从输入矩阵中提取的一列参数），同样的有 <span class="math notranslate nohighlight">\(v_{ij} = v_j - v_i\)</span></p>
+<p>如果将全局运动模型的所有列向量叠加到一个大向量 <span class="math notranslate nohighlight">\(V\)</span> 中，我们有  <span class="math notranslate nohighlight">\(V =[v2 ; ···; vN]\)</span> 。鉴于全局运动模型的这种统一向量表示，有以下关系：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i\\
+\Rightarrow v_{ij} &amp;=&amp; v_j - v_i\\
+\Rightarrow v_{ij} &amp;=&amp; \underbrace{[···-I···I···]}V
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(I\)</span> 表示维度为 <span class="math notranslate nohighlight">\(N_{dim} \ times N_{dim}\)</span> 的单位矩阵（其中 <span class="math notranslate nohighlight">\(N_{dim} = 3~~or~~6\)</span> ）。</p>
+<p><span class="math notranslate nohighlight">\(D_{ij}\)</span> 是一个大小为 <span class="math notranslate nohighlight">\(N_{dim} \ times (N_{dim} \ times N - 1)\)</span>  的矩阵，矩阵  <span class="math notranslate nohighlight">\(-I\)</span> 和 <span class="math notranslate nohighlight">\(I\)</span> 分别位于位置 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> ，并充当帧 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 的“下标”矩阵。</p>
+<p>换句话说，将 <span class="math notranslate nohighlight">\(D_{ij}\)</span> 应用于向量 <span class="math notranslate nohighlight">\(V\)</span> 挑选出 <span class="math notranslate nohighlight">\(v_i\)</span> 和 <span class="math notranslate nohighlight">\(v_j\)</span> 并返回 <span class="math notranslate nohighlight">\(v_j - v_i\)</span> 。</p>
+<p>上面的方程表示根据全局运动模型的单个相对运动。然而，需要将所有可用的相对运动组合成一组方程。</p>
+<p>因此，对于给定的一组相对运动观测值 <span class="math notranslate nohighlight">\(\{M_{ij}\}\)</span> ，可以将所有相对运动向量 <span class="math notranslate nohighlight">\(v_{ij}\)</span> 堆叠成一个大向量 <span class="math notranslate nohighlight">\(\mathbb{V}_{ij} = [v_{ij1}; v_{ij2};···]\)</span>  其中 <span class="math notranslate nohighlight">\(ij1,ij2\)</span> 等表示不同的相对运动的下标。</p>
+<p>类似地，所有下标矩阵（indicator matrices）都可以堆叠成一个大矩阵  <span class="math notranslate nohighlight">\(D =[D_{ij1} ; D_{ij2} ; ···]\)</span> ，从而有以下表示：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+M_j M_i^{-1} &amp;=&amp; M_{ij}\\
+\rightsquigarrow D\mathcal{V} &amp;=&amp; \mathbb{V}_{ij}\\
+\Rightarrow &amp;=&amp; D^{\dagger}\mathbb{V}_{ij}
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(D^{\dagger}\)</span> 表示伪逆运算：</p>
+<div class="math notranslate nohighlight">
+\[D^{\dagger} = (D^TD)^{-1}D^T\]</div>
+<p>对于给定的一组相对观测值，矩阵 <span class="math notranslate nohighlight">\(D\)</span> 是固定的，这意味着 <span class="math notranslate nohighlight">\(D^{\dagger}\)</span> 只需要计算一次。</p>
+<p>因此可以开发一种迭代方案，在每个步骤中线性地近似全局运动并从观察到的运动值更新当前估计以改进估计。 这可以重复直到收敛。</p>
+<dl class="field-list">
+<dt class="field-odd">Algorithm 2</dt>
+<dd class="field-odd"><div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/47.jpg"><img alt="../../../../../_images/47.jpg" src="../../../../../_images/47.jpg" style="width: 600.0px; height: 345.0px;" /></a>
+</div>
+</dd>
+</dl>
+<p>矢量  <span class="math notranslate nohighlight">\(\Delta \mathbb{V}_{ij}\)</span> 是通过叠加所有相对运动矢量 <span class="math notranslate nohighlight">\(\Delta v_{ij}\)</span> 来创建的，相反，矢量 <span class="math notranslate nohighlight">\(\Delta v_k\)</span> 是从线性估计 <span class="math notranslate nohighlight">\(\Delta V\)</span> 中提取出来的。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>一个关键点是，对残差运动的估计具有特定形式 <span class="math notranslate nohighlight">\(\Delta M_{ij} = M_j^{-1} M_{ij} M_i\)</span> 以遵守矩阵乘法的非交换性质。</p></li>
+<li><p>该算法的单次迭代相当于计算相对运动的外在平均值。 然而，就像在前面的算法 (A1) 中一样，通过迭代改进使用李代数元素 <span class="math notranslate nohighlight">\(m\)</span> 计算平均值的一阶近似的质量来改进这个平均值。该算法在几次迭代内收敛到一个稳定点。</p></li>
+</ol>
+</div>
+<dl class="field-list">
+<dt class="field-odd">实验结果</dt>
+<dd class="field-odd"><p>（超过 50 次试验）对于50个点和5张图像的平均结果。</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/56.jpg"><img alt="../../../../../_images/56.jpg" src="../../../../../_images/56.jpg" style="width: 609.0px; height: 227.25px;" /></a>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>

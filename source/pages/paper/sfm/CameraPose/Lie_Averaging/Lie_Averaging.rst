@@ -178,7 +178,7 @@ Lie Algebras of SO(3) and SE(3)
 
 **此变换的流程是先旋转，然后进行平移。**
 
- :math:`M` 的对数是李代数  :math:`m \in se(3)` 的一个元素，由下式给出：
+:math:`M` 的对数是李代数  :math:`m \in se(3)` 的一个元素，由下式给出：
 
 .. math::
 
@@ -205,3 +205,105 @@ Lie Algebras of SO(3) and SE(3)
 .. figure:: 2.jpg
    :figclass: align-center
    :scale: 75%
+
+
+Globally Consistent Motion Estimation
+--------------------------------------
+
+对于 N 个图像，全局一致的运动可以用 N-1 个运动来描述。
+通常，选择第一幅图像作为参考帧，然后根据该参考帧估计序列的其余部分。
+将帧 i 和参考帧之间的运动表示为  :math:`M_i` ，将两帧 i 和 j 之间的相对运动表示为  :math:`M_{ij}` ，其中  :math:`M_{ij} = M_jM_i^{-1}` 。
+从帧 i 开始到结束帧 j 的任何一系列变换的组合都应该与 :math:`M_{ij}` 相同。
+
+.. figure:: 3.jpg
+   :figclass: align-center
+   :scale: 60%
+
+由于观察中存在噪声，各种变换估计将彼此不一致。 因此 :math:`M_{ij} \ne M_jM_i^{-1}` ，其中 :math:`M_{ij}` 是帧 i 和 j 之间的估计变换。
+
+可以将给定的关系重写为对完整描述运动的全局运动模型  :math:`{M_2 , ... , M_N }` 的约束。
+
+由于通常有多达 :math:` \frac{N(N-1)}{2}` 个这样的约束，我们有一个超定方程组。
+
+.. math::
+
+   M_jM_i^{-1} = M_{ij}, \forall i \ne j
+
+其中左侧的变量是根据右侧的观测数据 :math:`M_{ij}` 估计（“拟合”）的未知数。直观地说，我们想要估计一个全局运动模型  :math:`\{M_i\}`，它与从数据导出的测量值  :math:`\{M_{ij}\}` 最一致。
+
+因此， :math:`M_{ij}` 的单个估计中的误差被“平均”掉，这对于长环或闭环非常有用，其中的解通常由于累积误差而漂移。
+
+考虑序列中的最后一帧接近第一帧的场景。在传统方法中，相邻帧之间的错误会累积导致大错误。但是在该框架中，可以结合对最后一帧和第一帧之间的相对运动的估计，从而产生一个约束，该约束将“close”循环并导致错误减少并且沿着序列更均匀地分布。
+
+Lie Averaging of Relative Motions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:math:`M_{ij}` 和 :math:`m_{ij}` 是从图像估计的相对运动，而 :math:`M_k` 和 :math:`m_k` 是想要估计的全局运动模型。
+
+这里 :math:`M_k` 表示第 :math:`k` 帧相对于第一帧的运动。从约束条件  :math:`M_{ij} = M_j M_i^{-1}` 开始，通过将一阶近似应用于方程中给出的黎曼距离（ :math:`d(X,Y) \approx ||log(Y) - log(X) || = ||y - x||` ）。
+有 :math:`M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i` ，因为 :math:`m = log(M)`
+
+现在矩阵 :math:`m` 可以分别由 :math:`m \in so(3)` 和  :math:`m \in se(3)` 的 3 或 6 个参数来描述。
+
+如果以列向量的形式排列这些参数，比如  :math:`v = vec(m)` （其中  :math:`vec(.)` 返回从输入矩阵中提取的一列参数），同样的有 :math:`v_{ij} = v_j - v_i`
+
+如果将全局运动模型的所有列向量叠加到一个大向量 :math:`V` 中，我们有  :math:`V =[v2 ; ···; vN]` 。鉴于全局运动模型的这种统一向量表示，有以下关系：
+
+.. math::
+
+   \begin{eqnarray}
+   M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i\\
+   \Rightarrow v_{ij} &=& v_j - v_i\\
+   \Rightarrow v_{ij} &=& \underbrace{[···-I···I···]}V
+   \end{eqnarray}
+
+其中 :math:`I` 表示维度为 :math:`N_{dim} \ times N_{dim}` 的单位矩阵（其中 :math:`N_{dim} = 3~~or~~6` ）。
+
+:math:`D_{ij}` 是一个大小为 :math:`N_{dim} \ times (N_{dim} \ times N - 1)`  的矩阵，矩阵  :math:`-I` 和 :math:`I` 分别位于位置 :math:`i` 和 :math:`j` ，并充当帧 :math:`i` 和 :math:`j` 的“下标”矩阵。
+
+换句话说，将 :math:`D_{ij}` 应用于向量 :math:`V` 挑选出 :math:`v_i` 和 :math:`v_j` 并返回 :math:`v_j - v_i` 。
+
+上面的方程表示根据全局运动模型的单个相对运动。然而，需要将所有可用的相对运动组合成一组方程。
+
+因此，对于给定的一组相对运动观测值 :math:`\{M_{ij}\}` ，可以将所有相对运动向量 :math:`v_{ij}` 堆叠成一个大向量 :math:`\mathbb{V}_{ij} = [v_{ij1}; v_{ij2};···]`  其中 :math:`ij1,ij2` 等表示不同的相对运动的下标。
+
+类似地，所有下标矩阵（indicator matrices）都可以堆叠成一个大矩阵  :math:`D =[D_{ij1} ; D_{ij2} ; ···]` ，从而有以下表示：
+
+.. math::
+
+   \begin{eqnarray}
+   M_j M_i^{-1} &=& M_{ij}\\
+   \rightsquigarrow D\mathcal{V} &=& \mathbb{V}_{ij}\\
+   \Rightarrow &=& D^{\dagger}\mathbb{V}_{ij}
+   \end{eqnarray}
+
+其中 :math:`D^{\dagger}` 表示伪逆运算：
+
+.. math::
+
+   D^{\dagger} = (D^TD)^{-1}D^T
+
+对于给定的一组相对观测值，矩阵 :math:`D` 是固定的，这意味着 :math:`D^{\dagger}` 只需要计算一次。
+
+因此可以开发一种迭代方案，在每个步骤中线性地近似全局运动并从观察到的运动值更新当前估计以改进估计。 这可以重复直到收敛。
+
+:Algorithm 2:
+
+   .. figure:: 4.jpg
+      :figclass: align-center
+      :scale: 75%
+
+矢量  :math:`\Delta \mathbb{V}_{ij}` 是通过叠加所有相对运动矢量 :math:`\Delta v_{ij}` 来创建的，相反，矢量 :math:`\Delta v_k` 是从线性估计 :math:`\Delta V` 中提取出来的。
+
+.. note::
+
+   1. 一个关键点是，对残差运动的估计具有特定形式 :math:`\Delta M_{ij} = M_j^{-1} M_{ij} M_i` 以遵守矩阵乘法的非交换性质。
+
+   2. 该算法的单次迭代相当于计算相对运动的外在平均值。 然而，就像在前面的算法 (A1) 中一样，通过迭代改进使用李代数元素 :math:`m` 计算平均值的一阶近似的质量来改进这个平均值。该算法在几次迭代内收敛到一个稳定点。
+
+:实验结果:
+   （超过 50 次试验）对于50个点和5张图像的平均结果。
+
+   .. figure:: 5.jpg
+      :figclass: align-center
+      :scale: 75%
