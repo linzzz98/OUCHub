@@ -80,6 +80,91 @@ Least Squared Error Approximation
 
       A^TAx = A^Tb \rightarrow  x = [A^TA]^{-1}A^Tb
 
+   .. note::
+
+      证明：
+
+      * 前置结论
+
+         1.  :math:`tr(AB) = tr(BA)`
+
+         2.  :math:`tr(ABC) = tr(BCA) = tr(CAB)`
+
+         3.  :math:`\nabla_A tr(AB) = B^T`
+
+         4.  :math:`tr(A) = tr(A^T)`
+
+         5.  :math:`tr(a) = a`
+
+         6.  :math:`\nabla_A tr(ABA^TC) = CAB+C^TAB^T`
+
+         其中tr表示矩阵的迹，大写字母为矩阵，小写字母为实数， :math:`\nabla` 表示求导。
+
+      * 公式推导
+
+         作差
+
+         .. math::
+
+            Ax - b = [a_1^Tx - b_1 : a_m^T - b_m]
+
+         构建最小二乘
+
+         .. math::
+
+            \frac{1}{2} (Ax-b)^T(Ax-b) = \frac{1}{2} \sum\limits_{i=1}^m (a_i^Tx - b_i)^2
+
+         对 :math:`x` 求导
+
+         .. math::
+
+            \nabla_x \frac{1}{2} (Ax - b)^T(Ax - b) = \nabla_x tr(x^TA^TAx - x^TA^tb - b^TAx + b^Tb)
+
+         利用结论（2）（4）（5）
+
+         .. math::
+
+            \nabla_x \frac{1}{2} (Ax-b)^T(Ax-b) = \nabla_x tr[xx^TA^TA - b^TAx - b^TAx]
+
+         .. attention::
+
+            * :math:`tr(\underbrace{x^T}_A \underbrace{A^TA}_B \underbrace{x}_C) = tr(\underbrace{x}_C \underbrace{x^T}_A \underbrace{A^TA}_B)`
+
+            * :math:`tr(\underbrace{x^T A^T b}_A)` =  :math:`tr(\underbrace{b^T Ax}_{A^T})`
+
+            * :math:`tr(b^Tb) = tr(a) = a \longrightarrow \nabla_x(a) = 0` （a为常数）
+
+         利用结论（6）
+
+         .. math::
+
+            \nabla_x tr(xx^TA^TA) = \nabla_x tr(\underbrace{x}_A · \underbrace{I}_B · \underbrace{x^T}_{A^T} · \underbrace{A^TA}_C)
+
+         从而
+
+         .. math::
+
+            \nabla_x (xx^TA^TA) = A^TA·x·I + (A^TA)^T · x · I^T = 2 · A^TAx
+
+         利用结论（1）（3）
+
+         .. math::
+
+            \nabla_x tr(2 · \underbrace{b^TA}_B \underbrace{x}_A) = \nabla_x tr(2 · \underbrace{x}_A \underbrace{b^TA}_B) = 2 · A^Tb
+
+         从而有：
+
+         .. math::
+
+            \frac{1}{2} (Ax-b)^T(Ax-b) = A^TAx - A^Tb = 0
+
+         则有：
+
+         .. math::
+
+            A^TAx = A^Tb \longrightarrow x = (A^TA)^{-1}A^Tb
+
+
 * 如果 :math:`A` 有 :math:`M < N` ，（under specified）那么具有最小范数的近似解是：
 
    .. math::
@@ -115,6 +200,51 @@ Weighted Least Squared Error Approximation
 
       x = [A^TW^TWA]^{-1}A^TW^TWb
 
+   .. note::
+
+      证明：
+
+         构建最小二乘
+
+         .. math::
+
+            \frac{1}{2}(WAx - Wb)^T(WAx - Wb) = \frac{1}{2}\sum\limits_{i=1}^m(w_i^Ta_i^T x - b_i)^2
+
+         对 :math:`x` 求导
+
+         .. math::
+            \begin{eqnarray}
+            &&\nabla_x \frac{1}{2}(WAx - Wb)^T(WAx - Wb) \\&=&
+            \nabla_x tr(x^TA^TW^TWAx - 2b^TW^TWAx + b^TW^TWb)
+            \end{eqnarray}
+
+
+         从而有
+
+         .. math::
+            \begin{eqnarray}
+            \nabla_x tr(x^TA^TW^TWAx) &=& A^TW^TWA x + (A^TW^TWA)^T x \\&=& 2·(A^TW^TWA)x
+            \end{eqnarray}
+
+         和
+
+         .. math::
+
+            \nabla_x tr(2·b^TW^TWAx) = \nabla_x tr(2·xb^TW^TWA) = 2 · A^TW^TWb
+
+         从而有
+
+         .. math::
+
+            \frac{1}{2}(WAx - Wb)^T(WAx - Wb) = (A^TW^TWA)x - A^TW^TWb = 0
+
+         则有：
+
+         .. math::
+
+            (A^TW^TWA)x = W^TA^TWb \longrightarrow x = (A^TW^TWA)^{-1}A^TW^TWb
+
+
 * 如果 :math:`A` 有 :math:`M < N` ，（under specified）那么最小加权范数解是：
 
    .. math::
@@ -141,8 +271,6 @@ Approximation with Other Norms and Error Measures
    ||e||_p^p = \sum\limits_i |e_i|^p
 
 对于秩小于 :math:`M` 或 :math:`N` 的情况，可以使用一种范数来最小化方程误差范数，而使用另一种范数来最小化范数的解。
-
-
 
 .. figure:: 1.jpg
    :figclass: align-center
@@ -211,8 +339,6 @@ IRLS（迭代重加权最小二乘法）算法允许从加权最小二乘法的�
 
    .. figure:: 2.jpg
       :figclass: algin-center
-
-
 
 
 如果在求解一组超定方程时提出 :math:`l_p` 近似问题，它来自将方程误差范数定义为：
