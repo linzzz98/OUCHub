@@ -346,7 +346,7 @@ R &amp; t\\0 &amp; 1
 </div>
 <p>由于观察中存在噪声，各种变换估计将彼此不一致。 因此 <span class="math notranslate nohighlight">\(M_{ij} \ne M_jM_i^{-1}\)</span> ，其中 <span class="math notranslate nohighlight">\(M_{ij}\)</span> 是帧 i 和 j 之间的估计变换。</p>
 <p>可以将给定的关系重写为对完整描述运动的全局运动模型  <span class="math notranslate nohighlight">\({M_2 , ... , M_N }\)</span> 的约束。</p>
-<p>由于通常有多达 :math:` frac{N(N-1)}{2}` 个这样的约束，我们有一个超定方程组。</p>
+<p>由于通常有多达 <span class="math notranslate nohighlight">\(\frac{N(N-1)}{2}\)</span> 个这样的约束，我们有一个超定方程组。</p>
 <div class="math notranslate nohighlight">
 \[M_jM_i^{-1} = M_{ij}, \forall i \ne j\]</div>
 <p>其中左侧的变量是根据右侧的观测数据 <span class="math notranslate nohighlight">\(M_{ij}\)</span> 估计（“拟合”）的未知数。直观地说，我们想要估计一个全局运动模型  <span class="math notranslate nohighlight">\(\{M_i\}\)</span>，它与从数据导出的测量值  <span class="math notranslate nohighlight">\(\{M_{ij}\}\)</span> 最一致。</p>

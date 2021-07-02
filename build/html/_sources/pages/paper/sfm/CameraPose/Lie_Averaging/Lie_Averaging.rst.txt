@@ -223,7 +223,7 @@ Globally Consistent Motion Estimation
 
 可以将给定的关系重写为对完整描述运动的全局运动模型  :math:`{M_2 , ... , M_N }` 的约束。
 
-由于通常有多达 :math:` \frac{N(N-1)}{2}` 个这样的约束，我们有一个超定方程组。
+由于通常有多达 :math:`\frac{N(N-1)}{2}` 个这样的约束，我们有一个超定方程组。
 
 .. math::
 
