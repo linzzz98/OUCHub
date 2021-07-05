@@ -1021,3 +1021,110 @@ OptimizeRelativePositionWithKnownRotation
 
       return true;
    }
+
+
+FilterRelativeTranslation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. cpp:function:: void GlobalReconstructionEstimator::FilterRelativeTranslation()
+
+.. code-block:: cpp
+
+   void GlobalReconstructionEstimator::FilterRelativeTranslation() {
+
+      // 提取查看图的最大刚性分量，以确定哪些相机在位置估计方面受到良好约束。
+      if (options_.extract_maximal_rigid_subgraph) {
+         LOG(INFO) << "Extracting maximal rigid component of viewing graph to "
+                    "determine which cameras are well-constrained for position "
+                    "estimation.";
+         ExtractMaximallyParallelRigidSubgraph(orientations_, view_graph_);
+      }
+
+      // 过滤可能不好的相对位移
+      if (options_.filter_relative_translations_with_1dsfm) {
+         LOG(INFO) << "Filtering relative translations with 1DSfM filter.";
+         FilterViewPairsFromRelativeTranslation(translation_filter_options_,
+                                              orientations_,
+                                              view_graph_);
+      }
+      // 从估计中删除任何不连接的视图
+      const std::unordered_set<ViewId> removed_views =
+         RemoveDisconnectedViewPairs(view_graph_);
+      for (const ViewId removed_view : removed_views) {
+         orientations_.erase(removed_view);
+      }
+   }
+
+ExtractMaximallyParallelRigidSubgraph
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   根据已知的相机方向和相对平移测量，提取子图的最大平行刚性分量。
+
+   给定一组相对平移，刚性组件是一个适定的子图，以便可以恢复全局节点位置。
+
+   对于相对平移，这基本上意味着节点上存在三角约束。
+
+   任何相对于刚性组件自由移动（缩放或平移）的节点都不是刚性组件的一部分。
+
+   该方法的目标是提取最大的刚性分量，以便可以获得用于全局位置估计的well-posed graph。
+
+   《Identifying Maximal Rigid Components in Bearing-Based Localization》
+
+   《Robust Camera Location Estimation by Convex Programming》
+
+   .. cpp:function:: void ExtractMaximallyParallelRigidSubgraph(const std::unordered_map<ViewId, Eigen::Vector3d>& orientations, ViewGraph* view_graph);
+
+   .. code-block:: cpp
+
+      void ExtractMaximallyParallelRigidSubgraph(
+          const std::unordered_map<ViewId, Eigen::Vector3d>& orientations,
+          ViewGraph* view_graph) {
+        // 为线性系统创建索引到 ViewId 的映射
+        std::unordered_map<ViewId, int> view_ids_to_index;
+        view_ids_to_index.reserve(orientations.size());
+        for (const auto& orientation : orientations) {
+          if (!view_graph->HasView(orientation.first)) {
+            continue;
+          }
+          const int current_index = view_ids_to_index.size();
+          InsertIfNotPresent(&view_ids_to_index, orientation.first, current_index);
+        }
+
+        // 从以下形式形成全局角度测量矩阵：
+        //    t_{i,j} x (c_j - c_i) = 0.
+        Eigen::MatrixXd angle_measurements(3 * view_graph->NumEdges(),
+                                           3 * orientations.size());
+        FormAngleMeasurementMatrix(orientations,
+                                   *view_graph,
+                                   view_ids_to_index,
+                                   &angle_measurements);
+
+        // 提取角度测量矩阵的零空间
+        Eigen::FullPivLU<Eigen::MatrixXd> lu(angle_measurements.transpose() *
+                                             angle_measurements);
+        const Eigen::MatrixXd null_space = lu.kernel();
+
+        // 对于图中的每个节点（即每个相机），将零空间分量设置为零，以便相机位置固定在原点。 如果两个节点 i 和 j 在同一个刚体组件中，那么它们的零空间将是平行的，因为相机位置可能只改变一个比例。
+
+        // 找到所有平行的组件来找到刚性组件。 这种分量中最大的是图的最大平行刚性分量
+        std::unordered_set<int> maximal_rigid_component;
+        for (int i = 0; i < orientations.size(); i++) {
+          std::unordered_set<int> temp_cc;
+          FindMaximalParallelRigidComponent(null_space, i, &temp_cc);
+          if (temp_cc.size() > maximal_rigid_component.size()) {
+            std::swap(temp_cc, maximal_rigid_component);
+          }
+        }
+
+        // 只将节点保持在最大平行刚性组件中
+        for (const auto& orientation : orientations) {
+          const int index = FindOrDie(view_ids_to_index, orientation.first);
+          // 如果视图不在最大刚性组件中，则将其从视图图中删除
+          if (!ContainsKey(maximal_rigid_component, index) &&
+              view_graph->HasView(orientation.first)) {
+            CHECK(view_graph->RemoveView(orientation.first))
+                << "Could not remove view id " << orientation.first
+                << " from the view graph because it does not exist.";
+          }
+        }
+      }
