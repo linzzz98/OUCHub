@@ -247,7 +247,7 @@ Lie Averaging of Relative Motions
 
 如果以列向量的形式排列这些参数，比如  :math:`v = vec(m)` （其中  :math:`vec(.)` 返回从输入矩阵中提取的一列参数），同样的有 :math:`v_{ij} = v_j - v_i`
 
-如果将全局运动模型的所有列向量叠加到一个大向量 :math:`V` 中，我们有  :math:`V =[v2 ; ···; vN]` 。鉴于全局运动模型的这种统一向量表示，有以下关系：
+如果将全局运动模型的所有列向量叠加到一个大向量 :math:`V` 中，我们有  :math:`V =[v_2 ; ···; v_N]` 。鉴于全局运动模型的这种统一向量表示，有以下关系：
 
 .. math::
 
@@ -257,9 +257,9 @@ Lie Averaging of Relative Motions
    \Rightarrow v_{ij} &=& \underbrace{[···-I···I···]}V
    \end{eqnarray}
 
-其中 :math:`I` 表示维度为 :math:`N_{dim} \ times N_{dim}` 的单位矩阵（其中 :math:`N_{dim} = 3~~or~~6` ）。
+其中 :math:`I` 表示维度为 :math:`N_{dim} \times N_{dim}` 的单位矩阵（其中 :math:`N_{dim} = 3~~or~~6` ）。
 
-:math:`D_{ij}` 是一个大小为 :math:`N_{dim} \ times (N_{dim} \ times N - 1)`  的矩阵，矩阵  :math:`-I` 和 :math:`I` 分别位于位置 :math:`i` 和 :math:`j` ，并充当帧 :math:`i` 和 :math:`j` 的“下标”矩阵。
+:math:`D_{ij}` 是一个大小为 :math:`N_{dim} \times (N_{dim} \ times N - 1)`  的矩阵，矩阵  :math:`-I` 和 :math:`I` 分别位于位置 :math:`i` 和 :math:`j` ，并充当帧 :math:`i` 和 :math:`j` 的“下标”矩阵。
 
 换句话说，将 :math:`D_{ij}` 应用于向量 :math:`V` 挑选出 :math:`v_i` 和 :math:`v_j` 并返回 :math:`v_j - v_i` 。
 

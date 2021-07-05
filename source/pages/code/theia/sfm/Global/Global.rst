@@ -1011,9 +1011,7 @@ OptimizeRelativePositionWithKnownRotation
          *relative_position = new_relative_position;
       }
 
-      // The position solver above does not consider the sign of the relative
-      // position. We can determine the sign by choosing the sign that puts the most
-      // points in front of the camera.
+      // 上面的位置求解器没有考虑相对位置的符号。 可以通过选择将最多点放在相机前面的标志来确定正负。
       if (!MajorityOfPointsInFrontOfCameras(correspondences,
                                            rotation1,
                                            rotation2,

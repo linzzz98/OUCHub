@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4. Bundle Adjustment &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="prev" title="3. 三维重建中的旋转" href="../Rotation/Rotation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. Bundle Adjustment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">4.1. 投影模型和问题参数化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>Bundle Adjustment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/BundleAdjustment/BundleAdjustment.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bundle-adjustment">
+<h1><span class="section-number">4. </span>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h1>
+<p>Bundle Adjustment（<strong>下文简称BA</strong>）是改进视觉重建以产生联合最佳 3D 结构和viewing参数（相机位姿和/或校准）估计的问题。
+最优意味着通过最小化一些量化模型拟合误差的成本函数来找到参数估计，并且联合解对于结构和相机变化同时是最优的。
+该名称（光束平差法）指的是离开每个 3D 特征并会聚在每个相机中心的“束”光线根据特征和相机位置进行了最佳“调整”。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>BA实际上只是一个大的稀疏几何参数估计问题，参数是组合的 3D 特征坐标、相机姿态和校准。</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Advantage</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>Flexibility：BA可优雅地处理各种不同的 3D 特征和相机类型（点、线、曲线、曲面、奇异相机）、场景类型（包括动态和铰接模型、场景约束）、信息源（2D 特征、强度、3D 信息、先验）和误差模型（包括稳健模型）。它没有丢失数据的问题。</p></li>
+<li><p>Accuracy：BA提供精确且易于解释的结果，因为它使用准确的统计误差模型并支持完善、完善的质量控制方法。</p></li>
+<li><p>Efﬁciency：即使在非常大的问题上，成熟的BA算法也相对有效————使用经济且快速收敛的数值方法，并接近最佳地利用问题稀疏性。</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>BA的四大误区：</p>
+<ol class="arabic">
+<li><p>“Optimization / bundle adjustment is slow”</p>
+<p>常说的BA缓慢几乎总是由于不加思索地使用了完全忽略问题结构和稀疏性的通用优化例程。</p>
+</li>
+<li><p>“Only linear algebra is required”</p>
+<p>BA本身就是复杂的迭代方法。</p>
+</li>
+<li><p>“Any sequence can be used”</p>
+<p>弱几何和缺乏冗余的序列难以使用。</p>
+</li>
+<li><p>“Point P is reconstructed accurately”</p>
+<p>在重建中，就像位置没有绝对参考一样，不确定性也没有。 3D 坐标系本身是不确定的，因为它只能相对于不确定的重建特征或相机进行定位。</p>
+</li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="field-list">
+<dt class="field-odd">符号</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(x\)</span> ：被估计的结构、相机等</p>
+<p><span class="math notranslate nohighlight">\(\delta x\)</span> ：小线性状态位移</p>
+<p><span class="math notranslate nohighlight">\(\underline{z}\)</span> ：观察结果（例如测量的图像特征）</p>
+<p><span class="math notranslate nohighlight">\(z = z(x)\)</span> ：参数值 x 的相应预测值</p>
+<p><span class="math notranslate nohighlight">\(\Delta z(x) ≡ \underline{z} − z(x)\)</span> （观察和预测误差通常只是通过它们对成本函数 :math:` f(x)=f(predz(x))` 的影响隐含地出现。）</p>
+<p><span class="math notranslate nohighlight">\(g ≡ \frac{df}{dx}\)</span> ：代价函数梯度</p>
+<p><span class="math notranslate nohighlight">\(H ≡ \frac{d^2 f}{dx^2}\)</span> ：代价函数Hessian矩阵</p>
+<p><span class="math notranslate nohighlight">\(J ≡ \frac{dz}{dx}\)</span> ：观察状态雅可比矩阵</p>
+<p><span class="math notranslate nohighlight">\(n_x,n_z\)</span> ： <span class="math notranslate nohighlight">\(\delta x, \delta z\)</span> 的维度</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">4.1. </span>投影模型和问题参数化<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>通过考虑基本的图像投影模型和问题参数化问题来开始BA。</p>
+<p>为简单起见，假设场景由单独的静态 3D 特征  <span class="math notranslate nohighlight">\(X_p, p = 1...n\)</span> 建模，在 <span class="math notranslate nohighlight">\(m\)</span> 个镜头使用相机位姿和内部校准参数  <span class="math notranslate nohighlight">\(P_i , i = 1...m\)</span> 成像。也可能有在多个图像中不变的校准参数 <span class="math notranslate nohighlight">\(C_c, c= 1...k\)</span> 。</p>
+<p>给出了可能的图像特征 <span class="math notranslate nohighlight">\(x_{ip}\)</span> （图像 i 中特征  <span class="math notranslate nohighlight">\(X_p\)</span>  的真实图像?）的某个子集的不确定测量值 <span class="math notranslate nohighlight">\(\underline{x}_{ip}\)</span> 。
+对于每个观测值 <span class="math notranslate nohighlight">\(x_{ip}\)</span> ，假设我们有一个基于参数的预测模型  <span class="math notranslate nohighlight">\(x_{ip} = x(C_c, P_i, X_p)\)</span> ，可用于导出特征预测误差：</p>
+<div class="math notranslate nohighlight">
+\[\Delta x_{ip}(C_c, P_i, X_p) ≡ \overline{x}_{ip} - x(C_c, P_i, X_p)\]</div>
+<p>BA本质上是在大型非线性参数空间（场景和相机参数）上优化复杂的非线性成本函数（总预测误差）。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>BA的参数空间通常是一个高维非线性流形——投影 3D 特征、3D 旋转和相机校准流形的大笛卡尔积，可能带有非线性约束等。
+严格来说，状态 <span class="math notranslate nohighlight">\(x\)</span> 不是向量，而是这个空间的一个点。
+根据它所包含的实体的表示方式， <span class="math notranslate nohighlight">\(x\)</span> 可能会受到各种复杂情况的影响，包括奇点、内部约束和不需要的内部自由度。
+之所以会出现这些问题，是因为几何实体（如旋转、3D 线甚至投影点和平面）没有简单的全局参数化。
+它们的局部参数化是非线性的，奇点阻止它们均匀地覆盖整个参数空间（例如，旋转的欧拉角的许多变体，无穷远仿射点坐标的奇点）。
+并且它们的全局参数化要么有约束（例如 <span class="math notranslate nohighlight">\(||q||^2 = 1\)</span> 的四元数），要么有不需要的内部自由度（例如，齐次投影量具有比例因子自由度，定义一条线的两个点可以沿着这条线滑动）。
+对于更复杂的复合实体，例如匹配张量和由巧合、平行或正交约束链接的 3D 特征组合，参数化变得更加精细。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>不同的参数化通常具有非常不同的数值行为，这极大地影响了调整迭代的速度和可靠性。最适合优化的参数化在当前状态估计附近尽可能均匀、有限且表现良好。最适合优化的参数化在当前状态估计附近尽可能均匀、有限且表现良好。 理想情况下，就它们对所选误差模型的影响而言，它们应该局部接近线性，以便成本函数局部接近二次。理想情况下，就它们对所选误差模型的影响而言，它们应该局部接近线性，以便成本函数局部接近二次。</p>
+</div>
+<p>任何给定的参数化通常只会在相对较小的状态空间部分在这个意义上表现良好。 因此，为了保证一致的良好性能，无论状态本身如何表示，都应使用基于当前估计的增量的稳定局部参数化来评估状态更新。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Rotation/Rotation.html" class="btn btn-neutral float-left" title="3. 三维重建中的旋转" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

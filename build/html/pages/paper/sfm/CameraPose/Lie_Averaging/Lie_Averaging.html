@@ -359,15 +359,15 @@ R &amp; t\\0 &amp; 1
 有 <span class="math notranslate nohighlight">\(M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i\)</span> ，因为 <span class="math notranslate nohighlight">\(m = log(M)\)</span></p>
 <p>现在矩阵 <span class="math notranslate nohighlight">\(m\)</span> 可以分别由 <span class="math notranslate nohighlight">\(m \in so(3)\)</span> 和  <span class="math notranslate nohighlight">\(m \in se(3)\)</span> 的 3 或 6 个参数来描述。</p>
 <p>如果以列向量的形式排列这些参数，比如  <span class="math notranslate nohighlight">\(v = vec(m)\)</span> （其中  <span class="math notranslate nohighlight">\(vec(.)\)</span> 返回从输入矩阵中提取的一列参数），同样的有 <span class="math notranslate nohighlight">\(v_{ij} = v_j - v_i\)</span></p>
-<p>如果将全局运动模型的所有列向量叠加到一个大向量 <span class="math notranslate nohighlight">\(V\)</span> 中，我们有  <span class="math notranslate nohighlight">\(V =[v2 ; ···; vN]\)</span> 。鉴于全局运动模型的这种统一向量表示，有以下关系：</p>
+<p>如果将全局运动模型的所有列向量叠加到一个大向量 <span class="math notranslate nohighlight">\(V\)</span> 中，我们有  <span class="math notranslate nohighlight">\(V =[v_2 ; ···; v_N]\)</span> 。鉴于全局运动模型的这种统一向量表示，有以下关系：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
 M_{ij} = M_jM_i^{-1} \Rightarrow m_{ij} = m_j - m_i\\
 \Rightarrow v_{ij} &amp;=&amp; v_j - v_i\\
 \Rightarrow v_{ij} &amp;=&amp; \underbrace{[···-I···I···]}V
 \end{eqnarray}\end{split}\]</div>
-<p>其中 <span class="math notranslate nohighlight">\(I\)</span> 表示维度为 <span class="math notranslate nohighlight">\(N_{dim} \ times N_{dim}\)</span> 的单位矩阵（其中 <span class="math notranslate nohighlight">\(N_{dim} = 3~~or~~6\)</span> ）。</p>
-<p><span class="math notranslate nohighlight">\(D_{ij}\)</span> 是一个大小为 <span class="math notranslate nohighlight">\(N_{dim} \ times (N_{dim} \ times N - 1)\)</span>  的矩阵，矩阵  <span class="math notranslate nohighlight">\(-I\)</span> 和 <span class="math notranslate nohighlight">\(I\)</span> 分别位于位置 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> ，并充当帧 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 的“下标”矩阵。</p>
+<p>其中 <span class="math notranslate nohighlight">\(I\)</span> 表示维度为 <span class="math notranslate nohighlight">\(N_{dim} \times N_{dim}\)</span> 的单位矩阵（其中 <span class="math notranslate nohighlight">\(N_{dim} = 3~~or~~6\)</span> ）。</p>
+<p><span class="math notranslate nohighlight">\(D_{ij}\)</span> 是一个大小为 <span class="math notranslate nohighlight">\(N_{dim} \times (N_{dim} \ times N - 1)\)</span>  的矩阵，矩阵  <span class="math notranslate nohighlight">\(-I\)</span> 和 <span class="math notranslate nohighlight">\(I\)</span> 分别位于位置 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> ，并充当帧 <span class="math notranslate nohighlight">\(i\)</span> 和 <span class="math notranslate nohighlight">\(j\)</span> 的“下标”矩阵。</p>
 <p>换句话说，将 <span class="math notranslate nohighlight">\(D_{ij}\)</span> 应用于向量 <span class="math notranslate nohighlight">\(V\)</span> 挑选出 <span class="math notranslate nohighlight">\(v_i\)</span> 和 <span class="math notranslate nohighlight">\(v_j\)</span> 并返回 <span class="math notranslate nohighlight">\(v_j - v_i\)</span> 。</p>
 <p>上面的方程表示根据全局运动模型的单个相对运动。然而，需要将所有可用的相对运动组合成一组方程。</p>
 <p>因此，对于给定的一组相对运动观测值 <span class="math notranslate nohighlight">\(\{M_{ij}\}\)</span> ，可以将所有相对运动向量 <span class="math notranslate nohighlight">\(v_{ij}\)</span> 堆叠成一个大向量 <span class="math notranslate nohighlight">\(\mathbb{V}_{ij} = [v_{ij1}; v_{ij2};···]\)</span>  其中 <span class="math notranslate nohighlight">\(ij1,ij2\)</span> 等表示不同的相对运动的下标。</p>

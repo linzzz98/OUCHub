@@ -9,8 +9,11 @@
    SfM/SfM
    Robust_Optimization/Robust_Optimization
    Rotation/Rotation
+   BundleAdjustment/BundleAdjustment
 
 * :doc:`Structure from Motion <SfM/SfM>` |:fire:|
+
+* :doc:`BundleAdjustment <BundleAdjustment/BundleAdjustment>` |:fire:|
 
 * :doc:`Rotation <Rotation/Rotation>` |:fire:|
 
