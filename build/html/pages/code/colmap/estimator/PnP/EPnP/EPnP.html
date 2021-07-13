@@ -108,7 +108,7 @@
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../../../c_colmap.html">🍑 Colmap</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../../c_estimator.html">Estimator</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../Pose/Pose.html">1. Pose</a></li>
@@ -151,6 +151,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../c_sfm.html">SfM Pipeline</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../theiasfm.html">🍑 TheiaSfM</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -203,7 +204,7 @@
     
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../../../c_colmap.html">🍑 Colmap</a> &raquo;</li>
+          <li><a href="../../../../colmap.html">🍑 Colmap</a> &raquo;</li>
         
           <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
         
@@ -927,7 +928,7 @@ dv[i][3] = v_i^{[2]} - v_i^{[3]}~~~~~~~~dv[i][4] = v_i^{[2]} - v_i^{[4]}~~~~~~~~
 <span class="n">betas_approx_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">B11</span> <span class="n">B12</span>     <span class="n">B13</span>         <span class="n">B14</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>将应该求的参数 <span class="math notranslate nohighlight">\(\betas\_10\)</span> 由10个减少到了4个 <span class="math notranslate nohighlight">\(betas\_approx\_1\)</span> ， 然后求解的线性方程组。</p>
+<p>将应该求的参数 <span class="math notranslate nohighlight">\(betas \_10\)</span> 由10个减少到了4个 <span class="math notranslate nohighlight">\(betas\_approx\_1\)</span> ， 然后求解的线性方程组。</p>
 </div>
 <dl class="cpp function">
 <dt id="_CPPv4N13EPNPEstimator16FindBetasApprox1ERKN5Eigen6MatrixIdXL6EEXL10EEEERKN5Eigen6MatrixIdXL6EEXL1EEEEPN5Eigen8Vector4dE">

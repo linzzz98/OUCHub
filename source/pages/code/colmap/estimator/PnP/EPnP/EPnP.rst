@@ -802,7 +802,7 @@ FindBetasApprox1
 
          betas_approx_1 = [B11 B12     B13         B14]
 
-      将应该求的参数 :math:`\betas\_10` 由10个减少到了4个 :math:`betas\_approx\_1` ， 然后求解的线性方程组。
+      将应该求的参数 :math:`betas \_10` 由10个减少到了4个 :math:`betas\_approx\_1` ， 然后求解的线性方程组。
 
    .. cpp:function:: void EPNPEstimator::FindBetasApprox1(const Eigen::Matrix<double, 6, 10>& L6x10,const Eigen::Matrix<double, 6, 1>& rho,Eigen::Vector4d* betas)
 
