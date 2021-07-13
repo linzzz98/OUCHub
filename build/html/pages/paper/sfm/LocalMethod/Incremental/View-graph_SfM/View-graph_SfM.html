@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3. View-graph Selection Framework for SfM &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="4. HSfM: Hybrid Structure-from-Motion" href="../../Hybrid/HSfM/HSfM.html" />
+    <link rel="prev" title="2. Hierarchical structure-and-motion recovery from uncalibrated images" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">4. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">5. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">6. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">7. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">8. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">9. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">10. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">11. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">12. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfMSA/GlobalSfMSA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">14. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">15. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">16. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">17. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">18. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">3. </span>View-graph Selection Framework for SfM</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="view-graph-selection-framework-for-sfm">
+<h1><span class="section-number">3. </span>View-graph Selection Framework for SfM<a class="headerlink" href="#view-graph-selection-framework-for-sfm" title="永久链接至标题">¶</a></h1>
+<p>视图图（View-graph）是（sfm）的关键输入结构。 该图中的节点表示图像（也称为相机/视图），边表示节点之间的相对运动或对极几何。</p>
+<p>视图图有助于“组织”无序的图像集合，好处是</p>
+<ol class="arabic simple">
+<li><p>选择一组核心图像进行重建。</p></li>
+<li><p>识别可能会降低重建质量的嘈杂对极几何。</p></li>
+</ol>
+<p>目前先进的 sfm 方法，如增量、分层 或全局，都依赖于 基于视图图的初始修剪步骤（initial pruning step），用于高效准确的重建。</p>
+<p>对于大型的社区图片数据集（community photo collections）由于某些图片的特征点更多，所以通常会出现display point-of-view bias的问题。</p>
+<p>同时由于这种数据集的高冗余性，对 sfm 使用完整的视图图通常在计算上是昂贵的并且是不必要的。此外，对于紧密聚类的图像，窄基线会增加三角测量的不确定性，从而导致大的重投影误差。</p>
+<p>虽然孤立的错误对极几何可以通过鲁棒的平均算法（全局 sfm）和重复的BA调整（增量 sfm）来克服，但大量不正确的对极几何会降低重建质量。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>标准的 sfm 方法应用固定的启发式方法，例如内点、基线、单应性、循环闭合，用于图像和图像对的保守选择/修剪。 虽然这些启发式方法适用于各种数据集，但它们不足以识别和消除模糊场景中出现的连续噪声。</p>
+<p>成对匹配中的歧义是因为人造结构通常由重复（窗户、拱门）、对称（圆形结构、相似的立面）和大型重复元素（尖塔、圆顶）组成。 虽然标准 sfm 管道在单独处理大量不准确的对极几何方面很鲁棒，但对于高度模糊的场景，这种错误的对极几何会形成一致的集合，导致相机注册失败。</p>
+</div>
+<p>本文主要动机是将视图选择的核心问题形式化，以满足统一框架内的不同目标，并将此视为具有图像和图像对选择成本的优化问题，并为其高效解决方案提出了一种基于网络流的新近似。 这种抽象允许通过插入特定于任务的成本来实现不同的目标，同时保持整体选择和重建框架相同。</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Hybrid/HSfM/HSfM.html" class="btn btn-neutral float-right" title="4. HSfM: Hybrid Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html" class="btn btn-neutral float-left" title="2. Hierarchical structure-and-motion recovery from uncalibrated images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. Motion Averaging &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="prev" title="4. Bundle Adjustment" href="../BundleAdjustment/BundleAdjustment.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BundleAdjustment/BundleAdjustment.html">4. Bundle Adjustment</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5. Motion Averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">5.1. 视图图</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Motion Averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/MotionAveraging/MotionAveraging.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="motion-averaging">
+<h1><span class="section-number">5. </span>Motion Averaging<a class="headerlink" href="#motion-averaging" title="永久链接至标题">¶</a></h1>
+<p>小孔模型</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+u\\v\\1
+\end{matrix}
+\right] = \left[
+\begin{matrix}
+I~|~0
+\end{matrix}
+\right] \underbrace{
+\left[
+\begin{matrix}
+R &amp; T\\0 &amp; 1
+\end{matrix}
+\right]}_{M} \left[
+\begin{matrix}
+X\\Y\\Z\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>3D 配准</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+X'\\Y'\\Z'\\1
+\end{matrix}
+\right] = \underbrace{
+\left[
+\begin{matrix}
+R &amp; T\\0 &amp; 1
+\end{matrix}
+\right]}_{M} \left[
+\begin{matrix}
+X\\Y\\Z\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将平均问题表示为：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(M \in \mathbb{SE}(3)\)</span> （刚体 3d 欧几里得运动）</p></li>
+<li><p><span class="math notranslate nohighlight">\(R \in \mathbb{SO}(3)\)</span> （刚体 3d 旋转）</p></li>
+<li><p><span class="math notranslate nohighlight">\(T \in \mathbb{R}^3\)</span> （刚体 3d 位移）</p></li>
+<li><p><span class="math notranslate nohighlight">\(t \in S^2 \)</span> ）</p></li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>先旋转再平移和先平移在旋转是不同的。</p>
+<dl class="field-list simple">
+<dt class="field-odd">先旋转后平移</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+P' &amp;=&amp; RP + T\\
+&amp;\Downarrow&amp;\\
+P_i &amp;=&amp; R_iP_0 + T_i\\
+P_j &amp;=&amp; R_jP_0 + T_j\\
+&amp;\Downarrow&amp;\\
+R_{ij} &amp;=&amp; R_jR_i^{-1}\\
+T_{ij} &amp;=&amp; T_j - R_jR_i^{-1}T_i
+\end{eqnarray}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">先平移后旋转</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+P' &amp;=&amp; R(P + T)\\
+&amp;\Downarrow&amp;\\
+P_i &amp;=&amp; R_i(P_0 + T_i)\\
+P_j &amp;=&amp; R_j(P_0 + T_j)\\
+&amp;\Downarrow&amp;\\
+R_{ij} &amp;=&amp; R_jR_i^{-1}\\
+T_{ij} &amp;=&amp; T_j - T_i
+\end{eqnarray}\end{split}\]</div>
+<p>以上的结果相同，但是在表示形式上不同。</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">5.1. </span>视图图<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="algin-center figure align-default">
+<img alt="../../../../../_images/126.jpg" src="../../../../../_images/126.jpg" />
+</div>
+<ul>
+<li><p>Viewgraph（视图图 ） 表示为 <span class="math notranslate nohighlight">\(\mathcal{G = \{V, E\}}\)</span></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>顶点表示相机</p></li>
+<li><p>边表示相机和相机之间的相对运动</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>N个图片序列描述了N - 1个运动</p></li>
+<li><p>一般将某一个相机作为原点</p></li>
+<li><p>相机序列可以提供最多 <span class="math notranslate nohighlight">\(^N C_2 = \frac{N(N-1)}{2}\)</span> 对相对运动</p></li>
+<li><p>相对运动形成高度冗余的方程组</p></li>
+</ul>
+<p>假设知道顶点的值 <span class="math notranslate nohighlight">\(v_i\)</span> ，那么边值（ <span class="math notranslate nohighlight">\(v_{ij}\)</span> ）很容易根据顶点值来估计。</p>
+<div class="math notranslate nohighlight">
+\[v_{ij} = v_j - v_i\]</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>运动平均问题是上述问题的逆问题，即给定边值 <span class="math notranslate nohighlight">\(\{v_{ij} \in \mathcal{E}\}\)</span> ，估计顶点的值 <span class="math notranslate nohighlight">\(v_i \in \mathcal{V}\)</span></p>
+</div>
+<p>观察到的相对位移：</p>
+<p><span class="math notranslate nohighlight">\(v_j - v_i = v_{ij}\)</span> ，循环 <span class="math notranslate nohighlight">\(v_j - v_{ij} - v_i = 0\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>当存在约束的时候， <span class="math notranslate nohighlight">\(v_j - v_i \ne v_{ij}\)</span> ，不同的路径会产生不同的结果，观测值也不再连续（”consistent”），因此问题的解就变为找到与边最一致的估计。</p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/217.jpg" src="../../../../../_images/217.jpg" />
+</div>
+<p>等式的线性系统为： <span class="math notranslate nohighlight">\(AV = V_{ij}\)</span></p>
+<p>其中 <span class="math notranslate nohighlight">\(A\)</span> 编码了视图图，是图的关联矩阵。</p>
+<p>与图拉普拉斯相关的 <span class="math notranslate nohighlight">\(L = A^TA\)</span> ，图的拉普拉斯在表征问题难度方面发挥作用。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>拉普拉斯矩阵是用于三维以下的图形的计算，可以表示复杂的几何结构。</p>
+<p>假设 <span class="math notranslate nohighlight">\(In(G)\)</span> 为一幅图的关系矩阵， <span class="math notranslate nohighlight">\(In(G)\)</span> 的尺寸为 <span class="math notranslate nohighlight">\(E \times V\)</span> ，其中 <span class="math notranslate nohighlight">\(V\)</span> 为图中节点， <span class="math notranslate nohighlight">\(E\)</span> 为图中的边，如 <span class="math notranslate nohighlight">\(i\)</span> 点为 <span class="math notranslate nohighlight">\(j\)</span> 边的起点，则 <span class="math notranslate nohighlight">\(In(G)(i,j) = -1\)</span> ，终点则为 <span class="math notranslate nohighlight">\(In(G)(i,j) = 1\)</span> ,其他情况均为 <span class="math notranslate nohighlight">\(0\)</span> .</p>
+<p>则拉普拉斯矩阵为：</p>
+<div class="math notranslate nohighlight">
+\[L(G) = In(G)^TIn(G)\]</div>
+<p>拉普拉斯矩阵是对称的，秩为 <span class="math notranslate nohighlight">\(V - 1\)</span> ，一个特征值为0，是半正定的，每行每列加起来为0。</p>
+</div>
+<p>规范自由度（Gauge freedom） <span class="math notranslate nohighlight">\(AV = A(V+s1)\)</span></p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/310.jpg" src="../../../../../_images/310.jpg" />
+</div>
+<p>考虑运动矩阵 <span class="math notranslate nohighlight">\(M\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(M_j M_i^{-1} = M_{ij}, \forall i \ne j\)</span></p></li>
+<li><p>类似的有 <span class="math notranslate nohighlight">\(v_j - v_i = v_{ij}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(=\)</span> 左侧为 要估计的全局运动， <span class="math notranslate nohighlight">\(=\)</span> 右侧的是观测值。</p></li>
+</ul>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/48.jpg" src="../../../../../_images/48.jpg" />
+</div>
+<p><span class="math notranslate nohighlight">\(M_ij = M_jM_i^{-1}, \forall i \ne j \Rightarrow M_{ij} M_i - M_j = 0\)</span></p>
+<p>全局运动 <span class="math notranslate nohighlight">\(M_g = \{M_1,···,M_N\}\)</span></p>
+<p>等式系统 <span class="math notranslate nohighlight">\(BM_g = 0\)</span></p>
+<p>这里的运动群是李群。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../BundleAdjustment/BundleAdjustment.html" class="btn btn-neutral float-left" title="4. Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

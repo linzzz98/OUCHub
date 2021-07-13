@@ -139,6 +139,10 @@
 <li class="toctree-l6"><a class="reference internal" href="#optimizerelativepositionwithknownrotation">OptimizeRelativePositionWithKnownRotation</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="#filterrelativetranslation">FilterRelativeTranslation</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#extractmaximallyparallelrigidsubgraph">ExtractMaximallyParallelRigidSubgraph</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1249,9 +1253,7 @@
       <span class="o">*</span><span class="n">relative_position</span> <span class="o">=</span> <span class="n">new_relative_position</span><span class="p">;</span>
    <span class="p">}</span>
 
-   <span class="c1">// The position solver above does not consider the sign of the relative</span>
-   <span class="c1">// position. We can determine the sign by choosing the sign that puts the most</span>
-   <span class="c1">// points in front of the camera.</span>
+   <span class="c1">// 上面的位置求解器没有考虑相对位置的符号。 可以通过选择将最多点放在相机前面的标志来确定正负。</span>
    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">MajorityOfPointsInFrontOfCameras</span><span class="p">(</span><span class="n">correspondences</span><span class="p">,</span>
                                         <span class="n">rotation1</span><span class="p">,</span>
                                         <span class="n">rotation2</span><span class="p">,</span>
@@ -1263,6 +1265,111 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="filterrelativetranslation">
+<h3>FilterRelativeTranslation<a class="headerlink" href="#filterrelativetranslation" title="永久链接至标题">¶</a></h3>
+<dl class="cpp function">
+<dt id="_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="GlobalReconstructionEstimator::FilterRelativeTranslation"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterRelativeTranslation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterRelativeTranslation</span><span class="p">()</span> <span class="p">{</span>
+
+   <span class="c1">// 提取查看图的最大刚性分量，以确定哪些相机在位置估计方面受到良好约束。</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">extract_maximal_rigid_subgraph</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Extracting maximal rigid component of viewing graph to &quot;</span>
+                 <span class="s">&quot;determine which cameras are well-constrained for position &quot;</span>
+                 <span class="s">&quot;estimation.&quot;</span><span class="p">;</span>
+      <span class="n">ExtractMaximallyParallelRigidSubgraph</span><span class="p">(</span><span class="n">orientations_</span><span class="p">,</span> <span class="n">view_graph_</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 过滤可能不好的相对位移</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">filter_relative_translations_with_1dsfm</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">LOG</span><span class="p">(</span><span class="n">INFO</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Filtering relative translations with 1DSfM filter.&quot;</span><span class="p">;</span>
+      <span class="n">FilterViewPairsFromRelativeTranslation</span><span class="p">(</span><span class="n">translation_filter_options_</span><span class="p">,</span>
+                                           <span class="n">orientations_</span><span class="p">,</span>
+                                           <span class="n">view_graph_</span><span class="p">);</span>
+   <span class="p">}</span>
+   <span class="c1">// 从估计中删除任何不连接的视图</span>
+   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="o">&gt;</span> <span class="n">removed_views</span> <span class="o">=</span>
+      <span class="n">RemoveDisconnectedViewPairs</span><span class="p">(</span><span class="n">view_graph_</span><span class="p">);</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="n">ViewId</span> <span class="nl">removed_view</span> <span class="p">:</span> <span class="n">removed_views</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">orientations_</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">removed_view</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="extractmaximallyparallelrigidsubgraph">
+<h4>ExtractMaximallyParallelRigidSubgraph<a class="headerlink" href="#extractmaximallyparallelrigidsubgraph" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>根据已知的相机方向和相对平移测量，提取子图的最大平行刚性分量。</p>
+<p>给定一组相对平移，刚性组件是一个适定的子图，以便可以恢复全局节点位置。</p>
+<p>对于相对平移，这基本上意味着节点上存在三角约束。</p>
+<p>任何相对于刚性组件自由移动（缩放或平移）的节点都不是刚性组件的一部分。</p>
+<p>该方法的目标是提取最大的刚性分量，以便可以获得用于全局位置估计的well-posed graph。</p>
+<p>《Identifying Maximal Rigid Components in Bearing-Based Localization》</p>
+<p>《Robust Camera Location Estimation by Convex Programming》</p>
+<dl class="cpp function">
+<dt id="_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph">
+<span id="_CPPv337ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="_CPPv237ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="ExtractMaximallyParallelRigidSubgraph__std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewGraphP"></span>void <code class="sig-name descname">ExtractMaximallyParallelRigidSubgraph</code><span class="sig-paren">(</span><em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ExtractMaximallyParallelRigidSubgraph</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;&amp;</span> <span class="n">orientations</span><span class="p">,</span>
+    <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// 为线性系统创建索引到 ViewId 的映射</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">ViewId</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">view_ids_to_index</span><span class="p">;</span>
+   <span class="n">view_ids_to_index</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">orientations</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">orientation</span> <span class="p">:</span> <span class="n">orientations</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">HasView</span><span class="p">(</span><span class="n">orientation</span><span class="p">.</span><span class="n">first</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">const</span> <span class="kt">int</span> <span class="n">current_index</span> <span class="o">=</span> <span class="n">view_ids_to_index</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+      <span class="n">InsertIfNotPresent</span><span class="p">(</span><span class="o">&amp;</span><span class="n">view_ids_to_index</span><span class="p">,</span> <span class="n">orientation</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">current_index</span><span class="p">);</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 从以下形式形成全局角度测量矩阵：</span>
+   <span class="c1">//    t_{i,j} x (c_j - c_i) = 0.</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">angle_measurements</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">NumEdges</span><span class="p">(),</span>
+                                     <span class="mi">3</span> <span class="o">*</span> <span class="n">orientations</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+   <span class="n">FormAngleMeasurementMatrix</span><span class="p">(</span><span class="n">orientations</span><span class="p">,</span>
+                             <span class="o">*</span><span class="n">view_graph</span><span class="p">,</span>
+                             <span class="n">view_ids_to_index</span><span class="p">,</span>
+                             <span class="o">&amp;</span><span class="n">angle_measurements</span><span class="p">);</span>
+
+   <span class="c1">// 提取角度测量矩阵的零空间</span>
+   <span class="n">Eigen</span><span class="o">::</span><span class="n">FullPivLU</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span><span class="o">&gt;</span> <span class="n">lu</span><span class="p">(</span><span class="n">angle_measurements</span><span class="p">.</span><span class="n">transpose</span><span class="p">()</span> <span class="o">*</span>
+                                       <span class="n">angle_measurements</span><span class="p">);</span>
+   <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">MatrixXd</span> <span class="n">null_space</span> <span class="o">=</span> <span class="n">lu</span><span class="p">.</span><span class="n">kernel</span><span class="p">();</span>
+
+   <span class="c1">// 对于图中的每个节点（即每个相机），将零空间分量设置为零，以便相机位置固定在原点。 如果两个节点 i 和 j 在同一个刚体组件中，那么它们的零空间将是平行的，因为相机位置可能只改变一个比例。</span>
+
+   <span class="c1">// 找到所有平行的组件来找到刚性组件。 这种分量中最大的是图的最大平行刚性分量</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maximal_rigid_component</span><span class="p">;</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">orientations</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp_cc</span><span class="p">;</span>
+      <span class="n">FindMaximalParallelRigidComponent</span><span class="p">(</span><span class="n">null_space</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">temp_cc</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">temp_cc</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">maximal_rigid_component</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">temp_cc</span><span class="p">,</span> <span class="n">maximal_rigid_component</span><span class="p">);</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 只将节点保持在最大平行刚性组件中</span>
+   <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">orientation</span> <span class="p">:</span> <span class="n">orientations</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">FindOrDie</span><span class="p">(</span><span class="n">view_ids_to_index</span><span class="p">,</span> <span class="n">orientation</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+      <span class="c1">// 如果视图不在最大刚性组件中，则将其从视图图中删除</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">maximal_rigid_component</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+         <span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">HasView</span><span class="p">(</span><span class="n">orientation</span><span class="p">.</span><span class="n">first</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">CHECK</span><span class="p">(</span><span class="n">view_graph</span><span class="o">-&gt;</span><span class="n">RemoveView</span><span class="p">(</span><span class="n">orientation</span><span class="p">.</span><span class="n">first</span><span class="p">))</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot;Could not remove view id &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">orientation</span><span class="p">.</span><span class="n">first</span>
+            <span class="o">&lt;&lt;</span> <span class="s">&quot; from the view graph because it does not exist.&quot;</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
 </div>
 </div>
 </div>

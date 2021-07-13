@@ -10,8 +10,11 @@
    Robust_Optimization/Robust_Optimization
    Rotation/Rotation
    BundleAdjustment/BundleAdjustment
+   MotionAveraging/MotionAveraging
 
 * :doc:`Structure from Motion <SfM/SfM>` |:fire:|
+
+* :doc:`Motion Averaging <MotionAveraging/MotionAveraging>` |:fire:|
 
 * :doc:`BundleAdjustment <BundleAdjustment/BundleAdjustment>` |:fire:|
 

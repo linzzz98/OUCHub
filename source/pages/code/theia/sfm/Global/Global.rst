@@ -1079,52 +1079,52 @@ ExtractMaximallyParallelRigidSubgraph
       void ExtractMaximallyParallelRigidSubgraph(
           const std::unordered_map<ViewId, Eigen::Vector3d>& orientations,
           ViewGraph* view_graph) {
-        // 为线性系统创建索引到 ViewId 的映射
-        std::unordered_map<ViewId, int> view_ids_to_index;
-        view_ids_to_index.reserve(orientations.size());
-        for (const auto& orientation : orientations) {
-          if (!view_graph->HasView(orientation.first)) {
-            continue;
-          }
-          const int current_index = view_ids_to_index.size();
-          InsertIfNotPresent(&view_ids_to_index, orientation.first, current_index);
-        }
+         // 为线性系统创建索引到 ViewId 的映射
+         std::unordered_map<ViewId, int> view_ids_to_index;
+         view_ids_to_index.reserve(orientations.size());
+         for (const auto& orientation : orientations) {
+            if (!view_graph->HasView(orientation.first)) {
+               continue;
+            }
+            const int current_index = view_ids_to_index.size();
+            InsertIfNotPresent(&view_ids_to_index, orientation.first, current_index);
+         }
 
-        // 从以下形式形成全局角度测量矩阵：
-        //    t_{i,j} x (c_j - c_i) = 0.
-        Eigen::MatrixXd angle_measurements(3 * view_graph->NumEdges(),
+         // 从以下形式形成全局角度测量矩阵：
+         //    t_{i,j} x (c_j - c_i) = 0.
+         Eigen::MatrixXd angle_measurements(3 * view_graph->NumEdges(),
                                            3 * orientations.size());
-        FormAngleMeasurementMatrix(orientations,
+         FormAngleMeasurementMatrix(orientations,
                                    *view_graph,
                                    view_ids_to_index,
                                    &angle_measurements);
 
-        // 提取角度测量矩阵的零空间
-        Eigen::FullPivLU<Eigen::MatrixXd> lu(angle_measurements.transpose() *
+         // 提取角度测量矩阵的零空间
+         Eigen::FullPivLU<Eigen::MatrixXd> lu(angle_measurements.transpose() *
                                              angle_measurements);
-        const Eigen::MatrixXd null_space = lu.kernel();
+         const Eigen::MatrixXd null_space = lu.kernel();
 
-        // 对于图中的每个节点（即每个相机），将零空间分量设置为零，以便相机位置固定在原点。 如果两个节点 i 和 j 在同一个刚体组件中，那么它们的零空间将是平行的，因为相机位置可能只改变一个比例。
+         // 对于图中的每个节点（即每个相机），将零空间分量设置为零，以便相机位置固定在原点。 如果两个节点 i 和 j 在同一个刚体组件中，那么它们的零空间将是平行的，因为相机位置可能只改变一个比例。
 
-        // 找到所有平行的组件来找到刚性组件。 这种分量中最大的是图的最大平行刚性分量
-        std::unordered_set<int> maximal_rigid_component;
-        for (int i = 0; i < orientations.size(); i++) {
-          std::unordered_set<int> temp_cc;
-          FindMaximalParallelRigidComponent(null_space, i, &temp_cc);
-          if (temp_cc.size() > maximal_rigid_component.size()) {
-            std::swap(temp_cc, maximal_rigid_component);
-          }
-        }
+         // 找到所有平行的组件来找到刚性组件。 这种分量中最大的是图的最大平行刚性分量
+         std::unordered_set<int> maximal_rigid_component;
+         for (int i = 0; i < orientations.size(); i++) {
+            std::unordered_set<int> temp_cc;
+            FindMaximalParallelRigidComponent(null_space, i, &temp_cc);
+            if (temp_cc.size() > maximal_rigid_component.size()) {
+               std::swap(temp_cc, maximal_rigid_component);
+            }
+         }
 
-        // 只将节点保持在最大平行刚性组件中
-        for (const auto& orientation : orientations) {
-          const int index = FindOrDie(view_ids_to_index, orientation.first);
-          // 如果视图不在最大刚性组件中，则将其从视图图中删除
-          if (!ContainsKey(maximal_rigid_component, index) &&
-              view_graph->HasView(orientation.first)) {
-            CHECK(view_graph->RemoveView(orientation.first))
-                << "Could not remove view id " << orientation.first
-                << " from the view graph because it does not exist.";
-          }
-        }
+         // 只将节点保持在最大平行刚性组件中
+         for (const auto& orientation : orientations) {
+            const int index = FindOrDie(view_ids_to_index, orientation.first);
+            // 如果视图不在最大刚性组件中，则将其从视图图中删除
+            if (!ContainsKey(maximal_rigid_component, index) &&
+               view_graph->HasView(orientation.first)) {
+               CHECK(view_graph->RemoveView(orientation.first))
+                  << "Could not remove view id " << orientation.first
+                  << " from the view graph because it does not exist.";
+            }
+         }
       }
