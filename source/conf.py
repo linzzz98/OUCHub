@@ -63,7 +63,7 @@ language = 'zh_CN'
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
-html_logo = 'images/logo/logo_1.png'
+html_logo = 'images/logo/logo_2.png'
 
 
 # -- Options for HTML output -------------------------------------------------

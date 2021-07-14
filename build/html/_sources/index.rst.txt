@@ -6,16 +6,15 @@
 欢迎来到linzzz的学习库!
 ==================================
 
-.. figure:: images/index/tst.jpg
-    :alt: Sparse reconstruction of central Rome.
+.. figure:: images/index/cat.jpg
     :figclass: align-center
 
-    随便放个图片
+    占位符
 
 About
 -----
 
-OUC_B419_Linzzz代码论文小仓库，随缘更新。
+OUC_B419_Linzzz代码论文仓库。
 
 .. attention::
    git add .
