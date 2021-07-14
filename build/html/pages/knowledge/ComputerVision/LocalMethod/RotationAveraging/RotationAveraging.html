@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6. Rotation Averaging &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="prev" title="5. Motion Averaging" href="../MotionAveraging/MotionAveraging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BundleAdjustment/BundleAdjustment.html">4. Bundle Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MotionAveraging/MotionAveraging.html">5. Motion Averaging</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6. Rotation Averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">6.1. 李群和李代数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>Rotation Averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/RotationAveraging/RotationAveraging.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rotation-averaging">
+<h1><span class="section-number">6. </span>Rotation Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2><span class="section-number">6.1. </span>李群和李代数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">群</dt>
+<dd class="field-odd"><p>群是一种集合加上一种运算的代数结构，记为 <span class="math notranslate nohighlight">\((G,·)\)</span> 。  <span class="math notranslate nohighlight">\(G\)</span> 是集合， <span class="math notranslate nohighlight">\(·\)</span> 为该集合上的二元运算，这个运算需要满足以下性质：</p>
+<ul class="simple">
+<li><p>封闭性： <span class="math notranslate nohighlight">\(\forall a_1,a_2 \in A, a_1 · a_2 \in A\)</span></p></li>
+<li><p>结合性： <span class="math notranslate nohighlight">\(\forall a_1,a_2,a_3, (a_1 · a_2)·a_3 = a_1(a_2 · a_3)\)</span></p></li>
+<li><p>幺元：  <span class="math notranslate nohighlight">\(\exists a_0 \in A,~~s.t. \forall a \in A, a_0 · a = a · a_0 = a\)</span></p></li>
+<li><p>逆：   <span class="math notranslate nohighlight">\(\forall a \in A, \exists a^{-1} \in A, ~~s.t. a · a^{-1} = a_0\)</span></p></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../MotionAveraging/MotionAveraging.html" class="btn btn-neutral float-left" title="5. Motion Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

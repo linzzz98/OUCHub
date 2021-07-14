@@ -1,7 +1,7 @@
 EPnP
 =====
 
-EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D-3D对应关系。
+EPNP求解器，用于解决PNP(Perspective-n-Point)问题。 求解器至少需要4个2D-3D对应关系（对于共面的情况只需要3对）。
 
 .. parsed-literal::
 
@@ -63,7 +63,7 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
 
    p_i^c = [R~~~t] \left[
    \begin{matrix}
-   c_j^w \\ 1
+   p_j^w \\ 1
    \end{matrix}
    \right] = [R~~~t] \left[
    \begin{matrix}
@@ -89,9 +89,8 @@ EPnP算法将参考点的坐标表示为控制点坐标的加权和：
    在上述推导过程中，用到了EPnP对权重 :math:`\alpha_{ij}` 的重要约束条件 :math:`\sum\limits_{j=1}^4 \alpha_{ij} = 1`
 
 .. attention::
-   为什么3个控制点不行呢？
 
-   四个方程，三个未知数，是一个超定方程组。不存在精确满足方程的解。
+   注意：在上面的推导中不难发现，同一3D点在世界坐标系下的 **齐次重心坐标** 与其在相机坐标系下的相同。这意味着，可以预先在世界坐标系下求取齐次重心坐标的 :math:`a_{ij}` ，然后将其作为已知量拿到相机坐标系下使用。
 
 .. important::
 
@@ -311,7 +310,8 @@ ChooseControlPoints
 
     上述操作实际上是找到点云的重心，以及点云的三个主方向。`主成分分析(PCA) <https://en.wikipedia.org/wiki/Principal_component_analysis>`_
 
-
+    .. figure:: 0.jpg
+       :figclass: align-center
 
     到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  :math:`c_j` ，每一个3D点的坐标  :math:`\alpha_{ij}`  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  :math:`[R|t]` 。
 
@@ -399,7 +399,6 @@ ComputeBarycentricCoordinates
          \end{matrix}
          \right]\\\\
          \alpha_{i1} &=& 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4} \\\\
-         p_i &=& \sum\limits_{j = 1}^4 \alpha_{ij} - c_j
          \end{eqnarray}
 
       .. code-block:: cpp
@@ -448,7 +447,7 @@ ComputeM
          \end{matrix}
          \right] = Kp_i^c = K \sum\limits_{j=1}^4 \alpha_{ij} c_j^c
 
-      用 :math:`c_j^c = [x_j^c, y_j^c, z_j^c]^T` 带入上式，而且把 :math:`K` ：
+      用 :math:`c_j^c = [x_j^c, y_j^c, z_j^c]^T` 带入上式，把 :math:`K` 展开：
 
       .. math::
 
@@ -480,6 +479,12 @@ ComputeM
       .. math::
 
          Mx = 0
+
+      已知变量： 控制参数 :math:`a_{ij}` ，相机内参数 :math:`f_x, f_y, c_x, c_y` ，  2D点坐标 :math:`u_i,v_i`
+
+      未知变量： 4个控制点在相机坐标系下的坐标 :math:`x_j^c, y_j^c, z_j^c`
+
+      因此  :math:`x` 是待求的12个位置参数， :math:`M` 的大小为 :math:`2n \times 12` ， :math:`Mx = 0` 的解即为 :math:`M` 的零空间。
 
       .. tip::
 
@@ -557,8 +562,6 @@ ComputeL6x10
       }
 
    .. note::
-
-      比较让人迷惑的就是L6x10这个函数的含义，通过查阅资料对该函数有了大致的理解。
 
       由于控制点 :math:`c_i` 之间的距离是不随着坐标系的改变而改变的，因此有
 
@@ -680,8 +683,11 @@ ComputeL6x10
 
          其中 :math:`\{a',b',c',d'\}` 是  :math:`\{a,b,c,d\}` 的一个排列。这样就可以减少未知数的个数。例如：
 
-         例如：求出了 :math:`\beta_{11},\beta_{12},\beta_{13}` 那么就可以得到 :math:`\beta{23} = \frac{\beta_{12}\beta_{13}}{\beta_{11}}` ，这样就可以求出 :math:`\{beta_{ij}\}_{i,j = 1,...,N}` 了
+         例如：求出了 :math:`\beta_{11},\beta_{12},\beta_{13}` 那么就可以得到 :math:`\beta_{23} = \frac{\beta_{12}\beta_{13}}{\beta_{11}}` ，这样就可以求出 :math:`\{\beta_{ij}\}_{i,j = 1,...,N}` 了
 
+         .. attention::
+
+            注意：此时\beta 是 :math:`6 \times 10` 的（ :math:`\beta_{11} ··· \beta{44}` ），由于 :math:`\rho` 必须是 :math:`6\times 1` 因此 :math:`L` 的大小为 :math:`6 \times 10` 也就是代码中的 :math:`L6x10`
 
    .. note::
 
@@ -1047,7 +1053,7 @@ RunGaussNewton
 
       Error(\beta) = \sum\limits_{(i,j)~s.t.~i < j} (\sum\limits_{k=1}^4 || \beta_k v_k^{[i]} - \beta_k v_k^{[j]} ||^2 - ||c_i^w - c_j^w||^2)
 
-   高斯牛顿法在此不具体介绍了，会另开一个专题。 主要是要通过偏差对 :math:`\beta_1,\beta_2,\beta_3,\beta_4` 进行求导，这是数对矩阵的求导。
+   高斯牛顿法主要是要通过偏差对 :math:`\beta_1,\beta_2,\beta_3,\beta_4` 进行求导，这是数对矩阵的求导。
 
    .. math::
 

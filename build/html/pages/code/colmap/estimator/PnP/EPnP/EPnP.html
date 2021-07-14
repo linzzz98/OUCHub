@@ -231,7 +231,7 @@
             
   <div class="section" id="epnp">
 <h1>EPnP<a class="headerlink" href="#epnp" title="永久链接至标题">¶</a></h1>
-<p>EPNP求解器，用于解决PNP(透视N点)问题。 求解器至少需要4个2D-3D对应关系。</p>
+<p>EPNP求解器，用于解决PNP(Perspective-n-Point)问题。 求解器至少需要4个2D-3D对应关系（对于共面的情况只需要3对）。</p>
 <pre class="literal-block"><a class="reference external" href="http://www.iri.upc.edu/people/fmoreno/Publications/2009/pdf/Lepetit_ijcv2009.pdf">Epnp: An accurate o (n) solution to the pnp problem</a></pre>
 <div class="section" id="id1">
 <h2>论文解读<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
@@ -281,7 +281,7 @@ c_j^w \\ 1
 <div class="math notranslate nohighlight">
 \[\begin{split}p_i^c = [R~~~t] \left[
 \begin{matrix}
-c_j^w \\ 1
+p_j^w \\ 1
 \end{matrix}
 \right] = [R~~~t] \left[
 \begin{matrix}
@@ -305,8 +305,7 @@ c_j^w \\ 1
 </div>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
-<p>为什么3个控制点不行呢？</p>
-<p>四个方程，三个未知数，是一个超定方程组。不存在精确满足方程的解。</p>
+<p>注意：在上面的推导中不难发现，同一3D点在世界坐标系下的 <strong>齐次重心坐标</strong> 与其在相机坐标系下的相同。这意味着，可以预先在世界坐标系下求取齐次重心坐标的 <span class="math notranslate nohighlight">\(a_{ij}\)</span> ，然后将其作为已知量拿到相机坐标系下使用。</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -517,6 +516,9 @@ c_3^w = c_1^w + \sqrt{ \frac{\lambda_2}{n} } v_2 \\
 c_4^w = c_1^w + \sqrt{ \frac{\lambda_3}{n} } v_3 \\
 \end{cases}\end{split}\]</div>
 <p>上述操作实际上是找到点云的重心，以及点云的三个主方向。<a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">主成分分析(PCA)</a></p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/0.jpg" src="../../../../../../_images/0.jpg" />
+</div>
 <p>到目前为止，已知可以知道4个控制点在世界坐标系下的坐标  <span class="math notranslate nohighlight">\(c_j\)</span> ，每一个3D点的坐标  <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span>  。如果能把4个控制点在相机坐标系下的坐标求解出来，就可以计算出3D点在相机坐标系下的坐标，就可以求解出外参数  <span class="math notranslate nohighlight">\([R|t]\)</span> 。</p>
 </div>
 </div>
@@ -596,7 +598,6 @@ p_{ix}^w - c_{ix}^w\\p_{iy}^w - c_{iy}^w\\p_{iz}^w - c_{iz}^w
 \end{matrix}
 \right]\\\\
 \alpha_{i1} &amp;=&amp; 1 - \alpha_{i2} - \alpha_{i3} - \alpha_{i4} \\\\
-p_i &amp;=&amp; \sum\limits_{j = 1}^4 \alpha_{ij} - c_j
 \end{eqnarray}\end{split}\]</div>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">alphas_</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">points2D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">());</span>
 <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">points3D_</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
@@ -641,7 +642,7 @@ p_i &amp;=&amp; \sum\limits_{j = 1}^4 \alpha_{ij} - c_j
 u_i\\1
 \end{matrix}
 \right] = Kp_i^c = K \sum\limits_{j=1}^4 \alpha_{ij} c_j^c\end{split}\]</div>
-<p>用 <span class="math notranslate nohighlight">\(c_j^c = [x_j^c, y_j^c, z_j^c]^T\)</span> 带入上式，而且把 <span class="math notranslate nohighlight">\(K\)</span> ：</p>
+<p>用 <span class="math notranslate nohighlight">\(c_j^c = [x_j^c, y_j^c, z_j^c]^T\)</span> 带入上式，把 <span class="math notranslate nohighlight">\(K\)</span> 展开：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\forall i, w_i \left[
 \begin{matrix}
@@ -665,6 +666,9 @@ x_j^c\\ y_j^c \\ z_j^c
 <p>把所有 <span class="math notranslate nohighlight">\(n\)</span> 个点串联起来，我们可以得到一个线性方程组：</p>
 <div class="math notranslate nohighlight">
 \[Mx = 0\]</div>
+<p>已知变量： 控制参数 <span class="math notranslate nohighlight">\(a_{ij}\)</span> ，相机内参数 <span class="math notranslate nohighlight">\(f_x, f_y, c_x, c_y\)</span> ，  2D点坐标 <span class="math notranslate nohighlight">\(u_i,v_i\)</span></p>
+<p>未知变量： 4个控制点在相机坐标系下的坐标 <span class="math notranslate nohighlight">\(x_j^c, y_j^c, z_j^c\)</span></p>
+<p>因此  <span class="math notranslate nohighlight">\(x\)</span> 是待求的12个位置参数， <span class="math notranslate nohighlight">\(M\)</span> 的大小为 <span class="math notranslate nohighlight">\(2n \times 12\)</span> ， <span class="math notranslate nohighlight">\(Mx = 0\)</span> 的解即为 <span class="math notranslate nohighlight">\(M\)</span> 的零空间。</p>
 <div class="admonition tip">
 <p class="admonition-title">小技巧</p>
 <p>直接对 <span class="math notranslate nohighlight">\(Mx = 0\)</span> 使用SVD分解，其复杂度为 <span class="math notranslate nohighlight">\(O(n^3)\)</span></p>
@@ -736,7 +740,6 @@ x_j^c\\ y_j^c \\ z_j^c
 </div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>比较让人迷惑的就是L6x10这个函数的含义，通过查阅资料对该函数有了大致的理解。</p>
 <p>由于控制点 <span class="math notranslate nohighlight">\(c_i\)</span> 之间的距离是不随着坐标系的改变而改变的，因此有</p>
 <div class="math notranslate nohighlight">
 \[||c_i^c - c_j^c||^2 = ||c_i^w - c_j^w||^2\]</div>
@@ -816,7 +819,11 @@ x_j^c\\ y_j^c \\ z_j^c
 <li><p><span class="math notranslate nohighlight">\(N = 4\)</span> 时，未知数的个数多于方程的个数</p>
 <p>论文中提到， <span class="math notranslate nohighlight">\(\beta_{ab}\beta_{cd} = \beta_{a}\beta_{b}\beta_{c}\beta_{d} = \beta_{a'b'}\beta_{c'd'}\)</span></p>
 <p>其中 <span class="math notranslate nohighlight">\(\{a',b',c',d'\}\)</span> 是  <span class="math notranslate nohighlight">\(\{a,b,c,d\}\)</span> 的一个排列。这样就可以减少未知数的个数。例如：</p>
-<p>例如：求出了 <span class="math notranslate nohighlight">\(\beta_{11},\beta_{12},\beta_{13}\)</span> 那么就可以得到 <span class="math notranslate nohighlight">\(\beta{23} = \frac{\beta_{12}\beta_{13}}{\beta_{11}}\)</span> ，这样就可以求出 <span class="math notranslate nohighlight">\(\{beta_{ij}\}_{i,j = 1,...,N}\)</span> 了</p>
+<p>例如：求出了 <span class="math notranslate nohighlight">\(\beta_{11},\beta_{12},\beta_{13}\)</span> 那么就可以得到 <span class="math notranslate nohighlight">\(\beta_{23} = \frac{\beta_{12}\beta_{13}}{\beta_{11}}\)</span> ，这样就可以求出 <span class="math notranslate nohighlight">\(\{\beta_{ij}\}_{i,j = 1,...,N}\)</span> 了</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>注意：此时beta 是 <span class="math notranslate nohighlight">\(6 \times 10\)</span> 的（ <span class="math notranslate nohighlight">\(\beta_{11} ··· \beta{44}\)</span> ），由于 <span class="math notranslate nohighlight">\(\rho\)</span> 必须是 <span class="math notranslate nohighlight">\(6\times 1\)</span> 因此 <span class="math notranslate nohighlight">\(L\)</span> 的大小为 <span class="math notranslate nohighlight">\(6 \times 10\)</span> 也就是代码中的 <span class="math notranslate nohighlight">\(L6x10\)</span></p>
+</div>
 </li>
 </ul>
 </div>
@@ -1159,7 +1166,7 @@ dv[i][3] = v_i^{[2]} - v_i^{[3]}~~~~~~~~dv[i][4] = v_i^{[2]} - v_i^{[4]}~~~~~~~~
 \[\Downarrow\]</div>
 <div class="math notranslate nohighlight">
 \[Error(\beta) = \sum\limits_{(i,j)~s.t.~i &lt; j} (\sum\limits_{k=1}^4 || \beta_k v_k^{[i]} - \beta_k v_k^{[j]} ||^2 - ||c_i^w - c_j^w||^2)\]</div>
-<p>高斯牛顿法在此不具体介绍了，会另开一个专题。 主要是要通过偏差对 <span class="math notranslate nohighlight">\(\beta_1,\beta_2,\beta_3,\beta_4\)</span> 进行求导，这是数对矩阵的求导。</p>
+<p>高斯牛顿法主要是要通过偏差对 <span class="math notranslate nohighlight">\(\beta_1,\beta_2,\beta_3,\beta_4\)</span> 进行求导，这是数对矩阵的求导。</p>
 <div class="math notranslate nohighlight">
 \[Error(\beta_0 + \Delta \beta) = Error(\beta_0) + Error'(\beta) \Delta \beta = 0\]</div>
 <p>从而有等式：</p>

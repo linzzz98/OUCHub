@@ -249,6 +249,8 @@
 </div>
 </dd>
 </dl>
+<p>在这种平均相对旋转的方法中，对于 <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> 中的所有边，观测值 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与当前估计的相对旋转（全局估计） <span class="math notranslate nohighlight">\(R_jR_i^{-1}\)</span> 之间的差异，在李代数中被平均。</p>
+<p>在平均估计之后，通过指数映射将李代数更新映射回旋转群来更新单个旋转。 可以进一步注意到，在李代数求平均之后，用于更新单个旋转的指数映射确保在每个点上，估计都在旋转流形上，即该算法为全局旋转提供了内在估计 <span class="math notranslate nohighlight">\(R_{global}\)</span> 。 我们还注意到，在实践中，任何相机的旋转都固定为 I，以消除 Rglobal 的规范自由度。</p>
 <div class="section" id="rotation-averaging">
 <h2><span class="section-number">16.1. </span>Rotation  Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h2>
 <p>如果特定的相对旋转是异常值，那么李代数中的 l2 平均值将导致错误的旋转估计。</p>
