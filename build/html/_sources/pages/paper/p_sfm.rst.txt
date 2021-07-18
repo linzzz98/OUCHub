@@ -18,7 +18,9 @@
    sfm/DeepLearning/DeepSfM/DeepSfM
    sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM
    sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM
-   sfm/LocalMethod/Global/GlobalSfMSA/GlobalSfMSA
+   sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA
+   sfm/LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application
+   sfm/LocalMethod/Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph
    sfm/CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation
    sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph
    sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging
@@ -35,8 +37,11 @@
 |:star:| \ **全局式SfM(Global Structure-from-Motion)**\
 
 * :doc:`[ICCV 2015] Optimizing the Viewing Graph for Structure-from-Motion Chris <sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph>`
-* :doc:`[ICCV 2015] Global Structure-from-Motion by Similarity Averaging <sfm/LocalMethod/Global/GlobalSfMSA/GlobalSfMSA>`
+* :doc:`[ICCV 2015] Global Structure-from-Motion by Similarity Averaging <sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA>`
+* :doc:`[2017.doc] Global Structure-from-Motion by Similarity Averaging <sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA>`
 * :doc:`[CVPR 2018] Very Large-Scale Global SfM by Distributed Motion Averaging <sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM>`
+* :doc:`[CVPR 2021] Efﬁcient Initial Pose-graph Generation for Global SfM <sfm/LocalMethod/Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph>`
+
 
 |:star:| \ **混合式SfM(Hybrid Structure-from-Motion)**\
 
