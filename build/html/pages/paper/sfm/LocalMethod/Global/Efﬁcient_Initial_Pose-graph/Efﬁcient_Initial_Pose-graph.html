@@ -290,6 +290,26 @@
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/66.jpg" src="../../../../../../_images/66.jpg" />
 </div>
+<p>每当发现一个新的walk <span class="math notranslate nohighlight">\(\mathcal{W}\)</span>phi(mathcal{W})` 和源图像和目标图像之间的对应关系 <span class="math notranslate nohighlight">\(v_s\)</span> 和 <span class="math notranslate nohighlight">\(v_d\)</span> 分别计算出它的inlier ratio。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/73.jpg" src="../../../../../../_images/73.jpg" />
+</div>
+<dl class="field-list">
+<dt class="field-odd">Termination</dt>
+<dd class="field-odd"><p>有两种情况下 寻找和测试行的程序终止。</p>
+<ol class="arabic simple">
+<li><p>当在最大距离内找不到更多walk时，该过程结束。</p></li>
+<li><p>如果找到了相当好的位姿 <span class="math notranslate nohighlight">\(P\)</span> ，则过程终止。 如果至少具有  <span class="math notranslate nohighlight">\(I_{min}\)</span> 个内点，则认为该相对位姿good。</p></li>
+</ol>
+</dd>
+<dt class="field-even">Pose refinement</dt>
+<dd class="field-even"><p>如果从其中一次walk中成功获得位姿，则仅从位姿图 <span class="math notranslate nohighlight">\(G_t\)</span> 的边缘计算，而不考虑图像 <span class="math notranslate nohighlight">\(v_s\)</span> 和 <span class="math notranslate nohighlight">\(v_d\)</span> 之间的对应关系。</p>
+<p>为了提高精度并获得 <span class="math notranslate nohighlight">\(P^{*}\)</span> ，应用由新估计模型 <span class="math notranslate nohighlight">\(P\)</span> 初始化的迭代重新加权最小二乘拟合。</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E}_{t+1} = \mathcal{E}_t \cup \{e = (v_s,v_d)\}\]</div>
+<p>并且 <span class="math notranslate nohighlight">\(\phi(e) = P^{*}\)</span></p>
+</dd>
+</dl>
 </div>
 </div>
 

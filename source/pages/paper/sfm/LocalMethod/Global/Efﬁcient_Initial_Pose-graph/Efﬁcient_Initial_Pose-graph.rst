@@ -98,3 +98,28 @@ Relative Pose from Directed  Walks
 
 .. figure:: 6.jpg
    :figclass: align-center
+
+每当发现一个新的walk :math:`\mathcal{W}`时，从位姿  :math:`\phi(\mathcal{W})` 和源图像和目标图像之间的对应关系 :math:`v_s` 和 :math:`v_d` 分别计算出它的inlier ratio。
+
+.. figure:: 7.jpg
+   :figclass: align-center
+
+:Termination:
+
+   有两种情况下 寻找和测试行的程序终止。
+
+   1. 当在最大距离内找不到更多walk时，该过程结束。
+
+   2. 如果找到了相当好的位姿 :math:`P` ，则过程终止。 如果至少具有  :math:`I_{min}` 个内点，则认为该相对位姿good。
+
+:Pose refinement:
+
+   如果从其中一次walk中成功获得位姿，则仅从位姿图 :math:`G_t` 的边缘计算，而不考虑图像 :math:`v_s` 和 :math:`v_d` 之间的对应关系。
+
+   为了提高精度并获得 :math:`P^{*}` ，应用由新估计模型 :math:`P` 初始化的迭代重新加权最小二乘拟合。
+
+   .. math::
+
+      \mathcal{E}_{t+1} = \mathcal{E}_t \cup \{e = (v_s,v_d)\}
+
+   并且 :math:`\phi(e) = P^{*}`
