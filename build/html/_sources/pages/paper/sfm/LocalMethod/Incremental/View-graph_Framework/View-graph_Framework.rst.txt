@@ -137,7 +137,7 @@ Local registration
 
 .. math::
 
-   \theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2}
+   \theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2})
 
 两个归一化相对平移之间的距离定义为：
 
@@ -148,5 +148,11 @@ Local registration
 在 RANSAC 的迭代过程中，代价函数被定义为相对几何误差，即当相对旋转和平移误差都很小时，当前的相对几何被认为是一个内点。 与最大数量的估计一致的最佳相对几何被视为最终估计的相对几何。
 
 .. figure:: 5.jpg
+   :figclass: align-center
+
+Experiments
+-----------
+
+.. figure:: 6.jpg
    :figclass: align-center
 

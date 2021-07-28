@@ -117,6 +117,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#local-registration">4.2.2. Local registration</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">4.3. Experiments</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">5. HSfM: Hybrid Structure-from-Motion</a></li>
@@ -313,7 +314,7 @@
 <p>对于VMST中的每条边，如果所有的局部注册都是独立进行的，就会出现两个问题：一是有些边在局部多次生成； 另一个是某些边缘可能首先通过局部配准估计，然后再通过基本矩阵分解估计，反之亦然。</p>
 <p>考虑到冗余，对于每条边保留所有相对几何估计  <span class="math notranslate nohighlight">\(P_{ij} = \{\{R_{ij}^q, t_{ij}^q\}, q=1...Q\}\)</span> 并使用 RANSAC 技术找到最佳几何。 在估计过程中，两个相对旋转之间的距离定义为：</p>
 <div class="math notranslate nohighlight">
-\[\theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2}\]</div>
+\[\theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2})\]</div>
 <p>两个归一化相对平移之间的距离定义为：</p>
 <div class="math notranslate nohighlight">
 \[\theta_2 = acos(||t_{ij}^p - t_{ij}^q||^2)\]</div>
@@ -321,6 +322,12 @@
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/58.jpg" src="../../../../../../_images/58.jpg" />
 </div>
+</div>
+</div>
+<div class="section" id="experiments">
+<h2><span class="section-number">4.3. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/67.jpg" src="../../../../../../_images/67.jpg" />
 </div>
 </div>
 </div>

@@ -364,15 +364,15 @@ M
 <div class="math notranslate nohighlight">
 \[\mathop{min}\limits_{R_i,T_i} \sum\limits_{j=1}^M ||X_{ij} - \gamma(K_i,R_i,T_i,X_j)||_{huber}\]</div>
 <p>其中γ（∗）函数是相机投影函数。</p>
-<p>在优化之后，如果重新调整后的姿势与初始姿势之间的偏差不大，我们认为优化是可靠的；
+<p>在优化之后，如果重新调整后的姿势与初始姿势之间的偏差不大，认为优化是可靠的；
 否则，将忽略优化的相机姿态。</p>
-<p>由于inlier的确定通常使用一些经验值，例如最大重投影误差，因此在优化过程中可以将一些outliers视为inliers。(?????)</p>
+<p>由于inlier的确定通常使用一些经验值，例如最大重投影误差，因此在优化过程中可以将一些outliers视为inliers。</p>
 <p>例如，当大多数可见3D点远离相机时，相机的本地位置运动通常对重投影误差影响很小，因此相机位置的估计不稳定。
 此时，优化结果可能与初始估计有很大差异，并且很难区分哪个更正确。
 因此，在优化之前和之后产生的相机姿势的一致性可用于验证优化的可靠性。</p>
 <p><strong>Redundancy</strong></p>
 <p>对于每个局部重建，我们为每个可见摄像机执行本地配准，并获得相应的本地校准摄像机位姿。</p>
-<p>令H表示本地校准相机的数量；
+<p>令 <span class="math notranslate nohighlight">\(H\)</span> 表示本地校准相机的数量；
 校准后的相机姿态为<span class="math notranslate nohighlight">\(\{\{R_i,T_i\},i=1...H\}\)</span>。</p>
 <p>如果在匹配图中相机i和相机j之间存在一条边，那么相应的相对几何<span class="math notranslate nohighlight">\(\{R_{ij}，t_{ij}\}\)</span>计算为</p>
 <div class="math notranslate nohighlight">
