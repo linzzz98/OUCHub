@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>4. HSfM: Hybrid Structure-from-Motion &mdash; OUCHub  文档</title>
+  <title>5. HSfM: Hybrid Structure-from-Motion &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="5. A Global Linear Method for Camera Pose Registration" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" />
-    <link rel="prev" title="3. View-graph Selection Framework for SfM" href="../../Incremental/View-graph_SfM/View-graph_SfM.html" /> 
+    <link rel="next" title="6. A Global Linear Method for Camera Pose Registration" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" />
+    <link rel="prev" title="4. View-graph construction framework for robust and efficient structure-from-motion" href="../../Incremental/View-graph_Framework/View-graph_Framework.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -106,51 +106,54 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4. HSfM: Hybrid Structure-from-Motion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#abstract">4.1. Abstract</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">4.2. Introduction</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#contribution">4.2.1. Contribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. HSfM: Hybrid Structure-from-Motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">5.1. Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">5.2. Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#contribution">5.2.1. Contribution</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#related-work">4.3. Related Work</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#sfm">4.3.1. 增量式SFM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#related-work">5.3. Related Work</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sfm">5.3.1. 增量式SFM</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#global-sfm">4.4. Global SfM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#overview-of-hybrid-sfm">4.5. Overview of Hybrid SFM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#global-rotation-estimation">4.6. Global Rotation Estimation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">4.6.1. 社区发现</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">4.6.2. 旋转平均</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-sfm">5.4. Global SfM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview-of-hybrid-sfm">5.5. Overview of Hybrid SFM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-rotation-estimation">5.6. Global Rotation Estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">5.6.1. 社区发现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">5.6.2. 旋转平均</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#incremental-centers-estimation">4.7. Incremental Centers Estimation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id4">4.7.1. 初始相机选择和重建</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">4.7.2. 相机注册</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">4.7.3. 三角测量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">4.7.4. 优化相机中心和场景结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#incremental-centers-estimation">5.7. Incremental Centers Estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">5.7.1. 初始相机选择和重建</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">5.7.2. 相机注册</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">5.7.3. 三角测量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">5.7.4. 优化相机中心和场景结构</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#experiment">4.8. Experiment</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id8">4.8.1. 顺序图像数据评估</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">4.8.2. 无序图像数据评估</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiment">5.8. Experiment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">5.8.1. 顺序图像数据评估</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">5.8.2. 无序图像数据评估</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">5. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">6. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../View_Graph_Construction/View_Graph_Construction.html">7. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">8. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">9. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">10. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">11. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">12. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfMSA/GlobalSfMSA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">14. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">15. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">16. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">17. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">18. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">6. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">7. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View_Graph_Construction/View_Graph_Construction.html">8. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">9. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">10. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">13. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">14. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">15. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph.html">16. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">17. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">18. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">21. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
@@ -214,7 +217,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">4. </span>HSfM: Hybrid Structure-from-Motion</li>
+      <li><span class="section-number">5. </span>HSfM: Hybrid Structure-from-Motion</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -234,10 +237,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="hsfm-hybrid-structure-from-motion">
-<h1><span class="section-number">4. </span>HSfM: Hybrid Structure-from-Motion<a class="headerlink" href="#hsfm-hybrid-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">5. </span>HSfM: Hybrid Structure-from-Motion<a class="headerlink" href="#hsfm-hybrid-structure-from-motion" title="永久链接至标题">¶</a></h1>
 <p>👉 <a class="reference external" href="https://openaccess.thecvf.com/content_cvpr_2017/papers/Cui_HSfM_Hybrid_Structure-from-Motion_CVPR_2017_paper.pdf">原文链接</a></p>
 <div class="section" id="abstract">
-<h2><span class="section-number">4.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
 <p>为了估计初始的相机位姿，SFM方法可以被概括为增量式或全局式。</p>
 <p>虽然增量系统在鲁棒性和准确性方面都有所进步，在效率上仍是其主要的挑战。</p>
 <p>为了解决这个问题，全局重建系统通过对极几何图中同时估计所有相机的位姿，但它对外点很敏感。在这个工作里，我们提出了一个混合式sfm方法在统一的框架下解决效率，准确性和鲁棒性的问题。</p>
@@ -245,7 +248,7 @@
 <p>大量的实验表明，在计算效率方面，我们的混合方法的执行效果与许多最新的全局SfM方法相似或更好，同时与其他两种最新的状态相比，实现了相似的重构精度和鲁棒性渐进的SfM方法。</p>
 </div>
 <div class="section" id="introduction">
-<h2><span class="section-number">4.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
 <p>SFM技术是指通过一系列图片估计三维场景结构和相机位姿。它通常包含三个模块，特征提取和匹配，初始相机位姿估计和BA。根据初始相机姿势的估算方式不同，sfm可以被笼统的分为两类：增量式和全局式。</p>
 <p><strong>对于增量式方法</strong>，一种方法是选择一些种子图像进行初始重建，然后重复添加新图像。另一种方法是首先将图像聚集成原子模型，然后重建每个原子模型，然后逐步合并它们。</p>
 <p>可以说，增量方式是3D重建最流行的策略。然而，这种方法对初始种子模型重建和模型生成方式很敏感。</p>
@@ -258,7 +261,7 @@
 <p>对于位移平均，由于对极几何仅编码成对平移的方向(缺少尺度)，对于计算相机位置是很困难的。此外，位移估计对特征匹配的外点更加敏感。相比之下，增量式sfm受益于RANSAC方法，可以消除不良的几何形状。</p>
 <p>因此，我们期望使用增量式和全局式两者方法的优点。</p>
 <div class="section" id="contribution">
-<h3><span class="section-number">4.2.1. </span>Contribution<a class="headerlink" href="#contribution" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.2.1. </span>Contribution<a class="headerlink" href="#contribution" title="永久链接至标题">¶</a></h3>
 <ol class="arabic simple">
 <li><p>我们提出了一种新的混合SfM方法，以在统一框架中解决效率，鲁棒性和准确性问题。</p></li>
 <li><p>提出了一种基于社区的旋转平均方法，该方法同时考虑了EG的结构和成对几何的准确性。</p></li>
@@ -271,9 +274,9 @@ SFM，全局平均旋转降低了场景漂移的风险以及增量中心估计�
 </div>
 </div>
 <div class="section" id="related-work">
-<h2><span class="section-number">4.3. </span>Related Work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.3. </span>Related Work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
 <div class="section" id="sfm">
-<h3><span class="section-number">4.3.1. </span>增量式SFM<a class="headerlink" href="#sfm" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.3.1. </span>增量式SFM<a class="headerlink" href="#sfm" title="永久链接至标题">¶</a></h3>
 <p>一种重建场景的方法是从二或三张种子视图开始，然后逐步将新视图添加到系统中以初始化最终BA。这样的方法对种子选择标准很敏感，并且累积的错误可能会导致场景漂移。
 为了降低累积错误，VSFM和COLMAP都建议在图像添加过程中重新划分轨迹。</p>
 <p>另一种方法是先创建原子3D模型，然后合并不同的模型。这种分层方法对原子模型的选择和模型的增长方案很敏感。</p>
@@ -281,7 +284,7 @@ SFM，全局平均旋转降低了场景漂移的风险以及增量中心估计�
 </div>
 </div>
 <div class="section" id="global-sfm">
-<h2><span class="section-number">4.4. </span>Global SfM<a class="headerlink" href="#global-sfm" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.4. </span>Global SfM<a class="headerlink" href="#global-sfm" title="永久链接至标题">¶</a></h2>
 <p>全局式SFM方法同时估计所有相机的位姿，只使用BA一次。相机位姿估计过程主要包括两个部分：旋转平均和位移平均。</p>
 <p><strong>旋转平均：</strong></p>
 <p>旋转平均可以同时从成对的相对旋转估计所有摄像机旋转，这在许多文献中都得到了很好的研究。</p>
@@ -310,7 +313,7 @@ hard ? In ECCV, pages 255–270. Springer, 2016.</p></li>
 <p>另外，有些方法融合了辅助成像信息以获得相机中心。尽管它们高效且可扩展，但它们严重依赖于辅助信息。</p>
 </div>
 <div class="section" id="overview-of-hybrid-sfm">
-<h2><span class="section-number">4.5. </span>Overview of Hybrid SFM<a class="headerlink" href="#overview-of-hybrid-sfm" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.5. </span>Overview of Hybrid SFM<a class="headerlink" href="#overview-of-hybrid-sfm" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/18.png" src="../../../../../../_images/18.png" />
 </div>
@@ -332,14 +335,14 @@ convex programming. In CVPR, pages 2674–2683. IEEE, 2015.》
 <p>另外，位移估计对错误的特征匹配很敏感，因此在图中的第二个模块中，我们使用了一种增量方式，它可以从RANSAC方法中受益，以排除错误的特征匹配，从而估计摄像机的中心。当无法再添加摄像机时，将执行最终的BA，以完善所有摄像机的固有参数，摄像机的姿势和场景结构。</p>
 </div>
 <div class="section" id="global-rotation-estimation">
-<h2><span class="section-number">4.6. </span>Global Rotation Estimation<a class="headerlink" href="#global-rotation-estimation" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.6. </span>Global Rotation Estimation<a class="headerlink" href="#global-rotation-estimation" title="永久链接至标题">¶</a></h2>
 <p>对于顺序图像，连接通常均匀分布。</p>
 <p>但是对于无序图像，例如来自Internet的大量图像，摄像机的分布通常是不均匀的，例如
 感兴趣的地方通常会受到更多关注。结果是，如果场景中有许多感兴趣的建筑物，则建筑物之间的整体连接会变得稀疏，而每座建筑物的连接都更加密集。</p>
 <p>为了解决摄像机分布不均的问题，我们提出了一种受复杂网络分析技术启发的自动分组方法。
 然后，对每个社区执行旋转平均，然后执行对齐步骤以将它们融合为一个统一的坐标系。</p>
 <div class="section" id="id2">
-<h3><span class="section-number">4.6.1. </span>社区发现<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.6.1. </span>社区发现<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
 <p>社区发现已被广泛用于复杂网络分析，旨在将图分为内部密集连接和外部稀疏连接的组。</p>
 <p>令<span class="math notranslate nohighlight">\(A_{ij}\)</span>为对极几何图形(EG)相邻矩阵的元素。</p>
 <p>如果摄像机i和摄像机j之间存在边，则<span class="math notranslate nohighlight">\(A_{ij} = 1\)</span>，否则<span class="math notranslate nohighlight">\(A_{ij} = -1\)</span>。</p>
@@ -363,7 +366,7 @@ inliers)。</p>
 <p>否则，当<span class="math notranslate nohighlight">\(Q_{max} &lt;0.4\)</span>时，所有摄像机都被视为一个社区。</p>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">4.6.2. </span>旋转平均<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.6.2. </span>旋转平均<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>对于每个社区，《A. Chatterjee and V. M. Govindu. Efficient and robust
 large- scale rotation averaging. In ICCV, pages 521–528. IEEE,
 2013.》中提出的全局旋转平均方法用于旋转平均。结果是，每个社区的估计旋转都在不同的坐标系下。
@@ -381,11 +384,11 @@ large- scale rotation averaging. In ICCV, pages 521–528. IEEE,
 </div>
 </div>
 <div class="section" id="incremental-centers-estimation">
-<h2><span class="section-number">4.7. </span>Incremental Centers Estimation<a class="headerlink" href="#incremental-centers-estimation" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.7. </span>Incremental Centers Estimation<a class="headerlink" href="#incremental-centers-estimation" title="永久链接至标题">¶</a></h2>
 <p>一旦实现了每个摄像机的旋转，出于稳定性考虑，我们将以递增(Incremental)的方式估算摄像机的中心。随着估计过程的进行，场景结构也被重建。</p>
 <p>在接下来的内容中，我们介绍了三个约束条件，以便首先选择一对好的摄像机进行初始重建。然后，基于估计的场景结构和跨图像的轨迹之间的对应关系，通过修改后的BA来迭代估计和优化摄像机中心。</p>
 <div class="section" id="id4">
-<h3><span class="section-number">4.7.1. </span>初始相机选择和重建<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.7.1. </span>初始相机选择和重建<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <p>为了获得良好的初始重建效果，一对摄像机应满足三个约束：更多的特征匹配，更宽的基线和准确的摄像机姿势。</p>
 <p>EG中的所有边缘都可以视为我们最初选择相机对的候选对象。
 因此，我们通过用这三个约束标记每个边缘来增强EG。</p>
@@ -410,7 +413,7 @@ scheme)来选择初始摄像机对。我们认为摄像机的位姿精度首先�
 triangulated and refined)，该BA仅改善相机中心和当前重建的场景结构。</p>
 </div>
 <div class="section" id="id5">
-<h3><span class="section-number">4.7.2. </span>相机注册<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.7.2. </span>相机注册<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>基于已知的相机旋转，相机的中心可以仅仅通过两个场景点估计出来，原因是对于具有已知旋转及其两个场景点的摄像机，来自场景点的两条投影射线都穿过摄像机中心。</p>
 <p>例如：相机i和场景里的可见点<span class="math notranslate nohighlight">\(X_j = \{X_{jx},X_{jy},x_{jz}\}\)</span>及其对应的图像坐标<span class="math notranslate nohighlight">\(x_{ij}\)</span>，投影方程可以转换为</p>
 <div class="math notranslate nohighlight">
@@ -426,7 +429,7 @@ triangulated and refined)，该BA仅改善相机中心和当前重建的场景�
 <p>请注意，由于摄像机旋转是通过场景点估算的，因此它仍处于原始旋转坐标系中。</p>
 </div>
 <div class="section" id="id6">
-<h3><span class="section-number">4.7.3. </span>三角测量<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.7.3. </span>三角测量<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>在将一些新摄像机添加到SfM系统后，所有具有2个以上已校准摄像机的轨道均被三角测量。
 在这里，我们使用基于RANSAC的三角测量方法。
 对于每次迭代，我们随机选择两个可见的视图，然后检查两个投影射线之间的角度。如果该角度大于3度，则认为当前条件良好，并使用DLT方法进行三角剖分。然后，在获得场景点三角测量后，将同时检查其一致的测量次数和相应的视图cheirality
@@ -445,7 +448,7 @@ constraint一般可以用来判断匹配点对是否正确，并经常用于从�
 <p>对于每个轨道，我们找到具有最多一致测量值的最佳场景点。</p>
 </div>
 <div class="section" id="id7">
-<h3><span class="section-number">4.7.4. </span>优化相机中心和场景结构<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.7.4. </span>优化相机中心和场景结构<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
 <p>为了减少累积错误的影响，我们在每个摄像机添加和三角测量过程之后进行BA。</p>
 <p>为了解决潜在的异常值，我们的BA中将Huber函数用作损失函数。</p>
 <p>为了确保在相机添加过程中固定相机旋转坐标系，我们仅通过保持固有参数和相机旋转不变来微调相机中心并重建场景结构。
@@ -464,11 +467,11 @@ constraint一般可以用来判断匹配点对是否正确，并经常用于从�
 </div>
 </div>
 <div class="section" id="experiment">
-<h2><span class="section-number">4.8. </span>Experiment<a class="headerlink" href="#experiment" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.8. </span>Experiment<a class="headerlink" href="#experiment" title="永久链接至标题">¶</a></h2>
 <p>实验ceres
 solver进行BA调整，将用于内部判断的错误阈值<span class="math notranslate nohighlight">\(\gamma_1\)</span>设置为16个像素。</p>
 <div class="section" id="id8">
-<h3><span class="section-number">4.8.1. </span>顺序图像数据评估<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.8.1. </span>顺序图像数据评估<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 <p>许多全局式sfm方法会使用三约束同时估算初始相机位姿，因此它们对漂移误差具有鲁棒性，但是通常会留下一些未经校准的图像。</p>
 <p>增量SfM方法对异常值具有鲁棒性，并且不依赖于图像三元组，但是无法避免累积的错误。</p>
 <div class="align-center figure align-default">
@@ -483,7 +486,7 @@ solver进行BA调整，将用于内部判断的错误阈值<span class="math not
 <p>相比之下，我们的结果实现了闭环并且对共线摄像机运动有效。</p>
 </div>
 <div class="section" id="id9">
-<h3><span class="section-number">4.8.2. </span>无序图像数据评估<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.8.2. </span>无序图像数据评估<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 <p>为了演示我们的混合SfM</p>
 <p>我们使用数据集包含十二组中规模数据，两个大型数据：Piccadilly和Trafalgar，以及具有对称架构的具有挑战性的数据集Gendarmenmarkt。
 我们还在数据集Temple上进行测试，该数据集包含许多对称结构和场景中的树木。</p>
@@ -504,8 +507,8 @@ solver进行BA调整，将用于内部判断的错误阈值<span class="math not
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" class="btn btn-neutral float-right" title="5. A Global Linear Method for Camera Pose Registration" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../Incremental/View-graph_SfM/View-graph_SfM.html" class="btn btn-neutral float-left" title="3. View-graph Selection Framework for SfM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" class="btn btn-neutral float-right" title="6. A Global Linear Method for Camera Pose Registration" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../Incremental/View-graph_Framework/View-graph_Framework.html" class="btn btn-neutral float-left" title="4. View-graph construction framework for robust and efficient structure-from-motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>9. Unsupervised Learning of Depth and Ego-Motion from Video &mdash; OUCHub  文档</title>
+  <title>10. Unsupervised Learning of Depth and Ego-Motion from Video &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="10. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../DeepSfM/DeepSfM.html" />
-    <link rel="prev" title="8. An Effcient Solution to the Five-Point Relative Pose Problem" href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" /> 
+    <link rel="next" title="11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../DeepSfM/DeepSfM.html" />
+    <link rel="prev" title="9. An Effcient Solution to the Five-Point Relative Pose Problem" href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -106,27 +106,30 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">4. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">5. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">6. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">7. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">8. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">9. Unsupervised Learning of Depth and Ego-Motion from Video</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#view-synthesis-as-supervision">9.1. View synthesis as supervision</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#differentiable-depth-image-based-rendering">9.2. Differentiable depth image-based rendering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#modeling-the-model-limitation">9.3. Modeling the model limitation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#overcoming-the-gradient-locality">9.4. Overcoming the gradient locality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">5. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">6. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">7. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">8. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">9. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. Unsupervised Learning of Depth and Ego-Motion from Video</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#view-synthesis-as-supervision">10.1. View synthesis as supervision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#differentiable-depth-image-based-rendering">10.2. Differentiable depth image-based rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modeling-the-model-limitation">10.3. Modeling the model limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overcoming-the-gradient-locality">10.4. Overcoming the gradient locality</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../DeepSfM/DeepSfM.html">10. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">11. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">12. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfMSA/GlobalSfMSA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">14. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">15. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">16. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">17. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Lie_Averaging/Lie_Averaging.html">18. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DeepSfM/DeepSfM.html">11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">13. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">14. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">15. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph.html">16. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">17. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">18. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Lie_Averaging/Lie_Averaging.html">21. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
@@ -190,7 +193,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">9. </span>Unsupervised Learning of Depth and Ego-Motion from Video</li>
+      <li><span class="section-number">10. </span>Unsupervised Learning of Depth and Ego-Motion from Video</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,7 +213,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="unsupervised-learning-of-depth-and-ego-motion-from-video">
-<h1><span class="section-number">9. </span>Unsupervised Learning of Depth and Ego-Motion from Video<a class="headerlink" href="#unsupervised-learning-of-depth-and-ego-motion-from-video" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">10. </span>Unsupervised Learning of Depth and Ego-Motion from Video<a class="headerlink" href="#unsupervised-learning-of-depth-and-ego-motion-from-video" title="永久链接至标题">¶</a></h1>
 <p>本文提出了一种非监督的学习框架，采用端到端的学习方法，用于从非结构化视频序列进行单眼深度和摄像机运动估计的任务。</p>
 <p>该方法使用单视图深度估计和多视图位姿融合网络，其损失基于使用计算出的深度和位姿将附近的视图扭曲到目标上。</p>
 <div class="align-center figure align-default">
@@ -218,7 +221,7 @@
 </div>
 <p>作者提出一个框架，用于联合训练未标记的视频序列的单视角深度CNN网络和相机位姿估计CNN网络。假设场景是刚性的，即不同相机帧的场景外观变化主要由相机运动决定。</p>
 <div class="section" id="view-synthesis-as-supervision">
-<h2><span class="section-number">9.1. </span>View synthesis as supervision<a class="headerlink" href="#view-synthesis-as-supervision" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.1. </span>View synthesis as supervision<a class="headerlink" href="#view-synthesis-as-supervision" title="永久链接至标题">¶</a></h2>
 <p>本文将视觉合成作为深度和位姿估计的关键监督信息：给定一个场景的输入视图，合成从不同相机姿态看到的场景的新图像。</p>
 <p>给定该图像中每个像素的深度，加上附近视图的位姿和可见性，可以合成目标视图。</p>
 <div class="admonition note">
@@ -250,7 +253,7 @@
 <p>然后将两个网络的输出用于反扭曲源视图以重建目标视图，并使用光度重建损失来训练CNN。</p>
 </div>
 <div class="section" id="differentiable-depth-image-based-rendering">
-<h2><span class="section-number">9.2. </span>Differentiable depth image-based rendering<a class="headerlink" href="#differentiable-depth-image-based-rendering" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.2. </span>Differentiable depth image-based rendering<a class="headerlink" href="#differentiable-depth-image-based-rendering" title="永久链接至标题">¶</a></h2>
 <p>上一节的框架中重要的组成是基于深度图 <span class="math notranslate nohighlight">\(\hat{D_t}\)</span> 和 相对位姿 <span class="math notranslate nohighlight">\(\hat{T_s}\)</span> 对源视图 <span class="math notranslate nohighlight">\(I_s\)</span> 的像素采样后创建目标视图 <span class="math notranslate nohighlight">\(I_t\)</span> ，该方式是可微分的图像渲染。</p>
 <p>令 <span class="math notranslate nohighlight">\(p_t\)</span> 表示目标视图中像素的齐次坐标， <span class="math notranslate nohighlight">\(K\)</span> 表示相机的内参矩阵，可以通过以下方式获得 <span class="math notranslate nohighlight">\(p_t\)</span> 在源视图上的投影坐标 <span class="math notranslate nohighlight">\(p_s\)</span> ：</p>
 <div class="math notranslate nohighlight">
@@ -319,7 +322,7 @@ d_{c_2} * p_{c_2} = K * P_{c_2}\end{split}\]</div>
 </div>
 </div>
 <div class="section" id="modeling-the-model-limitation">
-<h2><span class="section-number">9.3. </span>Modeling the model limitation<a class="headerlink" href="#modeling-the-model-limitation" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.3. </span>Modeling the model limitation<a class="headerlink" href="#modeling-the-model-limitation" title="永久链接至标题">¶</a></h2>
 <p>单目视图需要以下假设：</p>
 <p>1）场景是静态的，没有运动的物体。</p>
 <p>2）在目标视图和源视图之间没有遮挡/离合的物体。</p>
@@ -332,7 +335,7 @@ d_{c_2} * p_{c_2} = K * P_{c_2}\end{split}\]</div>
 <p>为了解决这个问题，对 <span class="math notranslate nohighlight">\(\hat{E}_s\)</span> 加入正则项，使之成为 <span class="math notranslate nohighlight">\(\mathscr{L}_{reg}(\hat{E}_s)\)</span> ，它通过最小化交叉熵损失来实现非零预测。</p>
 </div>
 <div class="section" id="overcoming-the-gradient-locality">
-<h2><span class="section-number">9.4. </span>Overcoming the gradient locality<a class="headerlink" href="#overcoming-the-gradient-locality" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">10.4. </span>Overcoming the gradient locality<a class="headerlink" href="#overcoming-the-gradient-locality" title="永久链接至标题">¶</a></h2>
 <p>上面的学习管道的另一个问题是，梯度主要由 <span class="math notranslate nohighlight">\(I(p_t)\)</span> 和其四个邻域 <span class="math notranslate nohighlight">\(I(p_s)\)</span> 之间的像素强度差得到，
 如果 <span class="math notranslate nohighlight">\(p_s\)</span> 位于一个缺少纹理的区域或者当前估计不准确，则可能会训练失败。</p>
 <p>作者考虑了两个策略：</p>
@@ -348,8 +351,8 @@ d_{c_2} * p_{c_2} = K * P_{c_2}\end{split}\]</div>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../DeepSfM/DeepSfM.html" class="btn btn-neutral float-right" title="10. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" class="btn btn-neutral float-left" title="8. An Effcient Solution to the Five-Point Relative Pose Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../DeepSfM/DeepSfM.html" class="btn btn-neutral float-right" title="11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" class="btn btn-neutral float-left" title="9. An Effcient Solution to the Five-Point Relative Pose Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

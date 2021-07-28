@@ -9,6 +9,7 @@
    sfm/LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited
    sfm/LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion
    sfm/LocalMethod/Incremental/View-graph_SfM/View-graph_SfM
+   sfm/LocalMethod/Incremental/View-graph_Framework/View-graph_Framework
    sfm/LocalMethod/Hybrid/HSfM/HSfM
    sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
    sfm/CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation
@@ -33,6 +34,7 @@
 * :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
 * :doc:`[ECCV 2018] Improved Structure from Motion Using Fiducial Marker Matching <sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM>` |:fire:|
 * :doc:`[ECCV 2018] View-graph Selection Framework for SfM <sfm/LocalMethod/Incremental/View-graph_SfM/View-graph_SfM>` |:fire:|
+* :doc:`[PR 2020] View-graph construction framework for robust and efficient structure-from-motion <sfm/LocalMethod/Incremental/View-graph_Framework/View-graph_Framework>` |:fire:|
 
 |:star:| \ **全局式SfM(Global Structure-from-Motion)**\
 

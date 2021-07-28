@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>4. View-graph construction framework for robust and efficient structure-from-motion &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="5. HSfM: Hybrid Structure-from-Motion" href="../../Hybrid/HSfM/HSfM.html" />
+    <link rel="prev" title="3. View-graph Selection Framework for SfM" href="../View-graph_SfM/View-graph_SfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. View-graph construction framework for robust and efficient structure-from-motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#related-work">4.1. Related Work</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#view-graph-filtering">4.1.1. View-graph filtering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#view-graph-optimizing">4.1.2. View-graph optimizing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#view-graph-construction-algorithm">4.2. View-graph construction algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#construction-of-vmst">4.2.1. Construction of VMST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#local-registration">4.2.2. Local registration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">5. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">6. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">7. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">8. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">9. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">10. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">13. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">14. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">15. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph.html">16. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">17. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">18. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">21. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>View-graph construction framework for robust and efficient structure-from-motion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="view-graph-construction-framework-for-robust-and-efficient-structure-from-motion">
+<h1><span class="section-number">4. </span>View-graph construction framework for robust and efficient structure-from-motion<a class="headerlink" href="#view-graph-construction-framework-for-robust-and-efficient-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<p>传统的矩阵分解技术平等地对待视图图的所有边；因此，许多边缘异常值是在具有较少特征匹配的匹配对中产生的。为了解决这个问题，本文提出了一个用于视图图构建的增量框架，其中具有大量特征匹配的匹配对的鲁棒性被传播到它们的连接图像。给定成对特征匹配，首先构造经过验证的最大生成树（VMST）；对于 VMST 中的每条边，执行局部重建并注册其可见相机。基于局部重建，计算成对的相对几何形状并产生一些新的对极边缘。这样，这些新计算的边继承了 VMST 的鲁棒性和准确性，并通过将它们嵌入到 VMST 中，构建了新的视图图。</p>
+<p>SfM将视图图作为输入，传统方法使用所有特征匹配并独立计算成对几何来构建视图图。然而，不可避免的特征匹配的异常值通常会引起以下两个问题：</p>
+<ol class="arabic simple">
+<li><p>由于使用了所有特征匹配，冗余的边缘可能会引入许多错误的边缘。SfM 系统虽然可以通过通过几何验证来过滤匹配的异常值，但存在的重复纹理区域会形成错误的对极几何。同时传统方法使用一些经验策略来严格过滤错误边缘，而没有考虑视图图中相机的连接，因此无法保证场景重建的完整性。</p></li>
+<li><p>两视图对极几何通常是通过分解基本矩阵来产生的，这种方式对特征匹配异常值很敏感。尽管几何验证利用点到线约束来过滤远离极线的异常值，但无法识别位于极线附近的异常值。（增量式使用重复的局部BA，全局式使用平均旋转来进行解决）。但如果视图图中存在大量不正确的边，重建可能仍然失败。</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/128.jpg" src="../../../../../../_images/128.jpg" />
+</div>
+<p>本文提出的方法没有分解基本矩阵，而是利用局部重建来获得相对几何。 这种方式实际上利用了点对点的约束，可以有效地消除位于对极线附近的异常值。</p>
+<p>此外，本文提出的视图图是通过扩展种子图逐步构建的，这有助于解决歧义问题。 这种方式的核心思想基于以下考虑：对于匹配图中的每条边，几何验证后生成的匹配内点越多，这条边就越有可能是正确的。因此从具有尽可能多的内部匹配的边缘扩展来构建视图图。</p>
+<p>VMST 的构建同时考虑了重建的完整性和摄像机的连通性，并且通过局部注册，摄像机的连通性变得更加紧密。</p>
+<div class="section" id="related-work">
+<h2><span class="section-number">4.1. </span>Related Work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
+<p>视图图构建的最新方法通常利用矩阵分解技术来获得成对的相对几何形状。 由于视图图中存在许多错误的边，因此文献中的大多数工作都更多地关注三个方面：</p>
+<ol class="arabic simple">
+<li><p>如何过滤边缘异常值</p></li>
+<li><p>如何优化视图图</p></li>
+<li><p>如何找到最佳子图</p></li>
+</ol>
+<div class="section" id="view-graph-filtering">
+<h3><span class="section-number">4.1.1. </span>View-graph filtering<a class="headerlink" href="#view-graph-filtering" title="永久链接至标题">¶</a></h3>
+<p>对于增量 SfM，在两部分执行视图图过滤：</p>
+<ol class="arabic simple">
+<li><p>种子选择（基于匹配内点的数量和单应性约束，过滤小基线或纯旋转情况的边缘）</p></li>
+<li><p>相机配准（基于内点的比率或内点的数量，过滤不准确的边缘）</p></li>
+</ol>
+</div>
+<div class="section" id="view-graph-optimizing">
+<h3><span class="section-number">4.1.2. </span>View-graph optimizing<a class="headerlink" href="#view-graph-optimizing" title="永久链接至标题">¶</a></h3>
+<p>优化两视图相对几何最常用的方法是使用局部束调整，它首先执行局部两视图三角测量，然后通过最小化重投影误差来优化相对位姿。但是位于对极线附近的特征匹配异常值仍然存在于优化中，并且也可能破坏相关几何的估计。</p>
+</div>
+</div>
+<div class="section" id="view-graph-construction-algorithm">
+<h2><span class="section-number">4.2. </span>View-graph construction algorithm<a class="headerlink" href="#view-graph-construction-algorithm" title="永久链接至标题">¶</a></h2>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/219.jpg" src="../../../../../../_images/219.jpg" />
+</div>
+<p>首先通过特征匹配内点的数量对边进行优先级排序，构建一个经过验证的最大生成树。然后，对于 VMST 中的每条边，执行两视图视图局部重建和注册。</p>
+<p>例如，在上图(c)中重建了一个局部场景，相应的可见相机以灰色虚线表示。 基于 2D-3D 对应关系，在这些可见摄像机上进行局部配准。给定局部相机位姿，计算成对相机之间的相对几何，然后将这些新计算的边缘添加到 VMST 中，如蓝色虚线所示。通过迭代执行局部重建和配准，VMST 被扩展到视图中。</p>
+<p>请注意，尽管在 VMST 中为每个边执行局部摄像机注册，但不执行增量三角测量和全局BA调整，这通常在传统的 SfM 系统中执行。 因此，对对极几何估计的时间成本与传统的接近。</p>
+<p>传统方法执行“基本矩阵分解（EMD）”以获得两视图相对几何，包括相对旋转 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 和相对平移 <span class="math notranslate nohighlight">\(t_{ij}\)</span> 。本文提出的方法使用 PnP（Perspective-n-Point）算法估计的局部相机位姿。</p>
+<p>P3P的解（4种）比分解基础矩阵的解（10种）更少，具有较少的歧义。从 RANSAC 的角度来看，分解基础矩阵至少需要 5 个点，而 P3P 计算位姿只需要 3 个。因此，P3P 更有可能找到准确的解决方案。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>当成对特征匹配异常值较少且匹配数量较多时，两种方法都可以产生准确的相对几何。然而，对于具有模糊纹理的大规模数据集，许多特征匹配是错误的，并且许多边缘的匹配内点数量非常接近过滤阈值，在这种情况下，传统方法（分解基础矩阵）就可能会导致大量视图图的错误边。</p>
+</div>
+<div class="section" id="construction-of-vmst">
+<h3><span class="section-number">4.2.1. </span>Construction of VMST<a class="headerlink" href="#construction-of-vmst" title="永久链接至标题">¶</a></h3>
+<p>由于本文提出的方法依赖于良好的局部重建，因此种子视图图的构建至关重要。直观地，通过用相应数量的特征匹配对边进行加权，可以选择匹配图的最大生成树（MST）。</p>
+<p>尽管 MST 中的边中内点百分比比完整视图图的百分比大得多。但是大多数情况下不能使用MST作为种子视图，因为MST 中的大多数边都具有准确的相对旋转，但仍然包含一些具有错误相对平移的边，这可能会破坏重建。此外，虽然有时相对几何是正确的，但由于相机退化的存在，重建的场景可能仍然是错误的。例如，当两个相机具有纯旋转或接近纯旋转相对几何时，它们通常无法获得可靠的重建。</p>
+<p>因此，在本文工作中，建议构建一个经过验证的 MST（VMST）来保证每条边都被成功重建。为了实现这个目标，应该满足两个约束条件。一个是对模糊问题的鲁棒性，另一个是重建场景的完整性。</p>
+<div class="align-center figure align-default" id="id1">
+<img alt="../../../../../../_images/312.jpg" src="../../../../../../_images/312.jpg" />
+<p class="caption"><span class="caption-text">该图显示了特征匹配数分布的两个示例，其中 x 轴表示图像索引，y 轴表示特征匹配数。（顺序拍摄）</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
+</div>
+<dl class="field-list">
+<dt class="field-odd">Algorithm</dt>
+<dd class="field-odd"><p>沿着已排序的边列表，对每条边执行联合检查和两视图验证。对于联合检查，检查两个摄像机是否在当前视图图中都被覆盖和连接。如果是，则忽略该边；否则，它被认为是 VMST 构建的候选者。</p>
+<p>对于验证步骤，考虑三个约束条件，包括三角测量的鲁棒性、几何一致性和场景的鲁棒性。利用成对三角测量射线的角度来测量三角测量的鲁棒性。如果对应的三角测量中角小于 2.0 度，则认为局部三角测量不可靠。</p>
+<p>对于几何一致性，比较局部重建前后的相对几何。由于局部BA调整最小化了点到点的距离，验证几何有助于进一步确定相对几何的准确性。</p>
+<p>对于场景鲁棒性，计算场景内点和特征匹配内点之间的比率，它应该高于经验阈值 <span class="math notranslate nohighlight">\(\gamma_1\)</span> 。如果一条边通过联合检查和两视图验证，它被认为是一条准确的边并插入到当前的视图图中。联合检查和验证过程在排序的边上迭代处理，直到所有相机都被覆盖和连接。</p>
+</dd>
+</dl>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/410.jpg" src="../../../../../../_images/410.jpg" />
+</div>
+</div>
+<div class="section" id="local-registration">
+<h3><span class="section-number">4.2.2. </span>Local registration<a class="headerlink" href="#local-registration" title="永久链接至标题">¶</a></h3>
+<p>给定 VMST，首先构建特征轨迹； 然后对每条边进行两视图重建。</p>
+<p>由于特征跨越许多图像对，因此可以在两视图局部重建后获得未校准图像的 2D-3D 对应关系。 然后，通过 2D-3D 对应关系找到可见相机。 当相机具有足够的 2D-3D 对应关系时，它被视为注册候选者。</p>
+<p>考虑到鲁棒性，本文将 2D-3D 对应关系的局部最大数量表示为  <span class="math notranslate nohighlight">\(M\)</span> ，并且只有这些具有超过  <span class="math notranslate nohighlight">\(\beta * M\)</span> 个 2D-3D 对应关系的可见相机才被视为局部相机位姿估计的候选者。 （ <span class="math notranslate nohighlight">\(\beta\)</span> 设置为 0.7）。</p>
+<p>对于每个候选视图，提出了一种投票和验证位姿估计策略以获得准确的局部相机位姿，其中使用了两种位姿估计方法（P3P 和 EPnP）</p>
+<p>为了加速估计过程，系统中使用了 LO-RANSAC 技术。当两种方法具有相同数量的对应内点时，计算所有内点的重投影误差之和，重投影误差较小的方法被认为更准确。</p>
+<p>相机注册后，获得相机旋转 <span class="math notranslate nohighlight">\(R_i\)</span> 和相机中心 <span class="math notranslate nohighlight">\(T_i\)</span></p>
+<p>为了使相机位姿变得更准确，保持相机内参 <span class="math notranslate nohighlight">\(K_i\)</span> 和 3D 场景点内点  <span class="math notranslate nohighlight">\(\{X_j\|\)</span> 固定，然后通过最小化观察到的 2D 图像特征 <span class="math notranslate nohighlight">\(\{x_{ij}\}\)</span> 和估计3D场景点 <span class="math notranslate nohighlight">\(\{X_j\}\)</span> 之间的差异来局部细化初始相机位姿。</p>
+<div class="math notranslate nohighlight">
+\[\mathop{min}_{R_i,T_i}~~~\sum\limits_{j=1}^M ||X_{ij} - \gamma (K_i,R_i,T_i,X_j)||_{huber}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\gamma (·)\)</span> 函数是相机投影函数。</p>
+<p>优化后，通过与初始相机位姿 <span class="math notranslate nohighlight">\(\{R_i, T_i\}\)</span> 进行比较，进一步验证改进后的相机位姿 <span class="math notranslate nohighlight">\(\{R_i^r, T_i^r\}\)</span> 。</p>
+<p>如果优化后的位姿没有偏离初始位姿太多，认为优化是可靠的； 否则，细化的相机位姿将被忽略。</p>
+<p>对于每个局部重建，对每个可见摄像机进行局部配准，并获得相应的局部校准摄像机位姿。令 <span class="math notranslate nohighlight">\(H\)</span> 表示局部校准相机的数量，校准后的相机位姿为 <span class="math notranslate nohighlight">\(\{\{R_i, T_i\},i = 1,...,H\}\)</span> 。</p>
+<p>如果匹配图中的相机 <span class="math notranslate nohighlight">\(i\)</span> 和相机 <span class="math notranslate nohighlight">\(j\)</span> 之间存在边，则相应的相对几何 <span class="math notranslate nohighlight">\(\{R_{ij}, t_{ij}\}\)</span> 被表示为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+   R_{ij} &amp;=&amp; R_jR_i^T\\
+   \lambda_{ij}t_{ij} &amp;=&amp; T_j - R_{ij}T_i
+\end{eqnarray}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\lambda_{ij}\)</span> 是一个比例因子。 这样，新计算的边用于扩展初始VMST，对VMST的所有边进行扩展过程。</p>
+<p>对于VMST中的每条边，如果所有的局部注册都是独立进行的，就会出现两个问题：一是有些边在局部多次生成； 另一个是某些边缘可能首先通过局部配准估计，然后再通过基本矩阵分解估计，反之亦然。</p>
+<p>考虑到冗余，对于每条边保留所有相对几何估计  <span class="math notranslate nohighlight">\(P_{ij} = \{\{R_{ij}^q, t_{ij}^q\}, q=1...Q\}\)</span> 并使用 RANSAC 技术找到最佳几何。 在估计过程中，两个相对旋转之间的距离定义为：</p>
+<div class="math notranslate nohighlight">
+\[\theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2}\]</div>
+<p>两个归一化相对平移之间的距离定义为：</p>
+<div class="math notranslate nohighlight">
+\[\theta_2 = acos(||t_{ij}^p - t_{ij}^q||^2)\]</div>
+<p>在 RANSAC 的迭代过程中，代价函数被定义为相对几何误差，即当相对旋转和平移误差都很小时，当前的相对几何被认为是一个内点。 与最大数量的估计一致的最佳相对几何被视为最终估计的相对几何。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/58.jpg" src="../../../../../../_images/58.jpg" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Hybrid/HSfM/HSfM.html" class="btn btn-neutral float-right" title="5. HSfM: Hybrid Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../View-graph_SfM/View-graph_SfM.html" class="btn btn-neutral float-left" title="3. View-graph Selection Framework for SfM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

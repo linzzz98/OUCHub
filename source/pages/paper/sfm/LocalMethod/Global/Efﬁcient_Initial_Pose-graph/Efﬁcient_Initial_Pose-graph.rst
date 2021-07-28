@@ -1,4 +1,4 @@
-Efﬁcient Initial Pose-graph Generation for Global SfM
+Effcient Initial Pose-graph Generation for Global SfM
 =======================================================
 
 Abstract
@@ -60,7 +60,7 @@ Related tech
 
 1. 使用 ResNet-50 CNN 提取 GeM描述符，在 GLD-v1 数据集上进行预训练。然后我们计算所有描述符之间的内积相似度，得到一个 n × n 相似度矩阵。相似度矩阵的计算是该pipeline的唯一二次步骤。但是，标量乘积运算速度极快。实际上，相似度矩阵的创建和处理花费的时间可以忽略不计。
 
-Relative Pose from Directed  Walks
+Relative Pose from Directed Walks
 -----------------------------------
 
 本文提出了一种通过尽可能避免运行 RANSAC 来加速姿势图生成的方法。
@@ -123,3 +123,16 @@ Relative Pose from Directed  Walks
       \mathcal{E}_{t+1} = \mathcal{E}_t \cup \{e = (v_s,v_d)\}
 
    并且 :math:`\phi(e) = P^{*}`
+
+:Failures:
+
+   在某些情况下，视图 :math:`v_s` 和 :math:`v_d` 之间至少存在一次walk，但隐含的位姿是不正确的，即它不会得到足够多的内点。 在这些情况下，应用传统方法，即基于 RANSAC 的鲁棒估计。
+
+:Visibility:
+
+   可以通过联合查找算法在 :math:`O(1)` 时间内确定在视图 :math:`v_s` 和 :math:`v_d` 之间的位姿图中是否至少有一次walk。
+
+Pose-graph Traversal
+--------------------
+
+本文选择 :math:`A^*` 算法的启发式方法来获得位姿图 :math:`\mathcal{G}` 中 multiple walks 的方法。
