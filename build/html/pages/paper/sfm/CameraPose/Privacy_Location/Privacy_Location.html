@@ -134,6 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id6">23.6. 已知垂直的特殊情况</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#d-reconstruction">23.7. 3D Reconstruction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">23.8. 实验结果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">23.9. 讨论</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">24. Using Many Cameras as One</a></li>
@@ -289,7 +290,7 @@ v\\w
 <p class="admonition-title">重要</p>
 <p>由于方向 <span class="math notranslate nohighlight">\(v\)</span> 是随机选择的，并且由于叉乘是一个秩亏操作，原始的3D点位置 <span class="math notranslate nohighlight">\(X\)</span> 不能从其提升的三维线 <span class="math notranslate nohighlight">\(L\)</span> 中恢复出来。</p>
 <p>只知道 <span class="math notranslate nohighlight">\(L\)</span> 在某处穿过 <span class="math notranslate nohighlight">\(X\)</span> ，并且这对它们各自在图像中的二维投影 <span class="math notranslate nohighlight">\(l\)</span> 和 <span class="math notranslate nohighlight">\(x\)</span> 也是成立的。</p>
-<p>从形式上看，一个二维图像观测点 <span class="math notranslate nohighlight">\(x\)</span> 穿过投影的二维线 <span class="math notranslate nohighlight">\(l\)</span> ，如果它满足几何约束条件的话：</p>
+<p>从形式上看，如果满足以下几何约束条件的话，二维图像观测点 <span class="math notranslate nohighlight">\(x\)</span> 将穿过投影的二维线 <span class="math notranslate nohighlight">\(l\)</span> ：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}0 = l^T \overline{x} ~~~with~~~ [l]_x = \left[
 \begin{matrix}
@@ -457,18 +458,36 @@ v \times w + \alpha v \\1
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/59.jpg" src="../../../../../_images/59.jpg" />
 </div>
-<div class="align-center figure align-default" id="id8">
-<img alt="../../../../../_images/82.jpg" src="../../../../../_images/82.jpg" />
-<p class="caption"><span class="caption-text">定量结果</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
 <div class="align-center figure align-default" id="id9">
-<img alt="../../../../../_images/74.jpg" src="../../../../../_images/74.jpg" />
-<p class="caption"><span class="caption-text">相机位姿估计误差图</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
+<img alt="../../../../../_images/82.jpg" src="../../../../../_images/82.jpg" />
+<p class="caption"><span class="caption-text">定量结果</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
 </div>
 <div class="align-center figure align-default" id="id10">
-<img alt="../../../../../_images/91.jpg" src="../../../../../_images/91.jpg" />
-<p class="caption"><span class="caption-text">点云密度（左）  测量噪声灵敏度（右）</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
+<img alt="../../../../../_images/74.jpg" src="../../../../../_images/74.jpg" />
+<p class="caption"><span class="caption-text">相机位姿估计误差图</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
 </div>
+<div class="align-center figure align-default" id="id11">
+<img alt="../../../../../_images/91.jpg" src="../../../../../_images/91.jpg" />
+<p class="caption"><span class="caption-text">点云密度（左）  测量噪声灵敏度（右）</span><a class="headerlink" href="#id11" title="永久链接至图片">¶</a></p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><span class="section-number">23.9. </span>讨论<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">What is revealed during localization?</dt>
+<dd class="field-odd"><p>当图像在场景中成功定位时，位姿估计的内点会通过相机光线与相应 3D 线的相交来揭示秘密的 3D 点。
+乍一看，这似乎是一个隐私问题，但实际上只有图像中可见的对象会被泄露，而地图的其余部分或任何机密对象都将保密。</p>
+</dd>
+<dt class="field-even">Permanent Line Cloud Transformation</dt>
+<dd class="field-even"><p>提升变换（The lifting transformation）必须只执行一次，并且对于一个场景来说是永久性的； 否则，其他人可以保留由不同提升变换生成的线云的多个副本并通过与相应的 3D 线相交来轻松恢复秘密 3D 点。</p>
+</dd>
+<dt class="field-odd">Compactness of Representation</dt>
+<dd class="field-odd"><p>略</p>
+</dd>
+<dt class="field-even">Privacy Attack on Line Clouds</dt>
+<dd class="field-even"><p>从其提升的 3D 线表示中恢复单个 3D 点的位置是一个不适定的反问题(ill-posed inversion problem)，</p>
+</dd>
+</dl>
 </div>
 </div>
 

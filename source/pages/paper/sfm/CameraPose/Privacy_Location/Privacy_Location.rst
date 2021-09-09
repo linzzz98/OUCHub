@@ -91,7 +91,7 @@ Privacy Preserving Image-Based Localization
 
    只知道 :math:`L` 在某处穿过 :math:`X` ，并且这对它们各自在图像中的二维投影 :math:`l` 和 :math:`x` 也是成立的。
 
-   从形式上看，一个二维图像观测点 :math:`x` 穿过投影的二维线 :math:`l` ，如果它满足几何约束条件的话：
+   从形式上看，如果满足以下几何约束条件的话，二维图像观测点 :math:`x` 将穿过投影的二维线 :math:`l` ：
 
    .. math::
 

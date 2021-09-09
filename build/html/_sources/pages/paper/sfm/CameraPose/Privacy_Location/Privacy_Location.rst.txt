@@ -91,7 +91,7 @@ Privacy Preserving Image-Based Localization
 
    只知道 :math:`L` 在某处穿过 :math:`X` ，并且这对它们各自在图像中的二维投影 :math:`l` 和 :math:`x` 也是成立的。
 
-   从形式上看，一个二维图像观测点 :math:`x` 穿过投影的二维线 :math:`l` ，如果它满足几何约束条件的话：
+   从形式上看，如果满足以下几何约束条件的话，二维图像观测点 :math:`x` 将穿过投影的二维线 :math:`l` ：
 
    .. math::
 
@@ -329,3 +329,23 @@ Privacy Preserving Image-Based Localization
    :figclass: align-center
 
    点云密度（左）  测量噪声灵敏度（右）
+
+讨论
+----------
+
+:What is revealed during localization?:
+
+   当图像在场景中成功定位时，位姿估计的内点会通过相机光线与相应 3D 线的相交来揭示秘密的 3D 点。
+   乍一看，这似乎是一个隐私问题，但实际上只有图像中可见的对象会被泄露，而地图的其余部分或任何机密对象都将保密。
+
+:Permanent Line Cloud Transformation:
+
+   提升变换（The lifting transformation）必须只执行一次，并且对于一个场景来说是永久性的； 否则，其他人可以保留由不同提升变换生成的线云的多个副本并通过与相应的 3D 线相交来轻松恢复秘密 3D 点。
+
+:Compactness of Representation:
+
+   略
+
+:Privacy Attack on Line Clouds:
+
+   从其提升的 3D 线表示中恢复单个 3D 点的位置是一个不适定的反问题(ill-posed inversion problem)，
