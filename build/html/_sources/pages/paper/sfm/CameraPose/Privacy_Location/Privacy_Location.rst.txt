@@ -177,9 +177,7 @@ Privacy Preserving Image-Based Localization
 
 .. attention::
 
-   在一般和最小情况下，分别将其称为 m-PnP+λ 和 m-P3P+λ
-
- 。
+   在一般和最小情况下，分别将其称为 m-PnP+λ 和 m-P3P+λ。
 
 .. note::
 
@@ -201,7 +199,7 @@ Privacy Preserving Image-Based Localization
 
 .. attention::
 
-   将此问题称为一般情况下的 m-pnL+λ 和最小情况下的 m-P3L+λ
+   将此问题称为一般情况下的 m-PnL+λ 和最小情况下的 m-P3L+λ
 
 .. figure:: 4.jpg
    :figclass: align-center
