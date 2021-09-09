@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>7. Line Feature &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
+    <link rel="prev" title="6. Rotation Averaging" href="../RotationAveraging/RotationAveraging.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepLearning.html">🍤 Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../LocalMethod.html">🍤 Local Method</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../SfM/SfM.html">1. Structure from Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Robust_Optimization/Robust_Optimization.html">2. Robust Optimization in 3D Vision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Rotation/Rotation.html">3. 三维重建中的旋转</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../BundleAdjustment/BundleAdjustment.html">4. Bundle Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MotionAveraging/MotionAveraging.html">5. Motion Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../RotationAveraging/RotationAveraging.html">6. Rotation Averaging</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7. Line Feature</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">7.1. 自由度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#plucker">7.2. Plücker坐标系</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
+        
+          <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
+        
+      <li><span class="section-number">7. </span>Line Feature</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/LineFeature/LineFeature.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="line-feature">
+<h1><span class="section-number">7. </span>Line Feature<a class="headerlink" href="#line-feature" title="永久链接至标题">¶</a></h1>
+<p>线特征比点特征可以提供更多的约束条件，并且在某些场合下比点特征要鲁棒。</p>
+<p>本文详细介绍空间直线的两种参数化方法：</p>
+<ol class="arabic simple">
+<li><p>Plücker参数化方法</p></li>
+<li><p>直线正交表示方法</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>空间中的直线有4个自由度，而Plücker参数化方法需要使用6个参数表示直线，这样就会导致过参数化，过参数化在优化的时候就需要采用带约束的优化，不太方便。
+于是引入了可以用4个参数更新直线的正交表示来方便优化。这两种参数化方法可以很方便的相互转换，</p>
+<p>在初始化和进行空间变换的时候使用Plücker坐标，在优化的时候使用正交表示。</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">7.1. </span>自由度<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>3D空间中的直线有4个自由度，通常认为一条线由两个点或者面组成，所以自由度有2x3=6个，但是由于直线绕着自身的方向轴旋转和移动的话，直线还是这个直线，所以真实自由度为6-2=4个。</p>
+</div>
+<div class="section" id="plucker">
+<h2><span class="section-number">7.2. </span>Plücker坐标系<a class="headerlink" href="#plucker" title="永久链接至标题">¶</a></h2>
+<p>Plücker坐标系使用两个向量表示：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L = \left[
+\begin{matrix}
+v\\w
+\end{matrix}
+\right]\end{split}\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(v\in R^3\)</span> 表示直线的方向向量，模长为1（ <span class="math notranslate nohighlight">\(||v|| = 1\)</span>）</p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> 为 <span class="math notranslate nohighlight">\(l\)</span> 上一点</p></li>
+<li><p><span class="math notranslate nohighlight">\(w = v \times X， w \in R^3\)</span> 是由直线和光心构成的平面的法向量</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../RotationAveraging/RotationAveraging.html" class="btn btn-neutral float-left" title="6. Rotation Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

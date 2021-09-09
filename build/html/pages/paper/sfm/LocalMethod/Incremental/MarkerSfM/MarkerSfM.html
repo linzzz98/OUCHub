@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>13. Improved Structure from Motion Using Fiducial Marker Matching &mdash; OUCHub  文档</title>
+  <title>5. Improved Structure from Motion Using Fiducial Marker Matching &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="14. Global Structure-from-Motion by Similarity Averaging" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html" />
-    <link rel="prev" title="12. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" /> 
+    <link rel="next" title="6. Privacy Preserving Structure-from-Motion" href="../Privacy_SfM/Privacy_SfM.html" />
+    <link rel="prev" title="4. View-graph construction framework for robust and efficient structure-from-motion" href="../View-graph_Framework/View-graph_Framework.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -107,33 +107,37 @@
 <li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">5. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">6. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">7. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">8. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">9. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">10. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13. Improved Structure from Motion Using Fiducial Marker Matching</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#increnmental-sfm-overview">13.1. Increnmental SfM Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#detect-markers">13.2. Detect Markers</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#marker-informed-image-pairs">13.2.1. Marker Informed Image Pairs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#marker-informed-resectioning">13.2.2. Marker Informed Resectioning</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#marker-constraints-for-bundle-adjustment">13.2.3. Marker Constraints for Bundle Adjustment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Improved Structure from Motion Using Fiducial Marker Matching</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#increnmental-sfm-overview">5.1. Increnmental SfM Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detect-markers">5.2. Detect Markers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#marker-informed-image-pairs">5.2.1. Marker Informed Image Pairs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#marker-informed-resectioning">5.2.2. Marker Informed Resectioning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#marker-constraints-for-bundle-adjustment">5.2.3. Marker Constraints for Bundle Adjustment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#results">13.3. Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">5.3. Results</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">14. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">15. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph.html">16. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">17. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">18. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">21. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">21. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">22. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">24. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">25. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
@@ -197,7 +201,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">13. </span>Improved Structure from Motion Using Fiducial Marker Matching</li>
+      <li><span class="section-number">5. </span>Improved Structure from Motion Using Fiducial Marker Matching</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -217,12 +221,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="improved-structure-from-motion-using-fiducial-marker-matching">
-<h1><span class="section-number">13. </span>Improved Structure from Motion Using Fiducial Marker Matching<a class="headerlink" href="#improved-structure-from-motion-using-fiducial-marker-matching" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">5. </span>Improved Structure from Motion Using Fiducial Marker Matching<a class="headerlink" href="#improved-structure-from-motion-using-fiducial-marker-matching" title="永久链接至标题">¶</a></h1>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/118.jpg" src="../../../../../../_images/118.jpg" />
 </div>
 <div class="section" id="increnmental-sfm-overview">
-<h2><span class="section-number">13.1. </span>Increnmental SfM Overview<a class="headerlink" href="#increnmental-sfm-overview" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.1. </span>Increnmental SfM Overview<a class="headerlink" href="#increnmental-sfm-overview" title="永久链接至标题">¶</a></h2>
 <p>增量SfM将图像集合作为输入。</p>
 <p>对于每个图像，焦距（和其他先验值）是根据元数据（metadata）（或在元数据不可用时使用启发式方法）估算的。</p>
 <p>从每个图像中提取图像特征（SIFT）并在图像对之间匹配。 尝试在所有图像对的集合之间使用基于（例如GPS，Vocab树）的筛选条件来选择的图像对的子集之间进行匹配。</p>
@@ -234,10 +238,10 @@
 <p>最终输出是重建物体的稀疏点云和一组摄影机位姿。</p>
 </div>
 <div class="section" id="detect-markers">
-<h2><span class="section-number">13.2. </span>Detect Markers<a class="headerlink" href="#detect-markers" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.2. </span>Detect Markers<a class="headerlink" href="#detect-markers" title="永久链接至标题">¶</a></h2>
 <p>本文在每个输入图像上运行正方形marker检测算法，并并行处理图像。 每次检测时，保存图像名称，标记id，角位置（corner location）和角像素颜色。</p>
 <div class="section" id="marker-informed-image-pairs">
-<h3><span class="section-number">13.2.1. </span>Marker Informed Image Pairs<a class="headerlink" href="#marker-informed-image-pairs" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.2.1. </span>Marker Informed Image Pairs<a class="headerlink" href="#marker-informed-image-pairs" title="永久链接至标题">¶</a></h3>
 <p>在进行匹配和验证之前，首先创建一组可能匹配的图像对，仅尝试匹配该集合中的图像对。
 一种方法是添加所有可能的图像对。 然而，这大大增加了匹配时间，并可能导致不良的图像匹配，从而导致重建错误。</p>
 <p>本文应用三个规则来使用marker检测来指示要添加的图像：</p>
@@ -263,7 +267,7 @@
 </div>
 </div>
 <div class="section" id="marker-informed-resectioning">
-<h3><span class="section-number">13.2.2. </span>Marker Informed Resectioning<a class="headerlink" href="#marker-informed-resectioning" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.2.2. </span>Marker Informed Resectioning<a class="headerlink" href="#marker-informed-resectioning" title="永久链接至标题">¶</a></h3>
 <p>Resectioning是指添加新图像到现存重建中的过程，添加的顺序很重要，因为不好的图像注册可能会带来较大误差导致重建失败。</p>
 <p>一种Resectioning的方法是选择与重建图像共享最多特征匹配的图像。当图像特征明显且丰富时，此方法效果很好。但是当场景具有挑战性时，需要使用新的规则来使用marker dection来表明Resectioning的顺序。</p>
 <ol class="arabic simple">
@@ -281,7 +285,7 @@
 <p>然后添加图像D，没有剩余的图像与当前重建共享标记匹配，因此，基于共享的图像特征匹配添加图像H。 接下来添加F，因为它现在与重建共享标记匹配项（因为添加了H）。 最后，添加G。</p>
 </div>
 <div class="section" id="marker-constraints-for-bundle-adjustment">
-<h3><span class="section-number">13.2.3. </span>Marker Constraints for Bundle Adjustment<a class="headerlink" href="#marker-constraints-for-bundle-adjustment" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">5.2.3. </span>Marker Constraints for Bundle Adjustment<a class="headerlink" href="#marker-constraints-for-bundle-adjustment" title="永久链接至标题">¶</a></h3>
 <p>在BA调整中，求解相机位姿 <span class="math notranslate nohighlight">\(P\)</span> 和3D点 <span class="math notranslate nohighlight">\(X\)</span> ，以优化以下各项：</p>
 <div class="math notranslate nohighlight">
 \[\mathop{min}\limits_{P,X} [w_R E_R (P,X) + w_S E_S (V) + w_O E_O(V)]\]</div>
@@ -301,7 +305,7 @@
 </div>
 </div>
 <div class="section" id="results">
-<h2><span class="section-number">13.3. </span>Results<a class="headerlink" href="#results" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">5.3. </span>Results<a class="headerlink" href="#results" title="永久链接至标题">¶</a></h2>
 <div class="alignter figure align-default" id="id1">
 <img alt="../../../../../../_images/55.jpg" src="../../../../../../_images/55.jpg" />
 <p class="caption"><span class="caption-text">marker</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
@@ -333,8 +337,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html" class="btn btn-neutral float-right" title="14. Global Structure-from-Motion by Similarity Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-left" title="12. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Privacy_SfM/Privacy_SfM.html" class="btn btn-neutral float-right" title="6. Privacy Preserving Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../View-graph_Framework/View-graph_Framework.html" class="btn btn-neutral float-left" title="4. View-graph construction framework for robust and efficient structure-from-motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

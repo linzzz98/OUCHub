@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>24. Using Many Cameras as One &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="25. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="23. Privacy Preserving Image-Based Localization" href="../Privacy_Location/Privacy_Location.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">20. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">21. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">22. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">23. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">24. Using Many Cameras as One</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors">24.1. Plucker Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors-of-a-multi-camera-system">24.2. Plucker Vectors of a Multi-Camera System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">25. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">26. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">24. </span>Using Many Cameras as One</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-many-cameras-as-one">
+<h1><span class="section-number">24. </span>Using Many Cameras as One<a class="headerlink" href="#using-many-cameras-as-one" title="永久链接至标题">¶</a></h1>
+<dl class="field-list">
+<dt class="field-odd">贡献</dt>
+<dd class="field-odd"><p>1.提出”广义相机模型”框架，表达了一个多相机系统。</p>
+<p>2.从该模型的运动约束方程推导出结构。来自运动约束的微分结构给出了一个误差函数，该函数定义了运动估计的最小化问题。</p>
+<ol class="arabic simple" start="3">
+<li><p>考虑到该误差函数的 Fisher 信息矩阵，可以根据估计自我运动的能力对不同相机设计进行定量比较。</p></li>
+</ol>
+</dd>
+</dl>
+<p>广义相机模型被引入作为统一分析和描述广泛不同的新相机设计集的工具。该模型从光通过任意成像系统的透镜和反射镜时所采用的路径中抽象出来。它用影响该传感器的空间区域来识别每个像素。 这个空间区域的合理模型是从某个点发出的圆锥体。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/132.jpg" src="../../../../../_images/132.jpg" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>成像模型的完整定义是根据“raxels”定义的。（上图） 由广义相机拍摄的图像被定义为系统捕获的一组raxels测量值。</p>
+<p>raxel 定义了像素如何对场景进行采样。假设该采样以从  <span class="math notranslate nohighlight">\(X、Y、Z\)</span> 点开始的射线为中心，方向由 <span class="math notranslate nohighlight">\((φ, θ)\)</span> 参数化。 该像素从围绕该射线的锥体捕获光，其纵横比和方向由  <span class="math notranslate nohighlight">\((f_a , f_b , \gamma)\)</span> 给出。 捕获的光强度也可能会衰减，这些辐射量可能因每个像素而异。</p>
+</div>
+<p>对于多幅图像的几何分析，简化了这种校准，使其仅包括像素采样的光线的定义。</p>
+<p>👉 这给出了一个更简单的校准问题，它需要为每个像素确定采样线的 Plucker 矢量。</p>
+<div class="section" id="plucker-vectors">
+<h2><span class="section-number">24.1. </span>Plucker Vectors<a class="headerlink" href="#plucker-vectors" title="永久链接至标题">¶</a></h2>
+<p>为了描述在这个更一般的相机设置中每个像素采样的空间线，需要一种机制来描述空间中的任意线。</p>
+<p>一条线的 Plucker 向量是一对3维向量： <span class="math notranslate nohighlight">\(q,q'\)</span> ，命名为方向向量（direction vector）和力矩向量（moment vector）。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><span class="math notranslate nohighlight">\(q\)</span>  是线方向上任意长度的向量。</p>
+<p>对于直线上的任意点 <span class="math notranslate nohighlight">\(P\)</span> ， <span class="math notranslate nohighlight">\(q' = q \times P\)</span> 。</p>
+</div>
+<p>这对向量必须满足两个约束条件。</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(q · q' = 0\)</span></p></li>
+<li><p>其余五个参数是齐次的，它们的整体尺度不影响它们描述的是哪条线。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将方向向量强制为单位向量通常很方便，它定义了齐次参数的尺度。</p>
+</div>
+<p>与这些 Plucker 向量位于一条直线上的所有点的集合由下式给出：</p>
+<div class="math notranslate nohighlight">
+\[(q \times q') + \alpha q, \forall \alpha \in R\]</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>如果 <span class="math notranslate nohighlight">\(q\)</span> 是单位向量，则点  <span class="math notranslate nohighlight">\((q\times q')\)</span> 是直线上最接近原点的点， <span class="math notranslate nohighlight">\(\alpha\)</span> 是该点到原点（？原点到该点？ distance from that point.）的（有符号）距离。</p>
+</div>
+</div>
+<div class="section" id="plucker-vectors-of-a-multi-camera-system">
+<h2><span class="section-number">24.2. </span>Plucker Vectors of a Multi-Camera System<a class="headerlink" href="#plucker-vectors-of-a-multi-camera-system" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="25. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Privacy_Location/Privacy_Location.html" class="btn btn-neutral float-left" title="23. Privacy Preserving Image-Based Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

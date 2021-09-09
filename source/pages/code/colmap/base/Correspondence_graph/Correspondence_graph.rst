@@ -3,8 +3,7 @@
 Correspondence\_graph
 =====================
 
-场景图表示数据集的图像与图像以及特征与特征的对应关系的图。
-应该从DatabaseCache访问它。
+场景图表示数据集的图像与图像以及特征与特征的对应关系的图。应该从DatabaseCache访问它。
 
 .. warning::
 

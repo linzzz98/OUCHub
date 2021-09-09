@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>19. Efficient and Robust Large-Scale Rotation Averaging &mdash; OUCHub  文档</title>
+  <title>20. Efficient and Robust Large-Scale Rotation Averaging &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="20. Robust Relative Rotation Averaging" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html" />
-    <link rel="prev" title="18. Optimizing the Viewing Graph for Structure-from-Motion" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" /> 
+    <link rel="next" title="21. Robust Relative Rotation Averaging" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html" />
+    <link rel="prev" title="19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation" href="../Lie_Averaging/Lie_Averaging.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -107,26 +107,31 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">5. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">6. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">7. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">8. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">9. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">10. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">11. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">13. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">14. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">15. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efﬁcient_Initial_Pose-graph/Efﬁcient_Initial_Pose-graph.html">16. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">17. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">18. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">19. Efficient and Robust Large-Scale Rotation Averaging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#rotation-averaging">19.1. Rotation  Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">20. Efficient and Robust Large-Scale Rotation Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rotation-averaging">20.1. Rotation  Averaging</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">21. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">21. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">22. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">23. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">24. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">25. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">26. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
@@ -190,7 +195,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">19. </span>Efficient and Robust Large-Scale Rotation Averaging</li>
+      <li><span class="section-number">20. </span>Efficient and Robust Large-Scale Rotation Averaging</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -210,7 +215,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="efficient-and-robust-large-scale-rotation-averaging">
-<h1><span class="section-number">19. </span>Efficient and Robust Large-Scale Rotation Averaging<a class="headerlink" href="#efficient-and-robust-large-scale-rotation-averaging" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">20. </span>Efficient and Robust Large-Scale Rotation Averaging<a class="headerlink" href="#efficient-and-robust-large-scale-rotation-averaging" title="永久链接至标题">¶</a></h1>
 <p>本文的方法适用于 3D 旋转的李群结构，并通过两种方式解决了大规模鲁棒旋转平均的问题。</p>
 <ol class="arabic simple">
 <li><p>使用现代L1优化器对相对旋转进行稳健的平均，对于异常值（outliers）是相当有效的。</p></li>
@@ -255,7 +260,7 @@
 <p>在这种平均相对旋转的方法中，对于 <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> 中的所有边，观测值 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与当前估计的相对旋转（全局估计） <span class="math notranslate nohighlight">\(R_jR_i^{-1}\)</span> 之间的差异，在李代数中被平均。</p>
 <p>在平均估计之后，通过指数映射将李代数更新映射回旋转群来更新单个旋转。 可以进一步注意到，在李代数求平均之后，用于更新单个旋转的指数映射确保在每个点上，估计都在旋转流形上，即该算法为全局旋转提供了内在估计 <span class="math notranslate nohighlight">\(R_{global}\)</span> 。 我们还注意到，在实践中，任何相机的旋转都固定为 I，以消除 Rglobal 的规范自由度。</p>
 <div class="section" id="rotation-averaging">
-<h2><span class="section-number">19.1. </span>Rotation  Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">20.1. </span>Rotation  Averaging<a class="headerlink" href="#rotation-averaging" title="永久链接至标题">¶</a></h2>
 <p>如果特定的相对旋转是异常值，那么李代数中的 l2 平均值将导致错误的旋转估计。</p>
 <p>使用稳健的李代数平均。 在这种情况下， <span class="math notranslate nohighlight">\(R_{global}\)</span>  的整体估计不受个别异常值的影响。 通过利用 l1 成本函数的凸优化的最新进展，我们可以在存在异常值的情况下实现准确性和可扩展性的双重目标。</p>
 </div>
@@ -267,8 +272,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html" class="btn btn-neutral float-right" title="20. Robust Relative Rotation Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-left" title="18. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html" class="btn btn-neutral float-right" title="21. Robust Relative Rotation Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Lie_Averaging/Lie_Averaging.html" class="btn btn-neutral float-left" title="19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

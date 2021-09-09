@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>23. Privacy Preserving Image-Based Localization &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="24. Using Many Cameras as One" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" />
+    <link rel="prev" title="22. Privacy Preserving Image Queries for Camera Localization" href="../Privacy_Image_Queries/Privacy_Image_Queries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">20. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">21. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">22. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">23. Privacy Preserving Image-Based Localization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">23.1. 传统相机位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">23.2. 隐私保护的相机位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">23.3. 多相机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">23.4. 已知结构下的位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">23.5. 扩展到未知尺度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">23.6. 已知垂直的特殊情况</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-reconstruction">23.7. 3D Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">23.8. 实验结果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">24. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">25. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">26. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">23. </span>Privacy Preserving Image-Based Localization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Privacy_Location/Privacy_Location.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="privacy-preserving-image-based-localization">
+<h1><span class="section-number">23. </span>Privacy Preserving Image-Based Localization<a class="headerlink" href="#privacy-preserving-image-based-localization" title="永久链接至标题">¶</a></h1>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/130.jpg" src="../../../../../_images/130.jpg" />
+</div>
+<p>当前的定位系统依赖于场景3D点云，但这些数据包含了潜在的敏感场景信息。这会带来重大的隐私风险。</p>
+<p>论文的关键思想是将map表示从3D点云提升到3D线云，这种表示形式混淆了底层的场景几何，同时提供了足够的几何约束，以实现稳健和准确的 6-DOF 相机位姿估计。</p>
+<p>最常见的基于图像的定位方法是将图像的局部 2D 特征与场景的 3D 点云模型进行匹配来解决问题。然后使用从匹配的 2D-3D 点对应关系导出的几何约束来估计相机姿态。
+因此，传统的基于图像的定位方法本质上需要 <strong>持久存储的3D点云</strong> 。</p>
+<p>为了解决这些隐私问题，本文引入了一个新的研究方向，称之为基于隐私保护的图像定位。 目标是以保密方式对 3D map进行编码（从而防止提取敏感信息），同时保持执行鲁棒和准确的相机位姿估计的能力。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>关键思想是在新的map表示中混淆场景的几何形状，其中每个 3D 点都被提升到具有随机方向但通过原始 3D 点的 3D 线。 仅存储 3D 线和 3D 点的相关特征描述符，而丢弃原始 3D 点位置。 我们将此类地图称为 3D 线云（见图 2）。 3D 线云表示隐藏了底层场景几何结构并防止提取敏感信息。</p>
+</div>
+<p>为了在 3D 线云中定位图像，利用传统的特征匹配方法来获得map中局部 2D 图像特征和 3D 特征之间的对应关系。
+每个correspondence提供了几何约束，即 2D 图像观察值必须位于其相应 3D 线的图像投影上。</p>
+<p>基于此约束，从 3D 线云估计绝对相机姿态的问题需要一组相机光线与其对应的 3D 线在地图中的交集。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/221.jpg" src="../../../../../_images/221.jpg" />
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">贡献</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>介绍了基于隐私保护的图像定位问题并提出了第一个解决方案。</p></li>
+<li><p>提出了一种基于将 3D 点提升为 3D 线的新型 3D map 表示，它为位姿估计保留了足够的几何约束，而不会显示映射场景的 3D 几何。</p></li>
+<li><p>提出了用于计算相机位姿的最小求解器，给定图像中的 2D 点和地图中的 3D 线之间的对应关系。</p></li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="id1">
+<h2><span class="section-number">23.1. </span>传统相机位姿估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>遵循基于结构的视觉定位的传统方法，为了在重建场景中定位具有已知内参的针孔相机，可以根据图像中的归一化 2D 观察值  <span class="math notranslate nohighlight">\(x \in R^2\)</span> 和 map中的3D点 <span class="math notranslate nohighlight">\(X \in R^3\)</span> 之间的对应关系估计其绝对位姿  <span class="math notranslate nohighlight">\(P = RT\)</span> ，其中  <span class="math notranslate nohighlight">\(R \in SO(3)\)</span> 和  <span class="math notranslate nohighlight">\(T \in R^3\)</span>  。</p>
+<p>每个二维-三维点的对应关系为绝对的相机位姿估计提供两个几何约束，其形式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \overline{x} - P \overline{X} = \lambda \left[
+\begin{matrix}
+x\\1
+\end{matrix}
+\right] - P\overline{X}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\lambda\)</span> 是图像观测值 <span class="math notranslate nohighlight">\(x\)</span> 的深度，而 <span class="math notranslate nohighlight">\(\overline{x} \in P^2\)</span> 和 <span class="math notranslate nohighlight">\(\overline{X} \in P^3\)</span> 分别是 <span class="math notranslate nohighlight">\(x\)</span> 和 <span class="math notranslate nohighlight">\(X\)</span> 在投影空间中的表示。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>需要至少三个2D-3D对应关系来估计 <span class="math notranslate nohighlight">\(P\)</span> 中的六个未知数。</p>
+<p>在一般情况下，这个问题通常被称为PnP问题，在仅三个点的情况下被称为P3P问题。</p>
+<p>由于匹配过程是不完美的，并且会导致2D-3D 匹配对应集合中出现异常值，因此标准程序是使用鲁棒算法，如RANSAC，结合有效的最小求解器来优化公式，来计算一个初始位姿估计。
+随后，通过解决非线性最小二乘法问题来重新确定该估计值。</p>
+<div class="math notranslate nohighlight">
+\[P^{*} = \mathop{argmin}_{P} ||\overline{x} - P\overline{X}||_2\]</div>
+<p>它给出了基于高斯误差模型 <span class="math notranslate nohighlight">\(x∼N(0,σx)\)</span> 的图像观测的最大似然估计。</p>
+<p>然而，它需要以三维点云 <span class="math notranslate nohighlight">\(X\)</span> 的形式了解场景的几何信息，因此这种方法本质上揭示了场景的几何。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">23.2. </span>隐私保护的相机位姿估计<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>实现隐私保护定位的方法的核心思想是混淆map的几何形状，以掩盖关于底层场景的信息，而不失去在场景中定位摄像机的能力。</p>
+<p>将map中的每个3D点 <span class="math notranslate nohighlight">\(X\)</span> 提升为一个3D线 <span class="math notranslate nohighlight">\(L\)</span> （通过点 <span class="math notranslate nohighlight">\(X\)</span> ，且拥有随机方向 <span class="math notranslate nohighlight">\(v \in R^3\)</span>）</p>
+<p>3D线 <span class="math notranslate nohighlight">\(L\)</span> 被定义为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L = \left[
+\begin{matrix}
+v\\w
+\end{matrix}
+\right] \in P^5
+~~~~~with~~~~~ w = X \times v\end{split}\]</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>由于方向 <span class="math notranslate nohighlight">\(v\)</span> 是随机选择的，并且由于叉乘是一个秩亏操作，原始的3D点位置 <span class="math notranslate nohighlight">\(X\)</span> 不能从其提升的三维线 <span class="math notranslate nohighlight">\(L\)</span> 中恢复出来。</p>
+<p>只知道 <span class="math notranslate nohighlight">\(L\)</span> 在某处穿过 <span class="math notranslate nohighlight">\(X\)</span> ，并且这对它们各自在图像中的二维投影 <span class="math notranslate nohighlight">\(l\)</span> 和 <span class="math notranslate nohighlight">\(x\)</span> 也是成立的。</p>
+<p>从形式上看，一个二维图像观测点 <span class="math notranslate nohighlight">\(x\)</span> 穿过投影的二维线 <span class="math notranslate nohighlight">\(l\)</span> ，如果它满足几何约束条件的话：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = l^T \overline{x} ~~~with~~~ [l]_x = \left[
+\begin{matrix}
+0 &amp; -l_3 &amp; l_2\\
+l_3 &amp; 0 &amp; -l_1\\
+-l_2 &amp; l_1 &amp; 0
+\end{matrix}
+\right] = P[L]_{\times}P^T\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\([L]_x\)</span> 是一个 <strong>Plucker  matrix</strong>，定义为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[L]_{\times} =
+\left[
+\begin{matrix}
+-[w]_{\times} &amp; -v\\
+v^T &amp; 0
+\end{matrix}
+\right]\end{split}\]</div>
+</div>
+<p>使用这种约束进行绝对相机位姿估计需要至少六个二维点到三维线的对应关系来解决 <span class="math notranslate nohighlight">\(P\)</span> 中的六个未知数。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>这与传统方法相反，传统方法每个对应关系提供两个约束，因此只需要三个对应关系。</p>
+</div>
+<p>将一般问题表示为 <span class="math notranslate nohighlight">\(PnL\)</span> ，最小问题表示为 <span class="math notranslate nohighlight">\(P6L\)</span> 。从几何学上讲，解决 <span class="math notranslate nohighlight">\(PnL\)</span> 问题相当于旋转和平移由 <span class="math notranslate nohighlight">\(x\)</span> 定义的射线束，并通过相机的针孔，这样相机的射线束就会与map中相应的三维线条相交。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/313.jpg" src="../../../../../_images/313.jpg" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>这是广义相对位置问题的一个特例。其中第一个广义相机的光线代表map的已知3D线，第二台广义相机的光线代表我们想要定位的针孔相机的二维图像观测值。</p>
+</div>
+<p>结合RANSAC 和 最小求解器进行鲁棒的初始位姿估计，将这个概念嵌入到传统的定位pipeline中来求解方程。 然后通过最小化观察到的 2D 点和投影的 3D 线之间的几何距离来非线性地细化初始位姿为：</p>
+<div class="math notranslate nohighlight">
+\[P^{*} = \mathop{argmin}_P \frac{l^T \overline{x}}{\sqrt{l_1^2 + l_2^2}}\]</div>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">23.3. </span>多相机<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>多台摄像机的联合定位与单台摄像机的情况不同，主要在于问题的参数化方式。
+本文不是为每个摄像机确定一个单独的位姿 <span class="math notranslate nohighlight">\(P\)</span> ，而是将位姿重新参数化为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P = P_cP_m~~~with~~~P_m = s_m \left[
+\begin{matrix}
+R_m &amp; T_m\\0 &amp; s_m^{-1}
+\end{matrix}
+\right]\end{split}\]</div>
+<p>现在只估计一个单一的三维相似性变换 <span class="math notranslate nohighlight">\(P_m \in Sim(3)\)</span> ，而已知的各个摄像机的相对外参 <span class="math notranslate nohighlight">\(P_c\)</span> 保持不变。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>如果知道 <span class="math notranslate nohighlight">\(P_c\)</span> 相对于map中3D点的相对尺度，就可以消除比例因子 <span class="math notranslate nohighlight">\(s_m \in R^{+}\)</span> ，将 <span class="math notranslate nohighlight">\(P_m\)</span> 简化为一个三维刚性变换。</p>
+<p>这个问题被称为广义的绝对位姿问题，在大多数实际应用中，可以假设尺度 <span class="math notranslate nohighlight">\(s_m = 1\)</span> 。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">23.4. </span>已知结构下的位姿估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>目前已经讨论了一种直接从 2D 图像观测的光线中估计相机位姿的方法。</p>
+<p>在许多情况下，有可能获得图像观测点 <span class="math notranslate nohighlight">\(x\)</span> 的深度 <span class="math notranslate nohighlight">\(\lambda\)</span> ，之后，其相对于摄像机的三维位置被计算为 <span class="math notranslate nohighlight">\(\tilde{X} = \lambda \overline{x}\)</span> 。这种三维数据可通过生成 RGB-D 图像的主动深度相机或通过多视图三角测量提取。
+因此，在传统的定位问题中，可以直接估计相机姿态作为使用约束最好对齐两个相应 3D 点集的变换。</p>
+<div class="math notranslate nohighlight">
+\[0 = \tilde{X} - P \overline{X}\]</div>
+<p>为了在最小情况下解决这个方程，只需要三个对应的三维刚体转换阵 <span class="math notranslate nohighlight">\(P\)</span> 的6-DOF，通常以最小二乘法求解。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<blockquote>
+<div><p>在一般和最小情况下，分别将其称为 m-PnP+λ 和 m-P3P+λ</p>
+</div></blockquote>
+<p>。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>可以在隐私保护方法中利用局部 3D 点 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> ，尝试找到一个位姿，使得地图的 3D 线 L 穿过 3D 点 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> ，而不是解决广义相对位姿问题来找到地图的 3D 线和相机光线之间的交点。</p>
+</div>
+<p>将其形式化为以下几何约束：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \tilde{X} - P \left[
+\begin{matrix}
+v \times w + \alpha v \\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\alpha\)</span> 是从 3D 线 L 的随机原点 <span class="math notranslate nohighlight">\(v \times w\)</span> 到 3D 点（secret 3D point ?） <span class="math notranslate nohighlight">\(X\)</span> 的未知距离。</p>
+<p>通过反转相机和map的角色，这个问题在几何上等价于广义绝对位姿问题，即可以重新利用 m-pnP 来解决未知位姿 P。与求解 m-p6L 所需的六个对应关系相比，现在只需要最少三个 3D 点到 3D 线对应关系。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>将此问题称为一般情况下的 m-pnL+λ 和最小情况下的 m-P3L+λ</p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/411.jpg" src="../../../../../_images/411.jpg" />
+</div>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">23.5. </span>扩展到未知尺度<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>上一节中描述的方法可能对不准确的 3D 点位置 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> 很敏感。即使两个 3D 点云的比例仅略有不同，例如，由于 SLAM 中的漂移或多相机系统的轻微校准错误。</p>
+<p>相比之下，PnP 和 PnL 使用的约束不太容易受到这个问题的影响。 这是因为用于对 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> 进行三角测量的视点在基于图像的定位中本质上是相似的，并且深度 <span class="math notranslate nohighlight">\(\lambda\)</span> 中的不确定性 <span class="math notranslate nohighlight">\(\sigma \lambda\)</span> 通常大于图像空间中的不确定性 <span class="math notranslate nohighlight">\(\sigma_x\)</span> 。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>为了克服这个问题，在执行基于结构的对齐时，通常估计 3D 相似变换 <span class="math notranslate nohighlight">\(sP,s\in R^{+}\)</span> 而不是 3D 刚性变换。</p>
+</div>
+<p>上式的约束则变为:</p>
+<div class="math notranslate nohighlight">
+\[0 = \tilde{X} - sP\overline{X}\]</div>
+<p>而方程中的隐私保护约束变为:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}0 = \tilde{X} - sP \left[
+\begin{matrix}
+v \times w + \alpha v \\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>现在至少需要四个对应来估计 7-DOF 3D 相似性。方程 <span class="math notranslate nohighlight">\(0 = \tilde{X} - sP\overline{X}\)</span> 有一个相对简单和有效的解决方案（Umeyama）。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>在一般情况下将该问题称为 m-PnL+λ+s，在最小情况下称为 m-P4L+λ+s</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">23.6. </span>已知垂直的特殊情况<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>通常，相机参考系和 3D map中重力方向的估计可能是有用的。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过将两个参考帧预对齐到垂直方向，可以将旋转位姿参数的数量从三个减少到一个，使得  <span class="math notranslate nohighlight">\(R \in SO(2)\)</span> 。</p>
+<p>这种旋转参数化简化了几何约束，并为这些问题提供了更有效和数值稳定的解决方案。</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>所有描述的问题实现了已知的重力设置，并用后缀 +u 表示这一点。</p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/59.jpg" src="../../../../../_images/59.jpg" />
+</div>
+</div>
+<div class="section" id="d-reconstruction">
+<h2><span class="section-number">23.7. </span>3D Reconstruction<a class="headerlink" href="#d-reconstruction" title="永久链接至标题">¶</a></h2>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/68.jpg" src="../../../../../_images/68.jpg" />
+</div>
+<p>数据集是混合使用手机和 Microsoft HoloLens   的研究模式，收集了 15 个复杂室内和室外场景的真实世界数据集。</p>
+<p>为了真实地模拟基于图像的定位场景，捕获了用于重建场景的 3D 点云的map 图像，并从用于评估定位的明显不同的视点查询图像。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>对于稀疏场景重建和相机校准，将所有记录的（map和查询）图像输入 COLMAP的SfM管道以获得高质量的相机校准。</p>
+<p>获得的查询图像的相机位姿作为评估的真实 <span class="math notranslate nohighlight">\(\tilde{R}\)</span> 和 <span class="math notranslate nohighlight">\(\tilde{T}\)</span> 。</p>
+<p>然后，所有查询图像及其相应的 3D 点都从获得的重建中移除，以准备 3D map 进行定位。</p>
+<p>之后，使用固定的相机位姿执行另一个BA，以仅在给定map图像的情况下优化剩余的 3D 点。</p>
+<p>这些步骤是为查询图像重建准确的map真实位姿，并确保用于定位的真实 3D map。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>为了建立 2D-3D 对应关系，在 SfM 管道的默认设置下使用 SIFT 特征的间接匹配。</p>
+<p>在单图像场景中，单独处理每个查询图像，而对于多图像场景，将相机流中的几张连续图像分组为一个通用相机。</p>
+<p>评估具有已知结构的多图像案例和姿势估计时，仅从查询图像中使用 SfM 重建 3D 点 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> 和相机位姿  <span class="math notranslate nohighlight">\(P_c\)</span> 。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>计算旋转误差：</p>
+<div class="math notranslate nohighlight">
+\[\Delta R = arcos \frac{Tr(R^T \tilde{R}) - 1}{2}\]</div>
+<p>计算位移误差：</p>
+<div class="math notranslate nohighlight">
+\[\Delta T = ||R^T T - \tilde{R}^T \tilde{T}||_2\]</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><span class="section-number">23.8. </span>实验结果<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>将本文提出的 8 个隐私保护的结果与传统位姿估计器的相应 8 个变体进行比较，（见下表）。</p>
+<p>所有方法的初始位姿估计都是使用标准 RANSAC 和几何约束的最小求解器计算的。</p>
+<p>还使用方程的 Levenberg-Marquardt 优化比较了初始位姿的非线性细化（后缀 +ref）的结果。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/59.jpg" src="../../../../../_images/59.jpg" />
+</div>
+<div class="align-center figure align-default" id="id8">
+<img alt="../../../../../_images/82.jpg" src="../../../../../_images/82.jpg" />
+<p class="caption"><span class="caption-text">定量结果</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
+</div>
+<div class="align-center figure align-default" id="id9">
+<img alt="../../../../../_images/74.jpg" src="../../../../../_images/74.jpg" />
+<p class="caption"><span class="caption-text">相机位姿估计误差图</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
+</div>
+<div class="align-center figure align-default" id="id10">
+<img alt="../../../../../_images/91.jpg" src="../../../../../_images/91.jpg" />
+<p class="caption"><span class="caption-text">点云密度（左）  测量噪声灵敏度（右）</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" class="btn btn-neutral float-right" title="24. Using Many Cameras as One" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Privacy_Image_Queries/Privacy_Image_Queries.html" class="btn btn-neutral float-left" title="22. Privacy Preserving Image Queries for Camera Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

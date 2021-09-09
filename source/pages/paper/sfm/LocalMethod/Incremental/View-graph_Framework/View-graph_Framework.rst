@@ -137,7 +137,7 @@ Local registration
 
 .. math::
 
-   \theta_1 = acos(\frac{tr(R_{ij}^p * R_{ij}^q^T) - 1}{2})
+   \theta_1 = acos(\frac{tr(R_{ij}^p * {R_{ij}^q}^T) - 1}{2})
 
 两个归一化相对平移之间的距离定义为：
 

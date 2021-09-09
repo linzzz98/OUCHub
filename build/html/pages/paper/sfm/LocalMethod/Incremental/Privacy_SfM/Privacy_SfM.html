@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6. Privacy Preserving Structure-from-Motion &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../../Global/CSfM/CSfM.html" />
+    <link rel="prev" title="5. Improved Structure from Motion Using Fiducial Marker Matching" href="../MarkerSfM/MarkerSfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Privacy Preserving Structure-from-Motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initialization">6.1. Initialization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">21. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">22. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">24. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">25. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">6. </span>Privacy Preserving Structure-from-Motion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="privacy-preserving-structure-from-motion">
+<h1><span class="section-number">6. </span>Privacy Preserving Structure-from-Motion<a class="headerlink" href="#privacy-preserving-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<p>👉 <a class="reference external" href="https://cvg.ethz.ch/research/privacy-preserving-sfm/paper/Geppert2020ECCV.pdf">原文链接</a>
+👉 <a class="reference external" href="https://github.com/colmap/privacy_preserving_sfm">源码</a></p>
+<p>背景：最近基于云的定位和地图系统的趋势引起了严重的隐私问题。即使只上传了派生的图像特征，也可能会泄露潜在的机密信息。</p>
+<p>本文建立在将 2D/3D 特征点提升到随机线，同时仍然提供相机姿态估计的充分约束的基础上，针对基于随机线特征的增量SfM管道的不同核心算法提出解决方案。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>本文的贡献</p>
+<ol class="arabic simple">
+<li><p>基于colmap提出了基于线特征的端到端的隐私保密SfM pipeline</p></li>
+<li><p>对于增量SfM的每个阶段（初始化、后方交会、三角测量、BA）都在隐私保护设置中提出了相应的措施。</p></li>
+<li><p>推导出一个最小求解器从四个视图初始化增量SfM pipeline</p></li>
+</ol>
+</div>
+<div class="section" id="initialization">
+<h2><span class="section-number">6.1. </span>Initialization<a class="headerlink" href="#initialization" title="永久链接至标题">¶</a></h2>
+<p>仅从相应的 2D 线特征无法从两个视图执行初始化。</p>
+<p>注意：两条反向投影的 2D 线成为 3D 平面，并且无论相机如何摆位姿，都将始终在 3D 线中相交，因此线-线对应关系对两视图的相对位姿没有限制。</p>
+<p>第一个约束出现在四个视图中。 四幅图像的相对姿态由四焦张量描述。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>虽然理论上可以从线对应估计四焦张量，但由于四焦张量的内部约束的高度复杂性，目前没有易于处理的方法。</p>
+</div>
+<p>本文提出了一种从基于线的对应关系执行鲁棒初始化的替代方法。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>该方法基于知道用于初始化的图像的重力方向的假设，这是合理的，因为现在几乎所有设备都带有惯性测量单元。</p>
+<p>此外，利用了这样一个事实，即可以控制创建随机线的过程。</p>
+<p>核心思想是将线特征的随机子集与重力方向对齐。这些线现在始终面向世界框架。</p>
+</div>
+<p>如果相机姿势正确，则背投影线的平面现在应该与（面向重力的）3D 线相交。这对相对位姿产生了额外的约束，可以用它来简化估计问题的复杂性。</p>
+<p>重力对齐的特征线允许分解初始化问题，这样首先解决二维 SfM 问题，然后将相机升级为三维。</p>
+<p>假设相机已经旋转，使得 y 轴与已知的重力方向重合。一旦相机的坐标系 <strong>gravity-aligned</strong> ，每个相机只剩下四个自由度：围绕 y 轴的旋转 <span class="math notranslate nohighlight">\(\theta\)</span> 和平移分量 <span class="math notranslate nohighlight">\((tx,ty,tz)^T\)</span> 。</p>
+<p>考虑由通过二维点  <span class="math notranslate nohighlight">\((x, y)\)</span>  的垂直线  <span class="math notranslate nohighlight">\(\mathcal{l} = (−1, 0, x)\)</span>  构成的约束：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(-1,0,x)\left(
+\begin{matrix}
+\left[
+\begin{matrix}
+cos\theta &amp; 0 &amp; sin\theta\\
+0 &amp; 1 &amp; 0\\
+-sin\theta &amp; 0 &amp; cos\theta
+\end{matrix}
+\right]\left(
+\begin{matrix}
+X\\Y\\Z
+\end{matrix}
+\right)+\left(
+\begin{matrix}
+t_x\\t_y\\t_z
+\end{matrix}
+\right)
+\end{matrix}
+\right) = 0\end{split}\]</div>
+<p>请注意，重力对齐线不会对 <span class="math notranslate nohighlight">\(Y\)</span> 或 <span class="math notranslate nohighlight">\(t_y\)</span> 施加任何约束。 这是因为它们仅沿重力方向平移 3D 点 X、Y、Z 或相机，因此可将上式改为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(-1,x)\left(
+\begin{matrix}
+\left[
+\begin{matrix}
+cos\theta &amp; 0 &amp; sin\theta\\
+-sin\theta &amp; 0 &amp; cos\theta
+\end{matrix}
+\right]\left(
+\begin{matrix}
+X\\Z
+\end{matrix}
+\right)+\left(
+\begin{matrix}
+t_x\\t_z
+\end{matrix}
+\right)
+\end{matrix}
+\right) = 0\end{split}\]</div>
+<p>这个方程正是 2D 到 1D 相机的投影方程，例如：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lambda \left(
+\begin{matrix}
+x\\1
+\end{matrix}
+\right) = R_{2\times 2} \left(
+\begin{matrix}
+X\\Z
+\end{matrix}
+\right) + t_{2\times 1}\end{split}\]</div>
+<p>可以将问题分解为首先使用重力对齐的对应关系解决 2D 相对姿势问题。</p>
+<p>该问题的解产生完整的相机方向 <span class="math notranslate nohighlight">\(\theta\)</span> 以及与重力正交的两个平移分量 <span class="math notranslate nohighlight">\(t_x,t_z\)</span> 。 唯一剩下的未知数是重力对齐的平移 <span class="math notranslate nohighlight">\(t_y\)</span> ，它无法从重力对齐的线中观察到。</p>
+<p>为了恢复这些，需要使用在图像中随机定向的额外线对应。</p>
+<p>二维三焦张量是一个 <span class="math notranslate nohighlight">\(2 × 2 × 2\)</span> 张量，它约束一维图像测量 <span class="math notranslate nohighlight">\(x_i \in P_1, i = 1, 2, 3\)</span>  为：</p>
+<div class="math notranslate nohighlight">
+\[[x_1^T T_1 x_2, x_1^T T_2 x_2] x_3 = 0\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(T_1\)</span> 和 <span class="math notranslate nohighlight">\(T_2\)</span> 是张量的 <span class="math notranslate nohighlight">\(2 × 2\)</span> 切片。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Global/CSfM/CSfM.html" class="btn btn-neutral float-right" title="7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../MarkerSfM/MarkerSfM.html" class="btn btn-neutral float-left" title="5. Improved Structure from Motion Using Fiducial Marker Matching" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
