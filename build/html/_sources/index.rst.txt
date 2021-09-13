@@ -81,8 +81,10 @@ OUC_B419_Linzzz代码论文仓库。
    :caption: 论文学习
 
    pages/paper/p_sfm
+   pages/paper/p_slam
    pages/paper/p_pointcloud
    pages/paper/p_others
+
 
 .. toctree::
    :maxdepth: -1

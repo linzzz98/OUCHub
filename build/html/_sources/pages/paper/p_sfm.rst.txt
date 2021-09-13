@@ -49,7 +49,7 @@
 * :doc:`[ICCV 2015] Global Structure-from-Motion by Similarity Averaging <sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA>`
 * :doc:`[2017.doc] CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION <sfm/LocalMethod/Global/CSfM/CSfM>`
 * :doc:`[CVPR 2018] Very Large-Scale Global SfM by Distributed Motion Averaging <sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM>`
-* :doc:`[CVPR 2021] Efﬁcient Initial Pose-graph Generation for Global SfM <sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph>`
+* :doc:`[CVPR 2021] Efficient Initial Pose-graph Generation for Global SfM <sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph>`
 
 
 |:star:| \ **混合式SfM(Hybrid Structure-from-Motion)**\
