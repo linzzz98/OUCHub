@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>15. A Global Linear Method for Camera Pose Registration &mdash; OUCHub  文档</title>
+  <title>18. A Global Linear Method for Camera Pose Registration &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="16. Robust Rotation and Translation Estimation in Multiview Reconstruction" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html" />
-    <link rel="prev" title="14. View-graph construction framework for robust and efficient structure-from-motion" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" /> 
+    <link rel="next" title="19. Robust Rotation and Translation Estimation in Multiview Reconstruction" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html" />
+    <link rel="prev" title="17. View-graph construction framework for robust and efficient structure-from-motion" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,37 +109,42 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">15. A Global Linear Method for Camera Pose Registration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#review">15.1. Review</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#translation-registration">15.2. Translation Registration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#triplet-translation-registration">15.2.1. Triplet Translation Registration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#collinear-camera-motion">15.2.2. Collinear Camera Motion</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#multi-view-translation-registration">15.2.3. Multi-view Translation Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">10. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">11. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">12. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">13. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">14. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">15. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">18. A Global Linear Method for Camera Pose Registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#review">18.1. Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#translation-registration">18.2. Translation Registration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#triplet-translation-registration">18.2.1. Triplet Translation Registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#collinear-camera-motion">18.2.2. Collinear Camera Motion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-view-translation-registration">18.2.3. Multi-view Translation Registration</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#generalization-to-eg-outliers">15.3. Generalization to EG Outliers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generalization-to-eg-outliers">18.3. Generalization to EG Outliers</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">21. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">22. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">24. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">25. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">28. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">29. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
@@ -201,7 +206,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">15. </span>A Global Linear Method for Camera Pose Registration</li>
+      <li><span class="section-number">18. </span>A Global Linear Method for Camera Pose Registration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -221,11 +226,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="a-global-linear-method-for-camera-pose-registration">
-<h1><span class="section-number">15. </span>A Global Linear Method for Camera Pose Registration<a class="headerlink" href="#a-global-linear-method-for-camera-pose-registration" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">18. </span>A Global Linear Method for Camera Pose Registration<a class="headerlink" href="#a-global-linear-method-for-camera-pose-registration" title="永久链接至标题">¶</a></h1>
 <p>👉 <a class="reference external" href="https://openaccess.thecvf.com/content_iccv_2013/papers/Jiang_A_Global_Linear_2013_ICCV_paper.pdf">原文链接</a></p>
 <p>本文提出了一种线性方法，用于从基本矩阵中编码的成对相对位姿中获取全局摄像机姿势。该方法最大程度地减少了近似几何误差，以在相机三元组中强制执行三角关系。</p>
 <div class="section" id="review">
-<h2><span class="section-number">15.1. </span>Review<a class="headerlink" href="#review" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">18.1. </span>Review<a class="headerlink" href="#review" title="永久链接至标题">¶</a></h2>
 <p>输入是图像对之间的基本矩阵(五点法计算)。两个图像<span class="math notranslate nohighlight">\(i,j\)</span>之间的基本矩阵Eij提供了相对旋转<span class="math notranslate nohighlight">\(R_{ij}\)</span>和平移方向<span class="math notranslate nohighlight">\(t_{ij}\)</span>。
 在此，<span class="math notranslate nohighlight">\(R_{ij}\)</span>是<span class="math notranslate nohighlight">\(3×3\)</span>正交矩阵，而<span class="math notranslate nohighlight">\(t_{ij}\)</span>是<span class="math notranslate nohighlight">\(3×1\)</span>单位向量。</p>
 <p>目标是在全局坐标系中恢复所有相机绝对姿势。
@@ -245,14 +250,14 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 <p>固定所有旋转后，我们便可以求解所有相机中心<span class="math notranslate nohighlight">\((c_i,1≤i≤N)\)</span>，而无需重建任何3D点。</p>
 </div>
 <div class="section" id="translation-registration">
-<h2><span class="section-number">15.2. </span>Translation Registration<a class="headerlink" href="#translation-registration" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">18.2. </span>Translation Registration<a class="headerlink" href="#translation-registration" title="永久链接至标题">¶</a></h2>
 <p>首先将每一个<span class="math notranslate nohighlight">\(t_{ij}\)</span>通过全局旋转参考帧转换为<span class="math notranslate nohighlight">\(c_{ij} = -R^{T}t_{ij}\)</span>，(1)中对摄像机中心的约束可以写成(2)</p>
 <div class="math notranslate nohighlight">
 \[c_{ij} \times (c_j - c_i) = 0\]</div>
 <p>这是关于未知摄像机中心的线性方程。具有较大基线长度的图像对的方程式具有更大的权重，需要仔细的迭代重加权才能获得良好的结果。</p>
 <p>实际上，上述公式使<span class="math notranslate nohighlight">\(c_{ij}\)</span>与基线方向<span class="math notranslate nohighlight">\(c_j -c_i\)</span>之间的叉积最小。下文中导出了一个线性算法，该算法使近似几何误差最小。</p>
 <div class="section" id="triplet-translation-registration">
-<h3><span class="section-number">15.2.1. </span>Triplet Translation Registration<a class="headerlink" href="#triplet-translation-registration" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">18.2.1. </span>Triplet Translation Registration<a class="headerlink" href="#triplet-translation-registration" title="永久链接至标题">¶</a></h3>
 <p>从三个摄像机的特殊情况开始。</p>
 <p>已知摄像机对之间的相对位移<span class="math notranslate nohighlight">\(c_{ij},c_{ik}\)</span>和<span class="math notranslate nohighlight">\(c_{jk}\)</span>，需要估算相机中心<span class="math notranslate nohighlight">\(c_i,c_j\)</span>和<span class="math notranslate nohighlight">\(c_k\)</span>。理想情况下，三个单位向量<span class="math notranslate nohighlight">\(c_{ij},c_{ik}\)</span>和<span class="math notranslate nohighlight">\(c_{jk}\)</span>应该是共面的。但由于噪声的存在，实际数据中这三个不会共面。</p>
 <p>首先考虑<span class="math notranslate nohighlight">\(c_{ij}\)</span>是完美的，并最小化<span class="math notranslate nohighlight">\(c_k\)</span>和两条线<span class="math notranslate nohighlight">\(l(c_i,c_{ik})\)</span>和<span class="math notranslate nohighlight">\(l(c_j,c_{jk})\)</span>的欧几里得距离。</p>
@@ -301,7 +306,7 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 <p>这会在由相机中心定义的平面中引入旋转模糊度。可以通过在初始配准后计算平均旋转以将<span class="math notranslate nohighlight">\(c_j-c_i,c_k-c_i\)</span>和<span class="math notranslate nohighlight">\(c_k-c_j\)</span>分别与<span class="math notranslate nohighlight">\(c_{ij},c_{ik}\)</span>和<span class="math notranslate nohighlight">\(c_{jk}\)</span>的投影在相机平面上对齐来解决此问题。</p>
 </div>
 <div class="section" id="collinear-camera-motion">
-<h3><span class="section-number">15.2.2. </span>Collinear Camera Motion<a class="headerlink" href="#collinear-camera-motion" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">18.2.2. </span>Collinear Camera Motion<a class="headerlink" href="#collinear-camera-motion" title="永久链接至标题">¶</a></h3>
 <p>通过正弦角计算基线长度比率仅在<span class="math notranslate nohighlight">\(c_{ij},c_{ik}\)</span>和<span class="math notranslate nohighlight">\(c_{jk}\)</span>不共线时才有效。为了适用所有摄像机类型，本文从局部重建的场景点计算所有基线长度比率。</p>
 <p>假设在所有三个图像中可见3D场景点X。从图像<span class="math notranslate nohighlight">\(i,j\)</span>的成对重建中，在假定单位基线长度的情况下，计算图像<span class="math notranslate nohighlight">\(j\)</span>中X的深度<span class="math notranslate nohighlight">\(d^{ij}_j\)</span>。同样可以根据图像<span class="math notranslate nohighlight">\(j,k\)</span>计算图像<span class="math notranslate nohighlight">\(j\)</span>中X的深度为<span class="math notranslate nohighlight">\(d_{j}^{jk}\)</span>。然后将比率<span class="math notranslate nohighlight">\(s_{jk}^{ij}\)</span>估计为<span class="math notranslate nohighlight">\(d_{j}^{jk}/ d_j^{ij}\)</span>。</p>
 <p>通常，在所有三个图像中都可以看到多个场景点。</p>
@@ -309,7 +314,7 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 注意，只需要局部成对重构即可获得基线长度比。位移配准不涉及在全局坐标系中重建任何场景点。</p>
 </div>
 <div class="section" id="multi-view-translation-registration">
-<h3><span class="section-number">15.2.3. </span>Multi-view Translation Registration<a class="headerlink" href="#multi-view-translation-registration" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">18.2.3. </span>Multi-view Translation Registration<a class="headerlink" href="#multi-view-translation-registration" title="永久链接至标题">¶</a></h3>
 <p>该方法可以直接应用于注册多台摄像机。
 给定一个三元组图，从其三元组中收集所有方程式(即方程式[5-7])，并求解所得的稀疏线性系统<span class="math notranslate nohighlight">\(Ac = 0\)</span>。</p>
 <p><strong>这里，:math:`c`是通过连接所有相机中心形成的向量。
@@ -323,7 +328,7 @@ estimation in multiview reconstruction. In Proc. CVPR, pages 1–8,
 </div>
 </div>
 <div class="section" id="generalization-to-eg-outliers">
-<h2><span class="section-number">15.3. </span>Generalization to EG Outliers<a class="headerlink" href="#generalization-to-eg-outliers" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">18.3. </span>Generalization to EG Outliers<a class="headerlink" href="#generalization-to-eg-outliers" title="永久链接至标题">¶</a></h2>
 <p>如果在成对的对极几何结构(EGs)中没有明显的误差，则可以使用上面两节中描述的方法。</p>
 <p>但是，由于可疑的特征匹配，许多图像集(尤其是无序的Internet图像)会生成错误较大的错误EG，尤其是对于具有重复结构的场景。
 错误的EG会导致错误估计旋转和平移。</p>
@@ -378,8 +383,8 @@ constraints.》与单位矩阵之间的测地距离大于<span class="math notra
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html" class="btn btn-neutral float-right" title="16. Robust Rotation and Translation Estimation in Multiview Reconstruction" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" class="btn btn-neutral float-left" title="14. View-graph construction framework for robust and efficient structure-from-motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html" class="btn btn-neutral float-right" title="19. Robust Rotation and Translation Estimation in Multiview Reconstruction" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html" class="btn btn-neutral float-left" title="17. View-graph construction framework for robust and efficient structure-from-motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

@@ -12,12 +12,14 @@
    sfm/LocalMethod/Incremental/View-graph_Framework/View-graph_Framework
    sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM
    sfm/LocalMethod/Incremental/Privacy_SfM/Privacy_SfM
+   sfm/LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments
    sfm/LocalMethod/Global/CSfM/CSfM
    sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM
    sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA
    sfm/LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application
    sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph
    sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph
+   sfm/LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature
    sfm/LocalMethod/Hybrid/HSfM/HSfM
    sfm/LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction
    sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
@@ -30,11 +32,14 @@
    sfm/CameraPose/Privacy_Image_Queries/Privacy_Image_Queries
    sfm/CameraPose/Privacy_Location/Privacy_Location
    sfm/CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One
+   sfm/CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines
    sfm/DeepLearning/SfMLearner/SfMLearner
    sfm/DeepLearning/DeepSfM/DeepSfM
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
+
+* :doc:`[3DV 2014] Structure from Motion with Line Segments Under Relaxed Endpoint Constraints <sfm/LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments>`
 * :doc:`[CVIU 2015] Hierarchical structure-and-motion recovery from uncalibrated images <sfm/LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion>`
 * :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
 * :doc:`[ECCV 2018] Improved Structure from Motion Using Fiducial Marker Matching <sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM>` |:fire:|
@@ -49,6 +54,7 @@
 * :doc:`[ICCV 2015] Global Structure-from-Motion by Similarity Averaging <sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA>`
 * :doc:`[2017.doc] CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION <sfm/LocalMethod/Global/CSfM/CSfM>`
 * :doc:`[CVPR 2018] Very Large-Scale Global SfM by Distributed Motion Averaging <sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM>`
+* :doc:`[3DV 2020] Reducing Drift in Structure From Motion Using Extended Features <sfm/LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature>`
 * :doc:`[CVPR 2021] Efficient Initial Pose-graph Generation for Global SfM <sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph>`
 
 
@@ -65,6 +71,7 @@
 * :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
 * :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
 * :doc:`[ICCV 2013] Efficient and Robust Large-Scale Rotation Averaging <sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging>`
+* :doc:`[ECCV 2016] Accurate and linear time pose estimation from points and lines <sfm/CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines>`
 * :doc:`[TPAMI 2017] Robust Relative Rotation Averaging <sfm/CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging>`
 * :doc:`[CVPR 2018] Hybrid Camera Pose Estimation <sfm/CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation>`
 * :doc:`[ICCV 2019] Privacy Preserving  Image  Queries for Camera Localization <sfm/CameraPose/Privacy_Image_Queries/Privacy_Image_Queries>`

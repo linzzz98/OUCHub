@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>18. Hybrid Camera Pose Estimation &mdash; OUCHub  文档</title>
+  <title>21. Hybrid Camera Pose Estimation &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="19. Efficient and Robust Large-Scale Rotation Averaging" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" />
-    <link rel="prev" title="17. An Effcient Solution to the Five-Point Relative Pose Problem" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" /> 
+    <link rel="next" title="22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation" href="../Lie_Averaging/Lie_Averaging.html" />
+    <link rel="prev" title="20. An Effcient Solution to the Five-Point Relative Pose Problem" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,37 +109,42 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">18. Hybrid Camera Pose Estimation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">18.1. Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#background">18.2. Background</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#structure-based-pose-estimation">18.2.1. Structure-based pose estimation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#structure-less-pose-estimation">18.2.2. Structure-less pose estimation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#hybrid-pose-estimation">18.2.3. Hybrid pose estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">10. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">11. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">12. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">13. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">14. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">15. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">21. Hybrid Camera Pose Estimation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">21.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#background">21.2. Background</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure-based-pose-estimation">21.2.1. Structure-based pose estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-less-pose-estimation">21.2.2. Structure-less pose estimation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hybrid-pose-estimation">21.2.3. Hybrid pose estimation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#hybrid-ransac-for-pose-estimation">18.3. Hybrid RANSAC for Pose Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-ransac-for-pose-estimation">21.3. Hybrid RANSAC for Pose Estimation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">21. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">22. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">24. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">25. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">28. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">29. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
@@ -201,7 +206,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">18. </span>Hybrid Camera Pose Estimation</li>
+      <li><span class="section-number">21. </span>Hybrid Camera Pose Estimation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -221,14 +226,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="hybrid-camera-pose-estimation">
-<h1><span class="section-number">18. </span>Hybrid Camera Pose Estimation<a class="headerlink" href="#hybrid-camera-pose-estimation" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">21. </span>Hybrid Camera Pose Estimation<a class="headerlink" href="#hybrid-camera-pose-estimation" title="永久链接至标题">¶</a></h1>
 <p>本文旨在解决经校准的针孔相机和通用相机的位姿估计问题。 通过利用2D-3D对应以及2D-2D对应来构建SfM模型。</p>
 <p>传统方法要么专注于使用2D-3D匹配（称为基于结构的位姿估计（structure-based）），要么仅专注于2D-2D匹配（无结构的位姿估计（structure-less））。</p>
 <p>绝对位姿估计方法的性能受到3D点的三角剖分的质量以及3D模型完整性的限制。另一方面，相对位姿估计方法虽然更准确，但在计算上也往往要昂贵得多，并且经常返回许多可能的解。</p>
 <p>本文工作旨在弥合这两种范式之间的鸿沟。提出了一种基于RANSAC的新方法，该方法可以自动选择最佳类型的求解器，以数据驱动的方式在每次迭代中使用。
 RANSAC选择的求解器的范围从纯基于结构的求解器或无结构的求解器到混合求解器的任何可能组合（即使用两种匹配类型）。</p>
 <div class="section" id="introduction">
-<h2><span class="section-number">18.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">21.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
 <p>相机位姿估计的传统方法是根据查询图像中像素与场景模型中3D点之间的一组2D-3D匹配来估计姿态。通常通过在RANSAC循环中应用基于结构的最小位姿求解器来计算位姿。
 根据n个2D-3D匹配进行绝对位姿估计的工作量很大，这个问题通常称为n点透视问题（PnP）。
 当通过SfM获得3D模型时，并非是所有3D点都将被精确的三角剖分，从而导致潜在的不准确的位姿估计。</p>
@@ -237,15 +242,15 @@ RANSAC选择的求解器的范围从纯基于结构的求解器或无结构的�
 <p>本文提出了九种新颖的混合摄像机位姿求解器，它们的区别在于每次使用的2D-3D和2D-2D匹配项的数量以及它们是针对中央摄像机还是通用摄像机（或两者）进行处理。、</p>
 </div>
 <div class="section" id="background">
-<h2><span class="section-number">18.2. </span>Background<a class="headerlink" href="#background" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">21.2. </span>Background<a class="headerlink" href="#background" title="永久链接至标题">¶</a></h2>
 <div class="section" id="structure-based-pose-estimation">
-<h3><span class="section-number">18.2.1. </span>Structure-based pose estimation<a class="headerlink" href="#structure-based-pose-estimation" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">21.2.1. </span>Structure-based pose estimation<a class="headerlink" href="#structure-based-pose-estimation" title="永久链接至标题">¶</a></h3>
 <p>在基于结构的位姿估计中遵循的经过程包括：</p>
 <p>首先获得一组假定的2D-3D匹配项。 这些推定的匹配通常是通过将查询图像（或图像序列）中的关键点与与模型中每个3D点相关联的平均描述子进行匹配而获得的。
 给定这些匹配项，通过在“假设和验证”方案（例如RANSAC）中采用最小求解器，可以可靠地推断出相机的位姿。</p>
 </div>
 <div class="section" id="structure-less-pose-estimation">
-<h3><span class="section-number">18.2.2. </span>Structure-less pose estimation<a class="headerlink" href="#structure-less-pose-estimation" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">21.2.2. </span>Structure-less pose estimation<a class="headerlink" href="#structure-less-pose-estimation" title="永久链接至标题">¶</a></h3>
 <p>通过基于结构的方法获得的位姿精度受到相机观察到的3D点的质量限制。
 另外，查询相机可以拥有的inlier matches的数量最多为摄像机看到的3D点的数量。
 不是通过3D结构来明确表示场景，而是使用查询图像（或多个图像）与多个图像之间的2D-2D对应关系来进行位姿估计。 在这些情况下，查询图像通常与使用图像检索方法找到的SfM模型中存在的最相似图像进行匹配。</p>
@@ -253,12 +258,12 @@ RANSAC选择的求解器的范围从纯基于结构的求解器或无结构的�
 一旦获得一组2D-3D匹配，就可以将每个匹配的3D对应替换为用于重建此3D点的SfM相机光线之一。（啥意思？） 接下来，在RANSAC循环内使用最小解算器，以便可靠地估计摄像机的位姿。</p>
 </div>
 <div class="section" id="hybrid-pose-estimation">
-<h3><span class="section-number">18.2.3. </span>Hybrid pose estimation<a class="headerlink" href="#hybrid-pose-estimation" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">21.2.3. </span>Hybrid pose estimation<a class="headerlink" href="#hybrid-pose-estimation" title="永久链接至标题">¶</a></h3>
 <p>介于以上两者之间的，有一些求解器同时使用不同类型的匹配项，这被称为混合求解器。</p>
 </div>
 </div>
 <div class="section" id="hybrid-ransac-for-pose-estimation">
-<h2><span class="section-number">18.3. </span>Hybrid RANSAC for Pose Estimation<a class="headerlink" href="#hybrid-ransac-for-pose-estimation" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">21.3. </span>Hybrid RANSAC for Pose Estimation<a class="headerlink" href="#hybrid-ransac-for-pose-estimation" title="永久链接至标题">¶</a></h2>
 <p>令 <span class="math notranslate nohighlight">\(\mathcal{M}_p\)</span> 为一组推定的2D-3D匹配，而:math:<cite>mathcal{M}_r</cite> 为一组推定的2D-2D匹配。</p>
 <p>传统方法是仅使用这些集合中的一组使用RANSAC与最小求解器（如P3P）或2D-2D无结构位姿求解器组合来鲁棒地估计查询相机的位姿。</p>
 <p>但是，我们想利用所有可用信息，例如通过使用混合最小求解器，该求解器同时使用2D-3D和2D-2D匹配项。为了使用这样的求解器，RANSAC需要同时从 <span class="math notranslate nohighlight">\(\mathcal{M}_p\)</span> 和 <span class="math notranslate nohighlight">\(\mathcal{M}_r\)</span> 那里取样。</p>
@@ -289,8 +294,8 @@ RANSAC选择的求解器的范围从纯基于结构的求解器或无结构的�
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" class="btn btn-neutral float-right" title="19. Efficient and Robust Large-Scale Rotation Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" class="btn btn-neutral float-left" title="17. An Effcient Solution to the Five-Point Relative Pose Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Lie_Averaging/Lie_Averaging.html" class="btn btn-neutral float-right" title="22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html" class="btn btn-neutral float-left" title="20. An Effcient Solution to the Five-Point Relative Pose Problem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

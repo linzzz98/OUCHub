@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>23. Privacy Preserving Image-Based Localization &mdash; OUCHub  文档</title>
+  <title>26. Privacy Preserving Image-Based Localization &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="24. Using Many Cameras as One" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" />
-    <link rel="prev" title="22. Privacy Preserving Image Queries for Camera Localization" href="../Privacy_Image_Queries/Privacy_Image_Queries.html" /> 
+    <link rel="next" title="27. Using Many Cameras as One" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" />
+    <link rel="prev" title="25. Privacy Preserving Image Queries for Camera Localization" href="../Privacy_Image_Queries/Privacy_Image_Queries.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,39 +109,43 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">19. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">20. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">21. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">22. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">23. Privacy Preserving Image-Based Localization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">23.1. 传统相机位姿估计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">23.2. 隐私保护的相机位姿估计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">23.3. 多相机</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">23.4. 已知结构下的位姿估计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">23.5. 扩展到未知尺度</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">23.6. 已知垂直的特殊情况</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#d-reconstruction">23.7. 3D Reconstruction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">23.8. 实验结果</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">23.9. 讨论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">10. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">11. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">12. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">13. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">14. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">15. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">26. Privacy Preserving Image-Based Localization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">26.1. 传统相机位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">26.2. 隐私保护的相机位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">26.3. 多相机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">26.4. 已知结构下的位姿估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">26.5. 扩展到未知尺度</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">26.6. 已知垂直的特殊情况</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-reconstruction">26.7. 3D Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">26.8. 实验结果</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">26.9. 讨论</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">24. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">25. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">26. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">28. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">29. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
@@ -203,7 +207,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">23. </span>Privacy Preserving Image-Based Localization</li>
+      <li><span class="section-number">26. </span>Privacy Preserving Image-Based Localization</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -223,7 +227,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="privacy-preserving-image-based-localization">
-<h1><span class="section-number">23. </span>Privacy Preserving Image-Based Localization<a class="headerlink" href="#privacy-preserving-image-based-localization" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">26. </span>Privacy Preserving Image-Based Localization<a class="headerlink" href="#privacy-preserving-image-based-localization" title="永久链接至标题">¶</a></h1>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/130.jpg" src="../../../../../_images/130.jpg" />
 </div>
@@ -252,7 +256,7 @@
 </dd>
 </dl>
 <div class="section" id="id1">
-<h2><span class="section-number">23.1. </span>传统相机位姿估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.1. </span>传统相机位姿估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <p>遵循基于结构的视觉定位的传统方法，为了在重建场景中定位具有已知内参的针孔相机，可以根据图像中的归一化 2D 观察值  <span class="math notranslate nohighlight">\(x \in R^2\)</span> 和 map中的3D点 <span class="math notranslate nohighlight">\(X \in R^3\)</span> 之间的对应关系估计其绝对位姿  <span class="math notranslate nohighlight">\(P = RT\)</span> ，其中  <span class="math notranslate nohighlight">\(R \in SO(3)\)</span> 和  <span class="math notranslate nohighlight">\(T \in R^3\)</span>  。</p>
 <p>每个二维-三维点的对应关系为绝对的相机位姿估计提供两个几何约束，其形式为：</p>
 <div class="math notranslate nohighlight">
@@ -275,7 +279,7 @@ x\\1
 </div>
 </div>
 <div class="section" id="id2">
-<h2><span class="section-number">23.2. </span>隐私保护的相机位姿估计<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.2. </span>隐私保护的相机位姿估计<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>实现隐私保护定位的方法的核心思想是混淆map的几何形状，以掩盖关于底层场景的信息，而不失去在场景中定位摄像机的能力。</p>
 <p>将map中的每个3D点 <span class="math notranslate nohighlight">\(X\)</span> 提升为一个3D线 <span class="math notranslate nohighlight">\(L\)</span> （通过点 <span class="math notranslate nohighlight">\(X\)</span> ，且拥有随机方向 <span class="math notranslate nohighlight">\(v \in R^3\)</span>）</p>
 <p>3D线 <span class="math notranslate nohighlight">\(L\)</span> 被定义为：</p>
@@ -327,7 +331,7 @@ v^T &amp; 0
 \[P^{*} = \mathop{argmin}_P \frac{l^T \overline{x}}{\sqrt{l_1^2 + l_2^2}}\]</div>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">23.3. </span>多相机<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.3. </span>多相机<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>多台摄像机的联合定位与单台摄像机的情况不同，主要在于问题的参数化方式。
 本文不是为每个摄像机确定一个单独的位姿 <span class="math notranslate nohighlight">\(P\)</span> ，而是将位姿重新参数化为：</p>
 <div class="math notranslate nohighlight">
@@ -344,7 +348,7 @@ R_m &amp; T_m\\0 &amp; s_m^{-1}
 </div>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">23.4. </span>已知结构下的位姿估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.4. </span>已知结构下的位姿估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <p>目前已经讨论了一种直接从 2D 图像观测的光线中估计相机位姿的方法。</p>
 <p>在许多情况下，有可能获得图像观测点 <span class="math notranslate nohighlight">\(x\)</span> 的深度 <span class="math notranslate nohighlight">\(\lambda\)</span> ，之后，其相对于摄像机的三维位置被计算为 <span class="math notranslate nohighlight">\(\tilde{X} = \lambda \overline{x}\)</span> 。这种三维数据可通过生成 RGB-D 图像的主动深度相机或通过多视图三角测量提取。
 因此，在传统的定位问题中，可以直接估计相机姿态作为使用约束最好对齐两个相应 3D 点集的变换。</p>
@@ -377,7 +381,7 @@ v \times w + \alpha v \\1
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">23.5. </span>扩展到未知尺度<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.5. </span>扩展到未知尺度<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 <p>上一节中描述的方法可能对不准确的 3D 点位置 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> 很敏感。即使两个 3D 点云的比例仅略有不同，例如，由于 SLAM 中的漂移或多相机系统的轻微校准错误。</p>
 <p>相比之下，PnP 和 PnL 使用的约束不太容易受到这个问题的影响。 这是因为用于对 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(\tilde{X}\)</span> 进行三角测量的视点在基于图像的定位中本质上是相似的，并且深度 <span class="math notranslate nohighlight">\(\lambda\)</span> 中的不确定性 <span class="math notranslate nohighlight">\(\sigma \lambda\)</span> 通常大于图像空间中的不确定性 <span class="math notranslate nohighlight">\(\sigma_x\)</span> 。</p>
 <div class="admonition note">
@@ -401,7 +405,7 @@ v \times w + \alpha v \\1
 </div>
 </div>
 <div class="section" id="id6">
-<h2><span class="section-number">23.6. </span>已知垂直的特殊情况<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.6. </span>已知垂直的特殊情况<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <p>通常，相机参考系和 3D map中重力方向的估计可能是有用的。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -417,7 +421,7 @@ v \times w + \alpha v \\1
 </div>
 </div>
 <div class="section" id="d-reconstruction">
-<h2><span class="section-number">23.7. </span>3D Reconstruction<a class="headerlink" href="#d-reconstruction" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.7. </span>3D Reconstruction<a class="headerlink" href="#d-reconstruction" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/68.jpg" src="../../../../../_images/68.jpg" />
 </div>
@@ -448,7 +452,7 @@ v \times w + \alpha v \\1
 </div>
 </div>
 <div class="section" id="id7">
-<h2><span class="section-number">23.8. </span>实验结果<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.8. </span>实验结果<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <p>将本文提出的 8 个隐私保护的结果与传统位姿估计器的相应 8 个变体进行比较，（见下表）。</p>
 <p>所有方法的初始位姿估计都是使用标准 RANSAC 和几何约束的最小求解器计算的。</p>
 <p>还使用方程的 Levenberg-Marquardt 优化比较了初始位姿的非线性细化（后缀 +ref）的结果。</p>
@@ -469,7 +473,7 @@ v \times w + \alpha v \\1
 </div>
 </div>
 <div class="section" id="id8">
-<h2><span class="section-number">23.9. </span>讨论<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">26.9. </span>讨论<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
 <dl class="field-list simple">
 <dt class="field-odd">What is revealed during localization?</dt>
 <dd class="field-odd"><p>当图像在场景中成功定位时，位姿估计的内点会通过相机光线与相应 3D 线的相交来揭示秘密的 3D 点。
@@ -494,8 +498,8 @@ v \times w + \alpha v \\1
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" class="btn btn-neutral float-right" title="24. Using Many Cameras as One" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Privacy_Image_Queries/Privacy_Image_Queries.html" class="btn btn-neutral float-left" title="22. Privacy Preserving Image Queries for Camera Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" class="btn btn-neutral float-right" title="27. Using Many Cameras as One" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Privacy_Image_Queries/Privacy_Image_Queries.html" class="btn btn-neutral float-left" title="25. Privacy Preserving Image Queries for Camera Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

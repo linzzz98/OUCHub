@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8. Very Large-Scale Global SfM by Distributed Motion Averaging &mdash; OUCHub  文档</title>
+  <title>9. Very Large-Scale Global SfM by Distributed Motion Averaging &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="9. Global Structure-from-Motion by Similarity Averaging" href="../GlobalSfM_SA/GlobalSfM_SA.html" />
-    <link rel="prev" title="7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../CSfM/CSfM.html" /> 
+    <link rel="next" title="10. Global Structure-from-Motion by Similarity Averaging" href="../GlobalSfM_SA/GlobalSfM_SA.html" />
+    <link rel="prev" title="8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../CSfM/CSfM.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,33 +109,38 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../CSfM/CSfM.html">7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">8. Very Large-Scale Global SfM by Distributed Motion Averaging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#motion-averaging-review">8.1. Motion Averaging Review</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#distributed-motion-averaging">8.2. Distributed Motion Averaging</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#system-architecture">8.3. System Architecture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#camera-partitioning">8.4. Camera Partitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CSfM/CSfM.html">8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motion-averaging-review">9.1. Motion Averaging Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distributed-motion-averaging">9.2. Distributed Motion Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-architecture">9.3. System Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#camera-partitioning">9.4. Camera Partitioning</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">9. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">10. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">11. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">12. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">13. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">14. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">15. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">16. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">17. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">18. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">19. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">20. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">21. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">22. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">24. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">25. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">10. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">11. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">12. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">13. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">14. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">15. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">28. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">29. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
@@ -197,7 +202,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">8. </span>Very Large-Scale Global SfM by Distributed Motion Averaging</li>
+      <li><span class="section-number">9. </span>Very Large-Scale Global SfM by Distributed Motion Averaging</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -217,7 +222,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="very-large-scale-global-sfm-by-distributed-motion-averaging">
-<h1><span class="section-number">8. </span>Very Large-Scale Global SfM by Distributed Motion Averaging<a class="headerlink" href="#very-large-scale-global-sfm-by-distributed-motion-averaging" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">9. </span>Very Large-Scale Global SfM by Distributed Motion Averaging<a class="headerlink" href="#very-large-scale-global-sfm-by-distributed-motion-averaging" title="永久链接至标题">¶</a></h1>
 <p>这篇论文的工作提出了一个分而治之（divide-and-conquer）的框架来解决超大规模的全局式SfM，具体步骤如下：</p>
 <ol class="arabic simple">
 <li><p>将所有图像划分为多个分区，这些分区保留了强大的数据关联性，来进行适当定位和并行的局部运动平均。</p></li>
@@ -237,7 +242,7 @@
 还引入了相似度转换，以参数化每个子图的相机姿态，从而使线性化在全局运动平均中保持不变。
 由于在全局运动平均中仅考虑分隔符（即连接多个子图的摄像机）和相似度转换，因此避免了将整个重建立即缓存在核心内存中。</p>
 <div class="section" id="motion-averaging-review">
-<h2><span class="section-number">8.1. </span>Motion Averaging Review<a class="headerlink" href="#motion-averaging-review" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.1. </span>Motion Averaging Review<a class="headerlink" href="#motion-averaging-review" title="永久链接至标题">¶</a></h2>
 <p>相机的绝对位姿 <span class="math notranslate nohighlight">\(P_i = [R_i|t_i]\)</span> , 其中 <span class="math notranslate nohighlight">\(R_i \in R^{3\times 3}\)</span> 是3D旋转向量， <span class="math notranslate nohighlight">\(c_i \in R^{3 \times 1}\)</span> 是相机的光学中心位置。</p>
 <p>对于每一对相机 <span class="math notranslate nohighlight">\(C_i\)</span> 和  <span class="math notranslate nohighlight">\(C_j\)</span> 都有两个相对位移约束：</p>
 <div class="math notranslate nohighlight">
@@ -262,7 +267,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 </div>
 </div>
 <div class="section" id="distributed-motion-averaging">
-<h2><span class="section-number">8.2. </span>Distributed Motion Averaging<a class="headerlink" href="#distributed-motion-averaging" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.2. </span>Distributed Motion Averaging<a class="headerlink" href="#distributed-motion-averaging" title="永久链接至标题">¶</a></h2>
 <p>目标是按照分布方式从相对旋转 <span class="math notranslate nohighlight">\(\mathcal{R}_{rel} = \{R_{ij}\}\)</span> 和平移 <span class="math notranslate nohighlight">\(\mathcal{T}_{rel} = \{t_{ij}\}\)</span> 计算大量摄像机 <span class="math notranslate nohighlight">\(\mathcal{C} = \{C_i\}\)</span> 的全局位姿  <span class="math notranslate nohighlight">\(P = \{P_i\}\)</span> 。</p>
 <p><strong>假设大多数错误的对极几何和特征对应关系已被对极滤波器丢弃。</strong></p>
 <p>文章定义了几个名词，上图图(a)显示了一个相机分区，其中相同分区中的相机具有相同的颜色。如果摄像机仅链接到同一分区中的摄像机，则将其命名为 <strong>intra-camera</strong> ，所有这些相机的集合称为 <span class="math notranslate nohighlight">\(C_{intra}\)</span> 。</p>
@@ -295,7 +300,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 </dl>
 </div>
 <div class="section" id="system-architecture">
-<h2><span class="section-number">8.3. </span>System Architecture<a class="headerlink" href="#system-architecture" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.3. </span>System Architecture<a class="headerlink" href="#system-architecture" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/210.jpg" src="../../../../../../_images/210.jpg" />
 </div>
@@ -306,7 +311,7 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
 <p>在全局运动平均中，通过将所有 <strong>intra-camera</strong> 位姿固定在其局部坐标系中的相对位姿来优化与每个分区相关联的摄像机之间姿势和相似性变换。</p>
 </div>
 <div class="section" id="camera-partitioning">
-<h2><span class="section-number">8.4. </span>Camera Partitioning<a class="headerlink" href="#camera-partitioning" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.4. </span>Camera Partitioning<a class="headerlink" href="#camera-partitioning" title="永久链接至标题">¶</a></h2>
 <p>从摄像机图 <span class="math notranslate nohighlight">\(\mathcal{G} = \{\mathcal{V},\mathcal{\epsilon}\}\)</span> 开始，然后递归应用归一化割算法将相机图划分为两个子图，直到每个子图所对应的局部平均运动可以通过单台计算机计算出。</p>
 </div>
 </div>
@@ -317,8 +322,8 @@ arg \mathop{min}\limits_{\mathcal{T}} &amp;\sum\limits_{t_{ij} \in \mathcal{T}_r
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../GlobalSfM_SA/GlobalSfM_SA.html" class="btn btn-neutral float-right" title="9. Global Structure-from-Motion by Similarity Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../CSfM/CSfM.html" class="btn btn-neutral float-left" title="7. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../GlobalSfM_SA/GlobalSfM_SA.html" class="btn btn-neutral float-right" title="10. Global Structure-from-Motion by Similarity Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../CSfM/CSfM.html" class="btn btn-neutral float-left" title="8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
