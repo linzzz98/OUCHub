@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>25. Robust Relative Rotation Averaging &mdash; OUCHub  文档</title>
+  <title>24. Robust Relative Rotation Averaging &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="26. Privacy Preserving Image Queries for Camera Localization" href="../Privacy_Image_Queries/Privacy_Image_Queries.html" />
-    <link rel="prev" title="24. Efficient and Robust Large-Scale Rotation Averaging" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" /> 
+    <link rel="next" title="25. Privacy Preserving Image Queries for Camera Localization" href="../Privacy_Image_Queries/Privacy_Image_Queries.html" />
+    <link rel="prev" title="23. Efficient and Robust Large-Scale Rotation Averaging" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -118,26 +118,25 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">16. 问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">17. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">18. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">19. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">20. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">21. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">22. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">24. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">25. Robust Relative Rotation Averaging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reduction-to-iteratively-reweighted-least-squares">25.1. Reduction to Iteratively Reweighted Least Squares</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optimization-using-quasi-newton-method">25.2. Optimization using Quasi-Newton Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">24. Robust Relative Rotation Averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reduction-to-iteratively-reweighted-least-squares">24.1. Reduction to Iteratively Reweighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimization-using-quasi-newton-method">24.2. Optimization using Quasi-Newton Method</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">26. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">27. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">28. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">29. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">30. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">31. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">28. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">29. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">30. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -202,7 +201,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">25. </span>Robust Relative Rotation Averaging</li>
+      <li><span class="section-number">24. </span>Robust Relative Rotation Averaging</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -222,14 +221,14 @@
            <div itemprop="articleBody">
             
   <div class="section" id="robust-relative-rotation-averaging">
-<h1><span class="section-number">25. </span>Robust Relative Rotation Averaging<a class="headerlink" href="#robust-relative-rotation-averaging" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">24. </span>Robust Relative Rotation Averaging<a class="headerlink" href="#robust-relative-rotation-averaging" title="永久链接至标题">¶</a></h1>
 <p>SfM 恢复三维点云和相机结构最流行的方法是BA的非线性优化方法，将3D结构和相机的生成模型与观察到的匹配图像点相匹配。BA的原理是最小化相机平面上的重投影误差。</p>
 <p>但是作为非线性优化算法，BA需要良好的初始化，因为它只保证收敛到局部最小值，并且BA受异常值过多鲁棒性不足和无法收敛的问题所困扰。</p>
 <p>使用两帧之间的对极几何，只能恢复第二个相机相对于第一个的航向方向（heading direction），而不是它们之间实际3D translation 的比例。 但是，可以使用它们的对极几何恢复相机对之间的3D相对旋转。</p>
 <p>因此，一种常见的方法是首先单独解决3D旋转的运动平均问题，然后在3D平移的估计中利用该解决方案。一旦解决了相机的运动，使用多视图三角剖分找到3D结构点的位置就明显容易得多，这为BA求解提供了一个很好的初值。</p>
 <p>本文以几个重要的方式概括和改进了《Efficient and Robust Large-Scale Rotation Averaging》中的解决方案：</p>
 <div class="section" id="reduction-to-iteratively-reweighted-least-squares">
-<h2><span class="section-number">25.1. </span>Reduction to Iteratively Reweighted Least Squares<a class="headerlink" href="#reduction-to-iteratively-reweighted-least-squares" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">24.1. </span>Reduction to Iteratively Reweighted Least Squares<a class="headerlink" href="#reduction-to-iteratively-reweighted-least-squares" title="永久链接至标题">¶</a></h2>
 <p>文章将最小化代价函数：</p>
 <div class="math notranslate nohighlight">
 \[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \varepsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
@@ -325,7 +324,7 @@ R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\i
 <p>至此，已将相对旋转平均问题简化为迭代重新加权的非线性最小二乘问题。 现在将看到如何在每次迭代中使用拟牛顿法解决加权非线性最小二乘问题。</p>
 </div>
 <div class="section" id="optimization-using-quasi-newton-method">
-<h2><span class="section-number">25.2. </span>Optimization using Quasi-Newton Method<a class="headerlink" href="#optimization-using-quasi-newton-method" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">24.2. </span>Optimization using Quasi-Newton Method<a class="headerlink" href="#optimization-using-quasi-newton-method" title="永久链接至标题">¶</a></h2>
 <p>在拟牛顿优化方法中，代价函数的 Hessian 近似为正半定矩阵。在高斯-牛顿算法的每次迭代中，函数在一阶意义上被局部逼近，因此优化问题归结为线性最小二乘问题。</p>
 <p>方程 <span class="math notranslate nohighlight">\(\sum\limits_{(i,j) \in \varepsilon} \phi_{ij} ·  \nabla(||r_{ij}(\Delta \Omega_v)||^2 = 0\)</span> 等价于</p>
 <div class="math notranslate nohighlight">
@@ -372,8 +371,8 @@ R_v &amp;=&amp; \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\i
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Privacy_Image_Queries/Privacy_Image_Queries.html" class="btn btn-neutral float-right" title="26. Privacy Preserving Image Queries for Camera Localization" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" class="btn btn-neutral float-left" title="24. Efficient and Robust Large-Scale Rotation Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Privacy_Image_Queries/Privacy_Image_Queries.html" class="btn btn-neutral float-right" title="25. Privacy Preserving Image Queries for Camera Localization" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html" class="btn btn-neutral float-left" title="23. Efficient and Robust Large-Scale Rotation Averaging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

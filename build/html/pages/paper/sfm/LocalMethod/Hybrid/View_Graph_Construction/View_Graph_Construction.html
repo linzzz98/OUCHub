@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>18. View-graph construction framework for robust and efficient structure-from-motion &mdash; OUCHub  文档</title>
+  <title>17. View-graph construction framework for robust and efficient structure-from-motion &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="19. A Global Linear Method for Camera Pose Registration" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" />
-    <link rel="prev" title="17. HSfM: Hybrid Structure-from-Motion" href="../HSfM/HSfM.html" /> 
+    <link rel="next" title="18. A Global Linear Method for Camera Pose Registration" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" />
+    <link rel="prev" title="16. HSfM: Hybrid Structure-from-Motion" href="../HSfM/HSfM.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -118,29 +118,28 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">16. 问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HSfM/HSfM.html">17. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">18. View-graph construction framework for robust and efficient structure-from-motion</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#abstract">18.1. ABSTRACT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">18.2. Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#related-work">18.3. Related work</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#view-graph-construction-algorithm">18.4. View-graph construction algorithm</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiments">18.5. Experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">17. View-graph construction framework for robust and efficient structure-from-motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">17.1. ABSTRACT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">17.2. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#related-work">17.3. Related work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#view-graph-construction-algorithm">17.4. View-graph construction algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">17.5. Experiments</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">19. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">20. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">21. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">22. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">24. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">25. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">26. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">27. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">28. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">29. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">30. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">31. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">28. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">29. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">30. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
@@ -205,7 +204,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">18. </span>View-graph construction framework for robust and efficient structure-from-motion</li>
+      <li><span class="section-number">17. </span>View-graph construction framework for robust and efficient structure-from-motion</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -225,10 +224,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="view-graph-construction-framework-for-robust-and-efficient-structure-from-motion">
-<h1><span class="section-number">18. </span>View-graph construction framework for robust and efficient structure-from-motion<a class="headerlink" href="#view-graph-construction-framework-for-robust-and-efficient-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">17. </span>View-graph construction framework for robust and efficient structure-from-motion<a class="headerlink" href="#view-graph-construction-framework-for-robust-and-efficient-structure-from-motion" title="永久链接至标题">¶</a></h1>
 <p>👉 <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S003132032030515X/pdfft?md5=08305ef599a13d709c318d6968c56870&amp;pid=1-s2.0-S003132032030515X-main.pdf">原文链接</a></p>
 <div class="section" id="abstract">
-<h2><span class="section-number">18.1. </span>ABSTRACT<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">17.1. </span>ABSTRACT<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
 <p>一个view-graph对于sfm的鲁棒性和精度都是至关重要的。传统的矩阵分解方法会平等的看待所有的view-graph顶点的边。因此，许多边缘outliers是在特征匹配较少的匹配对中产生的。</p>
 <p>为了解决这个问题，作者提出了一种用于构建view-graph的增量框架，在该框架中，具有大量特征匹配项的匹配对的鲁棒性会传播到其连接的图像中。</p>
 <p>输入：成对特征匹配</p>
@@ -239,7 +238,7 @@
 <p>通过这种方式，这些新计算的边缘继承了VMST的鲁棒性和准确性，并且通过将其嵌入到VMST中，构建了作者所提出的view-graph。</p>
 </div>
 <div class="section" id="introduction">
-<h2><span class="section-number">18.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">17.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/19.png" src="../../../../../../_images/19.png" />
 </div>
@@ -266,7 +265,7 @@ pipeline通常包含四个模块：特征检测与匹配、view-graph构建、�
 <p>对于匹配图中的每个边缘，在进行几何验证后生成的内部匹配越多，则该边缘越可能是正确的。即使对于模糊的图像数据集（具有重复纹理的场景），这种观察也是站得住脚的，这启发我们通过从那些具有尽可能多的内部匹配项的边缘延伸来构造视点图。</p>
 </div>
 <div class="section" id="related-work">
-<h2><span class="section-number">18.3. </span>Related work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">17.3. </span>Related work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
 <p>由于视图中存在许多错误的边缘，大多数工作都将更多的注意力放在三个方面：</p>
 <p>（1）如何过滤边缘离群值。</p>
 <p>（2）如何优化视图。</p>
@@ -299,7 +298,7 @@ structure-from-motion》从边缘具有相似性分数的树构造最优子图�
 <p><strong>相比之下，文章提出的框架从根本上有所不同，即不执行任何边缘过滤或优化工作。为了相机位姿估计，文章更专注于直接构建包含足够数量的边缘和鲁棒的两视图对极几何而不是寻找最佳子图。</strong></p>
 </div>
 <div class="section" id="view-graph-construction-algorithm">
-<h2><span class="section-number">18.4. </span>View-graph construction algorithm<a class="headerlink" href="#view-graph-construction-algorithm" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">17.4. </span>View-graph construction algorithm<a class="headerlink" href="#view-graph-construction-algorithm" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/27.png" src="../../../../../../_images/27.png" />
 </div>
@@ -406,7 +405,7 @@ M
 </div>
 </div>
 <div class="section" id="experiments">
-<h2><span class="section-number">18.5. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">17.5. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/72.png" src="../../../../../../_images/72.png" />
 </div>
@@ -425,8 +424,8 @@ M
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" class="btn btn-neutral float-right" title="19. A Global Linear Method for Camera Pose Registration" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../HSfM/HSfM.html" class="btn btn-neutral float-left" title="17. HSfM: Hybrid Structure-from-Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html" class="btn btn-neutral float-right" title="18. A Global Linear Method for Camera Pose Registration" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../HSfM/HSfM.html" class="btn btn-neutral float-left" title="16. HSfM: Hybrid Structure-from-Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
