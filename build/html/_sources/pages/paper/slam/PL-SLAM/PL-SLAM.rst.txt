@@ -23,7 +23,7 @@ PL-SLAM: Real-Time Monocular Visual SLAM with Points and Lines
 
       1. 基于ORB-SLAM提出了 PL-SLAM（点和线 SLAM），这是一种可以同时利用点和线信息的解决方案。
 
-      2. 提出了一种新的初始化方法，该方法允许仅从三个连续图像之间的线对应估计近似初始图。
+      2. 提出了一种新的初始化策略，即在连续三帧图像中只能检测到线特征的情况下，估计出一个近似的初始化map。
 
       .. note::
 
