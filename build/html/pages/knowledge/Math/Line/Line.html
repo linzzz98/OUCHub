@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>⭐ Line &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="🍤 Computer Vision" href="../../k_CV.html" />
+    <link rel="prev" title="1. Iteratively reweighted least squares" href="../LeastSquares/IRLS/IRLS.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../k_MH.html">💊 Math</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Matrix/Matrix.html">🍤 Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../LeastSquares/LeastSquares.html">☁️ LeastSquares</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">⭐ Line</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../k_MH.html">💊 Math</a> &raquo;</li>
+        
+      <li>⭐ Line</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/knowledge/Math/Line/Line.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="star-line">
+<h1>⭐ Line<a class="headerlink" href="#star-line" title="永久链接至标题">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>归纳总结 Multiple View Geometry in CV 里关于线的相关知识。</p>
+</div>
+<ol class="arabic simple">
+<li><p>使用向量表示线段，如 <span class="math notranslate nohighlight">\((a,b,c)^T\)</span> 表示 <span class="math notranslate nohighlight">\(ax+by+c = 0\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>当且仅当 <span class="math notranslate nohighlight">\(x^Tl = 0\)</span> 时，点 <span class="math notranslate nohighlight">\(x\)</span> 才在线 <span class="math notranslate nohighlight">\(l\)</span> 上</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>自由度问题：为了指定一个点，必须提供两个值，即其x坐标和y坐标。 以类似的方式，一条线由两个参数（两个独立的比率 <span class="math notranslate nohighlight">\(\{a：b：c\}\)</span> ）指定，因此具有两个自由度。在非齐次表示中，可以选择这两个参数作为直线的梯度和y截距。</p></li>
+</ol>
+<ol class="arabic" start="4">
+<li><p>线段 <span class="math notranslate nohighlight">\(l\)</span> 和 <span class="math notranslate nohighlight">\(l'\)</span> 的交点 <span class="math notranslate nohighlight">\(x = l \times l'\)</span></p>
+<p>如  <span class="math notranslate nohighlight">\(x = 1 \longrightarrow-1x+1 = 0 ~~~:~~~ l = (-1,0,1)^T\)</span></p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(y = 1 \longrightarrow -1y + 1 = 0~~~:~~~ l' = (0,-1,1)^T\)</span></p>
+<p><span class="math notranslate nohighlight">\(x = l\times l' = \left|\begin{matrix}i &amp; j &amp; k\\-1 &amp; 0 &amp; 1\\0 &amp; -1 &amp; 1\end{matrix}\right| = \left(\begin{matrix}1\\1\\1\end{matrix}\right)\)</span></p>
+</div></blockquote>
+</li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>过两个点 <span class="math notranslate nohighlight">\(x\)</span> 和 <span class="math notranslate nohighlight">\(x'\)</span> 的直线 <span class="math notranslate nohighlight">\(l = x \times x'\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="6">
+<li><p>最后一个坐标 <span class="math notranslate nohighlight">\(x_3 = 0\)</span> 的点被称为理想点（ideal point），或无穷远处的点。所有的理想点都表示为 <span class="math notranslate nohighlight">\((x_1, x_2, 0)^T\)</span> ，其特定点由比率 <span class="math notranslate nohighlight">\(x_1:x_2\)</span> 指定。</p></li>
+</ol>
+<ol class="arabic simple" start="7">
+<li><p>无穷远线表示为 <span class="math notranslate nohighlight">\(l_\infty = (0,0,1)^T\)</span> ，从而 <span class="math notranslate nohighlight">\((0,0,1)(x_1,x_2,0)^T = 0\)</span></p></li>
+</ol>
+<p>一条线由两个点的连接或两个平面的交点定义。线在3-空间中有 4 个自由度。（两个端点，一个端点两个参数）</p>
+<p>以下是三种线的表现形式：</p>
+<ol class="arabic simple">
+<li><p>Null-space and span representation.</p></li>
+</ol>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../k_CV.html" class="btn btn-neutral float-right" title="🍤 Computer Vision" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../LeastSquares/IRLS/IRLS.html" class="btn btn-neutral float-left" title="1. Iteratively reweighted least squares" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

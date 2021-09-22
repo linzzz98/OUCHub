@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>28. Accurate and Linear Time Pose Estimation from Points and Lines &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="29. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="27. Using Many Cameras as One" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">28. Accurate and Linear Time Pose Estimation from Points and Lines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">28.1. 问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">28.2. 线段投影误差的一般定义</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">29. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">30. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">28. </span>Accurate and Linear Time Pose Estimation from Points and Lines</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accurate-and-linear-time-pose-estimation-from-points-and-lines">
+<h1><span class="section-number">28. </span>Accurate and Linear Time Pose Estimation from Points and Lines<a class="headerlink" href="#accurate-and-linear-time-pose-estimation-from-points-and-lines" title="永久链接至标题">¶</a></h1>
+<p>本文提出了一种将 3D 到 2D 线对应（3D-to-2D line correspondences）引入 PnP 公式的新方法，允许同时处理点和线。并引入了代数线误差，可以将其表示为线端点上的线性约束，并可以集成到其他PnP方法中。</p>
+<p>在重复纹理或纹理缺乏的情况下，PnP算法表现可能不佳，从而估计和匹配特征点变得异常困难。在这种情况下，可以使用PnL方法进行估计，但是该方法的准确度不如PnP。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>PnL方法即使知道了3D-2D的线对应关系，仍然可能存在线沿着其方向上的偏移问题，以及由于遮挡或误检测导致的线段被部分观察。</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">28.1. </span>问题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>给出 3D 参考线和 2D 线段段投影之间的 n 个对应关系。</p>
+<p>3D 线由 3D 端点表示 <span class="math notranslate nohighlight">\(\{P^i, Q^i\}\)</span> ，2D线段由 2D 端点表示 <span class="math notranslate nohighlight">\(\{p_d^i, q_d^i\}\)</span>  。
+假设相机已经标定，内参矩阵为 <span class="math notranslate nohighlight">\(K\)</span> ，目标是估计使相机和世界坐标系对齐的旋转 <span class="math notranslate nohighlight">\(R\)</span> 和平移 <span class="math notranslate nohighlight">\(t\)</span> 。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>2维线段的端点 <span class="math notranslate nohighlight">\(p_d^i,q_d^i\)</span> 不一定对应于 3D 线端点 <span class="math notranslate nohighlight">\(P^i, Q^i\)</span> 的投影 <span class="math notranslate nohighlight">\(p^i, q^i\)</span></p>
+<p>相反，它们是与 <span class="math notranslate nohighlight">\(P^i,Q^i\)</span> 位于同一 3D 线上的某些点 <span class="math notranslate nohighlight">\(P_d^i, Q_d^i\)</span> 的投影。</p>
+<p>这反映了这样一个事实，即实际上 3D 参考线可能无法在图像中完全检测到，或者它们可能会被部分遮挡，从而无法使用基于点的 PnP 算法。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">28.2. </span>线段投影误差的一般定义<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>令向量 <span class="math notranslate nohighlight">\(\theta\)</span> 表示校准相机的位姿参数 <span class="math notranslate nohighlight">\(R, t\)</span> 。</p>
+<p>在 PnP 公式中最小化了投影函数  <span class="math notranslate nohighlight">\(\tilde{x} = \pi(\theta, X)\)</span> 的重投影误差，其中 <span class="math notranslate nohighlight">\(\tilde{x} \in R^3\)</span> 是投影在相机上的 3D 点 <span class="math notranslate nohighlight">\(X\)</span> 的齐次坐标。</p>
+<p>由于假设内参矩阵 <span class="math notranslate nohighlight">\(K\)</span> 是已知的，可以在解决 PnPL 问题之前将检测到的线和点的归一化图像平面坐标预乘 <span class="math notranslate nohighlight">\(K^{-1}\)</span> 。</p>
+<p>为了扩展基于点的公式来处理线段，需要对线的重投影误差进行形式化。</p>
+<p>令 <span class="math notranslate nohighlight">\(\tilde{p}_d^i, \tilde{q}_d^i \in R^3\)</span> 是第 <span class="math notranslate nohighlight">\(i\)</span> 条线段检测到的二维端点 <span class="math notranslate nohighlight">\(p_d^i, q_d^i\)</span> 的齐次坐标。</p>
+<p>用归一化的线系数来表示这个投影段：</p>
+<div class="math notranslate nohighlight">
+\[\hat{l}^i = \tilde{p}_d^i \times \tilde{q}_d^i, ~~l^i = \frac{\hat{l}^i}{|\hat{l}^i|} \in R^3\]</div>
+<p>将 3D 点 <span class="math notranslate nohighlight">\(P^i\)</span> 到检测到的线段 <span class="math notranslate nohighlight">\(l^i\)</span> 的代数点线误差 <span class="math notranslate nohighlight">\(E_{pl}\)</span> 定义为线 <span class="math notranslate nohighlight">\(l^i\)</span> 与 <span class="math notranslate nohighlight">\(P^i\)</span> 的 2D 投影之间的距离：</p>
+<div class="math notranslate nohighlight">
+\[E_{pl}(\theta, P^i, l^i) = (l^i)^T \pi(\theta, P^i)\]</div>
+<p>进一步将代数线段误差 <span class="math notranslate nohighlight">\(E_l\)</span> 定义为 3D 线段端点的两个点线误差的平方和：</p>
+<div class="math notranslate nohighlight">
+\[E_l(\theta,P^i, Q^i, l^i) = E_{pl}^2(\theta, P^i, l^i) + E_{pl}^2(\theta, Q^i, l^i)\]</div>
+<p>整个图像的整体线段误差 <span class="math notranslate nohighlight">\(E_{lines}\)</span> 是所有匹配线段的累积代数线段误差：</p>
+<div class="math notranslate nohighlight">
+\[E_{lines}(\theta, \{P^i\}, \{Q^i\}, \{l^i\}) = \sum\limits_i E_l(\theta, P^i, Q^i, l^i)\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>此误差并未明确使用检测到的线段端点，仅取决于线系数 <span class="math notranslate nohighlight">\(l^i\)</span> 。试图用它来近似检测到的端点与从模型投影到图像平面上的线之间的距离，这种近似会导致严重错误。</p>
+<p>在这种情况下，真实投影端点  <span class="math notranslate nohighlight">\((p, q)\)</span> 与二维检测端点  <span class="math notranslate nohighlight">\((p_d, q_d )\)</span> 相对较远，代数点线误差 <span class="math notranslate nohighlight">\(d_1\)</span> 和 <span class="math notranslate nohighlight">\(d_4\)</span> 远大于黄金标准误差 <span class="math notranslate nohighlight">\(d_2,d_3\)</span> 。</p>
+<p>为了解决这个问题，首先用给定的 3D 模型估计初始相机位姿。 然后重新计算端点在 3D 模型上的位置，以便它们减少投影端点和检测端点之间的距离。</p>
+<p>使用这个更新的 3D 模型计算相机位姿的最终估计值。</p>
+</div>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/136.jpg"><img alt="../../../../../_images/136.jpg" src="../../../../../_images/136.jpg" style="width: 682.5px; height: 498.0px;" /></a>
+</div>
+<p>这个图看起来不太直观，引用作者的另一篇论文中的图进行讲解：</p>
+<div class="align-center figure align-default">
+<a class="reference internal image-reference" href="../../../../../_images/224.jpg"><img alt="../../../../../_images/224.jpg" src="../../../../../_images/224.jpg" style="width: 522.0px; height: 444.59999999999997px;" /></a>
+</div>
+<dl class="field-list">
+<dt class="field-odd">左图</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(P, Q \in R^3\)</span> 是 3D 线的 3D 端点， <span class="math notranslate nohighlight">\(\tilde{p}, \tilde{q} \in R^2\)</span> 是它们投影到图像平面的 2D 端点和 l 投影线系数。</p>
+<p><span class="math notranslate nohighlight">\(p_d, q_d \in R^2\)</span> 是检测到的线的 2D 端点， <span class="math notranslate nohighlight">\(P_d, Q_d \in R^3\)</span> 是它们的真实 3D 端点，以及 l 检测到的线系数。  <span class="math notranslate nohighlight">\(X\in R^3\)</span> 是一个 3D 点， <span class="math notranslate nohighlight">\(\tilde{x} \in R^2\)</span> 是其对应的 2D 投影。</p>
+</dd>
+<dt class="field-even">右图</dt>
+<dd class="field-even"><p>表示基于线的重投影错误。  <span class="math notranslate nohighlight">\(d_1\)</span> 和 <span class="math notranslate nohighlight">\(d_2\)</span> 表示线重投影误差， <span class="math notranslate nohighlight">\(d'_1\)</span> 和 <span class="math notranslate nohighlight">\(d'_2\)</span> 表示检测到的 2D 线（蓝色实线）和相应的投影 3D 线（绿色虚线）之间的检测线重投影误差。</p>
+</dd>
+</dl>
+<p>因此，原图的右下角的图即意为经过矫正后，理论点和实际点移动到了相同的位置，即缩小了误差。</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(d\)</span> 是检测到的线段的长度，在完整的 PnPL 算法的第一次迭代之后，获得了相机位姿的初始估计。 然后我移动相机坐标系中每条线段的端点，使投影线段的长度与检测到的线段的长度相匹配，并且对应端点之间的距离之和最小。</p>
+</div></blockquote>
+<p>更具体地说，给定位姿 <span class="math notranslate nohighlight">\(R、t\)</span> 的估计值，计算 <span class="math notranslate nohighlight">\(p,q\)</span> 和沿投影线 <span class="math notranslate nohighlight">\(\hat{l}\)</span> 的单位线方向向量 <span class="math notranslate nohighlight">\(v\)</span> 。</p>
+<p>然后沿着这条线移动 <span class="math notranslate nohighlight">\(p\)</span> 和 <span class="math notranslate nohighlight">\(q\)</span> 的位置，使它们尽可能靠近 <span class="math notranslate nohighlight">\(p_d,q_d\)</span> ，并以距离 <span class="math notranslate nohighlight">\(d\)</span> 分开。</p>
+<p>这可以用以下两个方程表示，即移位参数 <span class="math notranslate nohighlight">\(\gamma\)</span> 的函数：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_d = p + \gamma v\\
+q_d = p + (\gamma + d)v\end{split}\]</div>
+<p>从而有：</p>
+<div class="math notranslate nohighlight">
+\[\gamma = v^T (\frac{1}{2}(p_d + q_d)-p) - \frac{d}{2}\]</div>
+<p>给定 <span class="math notranslate nohighlight">\(\gamma\)</span> ，可以将 <span class="math notranslate nohighlight">\(p_d = p + \gamma v\)</span> 和  <span class="math notranslate nohighlight">\(q_d = p + (\gamma + d)v\)</span>  的右侧作为 <span class="math notranslate nohighlight">\(p、q\)</span> 的新投影，并反投影新端点 <span class="math notranslate nohighlight">\(P、Q\)</span> 在相机和世界坐标系中的位置。</p>
+<p>要将一个点从图像平面反投影到 3D 线，需要计算该点的视线与 3D 线的交点，如下所示：</p>
+<div class="math notranslate nohighlight">
+\[\gamma \tilde{x} = \alpha X + \beta D\]</div>
+<p>其中  <span class="math notranslate nohighlight">\(\tilde{x}\)</span>  是点的投影齐次坐标， <span class="math notranslate nohighlight">\(X\)</span> 是属于该线的 3D 点， <span class="math notranslate nohighlight">\(D\)</span> 是 3D 线方向。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>X 和 D 都是相对于相机坐标系表示的。</p>
+</div>
+<p>可以看出  <span class="math notranslate nohighlight">\(s = [-\lambda, \alpha, \beta]^T\)</span> 与向量 <span class="math notranslate nohighlight">\([X(j),D(j), -\tilde{x}(j)]^T\)</span> ，其中 <span class="math notranslate nohighlight">\(X(j)\)</span> 对应向量 <span class="math notranslate nohighlight">\(X\)</span> 的第 <span class="math notranslate nohighlight">\(j\)</span> 个分量。</p>
+<p>使用叉积运算来求解 s 然后计算 3D 点位置作为 <span class="math notranslate nohighlight">\(X + \frac{\beta}{\alpha} D\)</span></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="29. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html" class="btn btn-neutral float-left" title="27. Using Many Cameras as One" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
