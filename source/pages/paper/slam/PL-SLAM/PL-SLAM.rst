@@ -101,11 +101,11 @@ LINE-BASED SLAM
 
       其中 :math:`I` 是投影的 3D 线系数，检测到的点到线误差是  :math:`E_{pl,d}(p_d,I) = I^T p_d` 。
 
-   基于文献中提出的方法，将应用对检测到的重投影线误差的递归，以优化位姿参数 :math:`\theta` ，同时将  :math:`E_{line,d}`逼近等式上定义的线误差 :math:`E_{line}` 。
+   基于文献中提出的方法，将应用对检测到的重投影线误差的递归，以优化位姿参数 :math:`\theta` ，同时将  :math:`E_{line,d}` 逼近等式上定义的线误差 :math:`E_{line}` 。
 
 2. 使用点和线进行BA调整
 
-   设 :math:`X_j\in R^3` 是map的第j个通用点，对于第 :math:`i` 个关键点，这个点可以投影到图像平面上：
+   设 :math:`X_j\in R^3` 是map的第 :math:`j` 个通用点，对于第 :math:`i` 个关键点，这个点可以投影到图像平面上：
 
    .. math::
 
@@ -211,7 +211,7 @@ LINE-BASED SLAM
 
    《Polynomial eigenvalue solu- tions to minimal problems in computer vision》 的求解器，
 
-   该求解器产生多达八个解。对于每个可能的旋转矩阵，通过使用三焦张量方程得到 :math:`t_1,t_3` ，这些方程在 :math:`t_1, t_3` 中是线性的。假设 :math:`t2 = 0` 。评估八种可能的解，并保留最小化方程的那个解。
+   该求解器产生多达八个解。对于每个可能的旋转矩阵，通过使用三焦张量方程得到 :math:`t_1,t_3` ，这些方程在 :math:`t_1, t_3` 中是线性的。假设 :math:`t_2 = 0` 。评估八种可能的解，并保留最小化方程的那个解。
 
 .. note::
 

@@ -280,10 +280,10 @@
 \[E_{line,d}(p_d,q_d,I) = E^2_{pl,d}(p_d,I) + E^2_{pl,d}(q_d,I)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(I\)</span> 是投影的 3D 线系数，检测到的点到线误差是  <span class="math notranslate nohighlight">\(E_{pl,d}(p_d,I) = I^T p_d\)</span> 。</p>
 </div>
-<p>基于文献中提出的方法，将应用对检测到的重投影线误差的递归，以优化位姿参数 <span class="math notranslate nohighlight">\(\theta\)</span> ，同时将  <span class="math notranslate nohighlight">\(E_{line,d}\)</span> 。</p>
+<p>基于文献中提出的方法，将应用对检测到的重投影线误差的递归，以优化位姿参数 <span class="math notranslate nohighlight">\(\theta\)</span> ，同时将  <span class="math notranslate nohighlight">\(E_{line,d}\)</span> 逼近等式上定义的线误差 <span class="math notranslate nohighlight">\(E_{line}\)</span> 。</p>
 </li>
 <li><p>使用点和线进行BA调整</p>
-<p>设 <span class="math notranslate nohighlight">\(X_j\in R^3\)</span> 是map的第j个通用点，对于第 <span class="math notranslate nohighlight">\(i\)</span> 个关键点，这个点可以投影到图像平面上：</p>
+<p>设 <span class="math notranslate nohighlight">\(X_j\in R^3\)</span> 是map的第 <span class="math notranslate nohighlight">\(j\)</span> 个通用点，对于第 <span class="math notranslate nohighlight">\(i\)</span> 个关键点，这个点可以投影到图像平面上：</p>
 <div class="math notranslate nohighlight">
 \[\tilde{x}_{i,j} = \pi (X_j, \theta_i, K)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\theta_i = \{R_i, t_i\}\)</span> 表示第 <span class="math notranslate nohighlight">\(i\)</span> 个关键帧的特定位姿。 给定对这一点的观察 <span class="math notranslate nohighlight">\(x_{i,j}\)</span> ，定义以下 3D 误差：</p>
@@ -356,7 +356,7 @@ e''_{i,j} = (\tilde{I}_{i,j})^T(K^{-1}q_{i,j}^h)\]</div>
 <p class="admonition-title">注意</p>
 <p>对于这样的参数化，有三个匹配的线，因此将有三个二次方程，如 <span class="math notranslate nohighlight">\(l_2^T((R^T l_1) \times (R l_3)) = 0\)</span> 和三个未知数 <span class="math notranslate nohighlight">\(r_1,r_2,r_3\)</span> ，本文采用</p>
 <p>《Polynomial eigenvalue solu- tions to minimal problems in computer vision》 的求解器，</p>
-<p>该求解器产生多达八个解。对于每个可能的旋转矩阵，通过使用三焦张量方程得到 <span class="math notranslate nohighlight">\(t_1,t_3\)</span> ，这些方程在 <span class="math notranslate nohighlight">\(t_1, t_3\)</span> 中是线性的。假设 <span class="math notranslate nohighlight">\(t2 = 0\)</span> 。评估八种可能的解，并保留最小化方程的那个解。</p>
+<p>该求解器产生多达八个解。对于每个可能的旋转矩阵，通过使用三焦张量方程得到 <span class="math notranslate nohighlight">\(t_1,t_3\)</span> ，这些方程在 <span class="math notranslate nohighlight">\(t_1, t_3\)</span> 中是线性的。假设 <span class="math notranslate nohighlight">\(t_2 = 0\)</span> 。评估八种可能的解，并保留最小化方程的那个解。</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>

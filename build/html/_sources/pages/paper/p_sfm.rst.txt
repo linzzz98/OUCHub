@@ -34,6 +34,7 @@
    sfm/CameraPose/Privacy_Location/Privacy_Location
    sfm/CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One
    sfm/CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines
+   sfm/CameraPose/Solver6L/Solver6L
    sfm/DeepLearning/SfMLearner/SfMLearner
    sfm/DeepLearning/DeepSfM/DeepSfM
 
@@ -70,6 +71,7 @@
 * :doc:`[CVPR 2003] Using  Many Cameras as One <sfm/CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One>`
 * :doc:`[TPAMI 2004] An efficient solution to the five-point relative pose problem <sfm/CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem>`
 * :doc:`[CVPR 2005] Lie-Algebraic Averaging For Globally Consistent Motion Estimation <sfm/CameraPose/Lie_Averaging/Lie_Averaging>`
+* :doc:`[OMNIVIS 2005] Solutions to Minimal Generalized Relative Pose Problems <sfm/CameraPose/Solver6L/Solver6L>`
 * :doc:`[CVPR 2007] Robust Rotation and Translation Estimation in Multiview Reconstruction <sfm/CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation>`
 * :doc:`[ICCV 2013] A Global Linear Method for Camera Pose Registration <sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration>`
 * :doc:`[ICCV 2013] Efficient and Robust Large-Scale Rotation Averaging <sfm/CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging>`
