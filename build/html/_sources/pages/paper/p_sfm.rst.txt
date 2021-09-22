@@ -13,6 +13,7 @@
    sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM
    sfm/LocalMethod/Incremental/Privacy_SfM/Privacy_SfM
    sfm/LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments
+   sfm/LocalMethod/Incremental/Line_based_SfM/Line_based_SfM
    sfm/LocalMethod/Global/CSfM/CSfM
    sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM
    sfm/LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA
@@ -44,6 +45,7 @@
 * :doc:`[CVPR 2016] Structure-from-Motion Revisited <sfm/LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited>` |:fire:|
 * :doc:`[ECCV 2018] Improved Structure from Motion Using Fiducial Marker Matching <sfm/LocalMethod/Incremental/MarkerSfM/MarkerSfM>` |:fire:|
 * :doc:`[ECCV 2018] View-graph Selection Framework for SfM <sfm/LocalMethod/Incremental/View-graph_SfM/View-graph_SfM>` |:fire:|
+* :doc:`[3DIMPVT 2018] Line-based Robust SfM with Little Image Overlap <sfm/LocalMethod/Incremental/Line_based_SfM/Line_based_SfM>` |:fire:|
 * :doc:`[PR 2020] View-graph construction framework for robust and efficient structure-from-motion <sfm/LocalMethod/Incremental/View-graph_Framework/View-graph_Framework>`
 * :doc:`[ECCV 2020] Privacy  Preserving   Structure-from-Motion <sfm/LocalMethod/Incremental/Privacy_SfM/Privacy_SfM>`
 

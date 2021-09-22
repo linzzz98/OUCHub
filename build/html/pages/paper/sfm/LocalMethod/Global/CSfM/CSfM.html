@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION &mdash; OUCHub  文档</title>
+  <title>9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="9. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" />
-    <link rel="prev" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html" /> 
+    <link rel="next" title="10. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" />
+    <link rel="prev" title="8. Line-based Robust SfM with Little Image Overlap" href="../../Incremental/Line_based_SfM/Line_based_SfM.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -110,38 +110,40 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">8. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#community-detection">8.1. COMMUNITY DETECTION</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#global-similarity-averaging">8.2. GLOBAL SIMILARITY AVERAGING</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#global-scale-averaging">8.2.1. Global Scale Averaging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#global-rotation-averaging">8.2.2. Global Rotation Averaging</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#global-translation-averaging">8.2.3. Global Translation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#community-detection">9.1. COMMUNITY DETECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#global-similarity-averaging">9.2. GLOBAL SIMILARITY AVERAGING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#global-scale-averaging">9.2.1. Global Scale Averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-rotation-averaging">9.2.2. Global Rotation Averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#global-translation-averaging">9.2.3. Global Translation Averaging</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#reconstructions-merging">8.3. Reconstructions Merging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reconstructions-merging">9.3. Reconstructions Merging</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">9. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">10. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">11. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">12. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">13. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">14. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">15. 问题</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">28. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">29. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">16. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">17. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">18. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">19. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">20. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">21. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">22. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">24. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">25. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">26. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">27. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">28. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">29. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">30. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">31. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
@@ -206,7 +208,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">8. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</li>
+      <li><span class="section-number">9. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -226,7 +228,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="csfm-community-based-structure-from-motion">
-<h1><span class="section-number">8. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION<a class="headerlink" href="#csfm-community-based-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">9. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION<a class="headerlink" href="#csfm-community-based-structure-from-motion" title="永久链接至标题">¶</a></h1>
 <p>在本文提出了一种基于 <strong>Community</strong> （以下翻译为社区）的自适应 SfM（CSfM）方法，该方法同时考虑了鲁棒性和效率，解决了三个凸 L1 优化问题。</p>
 <ol class="arabic simple">
 <li><p>对极几何图形被划分为单独的社区 。</p></li>
@@ -254,7 +256,7 @@
 <img alt="../../../../../../_images/129.jpg" src="../../../../../../_images/129.jpg" />
 </div>
 <div class="section" id="community-detection">
-<h2><span class="section-number">8.1. </span>COMMUNITY DETECTION<a class="headerlink" href="#community-detection" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.1. </span>COMMUNITY DETECTION<a class="headerlink" href="#community-detection" title="永久链接至标题">¶</a></h2>
 <p>社区检测已广泛用于复杂网络分析，目的是将图划分为内部连接较密集和外部连接较稀疏的子图。</p>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
@@ -290,10 +292,10 @@
 <p>迭代收敛后，将那些图像数量小于 N 的小数据集合并到它们最近的连接社区中。两个社区之间的紧密程度被定义为跨越它们的对极几何边的数量。</p>
 </div>
 <div class="section" id="global-similarity-averaging">
-<h2><span class="section-number">8.2. </span>GLOBAL SIMILARITY AVERAGING<a class="headerlink" href="#global-similarity-averaging" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.2. </span>GLOBAL SIMILARITY AVERAGING<a class="headerlink" href="#global-similarity-averaging" title="永久链接至标题">¶</a></h2>
 <p>社区检测后，每个社区的图像连接变得更加密集，因此可以使用许多 SfM 方法进行重建。社区通常构建一个连通图，因此本文提出了一种全局相似性平均方法来鲁棒地对齐这些单独的重建结果。</p>
 <div class="section" id="global-scale-averaging">
-<h3><span class="section-number">8.2.1. </span>Global Scale Averaging<a class="headerlink" href="#global-scale-averaging" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">9.2.1. </span>Global Scale Averaging<a class="headerlink" href="#global-scale-averaging" title="永久链接至标题">¶</a></h3>
 <p>设 <span class="math notranslate nohighlight">\(s_i\)</span> 为第 i 个社区的尺度， <span class="math notranslate nohighlight">\(s_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间 3D 相似性变换中的比例因子。</p>
 <p>给定 <span class="math notranslate nohighlight">\(\frac{s_i}{s_j} = s_{ij}\)</span> ，通过取双方的对数函数：</p>
 <div class="math notranslate nohighlight">
@@ -312,7 +314,7 @@
 </div>
 </div>
 <div class="section" id="global-rotation-averaging">
-<h3><span class="section-number">8.2.2. </span>Global Rotation Averaging<a class="headerlink" href="#global-rotation-averaging" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">9.2.2. </span>Global Rotation Averaging<a class="headerlink" href="#global-rotation-averaging" title="永久链接至标题">¶</a></h3>
 <p>设 <span class="math notranslate nohighlight">\(R_i\)</span> 为第 <span class="math notranslate nohighlight">\(i\)</span> 个社区的旋转变换， <span class="math notranslate nohighlight">\(R_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间3D相似度变换中的相对旋转变换。</p>
 <p>给定 <span class="math notranslate nohighlight">\(R_{ij} = R_j * R_i^T\)</span> 通过对两边取对数，得到它们对应的角度轴向量之间的等式：</p>
 <div class="math notranslate nohighlight">
@@ -322,7 +324,7 @@
 <p>然后对于第 <span class="math notranslate nohighlight">\(i\)</span> 个社区，给定其尺度  <span class="math notranslate nohighlight">\(s_i\)</span>  和旋转变换 <span class="math notranslate nohighlight">\(R_i\)</span> ，将其第 k 个场景点 <span class="math notranslate nohighlight">\(X_{ik}\)</span> 变换为  <span class="math notranslate nohighlight">\(s_i ∗ R_i ∗ X_{ik}\)</span> 。 在此转换之后，重新计算一对连接社区之间的位移  <span class="math notranslate nohighlight">\(T_{ij}\)</span> 。</p>
 </div>
 <div class="section" id="global-translation-averaging">
-<h3><span class="section-number">8.2.3. </span>Global Translation Averaging<a class="headerlink" href="#global-translation-averaging" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">9.2.3. </span>Global Translation Averaging<a class="headerlink" href="#global-translation-averaging" title="永久链接至标题">¶</a></h3>
 <p>设 <span class="math notranslate nohighlight">\(T_i\)</span> 为第 <span class="math notranslate nohighlight">\(i\)</span> 个社区的平移变换， <span class="math notranslate nohighlight">\(T_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间 3D 相似变换中的相对平移变换。</p>
 <p>类似地，通过从所有连接的社区对中叠加方程 <span class="math notranslate nohighlight">\(T_{ij} = T_j - T_i\)</span> ，就有了一个线性方程组，然后，该方程组通过以下 L1 优化求解：</p>
 <div class="math notranslate nohighlight">
@@ -332,7 +334,7 @@
 </div>
 </div>
 <div class="section" id="reconstructions-merging">
-<h2><span class="section-number">8.3. </span>Reconstructions Merging<a class="headerlink" href="#reconstructions-merging" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">9.3. </span>Reconstructions Merging<a class="headerlink" href="#reconstructions-merging" title="永久链接至标题">¶</a></h2>
 <p>给定每个社区的尺度、旋转、平移变换，所有社区的重建结果（3D 场景点和相机位姿）被合并到一个单一的全局框架中。</p>
 <p>对于第 <span class="math notranslate nohighlight">\(i\)</span> 个社区，其第 k 个 3D 场景点 <span class="math notranslate nohighlight">\(X_{ik}^o\)</span> 转换为：</p>
 <div class="math notranslate nohighlight">
@@ -353,8 +355,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-right" title="9. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html" class="btn btn-neutral float-left" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-right" title="10. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../Incremental/Line_based_SfM/Line_based_SfM.html" class="btn btn-neutral float-left" title="8. Line-based Robust SfM with Little Image Overlap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

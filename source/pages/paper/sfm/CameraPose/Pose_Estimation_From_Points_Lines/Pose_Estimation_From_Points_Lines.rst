@@ -74,4 +74,60 @@ Accurate and Linear Time Pose Estimation from Points and Lines
 
 .. figure:: 1.jpg
    :figclass: align-center
+   :scale: 75%
 
+这个图看起来不太直观，引用作者的另一篇论文中的图进行讲解：
+
+.. figure:: 2.jpg
+   :figclass: align-center
+   :scale: 60%
+
+:左图:
+
+    :math:`P, Q \in R^3` 是 3D 线的 3D 端点， :math:`\tilde{p}, \tilde{q} \in R^2` 是它们投影到图像平面的 2D 端点和 l 投影线系数。
+
+
+    :math:`p_d, q_d \in R^2` 是检测到的线的 2D 端点， :math:`P_d, Q_d \in R^3` 是它们的真实 3D 端点，以及 l 检测到的线系数。  :math:`X\in R^3` 是一个 3D 点， :math:`\tilde{x} \in R^2` 是其对应的 2D 投影。
+
+:右图:
+
+   表示基于线的重投影错误。  :math:`d_1` 和 :math:`d_2` 表示线重投影误差， :math:`d'_1` 和 :math:`d'_2` 表示检测到的 2D 线（蓝色实线）和相应的投影 3D 线（绿色虚线）之间的检测线重投影误差。
+
+因此，原图的右下角的图即意为经过矫正后，理论点和实际点移动到了相同的位置，即缩小了误差。
+
+ :math:`d` 是检测到的线段的长度，在完整的 PnPL 算法的第一次迭代之后，获得了相机位姿的初始估计。 然后我移动相机坐标系中每条线段的端点，使投影线段的长度与检测到的线段的长度相匹配，并且对应端点之间的距离之和最小。
+
+更具体地说，给定位姿 :math:`R、t` 的估计值，计算 :math:`p,q` 和沿投影线 :math:`\hat{l}` 的单位线方向向量 :math:`v` 。
+
+然后沿着这条线移动 :math:`p` 和 :math:`q` 的位置，使它们尽可能靠近 :math:`p_d,q_d` ，并以距离 :math:`d` 分开。
+
+这可以用以下两个方程表示，即移位参数 :math:`\gamma` 的函数：
+
+.. math::
+
+   p_d = p + \gamma v\\
+   q_d = p + (\gamma + d)v
+
+从而有：
+
+.. math::
+
+   \gamma = v^T (\frac{1}{2}(p_d + q_d)-p) - \frac{d}{2}
+
+给定 :math:`\gamma` ，可以将 :math:`p_d = p + \gamma v` 和  :math:`q_d = p + (\gamma + d)v`  的右侧作为 :math:`p、q` 的新投影，并反投影新端点 :math:`P、Q` 在相机和世界坐标系中的位置。
+
+要将一个点从图像平面反投影到 3D 线，需要计算该点的视线与 3D 线的交点，如下所示：
+
+.. math::
+
+   \gamma \tilde{x} = \alpha X + \beta D
+
+其中  :math:`\tilde{x}`  是点的投影齐次坐标， :math:`X` 是属于该线的 3D 点， :math:`D` 是 3D 线方向。
+
+.. note::
+
+   X 和 D 都是相对于相机坐标系表示的。
+
+可以看出  :math:`s = [-\lambda, \alpha, \beta]^T` 与向量 :math:`[X(j),D(j), -\tilde{x}(j)]^T` ，其中 :math:`X(j)` 对应向量 :math:`X` 的第 :math:`j` 个分量。
+
+使用叉积运算来求解 s 然后计算 3D 点位置作为 :math:`X + \frac{\beta}{\alpha} D`

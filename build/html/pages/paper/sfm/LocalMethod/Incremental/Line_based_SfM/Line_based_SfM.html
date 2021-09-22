@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>14. Optimizing the Viewing Graph for Structure-from-Motion &mdash; OUCHub  文档</title>
+  <title>8. Line-based Robust SfM with Little Image Overlap &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="15. Reducing Drift in Structure From Motion Using Extended Features" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" />
-    <link rel="prev" title="13. Effcient Initial Pose-graph Generation for Global SfM" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html" /> 
+    <link rel="next" title="9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../../Global/CSfM/CSfM.html" />
+    <link rel="prev" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,22 +103,22 @@
 <p class="caption"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../CSfM/CSfM.html">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">16. 问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html#id1">16. 问题</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">17. HSfM: Hybrid Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">18. View-graph construction framework for robust and efficient structure-from-motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">19. A Global Linear Method for Camera Pose Registration</a></li>
@@ -198,13 +198,13 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">14. </span>Optimizing the Viewing Graph for Structure-from-Motion</li>
+      <li><span class="section-number">8. </span>Line-based Robust SfM with Little Image Overlap</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.rst.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
           
         
       </li>
@@ -217,8 +217,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="optimizing-the-viewing-graph-for-structure-from-motion">
-<h1><span class="section-number">14. </span>Optimizing the Viewing Graph for Structure-from-Motion<a class="headerlink" href="#optimizing-the-viewing-graph-for-structure-from-motion" title="永久链接至标题">¶</a></h1>
+  <div class="section" id="line-based-robust-sfm-with-little-image-overlap">
+<h1><span class="section-number">8. </span>Line-based Robust SfM with Little Image Overlap<a class="headerlink" href="#line-based-robust-sfm-with-little-image-overlap" title="永久链接至标题">¶</a></h1>
 </div>
 
 
@@ -227,8 +227,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" class="btn btn-neutral float-right" title="15. Reducing Drift in Structure From Motion Using Extended Features" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html" class="btn btn-neutral float-left" title="13. Effcient Initial Pose-graph Generation for Global SfM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../Global/CSfM/CSfM.html" class="btn btn-neutral float-right" title="9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html" class="btn btn-neutral float-left" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
