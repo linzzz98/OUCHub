@@ -102,8 +102,7 @@ Voting-based Incremental Structure-from-Motion
 
    V_i = \sum\limits_i^M m_{ij}
 
-其中 :math:`m_{ij}` 表示边 :math:`E_{ij}` 中的track数量，边 :math:`E_{ij}` 连接未校准的摄像机 :math:`C_i` 和校准的摄像机 :math:`C_j` ，
- :math:`M` 是连接到摄像机 :math:`C_i` 的校准的摄像机的数量。
+其中 :math:`m_{ij}` 表示边 :math:`E_{ij}` 中的track数量，边 :math:`E_{ij}` 连接未校准的摄像机 :math:`C_i` 和校准的摄像机 :math:`C_j` , :math:`M` 是连接到摄像机 :math:`C_i` 的校准的摄像机的数量。
 
 假设未标定摄像机的最大度数 **maximal degree** 为 :math:`V_{max}` ，则degree大于 :math:`\gamma * V_{max}` 的摄像机被选为后续摄像机标定的候选。
 
