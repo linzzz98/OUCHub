@@ -268,8 +268,10 @@
 <div class="section" id="id1">
 <h2><span class="section-number">9.1. </span>先验摄像机旋转估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
 <div class="math notranslate nohighlight">
-\[\begin{split}R_{ij} = R_i R_i^T\\
-\lambda_{ij} t_{ij} = R_j (c_i - c_j)\end{split}\]</div>
+\[\begin{split}\begin{eqnarray}
+   R_{ij} &amp;=&amp; R_i R_i^T\\
+   \lambda_{ij} t_{ij} &amp;=&amp; R_j (c_i - c_j)
+\end{eqnarray}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(R_i\)</span> 和 <span class="math notranslate nohighlight">\(c_i\)</span> 分别表示摄像机 <span class="math notranslate nohighlight">\(I\)</span> 的绝对旋转和位置。</p>
 <p>为了获得良好的初始化，并使更多的内点边进入优化，利用视图图的最大生成树(MST)来生成初始相机旋转，其中加权函数被设置为每个边中匹配内联的数量。</p>
 <p>对于MST中的每条边，执行局部BA调整以重新定义其对极几何。然后，通过定义视图图中邻居数量最多的一个摄像机，
@@ -286,8 +288,10 @@
 <p>考虑到对极几何 <span class="math notranslate nohighlight">\(\{R_{ij}, t_{ij}\}\)</span> 和相对几何 <span class="math notranslate nohighlight">\(\{R_{ij}^r, t_{ij}^r\}\)</span></p>
 <p>通过以下方法验证相对几何的差异:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\beta_1 = acos(||R_{ij} - R_{ij}^r||_F)\\
-\beta_2 = acos(||t_{ij} - t_{ij}^r||_F)\end{split}\]</div>
+\[\begin{split}\begin{eqnarray}
+   \beta_1 = acos(||R_{ij} - R_{ij}^r||_F)\\
+   \beta_2 = acos(||t_{ij} - t_{ij}^r||_F)
+\end{eqnarray}\end{split}\]</div>
 <p>当 <span class="math notranslate nohighlight">\(\beta_1\)</span> 或 <span class="math notranslate nohighlight">\(\beta_2\)</span> 大于30°时，局部重建是不稳定的，并对下一个候选种子进行重建。</p>
 </div>
 <div class="section" id="id3">

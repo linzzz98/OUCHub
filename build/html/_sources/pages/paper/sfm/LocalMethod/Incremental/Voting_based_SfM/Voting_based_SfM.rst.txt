@@ -47,8 +47,11 @@ Voting-based Incremental Structure-from-Motion
 
 .. math::
 
-   R_{ij} = R_i R_i^T\\
-   \lambda_{ij} t_{ij} = R_j (c_i - c_j)
+   \begin{eqnarray}
+      R_{ij} &=& R_i R_i^T\\
+      \lambda_{ij} t_{ij} &=& R_j (c_i - c_j)
+   \end{eqnarray}
+
 
 其中 :math:`R_i` 和 :math:`c_i` 分别表示摄像机 :math:`I` 的绝对旋转和位置。
 
@@ -77,8 +80,11 @@ Voting-based Incremental Structure-from-Motion
 
 .. math::
 
-   \beta_1 = acos(||R_{ij} - R_{ij}^r||_F)\\
-   \beta_2 = acos(||t_{ij} - t_{ij}^r||_F)
+   \begin{eqnarray}
+      \beta_1 = acos(||R_{ij} - R_{ij}^r||_F)\\
+      \beta_2 = acos(||t_{ij} - t_{ij}^r||_F)
+   \end{eqnarray}
+
 
 当 :math:`\beta_1` 或 :math:`\beta_2` 大于30°时，局部重建是不稳定的，并对下一个候选种子进行重建。
 
