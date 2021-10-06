@@ -245,7 +245,7 @@
 <p>在本文中，通过投票式的方法，来确定：</p>
 <ol class="arabic">
 <li><p>哪对相机被选为种子？</p>
-<p><strong>可能校准的摄像机的数量被认为是决定哪些对极几何边缘是种子候选的投票。</strong></p>
+<p><strong>可能已校准的相机数量被视为决定哪些极边是种子候选者的投票。</strong></p>
 </li>
 <li><p>哪些相机将被注册？</p>
 <p><strong>校准相机和未校准相机之间的接近程度被认为是决定哪些相机更有可能被校准的投票。</strong></p>
@@ -304,10 +304,7 @@
 对于每个未校准的摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> ，<strong>投票</strong> 定义为相应的接近度，通过以下方式计算:</p>
 <div class="math notranslate nohighlight">
 \[V_i = \sum\limits_i^M m_{ij}\]</div>
-<dl class="simple">
-<dt>其中 <span class="math notranslate nohighlight">\(m_{ij}\)</span> 表示边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 中的track数量，边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 连接未校准的摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 和校准的摄像机 <span class="math notranslate nohighlight">\(C_j\)</span> ，</dt><dd><p><span class="math notranslate nohighlight">\(M\)</span> 是连接到摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 的校准的摄像机的数量。</p>
-</dd>
-</dl>
+<p>其中 <span class="math notranslate nohighlight">\(m_{ij}\)</span> 表示边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 中的track数量，边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 连接未校准的摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 和校准的摄像机 <span class="math notranslate nohighlight">\(C_j\)</span> , <span class="math notranslate nohighlight">\(M\)</span> 是连接到摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 的校准的摄像机的数量。</p>
 <p>假设未标定摄像机的最大度数 <strong>maximal degree</strong> 为 <span class="math notranslate nohighlight">\(V_{max}\)</span> ，则degree大于 <span class="math notranslate nohighlight">\(\gamma * V_{max}\)</span> 的摄像机被选为后续摄像机标定的候选。</p>
 </div>
 <div class="section" id="id4">
