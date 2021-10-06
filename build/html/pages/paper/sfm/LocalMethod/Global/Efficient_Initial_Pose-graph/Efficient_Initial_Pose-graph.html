@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>13. Efficient Initial Pose-graph Generation for Global SfM &mdash; OUCHub  文档</title>
+  <title>15. Efficient Initial Pose-graph Generation for Global SfM &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="14. Optimizing the Viewing Graph for Structure-from-Motion" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" />
-    <link rel="prev" title="12. Global Structure-from-Motion and Its Application" href="../GlobalSfM_Application/GlobalSfM_Application.html" /> 
+    <link rel="next" title="16. Optimizing the Viewing Graph for Structure-from-Motion" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" />
+    <link rel="prev" title="14. Global Structure-from-Motion and Its Application" href="../GlobalSfM_Application/GlobalSfM_Application.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -111,41 +111,43 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../CSfM/CSfM.html">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">13. Efficient Initial Pose-graph Generation for Global SfM</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#abstract">13.1. Abstract</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">13.2. Introduction</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#related-tech">13.2.1. Related tech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Incremental/Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">15. Efficient Initial Pose-graph Generation for Global SfM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#abstract">15.1. Abstract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">15.2. Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#related-tech">15.2.1. Related tech</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#relative-pose-from-directed-walks">13.3. Relative Pose from Directed Walks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pose-graph-traversal">13.4. Pose-graph Traversal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guided-matching-with-pose">13.5. Guided  Matching  with  Pose</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaptive-correspondence-ranking">13.6. Adaptive Correspondence Ranking</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiments">13.7. Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#relative-pose-from-directed-walks">15.3. Relative Pose from Directed Walks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pose-graph-traversal">15.4. Pose-graph Traversal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guided-matching-with-pose">15.5. Guided  Matching  with  Pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaptive-correspondence-ranking">15.6. Adaptive Correspondence Ranking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">15.7. Experiments</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">28. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">29. Solutions to Minimal Generalized Relative Pose Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">30. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">31. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">18. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">19. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">20. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">21. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">22. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">23. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">24. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">25. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">26. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">27. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">28. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">29. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">30. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">31. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">32. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
@@ -210,7 +212,7 @@
         
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">13. </span>Efficient Initial Pose-graph Generation for Global SfM</li>
+      <li><span class="section-number">15. </span>Efficient Initial Pose-graph Generation for Global SfM</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -230,9 +232,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="efficient-initial-pose-graph-generation-for-global-sfm">
-<h1><span class="section-number">13. </span>Efficient Initial Pose-graph Generation for Global SfM<a class="headerlink" href="#efficient-initial-pose-graph-generation-for-global-sfm" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">15. </span>Efficient Initial Pose-graph Generation for Global SfM<a class="headerlink" href="#efficient-initial-pose-graph-generation-for-global-sfm" title="永久链接至标题">¶</a></h1>
 <div class="section" id="abstract">
-<h2><span class="section-number">13.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
 <p>文章提出了加速全局SfM算法的初始位姿图生成的方法。</p>
 <p>位姿图创建中最耗时的步骤是由 FLANN 形成暂时的特征点对应关系（不一定正确的对应关系）和由 RANSAC 进行几何验证，为了避免这个步骤，文章提出了两种新方法——基于图像对（通常连续匹配）。
 候选的相对位姿可以从部分构建的位姿图的路径中恢复。</p>
@@ -240,7 +242,7 @@
 <p>为了在应用 RANSAC 时加快基于 PROSAC 的采样，文章提出了第三种方法，根据先前估计的内点概率对对应项进行排序。</p>
 </div>
 <div class="section" id="introduction">
-<h2><span class="section-number">13.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
 <div class="align-center figure align-default" id="id1">
 <img alt="../../../../../../_images/127.jpg" src="../../../../../../_images/127.jpg" />
 <p class="caption"><span class="caption-text">global sfm pipeline</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
@@ -274,7 +276,7 @@
 </dd>
 </dl>
 <div class="section" id="related-tech">
-<h3><span class="section-number">13.2.1. </span>Related tech<a class="headerlink" href="#related-tech" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">15.2.1. </span>Related tech<a class="headerlink" href="#related-tech" title="永久链接至标题">¶</a></h3>
 <p>使用以下方法生成完全连接的图像相似度图：</p>
 <blockquote>
 <div><p>使用 ResNet-50 CNN 提取 GeM 图像全局描述符，在 GLD-v1 数据集上进行预训练。然后计算所有描述符之间的内积相似度，得到一个 n × n 相似度矩阵。</p>
@@ -282,7 +284,7 @@
 </div>
 </div>
 <div class="section" id="relative-pose-from-directed-walks">
-<h2><span class="section-number">13.3. </span>Relative Pose from Directed Walks<a class="headerlink" href="#relative-pose-from-directed-walks" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.3. </span>Relative Pose from Directed Walks<a class="headerlink" href="#relative-pose-from-directed-walks" title="永久链接至标题">¶</a></h2>
 <p>本文提出了一种通过尽可能 <strong>避免运行 RANSAC</strong> 来加速位姿图生成的方法。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -349,7 +351,7 @@
 </dl>
 </div>
 <div class="section" id="pose-graph-traversal">
-<h2><span class="section-number">13.4. </span>Pose-graph Traversal<a class="headerlink" href="#pose-graph-traversal" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.4. </span>Pose-graph Traversal<a class="headerlink" href="#pose-graph-traversal" title="永久链接至标题">¶</a></h2>
 <p>本文选择 <span class="math notranslate nohighlight">\(A^*\)</span> 算法的启发式方法来获得位姿图 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> 中 multiple walks 的方法。</p>
 <dl class="field-list simple">
 <dt class="field-odd">目标</dt>
@@ -381,7 +383,7 @@
 </dl>
 </div>
 <div class="section" id="guided-matching-with-pose">
-<h2><span class="section-number">13.5. </span>Guided  Matching  with  Pose<a class="headerlink" href="#guided-matching-with-pose" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.5. </span>Guided  Matching  with  Pose<a class="headerlink" href="#guided-matching-with-pose" title="永久链接至标题">¶</a></h2>
 <p>加速特征匹配的常用方法是使用近似的近邻搜索，而不是精确的近邻搜索，例如使用FLANN中的kd-tree算法。</p>
 <p>本文提出了一个替代性的解决方案–利用来自当前位姿图中walk的位姿来建立暂定的关联。
 这些位姿将被用于使标准描述符匹配 “light-weight”，只检查那些与位姿一致的对应关系。</p>
@@ -435,7 +437,7 @@ b = max(\alpha(0,0), \alpha(w_2,0), \alpha(0, h_2), \alpha(w_2, h_2))\\\end{spli
 当成功匹配新图像对时，将计算并更新多视图轨迹。</p>
 </div>
 <div class="section" id="adaptive-correspondence-ranking">
-<h2><span class="section-number">13.6. </span>Adaptive Correspondence Ranking<a class="headerlink" href="#adaptive-correspondence-ranking" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.6. </span>Adaptive Correspondence Ranking<a class="headerlink" href="#adaptive-correspondence-ranking" title="永久链接至标题">¶</a></h2>
 <p>在大规模问题中进行成对相对位姿估计时，自适应地设置 PROSAC 采样的点对应权重。
 PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点开始采样，然后再抽取不太可能导致所寻求模型的样本。</p>
 <div class="admonition important">
@@ -460,7 +462,7 @@ PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点�
 </div>
 </div>
 <div class="section" id="experiments">
-<h2><span class="section-number">13.7. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">15.7. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
 <p>比较了位姿图生成算法，包括提出的基于 <span class="math notranslate nohighlight">\(A^*\)</span> 的技术。 比较的方法是：</p>
 <ol class="arabic simple">
 <li><p>标准的穷举匹配 (EM)，其中每个测试的图像对都由 FLANN + GC-RANSAC 匹配。</p></li>
@@ -498,8 +500,8 @@ PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点�
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-right" title="14. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../GlobalSfM_Application/GlobalSfM_Application.html" class="btn btn-neutral float-left" title="12. Global Structure-from-Motion and Its Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-right" title="16. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../GlobalSfM_Application/GlobalSfM_Application.html" class="btn btn-neutral float-left" title="14. Global Structure-from-Motion and Its Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

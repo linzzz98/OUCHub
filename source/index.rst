@@ -83,6 +83,7 @@ OUC_B419_Linzzz代码论文仓库。
    pages/paper/p_sfm
    pages/paper/p_slam
    pages/paper/p_pointcloud
+   pages/paper/p_BA
    pages/paper/p_others
 
 

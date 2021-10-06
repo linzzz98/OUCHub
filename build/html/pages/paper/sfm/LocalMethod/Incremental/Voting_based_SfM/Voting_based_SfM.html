@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>9. Voting-based Incremental Structure-from-Motion &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="10. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../../Global/CSfM/CSfM.html" />
+    <link rel="prev" title="8. Line-based Robust SfM with Little Image Overlap" href="../Line_based_SfM/Line_based_SfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. Voting-based Incremental Structure-from-Motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">9.1. 先验摄像机旋转估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">9.2. 相机种子重建</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">9.3. 相机注册</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">9.4. 相机标定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">9.5. 相机验证</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ba">9.6. BA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">9.7. 实验</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">10. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">11. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">12. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">13. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">14. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">15. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">16. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">17. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">18. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">19. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">20. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">21. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">22. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">23. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">24. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">25. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">26. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">27. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">28. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">29. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">30. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">31. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">32. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">9. </span>Voting-based Incremental Structure-from-Motion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/Voting_based_SfM/Voting_based_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="voting-based-incremental-structure-from-motion">
+<h1><span class="section-number">9. </span>Voting-based Incremental Structure-from-Motion<a class="headerlink" href="#voting-based-incremental-structure-from-motion" title="永久链接至标题">¶</a></h1>
+<p>本文提出了一种基于投票的增量SfM方法来改进摄像机注册过程。</p>
+<dl class="field-list simple">
+<dt class="field-odd">步骤</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>相机之间的 <strong>接近程度</strong> 被用作投票，以确定哪些相机将注册。</p></li>
+<li><p>对于每个摄像机，同时使用两种方法来估计摄像机位姿，并使用内点数量作为投票来确定哪个位姿更准确。</p></li>
+<li><p>通过从视图图中估计先验全局摄像机旋转，与先验摄像机旋转一致的摄像机位姿被认为获得了双重投票并被优先保留。（全局旋转 接近 增量旋转的优先保留）</p></li>
+<li><p>在所有这些优先摄像机被校准之后，其他摄像机被递增地配准。</p></li>
+</ol>
+</dd>
+</dl>
+<p>在本文中，通过投票式的方法，来确定：</p>
+<ol class="arabic">
+<li><p>哪对相机被选为种子？</p>
+<p><strong>可能校准的摄像机的数量被认为是决定哪些核线边缘是种子候选的投票。</strong></p>
+</li>
+<li><p>哪些相机将被注册？</p>
+<p><strong>校准相机和未校准相机之间的接近程度被认为是决定哪些相机更有可能被校准的投票。</strong></p>
+</li>
+<li><p>如何校准这些相机？</p>
+<p><strong>给定2D-三维相关性，使用两种方法来同时估计摄像机位姿，然后内点的数量被认为是决定哪一个是正确的投票。</strong></p>
+</li>
+<li><p>校准结果是否令人信服？</p>
+<p>验证步骤。首先从视图图中估计先验全局摄像机旋转。当校准的相机旋转与其先验相机旋转一致时，它被优先保持，否则被暂时丢弃。在所有这些优先摄像机被校准后，其他摄像机被增量配准。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>一致性意味着这个校准的相机位姿有双重投票，表明它更有可能是正确的。由于少量极线边缘异常值不影响全局旋转估计，因此全局旋转信息实际上验证了增量校准过程，提高了摄像机校准的鲁棒性。</p>
+</div>
+</li>
+</ol>
+<div class="align-center figure align-default" id="id7">
+<img alt="../../../../../../_images/139.jpg" src="../../../../../../_images/139.jpg" />
+<p class="caption"><span class="caption-text">系统的输入是一个视图图，在每条边上，对极几何是用5点法估算的。系统的输出是校准的摄像机位姿和相应的稀疏场景点。</span><a class="headerlink" href="#id7" title="永久链接至图片">¶</a></p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">9.1. </span>先验摄像机旋转估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}R_{ij} = R_i R_i^T\\
+\lambda_{ij} t_{ij} = R_j (c_i - c_j)\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(R_i\)</span> 和 <span class="math notranslate nohighlight">\(c_i\)</span> 分别表示摄像机 <span class="math notranslate nohighlight">\(I\)</span> 的绝对旋转和位置。</p>
+<p>为了获得良好的初始化，并使更多的内点边进入优化，利用视图图的最大生成树(MST)来生成初始相机旋转，其中加权函数被设置为每个边中匹配内联的数量。</p>
+<p>对于MST中的每条边，执行局部BA调整以重新定义其对极几何。然后，通过定义视图图中邻居数量最多的一个摄像机，
+并将其旋转设置为单位矩阵，可以通过链式法则获得其他摄像机的旋转。
+基于这些相机旋转初始化，通过计算测地线距离过滤总边缘。</p>
+<p>通过将所有这些内点边（edges inliers）输入旋转估计系统，获得了最终的先验相机旋转。</p>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">9.2. </span>相机种子重建<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>相机种子选择考虑了下一次迭代中可能校准的相机的数量。</p>
+<p>通过联合查找算法从成对特征匹配中生成特征track，对于每个边缘，在其可见track中的所有连接的摄像机可以在下一次迭代中被注册。当一个摄像机被这些可见轨迹α次覆盖时，
+它被认为是将在下一次迭代中注册的可能摄像机（In this paper  <span class="math notranslate nohighlight">\(\alpha = 30\)</span> ）</p>
+<p>然后对按照track排好序的图片依次执行两视图几何 + BA 估计相机位姿。</p>
+<p>考虑到对极几何 <span class="math notranslate nohighlight">\(\{R_{ij}, t_{ij}\}\)</span> 和相对几何 <span class="math notranslate nohighlight">\(\{R_{ij}^r, t_{ij}^r\}\)</span></p>
+<p>通过以下方法验证相对几何的差异:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\beta_1 = acos(||R_{ij} - R_{ij}^r||_F)\\
+\beta_2 = acos(||t_{ij} - t_{ij}^r||_F)\end{split}\]</div>
+<p>当 <span class="math notranslate nohighlight">\(\beta_1\)</span> 或 <span class="math notranslate nohighlight">\(\beta_2\)</span> 大于30°时，局部重建是不稳定的，并对下一个候选种子进行重建。</p>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">9.3. </span>相机注册<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>给定初始重建，通过相机配准迭代校准其他相机位姿。</p>
+<ol class="arabic simple">
+<li><p>相机选择：不仅仅关注2D-3D对应的数量，而且考虑未校准摄像机和校准摄像机之间的联系。</p></li>
+</ol>
+<p>给定校准的摄像机和视图，每个未校准的摄像机从这些校准的摄像机中获得一张选票。
+对于每个未校准的摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> ，<strong>投票</strong> 定义为相应的接近度，通过以下方式计算:</p>
+<div class="math notranslate nohighlight">
+\[V_i = \sum\limits_i^M m_{ij}\]</div>
+<dl class="simple">
+<dt>其中 <span class="math notranslate nohighlight">\(m_{ij}\)</span> 表示边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 中的track数量，边 <span class="math notranslate nohighlight">\(E_{ij}\)</span> 连接未校准的摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 和校准的摄像机 <span class="math notranslate nohighlight">\(C_j\)</span> ，</dt><dd><p><span class="math notranslate nohighlight">\(M\)</span> 是连接到摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> 的校准的摄像机的数量。</p>
+</dd>
+</dl>
+<p>假设未标定摄像机的最大度数 <strong>maximal degree</strong> 为 <span class="math notranslate nohighlight">\(V_{max}\)</span> ，则degree大于 <span class="math notranslate nohighlight">\(\gamma * V_{max}\)</span> 的摄像机被选为后续摄像机标定的候选。</p>
+</div>
+<div class="section" id="id4">
+<h2><span class="section-number">9.4. </span>相机标定<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>给定足够的2D-3D相关性，本文提出了一种投票方案来获得精确的摄像机位姿。</p>
+<p>两种方法同时用于估计摄像机位姿:P3P算法和EPnP算法。</p>
+<p>对于每个候选摄像机，评估由这些方法产生的所有摄像机位姿，并且具有最多2D-3D对应线的最佳摄像机位姿被设置为校准的摄像机位姿。</p>
+<p>当两种方法具有相同的最佳内点数时，考虑所有对应内点上的重投影误差之和，选择重投影误差最小的一种作为摄像机位姿估计 <span class="math notranslate nohighlight">\(\{R_i,T_i\}\)</span></p>
+<p>为了使相机位姿变得更精确，保持相机内参 <span class="math notranslate nohighlight">\(K_i\)</span> 和3D场景点 <span class="math notranslate nohighlight">\(\{X_j\}\)</span> 不变，然后通过最小化2D图像特征 <span class="math notranslate nohighlight">\(\{x_{ij}\}\)</span> 和相应3D场景点 <span class="math notranslate nohighlight">\(\{X_j\}\)</span> 的投影之间的差异来重新确定相机位姿:</p>
+<div class="math notranslate nohighlight">
+\[\mathop{min}_{R_i,T_i} \sum\limits_{i=1}^N \sum\limits_{j=1}^M ||x_{ij} - \rho(K_i, R_i, T_i, X_j)||_{huber}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 是相机投影函数。</p>
+</div>
+<div class="section" id="id5">
+<h2><span class="section-number">9.5. </span>相机验证<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>给定当前迭代中的校准相机位姿，将这些与之前估计的先验全局相机旋转进行比较。</p>
+<p>对于摄像机 <span class="math notranslate nohighlight">\(C_i\)</span> ，让当前校准的摄像机旋转是 <span class="math notranslate nohighlight">\(R_i\)</span> ，对应的先验全局相机旋转是 <span class="math notranslate nohighlight">\(R_i^p\)</span></p>
+<p>残差定义为： <span class="math notranslate nohighlight">\(acos(||R_i^p * R_i^T - I||_F)\)</span> 其中 <span class="math notranslate nohighlight">\(I\)</span> 是单位阵。</p>
+<p>当残差大于30度时，认为全局先验和增量校准之间存在较大差异。暂时将其丢弃，并在下一次迭代中对其进行校准。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>尽管大多数先验全局旋转是准确的，但由于弱连接或很少匹配内联，通常会有一些粗略的估计。</p>
+<p>因此，在本文的工作中，当一次迭代中所有校准的摄像机与先验全局旋转有很大差异时，认为所有一致的摄像机都已重建，然后只在后续迭代中执行选择和校准模块。</p>
+</div>
+</div>
+<div class="section" id="ba">
+<h2><span class="section-number">9.6. </span>BA<a class="headerlink" href="#ba" title="永久链接至标题">¶</a></h2>
+<p>同colmap（局部-全局 重三角化重BA）</p>
+</div>
+<div class="section" id="id6">
+<h2><span class="section-number">9.7. </span>实验<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>数据集：</p>
+<ol class="arabic simple">
+<li><p>基准数据集，包括Fountain-P11、Herz-Jesus-P25和Castle-P30</p></li>
+<li><p>序列数据集，包括767幅图像的CASIA和1040幅图像的Campus</p></li>
+<li><p>无序数据集，包括474幅图像的Montreal和2508幅图像的Piccadilly</p></li>
+<li><p>模糊数据集，Cup、天坛和SportsArena</p></li>
+</ol>
+<p>比较：</p>
+<ol class="arabic simple">
+<li><p>colmap</p></li>
+<li><p>theiaSfM</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/225.jpg" src="../../../../../../_images/225.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/413.jpg" src="../../../../../../_images/413.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/314.jpg" src="../../../../../../_images/314.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/511.jpg" src="../../../../../../_images/511.jpg" />
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../Global/CSfM/CSfM.html" class="btn btn-neutral float-right" title="10. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Line_based_SfM/Line_based_SfM.html" class="btn btn-neutral float-left" title="8. Line-based Robust SfM with Little Image Overlap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

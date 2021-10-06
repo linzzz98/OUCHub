@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. BAFS: Bundle Adjustment with Feature Scale Constraints for Enhanced Estimation Accuracy &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>BAFS: Bundle Adjustment with Feature Scale Constraints for Enhanced Estimation Accuracy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/paper/BA/BAFS/BAFS.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bafs-bundle-adjustment-with-feature-scale-constraints-for-enhanced-estimation-accuracy">
+<h1><span class="section-number">1. </span>BAFS: Bundle Adjustment with Feature Scale Constraints for Enhanced Estimation Accuracy<a class="headerlink" href="#bafs-bundle-adjustment-with-feature-scale-constraints-for-enhanced-estimation-accuracy" title="永久链接至标题">¶</a></h1>
+<p>本文建议在束调整中加入一种新型的约束，该约束利用特征尺度信息，利用典型图像特征检测器(如SIFT)的尺度不变性。</p>
+<p>虽然特征尺度在图像匹配中起着重要的作用，但是迄今为止它们还没有被用于BA框架中。</p>
+<p>本文提出的方法利用已经可用的特征尺度信息，并使用它来提高BA的精度，特别是在单目设置中沿着相机光轴的精度。</p>
+<p>重要的是，所提到的特征比例约束可以在逐帧的基础上制定，并且不需要回环。</p>
+<p>标准的BA方法通常假设针孔摄像机模型，并最小化测量图像坐标和预测图像坐标之间的重投影误差。这种最小化通常是使用迭代非线性优化技术获得的，该技术在提供适当的初始猜测的情况下，在代表观察环境的相机姿态和地标上收敛到最大后验(MAP)解。</p>
+<p>在不假设任何附加或先验信息的情况下，摄像机运动和三维地图只能按比例估计，而比例会随着时间漂移。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>特征尺度被建模为3D环境中虚拟地标尺寸在图像平面上的投影。</p>
+<p>利用典型特征检测器的尺度不变性，从不同图像中检测到的匹配特征尺度对应于三维环境中相同的虚拟地标尺寸，并在BA中引入新的特征尺度约束。</p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/140.jpg" src="../../../../_images/140.jpg" />
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>当摄像机从(a)向(d)左转时，观察到一个land mark。放大图中显示了每一帧中检测到的特征比例。</p>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/226.jpg" src="../../../../_images/226.jpg" />
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>检测到的特征尺度可以作为相机位姿、地标3D坐标和相应的3D环境patch(见上面两个图)的函数来预测。其中后者根据尺度不变性，对于观察相同地标的不同图像保持相同。考虑到检测到的特征比例足够精确，将上述特征比例约束纳入BA可以大幅降低比例漂移，而无需闭环或任何其他信息。本文表明，后者可以简单地通过提高SIFT检测器中高斯核的分辨率来实现。</p>
+<p>需要注意的是，特征尺度通常已经由常用的特征检测器(例如SIFT)计算，但仅用于图像匹配。本文建议利用这些可用的信息来提高BA的性能。 <strong>！！不干涉图像匹配过程，而是更好地利用其特性！！</strong> 。</p>
+<p>除了提高精度之外，本文的方法，称为带特征尺度的束调整(BAFS)，还能够估计实际的陆地标记(物体)大小，达到整体尺度。</p>
+</div>
+<p>考虑从不同且未知的相机位姿拍摄的 <span class="math notranslate nohighlight">\(N\)</span> 幅图像的序列。
+用旋转矩阵 <span class="math notranslate nohighlight">\(R_i\)</span> 和平移向量 <span class="math notranslate nohighlight">\(t_i\)</span> 表示由 <span class="math notranslate nohighlight">\(x_i = \{R_i, t_i\}\)</span> 拍摄的第 <span class="math notranslate nohighlight">\(i\)</span> 幅图像的摄像机位姿，
+令 <span class="math notranslate nohighlight">\(Z_i\)</span> 表示该图像的所有地标观测值，用 <span class="math notranslate nohighlight">\(z_i^j \in Z_i\)</span> 表示某个地标 <span class="math notranslate nohighlight">\(l_j\)</span> 的单个图像观测值。让 <span class="math notranslate nohighlight">\(X\)</span> 表示所有摄像机位姿，</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(L\)</span> 表示所有观测到的地标：</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[\begin{split}X = \{x_1, ... , x_i, ..., X_N\}\\
+L = \{l_1, ... , l_j ,..., l_M\}\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(M\)</span> 是观察到的地标的数量。这些land-marks代表生成检测到的2D视觉特征的三维场景点。</p>
+<p>用 <span class="math notranslate nohighlight">\(\pi(x, l)\)</span> 表示标准投影算子，并将给定相机姿态 <span class="math notranslate nohighlight">\(x\)</span> 和地标 <span class="math notranslate nohighlight">\(l\)</span> 的图像观察 <span class="math notranslate nohighlight">\(z\)</span> 的测量似然性写成：</p>
+<div class="math notranslate nohighlight">
+\[P(z|x,l) = \frac{1}{\sqrt{det(2 \pi \Sigma)}} exp(-\frac{1}{2}||z - \pi(x,l)^2_{\sum\limits_v}||)\]</div>
+<p>通常假设图像噪声来自零均值高斯分布 <span class="math notranslate nohighlight">\(N(0, \sum\limits_v)\)</span></p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(||a||_{\sum\limits_v}^2 = a^T \sum\limits_v^{-1} a\)</span> 是马氏距离的平方。</p>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
