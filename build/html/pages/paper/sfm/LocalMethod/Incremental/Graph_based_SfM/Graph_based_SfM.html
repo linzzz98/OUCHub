@@ -114,6 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">10. Graph-Based Consistent Matching for Structure-from-Motion</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#related-work">10.1. Related Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#problem-formulation">10.2. Problem  Formulation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
@@ -143,6 +144,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
@@ -246,9 +248,39 @@ SfM系统通常使用词汇树来选择视觉上相似的匹配对，这相对�
 </div>
 <div class="section" id="related-work">
 <h2><span class="section-number">10.1. </span>Related Work<a class="headerlink" href="#related-work" title="永久链接至标题">¶</a></h2>
+<p>词汇树、结合几何线索、查询扩展、相关反馈和熵最小化、抢占式匹配、基于学习的方法来预测一对图像是否具有重叠区域、基于循环一致性和低秩建模的多图像匹配算法。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过匹配图像中的一小部分局部描述符，可以决定是否继续进行完整的假定特征匹配。</p>
+</div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>在大规模的城市场景中，更多的匹配并不一定能保证更好的重建！！！</p>
+</div>
+<p>本文专注于匹配图的优化，并在不改变增量或全局 SfM pipeline 的情况下提出一种有效的匹配图构建方法。</p>
+</div>
+<div class="section" id="problem-formulation">
+<h2><span class="section-number">10.2. </span>Problem  Formulation<a class="headerlink" href="#problem-formulation" title="永久链接至标题">¶</a></h2>
+<p>输入是一组图像 <span class="math notranslate nohighlight">\(\mathcal{I} = \{I_i\}\)</span> 及其对应的特征点。匹配方法基于对底层图形编码成对匹配和对极几何的分析。</p>
+<p>将无向匹配图表示为  <span class="math notranslate nohighlight">\(G = (\mathcal{V},\mathcal{E})\)</span> ，其中每个顶点 <span class="math notranslate nohighlight">\(v_i \in \mathcal{V}\)</span> 对应于图像 <span class="math notranslate nohighlight">\(I_i =\in \mathcal{I}\)</span> 。两个顶点 <span class="math notranslate nohighlight">\(v_i\)</span> 和 <span class="math notranslate nohighlight">\(v_j\)</span> 由边 <span class="math notranslate nohighlight">\(e_{ij} \in \mathcal{E}\)</span> 连接，</p>
+<p>如果它们对应图在对极几何验证后具有多个 <span class="math notranslate nohighlight">\(S_I\)</span> 内点。
+每个边缘 <span class="math notranslate nohighlight">\(e_{ij}\)</span> 与使用五点算法计算的图像对之间的对极几何和相对运动相关联。
+初始边集 <span class="math notranslate nohighlight">\(E\)</span> 为空，目标是逐步构建匹配图。确保该方法中使用的所有图算法的运行时间比图像匹配操作低一个数量级。</p>
+<p>令 <span class="math notranslate nohighlight">\(T_{ij}\)</span> 是与边 <span class="math notranslate nohighlight">\(e_{ij}\)</span> 相关联的抽象几何关系，例如 <span class="math notranslate nohighlight">\(T_{ij}\)</span> 可以是根据特征对应计算的相对旋转 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 。</p>
+<p>进一步要求这个几何关系可以被链接起来，用 <span class="math notranslate nohighlight">\(◦\)</span> 表示，并且满足  <span class="math notranslate nohighlight">\(T_{ij} ◦ T_{ji} = \mathbb{I}(\forall i,j)\)</span>  其中 <span class="math notranslate nohighlight">\(\mathbb{I}\)</span> 表示 <strong>Identity map</strong> （标识映射 ？ ）。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>首先考虑闭环的最小配置，并对弱一致匹配图给出以下定义：</p>
+<p>定义 1.（弱一致性）匹配图 <span class="math notranslate nohighlight">\(G = (\mathcal{V}, \mathcal{E})\)</span> 是弱 <span class="math notranslate nohighlight">\((\epsilon, \mathcal{E})-\)</span> 一致性的，如果任意3长度循环 <span class="math notranslate nohighlight">\((i,j,k)\)</span> 的成对几何关系 <span class="math notranslate nohighlight">\(T_{ij}, T_{jk}, T_{ki}\)</span> 与关于边集 <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> 满足如下循环一致性约束：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/142.jpg" src="../../../../../../_images/142.jpg" />
+</div>
+<p>其中距离函数  <span class="math notranslate nohighlight">\(d(\hat{T}, \mathbb{I})\)</span> 测量了链式运动 <span class="math notranslate nohighlight">\(\hat{T}\)</span> 和标识映射 ： <span class="math notranslate nohighlight">\(\mathbb{I}\)</span> 之间的差异。</p>
+<p>上述定义没有捕捉到一致匹配图的所有本质，因为一些错误的匹配可能只会在更长的循环中表现出来。 因此，通过定义强一致性来完善这个概念：</p>
+<p>定义 2.（强一致性）匹配图  <span class="math notranslate nohighlight">\(G = (V, E)\)</span> 是强 <span class="math notranslate nohighlight">\(\epsilon, \mathcal{E}-\)</span> 一致的，如果对于边集 <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> 的任何长度为 <span class="math notranslate nohighlight">\(m\)</span> 的循环 <span class="math notranslate nohighlight">\((n_0,n_1,...,n_{m-1})\)</span> ，则以下条件成立：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/227.jpg" src="../../../../../../_images/227.jpg" />
+</div>
 </div>
 </div>
 </div>

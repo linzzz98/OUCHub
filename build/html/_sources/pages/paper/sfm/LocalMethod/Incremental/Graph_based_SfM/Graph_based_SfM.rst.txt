@@ -31,7 +31,47 @@ SfM系统通常使用词汇树来选择视觉上相似的匹配对，这相对�
 Related Work
 ---------------
 
+词汇树、结合几何线索、查询扩展、相关反馈和熵最小化、抢占式匹配、基于学习的方法来预测一对图像是否具有重叠区域、基于循环一致性和低秩建模的多图像匹配算法。
+
+.. note::
+
+   通过匹配图像中的一小部分局部描述符，可以决定是否继续进行完整的假定特征匹配。
+
 .. important::
 
    在大规模的城市场景中，更多的匹配并不一定能保证更好的重建！！！
 
+本文专注于匹配图的优化，并在不改变增量或全局 SfM pipeline 的情况下提出一种有效的匹配图构建方法。
+
+Problem  Formulation
+-------------------------
+
+输入是一组图像 :math:`\mathcal{I} = \{I_i\}` 及其对应的特征点。匹配方法基于对底层图形编码成对匹配和对极几何的分析。
+
+将无向匹配图表示为  :math:`G = (\mathcal{V},\mathcal{E})` ，其中每个顶点 :math:`v_i \in \mathcal{V}` 对应于图像 :math:`I_i =\in \mathcal{I}` 。两个顶点 :math:`v_i` 和 :math:`v_j` 由边 :math:`e_{ij} \in \mathcal{E}` 连接，
+
+如果它们对应图在对极几何验证后具有多个 :math:`S_I` 内点。
+每个边缘 :math:`e_{ij}` 与使用五点算法计算的图像对之间的对极几何和相对运动相关联。
+初始边集 :math:`E` 为空，目标是逐步构建匹配图。确保该方法中使用的所有图算法的运行时间比图像匹配操作低一个数量级。
+
+令 :math:`T_{ij}` 是与边 :math:`e_{ij}` 相关联的抽象几何关系，例如 :math:`T_{ij}` 可以是根据特征对应计算的相对旋转 :math:`R_{ij}` 。
+
+进一步要求这个几何关系可以被链接起来，用 :math:`◦` 表示，并且满足  :math:`T_{ij} ◦ T_{ji} = \mathbb{I}(\forall i,j)`  其中 :math:`\mathbb{I}` 表示 **Identity map** （标识映射 ？ ）。
+
+.. note::
+
+   首先考虑闭环的最小配置，并对弱一致匹配图给出以下定义：
+
+   定义 1.（弱一致性）匹配图 :math:`G = (\mathcal{V}, \mathcal{E})` 是弱 :math:`(\epsilon, \mathcal{E})-` 一致性的，如果任意3长度循环 :math:`(i,j,k)` 的成对几何关系 :math:`T_{ij}, T_{jk}, T_{ki}` 与关于边集 :math:`\mathcal{E}` 满足如下循环一致性约束：
+
+   .. figure:: 1.jpg
+      :figclass: align-center
+
+   其中距离函数  :math:`d(\hat{T}, \mathbb{I})` 测量了链式运动 :math:`\hat{T}` 和标识映射 ： :math:`\mathbb{I}` 之间的差异。
+
+   上述定义没有捕捉到一致匹配图的所有本质，因为一些错误的匹配可能只会在更长的循环中表现出来。 因此，通过定义强一致性来完善这个概念：
+
+   定义 2.（强一致性）匹配图  :math:`G = (V, E)` 是强 :math:`\epsilon, \mathcal{E}-` 一致的，如果对于边集 :math:`\mathcal{E}` 的任何长度为 :math:`m` 的循环 :math:`(n_0,n_1,...,n_{m-1})` ，则以下条件成立：
+
+   .. figure:: 2.jpg
+      :figclass: align-center
