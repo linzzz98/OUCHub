@@ -1,6 +1,8 @@
 Pixel-Perfect Structure-from-Motion with Featuremetric Refinement
 ====================================================================
 
+在 3D 重建任务中，**跨视角可复检的特征点提取尤为重要**。原有的 SFM 框架中，特征提取之后其位置并不会发生改变，若这个提取过程中出现了误差（噪声干扰），势必造成后续几何结构的误差累计。
+
 :传统:
 
    经典算法一次检测所有特征点，对于误差较大的特征，会影响最终重建的结果。
@@ -9,9 +11,9 @@ Pixel-Perfect Structure-from-Motion with Featuremetric Refinement
 
    通过直接对齐来自多个视图的低级图像信息，优化SfM的两个关键步骤：
 
-   1. 在任何几何估计之前调整初始keypoints位置。
+   1. 特征匹配后使用 Featuremetric （深度特征度量）对特征点位置进行优化
 
-   2. 重新定义point和camera pose作为后处理。
+   2. 增量重建过程中通过类似的 Featuremetric 进行 BA（重投影误差 :math:`\longrightarrow` Featuremetric 误差）
 
 SfM的稀疏keypoints可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。
 
@@ -25,6 +27,7 @@ Background
 给定观察场景的 :math:`N` 张图像 :math:`\{I_i\}` ，估计的3D结构由稀疏点云 :math:`\{P_i\}` ，相机内参 :math:`\{C_i\}` ，图像位姿变换 :math:`\{R_i, t_i\}` 组成。
 
 经典SfM pipeline 从属于同一个3D点不同视图下2D点的track :math:`\{p_u\}` 中进行几何估计，关键点之间使用描述子 :math:`\{d_u\}` 进行匹配。
+
 
 .. important::
 
@@ -71,18 +74,18 @@ Track refinement
 Approach
 -----------
 
+.. attention::
+
+   本文的优化框架可在任何基于局部特征点的 SFM 流程中使用：
+
+   使用 CNN 提取图像特征图(dense features)，根据稀疏的特征匹配得到初始的 tracks(一个track是指，同一个3D点在不同图像中的2D观测)，调整每一个 track 对应的特征点在图像中的位置；根据调整后的位置进行 SFM 重建，重建过程中的 BA 优化残差由重投影误差变为 Featuremetric 误差。
+
+
 算法流程如下图，分为两阶段的调整。首先refine 2D匹配点，然后利用SfM重建后refine 3D点和pose
 
 .. figure:: 1.jpg
    :figclass: align-center
 
-:传统流程:
-
-   特征点提取 :math:`\rightarrow` 特征点匹配 :math:`\rightarrow` 特征点重建 :math:`\rightarrow` BA优化
-
-:本文流程:
-
-   特征点+ **描述子** 提取 :math:`\rightarrow` 特征点匹配+ **利用描述子优化特征点位置** :math:`\rightarrow` 特征点重建 :math:`\rightarrow` **利用描述子优化BA**
 
 Keypoint adjustment
 ~~~~~~~~~~~~~~~~~~~~
@@ -159,13 +162,23 @@ Implementation
 
 1. ceres-solver的LM算法求解keypoints和BA优化问题。
 
+..
+
 2. 特征图存储为以初始关键点检测为中心，patch大小为 :math:`16 \times 16` 的集合。
+
+..
 
 3. 限制点的像素移动步数最大为 :math:`K = 8`
 
+..
+
 4. Cauchy loss  :math:`\gamma = 0.25`
 
+..
+
 5.  :math:`\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma` 的稳健性均值采用迭代重加权最小二乘计算
+
+..
 
 6. 预计算特征距离的小块并直接插值一个近似代价 :math:`\overline{E}_{ij} = ||F_i - f^j||_\gamma [p_{ij}]` ，极大地提高了BA的效率。
 

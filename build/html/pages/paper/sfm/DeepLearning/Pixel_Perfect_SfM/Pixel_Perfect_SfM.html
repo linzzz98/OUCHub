@@ -237,6 +237,7 @@
             
   <div class="section" id="pixel-perfect-structure-from-motion-with-featuremetric-refinement">
 <h1><span class="section-number">34. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement<a class="headerlink" href="#pixel-perfect-structure-from-motion-with-featuremetric-refinement" title="永久链接至标题">¶</a></h1>
+<p>在 3D 重建任务中，<strong>跨视角可复检的特征点提取尤为重要</strong>。原有的 SFM 框架中，特征提取之后其位置并不会发生改变，若这个提取过程中出现了误差（噪声干扰），势必造成后续几何结构的误差累计。</p>
 <dl class="field-list simple">
 <dt class="field-odd">传统</dt>
 <dd class="field-odd"><p>经典算法一次检测所有特征点，对于误差较大的特征，会影响最终重建的结果。</p>
@@ -244,8 +245,8 @@
 <dt class="field-even">本文</dt>
 <dd class="field-even"><p>通过直接对齐来自多个视图的低级图像信息，优化SfM的两个关键步骤：</p>
 <ol class="arabic simple">
-<li><p>在任何几何估计之前调整初始keypoints位置。</p></li>
-<li><p>重新定义point和camera pose作为后处理。</p></li>
+<li><p>特征匹配后使用 Featuremetric （深度特征度量）对特征点位置进行优化</p></li>
+<li><p>增量重建过程中通过类似的 Featuremetric 进行 BA（重投影误差 <span class="math notranslate nohighlight">\(\longrightarrow\)</span> Featuremetric 误差）</p></li>
 </ol>
 </dd>
 </dl>
@@ -292,18 +293,15 @@
 </div>
 <div class="section" id="approach">
 <h2><span class="section-number">34.2. </span>Approach<a class="headerlink" href="#approach" title="永久链接至标题">¶</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>本文的优化框架可在任何基于局部特征点的 SFM 流程中使用：</p>
+<p>使用 CNN 提取图像特征图(dense features)，根据稀疏的特征匹配得到初始的 tracks(一个track是指，同一个3D点在不同图像中的2D观测)，调整每一个 track 对应的特征点在图像中的位置；根据调整后的位置进行 SFM 重建，重建过程中的 BA 优化残差由重投影误差变为 Featuremetric 误差。</p>
+</div>
 <p>算法流程如下图，分为两阶段的调整。首先refine 2D匹配点，然后利用SfM重建后refine 3D点和pose</p>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/143.jpg" src="../../../../../_images/143.jpg" />
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">传统流程</dt>
-<dd class="field-odd"><p>特征点提取 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点匹配 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点重建 <span class="math notranslate nohighlight">\(\rightarrow\)</span> BA优化</p>
-</dd>
-<dt class="field-even">本文流程</dt>
-<dd class="field-even"><p>特征点+ <strong>描述子</strong> 提取 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点匹配+ <strong>利用描述子优化特征点位置</strong> <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点重建 <span class="math notranslate nohighlight">\(\rightarrow\)</span> <strong>利用描述子优化BA</strong></p>
-</dd>
-</dl>
 <div class="section" id="keypoint-adjustment">
 <h3><span class="section-number">34.2.1. </span>Keypoint adjustment<a class="headerlink" href="#keypoint-adjustment" title="永久链接至标题">¶</a></h3>
 <p>考虑了两个稀疏观测的图像强度之间的误差: <span class="math notranslate nohighlight">\(r =  I_i[p_u] - I_j[p_v]\)</span></p>
@@ -367,10 +365,20 @@
 <h2><span class="section-number">34.4. </span>Implementation<a class="headerlink" href="#implementation" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p>ceres-solver的LM算法求解keypoints和BA优化问题。</p></li>
+</ol>
+<ol class="arabic simple" start="2">
 <li><p>特征图存储为以初始关键点检测为中心，patch大小为 <span class="math notranslate nohighlight">\(16 \times 16\)</span> 的集合。</p></li>
+</ol>
+<ol class="arabic simple" start="3">
 <li><p>限制点的像素移动步数最大为 <span class="math notranslate nohighlight">\(K = 8\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="4">
 <li><p>Cauchy loss  <span class="math notranslate nohighlight">\(\gamma = 0.25\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="5">
 <li><p><span class="math notranslate nohighlight">\(\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma\)</span> 的稳健性均值采用迭代重加权最小二乘计算</p></li>
+</ol>
+<ol class="arabic simple" start="6">
 <li><p>预计算特征距离的小块并直接插值一个近似代价 <span class="math notranslate nohighlight">\(\overline{E}_{ij} = ||F_i - f^j||_\gamma [p_{ij}]\)</span> ，极大地提高了BA的效率。</p></li>
 </ol>
 </div>
