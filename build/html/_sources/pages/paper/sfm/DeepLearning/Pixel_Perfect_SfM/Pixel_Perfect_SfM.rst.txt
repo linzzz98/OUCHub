@@ -112,7 +112,7 @@ Keypoint adjustment
 
    .. math::
 
-      E_{FKA}^j = \sum\limits_(u,v) \in \mathcal{M}(j) w_{uv} ||F_{i(u)}[p_u] - F_i(v)[p_v]||_\gamma
+      E_{FKA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} w_{uv} ||F_{i(u)}[p_u] - F_i(v)[p_v]||_\gamma
 
    .. note::
 

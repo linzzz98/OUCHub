@@ -321,7 +321,7 @@
 <blockquote>
 <div><p>对于每一个 track，调整它包含的 2D 特征点的位置，构建如下 featurematric 误差：</p>
 <div class="math notranslate nohighlight">
-\[E_{FKA}^j = \sum\limits_(u,v) \in \mathcal{M}(j) w_{uv} ||F_{i(u)}[p_u] - F_i(v)[p_v]||_\gamma\]</div>
+\[E_{FKA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} w_{uv} ||F_{i(u)}[p_u] - F_i(v)[p_v]||_\gamma\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>基于一个假设同一对匹配点在各自图像对应位置的特征应该是一样的， <span class="math notranslate nohighlight">\(w_{uv}\)</span> 表示这对匹配点的置信度，可以由特征描述子的余弦距离 <span class="math notranslate nohighlight">\(d_u^T d_v\)</span> 表示。</p>
