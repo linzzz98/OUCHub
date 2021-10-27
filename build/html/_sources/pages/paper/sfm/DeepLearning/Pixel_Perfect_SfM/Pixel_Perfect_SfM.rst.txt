@@ -67,7 +67,7 @@ Track refinement
 
    E_{KA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} ||p_v + T_{v \rightarrow u}[p_v] - p_u ||_\gamma
 
-其中 :math:`\mathcal{M}(i)`是形成track的匹配集合， :math:`[·]` 是具有子像素插值的查找。
+其中 :math:`\mathcal{M}(i)` 是形成track的匹配集合， :math:`[·]` 是具有子像素插值的查找。
 
 .. important::
 
