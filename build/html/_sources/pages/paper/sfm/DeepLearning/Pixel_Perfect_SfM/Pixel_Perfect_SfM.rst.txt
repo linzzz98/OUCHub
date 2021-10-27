@@ -13,9 +13,11 @@ Pixel-Perfect Structure-from-Motion with Featuremetric Refinement
 
    1. 特征匹配后使用 Featuremetric （深度特征度量）对特征点位置进行优化
 
+   ..
+
    2. 增量重建过程中通过类似的 Featuremetric 进行 BA（重投影误差 :math:`\longrightarrow` Featuremetric 误差）
 
-SfM的稀疏keypoints可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。
+SfM的稀疏关键点可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。
 
 **用于检测的卷积神经网络的出现解决了这个问题，因为它们通常不保留局部图像信息，而是支持全局上下文。**
 
@@ -65,7 +67,7 @@ Track refinement
 
    E_{KA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} ||p_v + T_{v \rightarrow u}[p_v] - p_u ||_\gamma
 
-其中 :math:`mathcal{M}(i)`是形成track的匹配集合， :math:`[·]` 是具有子像素插值的查找。
+其中 :math:`\mathcal{M}(i)`是形成track的匹配集合， :math:`[·]` 是具有子像素插值的查找。
 
 .. important::
 

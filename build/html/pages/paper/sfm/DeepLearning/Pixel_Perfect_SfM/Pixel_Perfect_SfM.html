@@ -238,7 +238,7 @@
   <div class="section" id="pixel-perfect-structure-from-motion-with-featuremetric-refinement">
 <h1><span class="section-number">34. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement<a class="headerlink" href="#pixel-perfect-structure-from-motion-with-featuremetric-refinement" title="永久链接至标题">¶</a></h1>
 <p>在 3D 重建任务中，<strong>跨视角可复检的特征点提取尤为重要</strong>。原有的 SFM 框架中，特征提取之后其位置并不会发生改变，若这个提取过程中出现了误差（噪声干扰），势必造成后续几何结构的误差累计。</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">传统</dt>
 <dd class="field-odd"><p>经典算法一次检测所有特征点，对于误差较大的特征，会影响最终重建的结果。</p>
 </dd>
@@ -246,11 +246,13 @@
 <dd class="field-even"><p>通过直接对齐来自多个视图的低级图像信息，优化SfM的两个关键步骤：</p>
 <ol class="arabic simple">
 <li><p>特征匹配后使用 Featuremetric （深度特征度量）对特征点位置进行优化</p></li>
+</ol>
+<ol class="arabic simple" start="2">
 <li><p>增量重建过程中通过类似的 Featuremetric 进行 BA（重投影误差 <span class="math notranslate nohighlight">\(\longrightarrow\)</span> Featuremetric 误差）</p></li>
 </ol>
 </dd>
 </dl>
-<p>SfM的稀疏keypoints可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。</p>
+<p>SfM的稀疏关键点可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。</p>
 <p><strong>用于检测的卷积神经网络的出现解决了这个问题，因为它们通常不保留局部图像信息，而是支持全局上下文。</strong></p>
 <p>本文工作中，认为局部图像信息对于提高SfM的准确性是有用的，在重建前后，通过在学习的特征空间中直接对齐图像来调整关键点和bundles。利用这种局部密集的信息比几何优化要精确得多，而CNN提取的深层高维特征可确保在具有挑战性的条件下更广泛地收敛。该形式巧妙地结合了全局区分稀疏匹配和局部精确密集细节。</p>
 <div class="section" id="background">
@@ -284,7 +286,7 @@
 </div>
 <div class="math notranslate nohighlight">
 \[E_{KA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} ||p_v + T_{v \rightarrow u}[p_v] - p_u ||_\gamma\]</div>
-<p>其中 <span class="math notranslate nohighlight">\(mathcal{M}(i)\)</span> 是具有子像素插值的查找。</p>
+<p>其中 <span class="math notranslate nohighlight">\(\mathcal{M}(i)\)</span> 是具有子像素插值的查找。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>上述这两个refinement都是基于几何观测点，也称为关键点的定位与流，但没有考虑它们各自的不确定性。因此需要大量的观测点来平均掉噪声，来提升精度，但是这种提升是受限的。</p>
