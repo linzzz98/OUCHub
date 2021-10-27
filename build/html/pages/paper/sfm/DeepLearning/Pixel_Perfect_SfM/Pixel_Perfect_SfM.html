@@ -378,7 +378,7 @@
 <li><p>Cauchy loss  <span class="math notranslate nohighlight">\(\gamma = 0.25\)</span></p></li>
 </ol>
 <ol class="arabic simple" start="5">
-<li><p><span class="math notranslate nohighlight">\(\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma\)</span> 的稳健性均值采用迭代重加权最小二乘计算</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu^j = \mathop{argmin}\limits_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma\)</span> 的稳健性均值采用迭代重加权最小二乘计算</p></li>
 </ol>
 <ol class="arabic simple" start="6">
 <li><p>预计算特征距离的小块并直接插值一个近似代价 <span class="math notranslate nohighlight">\(\overline{E}_{ij} = ||F_i - f^j||_\gamma [p_{ij}]\)</span> ，极大地提高了BA的效率。</p></li>

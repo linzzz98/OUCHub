@@ -178,7 +178,7 @@ Implementation
 
 ..
 
-5.  :math:`\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma` 的稳健性均值采用迭代重加权最小二乘计算
+5.  :math:`\mu^j = \mathop{argmin}\limits_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma` 的稳健性均值采用迭代重加权最小二乘计算
 
 ..
 
