@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>34. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍊 SLAM" href="../../../p_slam.html" />
+    <link rel="prev" title="33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../DeepSfM/DeepSfM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">18. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">19. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">20. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">21. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">22. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">23. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Lie_Averaging/Lie_Averaging.html">24. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">25. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">26. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">27. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Privacy_Location/Privacy_Location.html">28. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">29. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">30. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Solver6L/Solver6L.html">31. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">32. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DeepSfM/DeepSfM.html">33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">34. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">34.1. Background</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#global-refinement">34.1.1. Global refinement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#track-refinement">34.1.2. Track refinement</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#approach">34.2. Approach</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keypoint-adjustment">34.2.1. Keypoint adjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#bundle-adjustment">34.3. Bundle Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">34.4. Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">34.5. Experiments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">34. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pixel-perfect-structure-from-motion-with-featuremetric-refinement">
+<h1><span class="section-number">34. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement<a class="headerlink" href="#pixel-perfect-structure-from-motion-with-featuremetric-refinement" title="永久链接至标题">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">传统</dt>
+<dd class="field-odd"><p>经典算法一次检测所有特征点，对于误差较大的特征，会影响最终重建的结果。</p>
+</dd>
+<dt class="field-even">本文</dt>
+<dd class="field-even"><p>通过直接对齐来自多个视图的低级图像信息，优化SfM的两个关键步骤：</p>
+<ol class="arabic simple">
+<li><p>在任何几何估计之前调整初始keypoints位置。</p></li>
+<li><p>重新定义point和camera pose作为后处理。</p></li>
+</ol>
+</dd>
+</dl>
+<p>SfM的稀疏keypoints可以跨图片的检索，但由于外观变化和离散图像采样，从单个视图检测关键点本质上是不准确的。</p>
+<p><strong>用于检测的卷积神经网络的出现解决了这个问题，因为它们通常不保留局部图像信息，而是支持全局上下文。</strong></p>
+<p>本文工作中，认为局部图像信息对于提高SfM的准确性是有用的，在重建前后，通过在学习的特征空间中直接对齐图像来调整关键点和bundles。利用这种局部密集的信息比几何优化要精确得多，而CNN提取的深层高维特征可确保在具有挑战性的条件下更广泛地收敛。该形式巧妙地结合了全局区分稀疏匹配和局部精确密集细节。</p>
+<div class="section" id="background">
+<h2><span class="section-number">34.1. </span>Background<a class="headerlink" href="#background" title="永久链接至标题">¶</a></h2>
+<p>给定观察场景的 <span class="math notranslate nohighlight">\(N\)</span> 张图像 <span class="math notranslate nohighlight">\(\{I_i\}\)</span> ，估计的3D结构由稀疏点云 <span class="math notranslate nohighlight">\(\{P_i\}\)</span> ，相机内参 <span class="math notranslate nohighlight">\(\{C_i\}\)</span> ，图像位姿变换 <span class="math notranslate nohighlight">\(\{R_i, t_i\}\)</span> 组成。</p>
+<p>经典SfM pipeline 从属于同一个3D点不同视图下2D点的track <span class="math notranslate nohighlight">\(\{p_u\}\)</span> 中进行几何估计，关键点之间使用描述子 <span class="math notranslate nohighlight">\(\{d_u\}\)</span> 进行匹配。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>进行几何估计的时候，只用到关键点的位置，因此点的位置精度非常重要。点的检测算法只考虑了单张图片的局部位置，并没有同时考虑多视角的信息。</p>
+</div>
+<div class="section" id="global-refinement">
+<h3><span class="section-number">34.1.1. </span>Global refinement<a class="headerlink" href="#global-refinement" title="永久链接至标题">¶</a></h3>
+<p>BA最小化几何误差：</p>
+<div class="math notranslate nohighlight">
+\[E_{BA} = \sum\limits_j \sum\limits_{(i,u) \in \mathcal{T}(j)} || \prod (R_i P_j + t_i, C_i) - p_u||_\gamma\]</div>
+<dl class="field-list">
+<dt class="field-odd">其中</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\mathcal{T}(j)\)</span> 是track  <span class="math notranslate nohighlight">\(j\)</span> 中的图像和关键点的集合</p>
+<p><span class="math notranslate nohighlight">\(\prod(·)\)</span> 投影到图像平面</p>
+<p><span class="math notranslate nohighlight">\(||·||_\gamma\)</span> 是鲁棒范数。</p>
+</dd>
+</dl>
+<p>该公式隐含地重新定义了关键点，同时确保了它们的几何一致性。</p>
+</div>
+<div class="section" id="track-refinement">
+<h3><span class="section-number">34.1.2. </span>Track refinement<a class="headerlink" href="#track-refinement" title="永久链接至标题">¶</a></h3>
+<p>利用匹配图的固有结构来丢弃不正确的匹配，而不依赖于几何约束。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>该过程实际上是依赖两张图像计算出的光流（由深度网络得到），匹配两个图像对应点，构成一个误差。这个光流是输入每个关键点的小patch，算出一个光流。提升了关键点的精度，但仍有一些误差。</p>
+</div>
+<div class="math notranslate nohighlight">
+\[E_{KA}^j = \sum\limits_{(u,v) \in \mathcal{M}(j)} ||p_v + T_{v \rightarrow u}[p_v] - p_u ||_\gamma\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(mathcal{M}(i)\)</span> 是具有子像素插值的查找。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>上述这两个refinement都是基于几何观测点，也称为关键点的定位与流，但没有考虑它们各自的不确定性。因此需要大量的观测点来平均掉噪声，来提升精度，但是这种提升是受限的。</p>
+</div>
+</div>
+</div>
+<div class="section" id="approach">
+<h2><span class="section-number">34.2. </span>Approach<a class="headerlink" href="#approach" title="永久链接至标题">¶</a></h2>
+<p>算法流程如下图，分为两阶段的调整。首先refine 2D匹配点，然后利用SfM重建后refine 3D点和pose</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/143.jpg" src="../../../../../_images/143.jpg" />
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">传统流程</dt>
+<dd class="field-odd"><p>特征点提取 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点匹配 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点重建 <span class="math notranslate nohighlight">\(\rightarrow\)</span> BA优化</p>
+</dd>
+<dt class="field-even">本文流程</dt>
+<dd class="field-even"><p>特征点+ <strong>描述子</strong> 提取 <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点匹配+ <strong>利用描述子优化特征点位置</strong> <span class="math notranslate nohighlight">\(\rightarrow\)</span> 特征点重建 <span class="math notranslate nohighlight">\(\rightarrow\)</span> <strong>利用描述子优化BA</strong></p>
+</dd>
+</dl>
+<div class="section" id="keypoint-adjustment">
+<h3><span class="section-number">34.2.1. </span>Keypoint adjustment<a class="headerlink" href="#keypoint-adjustment" title="永久链接至标题">¶</a></h3>
+<p>考虑了两个稀疏观测的图像强度之间的误差: <span class="math notranslate nohighlight">\(r =  I_i[p_u] - I_j[p_v]\)</span></p>
+<p>一旦检测到、描述和匹配了局部特征，就在几何验证初步匹配之前refine keypoints位置。</p>
+<p>本文采用了 CNN feature 的方式表示一张图像。对于图像 <span class="math notranslate nohighlight">\(\{I_i\}\)</span> 使用S2DNet提取 <span class="math notranslate nohighlight">\(D\)</span> 维的特征图 <span class="math notranslate nohighlight">\(F_i \in R^{W \times H \times D}\)</span></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>特征图在通道上做了 <span class="math notranslate nohighlight">\(L_2\)</span> 归一化以提高泛化性，特征图的长宽与原图相同。</p>
+</div>
+<p><strong>Track separation:</strong></p>
+<blockquote>
+<div><p>匹配图中的连接的组件定义了临时track–可能观察到相同3D点但其观察结果尚未经过几何验证的关键点集。一个3D点在一个图像上只能有一个投影点，使用跟踪分离方法可以快速去除错误匹配点。</p>
+</div></blockquote>
+<p><strong>Objective:</strong></p>
+<blockquote>
+<div><p>对于每一个 track，调整它包含的 2D 特征点的位置，构建如下 featurematric 误差：</p>
+<div class="math notranslate nohighlight">
+\[E_{FKA}^j = \sum\limits_(u,v) \in \mathcal{M}(j) w_{uv} ||F_{i(u)}[p_u] - F_i(v)[p_v]||_\gamma\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>基于一个假设同一对匹配点在各自图像对应位置的特征应该是一样的， <span class="math notranslate nohighlight">\(w_{uv}\)</span> 表示这对匹配点的置信度，可以由特征描述子的余弦距离 <span class="math notranslate nohighlight">\(d_u^T d_v\)</span> 表示。</p>
+<p>假如 <span class="math notranslate nohighlight">\(u,v\)</span>  对于位置的特征描述子分别为 <span class="math notranslate nohighlight">\(d_u, d_v\)</span> ，则特征相似度 <span class="math notranslate nohighlight">\(w_{uv}\)</span> 为 <span class="math notranslate nohighlight">\(d_u^T d_v\)</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>该过程对于每一个 track 是独立进行的，计算效率非常高。</p>
+</div>
+</div></blockquote>
+<p><strong>Drift:</strong></p>
+<blockquote>
+<div><p>为了保证例如视觉定位的性能，需要保持特征点复检率不发生较大改变，此时需要限制特征优化的最大变动距离：</p>
+<div class="math notranslate nohighlight">
+\[||p_u - p_u^0 || \le K\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(p_u^0\)</span> 是未调整的原始位置， <span class="math notranslate nohighlight">\(K\)</span> 表示特征点位置调整的最大像素距离。（文章中设置为8）</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="bundle-adjustment">
+<h2><span class="section-number">34.3. </span>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>找到一个向量 <span class="math notranslate nohighlight">\(\mu\)</span> ，这个向量可以描述跟踪点 <span class="math notranslate nohighlight">\(j\)</span> 在所有图像匹配点的特征，也就是找到一个向量距离这些特征最近。</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma\]</div>
+<ol class="arabic simple" start="2">
+<li><p>从所有跟踪点 <span class="math notranslate nohighlight">\(j\)</span> 中所有相关的描述向量中，找到一个最近的向量作为最终跟踪点的描述子。</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[f^j = \mathop{argmin}_{f\in \{f_u^j\}}|| \mu^j - f ||\]</div>
+<ol class="arabic simple" start="3">
+<li><p>空间点 <span class="math notranslate nohighlight">\(j\)</span> 在所有图像上的特征描述子应该都与 <span class="math notranslate nohighlight">\(f_j\)</span> 接近。</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[E_{FBA} = \sum\limits_j \sum\limits_{(i,u)\in \mathcal{T}(j)} ||F_i [\prod (R_i P_j + t_i, C_i)] - f^j||_\gamma\]</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>相当于找到点的描述中距离均值最近的特征描述，用来表示这个点的全局特征。</p>
+</div>
+</div>
+<div class="section" id="implementation">
+<h2><span class="section-number">34.4. </span>Implementation<a class="headerlink" href="#implementation" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>ceres-solver的LM算法求解keypoints和BA优化问题。</p></li>
+<li><p>特征图存储为以初始关键点检测为中心，patch大小为 <span class="math notranslate nohighlight">\(16 \times 16\)</span> 的集合。</p></li>
+<li><p>限制点的像素移动步数最大为 <span class="math notranslate nohighlight">\(K = 8\)</span></p></li>
+<li><p>Cauchy loss  <span class="math notranslate nohighlight">\(\gamma = 0.25\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu^j = \mathop{argmin}_{\mu \in R^D} \sum\limits_{f \in \{f_u^j\}} ||f - \mu||_\gamma\)</span> 的稳健性均值采用迭代重加权最小二乘计算</p></li>
+<li><p>预计算特征距离的小块并直接插值一个近似代价 <span class="math notranslate nohighlight">\(\overline{E}_{ij} = ||F_i - f^j||_\gamma [p_{ij}]\)</span> ，极大地提高了BA的效率。</p></li>
+</ol>
+</div>
+<div class="section" id="experiments">
+<h2><span class="section-number">34.5. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>评估了已知相机姿态和内在特征的精细三维结构的准确性。</p></li>
+</ol>
+<dl class="field-list">
+<dt class="field-odd">Evaluation</dt>
+<dd class="field-odd"><p>使用ETH3D基准，该基准由13个室内外场景组成，提供精确到毫米的相机姿态和激光扫描仪获得的高度精确的地面真实密度重建图像。</p>
+<p>报告重建的准确性和完整性，以%表示三角化和地面真实密集点在彼此给定距离内的比例。</p>
+</dd>
+<dt class="field-even">Baselines</dt>
+<dd class="field-even"><p>sift、SuperPoint、D2-Net、R2D2</p>
+</dd>
+</dl>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/228.jpg" src="../../../../../_images/228.jpg" />
+</div>
+<ol class="arabic simple" start="2">
+<li><p>评估优化对从单个图像估计相机位姿任务的影响。</p></li>
+</ol>
+<dl class="field-list">
+<dt class="field-odd">Evaluation</dt>
+<dd class="field-odd"><p>对于每个场景，随机选择10张图像作为查询。对于它们中的每一个，剩余的图像，除了两个最具共视性的图像，被用来三角化一个稀疏的三维部分模型。</p>
+<p>然后，将每个查询与其对应的部分模型进行匹配，得到的2D-3D匹配用于使用LO-RANSAC+PnP和几何约束来估计其绝对位姿。</p>
+</dd>
+</dl>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/316.jpg" src="../../../../../_images/316.jpg" />
+</div>
+<ol class="arabic simple" start="3">
+<li><p>端到端的SfM</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Evaluation</dt>
+<dd class="field-odd"><p>2020年图像匹配挑战的数据、协议和代码，基于大量的图像集合，描绘了世界各地的著名地标。伪ground truth位姿由colmap获得。</p>
+</dd>
+</dl>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/415.jpg" src="../../../../../_images/415.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/513.jpg" src="../../../../../_images/513.jpg" />
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../p_slam.html" class="btn btn-neutral float-right" title="🍊 SLAM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../DeepSfM/DeepSfM.html" class="btn btn-neutral float-left" title="33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

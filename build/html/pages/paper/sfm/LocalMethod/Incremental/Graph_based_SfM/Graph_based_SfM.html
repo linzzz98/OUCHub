@@ -115,6 +115,12 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">10. Graph-Based Consistent Matching for Structure-from-Motion</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#related-work">10.1. Related Work</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#problem-formulation">10.2. Problem  Formulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-based-consistent-matching">10.3. Graph-Based Consistent Matching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#match-graph-initialization">10.3.1. Match Graph Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graph-expansion-by-strong-triplets">10.3.2. Graph Expansion by Strong Triplets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#community-based-graph-reinforcement">10.3.3. Community-Based Graph Reinforcement</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
@@ -281,6 +287,95 @@ SfM系统通常使用词汇树来选择视觉上相似的匹配对，这相对�
 <div class="align-center figure align-default">
 <img alt="../../../../../../_images/227.jpg" src="../../../../../../_images/227.jpg" />
 </div>
+<p>其中表示使用 <span class="math notranslate nohighlight">\(◦\)</span> 运算符链接一组几何变换。</p>
+<p>为了找到一致的匹配图，需要平衡以下三个性能标准：</p>
+<ol class="arabic simple">
+<li><p>完整性。 匹配图的跨度应与图像一样多，以保证 3D 模型的完整性。 这个标准对应于最小化 <span class="math notranslate nohighlight">\(G\)</span> 中连接组件的数量。</p></li>
+<li><p>效率。 匹配图构建的时间复杂度应取决于图像集合的底层连接模式。</p></li>
+<li><p>一致性。 边缘应该是鲁棒的，这意味着它们中的每一个都包含大量的内部特征匹配，并且通过 <span class="math notranslate nohighlight">\(\epsilon\)</span> （越小越好）和 <span class="math notranslate nohighlight">\(|\mathcal{E}|\)</span> （越大越好）来衡量一致。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在定义 1 和定义 2 中。这个标准可能与效率相矛盾，因此需要找到一个好的权衡。</p>
+</div>
+</div>
+</div>
+<div class="section" id="graph-based-consistent-matching">
+<h2><span class="section-number">10.3. </span>Graph-Based Consistent Matching<a class="headerlink" href="#graph-based-consistent-matching" title="永久链接至标题">¶</a></h2>
+<p>本文所提出的方法可以分解为下图所示的三个步骤：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/315.jpg" src="../../../../../../_images/315.jpg" />
+</div>
+<ol class="arabic simple">
+<li><p>匹配图初始化</p></li>
+<li><p>强三元组的图扩展</p></li>
+<li><p>基于社区的图增强</p></li>
+</ol>
+<p><strong>完整性：</strong> 匹配图初始化的目的是最小化连接组件的数量并丢弃匹配图中的单例图像。</p>
+<p><strong>效率：</strong> 依次应用扩展和强化步骤来有效探索场景结构。</p>
+<p><strong>一致性：</strong> 弱一致性和强一致性在此过程中迭代验证。</p>
+<div class="section" id="match-graph-initialization">
+<h3><span class="section-number">10.3.1. </span>Match Graph Initialization<a class="headerlink" href="#match-graph-initialization" title="永久链接至标题">¶</a></h3>
+<p>标准 1 可以通过快速链接图像集合中的视图来单独完成。词汇树给出的相似性分数和排名信息参数化了先验匹配图。修改 Kruskal 的算法，以获得正在进行的匹配图的最小生成树算法。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/414.jpg" src="../../../../../../_images/414.jpg" />
+</div>
+<p>如果图像集合包含单例视图或分离的场景，初始化过程可能会过长，因为它需要探索每一个可能的边来加入单例图像。
+为了增加树结构的稳定性并处理单例图像，考虑相互连接的边缘权重。
+相对于数据集中的其他图像查询第 <span class="math notranslate nohighlight">\(i\)</span> 个图像并获得排名列表 <span class="math notranslate nohighlight">\(Rank_i\)</span> 。 图像 <span class="math notranslate nohighlight">\(j\)</span> 在 <span class="math notranslate nohighlight">\(Rank_i\)</span> 中的等级表示为 <span class="math notranslate nohighlight">\(Rank_i(j)\)</span> 。</p>
+<dl class="simple">
+<dt>节点 <span class="math notranslate nohighlight">\(i\)</span> 和节点 <span class="math notranslate nohighlight">\(j\)</span> 的边权重 <span class="math notranslate nohighlight">\(w(e_{ij})\)</span> 定义 <span class="math notranslate nohighlight">\(Rank_i(j)\)</span> 和 <span class="math notranslate nohighlight">\(Rank_j(i)\)</span> 的二次均值，即</dt><dd><p><span class="math notranslate nohighlight">\(w(e_{ij}) = \sqrt{\frac{Rank_i^2(j) + Rank_j^2(i)}{2}}\)</span></p>
+</dd>
+</dl>
+<p>该算法首先按权重按递增顺序对边集进行排序，然后使用联合查找数据结构探测（特征对应和几何验证）可以连接两个不相交集的最可能对。
+如果成功，则合并两个分离的集合； 否则，它将继续连接两个组件的下一个最佳可能边。
+如果图像已参与 <span class="math notranslate nohighlight">\(S_R\)</span> 失败测试，则将其视为单例图像并从数据集中丢弃。</p>
+<p>树匹配图不包含用于一致性检查的循环。为了获得最稳健的初始匹配对，在匹配验证中应用了更严格的内点阈值 <span class="math notranslate nohighlight">\(S_I^*(=40)\)</span></p>
+</div>
+<div class="section" id="graph-expansion-by-strong-triplets">
+<h3><span class="section-number">10.3.2. </span>Graph Expansion by Strong Triplets<a class="headerlink" href="#graph-expansion-by-strong-triplets" title="永久链接至标题">¶</a></h3>
+<p>本文目标是精确地满足匹配图的弱一致性，并近似地保证该图上的强一致性。</p>
+<p>用生成树连接不同的视图后，得到一个弱连接的匹配图。有一个公共顶点的两条相邻边形成一个弱三元组，一旦两个端点相连，它就成为一个强三元组。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/512.jpg" src="../../../../../../_images/512.jpg" />
+</div>
+</div>
+<div class="section" id="community-based-graph-reinforcement">
+<h3><span class="section-number">10.3.3. </span>Community-Based Graph Reinforcement<a class="headerlink" href="#community-based-graph-reinforcement" title="永久链接至标题">¶</a></h3>
+<p>扩展的匹配图稳健地估计场景的局部结构，并生成由强三元组实施的一致匹配集。</p>
+<p>尽管这种简化的匹配图有助于生成一致的重构，但它有两个主要缺点。</p>
+<ol class="arabic simple">
+<li><p>在这个匹配图中，只有强三元组得到验证，较长循环的一致性(强一致性)被忽略。</p></li>
+<li><p>该匹配图没有全局范围的闭环结构，不能反映数据集的真实位姿图。</p></li>
+</ol>
+<p>为了解决上述缺点，本文提出了一种受社区检测技术启发的组件合并算法。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>社区检测广泛用于复杂网络的分析。它旨在将一个图分成内部连接更密集、外部连接更稀疏的组。</p>
+</div>
+<p>令 <span class="math notranslate nohighlight">\(A_{ij}\)</span> 是一般图的相邻矩阵的一个元素，如果 <span class="math notranslate nohighlight">\(i\)</span> 与 <span class="math notranslate nohighlight">\(j\)</span> 相连，则 <span class="math notranslate nohighlight">\(A_{ij} = 1\)</span> ，否则 <span class="math notranslate nohighlight">\(A_{ij} = 0\)</span> 。</p>
+<p>节点 <span class="math notranslate nohighlight">\(i\)</span> 的度 <span class="math notranslate nohighlight">\(d_i\)</span> 是连接到它的其他节点的数量，表示为 <span class="math notranslate nohighlight">\(d_i = \sum\limits_j A_{ij}\)</span> 。</p>
+<p>如果图是没有明显社区结构的随机图，则在节点 <span class="math notranslate nohighlight">\(i\)</span> 和节点 <span class="math notranslate nohighlight">\(j\)</span> 之间存在边的概率为 <span class="math notranslate nohighlight">\(\frac{d_i d_j}{2m}\)</span> ，其中 <span class="math notranslate nohighlight">\(m = \frac{1}{2}\sum\limits_{ij} A_{ij}\)</span> 是图 <span class="math notranslate nohighlight">\(G\)</span> 的总边数。</p>
+<p>假设匹配图的结构使得节点 <span class="math notranslate nohighlight">\(i\)</span> 属于社区 <span class="math notranslate nohighlight">\(V_p\)</span> ，节点 <span class="math notranslate nohighlight">\(j\)</span> 属于社区 <span class="math notranslate nohighlight">\(V_q\)</span> ，
+那么模块性 <span class="math notranslate nohighlight">\(Q\)</span> 测量了图和随机图之间的社区内连接的分数之差:</p>
+<div class="math notranslate nohighlight">
+\[Q = \frac{1}{2m} \sum\limits_{ij} (A_{ij} - \frac{d_i d_j}{2m}) \delta (V_p, V_q)\]</div>
+<p>其中，如果 <span class="math notranslate nohighlight">\(i = j\)</span> ，则 <span class="math notranslate nohighlight">\(\delta(i, j) = 1\)</span> ，否则为0。如果每个节点本身都是一个社区，模块化程度为零。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>实际上，大于0.3的值表示该图具有显著的群体结构。</p>
+</div>
+<p>为了避免破坏加快成对匹配的目的，选择快速贪婪方法来估计社区结构。
+这种分层算法从每个节点作为一个唯一的社区开始，并迭代地加入不同的社区，
+这些社区的合并导致 <span class="math notranslate nohighlight">\(Q\)</span> 的最大增加。</p>
+<p>具体来说，使用加权图，边缘权重是图像对之间的基本矩阵插值器的数量，
+这有助于识别弱连接。因此，匹配图的 <span class="math notranslate nohighlight">\(A_{ij}\)</span> 定义为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A_{ij} = \begin{cases}
+F_{inlier} ~i ~and~ j~are~connected\\
+0~~~~~~~~otherwise
+\end{cases}\end{split}\]</div>
+<p>在 <span class="math notranslate nohighlight">\(n - 1\)</span> 个这样的连接之后，匹配图被合并成单个社区。</p>
 </div>
 </div>
 </div>

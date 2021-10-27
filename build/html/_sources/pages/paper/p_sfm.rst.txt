@@ -39,6 +39,9 @@
    sfm/CameraPose/Solver6L/Solver6L
    sfm/DeepLearning/SfMLearner/SfMLearner
    sfm/DeepLearning/DeepSfM/DeepSfM
+   sfm/DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM
+
+
 
 |:star:| \ **增量式SfM(Incremental Structure-from-Motion)**\
 
@@ -90,4 +93,4 @@
 
 * :doc:`[CVPR 2017] Unsupervised Learning of Depth and Ego-Motion from Video <sfm/DeepLearning/SfMLearner/SfMLearner>` |:fire:|
 * :doc:`[ECCV 2020] DeepSFM: Structure From Motion Via Deep Bundle Adjustment <sfm/DeepLearning/DeepSfM/DeepSfM>` |:fire:|
-
+* :doc:`[ICCV 2021 ORAL] Pixel-Perfect Structure-from-Motion with Featuremetric Refinement <sfm/DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM>` |:fire:|
