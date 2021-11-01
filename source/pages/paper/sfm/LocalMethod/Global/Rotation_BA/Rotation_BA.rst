@@ -292,7 +292,7 @@ Gradient computation
 
 对旋转向量的 y 和 z 分量中的扰动进行了类似的近似。
 
-通过使用 :math:`R_j` 的梯度近似 :math:`R_k` 的梯度，将边缘成本计算的数量从 :math:`7n_\Epsilon` 减少到 :math:`4n_\Epsilon` 。
+通过使用 :math:`R_j` 的梯度近似 :math:`R_k` 的梯度，将边缘成本计算的数量从 :math:`7n_\epsilon` 减少到 :math:`4n_\epsilon` 。
 
 .. note::
 
