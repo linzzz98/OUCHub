@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>29. Using Many Cameras as One &mdash; OUCHub  文档</title>
+  <title>30. Using Many Cameras as One &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="30. Accurate and Linear Time Pose Estimation from Points and Lines" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html" />
-    <link rel="prev" title="28. Privacy Preserving Image-Based Localization" href="../Privacy_Location/Privacy_Location.html" /> 
+    <link rel="next" title="31. Accurate and Linear Time Pose Estimation from Points and Lines" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html" />
+    <link rel="prev" title="29. Privacy Preserving Image-Based Localization" href="../Privacy_Location/Privacy_Location.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -120,30 +120,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">18. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">19. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">20. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">21. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">22. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">23. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">24. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">25. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">26. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">27. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">28. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">29. Using Many Cameras as One</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors">29.1. Plucker Vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors-of-a-multi-camera-system">29.2. Plucker Vectors of a Multi-Camera System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">30. Using Many Cameras as One</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors">30.1. Plucker Vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plucker-vectors-of-a-multi-camera-system">30.2. Plucker Vectors of a Multi-Camera System</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">30. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">31. Solutions to Minimal Generalized Relative Pose Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">32. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">33. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">34. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">35. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
@@ -204,7 +207,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">29. </span>Using Many Cameras as One</li>
+      <li><span class="section-number">30. </span>Using Many Cameras as One</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -224,7 +227,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="using-many-cameras-as-one">
-<h1><span class="section-number">29. </span>Using Many Cameras as One<a class="headerlink" href="#using-many-cameras-as-one" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">30. </span>Using Many Cameras as One<a class="headerlink" href="#using-many-cameras-as-one" title="永久链接至标题">¶</a></h1>
 <dl class="field-list">
 <dt class="field-odd">贡献</dt>
 <dd class="field-odd"><p>1.提出”广义相机模型”框架，表达了一个多相机系统。</p>
@@ -246,7 +249,7 @@
 <p>对于多幅图像的几何分析，简化了这种校准，使其仅包括像素采样的光线的定义。</p>
 <p>👉 这给出了一个更简单的校准问题，它需要为每个像素确定采样线的 Plucker 矢量。</p>
 <div class="section" id="plucker-vectors">
-<h2><span class="section-number">29.1. </span>Plucker Vectors<a class="headerlink" href="#plucker-vectors" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">30.1. </span>Plucker Vectors<a class="headerlink" href="#plucker-vectors" title="永久链接至标题">¶</a></h2>
 <p>为了描述在这个更一般的相机设置中每个像素采样的空间线，需要一种机制来描述空间中的任意线。</p>
 <p>一条线的 Plucker 向量是一对3维向量： <span class="math notranslate nohighlight">\(q,q'\)</span> ，命名为方向向量（direction vector）和力矩向量（moment vector）。</p>
 <div class="admonition note">
@@ -272,7 +275,7 @@
 </div>
 </div>
 <div class="section" id="plucker-vectors-of-a-multi-camera-system">
-<h2><span class="section-number">29.2. </span>Plucker Vectors of a Multi-Camera System<a class="headerlink" href="#plucker-vectors-of-a-multi-camera-system" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">30.2. </span>Plucker Vectors of a Multi-Camera System<a class="headerlink" href="#plucker-vectors-of-a-multi-camera-system" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -282,8 +285,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html" class="btn btn-neutral float-right" title="30. Accurate and Linear Time Pose Estimation from Points and Lines" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Privacy_Location/Privacy_Location.html" class="btn btn-neutral float-left" title="28. Privacy Preserving Image-Based Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html" class="btn btn-neutral float-right" title="31. Accurate and Linear Time Pose Estimation from Points and Lines" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Privacy_Location/Privacy_Location.html" class="btn btn-neutral float-left" title="29. Privacy Preserving Image-Based Localization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

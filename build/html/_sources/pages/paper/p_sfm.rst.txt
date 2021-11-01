@@ -23,6 +23,7 @@
    sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph
    sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph
    sfm/LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature
+   sfm/LocalMethod/Global/Rotation_BA/Rotation_BA
    sfm/LocalMethod/Hybrid/HSfM/HSfM
    sfm/LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction
    sfm/CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration
@@ -37,6 +38,7 @@
    sfm/CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One
    sfm/CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines
    sfm/CameraPose/Solver6L/Solver6L
+   sfm/CameraPose/Geometric_Interpretations/Geometric_Interpretations
    sfm/DeepLearning/SfMLearner/SfMLearner
    sfm/DeepLearning/DeepSfM/DeepSfM
    sfm/DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM
@@ -66,6 +68,8 @@
 * :doc:`[CVPR 2018] Very Large-Scale Global SfM by Distributed Motion Averaging <sfm/LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM>`
 * :doc:`[3DV 2020] Reducing Drift in Structure From Motion Using Extended Features <sfm/LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature>`
 * :doc:`[CVPR 2021] Efficient Initial Pose-graph Generation for Global SfM <sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph>`
+* :doc:`[CVPR 2021] Rotation-Only Bundle Adjustment <sfm/LocalMethod/Global/Rotation_BA/Rotation_BA>`
+
 
 
 |:star:| \ **混合式SfM(Hybrid Structure-from-Motion)**\
@@ -87,6 +91,9 @@
 * :doc:`[CVPR 2018] Hybrid Camera Pose Estimation <sfm/CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation>`
 * :doc:`[ICCV 2019] Privacy Preserving  Image  Queries for Camera Localization <sfm/CameraPose/Privacy_Image_Queries/Privacy_Image_Queries>`
 * :doc:`[CVPR 2019] Privacy Preserving Image-Based Localization <sfm/CameraPose/Privacy_Location/Privacy_Location>`
+* :doc:`[CoRR 2020] Geometric Interpretations of the Normalized Epipolar Error <sfm/CameraPose/Geometric_Interpretations/Geometric_Interpretations>`
+
+
 
 
 |:star:| \ **深度学习(Deep Learning)**\

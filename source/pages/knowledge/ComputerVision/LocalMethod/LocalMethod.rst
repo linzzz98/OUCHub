@@ -13,6 +13,7 @@
    MotionAveraging/MotionAveraging
    RotationAveraging/RotationAveraging
    LineFeature/LineFeature
+   Epipolar_Geometry/Epipolar_Geometry
 
 * :doc:`Structure from Motion <SfM/SfM>` |:fire:|
 
@@ -27,3 +28,5 @@
 * :doc:`Robust Optimization in 3D Vision <Robust_Optimization/Robust_Optimization>` |:fire:|
 
 * :doc:`Line Feature <LineFeature/LineFeature>` |:fire:|
+
+* :doc:`Epipolar Geometry <Epipolar_Geometry/Epipolar_Geometry>` |:fire:|
