@@ -316,7 +316,7 @@
 </div>
 <div class="section" id="two-view-rotation-only-method">
 <h2><span class="section-number">18.2. </span>Two-view Rotation-Only Method<a class="headerlink" href="#two-view-rotation-only-method" title="永久链接至标题">¶</a></h2>
-<p>考虑已知内参的两个视图， <span class="math notranslate nohighlight">\(c_j\)</span> 和 <span class="math notranslate nohighlight">\(c_k\)</span> ，观察 :math:` m ≥ 5 ` 个公共点，索引  <span class="math notranslate nohighlight">\(i ∈ {1, 2, . . . , m}\)</span> 。</p>
+<p>考虑已知内参的两个视图， <span class="math notranslate nohighlight">\(c_j\)</span> 和 <span class="math notranslate nohighlight">\(c_k\)</span> ，观察 <span class="math notranslate nohighlight">\(m ≥ 5\)</span> 个公共点，索引  <span class="math notranslate nohighlight">\(i ∈ {1, 2, . . . , m}\)</span> 。</p>
 <p>与每个点 <span class="math notranslate nohighlight">\(i\)</span> 相关的归一化对极误差定义为：</p>
 <div class="math notranslate nohighlight">
 \[(e_j)_{(j,k)} = |\hat{t}_{jk} · ((\hat{f}_i)_j \times R_{jk}(\hat{f}_i)_k)|\]</div>
@@ -434,7 +434,7 @@
 <p>其中 <span class="math notranslate nohighlight">\((R_j)_{x+\Delta x}\)</span> 和 <span class="math notranslate nohighlight">\((R_k)_{x+\Delta x}\)</span> 分别表示在旋转矢量的 <span class="math notranslate nohighlight">\(x\)</span> 分量中受到（相同幅度）扰动后的 <span class="math notranslate nohighlight">\(R_j\)</span> 和 <span class="math notranslate nohighlight">\(R_k\)</span> 。</p>
 <p>也就是说，假设由 <span class="math notranslate nohighlight">\((R_k)_{x+\Delta x}\)</span> 引起的 <span class="math notranslate nohighlight">\(\Delta c_{jk}\)</span> 近似等于由 <span class="math notranslate nohighlight">\((R_j)_{x+\Delta x}\)</span> 引起的 <span class="math notranslate nohighlight">\(\Delta c_{jk}\)</span> 的负值。</p>
 <p>对旋转向量的 y 和 z 分量中的扰动进行了类似的近似。</p>
-<p>通过使用 <span class="math notranslate nohighlight">\(R_j\)</span> 的梯度近似 <span class="math notranslate nohighlight">\(R_k\)</span> 的梯度，将边缘成本计算的数量从 <span class="math notranslate nohighlight">\(7n_\Epsilon\)</span> 减少到 <span class="math notranslate nohighlight">\(4n_\Epsilon\)</span> 。</p>
+<p>通过使用 <span class="math notranslate nohighlight">\(R_j\)</span> 的梯度近似 <span class="math notranslate nohighlight">\(R_k\)</span> 的梯度，将边缘成本计算的数量从 <span class="math notranslate nohighlight">\(7n_\epsilon\)</span> 减少到 <span class="math notranslate nohighlight">\(4n_\epsilon\)</span> 。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>根据经验，作者发现这在相对较小的精度损失的情况下显着提高了效率。</p>

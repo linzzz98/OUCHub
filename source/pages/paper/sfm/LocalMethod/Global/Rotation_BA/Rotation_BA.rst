@@ -129,7 +129,7 @@ Notation
 Two-view Rotation-Only Method
 -------------------------------
 
-考虑已知内参的两个视图， :math:`c_j` 和 :math:`c_k` ，观察 :math:` m ≥ 5 ` 个公共点，索引  :math:`i ∈ {1, 2, . . . , m}` 。
+考虑已知内参的两个视图， :math:`c_j` 和 :math:`c_k` ，观察 :math:`m ≥ 5` 个公共点，索引  :math:`i ∈ {1, 2, . . . , m}` 。
 
 与每个点 :math:`i` 相关的归一化对极误差定义为：
 

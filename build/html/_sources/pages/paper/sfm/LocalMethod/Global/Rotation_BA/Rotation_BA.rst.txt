@@ -129,7 +129,7 @@ Notation
 Two-view Rotation-Only Method
 -------------------------------
 
-考虑已知内参的两个视图， :math:`c_j` 和 :math:`c_k` ，观察 :math:` m ≥ 5 ` 个公共点，索引  :math:`i ∈ {1, 2, . . . , m}` 。
+考虑已知内参的两个视图， :math:`c_j` 和 :math:`c_k` ，观察 :math:`m ≥ 5` 个公共点，索引  :math:`i ∈ {1, 2, . . . , m}` 。
 
 与每个点 :math:`i` 相关的归一化对极误差定义为：
 
@@ -292,7 +292,7 @@ Gradient computation
 
 对旋转向量的 y 和 z 分量中的扰动进行了类似的近似。
 
-通过使用 :math:`R_j` 的梯度近似 :math:`R_k` 的梯度，将边缘成本计算的数量从 :math:`7n_\Epsilon` 减少到 :math:`4n_\Epsilon` 。
+通过使用 :math:`R_j` 的梯度近似 :math:`R_k` 的梯度，将边缘成本计算的数量从 :math:`7n_\epsilon` 减少到 :math:`4n_\epsilon` 。
 
 .. note::
 
