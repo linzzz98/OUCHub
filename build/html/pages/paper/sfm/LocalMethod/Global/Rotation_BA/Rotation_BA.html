@@ -129,6 +129,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gradient-computation">18.3.3. Gradient computation</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#results">18.4. Results</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
@@ -323,7 +324,7 @@
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <div class="math notranslate nohighlight">
-\[\hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{f} · (R \hat{f}_0 \times \hat{f}_1)|\]</div>
+\[\hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{t} · (R \hat{f}_0 \times \hat{f}_1)|\]</div>
 </div>
 <p>其中 <span class="math notranslate nohighlight">\((\hat{f}_i)_j\)</span> 和 <span class="math notranslate nohighlight">\((\hat{f}_i)_k\)</span> 分别是对应于 <span class="math notranslate nohighlight">\(c_j\)</span> 和 <span class="math notranslate nohighlight">\(c_k\)</span> 中第n 个点的单位方位向量。</p>
 <div class="admonition note">
@@ -449,6 +450,32 @@
 </div>
 </dd>
 </dl>
+</div>
+</div>
+<div class="section" id="results">
+<h2><span class="section-number">18.4. </span>Results<a class="headerlink" href="#results" title="永久链接至标题">¶</a></h2>
+<p>作者使用了仿真数据集和真实数据集两种进行了测试：</p>
+<ol class="arabic simple">
+<li><p>仿真数据集</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/151.jpg" src="../../../../../../_images/151.jpg" />
+</div>
+<p>效果如下：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/147.jpg" src="../../../../../../_images/147.jpg" />
+</div>
+<ol class="arabic simple" start="2">
+<li><p>真实数据集</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/171.jpg" src="../../../../../../_images/171.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/181.jpg" src="../../../../../../_images/181.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/191.jpg" src="../../../../../../_images/191.jpg" />
 </div>
 </div>
 </div>

@@ -140,7 +140,7 @@ Two-view Rotation-Only Method
 .. note::
 
    .. math::
-      \hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{f} · (R \hat{f}_0 \times \hat{f}_1)|
+      \hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{t} · (R \hat{f}_0 \times \hat{f}_1)|
 
 
 其中 :math:`(\hat{f}_i)_j` 和 :math:`(\hat{f}_i)_k` 分别是对应于 :math:`c_j` 和 :math:`c_k` 中第n 个点的单位方位向量。
@@ -306,3 +306,28 @@ Gradient computation
    .. figure:: 13.jpg
       :figclass: align-center
 
+Results
+-------------
+
+作者使用了仿真数据集和真实数据集两种进行了测试：
+
+1. 仿真数据集
+
+.. figure:: 15.jpg
+   :figclass: align-center
+
+效果如下：
+
+.. figure:: 14.jpg
+   :figclass: align-center
+
+2. 真实数据集
+
+.. figure:: 17.jpg
+   :figclass: align-center
+
+.. figure:: 18.jpg
+   :figclass: align-center
+
+.. figure:: 19.jpg
+   :figclass: align-center
