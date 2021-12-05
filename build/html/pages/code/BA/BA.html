@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Bundle Adjustment &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../_static/twemoji.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../others/o_others.html" />
+    <link rel="prev" title="🍑 Bundle Adjustment" href="../ba.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ba.html">🍑 Bundle Adjustment</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bundle Adjustment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#including">INCLUDING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enum">ENUM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#struct">STRUCT</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">相机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">透视相机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">鱼眼相机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">位姿信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">点信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">观测</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tag">Tag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#error">Error</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#loss-function">LOSS FUNCTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function">FUNCTION</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#longrightarrow">世界坐标系 <span class="math notranslate nohighlight">\(\longrightarrow\)</span> 相机坐标系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">透视相机投影</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">鱼眼相机投影</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cost-function">COST FUNCTION</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">透视相机投影</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">鱼眼相机投影</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gcp">GCP投影</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">TAG</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">尺度误差</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">正交误差</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../ba.html">🍑 Bundle Adjustment</a> &raquo;</li>
+        
+      <li>Bundle Adjustment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/pages/code/ba/ba.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bundle-adjustment">
+<h1>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h1>
+<div class="section" id="including">
+<h2>INCLUDING<a class="headerlink" href="#including" title="永久链接至标题">¶</a></h2>
+<dl class="field-list">
+<dt class="field-odd">ceres</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;ceres/ceres.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ceres/rotation.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ceres/loss_function.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;ceres/covariance.h&quot;</span><span class="cp"></span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="enum">
+<h2>ENUM<a class="headerlink" href="#enum" title="永久链接至标题">¶</a></h2>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">BACameraType</span> <span class="p">{</span>
+   <span class="c1">// 透视相机</span>
+   <span class="n">BA_PERSPECTIVE_CAMERA</span><span class="p">,</span>
+   <span class="c1">// 鱼眼相机</span>
+   <span class="n">BA_FISHEYE_CAMERA</span><span class="p">,</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span>
+   <span class="c1">// 焦距</span>
+   <span class="n">BA_CAMERA_FOCAL</span><span class="p">,</span>
+   <span class="c1">// Focal-X</span>
+   <span class="n">BA_CAMERA_K1</span><span class="p">,</span>
+   <span class="c1">// Focal-Y</span>
+   <span class="n">BA_CAMERA_K2</span><span class="p">,</span>
+   <span class="c1">// 相机参数个数</span>
+   <span class="n">BA_CAMERA_NUM_PARAMS</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="p">{</span>
+   <span class="c1">// 旋转向量X-Y-Z</span>
+   <span class="n">BA_SHOT_RX</span><span class="p">,</span>
+   <span class="n">BA_SHOT_RY</span><span class="p">,</span>
+   <span class="n">BA_SHOT_RZ</span><span class="p">,</span>
+   <span class="c1">// 位移向量X-Y-Z</span>
+   <span class="n">BA_SHOT_TX</span><span class="p">,</span>
+   <span class="n">BA_SHOT_TY</span><span class="p">,</span>
+   <span class="n">BA_SHOT_TZ</span><span class="p">,</span>
+   <span class="c1">// 个数</span>
+   <span class="n">BA_SHOT_NUM_PARAMS</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="struct">
+<h2>STRUCT<a class="headerlink" href="#struct" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id1">
+<h3>相机<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BACamera</span> <span class="p">{</span>
+   <span class="c1">// 相机ID</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">id</span><span class="p">;</span>
+   <span class="c1">// 是否固定</span>
+   <span class="kt">bool</span> <span class="n">constant</span><span class="p">;</span>
+   <span class="c1">// 相机类型</span>
+   <span class="k">virtual</span> <span class="n">BACameraType</span> <span class="nf">type</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>透视相机<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nl">BAPerspectiveCamera</span> <span class="p">:</span> <span class="k">public</span> <span class="n">BACamera</span><span class="p">{</span>
+   <span class="kt">double</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_NUM_PARAMS</span><span class="p">];</span>
+   <span class="kt">double</span> <span class="n">focal_prior</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">k1_prior</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">k2_prior</span><span class="p">;</span>
+
+   <span class="n">BACameraType</span> <span class="nf">type</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">BA_PERSPECTIVE_CAMERA</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetFocal</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetK1</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetK2</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetFocal</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetK1</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetK2</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>鱼眼相机<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nl">BAFisheyeCamera</span> <span class="p">:</span> <span class="k">public</span> <span class="n">BACamera</span><span class="p">{</span>
+   <span class="kt">double</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_NUM_PARAMS</span><span class="p">];</span>
+   <span class="kt">double</span> <span class="n">focal_prior</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">k1_prior</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">k2_prior</span><span class="p">;</span>
+
+   <span class="n">BACameraType</span> <span class="nf">type</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">BA_FISHEYE_CAMERA</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetFocal</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetK1</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">double</span> <span class="nf">GetK2</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">];</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetFocal</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetK1</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+   <span class="kt">void</span> <span class="nf">SetK2</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>位姿信息<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAShot</span> <span class="p">{</span>
+  <span class="kt">double</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_NUM_PARAMS</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">covariance</span><span class="p">[</span><span class="n">BA_SHOT_NUM_PARAMS</span> <span class="o">*</span> <span class="n">BA_SHOT_NUM_PARAMS</span><span class="p">];</span>
+  <span class="kt">bool</span> <span class="n">constant</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">exif_orientation</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">camera</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">id</span><span class="p">;</span>
+
+  <span class="kt">double</span> <span class="nf">GetRX</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RX</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetRY</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RY</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetRZ</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RZ</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetTX</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TX</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetTY</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TY</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetTZ</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TZ</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetRX</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RX</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetRY</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RY</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetRZ</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_RZ</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetTX</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TX</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetTY</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TY</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetTZ</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">parameters</span><span class="p">[</span><span class="n">BA_SHOT_TZ</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetCovariance</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">covariance</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">BA_SHOT_NUM_PARAMS</span> <span class="o">+</span> <span class="n">j</span><span class="p">];</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>点信息<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAPoint</span> <span class="p">{</span>
+  <span class="kt">double</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">bool</span> <span class="n">constant</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">reprojection_error</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">id</span><span class="p">;</span>
+
+  <span class="kt">double</span> <span class="nf">GetX</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetY</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">double</span> <span class="nf">GetZ</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetX</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetY</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">SetZ</span><span class="p">(</span><span class="kt">double</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>观测<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAObservation</span> <span class="p">{</span>
+  <span class="kt">double</span> <span class="n">coordinates</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">BACamera</span> <span class="o">*</span><span class="n">camera</span><span class="p">;</span>
+  <span class="n">BAShot</span> <span class="o">*</span><span class="n">shot</span><span class="p">;</span>
+  <span class="n">BAPoint</span> <span class="o">*</span><span class="n">point</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">on_tag</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">optimize</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tag">
+<h3>Tag<a class="headerlink" href="#tag" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BATag</span> <span class="p">{</span>
+  <span class="kt">double</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">//top left</span>
+  <span class="kt">double</span> <span class="n">p2</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">//top right</span>
+  <span class="kt">double</span> <span class="n">p3</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">//bottom right</span>
+  <span class="kt">double</span> <span class="n">p4</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">//bottom left</span>
+  <span class="kt">double</span> <span class="n">size</span><span class="p">;</span> <span class="c1">//meters</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="error">
+<h3>Error<a class="headerlink" href="#error" title="永久链接至标题">¶</a></h3>
+<dl class="field-list">
+<dt class="field-odd">旋转误差</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BARotationPrior</span> <span class="p">{</span>
+  <span class="n">BAShot</span> <span class="o">*</span><span class="n">shot</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">rotation</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">位移误差</dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BATranslationPrior</span> <span class="p">{</span>
+  <span class="n">BAShot</span> <span class="o">*</span><span class="n">shot</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">translation</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-odd">位置误差</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAPositionPrior</span> <span class="p">{</span>
+  <span class="n">BAShot</span> <span class="o">*</span><span class="n">shot</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">position</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">点位置先验信息</dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAPointPositionPrior</span> <span class="p">{</span>
+  <span class="n">BAPoint</span> <span class="o">*</span><span class="n">point</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">position</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-odd">地面控制点观测值</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">BAGroundControlPointObservation</span> <span class="p">{</span>
+  <span class="n">BACamera</span> <span class="o">*</span><span class="n">camera</span><span class="p">;</span>
+  <span class="n">BAShot</span> <span class="o">*</span><span class="n">shot</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">coordinates3d</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+  <span class="kt">double</span> <span class="n">coordinates2d</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="loss-function">
+<h2>LOSS FUNCTION<a class="headerlink" href="#loss-function" title="永久链接至标题">¶</a></h2>
+<dl class="cpp member">
+<dt id="_CPPv44loss">
+<span id="_CPPv34loss"></span><span id="_CPPv24loss"></span><span id="loss__ceres::LossFunctionP"></span>ceres::LossFunction *<code class="sig-name descname">loss</code>;<a class="headerlink" href="#_CPPv44loss" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp member">
+<dt id="_CPPv424loss_function_threshold_">
+<span id="_CPPv324loss_function_threshold_"></span><span id="_CPPv224loss_function_threshold_"></span><span id="loss_function_threshold___double"></span>double <code class="sig-name descname">loss_function_threshold_</code>;<a class="headerlink" href="#_CPPv424loss_function_threshold_" title="永久链接至目标">¶</a><br /></dt>
+<dd></dd></dl>
+
+<ul>
+<li><p>TruncatedLoss</p>
+<blockquote>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TruncatedLoss</span><span class="p">(</span><span class="n">loss_function_threshold_</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TruncatedLoss</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ceres</span><span class="o">::</span><span class="n">LossFunction</span> <span class="p">{</span>
+   <span class="k">public</span><span class="o">:</span>
+      <span class="k">explicit</span> <span class="n">TruncatedLoss</span><span class="p">(</span><span class="kt">double</span> <span class="n">t</span><span class="p">)</span>
+         <span class="o">:</span> <span class="n">t2_</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">virtual</span> <span class="kt">void</span> <span class="n">Evaluate</span><span class="p">(</span><span class="kt">double</span> <span class="n">s</span><span class="p">,</span> <span class="kt">double</span> <span class="n">rho</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="k">const</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="n">t2_</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Outlier.</span>
+            <span class="n">rho</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">t2_</span><span class="p">;</span>
+            <span class="n">rho</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">min</span><span class="p">();</span>
+            <span class="n">rho</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+         <span class="c1">// Inlier.</span>
+         <span class="n">rho</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+         <span class="n">rho</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+         <span class="n">rho</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+
+   <span class="k">private</span><span class="o">:</span>
+      <span class="k">const</span> <span class="kt">double</span> <span class="n">t2_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>TrivialLoss</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\rho(s) = s\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">TrivialLoss</span><span class="p">();</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>HuberLoss</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\begin{split}\rho(s) =
+\begin{cases}
+s~~~s&lt;1\\
+2 \sqrt{s-1}~~ s&gt; 1
+\end{cases}\end{split}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">HuberLoss</span><span class="p">(</span><span class="n">loss_function_threshold_</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>SoftLOneLoss</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\rho(s) = 2(\sqrt{1 + s} - 1)\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">SoftLOneLoss</span><span class="p">(</span><span class="n">loss_function_threshold_</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>CauchyLoss</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\rho(s) = log(1 + s)\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">CauchyLoss</span><span class="p">(</span><span class="n">loss_function_threshold_</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>ArctanLoss</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\rho(s) = arctan(s)\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ceres</span><span class="o">::</span><span class="n">ArctanLoss</span><span class="p">(</span><span class="n">loss_function_threshold_</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="function">
+<h2>FUNCTION<a class="headerlink" href="#function" title="永久链接至标题">¶</a></h2>
+<div class="section" id="longrightarrow">
+<h3>世界坐标系 <span class="math notranslate nohighlight">\(\longrightarrow\)</span> 相机坐标系<a class="headerlink" href="#longrightarrow" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[P_c = R_{w \rightarrow c} P_w + T_{w \rightarrow c}\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">WorldToCameraCoordinates</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">shot</span><span class="p">,</span>
+                              <span class="k">const</span> <span class="n">T</span> <span class="n">world_point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                              <span class="n">T</span> <span class="n">camera_point</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="p">{</span>
+  <span class="n">ceres</span><span class="o">::</span><span class="n">AngleAxisRotatePoint</span><span class="p">(</span><span class="n">shot</span> <span class="o">+</span> <span class="n">BA_SHOT_RX</span><span class="p">,</span> <span class="n">world_point</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">);</span>
+  <span class="n">camera_point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shot</span><span class="p">[</span><span class="n">BA_SHOT_TX</span><span class="p">];</span>
+  <span class="n">camera_point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shot</span><span class="p">[</span><span class="n">BA_SHOT_TY</span><span class="p">];</span>
+  <span class="n">camera_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shot</span><span class="p">[</span><span class="n">BA_SHOT_TZ</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id7">
+<h3>透视相机投影<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<dl class="field-list">
+<dt class="field-odd">归一化</dt>
+<dd class="field-odd"><div class="math notranslate nohighlight">
+\[\begin{split}x_p = x / z\\
+y_p = y / z\end{split}\]</div>
+</dd>
+<dt class="field-even">计算畸变</dt>
+<dd class="field-even"><div class="math notranslate nohighlight">
+\[\begin{split}r^2 = x_p^2 + y_p^2\\\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[distortion = 1 + r^2 * (k_1 + k_2 * r^2)\]</div>
+</dd>
+<dt class="field-odd">投影</dt>
+<dd class="field-odd"><div class="math notranslate nohighlight">
+\[\begin{split}projection_x = f * distortion * x_p\\
+projection_y = f * distortion * y_p\end{split}\]</div>
+</dd>
+</dl>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">PerspectiveProject</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera</span><span class="p">,</span>
+                        <span class="k">const</span> <span class="n">T</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                        <span class="n">T</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">xp</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+  <span class="n">T</span> <span class="n">yp</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+  <span class="c1">// Apply second and fourth order radial distortion.</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">];</span>
+  <span class="n">T</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">xp</span> <span class="o">*</span> <span class="n">xp</span> <span class="o">+</span> <span class="n">yp</span> <span class="o">*</span> <span class="n">yp</span><span class="p">;</span>
+  <span class="n">T</span> <span class="n">distortion</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">r2</span>  <span class="o">*</span> <span class="p">(</span><span class="n">l1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">l2</span><span class="p">);</span>
+
+  <span class="c1">// Compute final projected point position.</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">focal</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">];</span>
+  <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">focal</span> <span class="o">*</span> <span class="n">distortion</span> <span class="o">*</span> <span class="n">xp</span><span class="p">;</span>
+  <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">focal</span> <span class="o">*</span> <span class="n">distortion</span> <span class="o">*</span> <span class="n">yp</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id8">
+<h3>鱼眼相机投影<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">FisheyeProject</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera</span><span class="p">,</span>
+                    <span class="k">const</span> <span class="n">T</span> <span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                    <span class="n">T</span> <span class="n">projection</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">focal</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_FOCAL</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_K1</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">k2</span> <span class="o">=</span> <span class="n">camera</span><span class="p">[</span><span class="n">BA_CAMERA_K2</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">x</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">y</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">z</span> <span class="o">=</span> <span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+
+  <span class="n">T</span> <span class="n">l</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">);</span>
+  <span class="n">T</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span>
+  <span class="n">T</span> <span class="n">theta2</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">*</span> <span class="n">theta</span><span class="p">;</span>
+  <span class="n">T</span> <span class="n">theta_d</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="p">(</span><span class="n">k1</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="n">k2</span><span class="p">));</span>
+  <span class="n">T</span> <span class="n">s</span> <span class="o">=</span> <span class="n">focal</span> <span class="o">*</span> <span class="n">theta_d</span> <span class="o">/</span> <span class="n">l</span><span class="p">;</span>
+
+  <span class="n">projection</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
+  <span class="n">projection</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="cost-function">
+<h2>COST FUNCTION<a class="headerlink" href="#cost-function" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id9">
+<h3>透视相机投影<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">PerspectiveReprojectionError</span> <span class="p">{</span>
+  <span class="n">PerspectiveReprojectionError</span><span class="p">(</span><span class="kt">double</span> <span class="n">observed_x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">observed_y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">observed_x_</span><span class="p">(</span><span class="n">observed_x</span><span class="p">)</span>
+      <span class="p">,</span> <span class="n">observed_y_</span><span class="p">(</span><span class="n">observed_y</span><span class="p">)</span>
+      <span class="p">,</span> <span class="n">scale_</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">std_deviation</span><span class="p">)</span>
+  <span class="p">{}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">shot</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">point</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">camera_point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="n">WorldToCameraCoordinates</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">camera_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">T</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="mf">99.0</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">T</span> <span class="n">predicted</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">PerspectiveProject</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">,</span> <span class="n">predicted</span><span class="p">);</span>
+
+    <span class="c1">// The error is the difference between the predicted and observed position.</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_x_</span><span class="p">));</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_y_</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="n">observed_x_</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">observed_y_</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">scale_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id10">
+<h3>鱼眼相机投影<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">FisheyeReprojectionError</span> <span class="p">{</span>
+   <span class="n">FisheyeReprojectionError</span><span class="p">(</span><span class="kt">double</span> <span class="n">observed_x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">observed_y</span><span class="p">,</span> <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">observed_x_</span><span class="p">(</span><span class="n">observed_x</span><span class="p">)</span>
+      <span class="p">,</span> <span class="n">observed_y_</span><span class="p">(</span><span class="n">observed_y</span><span class="p">)</span>
+      <span class="p">,</span> <span class="n">scale_</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">std_deviation</span><span class="p">)</span>
+   <span class="p">{}</span>
+
+   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+   <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">shot</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">point</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+      <span class="n">T</span> <span class="n">camera_point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">WorldToCameraCoordinates</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">camera_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">T</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="mf">99.0</span><span class="p">);</span>
+         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">T</span> <span class="n">predicted</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">FisheyeProject</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">,</span> <span class="n">predicted</span><span class="p">);</span>
+
+      <span class="c1">// The error is the difference between the predicted and observed position.</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_x_</span><span class="p">));</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_y_</span><span class="p">));</span>
+
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="kt">double</span> <span class="n">observed_x_</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">observed_y_</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">scale_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="gcp">
+<h3>GCP投影<a class="headerlink" href="#gcp" title="永久链接至标题">¶</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">GCPPerspectiveProjectionError</span> <span class="p">{</span>
+   <span class="n">GCPPerspectiveProjectionError</span><span class="p">(</span>
+      <span class="kt">double</span> <span class="n">world</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="kt">double</span> <span class="n">observed</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">)</span>
+         <span class="o">:</span> <span class="n">world_</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+         <span class="p">,</span> <span class="n">observed_</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
+         <span class="p">,</span> <span class="n">scale_</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">std_deviation</span><span class="p">)</span>
+   <span class="p">{}</span>
+
+   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+   <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">camera</span><span class="p">,</span>
+                  <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">shot</span><span class="p">,</span>
+                  <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+      <span class="n">T</span> <span class="n">world_point</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">T</span><span class="p">(</span><span class="n">world_</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">T</span><span class="p">(</span><span class="n">world_</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">T</span><span class="p">(</span><span class="n">world_</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">};</span>
+      <span class="n">T</span> <span class="n">camera_point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="n">WorldToCameraCoordinates</span><span class="p">(</span><span class="n">shot</span><span class="p">,</span> <span class="n">world_point</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">camera_point</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">T</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span> <span class="p">{</span>
+         <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="mf">99.0</span><span class="p">);</span>
+         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">T</span> <span class="n">predicted</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">PerspectiveProject</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">camera_point</span><span class="p">,</span> <span class="n">predicted</span><span class="p">);</span>
+
+      <span class="c1">// The error is the difference between the predicted and observed position.</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_</span><span class="p">[</span><span class="mi">0</span><span class="p">]));</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">predicted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">T</span><span class="p">(</span><span class="n">observed_</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="kt">double</span> <span class="o">*</span><span class="n">world_</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="o">*</span><span class="n">observed_</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">scale_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>TAG<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id12">
+<h3>尺度误差<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^T (||V_{12}^i||_2 - S)^2 + (||V_{23}^i||_2 - S)^2 + (||V_{34}^i||_2 - S)^2 + (||V_{41}^i||_2 - S)^2\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">TagSizeError</span>
+<span class="p">{</span>
+   <span class="n">TagSizeError</span><span class="p">(</span><span class="kt">double</span> <span class="n">tag_size</span><span class="p">,</span> <span class="kt">double</span> <span class="n">std_deviation</span><span class="p">)</span> <span class="o">:</span> <span class="n">tag_size_</span><span class="p">(</span><span class="n">tag_size</span><span class="p">),</span> <span class="n">scale_</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">std_deviation</span><span class="p">)</span>
+   <span class="p">{}</span>
+
+   <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+   <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tagpoint1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tagpoint2</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span>
+   <span class="p">{</span>
+      <span class="c1">// length of v12</span>
+      <span class="n">T</span> <span class="n">vx</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="n">T</span> <span class="n">vy</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+      <span class="n">T</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="n">T</span> <span class="n">v12</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">vx</span><span class="o">*</span><span class="n">vx</span> <span class="o">+</span> <span class="n">vy</span><span class="o">*</span><span class="n">vy</span> <span class="o">+</span> <span class="n">vz</span><span class="o">*</span><span class="n">vz</span><span class="p">);</span>
+
+      <span class="c1">// residual</span>
+      <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">scale_</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">v12</span> <span class="o">-</span> <span class="n">tag_size_</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="kt">double</span> <span class="n">tag_size_</span><span class="p">;</span>
+   <span class="kt">double</span> <span class="n">scale_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>正交误差<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\sum\limits_{i=1}^T (V_{12}^i · V_{23}^i)^2 + (V_{23}^i · V_{34}^i)^2 + (V_{34}^i · V_{41}^i)^2 + (V_{41}^i · V_{12}^i)^2\]</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">TagOrthogonalityError</span>
+<span class="p">{</span>
+  <span class="n">TagOrthogonalityError</span><span class="p">(</span><span class="kt">double</span> <span class="n">std_deviation</span><span class="p">)</span> <span class="o">:</span> <span class="n">scale_</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">std_deviation</span><span class="p">)</span>
+  <span class="p">{}</span>
+
+  <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tagpoint1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tagpoint2</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="k">const</span> <span class="n">tagpoint3</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">residuals</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="c1">// v12</span>
+    <span class="n">T</span> <span class="n">v12x</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">v12y</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">v12z</span> <span class="o">=</span> <span class="n">tagpoint1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">len_v12</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="n">v12x</span><span class="o">*</span><span class="n">v12x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v12y</span><span class="o">*</span><span class="n">v12y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v12z</span><span class="o">*</span><span class="n">v12z</span><span class="p">)</span> <span class="p">);</span>
+    <span class="n">v12x</span> <span class="o">=</span> <span class="n">v12x</span> <span class="o">/</span> <span class="n">len_v12</span><span class="p">;</span>
+    <span class="n">v12y</span> <span class="o">=</span> <span class="n">v12y</span> <span class="o">/</span> <span class="n">len_v12</span><span class="p">;</span>
+    <span class="n">v12z</span> <span class="o">=</span> <span class="n">v12z</span> <span class="o">/</span> <span class="n">len_v12</span><span class="p">;</span>
+
+    <span class="c1">// v32</span>
+    <span class="n">T</span> <span class="n">v32x</span> <span class="o">=</span> <span class="n">tagpoint3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">v32y</span> <span class="o">=</span> <span class="n">tagpoint3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">v32z</span> <span class="o">=</span> <span class="n">tagpoint3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">tagpoint2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">T</span> <span class="n">len_v32</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="n">v32x</span><span class="o">*</span><span class="n">v32x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v32y</span><span class="o">*</span><span class="n">v32y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v32z</span><span class="o">*</span><span class="n">v32z</span><span class="p">)</span> <span class="p">);</span>
+    <span class="n">v32x</span> <span class="o">=</span> <span class="n">v32x</span> <span class="o">/</span> <span class="n">len_v32</span><span class="p">;</span>
+    <span class="n">v32y</span> <span class="o">=</span> <span class="n">v32y</span> <span class="o">/</span> <span class="n">len_v32</span><span class="p">;</span>
+    <span class="n">v32z</span> <span class="o">=</span> <span class="n">v32z</span> <span class="o">/</span> <span class="n">len_v32</span><span class="p">;</span>
+
+    <span class="c1">// v12 . v23</span>
+    <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">v12x</span> <span class="o">*</span> <span class="n">v32x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v12y</span> <span class="o">*</span> <span class="n">v32y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">v12z</span> <span class="o">*</span> <span class="n">v32z</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">double</span> <span class="n">scale_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../ba.html" class="btn btn-neutral float-left" title="🍑 Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

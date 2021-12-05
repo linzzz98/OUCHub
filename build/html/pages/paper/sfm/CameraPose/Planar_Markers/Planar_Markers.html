@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>35. Mapping and Localization from Planar Markers &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="34. Triangulation: Why Optimize?" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">36. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">35. </span>Mapping and Localization from Planar Markers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Planar_Markers/Planar_Markers.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mapping-and-localization-from-planar-markers">
+<h1><span class="section-number">35. </span>Mapping and Localization from Planar Markers<a class="headerlink" href="#mapping-and-localization-from-planar-markers" title="永久链接至标题">¶</a></h1>
+<p>本文提出了一种新方法，可以同时解决一组方形平面标记的映射和定位问题。</p>
+<ol class="arabic simple">
+<li><p>创建成对相对标记位姿的颤动，从中获得初始姿势图。</p></li>
+<li><p>姿态图可能包含小的成对位姿误差，当传播时，会导致大误差。因此，沿着图的Cycle basis（循环基底） distribute旋转和平移误差，以获得校正的位姿图。</p></li>
+<li><p>通过最小化所有观察帧中平面标记的重投影误差来执行全局位姿优化。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>循环基底（它是循环的最小集合）</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/149.jpg" src="../../../../../_images/149.jpg" />
+</div>
+</div>
+<p>SfM和Slam关于相机定位大都依赖于关键点法，然而关键点匹配对在尺度、旋转的不变性上相当有限，在很多情况下无法识别不同视点下的场景。</p>
+<p>方形平面标记被设计为易于从更广泛的位置检测，方形标记使用外部（易于检测）黑色边框和内部二进制代码进行识别、错误检测和纠正。
+单个标记提供四个对应点，可以以亚像素精度进行定位，以获得准确的相机位姿估计。</p>
+<p>本文提出了解决平面标记映射和定位问题的方法。</p>
+<dl class="field-list simple">
+<dt class="field-odd">贡献</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>将标记映射问题作为稀疏束调整问题的变体来解决，但考虑到标记的四个角必须联合优化。该方法减少了要优化的变量数量，并确保在优化期间强制执行角之间的真实距离。</p></li>
+<li><p>提出了一种基于图的方法来获得处理歧义问题的标记初始图。 为此，首先创建 <strong>a quiver of poses</strong>，从中获得初始姿势图，然后对其进行优化，沿其循环分布旋转和平移误差。</p></li>
+</ol>
+</dd>
+</dl>
+<p>考虑任意参考系 <span class="math notranslate nohighlight">\(a\)</span> 中的三维点  <span class="math notranslate nohighlight">\(p_a = (x,y,z)\)</span> 。</p>
+<p>为了将这样的点表达到另一个参考系统 b 中，它必须经过旋转和平移。</p>
+<div class="math notranslate nohighlight">
+\[\zeta = (r,t)|r,t \in R^3\]</div>
+<p>使用罗德里格斯的旋转公式，可以从旋转向量 <span class="math notranslate nohighlight">\(r\)</span> 获得旋转矩阵 <span class="math notranslate nohighlight">\(R\)</span> 为：</p>
+<div class="math notranslate nohighlight">
+\[R = I_{3\times 3} + \overline{r} sin\theta + \overline{r}^2 (1-cos\theta)\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(I_{3\times 3}\)</span> 是单位矩阵， <span class="math notranslate nohighlight">\(\overline{r}\)</span> 表示反对称矩阵。</p>
+<p>然后，结合 t，得到 <span class="math notranslate nohighlight">\(4 \times 4\)</span> 矩阵：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\gamma = \Gamma(\zeta) = \left[
+\begin{matrix}
+R &amp; t^T\\0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>可用于将点从 <span class="math notranslate nohighlight">\(a\)</span> 转换为 <span class="math notranslate nohighlight">\(b\)</span> 为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[
+\begin{matrix}
+p_b^T\\1
+\end{matrix}
+\right] = \gamma \left[
+\begin{matrix}
+p_a^T\\1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>为了简化符号，将定义运算符 <span class="math notranslate nohighlight">\((·)\)</span> 来表示： <span class="math notranslate nohighlight">\(p_b = \gamma · p_a\)</span></p>
+<p>点 <span class="math notranslate nohighlight">\(p\)</span> 在相机平面中投影到像素 <span class="math notranslate nohighlight">\(u \in R^2\)</span> 中。 假设相机参数是已知的，投影可以作为一个函数获得：</p>
+<div class="math notranslate nohighlight">
+\[u = \Psi(\delta, \gamma,p)\]</div>
+<p>其中：</p>
+<div class="math notranslate nohighlight">
+\[\delta = (f_x, f_y, c_x, c_y, k_1, ..., k_n)\]</div>
+<p>为相机内参，由焦距 <span class="math notranslate nohighlight">\((f_x,f_y)\)</span> 、光心 <span class="math notranslate nohighlight">\((c_x, c_y)\)</span> 和畸变参数 <span class="math notranslate nohighlight">\((k_1,...,k_n)\)</span> 组成。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>符号说明：</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f^t:\)</span> 相机在 t 时刻获取的图像。</p></li>
+<li><p>frs：帧参考系统。 获取帧时参考系统以相机原点为中心。 每个帧都有自己的frs。</p></li>
+<li><p>mrs：marker参考系统。 以marker为中心的参考系统。 每个标记都有自己的mrs。</p></li>
+<li><p>grs：全局参考系。希望获得所有度量的公共参考系统。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma_i: mrs \rightarrow grs\)</span>  将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的参考系转换为全局参考系。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma_{j,i}: mrs \rightarrow mrs\)</span> 将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的参考系转换为 <span class="math notranslate nohighlight">\(marker_j\)</span> 的参考系。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma^t: grs \rightarrow frs\)</span> 将点从全局参考系转换为第 <span class="math notranslate nohighlight">\(t\)</span> 帧的参考系。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma^t_i: mrs \rightarrow frs\)</span> 将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的参考系转换到第 <span class="math notranslate nohighlight">\(t\)</span> 帧的参考系。</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma^t_{j,i}: mrs \rightarrow mrs\)</span> 根据在第 <span class="math notranslate nohighlight">\(t\)</span> 帧中两者的observation，将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的参考系转换为 <span class="math notranslate nohighlight">\(marker_j\)</span> 的参考系。</p></li>
+</ul>
+<p>一般来说，当使用变换 <span class="math notranslate nohighlight">\(\gamma\)</span> 时，上标指的是帧，而下标指的是marker。</p>
+</div>
+<p>本文将问题表述为在一组帧中找到的标记角点的重投影误差的最小化，获得一个非线性方程。由于 LM 算法是一种局部搜索方法，因此需要良好的初始估计以避免陷入局部最小值。</p>
+<p>虽然问题类似于BA，但公式通过联合优化每个标记的四个角点来减少变量的数量。 它还确保在优化期间强制执行marker之间的实际距离。</p>
+<p>考虑一个正方形平面marker，边长为 s，其四个角可以相对于marker中心表示为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}c_1 = (s / 2, -s / 2, 0)\\
+c_2 = (s / 2, s / 2, 0)\\
+c_3 = (-s / 2, s / 2, 0)\\
+c_4 = (-s / 2, s / 2, 0)\end{split}\]</div>
+<p>用 <span class="math notranslate nohighlight">\(M = \{m\}\)</span> 表示放置在环境中的一组marker， 并用 <span class="math notranslate nohighlight">\(\gamma_m\)</span> 表示它们的姿势，即从 mrs 移动点到 grs 的变换。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>在本文的问题中，位姿 <span class="math notranslate nohighlight">\(\gamma_m\)</span> 和 <span class="math notranslate nohighlight">\(\gamma^t\)</span> 是要优化的参数，而 <span class="math notranslate nohighlight">\(\omega_i^t\)</span> 是可用的观测值。</p>
+<p>如果需要，相机参数 <span class="math notranslate nohighlight">\(\delta\)</span> 也可以作为优化过程的一部分。</p>
+<p>然后，该问题类似于BA问题。 但主要区别在于，虽然 BA 假设点彼此独立，但在本文提出的公式中，marker的四个点形成了一个仅由六个参数（即 <span class="math notranslate nohighlight">\(\gamma_m\)</span> ）表示的刚性对象。</p>
+<dl class="field-list simple">
+<dt class="field-odd">优点</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>减少参数数量，降低优化的复杂性。</p></li>
+<li><p>确保marker连续角点（lt - rt - rb - lb）之间的距离为 <span class="math notranslate nohighlight">\(s\)</span> ，使用一般 BA 公式无法保证这一点。</p></li>
+</ol>
+</dd>
+</dl>
+<p>在任何情况下，问题都会减少到最小化所有帧中标记角点的平方重投影误差，从而找到参数的值。</p>
+<p>在帧 <span class="math notranslate nohighlight">\(f^t\)</span> 中检测到的 <span class="math notranslate nohighlight">\(marker_i\)</span>  的重投影误差是通过比较其角点的观察投影而获得的。</p>
+<div class="math notranslate nohighlight">
+\[u_{i,j}^t, j = 1...4, i\in f^t\]</div>
+<p>与预测的</p>
+<div class="math notranslate nohighlight">
+\[e_i^t = \sum\limits_j [\Psi(\delta, \gamma^t, \gamma_i · c_j) - u_{i,j}^t]^2\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\Psi\)</span> 是定义的投影函数</p>
+<p>因此，整个帧中的总重投影误差表示为标记位姿、帧位姿和相机内参的函数：</p>
+<div class="math notranslate nohighlight">
+\[e(\gamma_1, ..., \gamma_M, \gamma^1, ... , \gamma^N, \delta) = \sum\limits_t \sum\limits_{i\in f^t} e_i^t\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(M\)</span> 和 <span class="math notranslate nohighlight">\(N\)</span> 分别代表marker和帧的数量。</p>
+</div>
+<hr class="docutils" />
+<p>令 Q 为pose quiver，其中节点表示marker，边表示它们之间的相对位姿。 用</p>
+<div class="math notranslate nohighlight">
+\[\epsilon^t = \{\gamma_i^t | i \in f^t\}\]</div>
+<p>使用平面位姿估计方法为帧 <span class="math notranslate nohighlight">\(f^t\)</span> 中检测到的标记估计的位姿集合。</p>
+<p>元素 <span class="math notranslate nohighlight">\(\gamma_i^t \in \epsilon^t :mrs → frs\)</span> ，表示将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的 mrs 移动到frs 的 <span class="math notranslate nohighlight">\(f^t\)</span> 的变换。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>平面位姿估计器返回两位姿，一个是正确的，另一个对应于模糊解。</p>
+<p>在大多数情况下，一个解的重投影误差远大于另一个解的重投影误差，因此不存在二义性问题，即很明显，重投影误差最小的解是好的解。</p>
+<p>在其他一些情况下，两种重投影误差非常相似。 很难判断哪种解决方案是好的，因此放弃对该 <span class="math notranslate nohighlight">\(marker\)</span> 的观察，即没有为该特定标记添加到 <span class="math notranslate nohighlight">\(\epsilon^t\)</span> 的解。</p>
+<p>因此 <span class="math notranslate nohighlight">\(|\epsilon^t| \le |f^t|\)</span></p>
+</div>
+<p>可以使用 <span class="math notranslate nohighlight">\(\epsilon^t\)</span> 中的元素来获得观察到的 <span class="math notranslate nohighlight">\(marker\)</span> 之间的相对位姿。</p>
+<p>定义 <span class="math notranslate nohighlight">\(\gamma^t(mrs\rightarrow mrs)\)</span> ，作为根据 <span class="math notranslate nohighlight">\(f^t\)</span> 中的观测，将点从 <span class="math notranslate nohighlight">\(marker_i\)</span> 的参考系转换到 <span class="math notranslate nohighlight">\(marker_j\)</span> 的参考系的位姿，计算公式为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\gamma_{j,i}^t = (r_j^t)^{-1} \gamma_i^t = \left[
+\begin{matrix}
+R_{j,i}^t &amp; t_{j,i}^t\\0 &amp; 1
+\end{matrix}
+\right]\end{split}\]</div>
+<p>然后将用 <span class="math notranslate nohighlight">\(n = |ξt|\)</span> 表示：</p>
+<div class="math notranslate nohighlight">
+\[\Psi^t = \{\gamma_{2,1}^t, \gamma_{3,1}^t, ···, \gamma_{n,1}^t, \gamma_{3,2}^t,···,\gamma_{n,n-1}^t\}\]</div>
+<p>以表示此类变换的所有组合的集合，从 i 到 j 的变换及其逆可以很容易地计算为：</p>
+<div class="math notranslate nohighlight">
+\[\gamma_{i,j}^t = (\gamma_{j,i}^t)^{-1}\]</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" class="btn btn-neutral float-left" title="34. Triangulation: Why Optimize?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -94,6 +94,7 @@ OUC_B419_Linzzz代码论文仓库。
 
    pages/code/colmap
    pages/code/theiasfm
+   pages/code/ba
 
 
 .. toctree::
