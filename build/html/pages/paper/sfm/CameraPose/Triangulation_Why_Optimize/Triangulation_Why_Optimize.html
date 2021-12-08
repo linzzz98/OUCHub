@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="35. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="next" title="35. Mapping and Localization from Planar Markers" href="../Planar_Markers/Planar_Markers.html" />
     <link rel="prev" title="33. Geometric Interpretations of the Normalized Epipolar Error" href="../Geometric_Interpretations/Geometric_Interpretations.html" /> 
 </head>
 
@@ -148,9 +148,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">35. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">36. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">37. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">36. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -162,6 +163,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -274,7 +280,7 @@
 </div>
 <p>本文的工作不是最小化几何或代数误差，而是在每条射线上的特定点对之间找到一个中点。</p>
 <p>与经典的中点方法一样，本文的方法将两条射线作为输入。</p>
-<p>因此，它对相机旋转的变化是不变的，适用于透视、鱼眼和全向相机。</p>
+<p>因此，它对相机旋转的变化是不变的，适用于透视、鱼眼和全景相机。</p>
 <p><strong>然而，与经典方法不同的是，每条射线上的两点不一定在公共垂线上。</strong></p>
 <p>本文的中点方法与公式中的经典方法具有惊人的相似性，但在 2D 和视差精度方面提供了显着的性能提升。</p>
 <p>与最优方法相比，本文的方法在低视差下产生的 3D 误差要低得多，并且与 L2 和 L∞ 最优方法的 2D 误差相似。</p>
@@ -287,7 +293,7 @@
 <li><p>提出了一种属于称为广义加权中点 (GWM) 方法的新方法。</p></li>
 </ol>
 <ol class="arabic simple" start="2">
-<li><p>提出了一项充分性测试（类似于手性检查），以识别不可靠的结果，并提出一种提高二维精度的加权方案。</p></li>
+<li><p>提出了一项充分性测试，以识别不可靠的结果，并提出一种提高二维精度的加权方案。</p></li>
 </ol>
 <ol class="arabic simple" start="3">
 <li><p>对各种方法进行了广泛的评估和分析，揭示了 3D 精度和视差估计之间的错综复杂的联系。 这将直观地解释为什么本文的中点方法比其他方法表现更好。</p></li>
@@ -560,7 +566,7 @@ m_{0x}n_y - m_{0y}n_x
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="35. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Planar_Markers/Planar_Markers.html" class="btn btn-neutral float-right" title="35. Mapping and Localization from Planar Markers" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../Geometric_Interpretations/Geometric_Interpretations.html" class="btn btn-neutral float-left" title="33. Geometric Interpretations of the Normalized Epipolar Error" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

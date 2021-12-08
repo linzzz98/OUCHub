@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>最大子序列和 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../others/o_others.html" />
+    <link rel="prev" title="🍑 Algorithm" href="../al.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../algorithm.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../al.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">最大子序列和</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">题解</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id3">一、动态规划</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">二、分治</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../algorithm.html">🍑 Algorithm</a> &raquo;</li>
+        
+          <li><a href="../al.html">🍑 Algorithm</a> &raquo;</li>
+        
+      <li>最大子序列和</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/pages/algorithm/al/maxSubArray/maxSubArray.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>最大子序列和<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">相关题目</dt>
+<dd class="field-odd"><p>👉 <a class="reference external" href="https://leetcode-cn.com/problems/maximum-subarray/">Leetcode 53</a></p>
+</dd>
+</dl>
+<div class="section" id="id2">
+<h2>题解<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>一、动态规划<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<dl class="field-list">
+<dt class="field-odd">思路</dt>
+<dd class="field-odd"><p>假设 nums 数组的长度是 n，下标从 0 到 n-1。</p>
+<p>用 f(i) 代表以第 i 个数结尾的「连续子数组的最大和」</p>
+<div class="math notranslate nohighlight">
+\[\mathop{max}\limits_{0 \le i \ le n-1}\{f(i)\}\]</div>
+<p>只需要求出每个位置的 f(i)，然后返回 f 数组中的最大值即可。</p>
+<p>考虑 nums[i] 单独成为一段还是加入 f(i−1) 对应的那一段，这取决于 nums[i] 和 f(i−1)+nums[i] 的大小。</p>
+<p>动态转移方程为：</p>
+<div class="math notranslate nohighlight">
+\[f(i) = max\{f(i-1) + nums[i], nums[i]\}\]</div>
+</dd>
+<dt class="field-even">解法</dt>
+<dd class="field-even"><p>用一个 f 数组来保存 f(i) 的值，用一个循环求出所有 f(i)。</p>
+<p>f(i) 只和f(i−1) 相关，于是我可以只用一个变量 pre 来维护对于当前 f(i) 的 f(i−1) 的值。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>类似滚动数组</p>
+</div>
+</dd>
+<dt class="field-odd">代码</dt>
+<dd class="field-odd"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+   <span class="k">public</span><span class="o">:</span>
+       <span class="kt">int</span> <span class="n">maxSubArray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+           <span class="kt">int</span> <span class="n">pre</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">maxAns</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+           <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">x</span><span class="p">:</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+               <span class="n">pre</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">pre</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+               <span class="n">maxAns</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxAns</span><span class="p">,</span> <span class="n">pre</span><span class="p">);</span>
+           <span class="p">}</span>
+           <span class="k">return</span> <span class="n">maxAns</span><span class="p">;</span>
+       <span class="p">}</span>
+   <span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+<dt class="field-even">复杂度</dt>
+<dd class="field-even"><ul class="simple">
+<li><p>时间复杂度：O(n)，其中 n 为 nums 数组的长度。只需要遍历一遍数组即可求得答案。</p></li>
+<li><p>空间复杂度：O(1)。只需要常数空间存放若干变量。</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id4">
+<h3>二、分治<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<dl class="field-list">
+<dt class="field-odd">思路</dt>
+<dd class="field-odd"><p>分治法是将整个数组切分成几个小组，然后每个小组再切分成几个更小的小组，一直到不能继续切分也就是只剩一个数字为止。</p>
+<p>问题中的关键就是如何切分这些组合才能使每个小组之间不会有重复的组合（有重复的组合意味着有重复的计算量）</p>
+<p>切分分组方法：</p>
+<p>以数组 <span class="math notranslate nohighlight">\([-2,1,-3,4,-1,2,1,-5,4]\)</span> 为例，共9个元素。</p>
+<p>center = (start + end) / 2，得到中间元素的索引为4，即-1。</p>
+<p>拆分如下：</p>
+<ul class="simple">
+<li><p>[-2,1,-3,4,-1]以及它的子序列（在-1左边的并且包含它的为一组）</p></li>
+<li><p>[2,1,-5,4]以及它的子序列（在-1右边不包含它的为一组）</p></li>
+<li><p>任何包含-1以及它右边元素2的序列为一组（<strong>包含左边序列的最右边元素以及右边序列最左边元素的序列</strong>）（如 [4,-1,2,1]，这样就保证这个组合里面的任何序列都不会和上面两个重复））</p></li>
+</ul>
+<p>以上的三个组合内的序列没有任何的重复的部分，而且一起构成所有子序列的全集，计算出这个三个子集合的最大值，然后取其中的最大值即为答案。</p>
+<p>前两个子组合可以用递归来解决，第三个集合如何求解？（跨中心）：</p>
+<ul class="simple">
+<li><p>先计算左边序列里面的包含最右边元素的子序列的最大值，也就是从左边序列的最右边元素向左一个一个累加起来，找出累加过程中每次累加的最大值，就是左边序列的最大值。</p></li>
+<li><p>找出右边序列的最大值，就得到了右边子序列的最大值。左右两边的最大值相加，就是包含这两个元素的子序列的最大值。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>连续子序列的最大和主要由这三部分子区间里元素的最大和得到：</p>
+<ul class="simple">
+<li><p>第 1 部分：子区间 [left, mid]；</p></li>
+<li><p>第 2 部分：子区间 [mid + 1, right]；</p></li>
+<li><p>第 3 部分：包含子区间[mid , mid + 1]的子区间，即 nums[mid] 与nums[mid + 1]一定会被选取。</p></li>
+</ul>
+<p>对它们三者求最大值即可。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../_images/150.jpg" src="../../../../_images/150.jpg" />
+</div>
+</div>
+</dd>
+<dt class="field-even">代码</dt>
+<dd class="field-even"><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+   <span class="k">public</span><span class="o">:</span>
+       <span class="kt">int</span> <span class="n">maxSubArray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+           <span class="kt">int</span> <span class="n">pre</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">maxAns</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+           <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">x</span><span class="p">:</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+               <span class="n">pre</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">pre</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+               <span class="n">maxAns</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">maxAns</span><span class="p">,</span> <span class="n">pre</span><span class="p">);</span>
+           <span class="p">}</span>
+           <span class="k">return</span> <span class="n">maxAns</span><span class="p">;</span>
+       <span class="p">}</span>
+   <span class="p">};</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../al.html" class="btn btn-neutral float-left" title="🍑 Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

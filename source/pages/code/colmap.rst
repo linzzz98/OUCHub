@@ -17,17 +17,3 @@
 
 |:star:|  :doc:`Sfm Pipeline <colmap/c_sfm>`
 
-
-
------------------
-
-Colmap的安装
-
-**Windows**
-
-.. attention::
-
-   Windows亲测4种方法全部安装失败，换Linux！
-
-**Linux**
-

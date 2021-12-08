@@ -96,6 +96,12 @@ OUC_B419_Linzzz代码论文仓库。
    pages/code/theiasfm
    pages/code/ba
 
+.. toctree::
+   :maxdepth: -1
+   :hidden:
+   :caption: 算法学习
+
+   pages/algorithm/algorithm
 
 .. toctree::
    :maxdepth: -1
