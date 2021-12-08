@@ -1,6 +1,11 @@
 Triangulation: Why Optimize?
 ==============================
 
+.. figure:: 9.jpg
+   :figclass: align-center
+
+..
+
 人们普遍认为两视图三角测量的黄金标准是将基于重投影误差的成本最小化。
 
 在本文工作中，作者挑战了这个想法，提出了一种新的替代经典mid point的方法，可显着降低 2D 误差和视差误差。
@@ -249,7 +254,8 @@ GWM 方法包括三个步骤：
 
 上式在（图3a）中也成立，当 :math:`\lambda_0 = -|\lambda_{mid0}|` 和  :math:`\lambda_1 = -|\lambda_{mid1}|` 时两个点最接近。
 
- :math:`x_1' = \frac{1}{2}···` 一式中给出的未加权中点通常会导致两幅图像中不成比例的重投影误差（如图3c）。
+
+:math:`x_1' = \frac{1}{2}···` 一式中给出的未加权中点通常会导致两幅图像中不成比例的重投影误差（如图3c）。
 
 .. note::
 
@@ -304,15 +310,26 @@ Evaluation Results
 .. figure:: 5.jpg
    :figclass: align-center
 
+.. figure:: 10.jpg
+   :figclass: align-center
+
+.. figure:: 11.jpg
+   :figclass: align-center
+
+.. figure:: 12.jpg
+   :figclass: align-center
+
 :结论:
 
    （1） 一般而言，较大的噪声和较低的视差会导致较大的 3D 误差。 对于高视差点（> 4 度），所有方法都会产生几乎同样低的 3D 误差。
 
    （2） 2D 和 3D 误差没有很好的相关性。 例如，LinLS 和 Mid 在 3D 中表现最好，但在 2D 中表现最差。
 
-.. attention::
+:结论2:
 
-   没看完 todo..
+   （1）很难说哪种方法在二维精度方面最好。 例如，L1 方法在 L1 范数中产生最低的 2D 误差，但在 L2 和 L∞ 范数中产生相对较大的误差。哪种范数更重要并不明显。 也就是说，某些方法仍然可以始终比其他方法表现得更好； wMid2、L2 和 L∞ 方法在所有 2D 误差标准中始终优于 LinLS、Mid、Mid2 和 DLT。
+
+   （2）LinLS 和 Mid 显然更偏向于高估小视差角（< 4 度）。 这解释了它们在低视差下相对较低的 3D 误差。
 
 Appendix
 --------

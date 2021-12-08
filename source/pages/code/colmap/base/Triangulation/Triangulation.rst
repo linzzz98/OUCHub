@@ -1,6 +1,13 @@
 Triangulation
 ==========================
 
+为什么要三角化？
+
+目的：恢复像点的物点坐标
+
+.. figure:: 2.jpg
+   :figclass: align-center
+
 TriangulatePoint
 -----------------
 从相应的图像点观察中对3D点进行三角测量。

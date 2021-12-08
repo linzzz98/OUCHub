@@ -103,7 +103,9 @@
 <p class="caption"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
 <p class="caption"><span class="caption-text">源码解析</span></p>
@@ -131,6 +133,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -208,6 +215,11 @@
             
   <div class="section" id="triangulation">
 <h1><span class="section-number">7. </span>Triangulation<a class="headerlink" href="#triangulation" title="永久链接至标题">¶</a></h1>
+<p>为什么要三角化？</p>
+<p>目的：恢复像点的物点坐标</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/233.jpg" src="../../../../../_images/233.jpg" />
+</div>
 <div class="section" id="triangulatepoint">
 <h2><span class="section-number">7.1. </span>TriangulatePoint<a class="headerlink" href="#triangulatepoint" title="永久链接至标题">¶</a></h2>
 <p>从相应的图像点观察中对3D点进行三角测量。</p>
