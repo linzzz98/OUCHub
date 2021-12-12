@@ -149,9 +149,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">36. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -453,6 +454,12 @@
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/103.jpg" src="../../../../../_images/103.jpg" />
 </div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/1112.jpg" src="../../../../../_images/1112.jpg" />
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/1212.jpg" src="../../../../../_images/1212.jpg" />
+</div>
 <dl class="field-list">
 <dt class="field-odd">结论</dt>
 <dd class="field-odd"><p>（1） 一般而言，较大的噪声和较低的视差会导致较大的 3D 误差。 对于高视差点（&gt; 4 度），所有方法都会产生几乎同样低的 3D 误差。</p>
@@ -460,7 +467,7 @@
 </dd>
 <dt class="field-even">结论2</dt>
 <dd class="field-even"><p>（1）很难说哪种方法在二维精度方面最好。 例如，L1 方法在 L1 范数中产生最低的 2D 误差，但在 L2 和 L∞ 范数中产生相对较大的误差。哪种范数更重要并不明显。 也就是说，某些方法仍然可以始终比其他方法表现得更好； wMid2、L2 和 L∞ 方法在所有 2D 误差标准中始终优于 LinLS、Mid、Mid2 和 DLT。</p>
-<p>（2）</p>
+<p>（2）LinLS 和 Mid 显然更偏向于高估小视差角（&lt; 4 度）。 这解释了它们在低视差下相对较低的 3D 误差。</p>
 </dd>
 </dl>
 </div>

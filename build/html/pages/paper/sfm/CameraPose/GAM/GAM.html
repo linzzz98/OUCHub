@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>36. Geometry-aware Feature Matching for Structure from Motion Applications &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="37. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="35. Mapping and Localization from Planar Markers" href="../Planar_Markers/Planar_Markers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">36. Geometry-aware Feature Matching for Structure from Motion Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#approach">36.1. Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometry-aware-feature-matching">36.2. Geometry-aware Feature Matching</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">36. </span>Geometry-aware Feature Matching for Structure from Motion Applications</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/GAM/GAM.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="geometry-aware-feature-matching-for-structure-from-motion-applications">
+<h1><span class="section-number">36. </span>Geometry-aware Feature Matching for Structure from Motion Applications<a class="headerlink" href="#geometry-aware-feature-matching-for-structure-from-motion-applications" title="永久链接至标题">¶</a></h1>
+<p>本文提出了一种两阶段的几何感知方法，用于以快速可靠的方式匹配类似 SIFT 的特征。</p>
+<p>首先使用一小部分特征样本来估计图像之间的对极几何，并利用它来引导剩余特征的匹配。</p>
+<p>这种简单而通用的两阶段匹配方法产生了更密集的特征对应，同时允许制定加速搜索策略以显着提高传统匹配的速度。</p>
+<p>几何意义的特征匹配对于许多立体视觉和运动结构 (SFM) 应用至关重要。通常，通过计算一个图像中的特征描述符与另一幅图像的特征描述符之间的 L2 距离并找到最接近的特征作为候选匹配项来匹配两个图像之间的特征。
+然而，描述符空间中的 L2 距离本身不足以指导匹配。 由于错误的检测，最接近的特征可能不是真正的匹配。</p>
+<p>因此，通常通过比率测试来验证候选匹配。 比率测试将查询特征与其最近邻（候选）的距离与目标图像中的第二近邻进行比较。如果距离比低于阈值，则认为该匹配对是正确的。</p>
+<p>假设是图像中的特征随机分布在描述符空间中。 在没有真正匹配的情况下，候选匹配将是一个任意的特征，最佳距离不会明显优于次佳距离； 导致比率接近 1。</p>
+<p>这种方法有两个主要问题：</p>
+<ol class="arabic simple">
+<li><p>图像多+特征多 ——-&gt; 实现困难（下采样或限制匹配点）</p></li>
+<li><p>随机分布特征的假设不适用于建筑图像中具有重复结构的图像，例如窗户、拱门、柱子等。</p></li>
+</ol>
+<p>本文提出了一种几何感知方法，用于快速和广义的特征匹配，该方法也适用于具有重复结构的图像，无需任何假设或复杂的处理。</p>
+<ol class="arabic simple">
+<li><p>通过来自两个图像的小特征子集的可靠匹配来估计两个图像之间的对极几何。</p></li>
+<li><p>有效制定几何感知对应搜索，其中每个查询特征仅与靠近相应极线的少数特征快速比较。</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/153.jpg" src="../../../../../_images/153.jpg" />
+</div>
+<p>本文利用对极约束来优化几何引导的对应搜索的几个步骤，以使所提出的匹配方法有效。</p>
+<p>几何上一致的特征对应：</p>
+<ol class="arabic simple">
+<li><p>通过描述符比较和比率测试找到特征匹配</p></li>
+<li><p>使用稳健估计器估计基本矩阵；</p></li>
+<li><p>使用对极约束去除异常值匹配。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>如果最终目标是可靠地估计基本矩阵，那么相对较少的良好特征匹配就足够。</p>
+<p>但是对于许多 SfM 程序，希望找到尽可能多的对应关系，以便与较新的图像建立连接并生成更密集的点云。</p>
+<p>由于大规模重建涉及数千个图像对的特征匹配，因此匹配算法的效率也至关重要。</p>
+</div>
+<p>特征匹配方法：</p>
+<ol class="arabic simple">
+<li><p>暴力方法详尽地计算所有特征之间的距离，需要 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 次比较，其中 <span class="math notranslate nohighlight">\(n\)</span> 是图像中特征的平均数量。</p></li>
+<li><p>基于 Kd 树的近似近邻方法使用高效的数据结构来存储特征，从而加快搜索速度。 这些方法的平均时间复杂度是  <span class="math notranslate nohighlight">\(O(n log n)\)</span> 。</p></li>
+<li><p>基于散列的近似特征匹配方法被提出用于 SFM，这些方法将特征描述符转换为紧凑的二进制代码，并采用快速搜索策略来比较二值化特征。</p></li>
+<li><p>其他… 暂不列举</p></li>
+</ol>
+<p>比率测试仅针对独特且非重复的特征产生保守的匹配。对于具有严重重复纹理的图像，可能导致几何估计的可靠匹配不足。
+在本文中不试图解决重复结构带来的具体问题。由于使用几何引导的对应搜索，本文的方法还可以处理具有重复结构的图像。</p>
+<div class="section" id="approach">
+<h2><span class="section-number">36.1. </span>Approach<a class="headerlink" href="#approach" title="永久链接至标题">¶</a></h2>
+<p>大多数匹配方法执行全局比率测试，然后是对极验证，首先拒绝重复元素上的许多对应关系。
+本文建议如果在比率测试之前使用对极约束，可以保留重复结构上的许多真实匹配。</p>
+<p>但由于估计对极几何需要特征匹配，因此存在循环依赖性。</p>
+<p><strong>本文通过两阶段匹配方法克服了这个问题。 第一阶段从两个图像中选择一个小的特征子集，并在子集中执行基于 Kd 树的特征匹配。</strong>
+<strong>使用该阶段的匹配估计的基本矩阵然后用于执行有效制定的引导对应搜索，</strong>
+<strong>对于每个查询特征，只有靠近极线的一小部分特征被认为是候选匹配。 距离比较和比率测试仅在该集合内进行。</strong></p>
+</div>
+<div class="section" id="geometry-aware-feature-matching">
+<h2><span class="section-number">36.2. </span>Geometry-aware Feature Matching<a class="headerlink" href="#geometry-aware-feature-matching" title="永久链接至标题">¶</a></h2>
+<p>给定要匹配的图像对，首先通过匹配一小部分特征来估计基本矩阵，并使用它对未匹配的特征执行快速对应搜索。</p>
+<p>在形成 SFM 的特征轨迹时，可以使用三元组验证或闭合检查进一步验证和修剪这些对应关系。</p>
+<p>从查询图像中按比例降序选择前 20% 的 SIFT 特征，并使用基于 Kd 树的技术匹配它们。</p>
+<p>给定 <span class="math notranslate nohighlight">\(I_s\)</span> 和 <span class="math notranslate nohighlight">\(I_t\)</span> ，两个 <span class="math notranslate nohighlight">\(M\times N\)</span> 的输入图像，它们对应的特征集 S 和 T 定义为：</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}S = \{(x,y,v)|x \in [0, M], y \in[0, N], v \in R^k\}\\\end{split}\\T = \{(x',y',v')|x' \in [0, M], y' \in[0, N], v' \in R^k\}\end{aligned}\end{align} \]</div>
+<p>其中  <span class="math notranslate nohighlight">\((x, y), (x', y')\)</span>  表示图像空间中特征的坐标， <span class="math notranslate nohighlight">\(v, v'\)</span> 表示相应的 k 维特征描述符（对于 SIFT，k = 128）。</p>
+<p>对于图像 <span class="math notranslate nohighlight">\(I_s\)</span> 的特征集 S 中的查询特征点 <span class="math notranslate nohighlight">\(p_q = (x_q~y_q~1)\)</span> ，图像 <span class="math notranslate nohighlight">\(I_t\)</span> 中对应的极线  <span class="math notranslate nohighlight">\(l_q = (a_q, b_q, c_q)\)</span> 由 <span class="math notranslate nohighlight">\(I_q = F· p_q\)</span> 给出。</p>
+<p>如果 <span class="math notranslate nohighlight">\(p'_q = (x'_q, y'_q, 1)\)</span> 表示图像 <span class="math notranslate nohighlight">\(I_t\)</span> 中相应的特征点，那么根据对极约束 <span class="math notranslate nohighlight">\(p_q' · F · p_q = 0\)</span> ，点 <span class="math notranslate nohighlight">\(p'_q\)</span> 必须位于对极线上，即 <span class="math notranslate nohighlight">\(p'_q · l_q = 0\)</span></p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>由于估计的不准确，可以将约束条件放宽到  <span class="math notranslate nohighlight">\(p_q' · l_q &lt; \epsilon\)</span> 。</p>
+</div>
+<p>为了找到 <span class="math notranslate nohighlight">\(p_q'\)</span> ，不考虑集合 <span class="math notranslate nohighlight">\(T\)</span> 中的所有特征，而是将搜索限制在那些靠近对极线 <span class="math notranslate nohighlight">\(l_q\)</span> 的特征上。</p>
+<p>将一组候选特征匹配 <span class="math notranslate nohighlight">\(C\)</span> 定义为：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}C = \{p' | dist(p', l_q) \le d\}\\\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[dist(p', l_q) = \frac{a_q x' + b_q y' + c_q}{\sqrt{a_q^2 + b_q^2}}\]</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/234.jpg" src="../../../../../_images/234.jpg" />
+</div>
+<dl class="field-list">
+<dt class="field-odd">Linear search for candidates</dt>
+<dd class="field-odd"><p>在上图中，候选特征匹配（集合 C 中的特征）用红点标记。使用线性搜索找到这些候选匹配需要计算 <span class="math notranslate nohighlight">\(T\)</span> 中所有特征与线 <span class="math notranslate nohighlight">\(l_q\)</span> 的距离。</p>
+<p>该搜索的时间复杂度为  <span class="math notranslate nohighlight">\(O(|T|)\)</span> 。 线性搜索可以通过对数复杂度的径向搜索算法来近似。</p>
+</dd>
+<dt class="field-even">Radial search for candidates</dt>
+<dd class="field-even"><p>首先构建 <span class="math notranslate nohighlight">\(T\)</span> 中特征 <span class="math notranslate nohighlight">\((x,y)\)</span> 坐标的 Kdtree。 然后对极线 <span class="math notranslate nohighlight">\(l_q\)</span> 上的 <span class="math notranslate nohighlight">\(K\)</span> 个等距点（距离 <span class="math notranslate nohighlight">\(d\)</span> ）进行采样，并将这些点中的每一个都查询到 Kd 树中以检索距采样点的径向距离 <span class="math notranslate nohighlight">\(d\)</span> 内的特征点。</p>
+</dd>
+</dl>
+<p>在图 2b 中，对极线上的深绿色方块标记等距查询点，红色圆圈表示使用径向搜索时真实候选匹配的覆盖范围。</p>
+<p>如果线 <span class="math notranslate nohighlight">\(l_q\)</span> 在点  <span class="math notranslate nohighlight">\(p_A = (x_A, y_A)\)</span> 和 <span class="math notranslate nohighlight">\(p_B = (x_B, y_B)\)</span> 处与图像 <span class="math notranslate nohighlight">\(I_t\)</span> 相交，则等距点的坐标 <span class="math notranslate nohighlight">\((x_k, y_k)\)</span> 由下式给出：</p>
+<div class="math notranslate nohighlight">
+\[x_k = \frac{k · x_A + (K-k) · x_B}{K}~~~k = 0,1,2,···,K\]</div>
+<div class="math notranslate nohighlight">
+\[y_k = \frac{k · y_A + (K-k) · y_B}{K}~~~k = 0,1,2,···,K\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(K = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} / d\)</span></p>
+<p>该搜索的复杂度为  <span class="math notranslate nohighlight">\(O(K · log |T|)\)</span> ，其中  <span class="math notranslate nohighlight">\(K \ll |T|\)</span> 。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="37. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Planar_Markers/Planar_Markers.html" class="btn btn-neutral float-left" title="35. Mapping and Localization from Planar Markers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

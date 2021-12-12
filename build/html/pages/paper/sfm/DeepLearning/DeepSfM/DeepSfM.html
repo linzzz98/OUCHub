@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment &mdash; OUCHub  文档</title>
+  <title>38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment &mdash; OUCHub  文档</title>
   
 
   
@@ -45,8 +45,8 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement" href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html" />
-    <link rel="prev" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" href="../SfMLearner/SfMLearner.html" /> 
+    <link rel="next" title="39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement" href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html" />
+    <link rel="prev" title="37. Unsupervised Learning of Depth and Ego-Motion from Video" href="../SfMLearner/SfMLearner.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -138,9 +138,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">36. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -152,6 +153,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -206,7 +212,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">37. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment</li>
+      <li><span class="section-number">38. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -226,7 +232,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="deepsfm-structure-from-motion-via-deep-bundle-adjustment">
-<h1><span class="section-number">37. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment<a class="headerlink" href="#deepsfm-structure-from-motion-via-deep-bundle-adjustment" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">38. </span>DeepSFM: Structure From Motion Via Deep Bundle Adjustment<a class="headerlink" href="#deepsfm-structure-from-motion-via-deep-bundle-adjustment" title="永久链接至标题">¶</a></h1>
 <p>早期的努力将深度神经网络用作强大的映射功能，可以直接回归结构和运动（regresses the structures and motions）。
 由于没有明确强制执行结构和运动的几何约束，因此网络无法学习基本的物理原理，因此容易出现过拟合现象。 因此，它们的性能不如传统的SfM方法，并且泛化能力极差。</p>
 <p>最近的研究引入了3D cost volume，以可区分的方式显式地利用照片一致性，从而显着提高基于深度学习的3D重建的性能。</p>
@@ -249,8 +255,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html" class="btn btn-neutral float-right" title="38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../SfMLearner/SfMLearner.html" class="btn btn-neutral float-left" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Pixel_Perfect_SfM/Pixel_Perfect_SfM.html" class="btn btn-neutral float-right" title="39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../SfMLearner/SfMLearner.html" class="btn btn-neutral float-left" title="37. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>
