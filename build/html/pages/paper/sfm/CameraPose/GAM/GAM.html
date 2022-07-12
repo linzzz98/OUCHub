@@ -141,6 +141,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">36. Geometry-aware Feature Matching for Structure from Motion Applications</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#approach">36.1. Approach</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#geometry-aware-feature-matching">36.2. Geometry-aware Feature Matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification-of-feature-matches">36.3. Verification of Feature Matches</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
@@ -319,8 +320,6 @@
 </dd>
 <dt class="field-even">Radial search for candidates</dt>
 <dd class="field-even"><p>首先构建 <span class="math notranslate nohighlight">\(T\)</span> 中特征 <span class="math notranslate nohighlight">\((x,y)\)</span> 坐标的 Kdtree。 然后对极线 <span class="math notranslate nohighlight">\(l_q\)</span> 上的 <span class="math notranslate nohighlight">\(K\)</span> 个等距点（距离 <span class="math notranslate nohighlight">\(d\)</span> ）进行采样，并将这些点中的每一个都查询到 Kd 树中以检索距采样点的径向距离 <span class="math notranslate nohighlight">\(d\)</span> 内的特征点。</p>
-</dd>
-</dl>
 <p>在图 2b 中，对极线上的深绿色方块标记等距查询点，红色圆圈表示使用径向搜索时真实候选匹配的覆盖范围。</p>
 <p>如果线 <span class="math notranslate nohighlight">\(l_q\)</span> 在点  <span class="math notranslate nohighlight">\(p_A = (x_A, y_A)\)</span> 和 <span class="math notranslate nohighlight">\(p_B = (x_B, y_B)\)</span> 处与图像 <span class="math notranslate nohighlight">\(I_t\)</span> 相交，则等距点的坐标 <span class="math notranslate nohighlight">\((x_k, y_k)\)</span> 由下式给出：</p>
 <div class="math notranslate nohighlight">
@@ -329,6 +328,40 @@
 \[y_k = \frac{k · y_A + (K-k) · y_B}{K}~~~k = 0,1,2,···,K\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(K = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} / d\)</span></p>
 <p>该搜索的复杂度为  <span class="math notranslate nohighlight">\(O(K · log |T|)\)</span> ，其中  <span class="math notranslate nohighlight">\(K \ll |T|\)</span> 。</p>
+</dd>
+<dt class="field-odd">Grid based Search for candidates</dt>
+<dd class="field-odd"><p>使用基于网格的方法将候选搜索进一步优化为 O(1)。</p>
+<p>首先将目标图像 <span class="math notranslate nohighlight">\(I_t\)</span> 分成四个单元格大小为 <span class="math notranslate nohighlight">\(2d×2d\)</span> 的重叠网格，如图2C</p>
+<p>这些网格的原点分别位于 <span class="math notranslate nohighlight">\((0, 0)、(0, d)、(d, 0)和(d, d)\)</span> 。 然后根据它们的图像坐标将 <span class="math notranslate nohighlight">\(T\)</span> 的所有特征点归入重叠网格的单元格中。</p>
+<p>每个特征点  <span class="math notranslate nohighlight">\((x, y)\)</span>  将分为四个单元格，这些单元格的中心坐标由下式给出：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/320.jpg" src="../../../../../_images/320.jpg" />
+</div>
+<p>给定一个查询点 <span class="math notranslate nohighlight">\(p_q\)</span> ，根据方程 <span class="math notranslate nohighlight">\(x_k\)</span> 和 <span class="math notranslate nohighlight">\(y_k\)</span> 找到它的对极线 <span class="math notranslate nohighlight">\(l_q\)</span> 和等距点  <span class="math notranslate nohighlight">\((x_k, y_k)\)</span> 。</p>
+<p>对于对极线上的每个等距点，找到包含该点的四个重叠单元格，并计算它与四个单元格中心的笛卡尔距离。</p>
+<p>为每个点选择距离最短的单元格，并将所有特征点合并到这些单元格中，以获得一组近似的候选匹配 <span class="math notranslate nohighlight">\(C'\)</span> 。</p>
+<p>图 2c 中的红色方块表示基于网格的近似搜索在集合 <span class="math notranslate nohighlight">\(c\)</span> 中的真实候选匹配的覆盖范围。</p>
+</dd>
+<dt class="field-even">Finding the match</dt>
+<dd class="field-even"><p>为了最终确定候选集 <span class="math notranslate nohighlight">\(C'\)</span> 的匹配，在 <span class="math notranslate nohighlight">\(C'\)</span> 中构建描述符的 Kd 树，检索与查询最接近的两个特征，并执行比率测试。</p>
+<p>候选特征匹配的数量 <span class="math notranslate nohighlight">\(|C'|\)</span> 是总数  <span class="math notranslate nohighlight">\(|T|\)</span> 的一小部分 （在实验中通常为 200:1），显着减小了 Kd 树的大小。</p>
+<p>几何感知搜索将两幅图像匹配所需的操作次数从  <span class="math notranslate nohighlight">\((|S| log |T|)\)</span>  减少到  <span class="math notranslate nohighlight">\((|S| log |C'|)\)</span> ，</p>
+<p>对于每个查询特征，用于构建大小为 <span class="math notranslate nohighlight">\(|C|\)</span> 的小型 Kd 树的开销为 <span class="math notranslate nohighlight">\(|C'|log|C'|\)</span></p>
+</dd>
+<dt class="field-odd">Avoiding redundant Kd-tree construction</dt>
+<dd class="field-odd"><p>为了减少冗余 Kd 树构建的开销，利用了对极线的双重性质：</p>
+<p>对于位于图像 <span class="math notranslate nohighlight">\(I_t\)</span> 中线 <span class="math notranslate nohighlight">\(l\)</span> 上的所有点，它们的对应点必须位于图像 <span class="math notranslate nohighlight">\(I_s\)</span> 中的双线 <span class="math notranslate nohighlight">\(l'\)</span> 上。</p>
+</dd>
+</dl>
+<p>使用这个属性，将 <span class="math notranslate nohighlight">\(S\)</span> 中的查询点分组，其极线与附近点（2 个像素内）的 <span class="math notranslate nohighlight">\(I_t\)</span> 的边界相交，并逐组搜索匹配项。</p>
+</div>
+<div class="section" id="verification-of-feature-matches">
+<h2><span class="section-number">36.3. </span>Verification of Feature Matches<a class="headerlink" href="#verification-of-feature-matches" title="永久链接至标题">¶</a></h2>
+<p>如果需要严格的真实匹配，则可以在为 SFM 应用程序构建特征轨迹时执行三元组验证或闭合检查。</p>
+<p>特征轨迹是通过在图中找到连通分量来形成的，其中节点是图像特征对，边表示特征之间的匹配。</p>
+<p>三元组验证要求如果图像 <span class="math notranslate nohighlight">\(I_A\)</span> 中的特征 A 与图像 <span class="math notranslate nohighlight">\(I_B\)</span> 中的特征 B 匹配，
+那么对应关系 <span class="math notranslate nohighlight">\(A \leftrightarrow B\)</span> 必须通过公共连接图像 <span class="math notranslate nohighlight">\(I_c\)</span> 中的某个特征 C 进行验证，这样 <span class="math notranslate nohighlight">\(C \leftrightarrow B\)</span> 和 <span class="math notranslate nohighlight">\(A \leftrightarrow C\)</span> 也是对应关系。</p>
+<p>这可以通过在每个连接的组件（轨迹）中找到三角形并修剪不属于任何三角形的所有节点来确保。</p>
 </div>
 </div>
 

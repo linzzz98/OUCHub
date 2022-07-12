@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>1. Spring系统架构和核心概念 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="2. Ioc基础入门" href="../basic/ioc/ioc.html" />
+    <link rel="prev" title="SSM" href="../../ssm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. Spring系统架构和核心概念</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Spring系统架构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Spring核心概念</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/di/di.html">3. DI基础入门</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../work.html">🍑 Work</a> &raquo;</li>
+        
+          <li><a href="../../ssm.html">SSM</a> &raquo;</li>
+        
+      <li><span class="section-number">1. </span>Spring系统架构和核心概念</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/work/ssm/spring/frame/frame.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spring">
+<h1><span class="section-number">1. </span>Spring系统架构和核心概念<a class="headerlink" href="#spring" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>Spring系统架构<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>以Spring4.X为例子，研究架构图</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/159.jpg" src="../../../../../_images/159.jpg" />
+</div>
+<p>(1)核心层</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Core Container:核心容器，这个模块是Spring最核心的模块，其他的都需要依赖该模块</p></li>
+</ul>
+</div></blockquote>
+<p>(2)AOP层</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>AOP:面向切面编程，它依赖核心层容器，目的是==在不改变原有代码的前提下对其进行功能增强==</p></li>
+<li><p>Aspects:AOP是思想,Aspects是对AOP思想的具体实现</p></li>
+</ul>
+</div></blockquote>
+<p>(3)数据层</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Data Access:数据访问，Spring全家桶中有对数据访问的具体实现技术</p></li>
+<li><p>Data Integration:数据集成，Spring支持整合其他的数据层解决方案，比如Mybatis</p></li>
+<li><p>Transactions:事务，Spring中事务管理是Spring AOP的一个具体实现，也是后期学习的重点内容</p></li>
+</ul>
+</div></blockquote>
+<p>(4)Web层</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>这一层的内容将在SpringMVC框架具体学习</p></li>
+</ul>
+</div></blockquote>
+<p>(5)Test层</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Spring主要整合了Junit来完成单元测试和集成测试</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>Spring核心概念<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>目前项目中的问题</p></li>
+</ol>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/237.jpg" src="../../../../../_images/237.jpg" />
+</div>
+<ol class="arabic simple">
+<li><p>业务层需要调用数据层的方法，就需要在业务层new数据层的对象</p></li>
+<li><p>如果数据层的实现类发生变化，那么业务层的代码也需要跟着改变，发生变更后，都需要进行编译打包和重部署</p></li>
+<li><p>所以，现在代码在编写的过程中存在的问题是：<strong>耦合度偏高</strong></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>问题变为：业务层不想new对象，运行的时候又需要这个对象，如何做？</p>
+<p>针对这个问题，Spring提出一个解决方案:</p>
+<ul class="simple">
+<li><p>使用对象时，在程序中不主动使用new产生对象，转换为由**外部**提供对象</p></li>
+</ul>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>IOC、IOC容器、Bean、DI</p></li>
+</ol>
+<p><strong>IOC（Inversion of Control）控制反转</strong></p>
+<ol class="arabic simple">
+<li><p>什么是控制反转？</p></li>
+</ol>
+<blockquote>
+<div><ul>
+<li><p>使用对象时，由主动new产生对象转换为由**外部**提供对象，此过程中对象创建控制权由程序转移到外部，称为控制反转。</p>
+<blockquote>
+<div><p>业务层要用数据层的类对象，以前是自己 <strong>new</strong> 的现在交给 <strong>外部</strong> 来创建对象， <strong>外部</strong> 就反转控制了数据层对象的创建权，这种思想就是控制反转</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>(2)Spring和IOC之间的关系是什么呢?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Spring技术对IOC思想进行了实现，Spring提供了一个容器，称为 <strong>IOC容器</strong> ，用来充当IOC思想中的”外部”，IOC思想中的 <strong>外部</strong> 指的就是Spring的IOC容器</p></li>
+</ul>
+</div></blockquote>
+<p>(3)IOC容器的作用以及内部存放的是什么?</p>
+<blockquote>
+<div><p>IOC容器负责对象的创建、初始化等一系列工作，其中包含了数据层和业务层的类对象，被创建或被管理的对象在IOC容器中统称为 <strong>Bean</strong> ，IOC容器中放的就是一个个的Bean对象</p>
+</div></blockquote>
+<p>(4)当IOC容器中创建好service和dao对象后，程序能正确执行么?</p>
+<blockquote>
+<div><p>不行，因为service运行需要依赖dao对象，IOC容器中虽然有service和dao对象，但是service对象和dao对象没有任何关系，需要把dao对象交给service,即绑定service和dao对象之间的关系</p>
+</div></blockquote>
+<p><strong>DI（Dependency Injection）依赖注入</strong></p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/325.jpg" src="../../../../../_images/325.jpg" />
+</div>
+<ol class="arabic simple">
+<li><p>什么是依赖注入?</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>在容器中建立bean与bean之间的依赖关系的整个过程，业务层要用数据层的类对象，靠 <strong>IOC容器</strong> 来给注入进来，这种思想就是依赖注入</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>IOC容器中哪些bean之间要建立依赖关系呢?</p></li>
+</ol>
+<blockquote>
+<div><p>这个需要程序员根据业务需求提前建立好关系，如业务层需要依赖数据层，service就要和dao建立依赖关系</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>这两个概念的最终目标就是: <strong>充分解耦</strong>，具体实现靠:</p>
+<ul class="simple">
+<li><p>使用IOC容器管理bean（IOC)</p></li>
+<li><p>在IOC容器内将有依赖关系的bean进行关系绑定（DI）</p></li>
+<li><p>最终结果为:使用对象时不仅可以直接从IOC容器中获取，并且获取到的bean已经绑定了所有的依赖关系.</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../basic/ioc/ioc.html" class="btn btn-neutral float-right" title="2. Ioc基础入门" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../ssm.html" class="btn btn-neutral float-left" title="SSM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

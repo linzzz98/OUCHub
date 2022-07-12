@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement &mdash; OUCHub  文档</title>
+  <title>41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement &mdash; OUCHub  文档</title>
   
 
   
@@ -46,7 +46,7 @@
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="🍊 SLAM" href="../../../p_slam.html" />
-    <link rel="prev" title="38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../DeepSfM/DeepSfM.html" /> 
+    <link rel="prev" title="40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" href="../DeepSfM/DeepSfM.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -139,21 +139,23 @@
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../DeepSfM/DeepSfM.html">38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#background">39.1. Background</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#global-refinement">39.1.1. Global refinement</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#track-refinement">39.1.2. Track refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#background">41.1. Background</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#global-refinement">41.1.1. Global refinement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#track-refinement">41.1.2. Track refinement</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#approach">39.2. Approach</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#keypoint-adjustment">39.2.1. Keypoint adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach">41.2. Approach</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#keypoint-adjustment">41.2.1. Keypoint adjustment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#bundle-adjustment">39.3. Bundle Adjustment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#implementation">39.4. Implementation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#experiments">39.5. Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bundle-adjustment">41.3. Bundle Adjustment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">41.4. Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experiments">41.5. Experiments</a></li>
 </ul>
 </li>
 </ul>
@@ -226,7 +228,7 @@
         
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
         
-      <li><span class="section-number">39. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</li>
+      <li><span class="section-number">41. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -246,7 +248,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="pixel-perfect-structure-from-motion-with-featuremetric-refinement">
-<h1><span class="section-number">39. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement<a class="headerlink" href="#pixel-perfect-structure-from-motion-with-featuremetric-refinement" title="永久链接至标题">¶</a></h1>
+<h1><span class="section-number">41. </span>Pixel-Perfect Structure-from-Motion with Featuremetric Refinement<a class="headerlink" href="#pixel-perfect-structure-from-motion-with-featuremetric-refinement" title="永久链接至标题">¶</a></h1>
 <p>在 3D 重建任务中，<strong>跨视角可复检的特征点提取尤为重要</strong>。原有的 SFM 框架中，特征提取之后其位置并不会发生改变，若这个提取过程中出现了误差（噪声干扰），势必造成后续几何结构的误差累计。</p>
 <dl class="field-list">
 <dt class="field-odd">传统</dt>
@@ -266,7 +268,7 @@
 <p><strong>用于检测的卷积神经网络的出现解决了这个问题，因为它们通常不保留局部图像信息，而是支持全局上下文。</strong></p>
 <p>本文工作中，认为局部图像信息对于提高SfM的准确性是有用的，在重建前后，通过在学习的特征空间中直接对齐图像来调整关键点和bundles。利用这种局部密集的信息比几何优化要精确得多，而CNN提取的深层高维特征可确保在具有挑战性的条件下更广泛地收敛。该形式巧妙地结合了全局区分稀疏匹配和局部精确密集细节。</p>
 <div class="section" id="background">
-<h2><span class="section-number">39.1. </span>Background<a class="headerlink" href="#background" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">41.1. </span>Background<a class="headerlink" href="#background" title="永久链接至标题">¶</a></h2>
 <p>给定观察场景的 <span class="math notranslate nohighlight">\(N\)</span> 张图像 <span class="math notranslate nohighlight">\(\{I_i\}\)</span> ，估计的3D结构由稀疏点云 <span class="math notranslate nohighlight">\(\{P_i\}\)</span> ，相机内参 <span class="math notranslate nohighlight">\(\{C_i\}\)</span> ，图像位姿变换 <span class="math notranslate nohighlight">\(\{R_i, t_i\}\)</span> 组成。</p>
 <p>经典SfM pipeline 从属于同一个3D点不同视图下2D点的track <span class="math notranslate nohighlight">\(\{p_u\}\)</span> 中进行几何估计，关键点之间使用描述子 <span class="math notranslate nohighlight">\(\{d_u\}\)</span> 进行匹配。</p>
 <div class="admonition important">
@@ -274,7 +276,7 @@
 <p>进行几何估计的时候，只用到关键点的位置，因此点的位置精度非常重要。点的检测算法只考虑了单张图片的局部位置，并没有同时考虑多视角的信息。</p>
 </div>
 <div class="section" id="global-refinement">
-<h3><span class="section-number">39.1.1. </span>Global refinement<a class="headerlink" href="#global-refinement" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">41.1.1. </span>Global refinement<a class="headerlink" href="#global-refinement" title="永久链接至标题">¶</a></h3>
 <p>BA最小化几何误差：</p>
 <div class="math notranslate nohighlight">
 \[E_{BA} = \sum\limits_j \sum\limits_{(i,u) \in \mathcal{T}(j)} || \prod (R_i P_j + t_i, C_i) - p_u||_\gamma\]</div>
@@ -288,7 +290,7 @@
 <p>该公式隐含地重新定义了关键点，同时确保了它们的几何一致性。</p>
 </div>
 <div class="section" id="track-refinement">
-<h3><span class="section-number">39.1.2. </span>Track refinement<a class="headerlink" href="#track-refinement" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">41.1.2. </span>Track refinement<a class="headerlink" href="#track-refinement" title="永久链接至标题">¶</a></h3>
 <p>利用匹配图的固有结构来丢弃不正确的匹配，而不依赖于几何约束。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -304,7 +306,7 @@
 </div>
 </div>
 <div class="section" id="approach">
-<h2><span class="section-number">39.2. </span>Approach<a class="headerlink" href="#approach" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">41.2. </span>Approach<a class="headerlink" href="#approach" title="永久链接至标题">¶</a></h2>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>本文的优化框架可在任何基于局部特征点的 SFM 流程中使用：</p>
@@ -315,7 +317,7 @@
 <img alt="../../../../../_images/143.jpg" src="../../../../../_images/143.jpg" />
 </div>
 <div class="section" id="keypoint-adjustment">
-<h3><span class="section-number">39.2.1. </span>Keypoint adjustment<a class="headerlink" href="#keypoint-adjustment" title="永久链接至标题">¶</a></h3>
+<h3><span class="section-number">41.2.1. </span>Keypoint adjustment<a class="headerlink" href="#keypoint-adjustment" title="永久链接至标题">¶</a></h3>
 <p>考虑了两个稀疏观测的图像强度之间的误差: <span class="math notranslate nohighlight">\(r =  I_i[p_u] - I_j[p_v]\)</span></p>
 <p>一旦检测到、描述和匹配了局部特征，就在几何验证初步匹配之前refine keypoints位置。</p>
 <p>本文采用了 CNN feature 的方式表示一张图像。对于图像 <span class="math notranslate nohighlight">\(\{I_i\}\)</span> 使用S2DNet提取 <span class="math notranslate nohighlight">\(D\)</span> 维的特征图 <span class="math notranslate nohighlight">\(F_i \in R^{W \times H \times D}\)</span></p>
@@ -352,7 +354,7 @@
 </div>
 </div>
 <div class="section" id="bundle-adjustment">
-<h2><span class="section-number">39.3. </span>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">41.3. </span>Bundle Adjustment<a class="headerlink" href="#bundle-adjustment" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p>找到一个向量 <span class="math notranslate nohighlight">\(\mu\)</span> ，这个向量可以描述跟踪点 <span class="math notranslate nohighlight">\(j\)</span> 在所有图像匹配点的特征，也就是找到一个向量距离这些特征最近。</p></li>
 </ol>
@@ -374,7 +376,7 @@
 </div>
 </div>
 <div class="section" id="implementation">
-<h2><span class="section-number">39.4. </span>Implementation<a class="headerlink" href="#implementation" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">41.4. </span>Implementation<a class="headerlink" href="#implementation" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p>ceres-solver的LM算法求解keypoints和BA优化问题。</p></li>
 </ol>
@@ -395,7 +397,7 @@
 </ol>
 </div>
 <div class="section" id="experiments">
-<h2><span class="section-number">39.5. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+<h2><span class="section-number">41.5. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
 <ol class="arabic simple">
 <li><p>评估了已知相机姿态和内在特征的精细三维结构的准确性。</p></li>
 </ol>
@@ -447,7 +449,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../../../p_slam.html" class="btn btn-neutral float-right" title="🍊 SLAM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../DeepSfM/DeepSfM.html" class="btn btn-neutral float-left" title="38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../DeepSfM/DeepSfM.html" class="btn btn-neutral float-left" title="40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 
   <hr/>

@@ -126,18 +126,69 @@ Geometry-aware Feature Matching
 
    首先构建 :math:`T` 中特征 :math:`(x,y)` 坐标的 Kdtree。 然后对极线 :math:`l_q` 上的 :math:`K` 个等距点（距离 :math:`d` ）进行采样，并将这些点中的每一个都查询到 Kd 树中以检索距采样点的径向距离 :math:`d` 内的特征点。
 
-在图 2b 中，对极线上的深绿色方块标记等距查询点，红色圆圈表示使用径向搜索时真实候选匹配的覆盖范围。
+   在图 2b 中，对极线上的深绿色方块标记等距查询点，红色圆圈表示使用径向搜索时真实候选匹配的覆盖范围。
 
-如果线 :math:`l_q` 在点  :math:`p_A = (x_A, y_A)` 和 :math:`p_B = (x_B, y_B)` 处与图像 :math:`I_t` 相交，则等距点的坐标 :math:`(x_k, y_k)` 由下式给出：
+   如果线 :math:`l_q` 在点  :math:`p_A = (x_A, y_A)` 和 :math:`p_B = (x_B, y_B)` 处与图像 :math:`I_t` 相交，则等距点的坐标 :math:`(x_k, y_k)` 由下式给出：
 
-.. math::
+   .. math::
 
-   x_k = \frac{k · x_A + (K-k) · x_B}{K}~~~k = 0,1,2,···,K
+      x_k = \frac{k · x_A + (K-k) · x_B}{K}~~~k = 0,1,2,···,K
 
-.. math::
+   .. math::
 
-   y_k = \frac{k · y_A + (K-k) · y_B}{K}~~~k = 0,1,2,···,K
+      y_k = \frac{k · y_A + (K-k) · y_B}{K}~~~k = 0,1,2,···,K
 
-其中 :math:`K = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} / d`
+   其中 :math:`K = \sqrt{(x_B - x_A)^2 + (y_B - y_A)^2} / d`
 
-该搜索的复杂度为  :math:`O(K · log |T|)` ，其中  :math:`K \ll |T|` 。
+   该搜索的复杂度为  :math:`O(K · log |T|)` ，其中  :math:`K \ll |T|` 。
+
+:Grid based Search for candidates:
+
+   使用基于网格的方法将候选搜索进一步优化为 O(1)。
+
+   首先将目标图像 :math:`I_t` 分成四个单元格大小为 :math:`2d×2d` 的重叠网格，如图2C
+
+   这些网格的原点分别位于 :math:`(0, 0)、(0, d)、(d, 0)和(d, d)` 。 然后根据它们的图像坐标将 :math:`T` 的所有特征点归入重叠网格的单元格中。
+
+   每个特征点  :math:`(x, y)`  将分为四个单元格，这些单元格的中心坐标由下式给出：
+
+   .. figure:: 3.jpg
+      :figclass: align-center
+
+   给定一个查询点 :math:`p_q` ，根据方程 :math:`x_k` 和 :math:`y_k` 找到它的对极线 :math:`l_q` 和等距点  :math:`(x_k, y_k)` 。
+
+   对于对极线上的每个等距点，找到包含该点的四个重叠单元格，并计算它与四个单元格中心的笛卡尔距离。
+
+   为每个点选择距离最短的单元格，并将所有特征点合并到这些单元格中，以获得一组近似的候选匹配 :math:`C'` 。
+
+   图 2c 中的红色方块表示基于网格的近似搜索在集合 :math:`c` 中的真实候选匹配的覆盖范围。
+
+:Finding the match:
+
+   为了最终确定候选集 :math:`C'` 的匹配，在 :math:`C'` 中构建描述符的 Kd 树，检索与查询最接近的两个特征，并执行比率测试。
+
+   候选特征匹配的数量 :math:`|C'|` 是总数  :math:`|T|` 的一小部分 （在实验中通常为 200:1），显着减小了 Kd 树的大小。
+
+   几何感知搜索将两幅图像匹配所需的操作次数从  :math:`(|S| log |T|)`  减少到  :math:`(|S| log |C'|)` ，
+
+   对于每个查询特征，用于构建大小为 :math:`|C|` 的小型 Kd 树的开销为 :math:`|C'|log|C'|`
+
+:Avoiding redundant Kd-tree construction:
+
+   为了减少冗余 Kd 树构建的开销，利用了对极线的双重性质：
+
+   对于位于图像 :math:`I_t` 中线 :math:`l` 上的所有点，它们的对应点必须位于图像 :math:`I_s` 中的双线 :math:`l'` 上。
+
+使用这个属性，将 :math:`S` 中的查询点分组，其极线与附近点（2 个像素内）的 :math:`I_t` 的边界相交，并逐组搜索匹配项。
+
+Verification of Feature Matches
+--------------------------------
+
+如果需要严格的真实匹配，则可以在为 SFM 应用程序构建特征轨迹时执行三元组验证或闭合检查。
+
+特征轨迹是通过在图中找到连通分量来形成的，其中节点是图像特征对，边表示特征之间的匹配。
+
+三元组验证要求如果图像 :math:`I_A` 中的特征 A 与图像 :math:`I_B` 中的特征 B 匹配，
+那么对应关系 :math:`A \leftrightarrow B` 必须通过公共连接图像 :math:`I_c` 中的某个特征 C 进行验证，这样 :math:`C \leftrightarrow B` 和 :math:`A \leftrightarrow C` 也是对应关系。
+
+这可以通过在每个连接的组件（轨迹）中找到三角形并修剪不属于任何三角形的所有节点来确保。

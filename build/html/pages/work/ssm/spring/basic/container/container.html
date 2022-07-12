@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5. 容器 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../../others/o_others.html" />
+    <link rel="prev" title="4. Properties文件" href="../prop/prop.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5. 容器</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">容器的创建方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bean">Bean的三种获取方式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">容器类层次结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#beanfactory">BeanFactory的使用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">小结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+        
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>容器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/container/container.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">5. </span>容器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>容器的创建方式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ol class="arabic">
+<li><p>相对路径</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>ApplicationContext ctx = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+</pre></div>
+</div>
+</li>
+<li><p>绝对路径</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>ApplicationContext ctx = new FileSystemXmlApplicationContext(&quot;${AbsolutePath}&quot;);
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="bean">
+<h2>Bean的三种获取方式<a class="headerlink" href="#bean" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1. 每次获取的时候都需要进行类型转换</span>
+<span class="n">BookDao</span> <span class="n">bookDao</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookDao</span><span class="p">)</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;bookDao&quot;</span><span class="p">);</span>
+
+<span class="c1">// 2. 可以解决类型强转问题，但是参数又多加了一个</span>
+<span class="n">BookDao</span> <span class="n">bookDao</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;bookDao&quot;</span><span class="p">,</span><span class="n">BookDao</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+
+<span class="c1">// 3. 必须要确保IOC容器中该类型对应的bean对象只能有一个</span>
+<span class="n">BookDao</span> <span class="n">bookDao</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">BookDao</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>容器类层次结构<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><div class="align-center figure align-default">
+<img alt="../../../../../../_images/160.jpg" src="../../../../../../_images/160.jpg" />
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="beanfactory">
+<h2>BeanFactory的使用<a class="headerlink" href="#beanfactory" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>BeanFactory是延迟加载，只有在获取bean对象的时候才会去创建</p></li>
+<li><p>ApplicationContext是立即加载，容器加载的时候就会创建bean对象</p></li>
+<li><p>ApplicationContext要想成为延迟加载，只需要按照如下方式进行配置</p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.itheima.dao.impl.BookDaoImpl&quot;</span>  <span class="na">lazy-init=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>小结<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<ul>
+<li><p>容器创建的两种方式</p>
+<ul class="simple">
+<li><p>ClassPathXmlApplicationContext[掌握]</p></li>
+<li><p>FileSystemXmlApplicationContext[知道即可]</p></li>
+</ul>
+</li>
+<li><p>获取Bean的三种方式</p>
+<ul class="simple">
+<li><p>getBean(“名称”):需要类型转换</p></li>
+<li><p>getBean(“名称”,类型.class):多了一个参数</p></li>
+<li><p>getBean(类型.class):容器中不能有多个该类的bean对象</p></li>
+</ul>
+<p>上述三种方式，各有各的优缺点，用哪个都可以。</p>
+</li>
+<li><p>容器类层次结构</p>
+<ul class="simple">
+<li><p>只需要知晓容器的最上级的父接口为 BeanFactory即可</p></li>
+</ul>
+</li>
+<li><p>BeanFactory</p>
+<ul class="simple">
+<li><p>使用BeanFactory创建的容器是延迟加载</p></li>
+<li><p>使用ApplicationContext创建的容器是立即加载</p></li>
+<li><p>具体BeanFactory如何创建只需要了解即可。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>容器相关</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>BeanFactory是IoC容器的顶层接口，初始化BeanFactory对象时，加载的bean延迟加载</p></li>
+<li><p>ApplicationContext接口是Spring容器的核心接口，初始化时bean立即加载</p></li>
+<li><p>ApplicationContext接口提供基础的bean操作相关方法，通过其他接口扩展其功能</p></li>
+<li><p>ApplicationContext接口常用初始化类
+- <strong>==ClassPathXmlApplicationContext(常用)==</strong>
+- FileSystemXmlApplicationContext</p></li>
+</ul>
+</div></blockquote>
+<p><strong>bean相关</strong></p>
+<blockquote>
+<div><div class="align-center figure align-default">
+<img alt="../../../../../../_images/239.jpg" src="../../../../../../_images/239.jpg" />
+</div>
+</div></blockquote>
+<p><strong>依赖注入相关</strong></p>
+<blockquote>
+<div><div class="align-center figure align-default">
+<img alt="../../../../../../_images/327.jpg" src="../../../../../../_images/327.jpg" />
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../prop/prop.html" class="btn btn-neutral float-left" title="4. Properties文件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

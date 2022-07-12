@@ -14,6 +14,8 @@
 About
 -----
 
+:guilabel:`››`
+
 OUC_B419_Linzzz代码论文仓库。
 
 .. attention::
@@ -102,6 +104,13 @@ OUC_B419_Linzzz代码论文仓库。
    :caption: 算法学习
 
    pages/algorithm/algorithm
+
+.. toctree::
+   :maxdepth: -1
+   :hidden:
+   :caption: 工作知识
+
+   pages/work/work
 
 .. toctree::
    :maxdepth: -1

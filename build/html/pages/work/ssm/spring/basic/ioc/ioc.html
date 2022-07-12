@@ -1,0 +1,997 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Ioc基础入门 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="3. DI基础入门" href="../di/di.html" />
+    <link rel="prev" title="1. Spring系统架构和核心概念" href="../../frame/frame.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. Ioc基础入门</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">IOC入门案例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">IOC相关内容</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#bean">bean基础配置</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#bean-idclass">bean基础配置(id与class)</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#beanname">bean的name属性</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#beanscope">bean作用范围scope配置</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id3">bean基础配置小结</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">bean实例化</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id5">构造方法实例化</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id6">静态工厂实例化</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#factorybean">实例工厂与FactoryBean</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#id7">bean的生命周期</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id8">生命周期设置</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id9">bean生命周期小结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+        
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Ioc基础入门</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/ioc/ioc.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ioc">
+<h1><span class="section-number">2. </span>Ioc基础入门<a class="headerlink" href="#ioc" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>IOC入门案例<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p><strong>思路分析</strong></p>
+<p>(1)Spring是使用容器来管理bean对象的，管什么?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>主要管理项目中所使用到的类对象，比如(Service和Dao)</p></li>
+</ul>
+</div></blockquote>
+<p>(2)如何将被管理的对象告知IOC容器?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>使用配置文件</p></li>
+</ul>
+</div></blockquote>
+<p>(3)被管理的对象交给IOC容器，要想从容器中获取对象，就先得思考如何获取到IOC容器?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Spring框架提供相应的接口</p></li>
+</ul>
+</div></blockquote>
+<p>(4)IOC容器得到后，如何从容器中获取bean?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>调用Spring框架提供对应接口中的方法</p></li>
+</ul>
+</div></blockquote>
+<p>(5)使用Spring导入哪些坐标?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>用别人的东西，就需要在pom.xml添加对应的依赖</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>需求分析:将BookServiceImpl和BookDaoImpl交给Spring管理，并从容器中获取对应的bean对象进行方法调用。</p>
+<p>1.创建Maven的java项目</p>
+<p>2.pom.xml添加Spring的依赖jar包</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>5.2.10.RELEASE<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>3.创建BookService,BookServiceImpl，BookDao和BookDaoImpl四个类</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookDao</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookService</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BookDaoImpl</span><span class="p">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book service save ...&quot;</span><span class="p">);</span>
+        <span class="n">bookDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>4.resources下添加spring配置文件(applicationContext.xml)，并完成bean的配置</p>
+<blockquote>
+<div><div class="align-center figure align-default">
+<img alt="../../../../../../_images/158.jpg" src="../../../../../../_images/158.jpg" />
+</div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!--bean标签标示配置bean</span>
+<span class="c">      id属性标示给bean起名字</span>
+<span class="c">      class属性表示给bean定义类型</span>
+<span class="c">   --&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.dao.impl.BookDaoImpl&quot;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookService&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.service.impl.BookServiceImpl&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+</div>
+<p><strong>注意事项：bean定义时id属性在同一个上下文中(配置文件)不能重复</strong></p>
+</div></blockquote>
+<p>5.使用Spring提供的接口完成IOC容器的创建</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>6.从容器中获取对象进行方法调用</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//获取IOC容器</span>
+      <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+<span class="c1">//        BookDao bookDao = (BookDao) ctx.getBean(&quot;bookDao&quot;);</span>
+<span class="c1">//        bookDao.save();</span>
+        <span class="n">BookService</span> <span class="n">bookService</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookService</span><span class="p">)</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;bookService&quot;</span><span class="p">);</span>
+        <span class="n">bookService</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>IOC相关内容<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="bean">
+<h3>bean基础配置<a class="headerlink" href="#bean" title="永久链接至标题">¶</a></h3>
+<div class="section" id="bean-idclass">
+<h4>bean基础配置(id与class)<a class="headerlink" href="#bean-idclass" title="永久链接至标题">¶</a></h4>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;&quot;</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/236.jpg" src="../../../../../../_images/236.jpg" />
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>class属性不能写接口如 <strong>BookDao</strong> 的类全名，因为接口没法创建对象</p>
+</div>
+</div>
+<div class="section" id="beanname">
+<h4>bean的name属性<a class="headerlink" href="#beanname" title="永久链接至标题">¶</a></h4>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/324.jpg" src="../../../../../../_images/324.jpg" />
+</div>
+<ol class="arabic">
+<li><p>配置别名</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--name:为bean指定别名，别名可以有多个，使用逗号，分号，空格进行分隔--&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookService&quot;</span> <span class="na">name=</span><span class="s">&quot;service service4 bookEbi&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.service.impl.BookServiceImpl&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">ref=</span><span class="s">&quot;bookDao&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="c">&lt;!--scope：为bean设置作用范围，可选值为单例singloton，非单例prototype--&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">name=</span><span class="s">&quot;dao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.dao.impl.BookDaoImpl&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>根据名称容器中获取bean对象</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForName</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+        <span class="c1">//此处根据bean标签的id属性和name属性的任意一个值来获取bean对象</span>
+        <span class="n">BookService</span> <span class="n">bookService</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookService</span><span class="p">)</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;service4&quot;</span><span class="p">);</span>
+        <span class="n">bookService</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>bean依赖注入的ref属性指定bean,必须在容器中存在,不存在则会报错 <strong>NoSuchBeanDefinitionException</strong></p>
+</div>
+</div>
+<div class="section" id="beanscope">
+<h4>bean作用范围scope配置<a class="headerlink" href="#beanscope" title="永久链接至标题">¶</a></h4>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/421.jpg" src="../../../../../../_images/421.jpg" />
+</div>
+<ol class="arabic">
+<li><p><strong>单例/非单例</strong></p>
+<p>默认情况下，Spring创建的bean对象都是单例的</p>
+<p>通过配置scope属性来实现bean的非单例创建</p>
+<ul class="simple">
+<li><p>在Spring的配置文件中，修改 <code class="docutils literal notranslate"><span class="pre">&lt;bean&gt;</span></code> 的scope属性</p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">name=</span><span class="s">&quot;dao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.dao.impl.BookDaoImpl&quot;</span> <span class="na">scope=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>将scope设置为 <code class="docutils literal notranslate"><span class="pre">prototype</span></code></p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">name=</span><span class="s">&quot;dao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.dao.impl.BookDaoImpl&quot;</span> <span class="na">scope=</span><span class="s">&quot;prototype&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>结论，使用bean的 <code class="docutils literal notranslate"><span class="pre">scope</span></code> 属性可以控制bean的创建是否为单例：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">singleton</span></code> 默认为单例</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prototype</span></code> 为非单例</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic">
+<li><p>为什么bean默认为单例?</p>
+<p>bean为单例是在Spring的IOC容器中只会有该类的一个对象，避免了对象的频繁创建与销毁，达到了bean对象的复用，性能高</p>
+</li>
+<li><p>bean在容器中是单例的，会不会产生线程安全问题?</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>如果对象是有状态对象，即该对象有成员变量可以用来存储数据的，因为所有请求线程共用一个bean对象，所以会存在线程安全问题。</p></li>
+<li><p>如果对象是无状态对象，即该对象没有成员变量没有进行数据存储的，因方法中的局部变量在方法调用完成后会被销毁，所以不会存在线程安全问题。</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p>哪些bean对象适合交给容器进行管理?</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>表现层对象</p></li>
+<li><p>业务层对象</p></li>
+<li><p>数据层对象</p></li>
+<li><p>工具对象</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic" start="4">
+<li><p>哪些bean对象不适合交给容器进行管理?</p>
+<p>封装实例的域对象，因为会引发线程安全问题，所以不适合。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h4>bean基础配置小结<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h4>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span>
+   <span class="na">id=</span><span class="s">&quot;bean的唯一标识&quot;</span>
+   <span class="na">class=</span><span class="s">&quot;bean的类全名&quot;</span>
+   <span class="na">scope=</span><span class="s">&quot;bean的作用范围，有singleton(默认)和prototype&quot;</span>
+   <span class="na">name=</span><span class="s">&quot;bean起的别名&quot;</span>
+<span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>bean实例化<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>bean本质上就是对象，对象在new的时候会使用构造方法完成，创建bean也是使用构造方法完成的。</p>
+<div class="section" id="id5">
+<h4>构造方法实例化<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<ol class="arabic">
+<li><p>准备需要被创建的类</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookDao</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>将类配置到Spring容器</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.dao.impl.BookDaoImpl&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>编写运行程序</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForInstanceBook</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span>
+            <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+        <span class="n">BookDao</span> <span class="n">bookDao</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookDao</span><span class="p">)</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;bookDao&quot;</span><span class="p">);</span>
+        <span class="n">bookDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>类中提供无参构造函数测试</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="p">{</span>
+
+   <span class="c1">// 注意，此处写的是private, bean仍能正常初始化</span>
+    <span class="kd">private</span> <span class="nf">BookDaoImpl</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao constructor is running ....&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>Spring底层使用的是类的无参构造方法,使用带参数的构造器会报错!</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h4>静态工厂实例化<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p><strong>这种方式一般是用来兼容早期的一些老系统，所以了解为主</strong></p>
+<ul>
+<li><p>工厂创建对象</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>准备OrderDao和OrderDaoImpl类</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OrderDao</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderDaoImpl</span> <span class="kd">implements</span> <span class="n">OrderDao</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;order dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>创建一个工厂类OrderDaoFactory并提供一个 <strong>静态方法</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">//静态工厂创建对象</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderDaoFactory</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">OrderDao</span> <span class="nf">getOrderDao</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">OrderDaoImpl</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>编写运行类，在类中通过工厂获取对象</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForInstanceOrder</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//通过静态工厂创建对象</span>
+        <span class="n">OrderDao</span> <span class="n">orderDao</span> <span class="o">=</span> <span class="n">OrderDaoFactory</span><span class="p">.</span><span class="na">getOrderDao</span><span class="p">();</span>
+        <span class="n">orderDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>静态工厂实例化</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>在spring的配置文件application.properties中添加以下内容</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;orderDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.factory.OrderDaoFactory&quot;</span> <span class="na">factory-method=</span><span class="s">&quot;getOrderDao&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>factory-mehod:具体工厂类中创建对象的方法名</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/518.jpg" src="../../../../../../_images/518.jpg" />
+</div>
+</li>
+<li><p>在运行类使用从IOC容器中获取bean的方法进行运行测试</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForInstanceOrder</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+
+        <span class="n">OrderDao</span> <span class="n">orderDao</span> <span class="o">=</span> <span class="p">(</span><span class="n">OrderDao</span><span class="p">)</span> <span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;orderDao&quot;</span><span class="p">);</span>
+
+        <span class="n">orderDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>在工厂的静态方法中，除了new对象还可以做其他的一些业务操作，而通过new对象的方式就无法添加其他的业务内容。</p>
+</div>
+</div>
+<div class="section" id="factorybean">
+<h4>实例工厂与FactoryBean<a class="headerlink" href="#factorybean" title="永久链接至标题">¶</a></h4>
+<ul>
+<li><p>环境准备</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>准备一个UserDao和UserDaoImpl类</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserDao</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;user dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>创建一个工厂类OrderDaoFactory并提供一个普通方法，注意此处和静态工厂的工厂类不一样的地方是方法 <strong>不是静态方法</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoFactory</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="n">UserDao</span> <span class="nf">getUserDao</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">UserDaoImpl</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>编写运行类，在类中通过工厂获取对象</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForInstanceUser</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//创建实例工厂对象</span>
+        <span class="n">UserDaoFactory</span> <span class="n">userDaoFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserDaoFactory</span><span class="p">();</span>
+        <span class="c1">//通过实例工厂对象创建对象</span>
+        <span class="n">UserDao</span> <span class="n">userDao</span> <span class="o">=</span> <span class="n">userDaoFactory</span><span class="p">.</span><span class="na">getUserDao</span><span class="p">();</span>
+        <span class="n">userDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>实例工厂实例化</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>在spring的配置文件中添加以下内容:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;userFactory&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.factory.UserDaoFactory&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;userDao&quot;</span> <span class="na">factory-method=</span><span class="s">&quot;getUserDao&quot;</span> <span class="na">factory-bean=</span><span class="s">&quot;userFactory&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>在运行类使用从IOC容器中获取bean的方法进行运行测试</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>public class AppForInstanceUser {
+    public static void main(String[] args) {
+        ApplicationContext ctx = new
+            ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+        UserDao userDao = (UserDao) ctx.getBean(&quot;userDao&quot;);
+        userDao.save();
+    }
+}
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>实例化工厂运行的顺序是:</p>
+<ul class="simple">
+<li><p>创建实例化工厂对象,对应的是第一行配置</p></li>
+<li><p>调用对象中的方法来创建bean，对应的是第二行配置</p></li>
+</ul>
+<div class="align-center figure align-default">
+<img alt="../../../../../../_images/613.jpg" src="../../../../../../_images/613.jpg" />
+</div>
+</div>
+</div></blockquote>
+</li>
+<li><p>FactoryBean</p>
+<blockquote>
+<div><p>为了简化实例工厂实例化的配置方式，Spring提供了一种叫 <code class="docutils literal notranslate"><span class="pre">FactoryBean</span></code> 的方式来简化开发。</p>
+<ol class="arabic">
+<li><p>创建一个UserDaoFactoryBean的类，实现FactoryBean接口，重写接口的方法</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoFactoryBean</span> <span class="kd">implements</span> <span class="n">FactoryBean</span><span class="o">&lt;</span><span class="n">UserDao</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">//代替原始实例工厂中创建对象的方法</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">UserDao</span> <span class="nf">getObject</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">UserDaoImpl</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">//返回所创建类的Class对象</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">getObjectType</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">UserDao</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>在Spring的配置文件中进行配置</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;userDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.linzzz.factory.UserDaoFactoryBean&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>运行类不用做任何修改，直接运行</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>查看源码会发现，FactoryBean接口其实会有三个方法，分别是:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="nf">getObject</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="p">;</span>
+
+<span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">getObjectType</span><span class="p">();</span>
+
+<span class="k">default</span> <span class="kt">boolean</span> <span class="nf">isSingleton</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="js function">
+<dt id="T-getObject">
+<span id="T getObject"></span><code class="sig-name descname">T getObject</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#T-getObject" title="永久链接至目标">¶</a></dt>
+<dd><p>被重写后，在方法中进行对象的创建并返回</p>
+</dd></dl>
+
+<dl class="js function">
+<dt id="Class-getObjectType">
+<span id="Class<?> getObjectType"></span><code class="sig-name descname">Class&lt;?&gt; getObjectType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Class-getObjectType" title="永久链接至目标">¶</a></dt>
+<dd><p>被重写后，主要返回的是被创建类的Class对象</p>
+</dd></dl>
+
+<dl class="js function">
+<dt id="default-boolean-isSingleton">
+<span id="default boolean isSingleton"></span><code class="sig-name descname">default boolean isSingleton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#default-boolean-isSingleton" title="永久链接至目标">¶</a></dt>
+<dd><p>没有被重写，因为它已经给了默认值，从方法名中可以看出其作用是设置对象是否为单例，默认true</p>
+</dd></dl>
+
+<p>如果想改成非单例，只需要将isSingleton()方法进行重写，修改返回为false</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isSingleton</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>bean的生命周期<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id8">
+<h4>生命周期设置<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p>bean创建之后，想要添加内容，比如用来初始化需要用到资源</p></li>
+<li><p>bean销毁之前，想要添加内容，比如用来释放用到的资源</p></li>
+</ul>
+<ol class="arabic">
+<li><p>添加初始化和销毁方法</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao save ...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//表示bean初始化对应的操作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">(){</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;init...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//表示bean销毁前对应的操作</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destory</span><span class="p">(){</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;destory...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>配置生命周期</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;bookDao&quot;</span> <span class="na">class=</span><span class="s">&quot;com.itheima.dao.impl.BookDaoImpl&quot;</span> <span class="na">init-method=</span><span class="s">&quot;init&quot;</span> <span class="na">destroy-method=</span><span class="s">&quot;destory&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>此时init方法执行了，但是destroy方法却未执行</p>
+<ul class="simple">
+<li><p>Spring的IOC容器是运行在JVM中</p></li>
+<li><p>运行main方法后,JVM启动,Spring加载配置文件生成IOC容器,从容器获取bean对象，然后调方法执行</p></li>
+<li><p>main方法执行完后，JVM退出，这个时候IOC容器中的bean还没有来得及销毁就已经结束了</p></li>
+<li><p>所以没有调用对应的destroy方法</p></li>
+</ul>
+</div>
+<ol class="arabic" start="3">
+<li><p>关闭容器</p>
+<p><strong>close关闭容器</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>ApplicationContext中没有close方法，需要将ApplicationContext更换成 <code class="docutils literal notranslate"><span class="pre">ClassPathXmlApplicationContext</span></code></p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ClassPathXmlApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span>
+   <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>调用ctx的close()方法</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+<p><strong>注册钩子关闭容器</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>在容器未关闭之前，提前设置好回调函数，让JVM在退出之前回调此函数来关闭容器，调用ctx的registerShutdownHook()方法</p></li>
+</ol>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span><span class="p">.</span><span class="na">registerShutdownHook</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>registerShutdownHook在ApplicationContext中也没有</p>
+</div>
+</div></blockquote>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>相同点:这两种都能用来关闭容器</p>
+<p>不同点:close()是在调用的时候关闭，registerShutdownHook()是在JVM退出前调用关闭。</p>
+</div>
+<p><strong>接口设置 init-method 和 destroy-method</strong></p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>修改BookServiceImpl类，添加两个接口 <code class="docutils literal notranslate"><span class="pre">InitializingBean</span></code>， <code class="docutils literal notranslate"><span class="pre">DisposableBean</span></code> 并实现接口中的两个方法 <code class="docutils literal notranslate"><span class="pre">afterPropertiesSet</span></code> 和 <code class="docutils literal notranslate"><span class="pre">destroy</span></code></p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookServiceImpl</span> <span class="kd">implements</span> <span class="n">BookService</span><span class="p">,</span> <span class="n">InitializingBean</span><span class="p">,</span> <span class="n">DisposableBean</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span><span class="p">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBookDao</span><span class="p">(</span><span class="n">BookDao</span> <span class="n">bookDao</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">bookDao</span> <span class="o">=</span> <span class="n">bookDao</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book service save ...&quot;</span><span class="p">);</span>
+        <span class="n">bookDao</span><span class="p">.</span><span class="na">save</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;service destroy&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;service init&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ul class="simple">
+<li><p>对于InitializingBean接口中的afterPropertiesSet方法，翻译过来为 <strong>属性设置之后</strong></p></li>
+<li><p>对于BookServiceImpl来说，bookDao是它的一个属性</p></li>
+<li><p>setBookDao方法是Spring的IOC容器为其注入属性的方法</p></li>
+</ul>
+<p>思考:afterPropertiesSet和setBookDao谁先执行?</p>
+<blockquote>
+<div><p>setBookDao方法先执行</p>
+</div></blockquote>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h4>bean生命周期小结<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p><strong>ConfigurableApplicationContext是ApplicationContext的子类</strong></p>
+<ol class="arabic simple">
+<li><p>关于Spring中对bean生命周期控制提供了两种方式:</p>
+<ul class="simple">
+<li><p>在配置文件中的bean标签中添加 <code class="docutils literal notranslate"><span class="pre">init-method</span></code> 和 <code class="docutils literal notranslate"><span class="pre">destroy-method</span></code> 属性</p></li>
+<li><p>类实现 <code class="docutils literal notranslate"><span class="pre">InitializingBean</span></code> 与 <code class="docutils literal notranslate"><span class="pre">DisposableBean</span></code> 接口，这种方式了解下即可。</p></li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+<blockquote>
+<div><ol class="arabic" start="2">
+<li><p>对于bean的生命周期控制在bean的整个生命周期中所处的位置如下:</p>
+<ul>
+<li><p>初始化容器</p>
+<p>1.创建对象(内存分配)</p>
+<p>2.执行构造方法</p>
+<p>3.执行属性注入(set操作)</p>
+<p>4.执行bean初始化方法</p>
+</li>
+<li><p>使用bean
+执行业务操作</p></li>
+<li><p>关闭/销毁容器
+执行bean销毁方法</p></li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+<blockquote>
+<div><ol class="arabic simple" start="3">
+<li><p>关闭容器的两种方式:</p>
+<ul class="simple">
+<li><p>close()方法</p></li>
+<li><p>registerShutdownHook()方法</p></li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../di/di.html" class="btn btn-neutral float-right" title="3. DI基础入门" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../frame/frame.html" class="btn btn-neutral float-left" title="1. Spring系统架构和核心概念" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="34. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="next" title="34. Triangulation: Why Optimize?" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" />
     <link rel="prev" title="32. Solutions to Minimal Generalized Relative Pose Problems" href="../Solver6L/Solver6L.html" /> 
 </head>
 
@@ -136,12 +136,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">33. Geometric Interpretations of the Normalized Epipolar Error</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#geometric-interpretations">33.1. Geometric Interpretations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geometric-interpretations">33.1. Geometric Interpretations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">33.1.1. 与四面体体积的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">33.1.2. 与两条射线之间的距离的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">33.1.3. 与两个平面之间的角度的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">33.1.4. 与角度重投影误差的关系</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">34. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">35. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">36. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conclusion">33.2. Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -153,6 +165,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -234,10 +251,10 @@
 <p>（2）两个边界对极平面之间的二面角</p>
 <p>（3）L1 - 最优角度重投影误差。</p>
 <p>考虑两个相机 <span class="math notranslate nohighlight">\(c_0\)</span> 和 <span class="math notranslate nohighlight">\(c_1\)</span> 观察相同的 3D 点 <span class="math notranslate nohighlight">\(p\)</span> 。</p>
-<p>如果已知两台相机的内参和相对位姿，就可以对每幅图像中的测量点进行反投影，得到每台相机发出的指向 <span class="math notranslate nohighlight">\(p\)</span> 的光线。</p>
+<p>如果已知两台相机的内参和相对位姿，就可以对每幅图像中的测量点进行反投影，得到每个相机发出的指向 <span class="math notranslate nohighlight">\(p\)</span> 的光线。</p>
 <p>定义归一化对极误差如下：</p>
 <div class="math notranslate nohighlight">
-\[\hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{f} · (R \hat{f}_0 \times \hat{f}_1)|\]</div>
+\[\hat{e} := |\hat{f}_1 · (\hat{t} \times R\hat{f}_0)| = |\hat{f} · (R \hat{f}_0 \times \hat{f}_1)| ~~~~~~~~~~~~(1)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(f_0\)</span> 和 <span class="math notranslate nohighlight">\(f_1\)</span> 是来自 <span class="math notranslate nohighlight">\(c_0\)</span> 和 <span class="math notranslate nohighlight">\(c_1\)</span> 的反向投影单位光线，
 <span class="math notranslate nohighlight">\(R\)</span> 是旋转矩阵， <span class="math notranslate nohighlight">\(t\)</span> 是将一个点从参考系 <span class="math notranslate nohighlight">\(c_0\)</span> 变换到 <span class="math notranslate nohighlight">\(c_1\)</span> 的平移向量： <span class="math notranslate nohighlight">\(x_1 = Rx_0 + t\)</span> 以及 <span class="math notranslate nohighlight">\(\hat{t} = t / ||t||\)</span></p>
 <div class="admonition note">
@@ -254,7 +271,9 @@
 <img alt="../../../../../_images/145.jpg" src="../../../../../_images/145.jpg" />
 </div>
 <p>这称为对极约束。</p>
-<p>在文献中，归一化对极误差大多被视为没有几何意义的代数量，这种误解源于这样一个事实，即“标准”对极误差 <span class="math notranslate nohighlight">\(e\)</span> 是一个代数量。</p>
+<p>在文献中，归一化对极误差大多被视为没有几何意义的代数量，这种误解源于这样一个事实，即“标准”对极误差 <span class="math notranslate nohighlight">\(e\)</span> 是一个代数量：</p>
+<div class="math notranslate nohighlight">
+\[e:=|f_1 · (\hat{t} \times R f_0)| = |f_1^T E f_0|   ~~~~~~~~~~~~(3)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(f_0\)</span> 和 <span class="math notranslate nohighlight">\(f_1\)</span> 分别是 <span class="math notranslate nohighlight">\(c_0\)</span> 和 <span class="math notranslate nohighlight">\(c_1\)</span> 中点的归一化图像坐标。</p>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
@@ -262,11 +281,121 @@
 <p>在 (1) 中，它们按长度归一化。</p>
 <p>在 (3) 中，它们由向量中的最后一个元素归一化。</p>
 </div>
+<p>在另一个文献中，对对以下错误给出了几何解释：</p>
+<div class="math notranslate nohighlight">
+\[e_p:= \frac{|\hat{f}_1 · (\hat{t} \times R \hat{f}_0) |}{||\hat{t} \times R \hat{f}_0||}\]</div>
+<p>它对应于 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 和 <span class="math notranslate nohighlight">\(n = \hat{t} \times R \hat{f}_0\)</span> 之间夹角的余弦值。这等于 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 处的点与包含 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 和 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 的平面之间的垂直距离。</p>
+<p>在这项工作中，通过将 (1) 与以下数量相关联来提供对 (1) 的几何直观解释：</p>
+<ol class="arabic simple">
+<li><p>四面体的体积，其中 <span class="math notranslate nohighlight">\(\hat{f}_0、R \hat{f}_0 和 \hat{t}\)</span> 构成在一个顶点相交的三个边。</p></li>
+<li><p>两条反投影光线之间的最短距离 <span class="math notranslate nohighlight">\(l_0 = t + s_0 R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(l_1 = s_1 \hat{f}_1\)</span> 。</p></li>
+<li><p>两个边界对极平面之间的二面角，即一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(Rf_0\)</span> ，另一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(f_1\)</span> 。</p></li>
+<li><p>L1 最优角度重投影误差。</p></li>
+</ol>
 <div class="section" id="geometric-interpretations">
 <h2><span class="section-number">33.1. </span>Geometric Interpretations<a class="headerlink" href="#geometric-interpretations" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id1">
+<h3><span class="section-number">33.1.1. </span>与四面体体积的关系<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
 <div class="align-center figure align-default">
 <img alt="../../../../../_images/231.jpg" src="../../../../../_images/231.jpg" />
 </div>
+<p>考虑上图所示的四面体，它的一个顶点位于 <span class="math notranslate nohighlight">\(c_1\)</span> （即摄像机 <span class="math notranslate nohighlight">\(c_1\)</span> 的位置，即 <span class="math notranslate nohighlight">\(c_1\)</span> 参考系中的原点），另外三个位于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 、 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 。</p>
+<p>然后，使用众所周知的公式：</p>
+<div class="math notranslate nohighlight">
+\[V = \frac{1}{6} |\hat{t} · (R \hat{f}_0 \times \hat{f}_1)| = \frac{\hat{e}}{6}\]</div>
+<p>因此</p>
+<div class="math notranslate nohighlight">
+\[\hat{e} = 6V\]</div>
+<p>这种解释的好处是它允许对错误进行简单的可视化，如图 2a 所示。 随着三个边 <span class="math notranslate nohighlight">\(\hat{t}、R \hat{f}_0、\hat{f}_1\)</span> 之间共面度的增加，公共顶点将被“拉”向另一侧，从而使四面体变平。 当三个边共面时，四面体变得完全平坦，即  <span class="math notranslate nohighlight">\(V = 0\)</span> ，
+因此 <span class="math notranslate nohighlight">\(\hat{e} = 0\)</span>。</p>
+</div>
+<div class="section" id="id2">
+<h3><span class="section-number">33.1.2. </span>与两条射线之间的距离的关系<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>我们还可以将归一化极线误差 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 与两条反投影射线之间的最短距离联系起来，即图 2b 中的 <span class="math notranslate nohighlight">\(d\)</span> 。</p>
+<p>为了说明这一点，将首先推导出两条斜线之间最短距离的公式：</p>
+<p>考虑两条斜线  <span class="math notranslate nohighlight">\(l_0 = c_0 + s_0 m _0\)</span> 和  <span class="math notranslate nohighlight">\(l_1 = c_1 + s_1m_1\)</span> 。</p>
+<p>它们之间的距离由每条线上最近的一对点 <span class="math notranslate nohighlight">\((r_0, r_1)\)</span> 之间的距离给出，并且它们位于两条线的共同垂线上。</p>
+<p>现在，考虑两个具有法线  <span class="math notranslate nohighlight">\(n = m_0 \times m_1\)</span> 的平行平面：包含 <span class="math notranslate nohighlight">\(l_0\)</span> 的平面 <span class="math notranslate nohighlight">\(\Pi_0\)</span> 和包含 <span class="math notranslate nohighlight">\(l_1\)</span> 的平面 <span class="math notranslate nohighlight">\(\Pi_1\)</span> ，如下图a所示：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/323.jpg" src="../../../../../_images/323.jpg" />
+</div>
+<p>请注意， <span class="math notranslate nohighlight">\(d = ||r_0 - r_1||\)</span> 与平面之间的距离相同，与 <span class="math notranslate nohighlight">\(||c_1 - a_0||\)</span> 相同，其中 <span class="math notranslate nohighlight">\(a_0\)</span> 是 <span class="math notranslate nohighlight">\(c_1\)</span> 在 <span class="math notranslate nohighlight">\(\Pi_0\)</span> 中的投影位置。</p>
+<p>由于 <span class="math notranslate nohighlight">\(||c_1 - a_0||\)</span> =  <span class="math notranslate nohighlight">\(|(c0 − c1) · n| / ||n||\)</span> ，得到距离公式：</p>
+<div class="math notranslate nohighlight">
+\[d = \frac{|(c_0 - c_1) · (m_0 \times m_1)|}{||m_0 \times m_1||}\]</div>
+<p>这意味着图 2b 中的 <span class="math notranslate nohighlight">\(d\)</span> 由下式给出：</p>
+<div class="math notranslate nohighlight">
+\[d = \frac{|t ·(R \hat{f}_0 \times \hat{f}_1)|}{||R \hat{f}_0 \times \hat{f}_1||} = \frac{||t|| \hat{e}}{||R \hat{f}_0 \times \hat{f}_1||}\]</div>
+<p>令 <span class="math notranslate nohighlight">\(\beta\)</span> 为 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 之间的角度（也称为原始视差角）：</p>
+<div class="math notranslate nohighlight">
+\[\beta := ∠(R \hat{f}_0, \hat{f}_1) \in [0, \pi / 2]\]</div>
+<p>然后，上式的 <span class="math notranslate nohighlight">\(d\)</span> 可以写为：</p>
+<div class="math notranslate nohighlight">
+\[\hat{e} = \frac{sin(\beta)}{||t||} d\]</div>
+<p>因此，我们可以将 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 解释为两条反投影射线之间的距离，加权为 <span class="math notranslate nohighlight">\(sin(\beta) / ||t||\)</span></p>
+<p>对于两个视图之间的相对姿态估计，可以假设  <span class="math notranslate nohighlight">\(||t|| = 1\)</span> 而不失一般性，因此基于 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 最小化代价等同于基于 <span class="math notranslate nohighlight">\(sin(\beta) / d\)</span> 最小化代价。</p>
+<p>可以将 <span class="math notranslate nohighlight">\(sin(\beta)\)</span> 解释为当视差角较小时降低残差 <span class="math notranslate nohighlight">\(d\)</span> 的因子。</p>
+<p>注意 当且仅当 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 都垂直于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 时 <span class="math notranslate nohighlight">\(d ≤ 1\)</span> 且等式成立。</p>
+<p>如果两条射线相交（在无穷远处），则 <span class="math notranslate nohighlight">\(d = 0\)</span> （或 <span class="math notranslate nohighlight">\(\beta = 0\)</span> ），因此 <span class="math notranslate nohighlight">\(\hat{e} = 0\)</span> 。</p>
+</div>
+<div class="section" id="id3">
+<h3><span class="section-number">33.1.3. </span>与两个平面之间的角度的关系<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>在图 2b 中，考虑以下平面：一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> ，另一个包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span>。</p>
+<p>令 <span class="math notranslate nohighlight">\(n_0\)</span> 和 <span class="math notranslate nohighlight">\(n_1\)</span> 为它们的法向量。 这两个平面绘制在图 3b 中。</p>
+<p>可以将它们视为通常在其之间找到对极平面的两个边界平面。</p>
+<p>这两个边界平面之间的二面角由下式给出：</p>
+<div class="math notranslate nohighlight">
+\[\alpha = ∠(n_0, n_1) = sin^{-1} (||\frac{(R \hat{f}_0 \times \hat{t})}{||R \hat{f}_0 \times \hat{t}||} \times \frac{(\hat{f}_1 \times \hat{t})}{||\hat{f}_1 \times \hat{t}||}||)\]</div>
+<p>这可以重新排列为：</p>
+<div class="math notranslate nohighlight">
+\[||R \hat{f}_0 \times \hat{t} || ||\hat{f}_1 \times \hat{t}|| sin(\alpha) = ||(R \hat{f}_0 \times \hat{t}) \times (\hat{f}_1 \times \hat{t})||\]</div>
+<p>对于任何 3D 向量 a、b、c、d，向量四倍积  <span class="math notranslate nohighlight">\((a×b)×(c×d)\)</span>  等于  <span class="math notranslate nohighlight">\(((a × b) · d) c−((a × b) · c) d\)</span> 。</p>
+<p>因此上式的右边可以写成：</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/420.jpg" src="../../../../../_images/420.jpg" />
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>第三个等式源于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 是单位向量</p>
+</div>
+<p>从而</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+e &amp;=&amp; ||R \hat{f}_0 \times \hat{t}|| ||\hat{f}_1 \times \hat{t}|| sin(\alpha)\\
+   &amp;=&amp; sin(\phi_0)sin(\phi_1)sin(\alpha)
+\end{eqnarray}\end{split}\]</div>
+<p>其中：</p>
+<div class="math notranslate nohighlight">
+\[\phi_0 := ∠(R \hat{f}_0,\hat{t}) \in [0, \pi / 2]\]</div>
+<div class="math notranslate nohighlight">
+\[\phi_1 := ∠(\hat{f}_1,\hat{t}) \in [0, \pi / 2]\]</div>
+<p>这两个角度如图 2b 所示。 可以将 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 解释为两个边界对极平面之间的二面角的正弦，加权为  <span class="math notranslate nohighlight">\(sin(\phi_0) sin(\phi_1)\)</span> 。</p>
+<p>因此，如果 <span class="math notranslate nohighlight">\(\phi_0,\phi_1,\alpha\)</span> 中的任何一个非常小，则 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 会很小。</p>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">33.1.4. </span>与角度重投影误差的关系<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>定义 L1 最优角度重投影误差：</p>
+<div class="math notranslate nohighlight">
+\[\theta_{L1}^{*} = \mathop{min}\limits_{\hat{f}'_0, \hat{f}'_1} (∠(\hat{f}'_0, \hat{f}_0) + ∠(\hat{f}'_1, \hat{f}_1)) ~s.t.~\hat{f}'_1 · (\hat{t} \times R \hat{f}'_0) = 0\]</div>
+<p>换句话说，它是 <span class="math notranslate nohighlight">\(\theta_0 + \theta_1\)</span> 的最小值，其中 <span class="math notranslate nohighlight">\(\theta_0\)</span> 和 <span class="math notranslate nohighlight">\(\theta_1\)</span> 是校正反投影光线以使它们相交的角度。 下图说明了这些角度。</p>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/517.jpg" src="../../../../../_images/517.jpg" />
+</div>
+<p>另外，有：</p>
+<div class="math notranslate nohighlight">
+\[sin(\theta_{L1}^{*}) = min(\frac{|R \hat{f}_0 · (\hat{f}_1 \times \hat{t})|}{||R \hat{f}_0 \times \hat{t}||}, \frac{|R \hat{f}_0 · (\hat{f}_1 \times \hat{t})|}{||\hat{f}_1 \times \hat{t}||})\]</div>
+<p>重新组合可以得到：</p>
+<div class="math notranslate nohighlight">
+\[|\hat{f}_1 · (\hat{t} \times R \hat{f}_0)| = sin(\theta_{L1}^{*}) max(||R \hat{f}_0 \times \hat{t}||,||\hat{f}_1 \times \hat{t}||)\]</div>
+<p>从而得到：</p>
+<div class="math notranslate nohighlight">
+\[\hat{e} = sin(max(\phi_0, \phi_1)) sin(\theta_{L1}^{*})\]</div>
+<p>因此，可以将 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 解释为 L1 最优角度重投影误差的正弦值，由  <span class="math notranslate nohighlight">\(sin(max(\phi_0, \phi_1))\)</span> 加权。
+因此，如果 <span class="math notranslate nohighlight">\(\theta_{L1}^{*}\)</span> 或  <span class="math notranslate nohighlight">\(max(\phi_0, \phi_1)\)</span> 中的任何一个非常小，则 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 会很小。</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2><span class="section-number">33.2. </span>Conclusion<a class="headerlink" href="#conclusion" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -276,7 +405,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="34. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" class="btn btn-neutral float-right" title="34. Triangulation: Why Optimize?" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../Solver6L/Solver6L.html" class="btn btn-neutral float-left" title="32. Solutions to Minimal Generalized Relative Pose Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

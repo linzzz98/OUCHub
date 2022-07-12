@@ -155,7 +155,7 @@ Geometry-aware Feature Matching
    .. figure:: 3.jpg
       :figclass: align-center
 
-   给定一个查询点 :math:`p_q` ，根据方程 :math:`x_k` 和 :math:`y_k` 找到它的对极线 :math:`l_q` 和等距点  :math:`(xk, yk)` 。
+   给定一个查询点 :math:`p_q` ，根据方程 :math:`x_k` 和 :math:`y_k` 找到它的对极线 :math:`l_q` 和等距点  :math:`(x_k, y_k)` 。
 
    对于对极线上的每个等距点，找到包含该点的四个重叠单元格，并计算它与四个单元格中心的笛卡尔距离。
 
@@ -178,6 +178,7 @@ Geometry-aware Feature Matching
    为了减少冗余 Kd 树构建的开销，利用了对极线的双重性质：
 
    对于位于图像 :math:`I_t` 中线 :math:`l` 上的所有点，它们的对应点必须位于图像 :math:`I_s` 中的双线 :math:`l'` 上。
+
 使用这个属性，将 :math:`S` 中的查询点分组，其极线与附近点（2 个像素内）的 :math:`I_t` 的边界相交，并逐组搜索匹配项。
 
 Verification of Feature Matches
@@ -188,6 +189,6 @@ Verification of Feature Matches
 特征轨迹是通过在图中找到连通分量来形成的，其中节点是图像特征对，边表示特征之间的匹配。
 
 三元组验证要求如果图像 :math:`I_A` 中的特征 A 与图像 :math:`I_B` 中的特征 B 匹配，
-那么对应关系 :math:`A ↔ B` 必须通过公共连接图像 :math:`I_c` 中的某个特征 C 进行验证，这样 :math:`C ↔ B` 和 :math:`A ↔ C` 也是对应关系。
+那么对应关系 :math:`A \leftrightarrow B` 必须通过公共连接图像 :math:`I_c` 中的某个特征 C 进行验证，这样 :math:`C \leftrightarrow B` 和 :math:`A \leftrightarrow C` 也是对应关系。
 
 这可以通过在每个连接的组件（轨迹）中找到三角形并修剪不属于任何三角形的所有节点来确保。

@@ -45,7 +45,7 @@
     
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="next" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" href="../GAM/GAM.html" />
     <link rel="prev" title="34. Triangulation: Why Optimize?" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" /> 
 </head>
 
@@ -137,10 +137,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">35. Mapping and Localization from Planar Markers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">36. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">37. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">38. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">35. Mapping and Localization from Planar Markers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#initial-pose-graph">35.1. Initial pose graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">38. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">39. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">40. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -153,6 +158,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
 <p class="caption"><span class="caption-text">杂七杂八</span></p>
 <ul>
@@ -312,6 +321,10 @@ c_2 = (s / 2, s / 2, 0)\\
 c_3 = (-s / 2, s / 2, 0)\\
 c_4 = (-s / 2, s / 2, 0)\end{split}\]</div>
 <p>用 <span class="math notranslate nohighlight">\(M = \{m\}\)</span> 表示放置在环境中的一组marker， 并用 <span class="math notranslate nohighlight">\(\gamma_m\)</span> 表示它们的姿势，即从 mrs 移动点到 grs 的变换。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>请注意，出于映射目的，仅考虑观察至少两个标记的帧，即  <span class="math notranslate nohighlight">\(|ft| &gt; 1\)</span>。</p>
+</div>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>在本文的问题中，位姿 <span class="math notranslate nohighlight">\(\gamma_m\)</span> 和 <span class="math notranslate nohighlight">\(\gamma^t\)</span> 是要优化的参数，而 <span class="math notranslate nohighlight">\(\omega_i^t\)</span> 是可用的观测值。</p>
@@ -365,6 +378,13 @@ R_{j,i}^t &amp; t_{j,i}^t\\0 &amp; 1
 <p>以表示此类变换的所有组合的集合，从 i 到 j 的变换及其逆可以很容易地计算为：</p>
 <div class="math notranslate nohighlight">
 \[\gamma_{i,j}^t = (\gamma_{j,i}^t)^{-1}\]</div>
+<div class="section" id="initial-pose-graph">
+<h2><span class="section-number">35.1. </span>Initial pose graph<a class="headerlink" href="#initial-pose-graph" title="永久链接至标题">¶</a></h2>
+<p>使用来自 quiver  <span class="math notranslate nohighlight">\(Q\)</span> 的最佳 intermarker 位姿，创建有向位姿图 <span class="math notranslate nohighlight">\(G\)</span> ，其中节点表示标记，边缘表示它们的相对位姿。</p>
+<p>每条边  <span class="math notranslate nohighlight">\(e = (i, j)\)</span>，定义权重:</p>
+<div class="math notranslate nohighlight">
+\[\omega(e) = e_{j,i}(\hat{\gamma}_{j,i}),\]</div>
+</div>
 </div>
 
 
@@ -373,7 +393,7 @@ R_{j,i}^t &amp; t_{j,i}^t\\0 &amp; 1
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="36. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../GAM/GAM.html" class="btn btn-neutral float-right" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" class="btn btn-neutral float-left" title="34. Triangulation: Why Optimize?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
     </div>
 

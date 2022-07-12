@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>10. AOP知识点 &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="../../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../../../others/o_others.html" />
+    <link rel="prev" title="9. AOP事务管理" href="aop_tran.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">10. AOP知识点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#enableaspectjautoproxy">1. &#64;EnableAspectJAutoProxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aspect">2. &#64;Aspect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pointcut">3. &#64;Pointcut</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#before">4. &#64;Before</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#after">5. &#64;After</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#afterreturning">6. &#64;AfterReturning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#afterthrowing">7. &#64;AfterThrowing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#around">8. &#64;Around</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enabletransactionmanagement">9. &#64;EnableTransactionManagement</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transactional">10. &#64;Transactional</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+        
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+        
+      <li><span class="section-number">10. </span>AOP知识点</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/aop/aop_knowledge.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="aop">
+<h1><span class="section-number">10. </span>AOP知识点<a class="headerlink" href="#aop" title="永久链接至标题">¶</a></h1>
+<div class="section" id="enableaspectjautoproxy">
+<h2>1. &#64;EnableAspectJAutoProxy<a class="headerlink" href="#enableaspectjautoproxy" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;EnableAspectJAutoProxy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>配置类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>配置类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>开启注解格式AOP功能</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="aspect">
+<h2>2. &#64;Aspect<a class="headerlink" href="#aspect" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Aspect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>切面类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前类为AOP切面类</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pointcut">
+<h2>3. &#64;Pointcut<a class="headerlink" href="#pointcut" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 87%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Pointcut</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>切入点方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置切入点方法</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：切入点表达式</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="before">
+<h2>4. &#64;Before<a class="headerlink" href="#before" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Before</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>通知方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前通知方
+法与切入点之间的绑定关系，当前通知方法在原始切入点方法前运行</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="after">
+<h2>5. &#64;After<a class="headerlink" href="#after" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;After</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>通知方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前通知方
+法与切入点之间的绑定关系，当前通知方法在原始切入点方法后运行</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="afterreturning">
+<h2>6. &#64;AfterReturning<a class="headerlink" href="#afterreturning" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;AfterReturning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>通知方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前通知方法与切入点
+之间绑定关系，当前通知方法在原始切入点方法正常执行完毕后执行</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="afterthrowing">
+<h2>7. &#64;AfterThrowing<a class="headerlink" href="#afterthrowing" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;AfterThrowing</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>通知方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前通知方法与切入点
+之间绑定关系，当前通知方法在原始切入点方法运行抛出异常后执行</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="around">
+<h2>8. &#64;Around<a class="headerlink" href="#around" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Around</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>通知方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前通知方法
+与切入点之间的绑定关系，当前通知方法在原始切入点方法前后运行</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="enabletransactionmanagement">
+<h2>9. &#64;EnableTransactionManagement<a class="headerlink" href="#enabletransactionmanagement" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;EnableTransactionManagement</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>配置类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>配置类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置当前Spring环境中开启注解式事务支持</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="transactional">
+<h2>10. &#64;Transactional<a class="headerlink" href="#transactional" title="永久链接至标题">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Transactional</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>接口注解 类注解 方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>业务层接口上方 业务层实现类上方 业务方法上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>为当前业务层方法添加
+事务（如果设置在类或接口上方则类或接口中所有方法均添加事务）</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aop_tran.html" class="btn btn-neutral float-left" title="9. AOP事务管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

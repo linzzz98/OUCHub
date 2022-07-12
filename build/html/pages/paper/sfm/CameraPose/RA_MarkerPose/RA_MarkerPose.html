@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints &mdash; OUCHub  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/language_data.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="38. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="prev" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" href="../GAM/GAM.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+          
+
+          
+            
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">论文学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Hierarchical_Structure-And-Motion/Hierarchical_Structure-And-Motion.html">2. Hierarchical structure-and-motion recovery from uncalibrated images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_SfM/View-graph_SfM.html">3. View-graph Selection Framework for SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/View-graph_Framework/View-graph_Framework.html">4. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/MarkerSfM/MarkerSfM.html">5. Improved Structure from Motion Using Fiducial Marker Matching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.html">8. Line-based Robust SfM with Little Image Overlap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Global/Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#problem-formulation">37.1. PROBLEM FORMULATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multigraph-with-rotational-ambiguity">37.2. MULTIGRAPH WITH ROTATIONAL AMBIGUITY</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-consistent-cliques">37.2.1. A. Consistent cliques</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#disambiguation-with-rotation-averaging">37.3. DISAMBIGUATION WITH ROTATION AVERAGING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rotation-averaging-with-clique-constraints">37.3.1. Rotation averaging with clique constraints</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">38. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">39. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">40. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
+        
+      <li><span class="section-number">37. </span>Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../../_sources/pages/paper/sfm/CameraPose/RA_MarkerPose/RA_MarkerPose.rst.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints">
+<h1><span class="section-number">37. </span>Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints<a class="headerlink" href="#resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints" title="永久链接至标题">¶</a></h1>
+<p>平面位姿估计 (PPE)存在一个基本的歧义问题，因为 PPE 实例可能有多个合理的姿势解决方案。 尤其是当标记角的定位有噪声时，通常很难仅基于重投影误差来消除位姿解决方案的歧义。</p>
+<p>以前的方法使用启发式标准在可能的解决方案之间进行选择，或者简单地忽略模棱两可的标记。</p>
+<p>本文的工作建议通过检查一组标记在多个视图中的一致性来解决歧义。 我们的具体贡献包括一种新颖的旋转平均公式，该公式结合了由 PPE 模糊性引起的可能标记方向解决方案之间的长期依赖关系。</p>
+<p>虽然理论上 6DOF 位姿可以从四个非共线但共面的点唯一确定，但在透视效果不明显的非理想条件下，例如，当成像标记很小或标记位于 远大于焦距的距离。 在这种情况下，存在两倍的旋转模糊度，对应于平面关于相机 z 轴的未知反射。</p>
+<p>对于一个观察到的平面标记，最先进的 PPE 方法会返回两个物理上合理的位姿解决方案，其中一个是正确的（即更接近GT）。</p>
+<p>下图显示了数据集中的一个示例。</p>
+<dl class="field-list simple">
+<dt class="field-odd">attention</dt>
+<dd class="field-odd"><p>请注意，PPE 返回的两个解可能非常不同，因此随意选择两个位姿之一，或者将两个解的中点作为位姿估计是不明智的。</p>
+</dd>
+</dl>
+<div class="align-center figure align-default">
+<img alt="../../../../../_images/154.jpg" src="../../../../../_images/154.jpg" />
+</div>
+<p>消除两个返回位姿 <span class="math notranslate nohighlight">\(p'\)</span> 和 <span class="math notranslate nohighlight">\(p''\)</span> 歧义的常用方法是计算每个位姿的重投影误差。</p>
+<div class="math notranslate nohighlight">
+\[r(p) = \sum\limits_{k=1}^4 || f(K, c_k, p) - u_k||_2^2, p \in \{p', p''\}\]</div>
+<dl class="simple">
+<dt>其中 <span class="math notranslate nohighlight">\(\{c_k\}_{k=1}^4\)</span> 和 <span class="math notranslate nohighlight">\(\{u_k\}_{k=1}^4\)</span> 是检测到marker的 4 个角点的参考 3D 位置和 2D 观察， <span class="math notranslate nohighlight">\(K\)</span> 是相机内参，</dt><dd><p><span class="math notranslate nohighlight">\(f(K, c, p)\)</span>  将 <span class="math notranslate nohighlight">\(c\)</span> 投影到具有相机姿态 <span class="math notranslate nohighlight">\(p\)</span> 的图像上。 然后选择具有较低重投影误差的 PPE 位姿。</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>比较重投影误差并不是万无一失的，因为如果角点定位有噪声， <span class="math notranslate nohighlight">\(r(p')\)</span> 和 <span class="math notranslate nohighlight">\(r(p'')\)</span> 可能非常接近。 事实上，正确的解可以有更高的重投影误差。</p>
+</div>
+<div class="section" id="problem-formulation">
+<h2><span class="section-number">37.1. </span>PROBLEM FORMULATION<a class="headerlink" href="#problem-formulation" title="永久链接至标题">¶</a></h2>
+<p>考虑到 <span class="math notranslate nohighlight">\(T\)</span> 个输入图片 <span class="math notranslate nohighlight">\(\{I_t\}_{t=1}^T\)</span> 包含了 <span class="math notranslate nohighlight">\(N\)</span> 个marker <span class="math notranslate nohighlight">\(\{M_i\}_{i=1}^N\)</span>  ，假设相机已经标定。</p>
+<div class="math notranslate nohighlight">
+\[A^t = \{i \in \{1,...,N\}|M_i~~was~~detected~~in~~I_t\}\]</div>
+<p>表示在图像 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测到的marker   <span class="math notranslate nohighlight">\(M_t\)</span></p>
+<p>在 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测到的 <span class="math notranslate nohighlight">\(M_i\)</span> 的角点上使用 PPE计算 <span class="math notranslate nohighlight">\(M_i\)</span> 到 <span class="math notranslate nohighlight">\(I_t\)</span> 的标记到相机 (M2C) 的相对位姿，这可能会产生两种解决方案：</p>
+<div class="math notranslate nohighlight">
+\[\{\tilde{p}_i^{(t,0)}, \tilde{p}_i^{(t,1)}\} = \{\tilde{p}_i ^{(t,a)}\}_{a = 0,1}\]</div>
+<p>不失一般性，假设每个标记观察恰好有两个相对姿态解。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>请注意，位姿歧义是由于方向歧义造成的，因此平移分量是相同的。</p>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{p}_i^{(t,0)} = (\tilde{t}_i^{(t)}, \tilde{R}_i^{(t,0)})\\
+\tilde{p}_i^{(t,1)} = (\tilde{t}_i^{(t)}, \tilde{R}_i^{(t,1)})\end{split}\]</div>
+<p>给定所有 M2C 相对姿态测量的集合：</p>
+<div class="math notranslate nohighlight">
+\[\bigcup_{t=1}^T \bigcup_{i\in A^t} \{\tilde{p}_i^{(t,a)}\}_{a = 0,1}\]</div>
+<p>总体目标是 SfM，即找到标记 <span class="math notranslate nohighlight">\(\{p_i\}_{i=1}^N\)</span> 和相机 <span class="math notranslate nohighlight">\(\{q_t\}_{t=1}^T\)</span> 的绝对位姿。</p>
+<p>为此，必须解决姿势歧义，即，对于每个 <span class="math notranslate nohighlight">\((i,t)\)</span> ，使得 <span class="math notranslate nohighlight">\(i \in A^t\)</span> ，选择  <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,0)}\)</span> 或 <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,1)}\)</span> 进行 SfM 计算</p>
+<p>以前的管道使用 permarker 启发式方法做出选择，或者丢弃标记观察。 这种“预处理”产生减少的测量集：</p>
+<div class="math notranslate nohighlight">
+\[\bigcup_{t=1}^T \bigcup_{i\in B^t} \{\tilde{p}_i^{t}\}\]</div>
+<p>其中每个  <span class="math notranslate nohighlight">\(\tilde{p}_i^{t}\)</span> 要么是 <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,0)}\)</span> 要么是 <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,1)}\)</span> ，并且  <span class="math notranslate nohighlight">\(B_t ⊆ A_t\)</span> 。 这
+然后，减少的测量集会受到 SfM/SLAM 管道的其余部分的影响。</p>
+</div>
+<div class="section" id="multigraph-with-rotational-ambiguity">
+<h2><span class="section-number">37.2. </span>MULTIGRAPH WITH ROTATIONAL AMBIGUITY<a class="headerlink" href="#multigraph-with-rotational-ambiguity" title="永久链接至标题">¶</a></h2>
+<p>由于歧义在于方向，因此很自然地只使用 M2C 相对旋转来模拟歧义</p>
+<div class="math notranslate nohighlight">
+\[\bigcup_{t=1}^T \bigcup_{i\in A^t} \{\tilde{R}_i^{(t,a)}\}_{a = 0,1}\]</div>
+<p>为此，构造了一个多重图  <span class="math notranslate nohighlight">\(G = \{V, E\}\)</span> ，其中顶点 <span class="math notranslate nohighlight">\(V\)</span> 是标记集 <span class="math notranslate nohighlight">\(\{1,...,N\}\)</span> ，边 <span class="math notranslate nohighlight">\(E\)</span> 表示标记之间的共可见性。</p>
+<p>更具体地说，如果在 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测到 <span class="math notranslate nohighlight">\(M_i\)</span> 和 <span class="math notranslate nohighlight">\(M_j\)</span> ，则四个边缘</p>
+<div class="math notranslate nohighlight">
+\[&lt;i,j&gt;^{(t,00)},&lt;i,j&gt;^{(t,01)},&lt;i,j&gt;^{(t,10)},&lt;i,j&gt;^{(t,11)}\]</div>
+<p>连接 <span class="math notranslate nohighlight">\(G\)</span> 中的顶点 <span class="math notranslate nohighlight">\(i,j\)</span> ； 假设 <span class="math notranslate nohighlight">\(i &lt; j\)</span> ，边缘对应于标记到标记 (M2M) 的相对旋转</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{R}_{i,j}^{(t,00)} = (\tilde{R}_j^{(t,0})^T \tilde{R}_i^{(t,0)}\\
+\tilde{R}_{i,j}^{(t,01)} = (\tilde{R}_j^{(t,1})^T \tilde{R}_i^{(t,0)}\\
+\tilde{R}_{i,j}^{(t,10)} = (\tilde{R}_j^{(t,0})^T \tilde{R}_i^{(t,1)}\\
+\tilde{R}_{i,j}^{(t,11)} = (\tilde{R}_j^{(t,1})^T \tilde{R}_i^{(t,1)}\end{split}\]</div>
+<p>下图显示了一个示例。 由于多条边连接两个顶点，因此 <span class="math notranslate nohighlight">\(G\)</span> 是一个多重图。 将上面两个公式总结为：</p>
+<div class="math notranslate nohighlight">
+\[\{&lt;i,j&gt;^{(t,ab)}\}_{ab = 00,01,10,11}, \{\tilde{R}_{i,j}^{(t,ab)}\}_{ab=00,01,10,11}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(ab\)</span> 是由两个二进制指示符 <span class="math notranslate nohighlight">\(a, b ∈ \{0, 1\}\)</span> 组成的位串。</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(G\)</span> 中的边是无向的，在符号中：</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[&lt;i,j&gt;^{(t,ab)} = &lt;j,i&gt;^{(t,ba)} \neq &lt;j,i&gt;^{(t,ab)}\]</div>
+<p>所有没有重复的边 <span class="math notranslate nohighlight">\(E\)</span> 的集合是：</p>
+<div class="math notranslate nohighlight">
+\[\epsilon = \bigcup_{t=1}^T \bigcup_{i,j \in A^t, i &lt; j} \{&lt;i,j&gt;^{(t,ab)}\}_{ab = 00,01,10,11}\]</div>
+<p>类似地，唯一 M2M 相对旋转的集合是：</p>
+<div class="math notranslate nohighlight">
+\[\bigcup_{t=1}^T \bigcup_{i,j \in A^t, i &lt; j} \{\tilde{R}_{i,j}^{(t,ab)}\}_{ab = 00,01,10,11}\]</div>
+<div class="section" id="a-consistent-cliques">
+<h3><span class="section-number">37.2.1. </span>A. Consistent cliques<a class="headerlink" href="#a-consistent-cliques" title="永久链接至标题">¶</a></h3>
+<p>假设多重图 G 是连通的，即存在一条连接 G 中每一对顶点（标记）的路径。</p>
+<dl class="field-list simple">
+<dt class="field-odd">Consistent clique</dt>
+<dd class="field-odd"><p>给定多重图 G = {V, E} 如上定义，图像 <span class="math notranslate nohighlight">\(I_t\)</span> 的 <strong>consistent clique</strong> 是一个全连通子图  <span class="math notranslate nohighlight">\(C = {V', E'}\)</span>  使得：</p>
+<ul class="simple">
+<li><p>V’ = A^t ⊆ V</p></li>
+<li><p>每两个顶点 <span class="math notranslate nohighlight">\(i, j ∈ V'\)</span> 只由一条边  <span class="math notranslate nohighlight">\(&lt;i,j&gt;^{(t,ab)}\)</span> 连接，其中 <span class="math notranslate nohighlight">\(ab\)</span> 是  <span class="math notranslate nohighlight">\(\{00, 01, 10, 11\}\)</span>  之一。</p></li>
+<li><p>对于与顶点 <span class="math notranslate nohighlight">\(i\)</span> 相连的每两个顶点 <span class="math notranslate nohighlight">\(j,k \in V'\)</span> ，关联边 <span class="math notranslate nohighlight">\(&lt;i,j&gt;^{(t,ab)}\)</span> 和 <span class="math notranslate nohighlight">\(&lt;i,k&gt;^{(t,cd)}\)</span> 满足条件 <span class="math notranslate nohighlight">\(a = c\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<p>直观地说，图像 <span class="math notranslate nohighlight">\(I_t\)</span> 的一致 clique  <span class="math notranslate nohighlight">\(C\)</span> 对应于一组 M2M 相对旋转，这些旋转是使用恒定选择 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测到的每个标记的两个 <span class="math notranslate nohighlight">\(M2C\)</span> 相对位姿之一组成的。</p>
+<p>恒定的 M2C 相对姿势选择存在多个有效组合，因此图像存在多个consistent cliques。</p>
+<p>假设在每个图像中检测到 <span class="math notranslate nohighlight">\(V\)</span> 个标记，则每个图像有 <span class="math notranslate nohighlight">\(O(2^V)\)</span> 个一致的团。 对于 <span class="math notranslate nohighlight">\(T\)</span> 个图像，因此在图像中存在 <span class="math notranslate nohighlight">\(O(2^{VT})\)</span> 个consistent cliques。</p>
+</div>
+</div>
+<div class="section" id="disambiguation-with-rotation-averaging">
+<h2><span class="section-number">37.3. </span>DISAMBIGUATION WITH ROTATION AVERAGING<a class="headerlink" href="#disambiguation-with-rotation-averaging" title="永久链接至标题">¶</a></h2>
+<p>基于多重图，通过首先解决新的旋转平均公式来解决歧义，然后 <strong>基于平均结果</strong> 构建和解决最大weighted clique问题。 此步骤的关键结果是标记位姿消歧。</p>
+<div class="section" id="rotation-averaging-with-clique-constraints">
+<h3><span class="section-number">37.3.1. </span>Rotation averaging with clique constraints<a class="headerlink" href="#rotation-averaging-with-clique-constraints" title="永久链接至标题">¶</a></h3>
+<p>虽然标准旋转平均是在相对旋转图 上定义的，但将公式扩展到相对旋转的多重图是很简单的，并且现有算法可以通过微小的调整来应用。</p>
+<p>令 <span class="math notranslate nohighlight">\(\{R_i\}^N_{i=1}\)</span> 为标记的绝对旋转。 多重图 <span class="math notranslate nohighlight">\(G\)</span> 上的旋转平均问题是：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathop{min}_{\{R_i\}_{i=1}^N} \sum\limits_{t=1}^T \sum\limits_{i,j\in A^t \\ i &lt; j} \sum\limits_{a,b \in \{0,1\}} \rho (||\tilde{R}_{i,j}^{(t,ab)} - R_jR_i^T||_F)\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\rho\)</span> 是一个稳健的范数。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>然而测试（第六节）表明这种方法对消歧无效，很可能是因为上式没有强制执行clique consistency（def. 1）。 因此，被视为内点的错误项可能对应于为相同的标记检测选择两个 PPE 位姿。</p>
+</div>
+<p>为了在旋转平均中强制执行集团一致性，引入了一组二元指标变量：</p>
+<div class="math notranslate nohighlight">
+\[s = \bigcup{t=1}^T \{s_i^t \in \{0,1\} | i \in A^t\}\]</div>
+<p>其中设置 <span class="math notranslate nohighlight">\(s_i^t = 0\)</span> 意味着选择 M2C 相对旋转  <span class="math notranslate nohighlight">\(\tilde{R}_i^{(t,0)}\)</span>  在 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测 <span class="math notranslate nohighlight">\(M_i\)</span> ，其中 <span class="math notranslate nohighlight">\(s_i^t = 1\)</span> 意味着选择 <span class="math notranslate nohighlight">\(\tilde{R}_i^{(t,1)}\)</span></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="38. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../GAM/GAM.html" class="btn btn-neutral float-left" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, linzzz.
+
+    </p>
+  </div> 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
