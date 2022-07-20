@@ -17,6 +17,7 @@ SSM
    spring/basic/aop/aop_tran
    spring/basic/aop/aop_knowledge
    maven/basic/maven
+   maven/advanced/maven
    maven/pom_helper
 
 |:fire:| \ **Spring**\
@@ -44,5 +45,7 @@ SSM
 |:fire:| \ **Maven**\
 
    * :doc:`Maven基础 <maven/basic/maven>`
+
+   * :doc:`Maven进阶 <maven/advanced/maven>`
 
    * :doc:`POM配置 <maven/pom_helper>`
