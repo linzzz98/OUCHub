@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>8. Line-based Robust SfM with Little Image Overlap &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" href="../../Global/CSfM/CSfM.html" />
+    <link rel="next" title="9. Voting-based Incremental Structure-from-Motion" href="../Voting_based_SfM/Voting_based_SfM.html" />
     <link rel="prev" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -111,113 +61,92 @@
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_SfM/Privacy_SfM.html">6. Privacy Preserving Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html">7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">8. Line-based Robust SfM with Little Image Overlap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">10. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">11. Global Structure-from-Motion by Similarity Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">12. Global Structure-from-Motion and Its Application</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">13. Effcient Initial Pose-graph Generation for Global SfM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">14. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">15. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">16. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">17. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">18. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">19. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">20. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">21. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">22. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">23. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">24. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">25. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">26. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">27. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">28. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">29. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">30. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Voting_based_SfM/Voting_based_SfM.html">9. Voting-based Incremental Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Graph_based_SfM/Graph_based_SfM.html">10. Graph-Based Consistent Matching for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/CSfM/CSfM.html">11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html">12. Very Large-Scale Global SfM by Distributed Motion Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_SA/GlobalSfM_SA.html">13. Global Structure-from-Motion by Similarity Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/GlobalSfM_Application/GlobalSfM_Application.html">14. Global Structure-from-Motion and Its Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Global/Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">8. </span>Line-based Robust SfM with Little Image Overlap</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Incremental/Line_based_SfM/Line_based_SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="line-based-robust-sfm-with-little-image-overlap">
-<h1><span class="section-number">8. </span>Line-based Robust SfM with Little Image Overlap<a class="headerlink" href="#line-based-robust-sfm-with-little-image-overlap" title="永久链接至标题">¶</a></h1>
+             
+  <section id="line-based-robust-sfm-with-little-image-overlap">
+<h1><span class="section-number">8. </span>Line-based Robust SfM with Little Image Overlap<a class="headerlink" href="#line-based-robust-sfm-with-little-image-overlap" title="永久链接至标题"></a></h1>
 <p>大多数SfM都假设图像之间存在大量重叠。 在本文工作中，考虑图像只有很少重叠的情况，可能低至最多两幅图像看到场景的同一部分。</p>
 <p>本文的贡献：</p>
 <blockquote>
@@ -257,55 +186,43 @@ T_1 = 0 ~~~ and ~~~ T_{j+1} = R_{j,j+1} T_j + \lambda_{j, j+1} t_{j, j+1}\end{sp
 <p>设 <span class="math notranslate nohighlight">\(L_a\)</span> 和 <span class="math notranslate nohighlight">\(L_b\)</span> 是平面 P 中的两条不平行的 3D 线段。
 假设 <span class="math notranslate nohighlight">\(L_a\)</span> 只出现在摄像机 1 和 2 上，而 <span class="math notranslate nohighlight">\(L_b\)</span> 只出现在摄像机 2 和 3 上。</p>
 <p>令 <span class="math notranslate nohighlight">\(l_i^j\)</span> 表示 <span class="math notranslate nohighlight">\(L_i\)</span> 在相机 <span class="math notranslate nohighlight">\(j\)</span> 上的投影。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/137.jpg" src="../../../../../../_images/137.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/145.jpg" src="../../../../../../_images/145.jpg" />
+</figure>
 <p>全局参考系中 3D 点 <span class="math notranslate nohighlight">\(P\)</span> 的坐标与其在相机 <span class="math notranslate nohighlight">\(j\)</span> 上的投影 <span class="math notranslate nohighlight">\(p_j\)</span> 和深度 <span class="math notranslate nohighlight">\(z_p^j\)</span> 有关：</p>
 <div class="math notranslate nohighlight">
 \[P = R_j^T (z_p^j p^j - T_j)\]</div>
 <p>假设 <span class="math notranslate nohighlight">\(P \in L_i\)</span> ，对于任何相机 <span class="math notranslate nohighlight">\(k\)</span> ，有：</p>
 <div class="math notranslate nohighlight">
 \[l_i^k · (R_kP + T_k) = 0\]</div>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../Global/CSfM/CSfM.html" class="btn btn-neutral float-right" title="9. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../SfM_with_Line_Segments/SfM_with_Line_Segments.html" class="btn btn-neutral float-left" title="7. Structure from Motion with Line Segments Under Relaxed Endpoint Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Voting_based_SfM/Voting_based_SfM.html" class="btn btn-neutral float-right" title="9. Voting-based Incremental Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

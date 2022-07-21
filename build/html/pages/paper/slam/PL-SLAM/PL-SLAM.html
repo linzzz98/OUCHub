@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. PL-SLAM: Real-Time Monocular Visual SLAM with Points and Lines &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../_static/twemoji.js"></script>
         <script src="../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
-    <link rel="next" title="🍋 Point Cloud" href="../../p_pointcloud.html" />
+    <link rel="next" title="2. UcoSLAM: Simultaneous Localization and Mapping by Fusion of KeyPoints and Squared Planar Markers" href="../UcoSLAM/UcoSLAM.html" />
     <link rel="prev" title="🍊 SLAM" href="../../p_slam.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">🍊 Structure from Motion</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../p_slam.html">🍊 SLAM</a><ul class="current">
@@ -116,93 +66,62 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">1.5. 总结</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../UcoSLAM/UcoSLAM.html">2. UcoSLAM: Simultaneous Localization and Mapping by Fusion of KeyPoints and Squared Planar Markers</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../p_slam.html">🍊 SLAM</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>PL-SLAM: Real-Time Monocular Visual SLAM with Points and Lines</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../_sources/pages/paper/slam/PL-SLAM/PL-SLAM.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="pl-slam-real-time-monocular-visual-slam-with-points-and-lines">
-<h1><span class="section-number">1. </span>PL-SLAM: Real-Time Monocular Visual SLAM with Points and Lines<a class="headerlink" href="#pl-slam-real-time-monocular-visual-slam-with-points-and-lines" title="永久链接至标题">¶</a></h1>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/133.jpg"><img alt="../../../../_images/133.jpg" src="../../../../_images/133.jpg" style="width: 508.8px; height: 556.8000000000001px;" /></a>
-</div>
+             
+  <section id="pl-slam-real-time-monocular-visual-slam-with-points-and-lines">
+<h1><span class="section-number">1. </span>PL-SLAM: Real-Time Monocular Visual SLAM with Points and Lines<a class="headerlink" href="#pl-slam-real-time-monocular-visual-slam-with-points-and-lines" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../_images/150.jpg"><img alt="../../../../_images/150.jpg" src="../../../../_images/150.jpg" style="width: 508.8px; height: 556.8000000000001px;" /></a>
+</figure>
 <p>低纹理场景是依赖点对应的几何计算机视觉算法的主要致命弱点之一，但是在许多环境中，尽管纹理较低，但仍然可以可靠地估计基于线的几何图元，例如在城市和室内场景中，或者在结构化边缘占主导地位的所谓“曼哈顿世界”（Manhattan worlds）中。</p>
 <p>本文建立在 ORB-SLAM 的基础上，扩展其公式以同时处理点和线对应，当大部分点从输入图像中消失时，该解决方案甚至可以工作，它可以仅通过检测三个连续帧中的线对应来进行初始化。</p>
 <p>在处理纹理不佳的视频或特征点由于例如运动模糊而暂时消失时，ORB很容易失败。然而，尽管缺乏可靠的特征点，这些环境可能仍然包含许多可以以类似方式使用的线。</p>
@@ -230,9 +149,9 @@
 </dd>
 </dl>
 </div>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/222.jpg"><img alt="../../../../_images/222.jpg" src="../../../../_images/222.jpg" style="width: 510.40000000000003px; height: 528.8000000000001px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../_images/235.jpg"><img alt="../../../../_images/235.jpg" src="../../../../_images/235.jpg" style="width: 510.40000000000003px; height: 528.8000000000001px;" /></a>
+</figure>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>如上图所示，PL-SLAM算法分为三个主要线程：跟踪、局部地图创建和回环检测。其中，跟踪线程对相机位姿进行估计，并决定何时添加新的关键帧。进而，局部地图创建线程将新的关键帧信息引入地图并运用BA对地图进行优化。回环检测线程则不断进行回环进行检测和修正。</p>
@@ -254,11 +173,11 @@
 <p class="admonition-title">注意</p>
 <p>不使用线进行循环闭合。 在整个地图上匹配线的计算成本太高。 因此，只有点特征用于循环检测。</p>
 </div>
-<div class="section" id="line-based-slam">
-<h2><span class="section-number">1.1. </span>LINE-BASED SLAM<a class="headerlink" href="#line-based-slam" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default">
-<img alt="../../../../_images/83.jpg" src="../../../../_images/83.jpg" />
-</div>
+<section id="line-based-slam">
+<h2><span class="section-number">1.1. </span>LINE-BASED SLAM<a class="headerlink" href="#line-based-slam" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/87.jpg" src="../../../../_images/87.jpg" />
+</figure>
 <ol class="arabic">
 <li><p>基于线的重投影误差</p>
 <div class="admonition note">
@@ -316,9 +235,9 @@ e''_{i,j} = (\tilde{I}_{i,j})^T(K^{-1}q_{i,j}^h)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\rho\)</span> 是 Huber 鲁棒成本函数， <span class="math notranslate nohighlight">\(\Omega_{i,j}, \Omega'_{i,j}, \Omega''_{i,j}\)</span> 分别是与检测到关键点和线端点的尺度相关的协方差矩阵。</p>
 </li>
 </ol>
-</div>
-<div class="section" id="id1">
-<h2><span class="section-number">1.2. </span>全局重定位<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id1">
+<h2><span class="section-number">1.2. </span>全局重定位<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <blockquote>
 <div><p>SLAM 通过 PnP + RANSAC 算法在跟踪器丢失时重新定位相机。</p>
 <p>本文通过EPnPL 代替EPnP 处理重定位线，最大限度地减少了检测到的等式线重投影误差</p>
@@ -331,13 +250,13 @@ e''_{i,j} = (\tilde{I}_{i,j})^T(K^{-1}q_{i,j}^h)\]</div>
 </ol>
 <p>建立了这些匹配，就可以可靠地估计相机位姿。</p>
 </div></blockquote>
-</div>
-<div class="section" id="id2">
-<h2><span class="section-number">1.3. </span>带线的地图初始化<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2><span class="section-number">1.3. </span>带线的地图初始化<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>本文的另一个贡献是一种仅使用线对应估计初始地图的算法，这在缺乏特征点的低纹理场景中是一个很好的选择。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../_images/412.jpg" src="../../../../_images/412.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/420.jpg" src="../../../../_images/420.jpg" />
+</figure>
 <p>考虑上图的设置，其中由端点 <span class="math notranslate nohighlight">\(P,Q\)</span> 定义的线被投影到三个相机视图上。
 设 <span class="math notranslate nohighlight">\(\{p_1,q_1\}\)</span> ， <span class="math notranslate nohighlight">\(\{p_2,q_2\}\)</span> 和 <span class="math notranslate nohighlight">\(\{p_3,q_3\}\)</span>  是每个视图中的端点投影， <span class="math notranslate nohighlight">\(l_1, l_2, l_3 \in R_3\)</span> 是从投影端点计算的相应线系数。</p>
 <div class="admonition important">
@@ -369,23 +288,23 @@ e''_{i,j} = (\tilde{I}_{i,j})^T(K^{-1}q_{i,j}^h)\]</div>
 <p class="admonition-title">注解</p>
 <p>为了在使用三焦张量方程求解平移分量时获得足够的独立约束，需要两个额外的线对应，因此，算法所需的线匹配总数为 5。</p>
 </div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">1.4. </span>实验<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.4. </span>实验<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>使用 TUM RGB-D 基准将PL-SLAM系统与当前最先进的 Visual SLAM 方法进行了比较。此外，使用合成数据和真实数据评估了所提出的初始化方法，并比较了PL-SLAM 算法和 ORB-SLAM 的计算时间。</p>
-<div class="section" id="tum-rgb-d">
-<h3><span class="section-number">1.4.1. </span>TUM RGB-D 基准中的定位精度<a class="headerlink" href="#tum-rgb-d" title="永久链接至标题">¶</a></h3>
+<section id="tum-rgb-d">
+<h3><span class="section-number">1.4.1. </span>TUM RGB-D 基准中的定位精度<a class="headerlink" href="#tum-rgb-d" title="永久链接至标题"></a></h3>
 <p>用于比较的指标是绝对轨迹误差 (ATE)，由基准的评估脚本提供。 在计算误差之前，除了 RGBD-SLAM  是通过刚体变换对齐的，所有轨迹都使用相似性扭曲对齐。</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/510.jpg"><img alt="../../../../_images/510.jpg" src="../../../../_images/510.jpg" style="width: 549.5px; height: 478.09999999999997px;" /></a>
-</div>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">1.4.2. </span>地图初始化 - 综合实验<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../_images/517.jpg"><img alt="../../../../_images/517.jpg" src="../../../../_images/517.jpg" style="width: 549.5px; height: 478.09999999999997px;" /></a>
+</figure>
+</section>
+<section id="id4">
+<h3><span class="section-number">1.4.2. </span>地图初始化 - 综合实验<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>评估了在三个连续帧之间假设小而恒定旋转的后果。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../_images/69.jpg" src="../../../../_images/69.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/612.jpg" src="../../../../_images/612.jpg" />
+</figure>
 <p>上图显示了增加帧间旋转而产生的旋转和平移误差。 虽然估计的旋转误差保持在相对较小的范围内，但小旋转假设对平移误差的影响更为严重。 无论如何，当这个初始映射被送入 BA 优化器时，位移错误会大大减少。</p>
 <p>作者还使用经典初始化（基于单应性或基本矩阵计算）以及仅基于线的建议地图初始化来评估 PL-SLAM 方法。</p>
 <div class="admonition note">
@@ -393,58 +312,46 @@ e''_{i,j} = (\tilde{I}_{i,j})^T(K^{-1}q_{i,j}^h)\]</div>
 <p>线图初始化的准确性由于它所做的小旋转假设而下降，但在低纹理数据集 <strong>f3_nstr_tex_far</strong> 中，传统方法无法初始化，而作者提出的三帧小旋转线初始化方案可以成功初始化。</p>
 <p>但在初始帧较大的情况下，线初始化就会失败。</p>
 </div>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../_images/75.jpg"><img alt="../../../../_images/75.jpg" src="../../../../_images/75.jpg" style="width: 342.59999999999997px; height: 479.4px;" /></a>
-</div>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">1.5. </span>总结<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../_images/78.jpg"><img alt="../../../../_images/78.jpg" src="../../../../_images/78.jpg" style="width: 342.59999999999997px; height: 479.4px;" /></a>
+</figure>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">1.5. </span>总结<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
 <li><p>提出了 PL-SLAM，这是一种视觉 SLAM 方法，它允许同时处理点和线，并解决基于点的方法容易失败的情况，例如纹理不佳的场景或特征点消失的运动模糊图像。</p></li>
 <li><p>提出了一种新颖的基于线的地图初始化方法，该方法从三个连续图像中的 5 个线对应估计相机位姿和 3D 地图。这种方法假设这三幅图像中的帧间旋转恒定且很小。</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../p_pointcloud.html" class="btn btn-neutral float-right" title="🍋 Point Cloud" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../p_slam.html" class="btn btn-neutral float-left" title="🍊 SLAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../UcoSLAM/UcoSLAM.html" class="btn btn-neutral float-right" title="2. UcoSLAM: Simultaneous Localization and Mapping by Fusion of KeyPoints and Squared Planar Markers" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

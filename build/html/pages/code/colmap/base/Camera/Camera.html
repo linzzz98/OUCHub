@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Camera &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="2. VisibilityPyramid" href="../VisibilityPyramid/VisibilityPyramid.html" />
     <link rel="prev" title="Base" href="../../c_base.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +43,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
@@ -140,83 +92,49 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../c_base.html">Base</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Camera</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/code/colmap/base/Camera/Camera.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="camera">
-<h1><span class="section-number">1. </span>Camera<a class="headerlink" href="#camera" title="永久链接至标题">¶</a></h1>
+             
+  <section id="camera">
+<h1><span class="section-number">1. </span>Camera<a class="headerlink" href="#camera" title="永久链接至标题"></a></h1>
 <p>colmap的camera文件共分为：</p>
 <ul class="simple">
 <li><p>camera</p></li>
@@ -224,8 +142,8 @@
 <li><p>camera_database</p></li>
 <li><p>camera_rig</p></li>
 </ul>
-<div class="section" id="camera-models">
-<h2><span class="section-number">1.1. </span>Camera_Models<a class="headerlink" href="#camera-models" title="永久链接至标题">¶</a></h2>
+<section id="camera-models">
+<h2><span class="section-number">1.1. </span>Camera_Models<a class="headerlink" href="#camera-models" title="永久链接至标题"></a></h2>
 <p>该文件定义了几种不同的摄像机型号，也可以添加任意新的摄像机型号。</p>
 <p>相机模型可以具有三种不同类型的相机参数：焦距，主点，额外参数(失真参数)。参数数组分为不同的组，因此可以在BA调整期间启用或禁用单个组的优化。</p>
 <p>相机模型必须具有以下方法：</p>
@@ -239,8 +157,8 @@
 <p>(每当列表中指定摄像机参数时，它们必须按照在定义的模型结构中访问它们时的顺序准确显示。)</p>
 <p>摄像机模型遵循以下约定：图像左上角的坐标为(0，0)，右下角的坐标为(width，height)，即左上像素中心的坐标为(0.5，0.5)，右下像素中心的坐标为(宽度-0.5，高度-0.5)。</p>
 <hr class="docutils" />
-<div class="section" id="id1">
-<h3><span class="section-number">1.1.1. </span>不同的相机模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
+<section id="id1">
+<h3><span class="section-number">1.1.1. </span>不同的相机模型<a class="headerlink" href="#id1" title="永久链接至标题"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 22%" />
@@ -313,28 +231,28 @@
 <p><strong>OPENCV，FULL_OPENCV</strong>：如果事先知道内参，请使用这些相机型号。如果共享多个图像的内在函数，则还可以尝试让COLMAP估计参数。请注意，如果每个图像都有一组单独的固有参数，则参数的自动估计很可能会失败。</p>
 <p><strong>SIMPLE_RADIAL_FISHEYE，RADIAL_FISHEYE，OPENCV_FISHEYE，FOV和THIN_PRISM_FISHEYE</strong>：将这些相机模型用于鱼眼镜头，请注意，其他所有模型都无法真正模拟鱼眼镜头的畸变效果。
 Google Project Tango使用FOV模型(请确保不要将omega初始化为零)。</p>
-</div>
-<div class="section" id="id2">
-<h3><span class="section-number">1.1.2. </span>相关函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id2">
+<h3><span class="section-number">1.1.2. </span>相关函数<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>根据相机id和名字找到对应的名字和id</p></li>
 </ul>
 <dl class="cpp function">
-<dt id="_CPPv419CameraModelNameToIdRKNSt6stringE">
-<span id="_CPPv319CameraModelNameToIdRKNSt6stringE"></span><span id="_CPPv219CameraModelNameToIdRKNSt6stringE"></span><span id="CameraModelNameToId__ssCR"></span>int <code class="sig-name descname">CameraModelNameToId</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>model_name</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv419CameraModelNameToIdRKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419CameraModelNameToIdRKNSt6stringE">
+<span id="_CPPv319CameraModelNameToIdRKNSt6stringE"></span><span id="_CPPv219CameraModelNameToIdRKNSt6stringE"></span><span id="CameraModelNameToId__ssCR"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelNameToId</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">model_name</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419CameraModelNameToIdRKNSt6stringE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv419CameraModelIdToNameKi">
-<span id="_CPPv319CameraModelIdToNameKi"></span><span id="_CPPv219CameraModelIdToNameKi"></span><span id="CameraModelIdToName__iC"></span>std::string <code class="sig-name descname">CameraModelIdToName</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv419CameraModelIdToNameKi" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419CameraModelIdToNameKi">
+<span id="_CPPv319CameraModelIdToNameKi"></span><span id="_CPPv219CameraModelIdToNameKi"></span><span id="CameraModelIdToName__iC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelIdToName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419CameraModelIdToNameKi" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ul class="simple">
 <li><p>使用给定的参数初始化相机参数</p></li>
 </ul>
 <dl class="cpp function">
-<dt id="_CPPv427CameraModelInitializeParamsKiKdK6size_tK6size_t">
-<span id="_CPPv327CameraModelInitializeParamsKiKdK6size_tK6size_t"></span><span id="_CPPv227CameraModelInitializeParamsKiKdK6size_tK6size_t"></span><span id="CameraModelInitializeParams__iC.doubleC.sC.sC"></span>std::vector&lt;double&gt; <code class="sig-name descname">CameraModelInitializeParams</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em>, <em class="property">const</em> double <em>focal_length</em>, <em class="property">const</em> size_t <em>width</em>, <em class="property">const</em> size_t <em>height</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv427CameraModelInitializeParamsKiKdK6size_tK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv427CameraModelInitializeParamsKiKdK6size_tK6size_t">
+<span id="_CPPv327CameraModelInitializeParamsKiKdK6size_tK6size_t"></span><span id="_CPPv227CameraModelInitializeParamsKiKdK6size_tK6size_t"></span><span id="CameraModelInitializeParams__iC.doubleC.sC.sC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelInitializeParams</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">focal_length</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">height</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv427CameraModelInitializeParamsKiKdK6size_tK6size_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ul class="simple">
@@ -342,26 +260,26 @@ Google Project Tango使用FOV模型(请确保不要将omega初始化为零)。</
 </ul>
 <p>colmap通过不同的数组存储对应的焦距，主点，和其他参数。通过相机id进行查找。</p>
 <dl class="cpp function">
-<dt id="_CPPv426CameraModelFocalLengthIdxsKi">
-<span id="_CPPv326CameraModelFocalLengthIdxsKi"></span><span id="_CPPv226CameraModelFocalLengthIdxsKi"></span><span id="CameraModelFocalLengthIdxs__iC"></span><em class="property">const</em> std::vector&lt;size_t&gt; &amp;<code class="sig-name descname">CameraModelFocalLengthIdxs</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv426CameraModelFocalLengthIdxsKi" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv426CameraModelFocalLengthIdxsKi">
+<span id="_CPPv326CameraModelFocalLengthIdxsKi"></span><span id="_CPPv226CameraModelFocalLengthIdxsKi"></span><span id="CameraModelFocalLengthIdxs__iC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelFocalLengthIdxs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv426CameraModelFocalLengthIdxsKi" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv429CameraModelPrincipalPointIdxsKi">
-<span id="_CPPv329CameraModelPrincipalPointIdxsKi"></span><span id="_CPPv229CameraModelPrincipalPointIdxsKi"></span><span id="CameraModelPrincipalPointIdxs__iC"></span><em class="property">const</em> std::vector&lt;size_t&gt; &amp;<code class="sig-name descname">CameraModelPrincipalPointIdxs</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv429CameraModelPrincipalPointIdxsKi" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv429CameraModelPrincipalPointIdxsKi">
+<span id="_CPPv329CameraModelPrincipalPointIdxsKi"></span><span id="_CPPv229CameraModelPrincipalPointIdxsKi"></span><span id="CameraModelPrincipalPointIdxs__iC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelPrincipalPointIdxs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv429CameraModelPrincipalPointIdxsKi" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv426CameraModelExtraParamsIdxsKi">
-<span id="_CPPv326CameraModelExtraParamsIdxsKi"></span><span id="_CPPv226CameraModelExtraParamsIdxsKi"></span><span id="CameraModelExtraParamsIdxs__iC"></span><em class="property">const</em> std::vector&lt;size_t&gt; &amp;<code class="sig-name descname">CameraModelExtraParamsIdxs</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv426CameraModelExtraParamsIdxsKi" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv426CameraModelExtraParamsIdxsKi">
+<span id="_CPPv326CameraModelExtraParamsIdxsKi"></span><span id="_CPPv226CameraModelExtraParamsIdxsKi"></span><span id="CameraModelExtraParamsIdxs__iC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">CameraModelExtraParamsIdxs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv426CameraModelExtraParamsIdxsKi" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ul class="simple">
 <li><p>将以像素为单位的阈值转换为归一化的单位</p></li>
 </ul>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">CameraModel</span><span class="o">&gt;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">CameraModel</span><span class="o">&gt;</span>
 
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
 
 <span class="n">T</span> <span class="n">BaseCameraModel</span><span class="o">&lt;</span><span class="n">CameraModel</span><span class="o">&gt;::</span><span class="n">ImageToWorldThreshold</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">threshold</span><span class="p">){</span>
 
@@ -379,18 +297,18 @@ Google Project Tango使用FOV模型(请确保不要将omega初始化为零)。</
 <ul class="simple">
 <li><p>以SimpleRadialCameraModel为例(colmap默认相机模型参数为SimpleRadialCameraModel)：</p></li>
 </ul>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../_images/1.png" src="../../../../../_images/1.png" />
-</div>
+</figure>
 <ol class="arabic">
 <li><p>将标准化的摄影机坐标转换为图像坐标，
 假设世界坐标为(u，v，1)，图像坐标为(x，y)</p>
 <dl class="cpp function">
-<dt id="_CPPv4N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T">
-<span id="_CPPv3N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::WorldToImage__TCP.TC.TC.TP.TP"></span>void <code class="sig-prename descclassname">SimpleRadialCameraModel<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">WorldToImage</code><span class="sig-paren">(</span><em class="property">const</em> T *<em>params</em>, <em class="property">const</em> T <em>u</em>, <em class="property">const</em> T <em>v</em>, T *<em>x</em>, T *<em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T">
+<span id="_CPPv3N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::WorldToImage__TCP.TC.TC.TP.TP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">SimpleRadialCameraModel</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">WorldToImage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel12WorldToImageEPK1TK1TK1TP1TP1T" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="n">SimpleRadialCameraModel</span><span class="o">::</span><span class="n">WorldToImage</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">v</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="nf">SimpleRadialCameraModel::WorldToImage</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">v</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="k">const</span> <span class="n">T</span> <span class="n">f</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 
@@ -419,11 +337,11 @@ Google Project Tango使用FOV模型(请确保不要将omega初始化为零)。</
 <li><p>将图像坐标转换为标准化的摄影机坐标。
 产生世界坐标为(u，v，1)。图像坐标为(x，y)</p>
 <dl class="cpp function">
-<dt id="_CPPv4N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T">
-<span id="_CPPv3N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::ImageToWorld__TCP.TC.TC.TP.TP"></span>void <code class="sig-prename descclassname">SimpleRadialCameraModel<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ImageToWorld</code><span class="sig-paren">(</span><em class="property">const</em> T *<em>params</em>, <em class="property">const</em> T <em>x</em>, <em class="property">const</em> T <em>y</em>, T *<em>u</em>, T *<em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T">
+<span id="_CPPv3N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::ImageToWorld__TCP.TC.TC.TP.TP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">SimpleRadialCameraModel</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ImageToWorld</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">y</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">u</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel12ImageToWorldEPK1TK1TK1TP1TP1T" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="n">SimpleRadialCameraModel</span><span class="o">::</span><span class="n">ImageToWorld</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">y</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">u</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="nf">SimpleRadialCameraModel::ImageToWorld</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">y</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">u</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
 
 <span class="k">const</span> <span class="n">T</span> <span class="n">f</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 
@@ -451,11 +369,11 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>由于SimpleRadialCameraModel模型只有一个k，所以取到第二项即可，同时将x和y用u，v替换。</p>
 <p><strong>请注意：该公式左侧为校正前的坐标(du，dv)，右侧(u，v)是未发生畸变的校正后坐标。</strong></p>
 <dl class="cpp function">
-<dt id="_CPPv4N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T">
-<span id="_CPPv3N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::Distortion__TCP.TC.TC.TP.TP"></span>void <code class="sig-prename descclassname">SimpleRadialCameraModel<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Distortion</code><span class="sig-paren">(</span><em class="property">const</em> T *<em>extra_params</em>, <em class="property">const</em> T <em>u</em>, <em class="property">const</em> T <em>v</em>, T *<em>du</em>, T *<em>dv</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T">
+<span id="_CPPv3N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T"></span><span id="_CPPv2N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T"></span><span id="SimpleRadialCameraModel::Distortion__TCP.TC.TC.TP.TP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">SimpleRadialCameraModel</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Distortion</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">extra_params</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">u</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">du</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">dv</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N23SimpleRadialCameraModel10DistortionEPK1TK1TK1TP1TP1T" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="n">SimpleRadialCameraModel</span><span class="o">::</span><span class="n">Distortion</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">extra_params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">v</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">du</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">dv</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="kt">void</span> <span class="nf">SimpleRadialCameraModel::Distortion</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">extra_params</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">u</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">v</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">du</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">dv</span><span class="p">)</span> <span class="p">{</span>
 
 <span class="k">const</span> <span class="n">T</span> <span class="n">k</span> <span class="o">=</span> <span class="n">extra_params</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 
@@ -476,12 +394,12 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <li><p>牛顿迭代法去除畸变</p>
 <blockquote>
 <div><dl class="cpp function">
-<dt id="_CPPv4N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T">
-<span id="_CPPv3N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T"></span><span id="_CPPv2N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T"></span><span id="BaseCameraModel::IterativeUndistortion__TCP.TP.TP"></span>void <code class="sig-prename descclassname">BaseCameraModel<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">IterativeUndistortion</code><span class="sig-paren">(</span><em class="property">const</em> T *<em>params</em>, T *<em>u</em>, T *<em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T">
+<span id="_CPPv3N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T"></span><span id="_CPPv2N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T"></span><span id="BaseCameraModel::IterativeUndistortion__TCP.TP.TP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">BaseCameraModel</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IterativeUndistortion</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">params</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">u</span></span>, <span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15BaseCameraModel21IterativeUndistortionEPK1TP1TP1T" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">CameraModel</span><span class="o">&gt;</span>
-<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">CameraModel</span><span class="o">&gt;</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">T</span><span class="o">&gt;</span>
 
 <span class="kt">void</span> <span class="n">BaseCameraModel</span><span class="o">::</span><span class="n">IterativeUndistortion</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span> <span class="n">u</span><span class="p">,</span> <span class="n">T</span><span class="o">*</span><span class="n">v</span><span class="p">)</span> <span class="p">{</span>
 
@@ -494,9 +412,9 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 
 <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix2d</span> <span class="n">J</span><span class="p">;</span>
 
-<span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">x0</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
+<span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="nf">x0</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
 
-<span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">x</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
+<span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="nf">x</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="o">*</span><span class="n">v</span><span class="p">);</span>
 
 <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span> <span class="n">dx</span><span class="p">;</span>
 
@@ -541,162 +459,162 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 </div></blockquote>
 </li>
 </ol>
-</div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">1.2. </span>Camera<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>Camera<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>包含内参的相机类。
 可以在多个图像之间共享相机，例如，如果同一“物理”相机使用完全相同的镜头和内在特性(焦距等)拍摄了多张照片。</p>
-<div class="section" id="id4">
-<h3><span class="section-number">1.2.1. </span>相关函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<section id="id4">
+<h3><span class="section-number">1.2.1. </span>相关函数<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <ol class="arabic simple">
 <li><p>相机模型信息</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera7ModelIdEv">
-<span id="_CPPv3NK6Camera7ModelIdEv"></span><span id="_CPPv2NK6Camera7ModelIdEv"></span><span id="Camera::ModelIdC"></span><em class="property">inline</em> int <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ModelId</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera7ModelIdEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera7ModelIdEv">
+<span id="_CPPv3NK6Camera7ModelIdEv"></span><span id="_CPPv2NK6Camera7ModelIdEv"></span><span id="Camera::ModelIdC"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ModelId</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera7ModelIdEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera9ModelNameEv">
-<span id="_CPPv3NK6Camera9ModelNameEv"></span><span id="_CPPv2NK6Camera9ModelNameEv"></span><span id="Camera::ModelNameC"></span>std::string <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ModelName</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera9ModelNameEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera9ModelNameEv">
+<span id="_CPPv3NK6Camera9ModelNameEv"></span><span id="_CPPv2NK6Camera9ModelNameEv"></span><span id="Camera::ModelNameC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ModelName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera9ModelNameEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera10SetModelIdEKi">
-<span id="_CPPv3N6Camera10SetModelIdEKi"></span><span id="_CPPv2N6Camera10SetModelIdEKi"></span><span id="Camera::SetModelId__iC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetModelId</code><span class="sig-paren">(</span><em class="property">const</em> int <em>model_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera10SetModelIdEKi" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera10SetModelIdEKi">
+<span id="_CPPv3N6Camera10SetModelIdEKi"></span><span id="_CPPv2N6Camera10SetModelIdEKi"></span><span id="Camera::SetModelId__iC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetModelId</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">model_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera10SetModelIdEKi" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera18SetModelIdFromNameERKNSt6stringE">
-<span id="_CPPv3N6Camera18SetModelIdFromNameERKNSt6stringE"></span><span id="_CPPv2N6Camera18SetModelIdFromNameERKNSt6stringE"></span><span id="Camera::SetModelIdFromName__ssCR"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetModelIdFromName</code><span class="sig-paren">(</span><em class="property">const</em> std::string &amp;<em>model_name</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera18SetModelIdFromNameERKNSt6stringE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera18SetModelIdFromNameERKNSt6stringE">
+<span id="_CPPv3N6Camera18SetModelIdFromNameERKNSt6stringE"></span><span id="_CPPv2N6Camera18SetModelIdFromNameERKNSt6stringE"></span><span id="Camera::SetModelIdFromName__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetModelIdFromName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">model_name</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera18SetModelIdFromNameERKNSt6stringE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="2">
 <li><p>相机长宽</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera5WidthEv">
-<span id="_CPPv3NK6Camera5WidthEv"></span><span id="_CPPv2NK6Camera5WidthEv"></span><span id="Camera::WidthC"></span><em class="property">inline</em> size_t <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Width</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera5WidthEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera5WidthEv">
+<span id="_CPPv3NK6Camera5WidthEv"></span><span id="_CPPv2NK6Camera5WidthEv"></span><span id="Camera::WidthC"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Width</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera5WidthEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera6HeightEv">
-<span id="_CPPv3NK6Camera6HeightEv"></span><span id="_CPPv2NK6Camera6HeightEv"></span><span id="Camera::HeightC"></span><em class="property">inline</em> size_t <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Height</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera6HeightEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera6HeightEv">
+<span id="_CPPv3NK6Camera6HeightEv"></span><span id="_CPPv2NK6Camera6HeightEv"></span><span id="Camera::HeightC"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Height</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera6HeightEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera8SetWidthEK6size_t">
-<span id="_CPPv3N6Camera8SetWidthEK6size_t"></span><span id="_CPPv2N6Camera8SetWidthEK6size_t"></span><span id="Camera::SetWidth__sC"></span><em class="property">inline</em> void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetWidth</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>width</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera8SetWidthEK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera8SetWidthEK6size_t">
+<span id="_CPPv3N6Camera8SetWidthEK6size_t"></span><span id="_CPPv2N6Camera8SetWidthEK6size_t"></span><span id="Camera::SetWidth__sC"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetWidth</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera8SetWidthEK6size_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera9SetHeightEK6size_t">
-<span id="_CPPv3N6Camera9SetHeightEK6size_t"></span><span id="_CPPv2N6Camera9SetHeightEK6size_t"></span><span id="Camera::SetHeight__sC"></span><em class="property">inline</em> void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetHeight</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>height</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera9SetHeightEK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera9SetHeightEK6size_t">
+<span id="_CPPv3N6Camera9SetHeightEK6size_t"></span><span id="_CPPv2N6Camera9SetHeightEK6size_t"></span><span id="Camera::SetHeight__sC"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetHeight</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">height</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera9SetHeightEK6size_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="3">
 <li><p>焦距信息</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera15MeanFocalLengthEv">
-<span id="_CPPv3NK6Camera15MeanFocalLengthEv"></span><span id="_CPPv2NK6Camera15MeanFocalLengthEv"></span><span id="Camera::MeanFocalLengthC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">MeanFocalLength</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera15MeanFocalLengthEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera15MeanFocalLengthEv">
+<span id="_CPPv3NK6Camera15MeanFocalLengthEv"></span><span id="_CPPv2NK6Camera15MeanFocalLengthEv"></span><span id="Camera::MeanFocalLengthC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MeanFocalLength</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera15MeanFocalLengthEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera11FocalLengthEv">
-<span id="_CPPv3NK6Camera11FocalLengthEv"></span><span id="_CPPv2NK6Camera11FocalLengthEv"></span><span id="Camera::FocalLengthC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FocalLength</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera11FocalLengthEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera11FocalLengthEv">
+<span id="_CPPv3NK6Camera11FocalLengthEv"></span><span id="_CPPv2NK6Camera11FocalLengthEv"></span><span id="Camera::FocalLengthC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FocalLength</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera11FocalLengthEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera12FocalLengthXEv">
-<span id="_CPPv3NK6Camera12FocalLengthXEv"></span><span id="_CPPv2NK6Camera12FocalLengthXEv"></span><span id="Camera::FocalLengthXC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FocalLengthX</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera12FocalLengthXEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera12FocalLengthXEv">
+<span id="_CPPv3NK6Camera12FocalLengthXEv"></span><span id="_CPPv2NK6Camera12FocalLengthXEv"></span><span id="Camera::FocalLengthXC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FocalLengthX</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera12FocalLengthXEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera12FocalLengthYEv">
-<span id="_CPPv3NK6Camera12FocalLengthYEv"></span><span id="_CPPv2NK6Camera12FocalLengthYEv"></span><span id="Camera::FocalLengthYC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FocalLengthY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera12FocalLengthYEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera12FocalLengthYEv">
+<span id="_CPPv3NK6Camera12FocalLengthYEv"></span><span id="_CPPv2NK6Camera12FocalLengthYEv"></span><span id="Camera::FocalLengthYC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FocalLengthY</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera12FocalLengthYEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera14SetFocalLengthEKd">
-<span id="_CPPv3N6Camera14SetFocalLengthEKd"></span><span id="_CPPv2N6Camera14SetFocalLengthEKd"></span><span id="Camera::SetFocalLength__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetFocalLength</code><span class="sig-paren">(</span><em class="property">const</em> double <em>focal_length</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera14SetFocalLengthEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera14SetFocalLengthEKd">
+<span id="_CPPv3N6Camera14SetFocalLengthEKd"></span><span id="_CPPv2N6Camera14SetFocalLengthEKd"></span><span id="Camera::SetFocalLength__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetFocalLength</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">focal_length</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera14SetFocalLengthEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera15SetFocalLengthXEKd">
-<span id="_CPPv3N6Camera15SetFocalLengthXEKd"></span><span id="_CPPv2N6Camera15SetFocalLengthXEKd"></span><span id="Camera::SetFocalLengthX__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetFocalLengthX</code><span class="sig-paren">(</span><em class="property">const</em> double <em>focal_length_x</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera15SetFocalLengthXEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera15SetFocalLengthXEKd">
+<span id="_CPPv3N6Camera15SetFocalLengthXEKd"></span><span id="_CPPv2N6Camera15SetFocalLengthXEKd"></span><span id="Camera::SetFocalLengthX__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetFocalLengthX</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">focal_length_x</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera15SetFocalLengthXEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera15SetFocalLengthYEKd">
-<span id="_CPPv3N6Camera15SetFocalLengthYEKd"></span><span id="_CPPv2N6Camera15SetFocalLengthYEKd"></span><span id="Camera::SetFocalLengthY__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetFocalLengthY</code><span class="sig-paren">(</span><em class="property">const</em> double <em>focal_length_y</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera15SetFocalLengthYEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera15SetFocalLengthYEKd">
+<span id="_CPPv3N6Camera15SetFocalLengthYEKd"></span><span id="_CPPv2N6Camera15SetFocalLengthYEKd"></span><span id="Camera::SetFocalLengthY__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetFocalLengthY</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">focal_length_y</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera15SetFocalLengthYEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="4">
 <li><p>主点信息</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera15PrincipalPointXEv">
-<span id="_CPPv3NK6Camera15PrincipalPointXEv"></span><span id="_CPPv2NK6Camera15PrincipalPointXEv"></span><span id="Camera::PrincipalPointXC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PrincipalPointX</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera15PrincipalPointXEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera15PrincipalPointXEv">
+<span id="_CPPv3NK6Camera15PrincipalPointXEv"></span><span id="_CPPv2NK6Camera15PrincipalPointXEv"></span><span id="Camera::PrincipalPointXC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PrincipalPointX</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera15PrincipalPointXEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera15PrincipalPointYEv">
-<span id="_CPPv3NK6Camera15PrincipalPointYEv"></span><span id="_CPPv2NK6Camera15PrincipalPointYEv"></span><span id="Camera::PrincipalPointYC"></span>double <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PrincipalPointY</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera15PrincipalPointYEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera15PrincipalPointYEv">
+<span id="_CPPv3NK6Camera15PrincipalPointYEv"></span><span id="_CPPv2NK6Camera15PrincipalPointYEv"></span><span id="Camera::PrincipalPointYC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PrincipalPointY</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera15PrincipalPointYEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera18SetPrincipalPointXEKd">
-<span id="_CPPv3N6Camera18SetPrincipalPointXEKd"></span><span id="_CPPv2N6Camera18SetPrincipalPointXEKd"></span><span id="Camera::SetPrincipalPointX__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetPrincipalPointX</code><span class="sig-paren">(</span><em class="property">const</em> double <em>ppx</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera18SetPrincipalPointXEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera18SetPrincipalPointXEKd">
+<span id="_CPPv3N6Camera18SetPrincipalPointXEKd"></span><span id="_CPPv2N6Camera18SetPrincipalPointXEKd"></span><span id="Camera::SetPrincipalPointX__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetPrincipalPointX</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ppx</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera18SetPrincipalPointXEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera18SetPrincipalPointYEKd">
-<span id="_CPPv3N6Camera18SetPrincipalPointYEKd"></span><span id="_CPPv2N6Camera18SetPrincipalPointYEKd"></span><span id="Camera::SetPrincipalPointY__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetPrincipalPointY</code><span class="sig-paren">(</span><em class="property">const</em> double <em>ppy</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera18SetPrincipalPointYEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera18SetPrincipalPointYEKd">
+<span id="_CPPv3N6Camera18SetPrincipalPointYEKd"></span><span id="_CPPv2N6Camera18SetPrincipalPointYEKd"></span><span id="Camera::SetPrincipalPointY__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetPrincipalPointY</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ppy</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera18SetPrincipalPointYEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="5">
 <li><p>内参矩阵</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera17CalibrationMatrixEv">
-<span id="_CPPv3NK6Camera17CalibrationMatrixEv"></span><span id="_CPPv2NK6Camera17CalibrationMatrixEv"></span><span id="Camera::CalibrationMatrixC"></span>Eigen::Matrix3d <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CalibrationMatrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera17CalibrationMatrixEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera17CalibrationMatrixEv">
+<span id="_CPPv3NK6Camera17CalibrationMatrixEv"></span><span id="_CPPv2NK6Camera17CalibrationMatrixEv"></span><span id="Camera::CalibrationMatrixC"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3d</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CalibrationMatrix</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera17CalibrationMatrixEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="6">
 <li><p>获取参数向量中参数组的索引</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera15FocalLengthIdxsEv">
-<span id="_CPPv3NK6Camera15FocalLengthIdxsEv"></span><span id="_CPPv2NK6Camera15FocalLengthIdxsEv"></span><span id="Camera::FocalLengthIdxsC"></span><em class="property">const</em> std::vector &amp;<code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FocalLengthIdxs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera15FocalLengthIdxsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera15FocalLengthIdxsEv">
+<span id="_CPPv3NK6Camera15FocalLengthIdxsEv"></span><span id="_CPPv2NK6Camera15FocalLengthIdxsEv"></span><span id="Camera::FocalLengthIdxsC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FocalLengthIdxs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera15FocalLengthIdxsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera18PrincipalPointIdxsEv">
-<span id="_CPPv3NK6Camera18PrincipalPointIdxsEv"></span><span id="_CPPv2NK6Camera18PrincipalPointIdxsEv"></span><span id="Camera::PrincipalPointIdxsC"></span><em class="property">const</em> std::vector&lt;size_t&gt; &amp;<code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PrincipalPointIdxs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera18PrincipalPointIdxsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera18PrincipalPointIdxsEv">
+<span id="_CPPv3NK6Camera18PrincipalPointIdxsEv"></span><span id="_CPPv2NK6Camera18PrincipalPointIdxsEv"></span><span id="Camera::PrincipalPointIdxsC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">PrincipalPointIdxs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera18PrincipalPointIdxsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK6Camera15ExtraParamsIdxsEv">
-<span id="_CPPv3NK6Camera15ExtraParamsIdxsEv"></span><span id="_CPPv2NK6Camera15ExtraParamsIdxsEv"></span><span id="Camera::ExtraParamsIdxsC"></span><em class="property">const</em> std::vector&lt;size_t&gt; &amp;<code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ExtraParamsIdxs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK6Camera15ExtraParamsIdxsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK6Camera15ExtraParamsIdxsEv">
+<span id="_CPPv3NK6Camera15ExtraParamsIdxsEv"></span><span id="_CPPv2NK6Camera15ExtraParamsIdxsEv"></span><span id="Camera::ExtraParamsIdxsC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ExtraParamsIdxs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK6Camera15ExtraParamsIdxsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="7">
 <li><p>改变尺寸进而改变焦距</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera7RescaleEKd">
-<span id="_CPPv3N6Camera7RescaleEKd"></span><span id="_CPPv2N6Camera7RescaleEKd"></span><span id="Camera::Rescale__doubleC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Rescale</code><span class="sig-paren">(</span><em class="property">const</em> double <em>scale</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Camera7RescaleEKd" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera7RescaleEKd">
+<span id="_CPPv3N6Camera7RescaleEKd"></span><span id="_CPPv2N6Camera7RescaleEKd"></span><span id="Camera::Rescale__doubleC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Rescale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">scale</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6Camera7RescaleEKd" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6Camera7RescaleEK6size_tK6size_t">
-<span id="_CPPv3N6Camera7RescaleEK6size_tK6size_t"></span><span id="_CPPv2N6Camera7RescaleEK6size_tK6size_t"></span><span id="Camera::Rescale__sC.sC"></span>void <code class="sig-prename descclassname">Camera<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Rescale</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>width</em>, <em class="property">const</em> size_t <em>height</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N6Camera7RescaleEK6size_tK6size_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6Camera7RescaleEK6size_tK6size_t">
+<span id="_CPPv3N6Camera7RescaleEK6size_tK6size_t"></span><span id="_CPPv2N6Camera7RescaleEK6size_tK6size_t"></span><span id="Camera::Rescale__sC.sC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Camera</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Rescale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">width</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">height</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N6Camera7RescaleEK6size_tK6size_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <p>//– 根据尺寸变换焦距 –//</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">Camera</span><span class="o">::</span><span class="n">Rescale</span><span class="p">(</span><span class="k">const</span> <span class="kt">double</span> <span class="n">scale</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">Camera::Rescale</span><span class="p">(</span><span class="k">const</span> <span class="kt">double</span> <span class="n">scale</span><span class="p">)</span> <span class="p">{</span>
 
     <span class="n">CHECK_GT</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
 
@@ -726,7 +644,7 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 </pre></div>
 </div>
 <p>//– 根据长宽变换焦距 –//</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">Camera</span><span class="o">::</span><span class="n">Rescale</span><span class="p">(</span><span class="k">const</span> <span class="kt">size_t</span> <span class="n">width</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span> <span class="n">height</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">Camera::Rescale</span><span class="p">(</span><span class="k">const</span> <span class="kt">size_t</span> <span class="n">width</span><span class="p">,</span> <span class="k">const</span> <span class="kt">size_t</span> <span class="n">height</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">const</span> <span class="kt">double</span> <span class="n">scale_x</span> <span class="o">=</span>
         <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">width_</span><span class="p">);</span>
 
@@ -753,26 +671,26 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="camerarig">
-<h2><span class="section-number">1.3. </span>CameraRig<a class="headerlink" href="#camerarig" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="camerarig">
+<h2><span class="section-number">1.3. </span>CameraRig<a class="headerlink" href="#camerarig" title="永久链接至标题"></a></h2>
 <p>包含有关摄影机装置的相对配置的信息。</p>
 <p>相机装置由多个相机组成，这些相机在多个快照上具有严格的相对外部配置。</p>
 <p>快照定义为装置中所有摄像机同时捕获的图像的集合。</p>
-<div class="section" id="id5">
-<h3><span class="section-number">1.3.1. </span>相关函数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<section id="id5">
+<h3><span class="section-number">1.3.1. </span>相关函数<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <ol class="arabic simple">
 <li><p>相机和快照的数量</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig10NumCamerasEv">
-<span id="_CPPv3NK9CameraRig10NumCamerasEv"></span><span id="_CPPv2NK9CameraRig10NumCamerasEv"></span><span id="CameraRig::NumCamerasC"></span>size_t <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">NumCameras</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig10NumCamerasEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig10NumCamerasEv">
+<span id="_CPPv3NK9CameraRig10NumCamerasEv"></span><span id="_CPPv2NK9CameraRig10NumCamerasEv"></span><span id="CameraRig::NumCamerasC"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NumCameras</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig10NumCamerasEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig12NumSnapshotsEv">
-<span id="_CPPv3NK9CameraRig12NumSnapshotsEv"></span><span id="_CPPv2NK9CameraRig12NumSnapshotsEv"></span><span id="CameraRig::NumSnapshotsC"></span>size_t <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">NumSnapshots</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12NumSnapshotsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig12NumSnapshotsEv">
+<span id="_CPPv3NK9CameraRig12NumSnapshotsEv"></span><span id="_CPPv2NK9CameraRig12NumSnapshotsEv"></span><span id="CameraRig::NumSnapshotsC"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NumSnapshots</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig12NumSnapshotsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="2">
@@ -781,8 +699,8 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>将新相机添加到装置。
 相对位姿可以包含虚拟值，然后可以使用ComputeRelativePoses方法从给定的重构中自动计算出相对位姿。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE">
-<span id="_CPPv3N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="_CPPv2N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="CameraRig::AddCamera__camera_tC.Eigen::Vector4dCR.Eigen::Vector3dCR"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">AddCamera</code><span class="sig-paren">(</span><em class="property">const</em> camera_t <em>camera_id</em>, <em class="property">const</em> Eigen::Vector4d &amp;<em>rel_qvec</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>rel_tvec</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE">
+<span id="_CPPv3N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="_CPPv2N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE"></span><span id="CameraRig::AddCamera__camera_tC.Eigen::Vector4dCR.Eigen::Vector3dCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddCamera</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">camera_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">camera_id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rel_qvec</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rel_tvec</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N9CameraRig9AddCameraEK8camera_tRKN5Eigen8Vector4dERKN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="3">
@@ -790,31 +708,31 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 </ol>
 <p>将单个快照的图像添加到装置。快照由装置的所有摄像机捕获的图像组成。快照的所有图像共享相同的全局相机装置位姿。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE">
-<span id="_CPPv3N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE"></span><span id="_CPPv2N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE"></span><span id="CameraRig::AddSnapshot__std::vector:image_t:CR"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">AddSnapshot</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;image_t&gt; &amp;<em>image_ids</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE">
+<span id="_CPPv3N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE"></span><span id="_CPPv2N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE"></span><span id="CameraRig::AddSnapshot__std::vector:image_t:CR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddSnapshot</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">image_ids</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N9CameraRig11AddSnapshotERKNSt6vectorI7image_tEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="4">
 <li><p>获取装置中摄像机的相对姿势</p></li>
 </ol>
 <dl class="cpp function">
-<dt id="_CPPv4N9CameraRig12RelativeQvecEK8camera_t">
-<span id="_CPPv3N9CameraRig12RelativeQvecEK8camera_t"></span><span id="_CPPv2N9CameraRig12RelativeQvecEK8camera_t"></span><span id="CameraRig::RelativeQvec__camera_tC"></span>Eigen::Vector4d &amp;<code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RelativeQvec</code><span class="sig-paren">(</span><em class="property">const</em> camera_t <em>camera_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig12RelativeQvecEK8camera_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CameraRig12RelativeQvecEK8camera_t">
+<span id="_CPPv3N9CameraRig12RelativeQvecEK8camera_t"></span><span id="_CPPv2N9CameraRig12RelativeQvecEK8camera_t"></span><span id="CameraRig::RelativeQvec__camera_tC"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RelativeQvec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">camera_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">camera_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N9CameraRig12RelativeQvecEK8camera_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig12RelativeQvecEK8camera_t">
-<span id="_CPPv3NK9CameraRig12RelativeQvecEK8camera_t"></span><span id="_CPPv2NK9CameraRig12RelativeQvecEK8camera_t"></span><span id="CameraRig::RelativeQvec__camera_tCC"></span><em class="property">const</em> Eigen::Vector4d &amp;<code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RelativeQvec</code><span class="sig-paren">(</span><em class="property">const</em> camera_t <em>camera_id</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12RelativeQvecEK8camera_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig12RelativeQvecEK8camera_t">
+<span id="_CPPv3NK9CameraRig12RelativeQvecEK8camera_t"></span><span id="_CPPv2NK9CameraRig12RelativeQvecEK8camera_t"></span><span id="CameraRig::RelativeQvec__camera_tCC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RelativeQvec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">camera_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">camera_id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig12RelativeQvecEK8camera_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N9CameraRig12RelativeTvecEK8camera_t">
-<span id="_CPPv3N9CameraRig12RelativeTvecEK8camera_t"></span><span id="_CPPv2N9CameraRig12RelativeTvecEK8camera_t"></span><span id="CameraRig::RelativeTvec__camera_tC"></span>Eigen::Vector3d &amp;<code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RelativeTvec</code><span class="sig-paren">(</span><em class="property">const</em> camera_t <em>camera_id</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig12RelativeTvecEK8camera_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CameraRig12RelativeTvecEK8camera_t">
+<span id="_CPPv3N9CameraRig12RelativeTvecEK8camera_t"></span><span id="_CPPv2N9CameraRig12RelativeTvecEK8camera_t"></span><span id="CameraRig::RelativeTvec__camera_tC"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RelativeTvec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">camera_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">camera_id</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N9CameraRig12RelativeTvecEK8camera_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig12RelativeTvecEK8camera_t">
-<span id="_CPPv3NK9CameraRig12RelativeTvecEK8camera_t"></span><span id="_CPPv2NK9CameraRig12RelativeTvecEK8camera_t"></span><span id="CameraRig::RelativeTvec__camera_tCC"></span><em class="property">const</em> Eigen::Vector3d &amp;<code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RelativeTvec</code><span class="sig-paren">(</span><em class="property">const</em> camera_t <em>camera_id</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12RelativeTvecEK8camera_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig12RelativeTvecEK8camera_t">
+<span id="_CPPv3NK9CameraRig12RelativeTvecEK8camera_t"></span><span id="_CPPv2NK9CameraRig12RelativeTvecEK8camera_t"></span><span id="CameraRig::RelativeTvec__camera_tCC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RelativeTvec</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">camera_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">camera_id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig12RelativeTvecEK8camera_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="5">
@@ -823,8 +741,8 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>通过求投影中心之间的平均距离，可以计算出从重建到摄像机装置尺寸的比例因子。</p>
 <p>假设设备中至少有一对摄像机的基线为非零，否则该函数返回NaN。</p>
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction">
-<span id="_CPPv3NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="_CPPv2NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="CameraRig::ComputeScale__ReconstructionCRC"></span>double <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeScale</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction">
+<span id="_CPPv3NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="_CPPv2NK9CameraRig12ComputeScaleERK14Reconstruction"></span><span id="CameraRig::ComputeScale__ReconstructionCRC"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComputeScale</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig12ComputeScaleERK14Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="6">
@@ -833,8 +751,8 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 <p>通过求所有快照上的相对位姿的平均值，可以从重建中计算相机装置中的相对姿态。</p>
 <p>参考摄像机的姿势将是Identity。 这假定摄影机装置有在重建中配准的快照。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction">
-<span id="_CPPv3N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="_CPPv2N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="CameraRig::ComputeRelativePoses__ReconstructionCR"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeRelativePoses</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction">
+<span id="_CPPv3N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="_CPPv2N9CameraRig20ComputeRelativePosesERK14Reconstruction"></span><span id="CameraRig::ComputeRelativePoses__ReconstructionCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComputeRelativePoses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N9CameraRig20ComputeRelativePosesERK14Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <ol class="arabic simple" start="7">
@@ -842,52 +760,40 @@ dv = v(1+ k_1r^2 + k_2 r^4 + k_3r^6)
 </ol>
 <p>装置的绝对摄影机位姿计算为装置中所有相对摄影机位姿及其在重建中对应图像位姿的平均值。</p>
 <dl class="cpp function">
-<dt id="_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
-<span id="_CPPv3NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv2NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="CameraRig::ComputeAbsolutePose__sC.ReconstructionCR.Eigen::Vector4dP.Eigen::Vector3dPC"></span>void <code class="sig-prename descclassname">CameraRig<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ComputeAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>snapshot_idx</em>, <em class="property">const</em> <a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em>, Eigen::Vector4d *<em>abs_qvec</em>, Eigen::Vector3d *<em>abs_tvec</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
+<span id="_CPPv3NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv2NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="CameraRig::ComputeAbsolutePose__sC.ReconstructionCR.Eigen::Vector4dP.Eigen::Vector3dPC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">CameraRig</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ComputeAbsolutePose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">snapshot_idx</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">abs_qvec</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">abs_tvec</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK9CameraRig19ComputeAbsolutePoseEK6size_tRK14ReconstructionPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../VisibilityPyramid/VisibilityPyramid.html" class="btn btn-neutral float-right" title="2. VisibilityPyramid" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../c_base.html" class="btn btn-neutral float-left" title="Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../VisibilityPyramid/VisibilityPyramid.html" class="btn btn-neutral float-right" title="2. VisibilityPyramid" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

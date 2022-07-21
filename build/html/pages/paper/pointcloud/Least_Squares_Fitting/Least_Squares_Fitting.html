@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>2. Least-Squares Fitting of Two 3-D Point Sets &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../_static/twemoji.js"></script>
         <script src="../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
-    <link rel="next" title="🍒 Others" href="../../p_others.html" />
+    <link rel="next" title="🍊 Bundle Adjustment" href="../../p_BA.html" />
     <link rel="prev" title="1. PointNet" href="../PointNet/PointNet.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,27 +43,17 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../p_pointcloud.html">🍋 Point Cloud</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../PointNet/PointNet.html">1. PointNet</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2. Least-Squares Fitting of Two 3-D Point Sets</a><ul>
@@ -116,99 +67,67 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../p_pointcloud.html">🍋 Point Cloud</a> &raquo;</li>
-        
       <li><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../_sources/pages/paper/pointcloud/Least_Squares_Fitting/Least_Squares_Fitting.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="least-squares-fitting-of-two-3-d-point-sets">
-<h1><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets<a class="headerlink" href="#least-squares-fitting-of-two-3-d-point-sets" title="永久链接至标题">¶</a></h1>
+             
+  <section id="least-squares-fitting-of-two-3-d-point-sets">
+<h1><span class="section-number">2. </span>Least-Squares Fitting of Two 3-D Point Sets<a class="headerlink" href="#least-squares-fitting-of-two-3-d-point-sets" title="永久链接至标题"></a></h1>
 <p>👉 <a class="reference external" href="https://www.math.pku.edu.cn/teachers/yaoy/Fall2011/arun.pdf">原文链接</a></p>
-<div class="section" id="introduction">
-<h2><span class="section-number">2.1. </span>INTRODUCTION<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<section id="introduction">
+<h2><span class="section-number">2.1. </span>INTRODUCTION<a class="headerlink" href="#introduction" title="永久链接至标题"></a></h2>
 <p>给定两组3D点云集合 <span class="math notranslate nohighlight">\(\{p_i\}\)</span> 和 <span class="math notranslate nohighlight">\(\{p_i'\}\)</span> （ <span class="math notranslate nohighlight">\(3 \times 1\)</span> ），从而有</p>
 <div class="math notranslate nohighlight">
 \[p_i' = Rp_i + T + N_i\]</div>
 <p>目标是求一个 <span class="math notranslate nohighlight">\(R,T\)</span> 去最小化：</p>
 <div class="math notranslate nohighlight">
 \[\Sigma^2 = \sum\limits_{i=1}^N ||p_i' - (Rp_i + T)||^2\]</div>
-</div>
-<div class="section" id="decoupling-translation-and-rotation">
-<h2><span class="section-number">2.2. </span>DECOUPLING TRANSLATION AND ROTATION<a class="headerlink" href="#decoupling-translation-and-rotation" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="decoupling-translation-and-rotation">
+<h2><span class="section-number">2.2. </span>DECOUPLING TRANSLATION AND ROTATION<a class="headerlink" href="#decoupling-translation-and-rotation" title="永久链接至标题"></a></h2>
 <p>定义质心：</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}\begin{split}p  \triangleq \frac{1}{N} \sum\limits_{i=1}^N p_i \\\end{split}\\\begin{split}p' \triangleq \frac{1}{N} \sum\limits_{i=1}^N p_i' \\\end{split}\end{aligned}\end{align} \]</div>
@@ -239,9 +158,9 @@
 <li><p>通过 <span class="math notranslate nohighlight">\(\hat{T} = p' - \hat{R} p\)</span> 计算位移</p></li>
 </ol>
 </div>
-</div>
-<div class="section" id="an-svd-algorithm-for-finding-hat-r">
-<h2><span class="section-number">2.3. </span>AN SVD ALGORITHM FOR FINDING  <span class="math notranslate nohighlight">\(\hat{R}\)</span><a class="headerlink" href="#an-svd-algorithm-for-finding-hat-r" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="an-svd-algorithm-for-finding-hat-r">
+<h2><span class="section-number">2.3. </span>AN SVD ALGORITHM FOR FINDING  <span class="math notranslate nohighlight">\(\hat{R}\)</span><a class="headerlink" href="#an-svd-algorithm-for-finding-hat-r" title="永久链接至标题"></a></h2>
 <p>将 <span class="math notranslate nohighlight">\(\Sigma^2\)</span> 的右边展开：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{eqnarray}
@@ -340,9 +259,9 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 \[Trace(XH) \ge Trace(BXH)\]</div>
 <p>因此，在所有 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵中， <span class="math notranslate nohighlight">\(X\)</span> 使 <span class="math notranslate nohighlight">\(F\)</span> 最大化。 如果 <span class="math notranslate nohighlight">\(det(X) = +1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是所求的旋转。</p>
 <p>但是，如果 <span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则 <span class="math notranslate nohighlight">\(X\)</span> 是 <code class="docutils literal notranslate"><span class="pre">reflection（镜像对称）</span></code></p>
-</div>
-<div class="section" id="reflection">
-<h2><span class="section-number">2.4. </span>REFLECTION<a class="headerlink" href="#reflection" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="reflection">
+<h2><span class="section-number">2.4. </span>REFLECTION<a class="headerlink" href="#reflection" title="永久链接至标题"></a></h2>
 <p>Reflection称为反射变换（镜面反射），在数学上反射是把一个物体变换成它的镜像的映射。要反射一个平面图形，需要“镜子”是一条直线（反射轴），对于三维空间中的反射就要使用平面作为镜子。</p>
 <p>反射变换同样是一个 <strong>正交矩阵</strong> ，显而易见它满足如下性质：</p>
 <ul class="simple">
@@ -365,9 +284,9 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <li><p><span class="math notranslate nohighlight">\(det(X) = 1\)</span>  ，则所求的 <span class="math notranslate nohighlight">\(X\)</span> 是所求的旋转矩阵。</p></li>
 <li><p><span class="math notranslate nohighlight">\(det(X) = -1\)</span> ，则所求的 <span class="math notranslate nohighlight">\(X\)</span> 包含了镜像。</p></li>
 </ul>
-</div>
-<div class="section" id="noiseless-case">
-<h2><span class="section-number">2.5. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="noiseless-case">
+<h2><span class="section-number">2.5. </span>NOISELESS CASE<a class="headerlink" href="#noiseless-case" title="永久链接至标题"></a></h2>
 <p>假设没有噪声（ <span class="math notranslate nohighlight">\(N_i = 0\)</span> ），很显然有一个解 <span class="math notranslate nohighlight">\(\hat{R}\)</span> （ <span class="math notranslate nohighlight">\(det(\hat{R}) = 1\)</span> ）。</p>
 <p>因为 <span class="math notranslate nohighlight">\(\Sigma^2 = 0\)</span>，所以 <span class="math notranslate nohighlight">\(\{q_i'\}\)</span> 和 <span class="math notranslate nohighlight">\(\{\hat{R} q_i\}\)</span> 是全等的。</p>
 <p>从几何方面考虑，很容易看出对于 <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 上的点有三种情况：</p>
@@ -405,9 +324,9 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 <p class="admonition-title">注解</p>
 <p>顺带一提，当且仅当 <span class="math notranslate nohighlight">\(H\)</span> 的三个奇异值中的两个相等时， <span class="math notranslate nohighlight">\(\{q_i\}\)</span> 是共线的。</p>
 </div>
-</div>
-<div class="section" id="summary-of-algorithm">
-<h2><span class="section-number">2.6. </span>SUMMARY OF ALGORITHM<a class="headerlink" href="#summary-of-algorithm" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="summary-of-algorithm">
+<h2><span class="section-number">2.6. </span>SUMMARY OF ALGORITHM<a class="headerlink" href="#summary-of-algorithm" title="永久链接至标题"></a></h2>
 <dl class="field-list">
 <dt class="field-odd">step 1</dt>
 <dd class="field-odd"><p>从点云 <span class="math notranslate nohighlight">\(\{p_i\}, \{p_i'\}\)</span> 中计算质心 <span class="math notranslate nohighlight">\(p,p'\)</span> ，然后得到去质心点云 <span class="math notranslate nohighlight">\(\{q_i\}, \{q_i'\}\)</span></p>
@@ -446,47 +365,35 @@ XH &amp;=&amp; VU^TU\Sigma V^T\\
 </ul>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../p_others.html" class="btn btn-neutral float-right" title="🍒 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../PointNet/PointNet.html" class="btn btn-neutral float-left" title="1. PointNet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../p_BA.html" class="btn btn-neutral float-right" title="🍊 Bundle Adjustment" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

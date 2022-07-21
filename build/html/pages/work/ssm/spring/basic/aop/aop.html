@@ -1,80 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>8. AOP &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
-    <link rel="next" title="9. AOP知识点" href="aop_knowledge.html" />
+    <link rel="next" title="9. AOP事务管理" href="aop_tran.html" />
     <link rel="prev" title="7. 注解知识点" href="../annotation/anno_knowledge.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +42,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
@@ -108,17 +57,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">工作知识</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
@@ -153,94 +102,55 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="aop_knowledge.html">9. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
-        
           <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
-        
       <li><span class="section-number">8. </span>AOP</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/work/ssm/spring/basic/aop/aop.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="aop">
-<h1><span class="section-number">8. </span>AOP<a class="headerlink" href="#aop" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2>核心概念<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+             
+  <section id="aop">
+<h1><span class="section-number">8. </span>AOP<a class="headerlink" href="#aop" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>核心概念<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>AOP(Aspect Oriented Programming)面向切面编程，一种编程范式，指导开发者如何组织程序结构，AOP在不改原有代码的前提下对其进行增强</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/162.jpg" src="../../../../../../_images/162.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/155.jpg" src="../../../../../../_images/155.jpg" />
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <ul>
@@ -287,9 +197,9 @@
 <li><p>切面(Aspect)：描述通知与切入点的对应关系。</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>AOP入门<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>AOP入门<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <ol class="arabic">
 <li><p><strong>添加依赖</strong></p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
@@ -339,9 +249,9 @@
 </pre></div>
 </div>
 <p>绑定切入点与通知关系，并指定通知添加到原始连接点的具体执行 <strong>位置</strong></p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/241.jpg" src="../../../../../../_images/241.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/238.jpg" src="../../../../../../_images/238.jpg" />
+</figure>
 </li>
 <li><p><strong>将通知类配给容器并标识其为切面类</strong></p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Component</span>
@@ -368,23 +278,23 @@
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="id3">
-<h2>AOP工作流程<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2>AOP工作流程<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>AOP是基于Spring容器管理的bean做的增强，所以整个工作过程需要从Spring加载bean开始</p>
 <ol class="arabic">
 <li><p><strong>Spring容器启动</strong></p>
 <p>此时，需要加载的类有：（1） 被增强类，如:BookServiceImpl、 （2） 通知类，如:MyAdvice， bean对象此时还没有创建成功</p>
 </li>
 <li><p><strong>读取所有切面配置中的切入点</strong></p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/329.jpg" src="../../../../../../_images/329.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/326.jpg" src="../../../../../../_images/326.jpg" />
+</figure>
 </li>
 <li><p><strong>初始化bean</strong></p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/423.jpg" src="../../../../../../_images/423.jpg" />
-</div>
+</figure>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>匹配失败，创建原始对象，说明不需要增强，直接调用原始对象的方法即可。</p>
@@ -407,14 +317,14 @@
 <li><p>如果目标对象中的方法不被增强，那么容器中将存入的是目标对象本身。</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id4">
-<h2>AOP配置管理<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default">
+</section>
+<section id="id4">
+<h2>AOP配置管理<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/519.jpg" src="../../../../../../_images/519.jpg" />
-</div>
-<div class="section" id="id5">
-<h3>语法格式<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</figure>
+<section id="id5">
+<h3>语法格式<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>切入点:要进行增强的方法</p></li>
 <li><p>切入点表达式:要进行增强的方法的描述方式</p></li>
@@ -437,9 +347,9 @@
 <li><p>异常名：方法定义中抛出指定异常，可以省略</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="id6">
-<h3>通配符<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id6">
+<h3>通配符<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <ol class="arabic">
 <li><p><code class="docutils literal notranslate"><span class="pre">\*</span></code>：单个独立的任意符号，可以独立出现，也可以作为前缀或者后缀的匹配符出现</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">execution</span><span class="p">(</span><span class="kd">public</span> <span class="o">*</span> <span class="n">com</span><span class="p">.</span><span class="na">linzzz</span><span class="p">.</span><span class="o">*</span><span class="p">.</span><span class="na">UserService</span><span class="p">.</span><span class="na">find</span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">))</span>
@@ -502,9 +412,9 @@
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="id7">
-<h3>书写技巧<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3>书写技巧<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <ol class="arabic simple">
 <li><p>所有代码按照标准规范开发，否则以下技巧全部失效</p></li>
 </ol>
@@ -529,10 +439,10 @@
 <ol class="arabic simple" start="8">
 <li><p>通常 <strong>不使用异常</strong> 作为匹配规则</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id8">
-<h2>AOP通知类型<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id8">
+<h2>AOP通知类型<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>AOP共提供了5种通知类型:</p>
 <ul class="simple">
 <li><p>前置通知</p></li>
@@ -541,9 +451,9 @@
 <li><p>返回后通知(了解)</p></li>
 <li><p>抛出异常后通知(了解)</p></li>
 </ul>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/614.jpg" src="../../../../../../_images/614.jpg" />
-</div>
+</figure>
 <p>(1). <strong>前置通知：</strong> 追加功能到方法执行前,类似于在代码1或者代码2添加内容</p>
 <p>(2). <strong>后置通知：</strong> 追加功能到方法执行后,不管方法执行的过程中有没有抛出异常都会执行，类似于在代码5添加内容</p>
 <p>(3). <strong>返回后通知：</strong> 追加功能到方法执行后，只有方法正常执行结束后才进行,类似于在代码3添加内容，如果方法执行抛出异常，返回后通知将不会被添加</p>
@@ -627,8 +537,8 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id9">
-<h3>AOP通知获取数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<section id="id9">
+<h3>AOP通知获取数据<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>获取切入点方法的参数，所有的通知类型都可以获取参数</p>
 <ul class="simple">
 <li><p>JoinPoint：适用于前置、后置、返回后、抛出异常后通知</p></li>
@@ -687,9 +597,9 @@
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>pjp.proceed()方法是有两个构造方法，分别是:</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/79.jpg" src="../../../../../../_images/79.jpg" />
-</div>
+</figure>
 <ul class="simple">
 <li><p>调用无参数的proceed，当原始方法有参数，会在调用的过程中自动传入参数</p></li>
 <li><p>当需要修改原始方法的参数时，就只能采用带有参数的方法</p></li>
@@ -741,17 +651,17 @@
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>(1). <strong>参数名的问题</strong></p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/88.jpg" src="../../../../../../_images/88.jpg" />
-</div>
+</figure>
 <p>(2). <strong>afterReturning方法参数类型的问题</strong></p>
 <blockquote>
 <div><p>参数类型可以写成String，但是为了能匹配更多的参数类型，建议写成Object类型</p>
 </div></blockquote>
 <p>(3). <strong>afterReturning方法参数的顺序问题</strong></p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/96.jpg" src="../../../../../../_images/96.jpg" />
-</div>
+</figure>
 </div>
 </li>
 <li><p><strong>获取异常</strong></p>
@@ -789,18 +699,18 @@
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/104.jpg" src="../../../../../../_images/104.jpg" />
-</div>
+</figure>
 </div>
 </li>
 </ol>
-</div>
-</div>
-<div class="section" id="id10">
-<h2>总结<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id11">
-<h3>AOP的核心概念<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id10">
+<h2>总结<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h3>AOP的核心概念<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>概念：AOP(Aspect Oriented Programming)面向切面编程，一种编程范式</p></li>
 <li><p>作用：在不惊动原始设计的基础上为方法进行功能 <strong>增强</strong></p></li>
@@ -815,9 +725,9 @@
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id12">
-<h3>切入点表达式<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id12">
+<h3>切入点表达式<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>切入点表达式标准格式：动作关键字(访问修饰符  返回值  包名.类/接口名.方法名（参数）异常名)</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">execution</span><span class="p">(</span><span class="o">*</span> <span class="n">com</span><span class="p">.</span><span class="na">linzzz</span><span class="p">.</span><span class="na">service</span><span class="p">.</span><span class="o">*</span><span class="n">Service</span><span class="p">.</span><span class="o">*</span><span class="p">(..))</span>
 </pre></div>
@@ -838,9 +748,9 @@
 <li><p>方法名书写保留动词，例如get，使用 * 表示名词，例如getById匹配描述为getBy*</p></li>
 <li><p>参数根据实际情况灵活调整</p></li>
 </ul>
-</div>
-<div class="section" id="id13">
-<h3>五种通知类型<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id13">
+<h3>五种通知类型<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>前置通知</p></li>
 <li><p>后置通知</p></li>
@@ -855,9 +765,9 @@
 <li><p>返回后通知</p></li>
 <li><p>抛出异常后通知</p></li>
 </ul>
-</div>
-<div class="section" id="id14">
-<h3>通知中获取参数<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id14">
+<h3>通知中获取参数<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>获取切入点方法的参数，所有的通知类型都可以获取参数</p>
 <ul>
@@ -882,48 +792,36 @@
 </ul>
 </li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="aop_knowledge.html" class="btn btn-neutral float-right" title="9. AOP知识点" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../annotation/anno_knowledge.html" class="btn btn-neutral float-left" title="7. 注解知识点" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="aop_tran.html" class="btn btn-neutral float-right" title="9. AOP事务管理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

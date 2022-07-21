@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Pose &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="2. Utils" href="../Utils/Utils.html" />
     <link rel="prev" title="Estimator" href="../../c_estimator.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +43,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../c_base.html">Base</a></li>
@@ -139,91 +91,57 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../c_estimator.html">Estimator</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Pose</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/code/colmap/estimator/Pose/Pose.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="pose">
-<h1><span class="section-number">1. </span>Pose<a class="headerlink" href="#pose" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2>结构体<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+             
+  <section id="pose">
+<h1><span class="section-number">1. </span>Pose<a class="headerlink" href="#pose" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>结构体<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <dl class="cpp struct">
-<dt id="_CPPv429AbsolutePoseEstimationOptions">
-<span id="_CPPv329AbsolutePoseEstimationOptions"></span><span id="_CPPv229AbsolutePoseEstimationOptions"></span><span id="AbsolutePoseEstimationOptions"></span><em class="property">struct </em><code class="sig-name descname">AbsolutePoseEstimationOptions</code><a class="headerlink" href="#_CPPv429AbsolutePoseEstimationOptions" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv429AbsolutePoseEstimationOptions">
+<span id="_CPPv329AbsolutePoseEstimationOptions"></span><span id="_CPPv229AbsolutePoseEstimationOptions"></span><span id="AbsolutePoseEstimationOptions"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbsolutePoseEstimationOptions</span></span></span><a class="headerlink" href="#_CPPv429AbsolutePoseEstimationOptions" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">AbsolutePoseEstimationOptions</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">AbsolutePoseEstimationOptions</span> <span class="p">{</span>
   <span class="c1">// 是否估计焦距</span>
   <span class="kt">bool</span> <span class="n">estimate_focal_length</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 
@@ -253,11 +171,11 @@
 </pre></div>
 </div>
 <dl class="cpp struct">
-<dt id="_CPPv429AbsolutePoseRefinementOptions">
-<span id="_CPPv329AbsolutePoseRefinementOptions"></span><span id="_CPPv229AbsolutePoseRefinementOptions"></span><span id="AbsolutePoseRefinementOptions"></span><em class="property">struct </em><code class="sig-name descname">AbsolutePoseRefinementOptions</code><a class="headerlink" href="#_CPPv429AbsolutePoseRefinementOptions" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv429AbsolutePoseRefinementOptions">
+<span id="_CPPv329AbsolutePoseRefinementOptions"></span><span id="_CPPv229AbsolutePoseRefinementOptions"></span><span id="AbsolutePoseRefinementOptions"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbsolutePoseRefinementOptions</span></span></span><a class="headerlink" href="#_CPPv429AbsolutePoseRefinementOptions" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">AbsolutePoseRefinementOptions</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">AbsolutePoseRefinementOptions</span> <span class="p">{</span>
   <span class="c1">// 收敛准则</span>
   <span class="kt">double</span> <span class="n">gradient_tolerance</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
 
@@ -285,23 +203,23 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <dl class="cpp type">
-<dt id="_CPPv418AbsolutePoseRANSAC">
-<span id="_CPPv318AbsolutePoseRANSAC"></span><span id="_CPPv218AbsolutePoseRANSAC"></span><span id="AbsolutePoseRANSAC"></span><em class="property">typedef </em>LORANSAC&lt;P3PEstimator, EPNPEstimator&gt; <code class="sig-name descname">AbsolutePoseRANSAC</code>;<a class="headerlink" href="#_CPPv418AbsolutePoseRANSAC" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418AbsolutePoseRANSAC">
+<span id="_CPPv318AbsolutePoseRANSAC"></span><span id="_CPPv218AbsolutePoseRANSAC"></span><span id="AbsolutePoseRANSAC"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">LORANSAC</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">P3PEstimator</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">EPNPEstimator</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbsolutePoseRANSAC</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418AbsolutePoseRANSAC" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="id3">
-<h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="estimateabsoluteposekernel">
-<h3>EstimateAbsolutePoseKernel<a class="headerlink" href="#estimateabsoluteposekernel" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="estimateabsoluteposekernel">
+<h3>EstimateAbsolutePoseKernel<a class="headerlink" href="#estimateabsoluteposekernel" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><dl class="cpp function">
-<dt id="_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE">
-<span id="_CPPv326EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="_CPPv226EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="EstimateAbsolutePoseKernel__CameraCR.doubleC.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.RANSACOptionsCR.AbsolutePoseRANSAC::ReportP"></span>void <code class="sig-name descname">EstimateAbsolutePoseKernel</code><span class="sig-paren">(</span><em class="property">const</em> Camera &amp;<em>camera</em>, <em class="property">const</em> double <em>focal_length_factor</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, <em class="property">const</em> RANSACOptions &amp;<em>options</em>, <a class="reference internal" href="#_CPPv418AbsolutePoseRANSAC" title="AbsolutePoseRANSAC">AbsolutePoseRANSAC</a>::Report *<em>report</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE">
+<span id="_CPPv326EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="_CPPv226EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE"></span><span id="EstimateAbsolutePoseKernel__CameraCR.doubleC.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.RANSACOptionsCR.AbsolutePoseRANSAC::ReportP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EstimateAbsolutePoseKernel</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Camera</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">camera</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">focal_length_factor</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2D</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points3D</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">RANSACOptions</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <a class="reference internal" href="#_CPPv418AbsolutePoseRANSAC" title="AbsolutePoseRANSAC"><span class="n"><span class="pre">AbsolutePoseRANSAC</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Report</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">report</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426EstimateAbsolutePoseKernelRK6CameraKdRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEERK13RANSACOptionsPN18AbsolutePoseRANSAC6ReportE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">EstimateAbsolutePoseKernel</span><span class="p">(</span><span class="k">const</span> <span class="n">Camera</span><span class="o">&amp;</span> <span class="n">camera</span><span class="p">,</span>
@@ -342,15 +260,15 @@
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="estimateabsolutepose">
-<h3>EstimateAbsolutePose<a class="headerlink" href="#estimateabsolutepose" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="estimateabsolutepose">
+<h3>EstimateAbsolutePose<a class="headerlink" href="#estimateabsolutepose" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>根据2D-3D对应关系估算绝对姿势（焦距可选）</p>
 <p>使用给定相机的焦距周围的离散采样执行焦距估计。 导致最大的inliers的焦距被分配给给定的摄像机。</p>
 <dl class="cpp function">
-<dt id="_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE">
-<span id="_CPPv320EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="_CPPv220EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="EstimateAbsolutePose__AbsolutePoseEstimationOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP.sP.std::vector:c:P"></span>bool <code class="sig-name descname">EstimateAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv429AbsolutePoseEstimationOptions" title="AbsolutePoseEstimationOptions">AbsolutePoseEstimationOptions</a> &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em>, Camera *<em>camera</em>, size_t *<em>num_inliers</em>, std::vector&lt;char&gt; *<em>inlier_mask</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE">
+<span id="_CPPv320EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="_CPPv220EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE"></span><span id="EstimateAbsolutePose__AbsolutePoseEstimationOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP.sP.std::vector:c:P"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EstimateAbsolutePose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv429AbsolutePoseEstimationOptions" title="AbsolutePoseEstimationOptions"><span class="n"><span class="pre">AbsolutePoseEstimationOptions</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2D</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points3D</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qvec</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tvec</span></span>, <span class="n"><span class="pre">Camera</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">camera</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">num_inliers</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">inlier_mask</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv420EstimateAbsolutePoseRK29AbsolutePoseEstimationOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6CameraP6size_tPNSt6vectorIcEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">EstimateAbsolutePose</span><span class="p">(</span><span class="k">const</span> <span class="n">AbsolutePoseEstimationOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
@@ -381,8 +299,8 @@
    <span class="c1">// future对象提供访问异步操作结果的机制，很轻松解决从异步任务中返回结果。</span>
    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;&gt;</span> <span class="n">futures</span><span class="p">;</span>
    <span class="n">futures</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="p">,</span>
-              <span class="n">Eigen</span><span class="o">::</span><span class="n">aligned_allocator</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="o">&gt;&gt;</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="p">,</span>
+              <span class="n">Eigen</span><span class="o">::</span><span class="n">aligned_allocator</span><span class="o">&lt;</span><span class="k">typename</span> <span class="nc">AbsolutePoseRANSAC</span><span class="o">::</span><span class="n">Report</span><span class="o">&gt;&gt;</span>
       <span class="n">reports</span><span class="p">;</span>
    <span class="n">reports</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">focal_length_factors</span><span class="p">.</span><span class="n">size</span><span class="p">(</span> <span class="p">));</span>
 
@@ -493,17 +411,17 @@
 </div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="estimaterelativepose">
-<h3>EstimateRelativePose<a class="headerlink" href="#estimaterelativepose" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="estimaterelativepose">
+<h3>EstimateRelativePose<a class="headerlink" href="#estimaterelativepose" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>从2D-2D对应关系估计相对值</p>
 <p>假定第一台摄像机的位姿是在原点且没有旋转。第二个相机的位姿作为世界到图像的转换而给出，即：</p>
 <div class="math notranslate nohighlight">
 \[x_2 = [R | t] * X_2\]</div>
 <dl class="cpp function">
-<dt id="_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
-<span id="_CPPv320EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv220EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="EstimateRelativePose__RANSACOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span>size_t <code class="sig-name descname">EstimateRelativePose</code><span class="sig-paren">(</span><em class="property">const</em> RANSACOptions &amp;<em>ransac_options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
+<span id="_CPPv320EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv220EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="EstimateRelativePose__RANSACOptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EstimateRelativePose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">RANSACOptions</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ransac_options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qvec</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tvec</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv420EstimateRelativePoseRK13RANSACOptionsRKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">EstimateRelativePose</span><span class="p">(</span><span class="k">const</span> <span class="n">RANSACOptions</span><span class="o">&amp;</span> <span class="n">ransac_options</span><span class="p">,</span>
@@ -582,14 +500,14 @@
 </div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="refineabsolutepose">
-<h3>RefineAbsolutePose<a class="headerlink" href="#refineabsolutepose" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="refineabsolutepose">
+<h3>RefineAbsolutePose<a class="headerlink" href="#refineabsolutepose" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>从2D-3D对应关系中细化绝对位姿（焦距可选）</p>
 <dl class="cpp function">
-<dt id="_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera">
-<span id="_CPPv318RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="_CPPv218RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="RefineAbsolutePose__AbsolutePoseRefinementOptionsCR.std::vector:c:CR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP"></span>bool <code class="sig-name descname">RefineAbsolutePose</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv429AbsolutePoseRefinementOptions" title="AbsolutePoseRefinementOptions">AbsolutePoseRefinementOptions</a> &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;char&gt; &amp;<em>inlier_mask</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2D</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector3d&gt; &amp;<em>points3D</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em>, Camera *<em>camera</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera">
+<span id="_CPPv318RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="_CPPv218RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera"></span><span id="RefineAbsolutePose__AbsolutePoseRefinementOptionsCR.std::vector:c:CR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector3d:CR.Eigen::Vector4dP.Eigen::Vector3dP.CameraP"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RefineAbsolutePose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv429AbsolutePoseRefinementOptions" title="AbsolutePoseRefinementOptions"><span class="n"><span class="pre">AbsolutePoseRefinementOptions</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inlier_mask</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2D</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points3D</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qvec</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tvec</span></span>, <span class="n"><span class="pre">Camera</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">camera</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418RefineAbsolutePoseRK29AbsolutePoseRefinementOptionsRKNSt6vectorIcEERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector3dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dEP6Camera" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">RefineAbsolutePose</span><span class="p">(</span><span class="k">const</span> <span class="n">AbsolutePoseRefinementOptions</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
@@ -886,17 +804,17 @@
 </ol>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="refinerelativepose">
-<h3>RefineRelativePose<a class="headerlink" href="#refinerelativepose" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="refinerelativepose">
+<h3>RefineRelativePose<a class="headerlink" href="#refinerelativepose" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>优化两个相机的相对位姿。</p>
 <p>使用鲁棒的成本函数将对应归一化点之间的Sampson误差最小化，即在给定相对位姿的足够初始猜测的前提下，对应点不一定非是整数。</p>
 <p>假设第一个摄像机位姿具有投影矩阵 <span class="math notranslate nohighlight">\(P = [I | 0]\)</span> ，第二个摄影机的位姿作为从世界到摄影机系统的转换而给出。</p>
 <p>假设已将给定的位移向量归一化，并将位移精确度提高到未知尺度（即，位移向量进行细化还是单位向量）。</p>
 <dl class="cpp function">
-<dt id="_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
-<span id="_CPPv318RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv218RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="RefineRelativePose__ceres::Solver::OptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span>bool <code class="sig-name descname">RefineRelativePose</code><span class="sig-paren">(</span><em class="property">const</em> ceres::Solver::Options &amp;<em>options</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points2</em>, Eigen::Vector4d *<em>qvec</em>, Eigen::Vector3d *<em>tvec</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE">
+<span id="_CPPv318RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="_CPPv218RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE"></span><span id="RefineRelativePose__ceres::Solver::OptionsCR.std::vector:Eigen::Vector2d:CR.std::vector:Eigen::Vector2d:CR.Eigen::Vector4dP.Eigen::Vector3dP"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RefineRelativePose</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ceres</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Solver</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector4d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qvec</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">tvec</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418RefineRelativePoseRKN5ceres6Solver7OptionsERKNSt6vectorIN5Eigen8Vector2dEEERKNSt6vectorIN5Eigen8Vector2dEEEPN5Eigen8Vector4dEPN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">RefineRelativePose</span><span class="p">(</span><span class="k">const</span> <span class="n">ceres</span><span class="o">::</span><span class="n">Solver</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
@@ -984,48 +902,36 @@
 </ol>
 </div>
 </div></blockquote>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Utils/Utils.html" class="btn btn-neutral float-right" title="2. Utils" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../c_estimator.html" class="btn btn-neutral float-left" title="Estimator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Utils/Utils.html" class="btn btn-neutral float-right" title="2. Utils" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

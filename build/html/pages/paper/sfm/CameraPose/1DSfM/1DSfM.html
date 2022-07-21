@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>38. Robust Global Translations with 1DSfM &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="39. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
     <link rel="prev" title="37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints" href="../RA_MarkerPose/RA_MarkerPose.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -132,7 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
@@ -155,90 +105,52 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">38. </span>Robust Global Translations with 1DSfM</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/paper/sfm/CameraPose/1DSfM/1DSfM.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="robust-global-translations-with-1dsfm">
-<h1><span class="section-number">38. </span>Robust Global Translations with 1DSfM<a class="headerlink" href="#robust-global-translations-with-1dsfm" title="永久链接至标题">¶</a></h1>
+             
+  <section id="robust-global-translations-with-1dsfm">
+<h1><span class="section-number">38. </span>Robust Global Translations with 1DSfM<a class="headerlink" href="#robust-global-translations-with-1dsfm" title="永久链接至标题"></a></h1>
 <p>本文提出了一种简单有效的方法，通过平均对极几何形状来解决运动问题的结构。</p>
 <p>本文专注于在给定嘈杂的成对相机平移方向（或 3D 点观察）网络的情况下解决 3D 相机平移的问题。</p>
 <ol class="arabic simple">
@@ -252,8 +164,8 @@
 <p>在这项工作中，本文提出了一种新的全局 SfM 方法。1DSfM 是基于将一个难题简化为一维子问题，其中推理成为更直接的组合计算。
 在这个 1D 投影下，翻译问题变成了 MINIMUM FEEDBACK ARC SET 的一个实例，这是一个经过充分研究的图问题。通过求解 1D 排序，恢复了有关哪些 3D 测量可能不一致的信息。
 其次，本文未位移问题描述了一个新的、非常简单的求解器。令人惊讶的是，使用此求解器进行的非线性优化——即使是随机初始化——效果也非常好，尤其是在移除异常值后。</p>
-<div class="section" id="problem-formulation">
-<h2><span class="section-number">38.1. </span>Problem Formulation<a class="headerlink" href="#problem-formulation" title="永久链接至标题">¶</a></h2>
+<section id="problem-formulation">
+<h2><span class="section-number">38.1. </span>Problem Formulation<a class="headerlink" href="#problem-formulation" title="永久链接至标题"></a></h2>
 <p>给定完美的测量值，全局相机位姿  <span class="math notranslate nohighlight">\((R_i, t_i)\)</span> 将满足：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\hat{R}_{ij} = R_j * R_i^{-1}\\\end{split}\]</div>
@@ -265,21 +177,21 @@
 \[\hat{t}_{ij} = R_i * \hat{t}_{ij}^l\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\hat{t}_{ij}\)</span> 是全局坐标系中的**unit 3-vector**。</p>
 <p>因此，位移问题简化为以下图嵌入问题：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/155.jpg" src="../../../../../_images/155.jpg" />
-</div>
-</div>
-<div class="section" id="outlier-removal-using-1dsfm">
-<h2><span class="section-number">38.2. </span>Outlier Removal Using 1DSfM<a class="headerlink" href="#outlier-removal-using-1dsfm" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/119.jpg" src="../../../../../_images/119.jpg" />
+</figure>
+</section>
+<section id="outlier-removal-using-1dsfm">
+<h2><span class="section-number">38.2. </span>Outlier Removal Using 1DSfM<a class="headerlink" href="#outlier-removal-using-1dsfm" title="永久链接至标题"></a></h2>
 <p>上面描述的翻译问题是一个 3 维嵌入。
 处理异常值检测的一种方法是首先尝试简化这个潜在问题。 例如可以将 3D 问题投影到地平面上，从而产生 2D 图嵌入问题。 换句话说，以忽略每个测量的 z 分量，只考虑 2D 投影：</p>
 <div class="math notranslate nohighlight">
 \[\hat{t}_{ij} |→ \hat{t}_{ij}\]</div>
 <p>在这个预计的问题中，需要为每个顶点分配一个 <span class="math notranslate nohighlight">\((x, y)\)</span> 对。</p>
 <p>在本文的工作中将这个想法更进一步，并将其投影到一维子空间上。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/235.jpg" src="../../../../../_images/235.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/216.jpg" src="../../../../../_images/216.jpg" />
+</figure>
 <p>考虑将平移问题投影到 x 轴上，如图 1 中的蓝色问题。现在只有每个平移测量的 x 分量与问题相关。</p>
 <p>成对平移测量代表方向，而不是距离。</p>
 <p>在 <span class="math notranslate nohighlight">\(x\)</span> 轴上只有两个方向：左和右。 因此，如果 <span class="math notranslate nohighlight">\(x_{ij}&gt; 0\)</span> 并且 <span class="math notranslate nohighlight">\(i\)</span> 嵌入到 <span class="math notranslate nohighlight">\(j\)</span> 的左侧，则嵌入与边 <span class="math notranslate nohighlight">\((i,j)\)</span> 一致，反之亦然。</p>
@@ -304,50 +216,38 @@
 <p>以这种方式进行采样是因为异常值在许多边缘以高权重突出的方向上最明显；选择不常见的方向（如直线向上）往往具有较差的信噪比。</p>
 <p>对于每个方向，如果边 <span class="math notranslate nohighlight">\((i, j)\)</span> 与计算的顺序不一致，累积权重  <span class="math notranslate nohighlight">\(|w_{ij}|\)</span> 在那个边缘。 在许多子问题中累积权重的边是不一致的，并且可能很糟糕。</p>
 <p>在 <span class="math notranslate nohighlight">\(N\)</span> 个采样方向上运行后，拒绝累积超过加权不一致性阈值  <span class="math notranslate nohighlight">\(τ·N\)</span> 的边缘 <span class="math notranslate nohighlight">\((i, j)\)</span></p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/321.jpg" src="../../../../../_images/321.jpg" />
-</div>
-</div>
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/39.jpg" src="../../../../../_images/39.jpg" />
+</figure>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="39. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../RA_MarkerPose/RA_MarkerPose.html" class="btn btn-neutral float-left" title="37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="39. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

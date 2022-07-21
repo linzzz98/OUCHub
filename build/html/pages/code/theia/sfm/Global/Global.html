@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Global Structure from Motion Pipeline &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="🍺 Others" href="../../../../others/o_others.html" />
+    <link rel="next" title="🍑 Bundle Adjustment" href="../../../ba.html" />
     <link rel="prev" title="SfM Pipeline" href="../../t_sfm.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +43,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a><ul class="current">
@@ -151,87 +103,53 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../theiasfm.html">🍑 TheiaSfM</a> &raquo;</li>
-        
           <li><a href="../../t_sfm.html">SfM Pipeline</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Global Structure from Motion Pipeline</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/code/theia/sfm/Global/Global.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="global-structure-from-motion-pipeline">
-<h1><span class="section-number">1. </span>Global Structure from Motion Pipeline<a class="headerlink" href="#global-structure-from-motion-pipeline" title="永久链接至标题">¶</a></h1>
+             
+  <section id="global-structure-from-motion-pipeline">
+<h1><span class="section-number">1. </span>Global Structure from Motion Pipeline<a class="headerlink" href="#global-structure-from-motion-pipeline" title="永久链接至标题"></a></h1>
 <p>使用全局方法来估计场景的相机位置和 3D 结构以估计相机位姿。 首先，全局估计旋转，然后使用全局优化估计位置。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/123.jpg" src="../../../../../_images/123.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/14.jpg" src="../../../../../_images/14.jpg" />
+</figure>
 <p>步骤如下：</p>
 <ol class="arabic simple">
 <li><p>从2视图匹配和 <strong>TwoViewInfo</strong> 创建初始视图图，描述匹配图像之间的相对位姿。</p></li>
@@ -247,8 +165,8 @@
 </ol>
 <p>在每个过滤步骤之后，删除不再连接到视图图中最大连接组件的任何视图。</p>
 <dl class="cpp class">
-<dt id="_CPPv429GlobalReconstructionEstimator">
-<span id="_CPPv329GlobalReconstructionEstimator"></span><span id="_CPPv229GlobalReconstructionEstimator"></span><span id="GlobalReconstructionEstimator"></span><em class="property">class </em><code class="sig-name descname">GlobalReconstructionEstimator</code><a class="headerlink" href="#_CPPv429GlobalReconstructionEstimator" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv429GlobalReconstructionEstimator">
+<span id="_CPPv329GlobalReconstructionEstimator"></span><span id="_CPPv229GlobalReconstructionEstimator"></span><span id="GlobalReconstructionEstimator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></span><a class="headerlink" href="#_CPPv429GlobalReconstructionEstimator" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GlobalReconstructionEstimator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ReconstructionEstimator</span> <span class="p">{</span>
@@ -287,71 +205,71 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-<div class="section" id="id1">
-<h2>配置选项<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>配置选项<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <dl class="cpp member">
-<dt id="_CPPv48options_">
-<span id="_CPPv38options_"></span><span id="_CPPv28options_"></span><span id="options___theia::ReconstructionEstimatorOptions"></span>theia::ReconstructionEstimatorOptions <code class="sig-name descname">options_</code>;<a class="headerlink" href="#_CPPv48options_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv48options_">
+<span id="_CPPv38options_"></span><span id="_CPPv28options_"></span><span id="options___theia::ReconstructionEstimatorOptions"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ReconstructionEstimatorOptions</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">options_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv48options_" title="永久链接至目标"></a><br /></dt>
 <dd><p>重建估计器的选项。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv427translation_filter_options_">
-<span id="_CPPv327translation_filter_options_"></span><span id="_CPPv227translation_filter_options_"></span><span id="translation_filter_options___theia::FilterViewPairsFromRelativeTranslationOptions"></span>theia::FilterViewPairsFromRelativeTranslationOptions <code class="sig-name descname">translation_filter_options_</code>;<a class="headerlink" href="#_CPPv427translation_filter_options_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv427translation_filter_options_">
+<span id="_CPPv327translation_filter_options_"></span><span id="_CPPv227translation_filter_options_"></span><span id="translation_filter_options___theia::FilterViewPairsFromRelativeTranslationOptions"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">FilterViewPairsFromRelativeTranslationOptions</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">translation_filter_options_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv427translation_filter_options_" title="永久链接至目标"></a><br /></dt>
 <dd><p>基于相对平移估计 过滤视图对的选项。</p>
 <p>该算法通过将平移投影到一维子问题来确定可能是异常值的平移方向。 相对平移被重复投影到（半）随机向量上，并被排序以找到一致的嵌入。 与排序不一致的平移预测可能是异常值。 这个过程在多次迭代中重复以确定可能是异常值的平移方向。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv426bundle_adjustment_options_">
-<span id="_CPPv326bundle_adjustment_options_"></span><span id="_CPPv226bundle_adjustment_options_"></span><span id="bundle_adjustment_options___theia::BundleAdjustmentOptions"></span>theia::BundleAdjustmentOptions <code class="sig-name descname">bundle_adjustment_options_</code>;<a class="headerlink" href="#_CPPv426bundle_adjustment_options_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv426bundle_adjustment_options_">
+<span id="_CPPv326bundle_adjustment_options_"></span><span id="_CPPv226bundle_adjustment_options_"></span><span id="bundle_adjustment_options___theia::BundleAdjustmentOptions"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">BundleAdjustmentOptions</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bundle_adjustment_options_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv426bundle_adjustment_options_" title="永久链接至目标"></a><br /></dt>
 <dd><p>BA调整选项。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv414ransac_params_">
-<span id="_CPPv314ransac_params_"></span><span id="_CPPv214ransac_params_"></span><span id="ransac_params___theia::RansacParameters"></span>theia::RansacParameters <code class="sig-name descname">ransac_params_</code>;<a class="headerlink" href="#_CPPv414ransac_params_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv414ransac_params_">
+<span id="_CPPv314ransac_params_"></span><span id="_CPPv214ransac_params_"></span><span id="ransac_params___theia::RansacParameters"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RansacParameters</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ransac_params_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv414ransac_params_" title="永久链接至目标"></a><br /></dt>
 <dd><p>RANSAC选项。</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id2">
-<h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>成员变量<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <dl class="cpp member">
-<dt id="_CPPv411view_graph_">
-<span id="_CPPv311view_graph_"></span><span id="_CPPv211view_graph_"></span><span id="view_graph___theia::ViewGraphP"></span>theia::ViewGraph *<code class="sig-name descname">view_graph_</code>;<a class="headerlink" href="#_CPPv411view_graph_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv411view_graph_">
+<span id="_CPPv311view_graph_"></span><span id="_CPPv211view_graph_"></span><span id="view_graph___theia::ViewGraphP"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">view_graph_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv411view_graph_" title="永久链接至目标"></a><br /></dt>
 <dd><p>包含SfM重建视图的无向图。 顶点保存视图 id ，边值为两视图信息 TwoViewInfos。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv416reconstruction__">
-<span id="_CPPv316reconstruction__"></span><span id="_CPPv216reconstruction__"></span><span id="reconstruction____theia::ReconstructionP"></span>theia::Reconstruction *<code class="sig-name descname">reconstruction__</code>;<a class="headerlink" href="#_CPPv416reconstruction__" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv416reconstruction__">
+<span id="_CPPv316reconstruction__"></span><span id="_CPPv216reconstruction__"></span><span id="reconstruction____theia::ReconstructionP"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Reconstruction</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">reconstruction__</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv416reconstruction__" title="永久链接至目标"></a><br /></dt>
 <dd><p>SfM构建的主要对象，包含所有 3D 和相机信息以及可见性约束。即包含轨道和视图以及它们之间的约束。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv413orientations_">
-<span id="_CPPv313orientations_"></span><span id="_CPPv213orientations_"></span><span id="orientations___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span>theia::std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; <code class="sig-name descname">orientations_</code>;<a class="headerlink" href="#_CPPv413orientations_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv413orientations_">
+<span id="_CPPv313orientations_"></span><span id="_CPPv213orientations_"></span><span id="orientations___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">orientations_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv413orientations_" title="永久链接至目标"></a><br /></dt>
 <dd><p>相机全局方向。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv410positions_">
-<span id="_CPPv310positions_"></span><span id="_CPPv210positions_"></span><span id="positions___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span>theia::std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; <code class="sig-name descname">positions_</code>;<a class="headerlink" href="#_CPPv410positions_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv410positions_">
+<span id="_CPPv310positions_"></span><span id="_CPPv210positions_"></span><span id="positions___theia::std::unordered_map:ViewId.Eigen::Vector3d:"></span><span class="n"><span class="pre">theia</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">positions_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv410positions_" title="永久链接至目标"></a><br /></dt>
 <dd><p>相机全局位置。</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id3">
-<h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="estimate">
-<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h2>成员函数<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="estimate">
+<h3>Estimate<a class="headerlink" href="#estimate" title="永久链接至标题"></a></h3>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction">
-<span id="_CPPv3N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="_CPPv2N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="GlobalReconstructionEstimator::Estimate__ViewGraphP.ReconstructionP"></span>ReconstructionEstimatorSummary <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span>ViewGraph *<em>view_graph</em>, <a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> *<em>reconstruction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction">
+<span id="_CPPv3N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="_CPPv2N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction"></span><span id="GlobalReconstructionEstimator::Estimate__ViewGraphP.ReconstructionP"></span><span class="n"><span class="pre">ReconstructionEstimatorSummary</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Estimate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">view_graph</span></span>, <a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator8EstimateEP9ViewGraphP14Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ReconstructionEstimatorSummary</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ReconstructionEstimatorSummary</span> <span class="nf">GlobalReconstructionEstimator::Estimate</span><span class="p">(</span>
     <span class="n">ViewGraph</span><span class="o">*</span> <span class="n">view_graph</span><span class="p">,</span> <span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction</span><span class="p">);</span>
    <span class="n">reconstruction_</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="p">;</span>
@@ -508,18 +426,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="filterinitialviewgraph">
-<h3>FilterInitialViewGraph<a class="headerlink" href="#filterinitialviewgraph" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="filterinitialviewgraph">
+<h3>FilterInitialViewGraph<a class="headerlink" href="#filterinitialviewgraph" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>删除所有没有足够内点的的视图对</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="GlobalReconstructionEstimator::FilterInitialViewGraph"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterInitialViewGraph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator22FilterInitialViewGraphEv"></span><span id="GlobalReconstructionEstimator::FilterInitialViewGraph"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FilterInitialViewGraph</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator22FilterInitialViewGraphEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterInitialViewGraph</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">GlobalReconstructionEstimator::FilterInitialViewGraph</span><span class="p">()</span> <span class="p">{</span>
 
    <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">ViewIdPair</span><span class="o">&gt;</span> <span class="n">view_pairs_to_remove</span><span class="p">;</span>
 
@@ -547,11 +465,11 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="removedisconnectedviewpairs">
-<h4>RemoveDisconnectedViewPairs<a class="headerlink" href="#removedisconnectedviewpairs" title="永久链接至标题">¶</a></h4>
+<section id="removedisconnectedviewpairs">
+<h4>RemoveDisconnectedViewPairs<a class="headerlink" href="#removedisconnectedviewpairs" title="永久链接至标题"></a></h4>
 <dl class="cpp function">
-<dt id="_CPPv427RemoveDisconnectedViewPairsP9ViewGraph">
-<span id="_CPPv327RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="_CPPv227RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="RemoveDisconnectedViewPairs__ViewGraphP"></span>std::unordered_set&lt;ViewId&gt; <code class="sig-name descname">RemoveDisconnectedViewPairs</code><span class="sig-paren">(</span>ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427RemoveDisconnectedViewPairsP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv427RemoveDisconnectedViewPairsP9ViewGraph">
+<span id="_CPPv327RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="_CPPv227RemoveDisconnectedViewPairsP9ViewGraph"></span><span id="RemoveDisconnectedViewPairs__ViewGraphP"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveDisconnectedViewPairs</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">view_graph</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427RemoveDisconnectedViewPairsP9ViewGraph" title="永久链接至目标"></a><br /></dt>
 <dd><p>删除所有不属于最大连接组件的视图对</p>
 </dd></dl>
 
@@ -689,30 +607,30 @@
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="section" id="calibratecameras">
-<h3>CalibrateCameras<a class="headerlink" href="#calibratecameras" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="calibratecameras">
+<h3>CalibrateCameras<a class="headerlink" href="#calibratecameras" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>校准所有未校准的摄像机</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="GlobalReconstructionEstimator::CalibrateCameras"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CalibrateCameras</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator16CalibrateCamerasEv"></span><span id="GlobalReconstructionEstimator::CalibrateCameras"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CalibrateCameras</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator16CalibrateCamerasEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">CalibrateCameras</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GlobalReconstructionEstimator::CalibrateCameras</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">SetCameraIntrinsicsFromPriors</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="setcameraintrinsicsfrompriors">
-<h4>SetCameraIntrinsicsFromPriors<a class="headerlink" href="#setcameraintrinsicsfrompriors" title="永久链接至标题">¶</a></h4>
+<section id="setcameraintrinsicsfrompriors">
+<h4>SetCameraIntrinsicsFromPriors<a class="headerlink" href="#setcameraintrinsicsfrompriors" title="永久链接至标题"></a></h4>
 <p>从每个视图的 CameraIntrinsicsPrior 设置相机内部函数。 没有先验焦距的视图将设置一个与中间视角相对应的值。
 先验信息中如果没有提高主点，则默认初始化为图像的尺寸的一半（1024 x 768 =&gt; （512， 384）））</p>
 <dl class="cpp function">
-<dt id="_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction">
-<span id="_CPPv329SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="_CPPv229SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="SetCameraIntrinsicsFromPriors__ReconstructionP"></span>void <code class="sig-name descname">SetCameraIntrinsicsFromPriors</code><span class="sig-paren">(</span><a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> *<em>reconstruction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction">
+<span id="_CPPv329SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="_CPPv229SetCameraIntrinsicsFromPriorsP14Reconstruction"></span><span id="SetCameraIntrinsicsFromPriors__ReconstructionP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetCameraIntrinsicsFromPriors</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429SetCameraIntrinsicsFromPriorsP14Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">SetCameraIntrinsicsFromPriors</span><span class="p">(</span><span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
@@ -756,22 +674,22 @@
    <span class="p">}</span>
 </pre></div>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/214.jpg" src="../../../../../_images/214.jpg" />
-</div>
-</div>
-</div>
-<div class="section" id="estimateglobalrotations">
-<h3>EstimateGlobalRotations<a class="headerlink" href="#estimateglobalrotations" title="永久链接至标题">¶</a></h3>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/22.jpg" src="../../../../../_images/22.jpg" />
+</figure>
+</section>
+</section>
+<section id="estimateglobalrotations">
+<h3>EstimateGlobalRotations<a class="headerlink" href="#estimateglobalrotations" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>估计相机全局旋转</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="GlobalReconstructionEstimator::EstimateGlobalRotations"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateGlobalRotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv"></span><span id="GlobalReconstructionEstimator::EstimateGlobalRotations"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EstimateGlobalRotations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator23EstimateGlobalRotationsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">EstimateGlobalRotations</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">GlobalReconstructionEstimator::EstimateGlobalRotations</span><span class="p">()</span> <span class="p">{</span>
    <span class="c1">// 得到所有视图图的匹配对关系</span>
    <span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">view_pairs</span> <span class="o">=</span> <span class="n">view_graph_</span><span class="o">-&gt;</span><span class="n">GetAllEdges</span><span class="p">();</span>
 
@@ -815,13 +733,13 @@
 <p class="admonition-title">注意</p>
 <p>对于以上三种方法的解读会在 Average Rotation 专栏中。</p>
 </div>
-<div class="section" id="orientationsfrommaximumspanningtree">
-<h4>OrientationsFromMaximumSpanningTree<a class="headerlink" href="#orientationsfrommaximumspanningtree" title="永久链接至标题">¶</a></h4>
+<section id="orientationsfrommaximumspanningtree">
+<h4>OrientationsFromMaximumSpanningTree<a class="headerlink" href="#orientationsfrommaximumspanningtree" title="永久链接至标题"></a></h4>
 <p>通过计算最大生成树（按边权重）并通过链接旋转求解全局方向来计算视图图中每个视图的方向。</p>
 <p>仅针对视图图的最大连通分量估计方向。</p>
 <dl class="cpp function">
-<dt id="_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE">
-<span id="_CPPv335OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="_CPPv235OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="OrientationsFromMaximumSpanningTree__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:P"></span>bool <code class="sig-name descname">OrientationsFromMaximumSpanningTree</code><span class="sig-paren">(</span><em class="property">const</em> ViewGraph &amp;<em>view_graph</em>, std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; *<em>orientations</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE">
+<span id="_CPPv335OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="_CPPv235OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE"></span><span id="OrientationsFromMaximumSpanningTree__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:P"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OrientationsFromMaximumSpanningTree</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">view_graph</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">orientations</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435OrientationsFromMaximumSpanningTreeRK9ViewGraphPNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">OrientationsFromMaximumSpanningTree</span><span class="p">(</span>
@@ -945,12 +863,12 @@
 <p>将view_id的所有边缘添加到堆中。 仅添加尚未具有方向估计的边缘。步骤为：得到view_id的邻居视图id，遍历所有的邻居id，如果邻居视图已经有方向了，跳过，否则将view 和邻居两个视图的信息和两个视图id添加到heap中，然后调整堆为小顶堆。</p>
 <p>while循环，当堆不为空时，得到堆顶元素，因为堆顶元素已经刚刚设置了方向，所以将其pop掉，然后第二个视图的方向，直到全部计算完。</p>
 </div></blockquote>
-</div>
-<div class="section" id="addedgestoheap">
-<h4>AddEdgesToHeap<a class="headerlink" href="#addedgestoheap" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="addedgestoheap">
+<h4>AddEdgesToHeap<a class="headerlink" href="#addedgestoheap" title="永久链接至标题"></a></h4>
 <dl class="cpp function">
-<dt id="_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE">
-<span id="_CPPv314AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="_CPPv214AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="AddEdgesToHeap__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewIdC.std::vector:HeapElement:P"></span>void <code class="sig-name descname">AddEdgesToHeap</code><span class="sig-paren">(</span><em class="property">const</em> ViewGraph &amp;<em>view_graph</em>, <em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> ViewId <em>view_id</em>, std::vector&lt;HeapElement&gt; *<em>heap</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE">
+<span id="_CPPv314AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="_CPPv214AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE"></span><span id="AddEdgesToHeap__ViewGraphCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewIdC.std::vector:HeapElement:P"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddEdgesToHeap</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">view_graph</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">orientations</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ViewId</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">view_id</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">HeapElement</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">heap</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414AddEdgesToHeapRK9ViewGraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEK6ViewIdPNSt6vectorI11HeapElementEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">AddEdgesToHeap</span><span class="p">(</span>
@@ -982,19 +900,19 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="filterrotations">
-<h3>FilterRotations<a class="headerlink" href="#filterrotations" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="filterrotations">
+<h3>FilterRotations<a class="headerlink" href="#filterrotations" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>基于相对旋转和估计的全局方向过滤视图对。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="GlobalReconstructionEstimator::FilterRotations"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterRotations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator15FilterRotationsEv"></span><span id="GlobalReconstructionEstimator::FilterRotations"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FilterRotations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator15FilterRotationsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterRotations</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GlobalReconstructionEstimator::FilterRotations</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">FilterViewPairsFromOrientation</span><span class="p">(</span>
       <span class="n">orientations_</span><span class="p">,</span>
       <span class="n">options_</span><span class="p">.</span><span class="n">rotation_filtering_max_difference_degrees</span><span class="p">,</span>
@@ -1009,11 +927,11 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="filterviewpairsfromorientation">
-<h4>FilterViewPairsFromOrientation<a class="headerlink" href="#filterviewpairsfromorientation" title="永久链接至标题">¶</a></h4>
+<section id="filterviewpairsfromorientation">
+<h4>FilterViewPairsFromOrientation<a class="headerlink" href="#filterviewpairsfromorientation" title="永久链接至标题"></a></h4>
 <dl class="cpp function">
-<dt id="_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph">
-<span id="_CPPv330FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="_CPPv230FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="FilterViewPairsFromOrientation__std::unordered_map:ViewId.Eigen::Vector3d:CR.doubleC.ViewGraphP"></span>void <code class="sig-name descname">FilterViewPairsFromOrientation</code><span class="sig-paren">(</span><em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> double <em>max_relative_rotation_difference_degrees</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph">
+<span id="_CPPv330FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="_CPPv230FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph"></span><span id="FilterViewPairsFromOrientation__std::unordered_map:ViewId.Eigen::Vector3d:CR.doubleC.ViewGraphP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FilterViewPairsFromOrientation</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">orientations</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">max_relative_rotation_difference_degrees</span></span>, <span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">view_graph</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430FilterViewPairsFromOrientationRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKdP9ViewGraph" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">FilterViewPairsFromOrientation</span><span class="p">(</span>
@@ -1077,19 +995,19 @@
 <li><p>视图对的相对旋转估计不在容差范围内</p></li>
 </ol>
 </div>
-</div>
-</div>
-<div class="section" id="optimizepairwisetranslations">
-<h3>OptimizePairwiseTranslations<a class="headerlink" href="#optimizepairwisetranslations" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="optimizepairwisetranslations">
+<h3>OptimizePairwiseTranslations<a class="headerlink" href="#optimizepairwisetranslations" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>（可选择）在计算绝对旋转后，细化相对平移估计，可以帮助提高位置估计的准确性。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="GlobalReconstructionEstimator::OptimizePairwiseTranslations"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">OptimizePairwiseTranslations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv"></span><span id="GlobalReconstructionEstimator::OptimizePairwiseTranslations"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OptimizePairwiseTranslations</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator28OptimizePairwiseTranslationsEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">OptimizePairwiseTranslations</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GlobalReconstructionEstimator::OptimizePairwiseTranslations</span><span class="p">()</span> <span class="p">{</span>
    <span class="k">if</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">refine_relative_translations_after_rotation_estimation</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">RefineRelativeTranslationsWithKnownRotations</span><span class="p">(</span><span class="o">*</span><span class="n">reconstruction_</span><span class="p">,</span>
                                                  <span class="n">orientations_</span><span class="p">,</span>
@@ -1099,14 +1017,14 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="refinerelativetranslationswithknownrotations">
-<h4>RefineRelativeTranslationsWithKnownRotations<a class="headerlink" href="#refinerelativetranslationswithknownrotations" title="永久链接至标题">¶</a></h4>
+<section id="refinerelativetranslationswithknownrotations">
+<h4>RefineRelativeTranslationsWithKnownRotations<a class="headerlink" href="#refinerelativetranslationswithknownrotations" title="永久链接至标题"></a></h4>
 <blockquote>
 <div><p>给定已知旋转估，通过优化对极约束细化视图对之间的相对平移估计。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph">
-<span id="_CPPv344RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="_CPPv244RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="RefineRelativeTranslationsWithKnownRotations__ReconstructionCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.iC.ViewGraphP"></span>void <code class="sig-name descname">RefineRelativeTranslationsWithKnownRotations</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> &amp;<em>reconstruction</em>, <em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, <em class="property">const</em> int <em>num_threads</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph">
+<span id="_CPPv344RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="_CPPv244RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph"></span><span id="RefineRelativeTranslationsWithKnownRotations__ReconstructionCR.std::unordered_map:ViewId.Eigen::Vector3d:CR.iC.ViewGraphP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RefineRelativeTranslationsWithKnownRotations</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../../colmap/base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">orientations</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_threads</span></span>, <span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">view_graph</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv444RefineRelativeTranslationsWithKnownRotationsRK14ReconstructionRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEKiP9ViewGraph" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">RefineRelativeTranslationsWithKnownRotations</span><span class="p">(</span>
@@ -1137,13 +1055,13 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="getnormalizedfeaturecorrespondences">
-<h4>GetNormalizedFeatureCorrespondences<a class="headerlink" href="#getnormalizedfeaturecorrespondences" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="getnormalizedfeaturecorrespondences">
+<h4>GetNormalizedFeatureCorrespondences<a class="headerlink" href="#getnormalizedfeaturecorrespondences" title="永久链接至标题"></a></h4>
 <p>得到输入视图之间的所有两个视图特征匹配。 根据相机内参对特征点进行归一化。</p>
 <dl class="cpp function">
-<dt id="_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE">
-<span id="_CPPv335GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="_CPPv235GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="GetNormalizedFeatureCorrespondences__ViewCR.ViewCR.std::vector:FeatureCorrespondence:P"></span>void <code class="sig-name descname">GetNormalizedFeatureCorrespondences</code><span class="sig-paren">(</span><em class="property">const</em> View &amp;<em>view1</em>, <em class="property">const</em> View &amp;<em>view2</em>, std::vector&lt;FeatureCorrespondence&gt; *<em>matches</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE">
+<span id="_CPPv335GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="_CPPv235GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE"></span><span id="GetNormalizedFeatureCorrespondences__ViewCR.ViewCR.std::vector:FeatureCorrespondence:P"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNormalizedFeatureCorrespondences</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">View</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">view1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">View</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">view2</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">FeatureCorrespondence</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">matches</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv435GetNormalizedFeatureCorrespondencesRK4ViewRK4ViewPNSt6vectorI21FeatureCorrespondenceEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GetNormalizedFeatureCorrespondences</span><span class="p">(</span>
@@ -1174,16 +1092,16 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="optimizerelativepositionwithknownrotation">
-<h4>OptimizeRelativePositionWithKnownRotation<a class="headerlink" href="#optimizerelativepositionwithknownrotation" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="optimizerelativepositionwithknownrotation">
+<h4>OptimizeRelativePositionWithKnownRotation<a class="headerlink" href="#optimizerelativepositionwithknownrotation" title="永久链接至标题"></a></h4>
 <blockquote>
 <div><p>使用已知的相对旋转，优化相对位置，以最小化所有对应的对极约束  <span class="math notranslate nohighlight">\(x_2' * [t]_x * R * x_1 = 0\)</span> 。 注意：位置是  :math:` -R’ * t`，旋转对应于相机 1 和 2 的绝对方向。</p>
 <p>[CVPR2015] &lt;Robust Camera Location Estimation by Convex Programming&gt;</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE">
-<span id="_CPPv341OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="_CPPv241OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="OptimizeRelativePositionWithKnownRotation__std::vector:FeatureCorrespondence:CR.Eigen::Vector3dCR.Eigen::Vector3dCR.Eigen::Vector3dP"></span>bool <code class="sig-name descname">OptimizeRelativePositionWithKnownRotation</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;FeatureCorrespondence&gt; &amp;<em>correspondences</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>rotation1</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>rotation2</em>, Eigen::Vector3d *<em>relative_position</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE">
+<span id="_CPPv341OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="_CPPv241OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE"></span><span id="OptimizeRelativePositionWithKnownRotation__std::vector:FeatureCorrespondence:CR.Eigen::Vector3dCR.Eigen::Vector3dCR.Eigen::Vector3dP"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OptimizeRelativePositionWithKnownRotation</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">FeatureCorrespondence</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">correspondences</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rotation1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rotation2</span></span>, <span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">relative_position</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv441OptimizeRelativePositionWithKnownRotationRKNSt6vectorI21FeatureCorrespondenceEERKN5Eigen8Vector3dERKN5Eigen8Vector3dEPN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">OptimizeRelativePositionWithKnownRotation</span><span class="p">(</span>
@@ -1258,23 +1176,23 @@
                                         <span class="n">rotation1</span><span class="p">,</span>
                                         <span class="n">rotation2</span><span class="p">,</span>
                                         <span class="o">*</span><span class="n">relative_position</span><span class="p">))</span> <span class="p">{</span>
-      <span class="o">*</span><span class="n">relative_position</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">;</span>
+      <span class="o">*</span><span class="n">relative_position</span> <span class="o">*=</span> <span class="mf">-1.0</span><span class="p">;</span>
    <span class="p">}</span>
 
    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="filterrelativetranslation">
-<h3>FilterRelativeTranslation<a class="headerlink" href="#filterrelativetranslation" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="filterrelativetranslation">
+<h3>FilterRelativeTranslation<a class="headerlink" href="#filterrelativetranslation" title="永久链接至标题"></a></h3>
 <dl class="cpp function">
-<dt id="_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv">
-<span id="_CPPv3N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="GlobalReconstructionEstimator::FilterRelativeTranslation"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator">GlobalReconstructionEstimator</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FilterRelativeTranslation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv">
+<span id="_CPPv3N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="_CPPv2N29GlobalReconstructionEstimator25FilterRelativeTranslationEv"></span><span id="GlobalReconstructionEstimator::FilterRelativeTranslation"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv429GlobalReconstructionEstimator" title="GlobalReconstructionEstimator"><span class="n"><span class="pre">GlobalReconstructionEstimator</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FilterRelativeTranslation</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N29GlobalReconstructionEstimator25FilterRelativeTranslationEv" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">GlobalReconstructionEstimator</span><span class="o">::</span><span class="n">FilterRelativeTranslation</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">GlobalReconstructionEstimator::FilterRelativeTranslation</span><span class="p">()</span> <span class="p">{</span>
 
    <span class="c1">// 提取查看图的最大刚性分量，以确定哪些相机在位置估计方面受到良好约束。</span>
    <span class="k">if</span> <span class="p">(</span><span class="n">options_</span><span class="p">.</span><span class="n">extract_maximal_rigid_subgraph</span><span class="p">)</span> <span class="p">{</span>
@@ -1300,8 +1218,8 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="extractmaximallyparallelrigidsubgraph">
-<h4>ExtractMaximallyParallelRigidSubgraph<a class="headerlink" href="#extractmaximallyparallelrigidsubgraph" title="永久链接至标题">¶</a></h4>
+<section id="extractmaximallyparallelrigidsubgraph">
+<h4>ExtractMaximallyParallelRigidSubgraph<a class="headerlink" href="#extractmaximallyparallelrigidsubgraph" title="永久链接至标题"></a></h4>
 <blockquote>
 <div><p>根据已知的相机方向和相对平移测量，提取子图的最大平行刚性分量。</p>
 <p>给定一组相对平移，刚性组件是一个适定的子图，以便可以恢复全局节点位置。</p>
@@ -1311,8 +1229,8 @@
 <p>《Identifying Maximal Rigid Components in Bearing-Based Localization》</p>
 <p>《Robust Camera Location Estimation by Convex Programming》</p>
 <dl class="cpp function">
-<dt id="_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph">
-<span id="_CPPv337ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="_CPPv237ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="ExtractMaximallyParallelRigidSubgraph__std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewGraphP"></span>void <code class="sig-name descname">ExtractMaximallyParallelRigidSubgraph</code><span class="sig-paren">(</span><em class="property">const</em> std::unordered_map&lt;ViewId, Eigen::Vector3d&gt; &amp;<em>orientations</em>, ViewGraph *<em>view_graph</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph">
+<span id="_CPPv337ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="_CPPv237ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph"></span><span id="ExtractMaximallyParallelRigidSubgraph__std::unordered_map:ViewId.Eigen::Vector3d:CR.ViewGraphP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ExtractMaximallyParallelRigidSubgraph</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ViewId</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">orientations</span></span>, <span class="n"><span class="pre">ViewGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">view_graph</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv437ExtractMaximallyParallelRigidSubgraphRKNSt13unordered_mapI6ViewIdN5Eigen8Vector3dEEEP9ViewGraph" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ExtractMaximallyParallelRigidSubgraph</span><span class="p">(</span>
@@ -1370,49 +1288,37 @@
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../t_sfm.html" class="btn btn-neutral float-left" title="SfM Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../ba.html" class="btn btn-neutral float-right" title="🍑 Bundle Adjustment" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

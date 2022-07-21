@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>15. Efficient Initial Pose-graph Generation for Global SfM &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="16. Optimizing the Viewing Graph for Structure-from-Motion" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" />
     <link rel="prev" title="14. Global Structure-from-Motion and Its Application" href="../GlobalSfM_Application/GlobalSfM_Application.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -132,121 +82,99 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">18. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">19. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">20. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">21. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">22. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">23. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">24. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">25. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">26. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">27. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">28. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">29. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">30. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">31. Solutions to Minimal Generalized Relative Pose Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">32. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">15. </span>Efficient Initial Pose-graph Generation for Global SfM</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="efficient-initial-pose-graph-generation-for-global-sfm">
-<h1><span class="section-number">15. </span>Efficient Initial Pose-graph Generation for Global SfM<a class="headerlink" href="#efficient-initial-pose-graph-generation-for-global-sfm" title="永久链接至标题">¶</a></h1>
-<div class="section" id="abstract">
-<h2><span class="section-number">15.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题">¶</a></h2>
+             
+  <section id="efficient-initial-pose-graph-generation-for-global-sfm">
+<h1><span class="section-number">15. </span>Efficient Initial Pose-graph Generation for Global SfM<a class="headerlink" href="#efficient-initial-pose-graph-generation-for-global-sfm" title="永久链接至标题"></a></h1>
+<section id="abstract">
+<h2><span class="section-number">15.1. </span>Abstract<a class="headerlink" href="#abstract" title="永久链接至标题"></a></h2>
 <p>文章提出了加速全局SfM算法的初始位姿图生成的方法。</p>
 <p>位姿图创建中最耗时的步骤是由 FLANN 形成暂时的特征点对应关系（不一定正确的对应关系）和由 RANSAC 进行几何验证，为了避免这个步骤，文章提出了两种新方法——基于图像对（通常连续匹配）。
 候选的相对位姿可以从部分构建的位姿图的路径中恢复。</p>
 <p>考虑到图像的全局相似性和位姿图边缘的质量， 作者提出了 A* 遍历的启发式方法。给定来自路径的相对姿态，通过利用已知的对极几何，基于描述符的特征匹配变得“轻量级”。</p>
 <p>为了在应用 RANSAC 时加快基于 PROSAC 的采样，文章提出了第三种方法，根据先前估计的内点概率对对应项进行排序。</p>
-</div>
-<div class="section" id="introduction">
-<h2><span class="section-number">15.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default" id="id1">
-<img alt="../../../../../../_images/127.jpg" src="../../../../../../_images/127.jpg" />
-<p class="caption"><span class="caption-text">global sfm pipeline</span><a class="headerlink" href="#id1" title="永久链接至图片">¶</a></p>
-</div>
+</section>
+<section id="introduction">
+<h2><span class="section-number">15.2. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default" id="id1">
+<img alt="../../../../../../_images/137.jpg" src="../../../../../../_images/137.jpg" />
+<figcaption>
+<p><span class="caption-text">global sfm pipeline</span><a class="headerlink" href="#id1" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>目前的技术都没有考虑到匹配是在多个图像对上执行的，其中在匹配之前，相对位姿可能是已知的，至少大约是已知的。</p>
@@ -275,25 +203,25 @@
 </ol>
 </dd>
 </dl>
-<div class="section" id="related-tech">
-<h3><span class="section-number">15.2.1. </span>Related tech<a class="headerlink" href="#related-tech" title="永久链接至标题">¶</a></h3>
+<section id="related-tech">
+<h3><span class="section-number">15.2.1. </span>Related tech<a class="headerlink" href="#related-tech" title="永久链接至标题"></a></h3>
 <p>使用以下方法生成完全连接的图像相似度图：</p>
 <blockquote>
 <div><p>使用 ResNet-50 CNN 提取 GeM 图像全局描述符，在 GLD-v1 数据集上进行预训练。然后计算所有描述符之间的内积相似度，得到一个 n × n 相似度矩阵。</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="relative-pose-from-directed-walks">
-<h2><span class="section-number">15.3. </span>Relative Pose from Directed Walks<a class="headerlink" href="#relative-pose-from-directed-walks" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="relative-pose-from-directed-walks">
+<h2><span class="section-number">15.3. </span>Relative Pose from Directed Walks<a class="headerlink" href="#relative-pose-from-directed-walks" title="永久链接至标题"></a></h2>
 <p>本文提出了一种通过尽可能 <strong>避免运行 RANSAC</strong> 来加速位姿图生成的方法。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>核心思想利用了这样一个事实：在从图像集合中估计第 (t+1) 个图像对之间的相对位姿时，会得到一个由 t 个边（即 t 个视图对）组成的位姿图。该位姿图通常可用于估计位姿，而无需运行类似 RANSAC 的稳健估计。</p>
 </div>
 <p>在接下来的描述中，假设视图对是按照它们的相似度得分排序的。因此，从最相似的视图对开始姿态估计。让我们假设我们已经成功匹配了 t 个图像对，因此得到了位姿图： <span class="math notranslate nohighlight">\(\mathcal{G}_t = \{V,E\}\)</span></p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/218.jpg" src="../../../../../../_images/218.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/227.jpg" src="../../../../../../_images/227.jpg" />
+</figure>
 <p>在估计第 (t + 1) 个视图对之间的相对位姿时有两个选择。</p>
 <p>传统的方法是对两幅图像之间的对应点进行鲁棒估计。然后将估计的位姿  <span class="math notranslate nohighlight">\(P ∈ SE(3)\)</span>  添加到位姿图中作为新边的位姿。 因此， <span class="math notranslate nohighlight">\(\mathcal{E}_{t+1} = \mathcal{E}_t ∪ \{e = (v_s, v_d)\}\)</span> ，并且 <span class="math notranslate nohighlight">\(\phi(e) = P\)</span>
 这一步的问题在于，当内点很少，因此内点比率较低时，估计通常很耗时。</p>
@@ -301,21 +229,23 @@
 <p class="admonition-title">重要</p>
 <p>本文建议使用先前生成的姿势图  <span class="math notranslate nohighlight">\(\mathcal{G}_t\)</span> ，而不是在一对视图  <span class="math notranslate nohighlight">\((v_s, v_d)\)</span> 之间盲目地估计位姿。</p>
 </div>
-<div class="align-center figure align-default" id="id2">
-<img alt="../../../../../../_images/311.jpg" src="../../../../../../_images/311.jpg" />
-<p class="caption"><span class="caption-text">文章使用的所有符号</span><a class="headerlink" href="#id2" title="永久链接至图片">¶</a></p>
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/49.jpg" src="../../../../../../_images/49.jpg" />
-</div>
+<figure class="align-center align-default" id="id2">
+<img alt="../../../../../../_images/317.jpg" src="../../../../../../_images/317.jpg" />
+<figcaption>
+<p><span class="caption-text">文章使用的所有符号</span><a class="headerlink" href="#id2" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/413.jpg" src="../../../../../../_images/413.jpg" />
+</figure>
 <p>将  <span class="math notranslate nohighlight">\(\mathcal{W}\)</span> 隐含的位姿递归地定义为：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/57.jpg" src="../../../../../../_images/57.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/510.jpg" src="../../../../../../_images/510.jpg" />
+</figure>
 <p>因此，给定有限的步行  <span class="math notranslate nohighlight">\(\mathcal{W}\)</span> ，视图  <span class="math notranslate nohighlight">\(v_s\)</span> 和 <span class="math notranslate nohighlight">\(v_d\)</span> 之间的相对位姿计算为 <span class="math notranslate nohighlight">\(\phi(\mathcal{W})\)</span> 。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/66.jpg" src="../../../../../../_images/66.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/67.jpg" src="../../../../../../_images/67.jpg" />
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>简单来说就是估计两视图之间的位姿，不是靠两视图几何估计，而是通过已有的位姿图，进行迭代式估计（s-&gt;t 经过了 1， 2， 3， 则先估计s-&gt;1-&gt;2-&gt;3-&gt;t）</p>
@@ -349,9 +279,9 @@
 <dd class="field-even"><p>可以通过联合查找算法在 <span class="math notranslate nohighlight">\(O(1)\)</span> 时间内确定在视图 <span class="math notranslate nohighlight">\(v_s\)</span> 和 <span class="math notranslate nohighlight">\(v_d\)</span> 之间的位姿图中是否至少有一次walk。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="pose-graph-traversal">
-<h2><span class="section-number">15.4. </span>Pose-graph Traversal<a class="headerlink" href="#pose-graph-traversal" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="pose-graph-traversal">
+<h2><span class="section-number">15.4. </span>Pose-graph Traversal<a class="headerlink" href="#pose-graph-traversal" title="永久链接至标题"></a></h2>
 <p>本文选择 <span class="math notranslate nohighlight">\(A^*\)</span> 算法的启发式方法来获得位姿图 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> 中 multiple walks 的方法。</p>
 <dl class="field-list simple">
 <dt class="field-odd">目标</dt>
@@ -381,15 +311,15 @@
 <p><span class="math notranslate nohighlight">\(max_{f=(v1,v2)∈W} \delta(v_2, v_d)\)</span> 影响图遍历的方式，使其与路径上的目标视图的最大相似度达到最大。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="guided-matching-with-pose">
-<h2><span class="section-number">15.5. </span>Guided  Matching  with  Pose<a class="headerlink" href="#guided-matching-with-pose" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="guided-matching-with-pose">
+<h2><span class="section-number">15.5. </span>Guided  Matching  with  Pose<a class="headerlink" href="#guided-matching-with-pose" title="永久链接至标题"></a></h2>
 <p>加速特征匹配的常用方法是使用近似的近邻搜索，而不是精确的近邻搜索，例如使用FLANN中的kd-tree算法。</p>
 <p>本文提出了一个替代性的解决方案–利用来自当前位姿图中walk的位姿来建立暂定的关联。
 这些位姿将被用于使标准描述符匹配 “light-weight”，只检查那些与位姿一致的对应关系。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/73.jpg" src="../../../../../../_images/73.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/74.jpg" src="../../../../../../_images/74.jpg" />
+</figure>
 <p>给定第 <span class="math notranslate nohighlight">\(i,j\)</span> 张图像的关键点 <span class="math notranslate nohighlight">\(K_i, K_j\)</span> ，相对位姿 <span class="math notranslate nohighlight">\(P_{i,j} = (t_{i,j}, R_{i,j}) \in SE(3)\)</span> ，可以计算得到本质矩阵 <span class="math notranslate nohighlight">\(E_{ij} = [t_{ij}]_x R_{i,j}\)</span> ，
 使用它去测量点对之间的距离 <span class="math notranslate nohighlight">\(\epsilon\)</span> （辛普森距离和对称极线误差）</p>
 <p>目的是找到成对点 <span class="math notranslate nohighlight">\((p_i, p_j)，p_i \in K_i, p_j \in K_j\)</span> ，并且 <span class="math notranslate nohighlight">\(\epsilon(p_i, p_j, E_{ij})\)</span> 小于inlier-outlier阈值。</p>
@@ -409,9 +339,9 @@
 <p>在 SIFT 的上下文中，使用了方向直方图。这意味着 bin 表示角度而不是如上所述的强度。</p>
 <p>因此具体bin表示什么要看直方图的描述。</p>
 </div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/84.jpg" src="../../../../../../_images/84.jpg" />
-</div>
+</figure>
 <p>将第二幅图像中点 <span class="math notranslate nohighlight">\((x,y)\)</span> 在第一幅图像中对应的极线 <span class="math notranslate nohighlight">\(l\)</span> 的角度表示为 <span class="math notranslate nohighlight">\(\alpha(x,y) \in [0,\pi)\)</span></p>
 <p>由于对极几何的性质，某些  <span class="math notranslate nohighlight">\(\alpha(x,y)\)</span> 的角度是不可能的。 因此，需要定义由有效角度组成的区间，将用多个区间覆盖作为  <span class="math notranslate nohighlight">\([a,b]\)</span> ，</p>
 <div class="math notranslate nohighlight">
@@ -435,9 +365,9 @@ b = max(\alpha(0,0), \alpha(w_2,0), \alpha(0, h_2), \alpha(w_2, h_2))\\\end{spli
 <p>如果找到一个好的位姿，则在 A* 之后应用匹配过程。 由于 A∗ 需要一组对应关系来确定位姿是否合理，
 因此使用来自当前图像可见的 <strong>point tracks</strong> 的对应关系。
 当成功匹配新图像对时，将计算并更新多视图轨迹。</p>
-</div>
-<div class="section" id="adaptive-correspondence-ranking">
-<h2><span class="section-number">15.6. </span>Adaptive Correspondence Ranking<a class="headerlink" href="#adaptive-correspondence-ranking" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="adaptive-correspondence-ranking">
+<h2><span class="section-number">15.6. </span>Adaptive Correspondence Ranking<a class="headerlink" href="#adaptive-correspondence-ranking" title="永久链接至标题"></a></h2>
 <p>在大规模问题中进行成对相对位姿估计时，自适应地设置 PROSAC 采样的点对应权重。
 PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点开始采样，然后再抽取不太可能导致所寻求模型的样本。</p>
 <div class="admonition important">
@@ -460,9 +390,9 @@ PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点�
 <p class="admonition-title">注解</p>
 <p>令 <span class="math notranslate nohighlight">\(s_p^{(0)} = 1\)</span> ，因为所有关键点在开始时都同样可能是异常值。</p>
 </div>
-</div>
-<div class="section" id="experiments">
-<h2><span class="section-number">15.7. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="experiments">
+<h2><span class="section-number">15.7. </span>Experiments<a class="headerlink" href="#experiments" title="永久链接至标题"></a></h2>
 <p>比较了位姿图生成算法，包括提出的基于 <span class="math notranslate nohighlight">\(A^*\)</span> 的技术。 比较的方法是：</p>
 <ol class="arabic simple">
 <li><p>标准的穷举匹配 (EM)，其中每个测试的图像对都由 FLANN + GC-RANSAC 匹配。</p></li>
@@ -476,62 +406,50 @@ PROSAC 利用先验预测的点的内点概率等级，并从最有希望的点�
 <ol class="arabic simple" start="4">
 <li><p>广度优先 (BF) 遍历以与所提出的 A* 算法相同的方式应用。</p></li>
 </ol>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/92.jpg" src="../../../../../../_images/92.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/101.jpg" src="../../../../../../_images/101.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/1110.jpg" src="../../../../../../_images/1110.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/1210.jpg" src="../../../../../../_images/1210.jpg" />
-</div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/93.jpg" src="../../../../../../_images/93.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/102.jpg" src="../../../../../../_images/102.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/1111.jpg" src="../../../../../../_images/1111.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/1211.jpg" src="../../../../../../_images/1211.jpg" />
+</figure>
+<figure class="align-center align-default">
 <img alt="../../../../../../_images/138.jpg" src="../../../../../../_images/138.jpg" />
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-right" title="16. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../GlobalSfM_Application/GlobalSfM_Application.html" class="btn btn-neutral float-left" title="14. Global Structure-from-Motion and Its Application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html" class="btn btn-neutral float-right" title="16. Optimizing the Viewing Graph for Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

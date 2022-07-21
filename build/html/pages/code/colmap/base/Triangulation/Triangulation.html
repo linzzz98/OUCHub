@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>7. Triangulation &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="8. Reconstrucion" href="../Reconstruction/Reconstruction.html" />
     <link rel="prev" title="6. Matrix" href="../Matrix/Matrix.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
@@ -108,7 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
@@ -135,100 +85,61 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../c_base.html">Base</a> &raquo;</li>
-        
       <li><span class="section-number">7. </span>Triangulation</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/code/colmap/base/Triangulation/Triangulation.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="triangulation">
-<h1><span class="section-number">7. </span>Triangulation<a class="headerlink" href="#triangulation" title="永久链接至标题">¶</a></h1>
+             
+  <section id="triangulation">
+<h1><span class="section-number">7. </span>Triangulation<a class="headerlink" href="#triangulation" title="永久链接至标题"></a></h1>
 <p>为什么要三角化？</p>
 <p>目的：恢复像点的物点坐标</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/233.jpg" src="../../../../../_images/233.jpg" />
-</div>
-<div class="section" id="triangulatepoint">
-<h2><span class="section-number">7.1. </span>TriangulatePoint<a class="headerlink" href="#triangulatepoint" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/2.jpg" src="../../../../../_images/2.jpg" />
+</figure>
+<section id="triangulatepoint">
+<h2><span class="section-number">7.1. </span>TriangulatePoint<a class="headerlink" href="#triangulatepoint" title="永久链接至标题"></a></h2>
 <p>从相应的图像点观察中对3D点进行三角测量。</p>
 <dl class="cpp function">
-<dt id="_CPPv416TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE">
-<span id="_CPPv316TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="_CPPv216TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="TriangulatePoint__Eigen::Matrix3x4dCR.Eigen::Matrix3x4dCR.Eigen::Vector2dCR.Eigen::Vector2dCR"></span>Eigen::Vector3d <code class="sig-name descname">TriangulatePoint</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix1</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix2</em>, <em class="property">const</em> Eigen::Vector2d &amp;<em>point1</em>, <em class="property">const</em> Eigen::Vector2d &amp;<em>point2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv416TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE">
+<span id="_CPPv316TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="_CPPv216TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="TriangulatePoint__Eigen::Matrix3x4dCR.Eigen::Matrix3x4dCR.Eigen::Vector2dCR.Eigen::Vector2dCR"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TriangulatePoint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3x4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_matrix1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3x4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_matrix2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416TriangulatePointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">TriangulatePoint</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix1</span><span class="p">,</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="nf">TriangulatePoint</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix1</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix2</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point1</span><span class="p">,</span>
                                  <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2</span><span class="p">)</span> <span class="p">{</span>
@@ -247,9 +158,9 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../_images/11.png" src="../../../../../_images/11.png" />
-</div>
+</figure>
 <p>证明：考虑某个路标点 <span class="math notranslate nohighlight">\(X\)</span>  被若干关键帧 <span class="math notranslate nohighlight">\(k = 1 , 2 … n\)</span> （上图的 <span class="math notranslate nohighlight">\(O_i\)</span> ）看到。</p>
 <p>其中， <span class="math notranslate nohighlight">\(X\in R^4\)</span> 取齐次坐标，即 <span class="math notranslate nohighlight">\(X = [x,y,z,1]^T\)</span> 。每次观测为 <span class="math notranslate nohighlight">\(x_k = [u_k,v_k,1]^T\)</span> ，取相机归一化平面坐标（这样可以忽略内参）（？）。</p>
 <p>记世界系到相机系的投影矩阵为 <span class="math notranslate nohighlight">\(P_k = [R_k,t_k]\in R^{3 \times 4}\)</span></p>
@@ -307,16 +218,16 @@ p_{2,3}v_2 - p_{2,2}
 \right]\end{split}\]</div>
 <p>求解 <span class="math notranslate nohighlight">\(X\)</span> 只要对 <span class="math notranslate nohighlight">\(A\)</span> 做SVD分解，再取 <span class="math notranslate nohighlight">\(V\)</span> 矩阵的最后一维即可。</p>
 </div>
-</div>
-<div class="section" id="triangulatemultiviewpoint">
-<h2><span class="section-number">7.2. </span>TriangulateMultiViewPoint<a class="headerlink" href="#triangulatemultiviewpoint" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="triangulatemultiviewpoint">
+<h2><span class="section-number">7.2. </span>TriangulateMultiViewPoint<a class="headerlink" href="#triangulatemultiviewpoint" title="永久链接至标题"></a></h2>
 <p>从多个视图对点进行三角剖分，可最大程度地减少L2误差</p>
 <dl class="cpp function">
-<dt id="_CPPv425TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE">
-<span id="_CPPv325TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE"></span><span id="_CPPv225TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE"></span><span id="TriangulateMultiViewPoint__std::vector:Eigen::Matrix3x4d:CR.std::vector:Eigen::Vector2d:CR"></span>Eigen::Vector3d <code class="sig-name descname">TriangulateMultiViewPoint</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;Eigen::Matrix3x4d&gt; &amp;<em>proj_matrices</em>, <em class="property">const</em> std::vector&lt;Eigen::Vector2d&gt; &amp;<em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv425TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE">
+<span id="_CPPv325TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE"></span><span id="_CPPv225TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE"></span><span id="TriangulateMultiViewPoint__std::vector:Eigen::Matrix3x4d:CR.std::vector:Eigen::Vector2d:CR"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TriangulateMultiViewPoint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3x4d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_matrices</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425TriangulateMultiViewPointRKNSt6vectorIN5Eigen10Matrix3x4dEEERKNSt6vectorIN5Eigen8Vector2dEEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">TriangulateMultiViewPoint</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="nf">TriangulateMultiViewPoint</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&gt;&amp;</span> <span class="n">proj_matrices</span><span class="p">,</span>
       <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&gt;&amp;</span> <span class="n">points</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_EQ</span><span class="p">(</span><span class="n">proj_matrices</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
@@ -358,20 +269,20 @@ end{eqnarray}</p>
 <p><span class="math notranslate nohighlight">\(P_iX\)</span> 是三角点 <span class="math notranslate nohighlight">\(X\)</span> 通过摄像机 <span class="math notranslate nohighlight">\(P_i\)</span> 投影到图像坐标中的投影，而映射 <span class="math notranslate nohighlight">\(x ↦ x_ix_i^T\)</span> 是 <span class="math notranslate nohighlight">\(x\)</span> 在 <span class="math notranslate nohighlight">\(x_i\)</span> 跨越的线性子空间上的（线性）投影。</p>
 <p>因此，第 <span class="math notranslate nohighlight">\(i\)</span> 个残差是 <span class="math notranslate nohighlight">\(P_iX\)</span> 和 <span class="math notranslate nohighlight">\(x_i\)</span> 之间的图像空间距离，解释为重投影误差。</p>
 </div>
-</div>
-<div class="section" id="triangulateoptimalpoint">
-<h2><span class="section-number">7.3. </span>TriangulateOptimalPoint<a class="headerlink" href="#triangulateoptimalpoint" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="triangulateoptimalpoint">
+<h2><span class="section-number">7.3. </span>TriangulateOptimalPoint<a class="headerlink" href="#triangulateoptimalpoint" title="永久链接至标题"></a></h2>
 <p>通过找到最佳图像观测值，从相应的图像点观测值中对最佳3D点进行三角测量。</p>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>为了使此方法产生良好的效果，相机的位姿应该非常好。 否则，只需使用 <code class="docutils literal notranslate"><span class="pre">TriangulatePoint</span></code> 即可。</p>
 </div>
 <dl class="cpp function">
-<dt id="_CPPv423TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE">
-<span id="_CPPv323TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="_CPPv223TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="TriangulateOptimalPoint__Eigen::Matrix3x4dCR.Eigen::Matrix3x4dCR.Eigen::Vector2dCR.Eigen::Vector2dCR"></span>Eigen::Vector3d <code class="sig-name descname">TriangulateOptimalPoint</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix1</em>, <em class="property">const</em> Eigen::Matrix3x4d &amp;<em>proj_matrix2</em>, <em class="property">const</em> Eigen::Vector2d &amp;<em>point1</em>, <em class="property">const</em> Eigen::Vector2d &amp;<em>point2</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv423TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv423TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE">
+<span id="_CPPv323TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="_CPPv223TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE"></span><span id="TriangulateOptimalPoint__Eigen::Matrix3x4dCR.Eigen::Matrix3x4dCR.Eigen::Vector2dCR.Eigen::Vector2dCR"></span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TriangulateOptimalPoint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3x4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_matrix1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3x4d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_matrix2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point2</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv423TriangulateOptimalPointRKN5Eigen10Matrix3x4dERKN5Eigen10Matrix3x4dERKN5Eigen8Vector2dERKN5Eigen8Vector2dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">TriangulateOptimalPoint</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix1</span><span class="p">,</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="nf">TriangulateOptimalPoint</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix1</span><span class="p">,</span>
                                      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Matrix3x4d</span><span class="o">&amp;</span> <span class="n">proj_matrix2</span><span class="p">,</span>
                                      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point1</span><span class="p">,</span>
                                      <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector2d</span><span class="o">&amp;</span> <span class="n">point2</span><span class="p">)</span> <span class="p">{</span>
@@ -383,18 +294,18 @@ end{eqnarray}</p>
    <span class="n">FindOptimalImageObservations</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">point1</span><span class="p">,</span> <span class="n">point2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">optimal_point1</span><span class="p">,</span>
                                <span class="o">&amp;</span><span class="n">optimal_point2</span><span class="p">);</span>
 
-   <span class="k">return</span> <span class="nf">TriangulatePoint</span><span class="p">(</span><span class="n">proj_matrix1</span><span class="p">,</span> <span class="n">proj_matrix2</span><span class="p">,</span> <span class="n">optimal_point1</span><span class="p">,</span>
+   <span class="k">return</span> <span class="n">TriangulatePoint</span><span class="p">(</span><span class="n">proj_matrix1</span><span class="p">,</span> <span class="n">proj_matrix2</span><span class="p">,</span> <span class="n">optimal_point1</span><span class="p">,</span>
                           <span class="n">optimal_point2</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="calculatetriangulationangle">
-<h2><span class="section-number">7.4. </span>CalculateTriangulationAngle<a class="headerlink" href="#calculatetriangulationangle" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="calculatetriangulationangle">
+<h2><span class="section-number">7.4. </span>CalculateTriangulationAngle<a class="headerlink" href="#calculatetriangulationangle" title="永久链接至标题"></a></h2>
 <p>计算三角点的两条射线之间的弧度角</p>
 <dl class="cpp function">
-<dt id="_CPPv427CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE">
-<span id="_CPPv327CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE"></span><span id="_CPPv227CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE"></span><span id="CalculateTriangulationAngle__Eigen::Vector3dCR.Eigen::Vector3dCR.Eigen::Vector3dCR"></span>double <code class="sig-name descname">CalculateTriangulationAngle</code><span class="sig-paren">(</span><em class="property">const</em> Eigen::Vector3d &amp;<em>proj_center1</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>proj_center2</em>, <em class="property">const</em> Eigen::Vector3d &amp;<em>point3D</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv427CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv427CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE">
+<span id="_CPPv327CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE"></span><span id="_CPPv227CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE"></span><span id="CalculateTriangulationAngle__Eigen::Vector3dCR.Eigen::Vector3dCR.Eigen::Vector3dCR"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CalculateTriangulationAngle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_center1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proj_center2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector3d</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point3D</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv427CalculateTriangulationAngleRKN5Eigen8Vector3dERKN5Eigen8Vector3dERKN5Eigen8Vector3dE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="nf">CalculateTriangulationAngle</span><span class="p">(</span><span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&amp;</span> <span class="n">proj_center1</span><span class="p">,</span>
@@ -424,9 +335,9 @@ end{eqnarray}</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/113.jpg" src="../../../../../_images/113.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/12.jpg" src="../../../../../_images/12.jpg" />
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>余弦公式求cos <span class="math notranslate nohighlight">\(\theta\)</span> ：</p>
@@ -439,47 +350,35 @@ end{eqnarray}</p>
 <div class="math notranslate nohighlight">
 \[\theta = min(\theta, \pi - \theta)\]</div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Reconstruction/Reconstruction.html" class="btn btn-neutral float-right" title="8. Reconstrucion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Matrix/Matrix.html" class="btn btn-neutral float-left" title="6. Matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Reconstruction/Reconstruction.html" class="btn btn-neutral float-right" title="8. Reconstrucion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

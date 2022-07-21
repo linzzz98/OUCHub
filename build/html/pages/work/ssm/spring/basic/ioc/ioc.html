@@ -1,80 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>2. Ioc基础入门 &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="3. DI基础入门" href="../di/di.html" />
     <link rel="prev" title="1. Spring系统架构和核心概念" href="../../frame/frame.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +42,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
@@ -108,17 +57,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">工作知识</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
@@ -150,89 +99,56 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
-        
           <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
-        
       <li><span class="section-number">2. </span>Ioc基础入门</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/work/ssm/spring/basic/ioc/ioc.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="ioc">
-<h1><span class="section-number">2. </span>Ioc基础入门<a class="headerlink" href="#ioc" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2>IOC入门案例<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+             
+  <section id="ioc">
+<h1><span class="section-number">2. </span>Ioc基础入门<a class="headerlink" href="#ioc" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>IOC入门案例<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p><strong>思路分析</strong></p>
@@ -320,9 +236,9 @@
 </div></blockquote>
 <p>4.resources下添加spring配置文件(applicationContext.xml)，并完成bean的配置</p>
 <blockquote>
-<div><div class="align-center figure align-default">
+<div><figure class="align-center align-default">
 <img alt="../../../../../../_images/158.jpg" src="../../../../../../_images/158.jpg" />
-</div>
+</figure>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
        <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
@@ -362,29 +278,29 @@
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="id2">
-<h2>IOC相关内容<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="section" id="bean">
-<h3>bean基础配置<a class="headerlink" href="#bean" title="永久链接至标题">¶</a></h3>
-<div class="section" id="bean-idclass">
-<h4>bean基础配置(id与class)<a class="headerlink" href="#bean-idclass" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id2">
+<h2>IOC相关内容<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="bean">
+<h3>bean基础配置<a class="headerlink" href="#bean" title="永久链接至标题"></a></h3>
+<section id="bean-idclass">
+<h4>bean基础配置(id与class)<a class="headerlink" href="#bean-idclass" title="永久链接至标题"></a></h4>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;&quot;</span> <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/236.jpg" src="../../../../../../_images/236.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/241.jpg" src="../../../../../../_images/241.jpg" />
+</figure>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>class属性不能写接口如 <strong>BookDao</strong> 的类全名，因为接口没法创建对象</p>
 </div>
-</div>
-<div class="section" id="beanname">
-<h4>bean的name属性<a class="headerlink" href="#beanname" title="永久链接至标题">¶</a></h4>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/324.jpg" src="../../../../../../_images/324.jpg" />
-</div>
+</section>
+<section id="beanname">
+<h4>bean的name属性<a class="headerlink" href="#beanname" title="永久链接至标题"></a></h4>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/329.jpg" src="../../../../../../_images/329.jpg" />
+</figure>
 <ol class="arabic">
 <li><p>配置别名</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--name:为bean指定别名，别名可以有多个，使用逗号，分号，空格进行分隔--&gt;</span>
@@ -414,12 +330,12 @@
 <p class="admonition-title">注意</p>
 <p>bean依赖注入的ref属性指定bean,必须在容器中存在,不存在则会报错 <strong>NoSuchBeanDefinitionException</strong></p>
 </div>
-</div>
-<div class="section" id="beanscope">
-<h4>bean作用范围scope配置<a class="headerlink" href="#beanscope" title="永久链接至标题">¶</a></h4>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/421.jpg" src="../../../../../../_images/421.jpg" />
-</div>
+</section>
+<section id="beanscope">
+<h4>bean作用范围scope配置<a class="headerlink" href="#beanscope" title="永久链接至标题"></a></h4>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/424.jpg" src="../../../../../../_images/424.jpg" />
+</figure>
 <ol class="arabic">
 <li><p><strong>单例/非单例</strong></p>
 <p>默认情况下，Spring创建的bean对象都是单例的</p>
@@ -474,9 +390,9 @@
 </div>
 </li>
 </ol>
-</div>
-<div class="section" id="id3">
-<h4>bean基础配置小结<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id3">
+<h4>bean基础配置小结<a class="headerlink" href="#id3" title="永久链接至标题"></a></h4>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;bean</span>
    <span class="na">id=</span><span class="s">&quot;bean的唯一标识&quot;</span>
    <span class="na">class=</span><span class="s">&quot;bean的类全名&quot;</span>
@@ -485,13 +401,13 @@
 <span class="nt">/&gt;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id4">
-<h3>bean实例化<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id4">
+<h3>bean实例化<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>bean本质上就是对象，对象在new的时候会使用构造方法完成，创建bean也是使用构造方法完成的。</p>
-<div class="section" id="id5">
-<h4>构造方法实例化<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<section id="id5">
+<h4>构造方法实例化<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
 <ol class="arabic">
 <li><p>准备需要被创建的类</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BookDao</span> <span class="p">{</span>
@@ -545,9 +461,9 @@
 <p class="admonition-title">注意</p>
 <p>Spring底层使用的是类的无参构造方法,使用带参数的构造器会报错!</p>
 </div>
-</div>
-<div class="section" id="id6">
-<h4>静态工厂实例化<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id6">
+<h4>静态工厂实例化<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
 <p><strong>这种方式一般是用来兼容早期的一些老系统，所以了解为主</strong></p>
 <ul>
 <li><p>工厂创建对象</p>
@@ -599,9 +515,9 @@
 </pre></div>
 </div>
 <p>factory-mehod:具体工厂类中创建对象的方法名</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/518.jpg" src="../../../../../../_images/518.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/520.jpg" src="../../../../../../_images/520.jpg" />
+</figure>
 </li>
 <li><p>在运行类使用从IOC容器中获取bean的方法进行运行测试</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppForInstanceOrder</span> <span class="p">{</span>
@@ -624,9 +540,9 @@
 <p class="admonition-title">重要</p>
 <p>在工厂的静态方法中，除了new对象还可以做其他的一些业务操作，而通过new对象的方式就无法添加其他的业务内容。</p>
 </div>
-</div>
-<div class="section" id="factorybean">
-<h4>实例工厂与FactoryBean<a class="headerlink" href="#factorybean" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="factorybean">
+<h4>实例工厂与FactoryBean<a class="headerlink" href="#factorybean" title="永久链接至标题"></a></h4>
 <ul>
 <li><p>环境准备</p>
 <blockquote>
@@ -698,9 +614,9 @@
 <li><p>创建实例化工厂对象,对应的是第一行配置</p></li>
 <li><p>调用对象中的方法来创建bean，对应的是第二行配置</p></li>
 </ul>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/613.jpg" src="../../../../../../_images/613.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/615.jpg" src="../../../../../../_images/615.jpg" />
+</figure>
 </div>
 </div></blockquote>
 </li>
@@ -744,20 +660,20 @@
 </pre></div>
 </div>
 <dl class="js function">
-<dt id="T-getObject">
-<span id="T getObject"></span><code class="sig-name descname">T getObject</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#T-getObject" title="永久链接至目标">¶</a></dt>
+<dt class="sig sig-object js" id="T-getObject">
+<span id="T getObject"></span><span class="sig-name descname"><span class="pre">T</span> <span class="pre">getObject</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#T-getObject" title="永久链接至目标"></a></dt>
 <dd><p>被重写后，在方法中进行对象的创建并返回</p>
 </dd></dl>
 
 <dl class="js function">
-<dt id="Class-getObjectType">
-<span id="Class<?> getObjectType"></span><code class="sig-name descname">Class&lt;?&gt; getObjectType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Class-getObjectType" title="永久链接至目标">¶</a></dt>
+<dt class="sig sig-object js" id="Class-getObjectType">
+<span id="Class<?> getObjectType"></span><span class="sig-name descname"><span class="pre">Class&lt;?&gt;</span> <span class="pre">getObjectType</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Class-getObjectType" title="永久链接至目标"></a></dt>
 <dd><p>被重写后，主要返回的是被创建类的Class对象</p>
 </dd></dl>
 
 <dl class="js function">
-<dt id="default-boolean-isSingleton">
-<span id="default boolean isSingleton"></span><code class="sig-name descname">default boolean isSingleton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#default-boolean-isSingleton" title="永久链接至目标">¶</a></dt>
+<dt class="sig sig-object js" id="default-boolean-isSingleton">
+<span id="default boolean isSingleton"></span><span class="sig-name descname"><span class="pre">default</span> <span class="pre">boolean</span> <span class="pre">isSingleton</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#default-boolean-isSingleton" title="永久链接至目标"></a></dt>
 <dd><p>没有被重写，因为它已经给了默认值，从方法名中可以看出其作用是设置对象是否为单例，默认true</p>
 </dd></dl>
 
@@ -772,12 +688,12 @@
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="id7">
-<h3>bean的生命周期<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
-<div class="section" id="id8">
-<h4>生命周期设置<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+</section>
+</section>
+<section id="id7">
+<h3>bean的生命周期<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<section id="id8">
+<h4>生命周期设置<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
 <blockquote>
 <div><ul class="simple">
 <li><p>bean创建之后，想要添加内容，比如用来初始化需要用到资源</p></li>
@@ -907,9 +823,9 @@
 </li>
 </ol>
 </div></blockquote>
-</div>
-<div class="section" id="id9">
-<h4>bean生命周期小结<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id9">
+<h4>bean生命周期小结<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
 <blockquote>
 <div><p><strong>ConfigurableApplicationContext是ApplicationContext的子类</strong></p>
 <ol class="arabic simple">
@@ -949,49 +865,37 @@
 </li>
 </ol>
 </div></blockquote>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../di/di.html" class="btn btn-neutral float-right" title="3. DI基础入门" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../frame/frame.html" class="btn btn-neutral float-left" title="1. Spring系统架构和核心概念" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../di/di.html" class="btn btn-neutral float-right" title="3. DI基础入门" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

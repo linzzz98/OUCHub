@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>11. CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="12. Very Large-Scale Global SfM by Distributed Motion Averaging" href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" />
     <link rel="prev" title="10. Graph-Based Consistent Matching for Structure-from-Motion" href="../../Incremental/Graph_based_SfM/Graph_based_SfM.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -130,107 +80,83 @@
 <li class="toctree-l2"><a class="reference internal" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html">15. Efficient Initial Pose-graph Generation for Global SfM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.html">16. Optimizing the Viewing Graph for Structure-from-Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html">17. Reducing Drift in Structure From Motion Using Extended Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">18. HSfM: Hybrid Structure-from-Motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">19. View-graph construction framework for robust and efficient structure-from-motion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">20. A Global Linear Method for Camera Pose Registration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">21. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">22. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">23. Hybrid Camera Pose Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">24. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">25. Efficient and Robust Large-Scale Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">26. Robust Relative Rotation Averaging</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">27. Privacy Preserving Image Queries for Camera Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">28. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">29. Using Many Cameras as One</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">30. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">31. Solutions to Minimal Generalized Relative Pose Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">32. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">33. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Rotation_BA/Rotation_BA.html">18. Rotation-Only Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/HSfM/HSfM.html">19. HSfM: Hybrid Structure-from-Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Hybrid/View_Graph_Construction/View_Graph_Construction.html">20. View-graph construction framework for robust and efficient structure-from-motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/A_Global_Linear_Method_for_Camera_Pose_Registration/A_Global_Linear_Method_for_Camera_Pose_Registration.html">21. A Global Linear Method for Camera Pose Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Rotation_and_Translation_Estimation/Robust_Rotation_and_Translation_Estimation.html">22. Robust Rotation and Translation Estimation in Multiview Reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/FivePoint_Relative_Pose_Problem/FivePoint_Relative_Pose_Problem.html">23. An Effcient Solution to the Five-Point Relative Pose Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Hybrid_Camera_Estimation/Hybrid_Camera_Estimation.html">24. Hybrid Camera Pose Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Lie_Averaging/Lie_Averaging.html">25. Lie-Algebraic Averaging For Globally Consistent Motion Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Efficient_Robust_Rotation_Averaging/Efficient_Robust_Rotation_Averaging.html">26. Efficient and Robust Large-Scale Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">11. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/CSfM/CSfM.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="csfm-community-based-structure-from-motion">
-<h1><span class="section-number">11. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION<a class="headerlink" href="#csfm-community-based-structure-from-motion" title="永久链接至标题">¶</a></h1>
+             
+  <section id="csfm-community-based-structure-from-motion">
+<h1><span class="section-number">11. </span>CSFM: COMMUNITY-BASED STRUCTURE FROM MOTION<a class="headerlink" href="#csfm-community-based-structure-from-motion" title="永久链接至标题"></a></h1>
 <p>在本文提出了一种基于 <strong>Community</strong> （以下翻译为社区）的自适应 SfM（CSfM）方法，该方法同时考虑了鲁棒性和效率，解决了三个凸 L1 优化问题。</p>
 <ol class="arabic simple">
 <li><p>对极几何图形被划分为单独的社区 。</p></li>
@@ -254,11 +180,11 @@
 </dd>
 </dl>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/129.jpg" src="../../../../../../_images/129.jpg" />
-</div>
-<div class="section" id="community-detection">
-<h2><span class="section-number">11.1. </span>COMMUNITY DETECTION<a class="headerlink" href="#community-detection" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/136.jpg" src="../../../../../../_images/136.jpg" />
+</figure>
+<section id="community-detection">
+<h2><span class="section-number">11.1. </span>COMMUNITY DETECTION<a class="headerlink" href="#community-detection" title="永久链接至标题"></a></h2>
 <p>社区检测已广泛用于复杂网络分析，目的是将图划分为内部连接较密集和外部连接较稀疏的子图。</p>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
@@ -283,21 +209,21 @@
 <p class="admonition-title">注意</p>
 <p>请注意，当一对社区之间存在一些极线边缘时，它们是相互关联的。</p>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/220.jpg" src="../../../../../../_images/220.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/226.jpg" src="../../../../../../_images/226.jpg" />
+</figure>
 <p>考虑到场景重建的鲁棒性，每个社区都应该为后续的合并步骤重建足够的 3D 点，因此本文为每个社区设置了最小数量的图像 N</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>在本文工作中，N 设置为 20</p>
 </div>
 <p>迭代收敛后，将那些图像数量小于 N 的小数据集合并到它们最近的连接社区中。两个社区之间的紧密程度被定义为跨越它们的对极几何边的数量。</p>
-</div>
-<div class="section" id="global-similarity-averaging">
-<h2><span class="section-number">11.2. </span>GLOBAL SIMILARITY AVERAGING<a class="headerlink" href="#global-similarity-averaging" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="global-similarity-averaging">
+<h2><span class="section-number">11.2. </span>GLOBAL SIMILARITY AVERAGING<a class="headerlink" href="#global-similarity-averaging" title="永久链接至标题"></a></h2>
 <p>社区检测后，每个社区的图像连接变得更加密集，因此可以使用许多 SfM 方法进行重建。社区通常构建一个连通图，因此本文提出了一种全局相似性平均方法来鲁棒地对齐这些单独的重建结果。</p>
-<div class="section" id="global-scale-averaging">
-<h3><span class="section-number">11.2.1. </span>Global Scale Averaging<a class="headerlink" href="#global-scale-averaging" title="永久链接至标题">¶</a></h3>
+<section id="global-scale-averaging">
+<h3><span class="section-number">11.2.1. </span>Global Scale Averaging<a class="headerlink" href="#global-scale-averaging" title="永久链接至标题"></a></h3>
 <p>设 <span class="math notranslate nohighlight">\(s_i\)</span> 为第 i 个社区的尺度， <span class="math notranslate nohighlight">\(s_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间 3D 相似性变换中的比例因子。</p>
 <p>给定 <span class="math notranslate nohighlight">\(\frac{s_i}{s_j} = s_{ij}\)</span> ，通过取双方的对数函数：</p>
 <div class="math notranslate nohighlight">
@@ -314,9 +240,9 @@
 <p class="admonition-title">注解</p>
 <p>请注意，此 L1 优化是凸的。</p>
 </div>
-</div>
-<div class="section" id="global-rotation-averaging">
-<h3><span class="section-number">11.2.2. </span>Global Rotation Averaging<a class="headerlink" href="#global-rotation-averaging" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="global-rotation-averaging">
+<h3><span class="section-number">11.2.2. </span>Global Rotation Averaging<a class="headerlink" href="#global-rotation-averaging" title="永久链接至标题"></a></h3>
 <p>设 <span class="math notranslate nohighlight">\(R_i\)</span> 为第 <span class="math notranslate nohighlight">\(i\)</span> 个社区的旋转变换， <span class="math notranslate nohighlight">\(R_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间3D相似度变换中的相对旋转变换。</p>
 <p>给定 <span class="math notranslate nohighlight">\(R_{ij} = R_j * R_i^T\)</span> 通过对两边取对数，得到它们对应的角度轴向量之间的等式：</p>
 <div class="math notranslate nohighlight">
@@ -324,19 +250,19 @@
 <p>其中 <span class="math notranslate nohighlight">\(w_{ij}\)</span> 是 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 对应的角轴矢量， <span class="math notranslate nohighlight">\(w_i\)</span> 、 <span class="math notranslate nohighlight">\(w_j\)</span> 分别是 <span class="math notranslate nohighlight">\(R_i\)</span> 和 <span class="math notranslate nohighlight">\(R_j\)</span> 对应的角轴矢量。</p>
 <p>通过从所有连接的社区对中叠加上述方程，得到了一个线性方程组，使用L1RA方法求解旋转平均。</p>
 <p>然后对于第 <span class="math notranslate nohighlight">\(i\)</span> 个社区，给定其尺度  <span class="math notranslate nohighlight">\(s_i\)</span>  和旋转变换 <span class="math notranslate nohighlight">\(R_i\)</span> ，将其第 k 个场景点 <span class="math notranslate nohighlight">\(X_{ik}\)</span> 变换为  <span class="math notranslate nohighlight">\(s_i ∗ R_i ∗ X_{ik}\)</span> 。 在此转换之后，重新计算一对连接社区之间的位移  <span class="math notranslate nohighlight">\(T_{ij}\)</span> 。</p>
-</div>
-<div class="section" id="global-translation-averaging">
-<h3><span class="section-number">11.2.3. </span>Global Translation Averaging<a class="headerlink" href="#global-translation-averaging" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="global-translation-averaging">
+<h3><span class="section-number">11.2.3. </span>Global Translation Averaging<a class="headerlink" href="#global-translation-averaging" title="永久链接至标题"></a></h3>
 <p>设 <span class="math notranslate nohighlight">\(T_i\)</span> 为第 <span class="math notranslate nohighlight">\(i\)</span> 个社区的平移变换， <span class="math notranslate nohighlight">\(T_{ij}\)</span> 为社区 <span class="math notranslate nohighlight">\(U_i\)</span> 和 <span class="math notranslate nohighlight">\(U_j\)</span> 之间 3D 相似变换中的相对平移变换。</p>
 <p>类似地，通过从所有连接的社区对中叠加方程 <span class="math notranslate nohighlight">\(T_{ij} = T_j - T_i\)</span> ，就有了一个线性方程组，然后，该方程组通过以下 L1 优化求解：</p>
 <div class="math notranslate nohighlight">
 \[||A_t ∗ x_t − b_t||_{L1}\]</div>
 <p>其中  <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(b_t\)</span> 是通过分别连接 <span class="math notranslate nohighlight">\(T_i\)</span> 和 <span class="math notranslate nohighlight">\(T_{ij}\)</span> 的向量，并且 <span class="math notranslate nohighlight">\(A_t\)</span> 是一个稀疏矩阵，其中非零值只有 1 和 -1。</p>
 <p>由于位移估计取决于全局位移变换，为了消除规范歧义，将第一个社区的位移设置为零， <span class="math notranslate nohighlight">\(T_1 = 0\)</span> 。</p>
-</div>
-</div>
-<div class="section" id="reconstructions-merging">
-<h2><span class="section-number">11.3. </span>Reconstructions Merging<a class="headerlink" href="#reconstructions-merging" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="reconstructions-merging">
+<h2><span class="section-number">11.3. </span>Reconstructions Merging<a class="headerlink" href="#reconstructions-merging" title="永久链接至标题"></a></h2>
 <p>给定每个社区的尺度、旋转、平移变换，所有社区的重建结果（3D 场景点和相机位姿）被合并到一个单一的全局框架中。</p>
 <p>对于第 <span class="math notranslate nohighlight">\(i\)</span> 个社区，其第 k 个 3D 场景点 <span class="math notranslate nohighlight">\(X_{ik}^o\)</span> 转换为：</p>
 <div class="math notranslate nohighlight">
@@ -348,47 +274,35 @@
    C_{ij}^g &amp;=&amp; s_i * R_i * C_{ij}^o + T_i
 \end{eqnarray}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(X_{ij}^g,R_{ij}^g,C_{ij}^g\)</span> 分别表示最终统一全局框架中的变换 3D 场景点、相机旋转和相机中心。 合并后，执行最终的BA调整以进一步细化所有相机位姿和场景点。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-right" title="12. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../Incremental/Graph_based_SfM/Graph_based_SfM.html" class="btn btn-neutral float-left" title="10. Graph-Based Consistent Matching for Structure-from-Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Very_Large-Scale_Global_SfM/Very_Large-Scale_Global_SfM.html" class="btn btn-neutral float-right" title="12. Very Large-Scale Global SfM by Distributed Motion Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

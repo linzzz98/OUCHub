@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>33. Geometric Interpretations of the Normalized Epipolar Error &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="34. Triangulation: Why Optimize?" href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" />
     <link rel="prev" title="32. Solutions to Minimal Generalized Relative Pose Problems" href="../Solver6L/Solver6L.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -132,7 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">33. Geometric Interpretations of the Normalized Epipolar Error</a><ul>
@@ -161,90 +111,52 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">33. </span>Geometric Interpretations of the Normalized Epipolar Error</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Geometric_Interpretations/Geometric_Interpretations.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="geometric-interpretations-of-the-normalized-epipolar-error">
-<h1><span class="section-number">33. </span>Geometric Interpretations of the Normalized Epipolar Error<a class="headerlink" href="#geometric-interpretations-of-the-normalized-epipolar-error" title="永久链接至标题">¶</a></h1>
+             
+  <section id="geometric-interpretations-of-the-normalized-epipolar-error">
+<h1><span class="section-number">33. </span>Geometric Interpretations of the Normalized Epipolar Error<a class="headerlink" href="#geometric-interpretations-of-the-normalized-epipolar-error" title="永久链接至标题"></a></h1>
 <p>本文提供了归一化对极误差的几何解释。</p>
 <p>表明它与以下量直接相关：</p>
 <p>（1）两条反向投影光线之间的最短距离</p>
@@ -267,9 +179,9 @@
 \[\hat{e} = |\hat{f}_1^T E \hat{f}_0|\]</div>
 <p>其中  <span class="math notranslate nohighlight">\(E = [\hat{t}]_\times R\)</span>  是基本矩阵，  <span class="math notranslate nohighlight">\([·]_{\times}\)</span>  是偏对称算子。</p>
 <p>如果图像测量、标定和位姿数据都非常准确，则该误差将为零，因为 <span class="math notranslate nohighlight">\(R \hat{f}_0 , \hat{f}_1\)</span> 和 <span class="math notranslate nohighlight">\(t\)</span> 将共面。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/145.jpg" src="../../../../../_images/145.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/124.jpg" src="../../../../../_images/124.jpg" />
+</figure>
 <p>这称为对极约束。</p>
 <p>在文献中，归一化对极误差大多被视为没有几何意义的代数量，这种误解源于这样一个事实，即“标准”对极误差 <span class="math notranslate nohighlight">\(e\)</span> 是一个代数量：</p>
 <div class="math notranslate nohighlight">
@@ -292,13 +204,13 @@
 <li><p>两个边界对极平面之间的二面角，即一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(Rf_0\)</span> ，另一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(f_1\)</span> 。</p></li>
 <li><p>L1 最优角度重投影误差。</p></li>
 </ol>
-<div class="section" id="geometric-interpretations">
-<h2><span class="section-number">33.1. </span>Geometric Interpretations<a class="headerlink" href="#geometric-interpretations" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id1">
-<h3><span class="section-number">33.1.1. </span>与四面体体积的关系<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/231.jpg" src="../../../../../_images/231.jpg" />
-</div>
+<section id="geometric-interpretations">
+<h2><span class="section-number">33.1. </span>Geometric Interpretations<a class="headerlink" href="#geometric-interpretations" title="永久链接至标题"></a></h2>
+<section id="id1">
+<h3><span class="section-number">33.1.1. </span>与四面体体积的关系<a class="headerlink" href="#id1" title="永久链接至标题"></a></h3>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/219.jpg" src="../../../../../_images/219.jpg" />
+</figure>
 <p>考虑上图所示的四面体，它的一个顶点位于 <span class="math notranslate nohighlight">\(c_1\)</span> （即摄像机 <span class="math notranslate nohighlight">\(c_1\)</span> 的位置，即 <span class="math notranslate nohighlight">\(c_1\)</span> 参考系中的原点），另外三个位于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 、 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 。</p>
 <p>然后，使用众所周知的公式：</p>
 <div class="math notranslate nohighlight">
@@ -308,17 +220,17 @@
 \[\hat{e} = 6V\]</div>
 <p>这种解释的好处是它允许对错误进行简单的可视化，如图 2a 所示。 随着三个边 <span class="math notranslate nohighlight">\(\hat{t}、R \hat{f}_0、\hat{f}_1\)</span> 之间共面度的增加，公共顶点将被“拉”向另一侧，从而使四面体变平。 当三个边共面时，四面体变得完全平坦，即  <span class="math notranslate nohighlight">\(V = 0\)</span> ，
 因此 <span class="math notranslate nohighlight">\(\hat{e} = 0\)</span>。</p>
-</div>
-<div class="section" id="id2">
-<h3><span class="section-number">33.1.2. </span>与两条射线之间的距离的关系<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id2">
+<h3><span class="section-number">33.1.2. </span>与两条射线之间的距离的关系<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
 <p>我们还可以将归一化极线误差 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 与两条反投影射线之间的最短距离联系起来，即图 2b 中的 <span class="math notranslate nohighlight">\(d\)</span> 。</p>
 <p>为了说明这一点，将首先推导出两条斜线之间最短距离的公式：</p>
 <p>考虑两条斜线  <span class="math notranslate nohighlight">\(l_0 = c_0 + s_0 m _0\)</span> 和  <span class="math notranslate nohighlight">\(l_1 = c_1 + s_1m_1\)</span> 。</p>
 <p>它们之间的距离由每条线上最近的一对点 <span class="math notranslate nohighlight">\((r_0, r_1)\)</span> 之间的距离给出，并且它们位于两条线的共同垂线上。</p>
 <p>现在，考虑两个具有法线  <span class="math notranslate nohighlight">\(n = m_0 \times m_1\)</span> 的平行平面：包含 <span class="math notranslate nohighlight">\(l_0\)</span> 的平面 <span class="math notranslate nohighlight">\(\Pi_0\)</span> 和包含 <span class="math notranslate nohighlight">\(l_1\)</span> 的平面 <span class="math notranslate nohighlight">\(\Pi_1\)</span> ，如下图a所示：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/323.jpg" src="../../../../../_images/323.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/311.jpg" src="../../../../../_images/311.jpg" />
+</figure>
 <p>请注意， <span class="math notranslate nohighlight">\(d = ||r_0 - r_1||\)</span> 与平面之间的距离相同，与 <span class="math notranslate nohighlight">\(||c_1 - a_0||\)</span> 相同，其中 <span class="math notranslate nohighlight">\(a_0\)</span> 是 <span class="math notranslate nohighlight">\(c_1\)</span> 在 <span class="math notranslate nohighlight">\(\Pi_0\)</span> 中的投影位置。</p>
 <p>由于 <span class="math notranslate nohighlight">\(||c_1 - a_0||\)</span> =  <span class="math notranslate nohighlight">\(|(c0 − c1) · n| / ||n||\)</span> ，得到距离公式：</p>
 <div class="math notranslate nohighlight">
@@ -337,9 +249,9 @@
 <p>可以将 <span class="math notranslate nohighlight">\(sin(\beta)\)</span> 解释为当视差角较小时降低残差 <span class="math notranslate nohighlight">\(d\)</span> 的因子。</p>
 <p>注意 当且仅当 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span> 都垂直于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 时 <span class="math notranslate nohighlight">\(d ≤ 1\)</span> 且等式成立。</p>
 <p>如果两条射线相交（在无穷远处），则 <span class="math notranslate nohighlight">\(d = 0\)</span> （或 <span class="math notranslate nohighlight">\(\beta = 0\)</span> ），因此 <span class="math notranslate nohighlight">\(\hat{e} = 0\)</span> 。</p>
-</div>
-<div class="section" id="id3">
-<h3><span class="section-number">33.1.3. </span>与两个平面之间的角度的关系<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h3><span class="section-number">33.1.3. </span>与两个平面之间的角度的关系<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>在图 2b 中，考虑以下平面：一个平面包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(R \hat{f}_0\)</span> ，另一个包含 <span class="math notranslate nohighlight">\(t\)</span> 和 <span class="math notranslate nohighlight">\(\hat{f}_1\)</span>。</p>
 <p>令 <span class="math notranslate nohighlight">\(n_0\)</span> 和 <span class="math notranslate nohighlight">\(n_1\)</span> 为它们的法向量。 这两个平面绘制在图 3b 中。</p>
 <p>可以将它们视为通常在其之间找到对极平面的两个边界平面。</p>
@@ -351,9 +263,9 @@
 \[||R \hat{f}_0 \times \hat{t} || ||\hat{f}_1 \times \hat{t}|| sin(\alpha) = ||(R \hat{f}_0 \times \hat{t}) \times (\hat{f}_1 \times \hat{t})||\]</div>
 <p>对于任何 3D 向量 a、b、c、d，向量四倍积  <span class="math notranslate nohighlight">\((a×b)×(c×d)\)</span>  等于  <span class="math notranslate nohighlight">\(((a × b) · d) c−((a × b) · c) d\)</span> 。</p>
 <p>因此上式的右边可以写成：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/420.jpg" src="../../../../../_images/420.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/48.jpg" src="../../../../../_images/48.jpg" />
+</figure>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>第三个等式源于 <span class="math notranslate nohighlight">\(\hat{t}\)</span> 是单位向量</p>
@@ -371,16 +283,16 @@ e &amp;=&amp; ||R \hat{f}_0 \times \hat{t}|| ||\hat{f}_1 \times \hat{t}|| sin(\a
 \[\phi_1 := ∠(\hat{f}_1,\hat{t}) \in [0, \pi / 2]\]</div>
 <p>这两个角度如图 2b 所示。 可以将 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 解释为两个边界对极平面之间的二面角的正弦，加权为  <span class="math notranslate nohighlight">\(sin(\phi_0) sin(\phi_1)\)</span> 。</p>
 <p>因此，如果 <span class="math notranslate nohighlight">\(\phi_0,\phi_1,\alpha\)</span> 中的任何一个非常小，则 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 会很小。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">33.1.4. </span>与角度重投影误差的关系<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">33.1.4. </span>与角度重投影误差的关系<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>定义 L1 最优角度重投影误差：</p>
 <div class="math notranslate nohighlight">
 \[\theta_{L1}^{*} = \mathop{min}\limits_{\hat{f}'_0, \hat{f}'_1} (∠(\hat{f}'_0, \hat{f}_0) + ∠(\hat{f}'_1, \hat{f}_1)) ~s.t.~\hat{f}'_1 · (\hat{t} \times R \hat{f}'_0) = 0\]</div>
 <p>换句话说，它是 <span class="math notranslate nohighlight">\(\theta_0 + \theta_1\)</span> 的最小值，其中 <span class="math notranslate nohighlight">\(\theta_0\)</span> 和 <span class="math notranslate nohighlight">\(\theta_1\)</span> 是校正反投影光线以使它们相交的角度。 下图说明了这些角度。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/517.jpg" src="../../../../../_images/517.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/55.jpg" src="../../../../../_images/55.jpg" />
+</figure>
 <p>另外，有：</p>
 <div class="math notranslate nohighlight">
 \[sin(\theta_{L1}^{*}) = min(\frac{|R \hat{f}_0 · (\hat{f}_1 \times \hat{t})|}{||R \hat{f}_0 \times \hat{t}||}, \frac{|R \hat{f}_0 · (\hat{f}_1 \times \hat{t})|}{||\hat{f}_1 \times \hat{t}||})\]</div>
@@ -392,51 +304,39 @@ e &amp;=&amp; ||R \hat{f}_0 \times \hat{t}|| ||\hat{f}_1 \times \hat{t}|| sin(\a
 \[\hat{e} = sin(max(\phi_0, \phi_1)) sin(\theta_{L1}^{*})\]</div>
 <p>因此，可以将 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 解释为 L1 最优角度重投影误差的正弦值，由  <span class="math notranslate nohighlight">\(sin(max(\phi_0, \phi_1))\)</span> 加权。
 因此，如果 <span class="math notranslate nohighlight">\(\theta_{L1}^{*}\)</span> 或  <span class="math notranslate nohighlight">\(max(\phi_0, \phi_1)\)</span> 中的任何一个非常小，则 <span class="math notranslate nohighlight">\(\hat{e}\)</span> 会很小。</p>
-</div>
-</div>
-<div class="section" id="conclusion">
-<h2><span class="section-number">33.2. </span>Conclusion<a class="headerlink" href="#conclusion" title="永久链接至标题">¶</a></h2>
-</div>
-</div>
+</section>
+</section>
+<section id="conclusion">
+<h2><span class="section-number">33.2. </span>Conclusion<a class="headerlink" href="#conclusion" title="永久链接至标题"></a></h2>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" class="btn btn-neutral float-right" title="34. Triangulation: Why Optimize?" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Solver6L/Solver6L.html" class="btn btn-neutral float-left" title="32. Solutions to Minimal Generalized Relative Pose Problems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Triangulation_Why_Optimize/Triangulation_Why_Optimize.html" class="btn btn-neutral float-right" title="34. Triangulation: Why Optimize?" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

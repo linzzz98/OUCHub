@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Multi-Layer Perceptron(多层感知器) &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
         <script src="../../../../_static/jquery.js"></script>
         <script src="../../../../_static/underscore.js"></script>
         <script src="../../../../_static/doctools.js"></script>
-        <script src="../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../_static/twemoji.js"></script>
         <script src="../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../search.html" />
     <link rel="next" title="🍊 Structure from Motion" href="../../../paper/p_sfm.html" />
     <link rel="prev" title="🍎 Machine Learning" href="../../k_ML.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,19 +43,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../k_CV.html">🍤 Computer Vision</a></li>
@@ -113,101 +63,70 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../k_ML.html">🍎 Machine Learning</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Multi-Layer Perceptron(多层感知器)</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../_sources/pages/knowledge/MachineLearning/MLP/MLP.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="multi-layer-perceptron">
-<h1><span class="section-number">1. </span>Multi-Layer Perceptron(多层感知器)<a class="headerlink" href="#multi-layer-perceptron" title="永久链接至标题">¶</a></h1>
+             
+  <section id="multi-layer-perceptron">
+<h1><span class="section-number">1. </span>Multi-Layer Perceptron(多层感知器)<a class="headerlink" href="#multi-layer-perceptron" title="永久链接至标题"></a></h1>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>本篇部分参考自 👉  <a class="reference external" href="http://zh.gluon.ai/chapter_deep-learning-basics/mlp.html">《动手学深度学习》</a></p>
 </div>
-<div class="section" id="pla-perceptron-learning-algorithm">
-<h2><span class="section-number">1.1. </span>感知机（PLA: Perceptron Learning Algorithm）<a class="headerlink" href="#pla-perceptron-learning-algorithm" title="永久链接至标题">¶</a></h2>
+<section id="pla-perceptron-learning-algorithm">
+<h2><span class="section-number">1.1. </span>感知机（PLA: Perceptron Learning Algorithm）<a class="headerlink" href="#pla-perceptron-learning-algorithm" title="永久链接至标题"></a></h2>
 <p>感知机的神经网络表示如下：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../_images/11.jpg" src="../../../../_images/11.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/19.jpg" src="../../../../_images/19.jpg" />
+</figure>
 <ul>
 <li><p>输入权值： 一个感知器可以接收多个输入 <span class="math notranslate nohighlight">\(\{x_1,x_2,...,x_n|x_i \in R\}\)</span>，每个输入上有一个权值 <span class="math notranslate nohighlight">\(w_i \in R\)</span>， 此外还有一个偏置项 <span class="math notranslate nohighlight">\(b \in R\)</span> ，即 <span class="math notranslate nohighlight">\(w_0\)</span> 。</p></li>
 <li><p>激活函数： 感知器的激活函数可以有很多选择，以阶跃函数 <span class="math notranslate nohighlight">\(f\)</span> 为例</p>
@@ -229,16 +148,16 @@
 <p class="admonition-title">重要</p>
 <p>PLA是一个线性的二分类器，不能对非线性的数据进行有效的分类。</p>
 </div>
-</div>
-<div class="section" id="mlp-multilayer-perceptron">
-<h2><span class="section-number">1.2. </span>多层感知机（MLP：Multilayer Perceptron）<a class="headerlink" href="#mlp-multilayer-perceptron" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="mlp-multilayer-perceptron">
+<h2><span class="section-number">1.2. </span>多层感知机（MLP：Multilayer Perceptron）<a class="headerlink" href="#mlp-multilayer-perceptron" title="永久链接至标题"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>多层感知机在单层神经网络的基础上引入了一到多个隐藏层（hidden layer）。隐藏层位于输入层和输出层之间。</p>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../_images/21.jpg" src="../../../../_images/21.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/26.jpg" src="../../../../_images/26.jpg" />
+</figure>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>输入层不涉及计算，多层感知机的层数为 <code class="docutils literal notranslate"><span class="pre">总层数</span> <span class="pre">-</span> <span class="pre">1</span></code></p>
@@ -273,12 +192,12 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>在回归问题中，将输出层的输出个数设为1，并将输出 <span class="math notranslate nohighlight">\(O\)</span> 直接提供给线性回归中使用的平方损失函数。</p></li>
 </ol>
 </div>
-</div>
-<div class="section" id="id2">
-<h2><span class="section-number">1.3. </span>激活函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2><span class="section-number">1.3. </span>激活函数<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>问题的根源在于全连接层只是对数据做仿射变换（affine transformation），而多个仿射变换的叠加仍然是一个仿射变换。解决问题的一个方法是引入非线性变换，例如对隐藏变量使用按元素运算的非线性函数进行变换，然后再作为下一个全连接层的输入。这个非线性函数被称为激活函数（activation function）。</p>
-<div class="section" id="relu">
-<h3><span class="section-number">1.3.1. </span>ReLU<a class="headerlink" href="#relu" title="永久链接至标题">¶</a></h3>
+<section id="relu">
+<h3><span class="section-number">1.3.1. </span>ReLU<a class="headerlink" href="#relu" title="永久链接至标题"></a></h3>
 <p>ReLU（rectified linear unit）函数提供了一个很简单的非线性变换。给定元素 x ，该函数定义为</p>
 <div class="math notranslate nohighlight">
 \[ReLU(x) = max(x, 0)\]</div>
@@ -289,12 +208,12 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为负数时，ReLU函数的导数为0；当输入为正数时，ReLU函数的导数为1。尽管输入为0时ReLU函数不可导，但是可以取此处的导数为0。</p></li>
 </ol>
 </div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../_images/14.png" src="../../../../_images/14.png" />
-</div>
-</div>
-<div class="section" id="sigmoid">
-<h3><span class="section-number">1.3.2. </span>sigmoid<a class="headerlink" href="#sigmoid" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="sigmoid">
+<h3><span class="section-number">1.3.2. </span>sigmoid<a class="headerlink" href="#sigmoid" title="永久链接至标题"></a></h3>
 <p>sigmoid函数可以将元素的值变换到0和1之间：</p>
 <div class="math notranslate nohighlight">
 \[sigmoid(x) = \frac{1}{1 + exp(-x)}\]</div>
@@ -306,12 +225,12 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为0时，sigmoid函数的导数达到最大值0.25；当输入越偏离0时，sigmoid函数的导数越接近0。</p></li>
 </ol>
 </div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../_images/22.png" src="../../../../_images/22.png" />
-</div>
-</div>
-<div class="section" id="tanh">
-<h3><span class="section-number">1.3.3. </span>tanh<a class="headerlink" href="#tanh" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="tanh">
+<h3><span class="section-number">1.3.3. </span>tanh<a class="headerlink" href="#tanh" title="永久链接至标题"></a></h3>
 <p>tanh（双曲正切）函数可以将元素的值变换到-1和1之间：</p>
 <div class="math notranslate nohighlight">
 \[tanh(x) = \frac{1-exp(-2x)}{1+exp(-2x)}\]</div>
@@ -323,51 +242,39 @@ O &amp;= (XW_h + b_h)W_o + b_o\\
 <li><p>当输入为0时，tanh函数的导数达到最大值1；当输入越偏离0时，tanh函数的导数越接近0。</p></li>
 </ol>
 </div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../_images/31.png" src="../../../../_images/31.png" />
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../paper/p_sfm.html" class="btn btn-neutral float-right" title="🍊 Structure from Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../k_ML.html" class="btn btn-neutral float-left" title="🍎 Machine Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../paper/p_sfm.html" class="btn btn-neutral float-right" title="🍊 Structure from Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

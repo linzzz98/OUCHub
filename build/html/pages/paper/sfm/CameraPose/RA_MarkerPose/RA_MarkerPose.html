@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
-    <link rel="next" title="38. Unsupervised Learning of Depth and Ego-Motion from Video" href="../../DeepLearning/SfMLearner/SfMLearner.html" />
+    <link rel="next" title="38. Robust Global Translations with 1DSfM" href="../1DSfM/1DSfM.html" />
     <link rel="prev" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" href="../GAM/GAM.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -132,7 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
@@ -151,9 +101,10 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">38. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">39. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">40. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -161,90 +112,52 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">37. </span>Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/paper/sfm/CameraPose/RA_MarkerPose/RA_MarkerPose.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints">
-<h1><span class="section-number">37. </span>Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints<a class="headerlink" href="#resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints" title="永久链接至标题">¶</a></h1>
+             
+  <section id="resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints">
+<h1><span class="section-number">37. </span>Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints<a class="headerlink" href="#resolving-marker-pose-ambiguity-by-robust-rotation-averaging-with-clique-constraints" title="永久链接至标题"></a></h1>
 <p>平面位姿估计 (PPE)存在一个基本的歧义问题，因为 PPE 实例可能有多个合理的姿势解决方案。 尤其是当标记角的定位有噪声时，通常很难仅基于重投影误差来消除位姿解决方案的歧义。</p>
 <p>以前的方法使用启发式标准在可能的解决方案之间进行选择，或者简单地忽略模棱两可的标记。</p>
 <p>本文的工作建议通过检查一组标记在多个视图中的一致性来解决歧义。 我们的具体贡献包括一种新颖的旋转平均公式，该公式结合了由 PPE 模糊性引起的可能标记方向解决方案之间的长期依赖关系。</p>
@@ -256,9 +169,9 @@
 <dd class="field-odd"><p>请注意，PPE 返回的两个解可能非常不同，因此随意选择两个位姿之一，或者将两个解的中点作为位姿估计是不明智的。</p>
 </dd>
 </dl>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/154.jpg" src="../../../../../_images/154.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/129.jpg" src="../../../../../_images/129.jpg" />
+</figure>
 <p>消除两个返回位姿 <span class="math notranslate nohighlight">\(p'\)</span> 和 <span class="math notranslate nohighlight">\(p''\)</span> 歧义的常用方法是计算每个位姿的重投影误差。</p>
 <div class="math notranslate nohighlight">
 \[r(p) = \sum\limits_{k=1}^4 || f(K, c_k, p) - u_k||_2^2, p \in \{p', p''\}\]</div>
@@ -270,8 +183,8 @@
 <p class="admonition-title">重要</p>
 <p>比较重投影误差并不是万无一失的，因为如果角点定位有噪声， <span class="math notranslate nohighlight">\(r(p')\)</span> 和 <span class="math notranslate nohighlight">\(r(p'')\)</span> 可能非常接近。 事实上，正确的解可以有更高的重投影误差。</p>
 </div>
-<div class="section" id="problem-formulation">
-<h2><span class="section-number">37.1. </span>PROBLEM FORMULATION<a class="headerlink" href="#problem-formulation" title="永久链接至标题">¶</a></h2>
+<section id="problem-formulation">
+<h2><span class="section-number">37.1. </span>PROBLEM FORMULATION<a class="headerlink" href="#problem-formulation" title="永久链接至标题"></a></h2>
 <p>考虑到 <span class="math notranslate nohighlight">\(T\)</span> 个输入图片 <span class="math notranslate nohighlight">\(\{I_t\}_{t=1}^T\)</span> 包含了 <span class="math notranslate nohighlight">\(N\)</span> 个marker <span class="math notranslate nohighlight">\(\{M_i\}_{i=1}^N\)</span>  ，假设相机已经标定。</p>
 <div class="math notranslate nohighlight">
 \[A^t = \{i \in \{1,...,N\}|M_i~~was~~detected~~in~~I_t\}\]</div>
@@ -297,9 +210,9 @@
 \[\bigcup_{t=1}^T \bigcup_{i\in B^t} \{\tilde{p}_i^{t}\}\]</div>
 <p>其中每个  <span class="math notranslate nohighlight">\(\tilde{p}_i^{t}\)</span> 要么是 <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,0)}\)</span> 要么是 <span class="math notranslate nohighlight">\(\tilde{p}_i^{(t,1)}\)</span> ，并且  <span class="math notranslate nohighlight">\(B_t ⊆ A_t\)</span> 。 这
 然后，减少的测量集会受到 SfM/SLAM 管道的其余部分的影响。</p>
-</div>
-<div class="section" id="multigraph-with-rotational-ambiguity">
-<h2><span class="section-number">37.2. </span>MULTIGRAPH WITH ROTATIONAL AMBIGUITY<a class="headerlink" href="#multigraph-with-rotational-ambiguity" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="multigraph-with-rotational-ambiguity">
+<h2><span class="section-number">37.2. </span>MULTIGRAPH WITH ROTATIONAL AMBIGUITY<a class="headerlink" href="#multigraph-with-rotational-ambiguity" title="永久链接至标题"></a></h2>
 <p>由于歧义在于方向，因此很自然地只使用 M2C 相对旋转来模拟歧义</p>
 <div class="math notranslate nohighlight">
 \[\bigcup_{t=1}^T \bigcup_{i\in A^t} \{\tilde{R}_i^{(t,a)}\}_{a = 0,1}\]</div>
@@ -328,8 +241,8 @@
 <p>类似地，唯一 M2M 相对旋转的集合是：</p>
 <div class="math notranslate nohighlight">
 \[\bigcup_{t=1}^T \bigcup_{i,j \in A^t, i &lt; j} \{\tilde{R}_{i,j}^{(t,ab)}\}_{ab = 00,01,10,11}\]</div>
-<div class="section" id="a-consistent-cliques">
-<h3><span class="section-number">37.2.1. </span>A. Consistent cliques<a class="headerlink" href="#a-consistent-cliques" title="永久链接至标题">¶</a></h3>
+<section id="a-consistent-cliques">
+<h3><span class="section-number">37.2.1. </span>A. Consistent cliques<a class="headerlink" href="#a-consistent-cliques" title="永久链接至标题"></a></h3>
 <p>假设多重图 G 是连通的，即存在一条连接 G 中每一对顶点（标记）的路径。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Consistent clique</dt>
@@ -344,13 +257,13 @@
 <p>直观地说，图像 <span class="math notranslate nohighlight">\(I_t\)</span> 的一致 clique  <span class="math notranslate nohighlight">\(C\)</span> 对应于一组 M2M 相对旋转，这些旋转是使用恒定选择 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测到的每个标记的两个 <span class="math notranslate nohighlight">\(M2C\)</span> 相对位姿之一组成的。</p>
 <p>恒定的 M2C 相对姿势选择存在多个有效组合，因此图像存在多个consistent cliques。</p>
 <p>假设在每个图像中检测到 <span class="math notranslate nohighlight">\(V\)</span> 个标记，则每个图像有 <span class="math notranslate nohighlight">\(O(2^V)\)</span> 个一致的团。 对于 <span class="math notranslate nohighlight">\(T\)</span> 个图像，因此在图像中存在 <span class="math notranslate nohighlight">\(O(2^{VT})\)</span> 个consistent cliques。</p>
-</div>
-</div>
-<div class="section" id="disambiguation-with-rotation-averaging">
-<h2><span class="section-number">37.3. </span>DISAMBIGUATION WITH ROTATION AVERAGING<a class="headerlink" href="#disambiguation-with-rotation-averaging" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="disambiguation-with-rotation-averaging">
+<h2><span class="section-number">37.3. </span>DISAMBIGUATION WITH ROTATION AVERAGING<a class="headerlink" href="#disambiguation-with-rotation-averaging" title="永久链接至标题"></a></h2>
 <p>基于多重图，通过首先解决新的旋转平均公式来解决歧义，然后 <strong>基于平均结果</strong> 构建和解决最大weighted clique问题。 此步骤的关键结果是标记位姿消歧。</p>
-<div class="section" id="rotation-averaging-with-clique-constraints">
-<h3><span class="section-number">37.3.1. </span>Rotation averaging with clique constraints<a class="headerlink" href="#rotation-averaging-with-clique-constraints" title="永久链接至标题">¶</a></h3>
+<section id="rotation-averaging-with-clique-constraints">
+<h3><span class="section-number">37.3.1. </span>Rotation averaging with clique constraints<a class="headerlink" href="#rotation-averaging-with-clique-constraints" title="永久链接至标题"></a></h3>
 <p>虽然标准旋转平均是在相对旋转图 上定义的，但将公式扩展到相对旋转的多重图是很简单的，并且现有算法可以通过微小的调整来应用。</p>
 <p>令 <span class="math notranslate nohighlight">\(\{R_i\}^N_{i=1}\)</span> 为标记的绝对旋转。 多重图 <span class="math notranslate nohighlight">\(G\)</span> 上的旋转平均问题是：</p>
 <div class="math notranslate nohighlight">
@@ -364,48 +277,36 @@
 <div class="math notranslate nohighlight">
 \[s = \bigcup{t=1}^T \{s_i^t \in \{0,1\} | i \in A^t\}\]</div>
 <p>其中设置 <span class="math notranslate nohighlight">\(s_i^t = 0\)</span> 意味着选择 M2C 相对旋转  <span class="math notranslate nohighlight">\(\tilde{R}_i^{(t,0)}\)</span>  在 <span class="math notranslate nohighlight">\(I_t\)</span> 中检测 <span class="math notranslate nohighlight">\(M_i\)</span> ，其中 <span class="math notranslate nohighlight">\(s_i^t = 1\)</span> 意味着选择 <span class="math notranslate nohighlight">\(\tilde{R}_i^{(t,1)}\)</span></p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../DeepLearning/SfMLearner/SfMLearner.html" class="btn btn-neutral float-right" title="38. Unsupervised Learning of Depth and Ego-Motion from Video" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../GAM/GAM.html" class="btn btn-neutral float-left" title="36. Geometry-aware Feature Matching for Structure from Motion Applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../1DSfM/1DSfM.html" class="btn btn-neutral float-right" title="38. Robust Global Translations with 1DSfM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

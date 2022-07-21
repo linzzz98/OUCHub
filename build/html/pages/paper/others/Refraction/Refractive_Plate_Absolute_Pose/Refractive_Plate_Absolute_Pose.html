@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>3. Absolute Scale Structure from Motion Using a Refractive Plate &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions" href="../../Marker/CCTag/CCTag.html" />
     <link rel="prev" title="2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law" href="../Underwater_3D_Reconstruction/Underwater_3D_Reconstruction.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,28 +43,19 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../p_others.html">🍒 Others</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Refractive_laser_triangulation/Refractive_laser_triangulation.html">1. Refractive laser triangulation and photometric stereo in underwater environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Underwater_3D_Reconstruction/Underwater_3D_Reconstruction.html">2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law</a></li>
@@ -113,89 +65,56 @@
 </ul>
 </li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../p_others.html">🍒 Others</a> &raquo;</li>
-        
       <li><span class="section-number">3. </span>Absolute Scale Structure from Motion Using a Refractive Plate</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/paper/others/Refraction/Refractive_Plate_Absolute_Pose/Refractive_Plate_Absolute_Pose.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="absolute-scale-structure-from-motion-using-a-refractive-plate">
-<h1><span class="section-number">3. </span>Absolute Scale Structure from Motion Using a Refractive Plate<a class="headerlink" href="#absolute-scale-structure-from-motion-using-a-refractive-plate" title="永久链接至标题">¶</a></h1>
+             
+  <section id="absolute-scale-structure-from-motion-using-a-refractive-plate">
+<h1><span class="section-number">3. </span>Absolute Scale Structure from Motion Using a Refractive Plate<a class="headerlink" href="#absolute-scale-structure-from-motion-using-a-refractive-plate" title="永久链接至标题"></a></h1>
 <p>本文提出了一种使用折射平面来恢复SfM的真实三维尺度的方法。</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../_images/116.jpg" src="../../../../../_images/116.jpg" />
-</div>
+</figure>
 <p>原理是：光线进入不同介质并改变其路径时会发生折射，折射角取决于相机和物体的位置。</p>
 <p>计算从测量点到相机中心的光线路径。 系统如图所示。折射板位于相机的前面。</p>
 <dl class="field-list simple">
@@ -208,9 +127,9 @@
 </ol>
 </dd>
 </dl>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/28.jpg" src="../../../../../_images/28.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/213.jpg" src="../../../../../_images/213.jpg" />
+</figure>
 <p>在此系统中，测量点和相机之间发生两次折射。</p>
 <p>在测量点和折射板之间的光线路径称为outer ray，在折射板和照相机之间的光线路径称为inner ray。</p>
 <p>折射导致inner ray和outer ray之间的差异。</p>
@@ -239,9 +158,9 @@
 <p>其中 <span class="math notranslate nohighlight">\(R\)</span> 是从坐标系 <span class="math notranslate nohighlight">\(C\)</span> 到 <span class="math notranslate nohighlight">\(C'\)</span> 的旋转矩阵。 <span class="math notranslate nohighlight">\(t\)</span> 是从坐标系 <span class="math notranslate nohighlight">\(C\)</span> 的中心到坐标系 <span class="math notranslate nohighlight">\(C'\)</span> 的位移向量。</p>
 <p>向量 <span class="math notranslate nohighlight">\(d\)</span> 和 <span class="math notranslate nohighlight">\(d'\)</span> 是摄像机坐标系中 <span class="math notranslate nohighlight">\(D_c\)</span> 和 <span class="math notranslate nohighlight">\(D_c'\)</span> 的位置向量。</p>
 <p>令向量的元素 <span class="math notranslate nohighlight">\(r = (x,y,z)^T\)</span> ， <span class="math notranslate nohighlight">\(d = (d_1,d_2,d_3)^T\)</span> ， <span class="math notranslate nohighlight">\(r' = (x',y',z')^T\)</span> ， <span class="math notranslate nohighlight">\(d' = (d_1',d_2',d_3')^T\)</span> ，则上面的等式可以表示为：</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <a class="reference internal image-reference" href="../../../../../_images/36.jpg"><img alt="../../../../../_images/36.jpg" src="../../../../../_images/36.jpg" style="width: 466.5px; height: 541.5px;" /></a>
-</div>
+</figure>
 <p>上式可以简单地表示为如下的内积：</p>
 <div class="math notranslate nohighlight">
 \[u^T g = 0\]</div>
@@ -256,9 +175,9 @@
 <p>因此，可以使用最小二乘法计算 <span class="math notranslate nohighlight">\(g\)</span> 。 用这种方法至少需要17个点才能求解方程式。</p>
 <p>最小二乘法的初始解是 <span class="math notranslate nohighlight">\(U^TU\)</span> 的最小特征值的特征向量。</p>
 <p>令 <span class="math notranslate nohighlight">\(g_i\)</span> 为 <span class="math notranslate nohighlight">\(g\)</span> 的第 <span class="math notranslate nohighlight">\(i\)</span> 个元素。 那么 <span class="math notranslate nohighlight">\(g_{10}~g_{18}\)</span> 分别与R的每个元素相同。 因此，根据旋转矩阵的正交性，可以得到约束为：</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <a class="reference internal image-reference" href="../../../../../_images/45.jpg"><img alt="../../../../../_images/45.jpg" src="../../../../../_images/45.jpg" style="width: 460.5px; height: 141.0px;" /></a>
-</div>
+</figure>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>这些约束能够计算 <span class="math notranslate nohighlight">\(g\)</span> 的范数。</p>
@@ -275,55 +194,43 @@
 <blockquote>
 <div><p><span class="math notranslate nohighlight">\(E\)</span> 矩阵是 <span class="math notranslate nohighlight">\(R\)</span> 和 <span class="math notranslate nohighlight">\(T\)</span> 的乘积，如下所示。</p>
 </div></blockquote>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/54.jpg"><img alt="../../../../../_images/54.jpg" src="../../../../../_images/54.jpg" style="width: 471.75px; height: 226.5px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/52.jpg"><img alt="../../../../../_images/52.jpg" src="../../../../../_images/52.jpg" style="width: 471.75px; height: 226.5px;" /></a>
+</figure>
 <p>其中：</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/64.jpg"><img alt="../../../../../_images/64.jpg" src="../../../../../_images/64.jpg" style="width: 225.75px; height: 81.75px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/63.jpg"><img alt="../../../../../_images/63.jpg" src="../../../../../_images/63.jpg" style="width: 225.75px; height: 81.75px;" /></a>
+</figure>
 <p><span class="math notranslate nohighlight">\(t\)</span> 可以从 <span class="math notranslate nohighlight">\(T\)</span> 的元素获得。</p>
 <p>测量点的3D位置是通过三角测量从摄像机的位置和姿势计算得出的。 考虑 <code class="docutils literal notranslate"><span class="pre">景深约束</span></code></p>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../Marker/CCTag/CCTag.html" class="btn btn-neutral float-right" title="4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Underwater_3D_Reconstruction/Underwater_3D_Reconstruction.html" class="btn btn-neutral float-left" title="2. Camera Calibration for Underwater 3D Reconstruction Based on Ray Tracing using Snell’s Law" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../Marker/CCTag/CCTag.html" class="btn btn-neutral float-right" title="4. Detection and Accurate Localization of Circular Fiducials under Highly Challenging Conditions" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

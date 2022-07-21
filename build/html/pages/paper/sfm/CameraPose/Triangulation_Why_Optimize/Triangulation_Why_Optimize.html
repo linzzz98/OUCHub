@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>34. Triangulation: Why Optimize? &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="35. Mapping and Localization from Planar Markers" href="../Planar_Markers/Planar_Markers.html" />
     <link rel="prev" title="33. Geometric Interpretations of the Normalized Epipolar Error" href="../Geometric_Interpretations/Geometric_Interpretations.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../LocalMethod/Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -132,7 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
@@ -150,9 +100,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">37. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">38. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">39. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_slam.html">🍊 SLAM</a></li>
@@ -160,99 +112,61 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">34. </span>Triangulation: Why Optimize?</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/paper/sfm/CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="triangulation-why-optimize">
-<h1><span class="section-number">34. </span>Triangulation: Why Optimize?<a class="headerlink" href="#triangulation-why-optimize" title="永久链接至标题">¶</a></h1>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/94.jpg" src="../../../../../_images/94.jpg" />
-</div>
+             
+  <section id="triangulation-why-optimize">
+<h1><span class="section-number">34. </span>Triangulation: Why Optimize?<a class="headerlink" href="#triangulation-why-optimize" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/92.jpg" src="../../../../../_images/92.jpg" />
+</figure>
 <p>人们普遍认为两视图三角测量的黄金标准是将基于重投影误差的成本最小化。</p>
 <p>在本文工作中，作者挑战了这个想法，提出了一种新的替代经典mid point的方法，可显着降低 2D 误差和视差误差。</p>
 <p>它仅基于一对反向投影光线提供了数值稳定的封闭形式的解。</p>
 <p>对于小视差角，本文的方法在 2D、3D 和视差组合精度方面优于最先进的方法，同时实现了可比的速度。</p>
-<div class="section" id="introduction">
-<h2><span class="section-number">34.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题">¶</a></h2>
+<section id="introduction">
+<h2><span class="section-number">34.1. </span>Introduction<a class="headerlink" href="#introduction" title="永久链接至标题"></a></h2>
 <p>对于已知校准内参矩阵和位姿的两个视图，如果找到对应于同一点的两条反向投影光线的交点，则可以理想地解决该问题。</p>
 <p>然而，由于噪声测量和不准确的相机模型，这两条射线很可能发生偏斜。</p>
 <p>如何从两条倾斜光线估计点的 3D 位置，有以下不同的方法：</p>
@@ -302,12 +216,12 @@
 <ol class="arabic simple" start="3">
 <li><p>对各种方法进行了广泛的评估和分析，揭示了 3D 精度和视差估计之间的错综复杂的联系。 这将直观地解释为什么本文的中点方法比其他方法表现更好。</p></li>
 </ol>
-</div>
-<div class="section" id="preliminaries">
-<h2><span class="section-number">34.2. </span>Preliminaries<a class="headerlink" href="#preliminaries" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/148.jpg" src="../../../../../_images/148.jpg" />
-</div>
+</section>
+<section id="preliminaries">
+<h2><span class="section-number">34.2. </span>Preliminaries<a class="headerlink" href="#preliminaries" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/130.jpg" src="../../../../../_images/130.jpg" />
+</figure>
 <p>在理想情况下，两条反向投影的光线相交，满足对极约束，即  <span class="math notranslate nohighlight">\(f_1 · (t \times Rf_0) = 0\)</span></p>
 <p>然后，对于某些标量深度 <span class="math notranslate nohighlight">\(\lambda_0\)</span> 和  <span class="math notranslate nohighlight">\(\lambda_1\)</span> ，交集由 <span class="math notranslate nohighlight">\(x_1 = \lambda_0 R \hat{f}_0 + t\)</span> 或  <span class="math notranslate nohighlight">\(x_1 = \lambda_1 \hat{f}_1\)</span>  给出。</p>
 <p>一旦使用某种三角测量方法获得 3D 点  <span class="math notranslate nohighlight">\((x_1')\)</span>  的估计值，可以通过多种方式评估其准确性:</p>
@@ -335,9 +249,9 @@
 \[\beta_{raw} = ∠(Rf_0, f_1)\]</div>
 </div></blockquote>
 <p>这给出了独立于平移和三角测量方法的视差角的粗略估计。</p>
-</div>
-<div class="section" id="proposed-method">
-<h2><span class="section-number">34.3. </span>Proposed method<a class="headerlink" href="#proposed-method" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="proposed-method">
+<h2><span class="section-number">34.3. </span>Proposed method<a class="headerlink" href="#proposed-method" title="永久链接至标题"></a></h2>
 <p>GWM 方法包括三个步骤：</p>
 <ol class="arabic simple">
 <li><p>给定对应于同一点的两条反向投影光线，使用某种方法估计沿每条光线  <span class="math notranslate nohighlight">\(\lambda_0, \lambda_1\)</span>  的深度。</p></li>
@@ -350,9 +264,9 @@
 <ol class="arabic simple" start="3">
 <li><p>通过计算它们的加权平均值来获得最终估计的3D点。</p></li>
 </ol>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/232.jpg"><img alt="../../../../../_images/232.jpg" src="../../../../../_images/232.jpg" style="width: 387.09999999999997px; height: 340.9px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/223.jpg"><img alt="../../../../../_images/223.jpg" src="../../../../../_images/223.jpg" style="width: 387.09999999999997px; height: 340.9px;" /></a>
+</figure>
 <p>本文提出了一种属于广义加权中点方法的替代中点方法。</p>
 <p>首先，考虑两条反向投影光线恰好相交的情况（见图1a）。</p>
 <p>在这种情况下，交点是最好的解，并且可以使用正弦定理获得沿射线的相应深度：</p>
@@ -403,9 +317,9 @@
 <p class="admonition-title">注意</p>
 <p>在本文的方法中，仅凭深度并不能说明三角测量结果是否可靠。</p>
 <p>下图说明了两种方法之间的差异。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/319.jpg" src="../../../../../_images/319.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/314.jpg" src="../../../../../_images/314.jpg" />
+</figure>
 </div>
 <p>本文的中点法采取不同的验证方式：</p>
 <blockquote>
@@ -425,9 +339,9 @@
 <div class="math notranslate nohighlight">
 \[x_1' = \frac{\lambda_0^{-1}(t+\lambda_0 R\hat{f}_0) + \lambda_1^{-1}(\lambda_1 \hat{f}_1) }{\lambda_0^{-1} + \lambda_1^{-1}} = \frac{||q||}{||q|| + ||r||}(t + \frac{||r||}{||q||}(R\hat{f}_0 + \hat{f}_1))\]</div>
 </div>
-</div>
-<div class="section" id="evaluation-results">
-<h2><span class="section-number">34.4. </span>Evaluation Results<a class="headerlink" href="#evaluation-results" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="evaluation-results">
+<h2><span class="section-number">34.4. </span>Evaluation Results<a class="headerlink" href="#evaluation-results" title="永久链接至标题"></a></h2>
 <p>评估了如下方法：</p>
 <p>（1） Lee 和 Civera 的 L1、L2 和 L∞ 最优角度方法（’L1 ang’、’L2 ang’、’L∞ ang’）</p>
 <p>（2） Hartley 和 Sturm 的 L1 和 L2 最优方法（’L1 img’, ‘L2 img’)</p>
@@ -445,21 +359,21 @@
 <p>（3） ‘forward’ -  <span class="math notranslate nohighlight">\([0,0,\pm0.5]^T\)</span> 处的两个相机指向点云中心。</p>
 <p>（4） ‘diagonal’ -  <span class="math notranslate nohighlight">\(\pm[\sqrt{3} / 6, \sqrt{3} / 6, \sqrt{3} / 6]^T\)</span> 指向 <span class="math notranslate nohighlight">\([0,0,\infty]^T\)</span> 。</p>
 <p>位姿会受到均匀噪声 <span class="math notranslate nohighlight">\(u(0,0.01)\)</span> 的轻微干扰。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/418.jpg" src="../../../../../_images/418.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/515.jpg" src="../../../../../_images/515.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/103.jpg" src="../../../../../_images/103.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/1112.jpg" src="../../../../../_images/1112.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/1212.jpg" src="../../../../../_images/1212.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/411.jpg" src="../../../../../_images/411.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/58.jpg" src="../../../../../_images/58.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/101.jpg" src="../../../../../_images/101.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/1110.jpg" src="../../../../../_images/1110.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/1210.jpg" src="../../../../../_images/1210.jpg" />
+</figure>
 <dl class="field-list">
 <dt class="field-odd">结论</dt>
 <dd class="field-odd"><p>（1） 一般而言，较大的噪声和较低的视差会导致较大的 3D 误差。 对于高视差点（&gt; 4 度），所有方法都会产生几乎同样低的 3D 误差。</p>
@@ -470,9 +384,9 @@
 <p>（2）LinLS 和 Mid 显然更偏向于高估小视差角（&lt; 4 度）。 这解释了它们在低视差下相对较低的 3D 误差。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="appendix">
-<h2><span class="section-number">34.5. </span>Appendix<a class="headerlink" href="#appendix" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="appendix">
+<h2><span class="section-number">34.5. </span>Appendix<a class="headerlink" href="#appendix" title="永久链接至标题"></a></h2>
 <p>把本文的证明过程记录一下：</p>
 <p>下面将完整推导出公式：</p>
 <blockquote>
@@ -490,17 +404,17 @@
 \[(\hat{a} \times b) · (\hat{a} \times c) = b · c - (\hat{a} · b) (\hat{a} · c)\]</div>
 <div class="math notranslate nohighlight">
 \[(a \times b) \times (a\times c) = (a · (b\times c)) a\]</div>
-<div class="section" id="lemma-1-the-closest-pair-of-points-on-two-skew-lines">
-<h3><span class="section-number">34.5.1. </span>Lemma 1 (The Closest Pair of Points on Two Skew Lines)<a class="headerlink" href="#lemma-1-the-closest-pair-of-points-on-two-skew-lines" title="永久链接至标题">¶</a></h3>
+<section id="lemma-1-the-closest-pair-of-points-on-two-skew-lines">
+<h3><span class="section-number">34.5.1. </span>Lemma 1 (The Closest Pair of Points on Two Skew Lines)<a class="headerlink" href="#lemma-1-the-closest-pair-of-points-on-two-skew-lines" title="永久链接至标题"></a></h3>
 <p>考虑3D空间中的两条斜线 <span class="math notranslate nohighlight">\(L_0(s_0) = c_0 + s_0m_0\)</span> 和 <span class="math notranslate nohighlight">\(L_1(s_1) = c_1 + s_1m_1\)</span></p>
 <p>设  <span class="math notranslate nohighlight">\(t = c_0 - c_1\)</span>  和  <span class="math notranslate nohighlight">\((r_0, r_1)\)</span> 是每条线上形成最接近点对的两个点。</p>
 <div class="math notranslate nohighlight">
 \[r_ 0 = c_0 + \frac{(\hat{m}_0 \times \hat{m}_1)·(\hat{m}_1 \times t)}{||\hat{m}_0 \times \hat{m}_1||^2}\hat{m}_0\]</div>
 <div class="math notranslate nohighlight">
 \[r_1 = c_1 + \frac{(\hat{m}_0 \times \hat{m}_1)·(\hat{m}_0 \times t)}{||\hat{m}_0 \times \hat{m}_1||^2}\hat{m}_1\]</div>
-</div>
-<div class="section" id="proof">
-<h3><span class="section-number">34.5.2. </span>Proof<a class="headerlink" href="#proof" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="proof">
+<h3><span class="section-number">34.5.2. </span>Proof<a class="headerlink" href="#proof" title="永久链接至标题"></a></h3>
 <p>在几何学中，两条斜线上最近的一对点位于两条斜线上的公共垂线上。</p>
 <p>换句话说，向量 <span class="math notranslate nohighlight">\(r_0 - r_1\)</span> 垂直于 <span class="math notranslate nohighlight">\(L_0\)</span> 和 <span class="math notranslate nohighlight">\(L_1\)</span> 。 因此，对于一些标量 <span class="math notranslate nohighlight">\(\tau\)</span> ：</p>
 <div class="math notranslate nohighlight">
@@ -537,9 +451,9 @@
 <div class="math notranslate nohighlight">
 \[\lambda_1 = \frac{A-B}{C-D}\]</div>
 <p>其中：</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/611.jpg"><img alt="../../../../../_images/611.jpg" src="../../../../../_images/611.jpg" style="width: 306.59999999999997px; height: 185.5px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/66.jpg"><img alt="../../../../../_images/66.jpg" src="../../../../../_images/66.jpg" style="width: 306.59999999999997px; height: 185.5px;" /></a>
+</figure>
 <p>将 <span class="math notranslate nohighlight">\(A-B\)</span> 重新排列为：</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}A - B = n_y t · \left(
@@ -550,13 +464,13 @@ m_{0x}n_y - m_{0y}n_x
 \end{matrix}
 \right)\end{split}\]</div>
 <p>上式的点积中的后一项等于 <span class="math notranslate nohighlight">\(\hat{m}_0 \times n\)</span> ，因此：</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/77.jpg"><img alt="../../../../../_images/77.jpg" src="../../../../../_images/77.jpg" style="width: 315.7px; height: 140.0px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/73.jpg"><img alt="../../../../../_images/73.jpg" src="../../../../../_images/73.jpg" style="width: 315.7px; height: 140.0px;" /></a>
+</figure>
 <p>将 <span class="math notranslate nohighlight">\(C-D\)</span> 重新排列为：</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../_images/86.jpg"><img alt="../../../../../_images/86.jpg" src="../../../../../_images/86.jpg" style="width: 438.9px; height: 168.7px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../_images/83.jpg"><img alt="../../../../../_images/83.jpg" src="../../../../../_images/83.jpg" style="width: 438.9px; height: 168.7px;" /></a>
+</figure>
 <p>将上面两个式子带入 <span class="math notranslate nohighlight">\(\lambda_1 = \frac{A-B}{C-D}\)</span> 得到：</p>
 <div class="math notranslate nohighlight">
 \[\lambda_1 = \frac{(\hat{m}_0 \times{m}_1)·(\hat{m}_0 \times t)}{||\hat{m}_0 \times \hat{m}_1||^2}\]</div>
@@ -567,48 +481,36 @@ m_{0x}n_y - m_{0y}n_x
 \[\lambda_{mid0} = \frac{(R \hat{f}_0 \times \hat{f}_1)·(\hat{f}_1 \times t)}{||R \hat{f}_0 \times \hat{f}_1||^2}\]</div>
 <div class="math notranslate nohighlight">
 \[\lambda_{mid1} = \frac{(R \hat{f}_0 \times \hat{f}_1)·(\hat{f}_0 \times t)}{||R \hat{f}_0 \times \hat{f}_1||^2}\]</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Planar_Markers/Planar_Markers.html" class="btn btn-neutral float-right" title="35. Mapping and Localization from Planar Markers" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Geometric_Interpretations/Geometric_Interpretations.html" class="btn btn-neutral float-left" title="33. Geometric Interpretations of the Normalized Epipolar Error" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Planar_Markers/Planar_Markers.html" class="btn btn-neutral float-right" title="35. Mapping and Localization from Planar Markers" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

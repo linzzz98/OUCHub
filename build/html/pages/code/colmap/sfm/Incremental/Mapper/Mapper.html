@@ -1,80 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Incremental_Mapper &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="🍑 TheiaSfM" href="../../../../theiasfm.html" />
     <link rel="prev" title="SfM Pipeline" href="../../../c_sfm.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +42,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
@@ -139,83 +90,49 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../../c_sfm.html">SfM Pipeline</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Incremental_Mapper</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/code/colmap/sfm/Incremental/Mapper/Mapper.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="incremental-mapper">
-<h1><span class="section-number">1. </span>Incremental_Mapper<a class="headerlink" href="#incremental-mapper" title="永久链接至标题">¶</a></h1>
+             
+  <section id="incremental-mapper">
+<h1><span class="section-number">1. </span>Incremental_Mapper<a class="headerlink" href="#incremental-mapper" title="永久链接至标题"></a></h1>
 <p>为增量重建过程提供所有功能的类</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -258,138 +175,138 @@
 </div>
 </div>
 <dl class="cpp class">
-<dt id="_CPPv417IncrementalMapper">
-<span id="_CPPv317IncrementalMapper"></span><span id="_CPPv217IncrementalMapper"></span><span id="IncrementalMapper"></span><em class="property">class </em><code class="sig-name descname">IncrementalMapper</code><a class="headerlink" href="#_CPPv417IncrementalMapper" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv417IncrementalMapper">
+<span id="_CPPv317IncrementalMapper"></span><span id="_CPPv217IncrementalMapper"></span><span id="IncrementalMapper"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IncrementalMapper</span></span></span><a class="headerlink" href="#_CPPv417IncrementalMapper" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="section" id="id1">
-<h2>配置选项<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>配置选项<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <dl class="cpp struct">
-<dt id="_CPPv4N17IncrementalMapper7OptionsE">
-<span id="_CPPv3N17IncrementalMapper7OptionsE"></span><span id="_CPPv2N17IncrementalMapper7OptionsE"></span><span id="IncrementalMapper::Options"></span><em class="property">struct </em><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Options</code><a class="headerlink" href="#_CPPv4N17IncrementalMapper7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper7OptionsE">
+<span id="_CPPv3N17IncrementalMapper7OptionsE"></span><span id="_CPPv2N17IncrementalMapper7OptionsE"></span><span id="IncrementalMapper::Options"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Options</span></span></span><a class="headerlink" href="#_CPPv4N17IncrementalMapper7OptionsE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv420init_min_num_inliers">
-<span id="_CPPv320init_min_num_inliers"></span><span id="_CPPv220init_min_num_inliers"></span><span id="init_min_num_inliers__i"></span>int <code class="sig-name descname">init_min_num_inliers</code> = 100;<a class="headerlink" href="#_CPPv420init_min_num_inliers" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420init_min_num_inliers">
+<span id="_CPPv320init_min_num_inliers"></span><span id="_CPPv220init_min_num_inliers"></span><span id="init_min_num_inliers__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_min_num_inliers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv420init_min_num_inliers" title="永久链接至目标"></a><br /></dt>
 <dd><p>初始图像对的最小inliers数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv414init_max_error">
-<span id="_CPPv314init_max_error"></span><span id="_CPPv214init_max_error"></span><span id="init_max_error__double"></span>double <code class="sig-name descname">init_max_error</code> = 4.0;<a class="headerlink" href="#_CPPv414init_max_error" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv414init_max_error">
+<span id="_CPPv314init_max_error"></span><span id="_CPPv214init_max_error"></span><span id="init_max_error__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_max_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv414init_max_error" title="永久链接至目标"></a><br /></dt>
 <dd><p>初始图像对的两视图几何估计的最大像素误差</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv423init_max_forward_motion">
-<span id="_CPPv323init_max_forward_motion"></span><span id="_CPPv223init_max_forward_motion"></span><span id="init_max_forward_motion__double"></span>double <code class="sig-name descname">init_max_forward_motion</code> = 0.95;<a class="headerlink" href="#_CPPv423init_max_forward_motion" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv423init_max_forward_motion">
+<span id="_CPPv323init_max_forward_motion"></span><span id="_CPPv223init_max_forward_motion"></span><span id="init_max_forward_motion__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_max_forward_motion</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.95</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv423init_max_forward_motion" title="永久链接至目标"></a><br /></dt>
 <dd><p>初始图像对的最大前移（Maximum forward motion for initial image pair）</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv418init_min_tri_angle">
-<span id="_CPPv318init_min_tri_angle"></span><span id="_CPPv218init_min_tri_angle"></span><span id="init_min_tri_angle__double"></span>double <code class="sig-name descname">init_min_tri_angle</code> = 16.0;<a class="headerlink" href="#_CPPv418init_min_tri_angle" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418init_min_tri_angle">
+<span id="_CPPv318init_min_tri_angle"></span><span id="_CPPv218init_min_tri_angle"></span><span id="init_min_tri_angle__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_min_tri_angle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">16.0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418init_min_tri_angle" title="永久链接至目标"></a><br /></dt>
 <dd><p>初始图像对的最小三角剖分角</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv419init_max_reg_trials">
-<span id="_CPPv319init_max_reg_trials"></span><span id="_CPPv219init_max_reg_trials"></span><span id="init_max_reg_trials__i"></span>int <code class="sig-name descname">init_max_reg_trials</code> = 2;<a class="headerlink" href="#_CPPv419init_max_reg_trials" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419init_max_reg_trials">
+<span id="_CPPv319init_max_reg_trials"></span><span id="_CPPv219init_max_reg_trials"></span><span id="init_max_reg_trials__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_max_reg_trials</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419init_max_reg_trials" title="永久链接至目标"></a><br /></dt>
 <dd><p>使用图像进行初始化的最大尝试次数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv418abs_pose_max_error">
-<span id="_CPPv318abs_pose_max_error"></span><span id="_CPPv218abs_pose_max_error"></span><span id="abs_pose_max_error__double"></span>double <code class="sig-name descname">abs_pose_max_error</code> = 12.0;<a class="headerlink" href="#_CPPv418abs_pose_max_error" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418abs_pose_max_error">
+<span id="_CPPv318abs_pose_max_error"></span><span id="_CPPv218abs_pose_max_error"></span><span id="abs_pose_max_error__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs_pose_max_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">12.0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418abs_pose_max_error" title="永久链接至目标"></a><br /></dt>
 <dd><p>绝对位姿估计中的最大重投影误差</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv424abs_pose_min_num_inliers">
-<span id="_CPPv324abs_pose_min_num_inliers"></span><span id="_CPPv224abs_pose_min_num_inliers"></span><span id="abs_pose_min_num_inliers__i"></span>int <code class="sig-name descname">abs_pose_min_num_inliers</code> = 30;<a class="headerlink" href="#_CPPv424abs_pose_min_num_inliers" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv424abs_pose_min_num_inliers">
+<span id="_CPPv324abs_pose_min_num_inliers"></span><span id="_CPPv224abs_pose_min_num_inliers"></span><span id="abs_pose_min_num_inliers__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs_pose_min_num_inliers</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">30</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv424abs_pose_min_num_inliers" title="永久链接至目标"></a><br /></dt>
 <dd><p>绝对位姿估计中的最小inliers数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv425abs_pose_min_inlier_ratio">
-<span id="_CPPv325abs_pose_min_inlier_ratio"></span><span id="_CPPv225abs_pose_min_inlier_ratio"></span><span id="abs_pose_min_inlier_ratio__double"></span>double <code class="sig-name descname">abs_pose_min_inlier_ratio</code> = 0.25;<a class="headerlink" href="#_CPPv425abs_pose_min_inlier_ratio" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv425abs_pose_min_inlier_ratio">
+<span id="_CPPv325abs_pose_min_inlier_ratio"></span><span id="_CPPv225abs_pose_min_inlier_ratio"></span><span id="abs_pose_min_inlier_ratio__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs_pose_min_inlier_ratio</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.25</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv425abs_pose_min_inlier_ratio" title="永久链接至目标"></a><br /></dt>
 <dd><p>绝对位姿估计中的最小inliers比率</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv428abs_pose_refine_focal_length">
-<span id="_CPPv328abs_pose_refine_focal_length"></span><span id="_CPPv228abs_pose_refine_focal_length"></span><span id="abs_pose_refine_focal_length__b"></span>bool <code class="sig-name descname">abs_pose_refine_focal_length</code> = true;<a class="headerlink" href="#_CPPv428abs_pose_refine_focal_length" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv428abs_pose_refine_focal_length">
+<span id="_CPPv328abs_pose_refine_focal_length"></span><span id="_CPPv228abs_pose_refine_focal_length"></span><span id="abs_pose_refine_focal_length__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs_pose_refine_focal_length</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv428abs_pose_refine_focal_length" title="永久链接至目标"></a><br /></dt>
 <dd><p>是否在绝对位姿估计中估计焦距</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv428abs_pose_refine_extra_params">
-<span id="_CPPv328abs_pose_refine_extra_params"></span><span id="_CPPv228abs_pose_refine_extra_params"></span><span id="abs_pose_refine_extra_params__b"></span>bool <code class="sig-name descname">abs_pose_refine_extra_params</code> = true;<a class="headerlink" href="#_CPPv428abs_pose_refine_extra_params" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv428abs_pose_refine_extra_params">
+<span id="_CPPv328abs_pose_refine_extra_params"></span><span id="_CPPv228abs_pose_refine_extra_params"></span><span id="abs_pose_refine_extra_params__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abs_pose_refine_extra_params</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv428abs_pose_refine_extra_params" title="永久链接至目标"></a><br /></dt>
 <dd><p>是否在绝对位姿估计中估计额外参数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv419local_ba_num_images">
-<span id="_CPPv319local_ba_num_images"></span><span id="_CPPv219local_ba_num_images"></span><span id="local_ba_num_images__i"></span>int <code class="sig-name descname">local_ba_num_images</code> = 6;<a class="headerlink" href="#_CPPv419local_ba_num_images" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419local_ba_num_images">
+<span id="_CPPv319local_ba_num_images"></span><span id="_CPPv219local_ba_num_images"></span><span id="local_ba_num_images__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_ba_num_images</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">6</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419local_ba_num_images" title="永久链接至目标"></a><br /></dt>
 <dd><p>在局部BA调整中要优化的图像数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv422local_ba_min_tri_angle">
-<span id="_CPPv322local_ba_min_tri_angle"></span><span id="_CPPv222local_ba_min_tri_angle"></span><span id="local_ba_min_tri_angle__double"></span>double <code class="sig-name descname">local_ba_min_tri_angle</code> = 6;<a class="headerlink" href="#_CPPv422local_ba_min_tri_angle" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv422local_ba_min_tri_angle">
+<span id="_CPPv322local_ba_min_tri_angle"></span><span id="_CPPv222local_ba_min_tri_angle"></span><span id="local_ba_min_tri_angle__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">local_ba_min_tri_angle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">6</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv422local_ba_min_tri_angle" title="永久链接至目标"></a><br /></dt>
 <dd><p>在局部BA调整中选择图像的最小三角剖分</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv422min_focal_length_ratio">
-<span id="_CPPv322min_focal_length_ratio"></span><span id="_CPPv222min_focal_length_ratio"></span><span id="min_focal_length_ratio__double"></span>double <code class="sig-name descname">min_focal_length_ratio</code> = 0.1;<a class="headerlink" href="#_CPPv422min_focal_length_ratio" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv422min_focal_length_ratio">
+<span id="_CPPv322min_focal_length_ratio"></span><span id="_CPPv222min_focal_length_ratio"></span><span id="min_focal_length_ratio__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_focal_length_ratio</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.1</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv422min_focal_length_ratio" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv422max_focal_length_ratio">
-<span id="_CPPv322max_focal_length_ratio"></span><span id="_CPPv222max_focal_length_ratio"></span><span id="max_focal_length_ratio__double"></span>double <code class="sig-name descname">max_focal_length_ratio</code> = 10;<a class="headerlink" href="#_CPPv422max_focal_length_ratio" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv422max_focal_length_ratio">
+<span id="_CPPv322max_focal_length_ratio"></span><span id="_CPPv222max_focal_length_ratio"></span><span id="max_focal_length_ratio__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_focal_length_ratio</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv422max_focal_length_ratio" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv415max_extra_param">
-<span id="_CPPv315max_extra_param"></span><span id="_CPPv215max_extra_param"></span><span id="max_extra_param__double"></span>double <code class="sig-name descname">max_extra_param</code> = 1;<a class="headerlink" href="#_CPPv415max_extra_param" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv415max_extra_param">
+<span id="_CPPv315max_extra_param"></span><span id="_CPPv215max_extra_param"></span><span id="max_extra_param__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_extra_param</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415max_extra_param" title="永久链接至目标"></a><br /></dt>
 <dd><p>伪造相机参数的阈值。 带有伪造相机参数的图像在三角剖分中被过滤并被忽略</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv423filter_max_reproj_error">
-<span id="_CPPv323filter_max_reproj_error"></span><span id="_CPPv223filter_max_reproj_error"></span><span id="filter_max_reproj_error__double"></span>double <code class="sig-name descname">filter_max_reproj_error</code> = 4.0;<a class="headerlink" href="#_CPPv423filter_max_reproj_error" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv423filter_max_reproj_error">
+<span id="_CPPv323filter_max_reproj_error"></span><span id="_CPPv223filter_max_reproj_error"></span><span id="filter_max_reproj_error__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">filter_max_reproj_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4.0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv423filter_max_reproj_error" title="永久链接至目标"></a><br /></dt>
 <dd><p>用于观察的最大重投影误差（以像素为单位）</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv420filter_min_tri_angle">
-<span id="_CPPv320filter_min_tri_angle"></span><span id="_CPPv220filter_min_tri_angle"></span><span id="filter_min_tri_angle__double"></span>double <code class="sig-name descname">filter_min_tri_angle</code> = 1.5;<a class="headerlink" href="#_CPPv420filter_min_tri_angle" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420filter_min_tri_angle">
+<span id="_CPPv320filter_min_tri_angle"></span><span id="_CPPv220filter_min_tri_angle"></span><span id="filter_min_tri_angle__double"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">filter_min_tri_angle</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1.5</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv420filter_min_tri_angle" title="永久链接至目标"></a><br /></dt>
 <dd><p>稳定3D点的最小三角剖分角度（以度为单位）</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv414max_reg_trials">
-<span id="_CPPv314max_reg_trials"></span><span id="_CPPv214max_reg_trials"></span><span id="max_reg_trials__i"></span>int <code class="sig-name descname">max_reg_trials</code> = 3;<a class="headerlink" href="#_CPPv414max_reg_trials" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv414max_reg_trials">
+<span id="_CPPv314max_reg_trials"></span><span id="_CPPv214max_reg_trials"></span><span id="max_reg_trials__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_reg_trials</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv414max_reg_trials" title="永久链接至目标"></a><br /></dt>
 <dd><p>注册图像的最大尝试次数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv419fix_existing_images">
-<span id="_CPPv319fix_existing_images"></span><span id="_CPPv219fix_existing_images"></span><span id="fix_existing_images__b"></span>bool <code class="sig-name descname">fix_existing_images</code> = false;<a class="headerlink" href="#_CPPv419fix_existing_images" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419fix_existing_images">
+<span id="_CPPv319fix_existing_images"></span><span id="_CPPv219fix_existing_images"></span><span id="fix_existing_images__b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fix_existing_images</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419fix_existing_images" title="永久链接至目标"></a><br /></dt>
 <dd><p>提供重建作为输入，是否修复现存的图像位姿</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv411num_threads">
-<span id="_CPPv311num_threads"></span><span id="_CPPv211num_threads"></span><span id="num_threads__i"></span>int <code class="sig-name descname">num_threads</code> = -1;<a class="headerlink" href="#_CPPv411num_threads" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv411num_threads">
+<span id="_CPPv311num_threads"></span><span id="_CPPv211num_threads"></span><span id="num_threads__i"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_threads</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv411num_threads" title="永久链接至目标"></a><br /></dt>
 <dd><p>线程数</p>
 </dd></dl>
 
 <dl class="cpp enum">
-<dt id="_CPPv420ImageSelectionMethod">
-<span id="_CPPv320ImageSelectionMethod"></span><span id="_CPPv220ImageSelectionMethod"></span><em class="property">enum </em><code class="sig-name descname">ImageSelectionMethod</code><a class="headerlink" href="#_CPPv420ImageSelectionMethod" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420ImageSelectionMethod">
+<span id="_CPPv320ImageSelectionMethod"></span><span id="_CPPv220ImageSelectionMethod"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ImageSelectionMethod</span></span></span><a class="headerlink" href="#_CPPv420ImageSelectionMethod" title="永久链接至目标"></a><br /></dt>
 <dd><p>查找并选择下一个最佳图像进行注册的方法</p>
 <dl class="field-list simple">
 <dt class="field-odd">ImageSelectionMethod</dt>
@@ -402,15 +319,15 @@
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="id2">
-<h2>结构体<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>结构体<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <dl class="cpp struct">
-<dt id="_CPPv427LocalBundleAdjustmentReport">
-<span id="_CPPv327LocalBundleAdjustmentReport"></span><span id="_CPPv227LocalBundleAdjustmentReport"></span><span id="LocalBundleAdjustmentReport"></span><em class="property">struct </em><code class="sig-name descname">LocalBundleAdjustmentReport</code><a class="headerlink" href="#_CPPv427LocalBundleAdjustmentReport" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv427LocalBundleAdjustmentReport">
+<span id="_CPPv327LocalBundleAdjustmentReport"></span><span id="_CPPv227LocalBundleAdjustmentReport"></span><span id="LocalBundleAdjustmentReport"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LocalBundleAdjustmentReport</span></span></span><a class="headerlink" href="#_CPPv427LocalBundleAdjustmentReport" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">LocalBundleAdjustmentReport</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">LocalBundleAdjustmentReport</span> <span class="p">{</span>
    <span class="kt">size_t</span> <span class="n">num_merged_observations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
    <span class="kt">size_t</span> <span class="n">num_completed_observations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
    <span class="kt">size_t</span> <span class="n">num_filtered_observations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -418,105 +335,105 @@
 <span class="p">};</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>成员变量<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2>成员变量<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <dl class="cpp member">
-<dt id="_CPPv415database_cache_">
-<span id="_CPPv315database_cache_"></span><span id="_CPPv215database_cache_"></span><span id="database_cache___DatabaseCacheCP"></span><em class="property">const</em> DatabaseCache *<code class="sig-name descname">database_cache_</code>;<a class="headerlink" href="#_CPPv415database_cache_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv415database_cache_">
+<span id="_CPPv315database_cache_"></span><span id="_CPPv215database_cache_"></span><span id="database_cache___DatabaseCacheCP"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DatabaseCache</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">database_cache_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415database_cache_" title="永久链接至目标"></a><br /></dt>
 <dd><p>该类将数据库中所有必需的数据保存在内存中</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv415reconstruction_">
-<span id="_CPPv315reconstruction_"></span><span id="_CPPv215reconstruction_"></span><span id="reconstruction___colmap::ReconstructionP"></span>colmap::Reconstruction *<code class="sig-name descname">reconstruction_</code>;<a class="headerlink" href="#_CPPv415reconstruction_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv415reconstruction_">
+<span id="_CPPv315reconstruction_"></span><span id="_CPPv215reconstruction_"></span><span id="reconstruction___colmap::ReconstructionP"></span><span class="n"><span class="pre">colmap</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Reconstruction</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">reconstruction_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415reconstruction_" title="永久链接至目标"></a><br /></dt>
 <dd><p>保存重建数据的类</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv413triangulator_">
-<span id="_CPPv313triangulator_"></span><span id="_CPPv213triangulator_"></span><span id="triangulator___std::unique_ptr:IncrementalTriangulator:"></span>std::unique_ptr&lt;IncrementalTriangulator&gt; <code class="sig-name descname">triangulator_</code>;<a class="headerlink" href="#_CPPv413triangulator_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv413triangulator_">
+<span id="_CPPv313triangulator_"></span><span id="_CPPv213triangulator_"></span><span id="triangulator___std::unique_ptr:IncrementalTriangulator:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">triangulator_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv413triangulator_" title="永久链接至目标"></a><br /></dt>
 <dd><p>负责增量三角剖分的类</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv421num_total_reg_images_">
-<span id="_CPPv321num_total_reg_images_"></span><span id="_CPPv221num_total_reg_images_"></span><span id="num_total_reg_images___s"></span>size_t <code class="sig-name descname">num_total_reg_images_</code>;<a class="headerlink" href="#_CPPv421num_total_reg_images_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv421num_total_reg_images_">
+<span id="_CPPv321num_total_reg_images_"></span><span id="_CPPv221num_total_reg_images_"></span><span id="num_total_reg_images___s"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_total_reg_images_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv421num_total_reg_images_" title="永久链接至目标"></a><br /></dt>
 <dd><p>至少在重建时注册的图像数量</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv422num_shared_reg_images_">
-<span id="_CPPv322num_shared_reg_images_"></span><span id="_CPPv222num_shared_reg_images_"></span><span id="num_shared_reg_images___s"></span>size_t <code class="sig-name descname">num_shared_reg_images_</code>;<a class="headerlink" href="#_CPPv422num_shared_reg_images_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv422num_shared_reg_images_">
+<span id="_CPPv322num_shared_reg_images_"></span><span id="_CPPv222num_shared_reg_images_"></span><span id="num_shared_reg_images___s"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_shared_reg_images_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv422num_shared_reg_images_" title="永久链接至目标"></a><br /></dt>
 <dd><p>当前重建和所有其他先前重建之间共享图像的数量</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv424prev_init_image_pair_id_">
-<span id="_CPPv324prev_init_image_pair_id_"></span><span id="_CPPv224prev_init_image_pair_id_"></span><span id="prev_init_image_pair_id___image_pair_t"></span>image_pair_t <code class="sig-name descname">prev_init_image_pair_id_</code>;<a class="headerlink" href="#_CPPv424prev_init_image_pair_id_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv424prev_init_image_pair_id_">
+<span id="_CPPv324prev_init_image_pair_id_"></span><span id="_CPPv224prev_init_image_pair_id_"></span><span id="prev_init_image_pair_id___image_pair_t"></span><span class="n"><span class="pre">image_pair_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prev_init_image_pair_id_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv424prev_init_image_pair_id_" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv428prev_init_two_view_geometry_">
-<span id="_CPPv328prev_init_two_view_geometry_"></span><span id="_CPPv228prev_init_two_view_geometry_"></span><span id="prev_init_two_view_geometry___TwoViewGeometry"></span><a class="reference internal" href="../../../estimator/TwoViewGeometry/TwoViewGeometry.html#_CPPv415TwoViewGeometry" title="TwoViewGeometry">TwoViewGeometry</a> <code class="sig-name descname">prev_init_two_view_geometry_</code>;<a class="headerlink" href="#_CPPv428prev_init_two_view_geometry_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv428prev_init_two_view_geometry_">
+<span id="_CPPv328prev_init_two_view_geometry_"></span><span id="_CPPv228prev_init_two_view_geometry_"></span><span id="prev_init_two_view_geometry___TwoViewGeometry"></span><a class="reference internal" href="../../../estimator/TwoViewGeometry/TwoViewGeometry.html#_CPPv415TwoViewGeometry" title="TwoViewGeometry"><span class="n"><span class="pre">TwoViewGeometry</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prev_init_two_view_geometry_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv428prev_init_two_view_geometry_" title="永久链接至目标"></a><br /></dt>
 <dd><p>上一次调用 <code class="docutils literal notranslate"><span class="pre">FindFirstInitialImage</span></code> 的估计两视图几何体，用作以后调用 <code class="docutils literal notranslate"><span class="pre">RegisterInitialImagePair</span></code> 的缓存。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv420init_num_reg_trials_">
-<span id="_CPPv320init_num_reg_trials_"></span><span id="_CPPv220init_num_reg_trials_"></span><span id="init_num_reg_trials___std::unordered_map:image_t.s:"></span>std::unordered_map&lt;image_t, size_t&gt; <code class="sig-name descname">init_num_reg_trials_</code>;<a class="headerlink" href="#_CPPv420init_num_reg_trials_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv420init_num_reg_trials_">
+<span id="_CPPv320init_num_reg_trials_"></span><span id="_CPPv220init_num_reg_trials_"></span><span id="init_num_reg_trials___std::unordered_map:image_t.s:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_num_reg_trials_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv420init_num_reg_trials_" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv417init_image_pairs_">
-<span id="_CPPv317init_image_pairs_"></span><span id="_CPPv217init_image_pairs_"></span><span id="init_image_pairs___std::unordered_set:image_pair_t:"></span>std::unordered_set&lt;image_pair_t&gt; <code class="sig-name descname">init_image_pairs_</code>;<a class="headerlink" href="#_CPPv417init_image_pairs_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv417init_image_pairs_">
+<span id="_CPPv317init_image_pairs_"></span><span id="_CPPv217init_image_pairs_"></span><span id="init_image_pairs___std::unordered_set:image_pair_t:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_pair_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init_image_pairs_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv417init_image_pairs_" title="永久链接至目标"></a><br /></dt>
 <dd><p>已用于初始化的图像和图像对。 每个图像和图像对仅尝试一次进行初始化。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv426num_reg_images_per_camera_">
-<span id="_CPPv326num_reg_images_per_camera_"></span><span id="_CPPv226num_reg_images_per_camera_"></span><span id="num_reg_images_per_camera___std::unordered_map:camera_t.s:"></span>std::unordered_map&lt;camera_t, size_t&gt; <code class="sig-name descname">num_reg_images_per_camera_</code>;<a class="headerlink" href="#_CPPv426num_reg_images_per_camera_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv426num_reg_images_per_camera_">
+<span id="_CPPv326num_reg_images_per_camera_"></span><span id="_CPPv226num_reg_images_per_camera_"></span><span id="num_reg_images_per_camera___std::unordered_map:camera_t.s:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">camera_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_reg_images_per_camera_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv426num_reg_images_per_camera_" title="永久链接至目标"></a><br /></dt>
 <dd><p>每个摄像机的已注册图像数。</p>
 <p>当多个图像共享内参时，此信息用于避免重复优化摄像机参数以及在局部BA调整中降低已优化摄像机参数的性能。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv418num_registrations_">
-<span id="_CPPv318num_registrations_"></span><span id="_CPPv218num_registrations_"></span><span id="num_registrations___std::unordered_map:image_t.s:"></span>std::unordered_map&lt;image_t, size_t&gt; <code class="sig-name descname">num_registrations_</code>;<a class="headerlink" href="#_CPPv418num_registrations_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv418num_registrations_">
+<span id="_CPPv318num_registrations_"></span><span id="_CPPv218num_registrations_"></span><span id="num_registrations___std::unordered_map:image_t.s:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_registrations_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv418num_registrations_" title="永久链接至目标"></a><br /></dt>
 <dd><p>注册图像的重建次数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv416filtered_images_">
-<span id="_CPPv316filtered_images_"></span><span id="_CPPv216filtered_images_"></span><span id="filtered_images___std::unordered_set:image_t:"></span>std::unordered_set&lt;image_t&gt; <code class="sig-name descname">filtered_images_</code>;<a class="headerlink" href="#_CPPv416filtered_images_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv416filtered_images_">
+<span id="_CPPv316filtered_images_"></span><span id="_CPPv216filtered_images_"></span><span id="filtered_images___std::unordered_set:image_t:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">filtered_images_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv416filtered_images_" title="永久链接至目标"></a><br /></dt>
 <dd><p>当前重建中已过滤的图像</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv415num_reg_trials_">
-<span id="_CPPv315num_reg_trials_"></span><span id="_CPPv215num_reg_trials_"></span><span id="num_reg_trials___std::unordered_map:image_t.s:"></span>std::unordered_map&lt;image_t, size_t&gt; <code class="sig-name descname">num_reg_trials_</code>;<a class="headerlink" href="#_CPPv415num_reg_trials_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv415num_reg_trials_">
+<span id="_CPPv315num_reg_trials_"></span><span id="_CPPv215num_reg_trials_"></span><span id="num_reg_trials___std::unordered_map:image_t.s:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_reg_trials_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415num_reg_trials_" title="永久链接至目标"></a><br /></dt>
 <dd><p>在当前重建中注册图像的试验次数。</p>
 <p>用于设置注册图像的尝试次数的上限。</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv419existing_image_ids_">
-<span id="_CPPv319existing_image_ids_"></span><span id="_CPPv219existing_image_ids_"></span><span id="existing_image_ids___std::unordered_set:image_t:"></span>std::unordered_set&lt;image_t&gt; <code class="sig-name descname">existing_image_ids_</code>;<a class="headerlink" href="#_CPPv419existing_image_ids_" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv419existing_image_ids_">
+<span id="_CPPv319existing_image_ids_"></span><span id="_CPPv219existing_image_ids_"></span><span id="existing_image_ids___std::unordered_set:image_t:"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">existing_image_ids_</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv419existing_image_ids_" title="永久链接至目标"></a><br /></dt>
 <dd><p>开始重建之前已注册的图像。</p>
 <p>如果从现有重建继续进行重建，则此图像列表将为非空。</p>
 </dd></dl>
 
-</div>
-<div class="section" id="id4">
-<h2>成员函数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<div class="section" id="incrementalmapper">
-<h3>IncrementalMapper<a class="headerlink" href="#incrementalmapper" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h2>成员函数<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="incrementalmapper">
+<h3>IncrementalMapper<a class="headerlink" href="#incrementalmapper" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>构造函数，创建增量映射器。 数据库缓存必须在增量映射器的整个生命周期中都有效。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache">
-<span id="_CPPv3N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache"></span><span id="_CPPv2N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache"></span><span id="IncrementalMapper::IncrementalMapper__DatabaseCacheCP"></span><em class="property">explicit</em> <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache" title="IncrementalMapper::IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">IncrementalMapper</code><span class="sig-paren">(</span><em class="property">const</em> DatabaseCache *<em>database_cache</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache">
+<span id="_CPPv3N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache"></span><span id="_CPPv2N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache"></span><span id="IncrementalMapper::IncrementalMapper__DatabaseCacheCP"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache" title="IncrementalMapper::IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IncrementalMapper</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DatabaseCache</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">database_cache</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17IncrementalMapperEPK13DatabaseCache" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">IncrementalMapper</span><span class="p">(</span><span class="k">const</span> <span class="n">DatabaseCache</span><span class="o">*</span> <span class="n">database_cache</span><span class="p">)</span>
@@ -528,15 +445,15 @@
    <span class="n">prev_init_image_pair_id_</span><span class="p">(</span><span class="n">kInvalidImagePairId</span><span class="p">)</span> <span class="p">{}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="beginreconstruction">
-<h3>BeginReconstruction<a class="headerlink" href="#beginreconstruction" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="beginreconstruction">
+<h3>BeginReconstruction<a class="headerlink" href="#beginreconstruction" title="永久链接至标题"></a></h3>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper19BeginReconstructionEP14Reconstruction">
-<span id="_CPPv3N17IncrementalMapper19BeginReconstructionEP14Reconstruction"></span><span id="_CPPv2N17IncrementalMapper19BeginReconstructionEP14Reconstruction"></span><span id="IncrementalMapper::BeginReconstruction__ReconstructionP"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">BeginReconstruction</code><span class="sig-paren">(</span><a class="reference internal" href="../../../base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a> *<em>reconstruction</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper19BeginReconstructionEP14Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper19BeginReconstructionEP14Reconstruction">
+<span id="_CPPv3N17IncrementalMapper19BeginReconstructionEP14Reconstruction"></span><span id="_CPPv2N17IncrementalMapper19BeginReconstructionEP14Reconstruction"></span><span id="IncrementalMapper::BeginReconstruction__ReconstructionP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">BeginReconstruction</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../../../base/Reconstruction/Reconstruction.html#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">reconstruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper19BeginReconstructionEP14Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">BeginReconstruction</span><span class="p">(</span><span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">IncrementalMapper::BeginReconstruction</span><span class="p">(</span><span class="n">Reconstruction</span><span class="o">*</span> <span class="n">reconstruction</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK</span><span class="p">(</span><span class="n">reconstruction_</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">);</span>
    <span class="n">reconstruction_</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="p">;</span>
 
@@ -572,19 +489,19 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="endrestruction">
-<h3>EndRestruction<a class="headerlink" href="#endrestruction" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="endrestruction">
+<h3>EndRestruction<a class="headerlink" href="#endrestruction" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>当前重建完成后，清理映射器。</p>
 <p>如果丢弃该模型，则将相应更新总和共享注册图像的数量。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper17EndReconstructionEKb">
-<span id="_CPPv3N17IncrementalMapper17EndReconstructionEKb"></span><span id="_CPPv2N17IncrementalMapper17EndReconstructionEKb"></span><span id="IncrementalMapper::EndReconstruction__bC"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EndReconstruction</code><span class="sig-paren">(</span><em class="property">const</em> bool <em>discard</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17EndReconstructionEKb" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper17EndReconstructionEKb">
+<span id="_CPPv3N17IncrementalMapper17EndReconstructionEKb"></span><span id="_CPPv2N17IncrementalMapper17EndReconstructionEKb"></span><span id="IncrementalMapper::EndReconstruction__bC"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EndReconstruction</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">discard</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17EndReconstructionEKb" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">EndReconstruction</span><span class="p">(</span><span class="k">const</span> <span class="kt">bool</span> <span class="n">discard</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">IncrementalMapper::EndReconstruction</span><span class="p">(</span><span class="k">const</span> <span class="kt">bool</span> <span class="n">discard</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
 
    <span class="c1">// 如果丢弃模型</span>
@@ -603,19 +520,19 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="findinitialimagepair">
-<h3>FindInitialImagePair<a class="headerlink" href="#findinitialimagepair" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="findinitialimagepair">
+<h3>FindInitialImagePair<a class="headerlink" href="#findinitialimagepair" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>查找初始图像对为增量重建提供种子。 图像对应该传递给 <code class="docutils literal notranslate"><span class="pre">RegisterInitialImagePair</span></code> 。</p>
 <p>此函数会自动忽略先前无法注册的图像对。</p>
 </div></blockquote>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t">
-<span id="_CPPv3N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t"></span><span id="_CPPv2N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t"></span><span id="IncrementalMapper::FindInitialImagePair__OptionsCR.image_tP.image_tP"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindInitialImagePair</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, image_t *<em>image_id1</em>, image_t *<em>image_id2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t">
+<span id="_CPPv3N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t"></span><span id="_CPPv2N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t"></span><span id="IncrementalMapper::FindInitialImagePair__OptionsCR.image_tP.image_tP"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FindInitialImagePair</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">image_id1</span></span>, <span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">image_id2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper20FindInitialImagePairERK7OptionsP7image_tP7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindInitialImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">IncrementalMapper::FindInitialImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
                                              <span class="n">image_t</span><span class="o">*</span> <span class="n">image_id1</span><span class="p">,</span>
                                              <span class="n">image_t</span><span class="o">*</span> <span class="n">image_id2</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK</span><span class="p">(</span><span class="n">options</span><span class="p">.</span><span class="n">Check</span><span class="p">());</span>
@@ -678,20 +595,20 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="findfirstinitialimage">
-<h3>FindFirstInitialImage<a class="headerlink" href="#findfirstinitialimage" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="findfirstinitialimage">
+<h3>FindFirstInitialImage<a class="headerlink" href="#findfirstinitialimage" title="永久链接至标题"></a></h3>
 <p>查找用于增量重建的种子图像。 合适的种子图像具有大量对应关系，并且具有相机校准先验。 返回列表的排序应使最合适的图像位于最前面。</p>
 <dl class="cpp function">
-<dt id="_CPPv4NK17IncrementalMapper21FindFirstInitialImageERK7Options">
-<span id="_CPPv3NK17IncrementalMapper21FindFirstInitialImageERK7Options"></span><span id="_CPPv2NK17IncrementalMapper21FindFirstInitialImageERK7Options"></span><span id="IncrementalMapper::FindFirstInitialImage__OptionsCRC"></span>std::vector&lt;image_t&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindFirstInitialImage</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK17IncrementalMapper21FindFirstInitialImageERK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK17IncrementalMapper21FindFirstInitialImageERK7Options">
+<span id="_CPPv3NK17IncrementalMapper21FindFirstInitialImageERK7Options"></span><span id="_CPPv2NK17IncrementalMapper21FindFirstInitialImageERK7Options"></span><span id="IncrementalMapper::FindFirstInitialImage__OptionsCRC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FindFirstInitialImage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK17IncrementalMapper21FindFirstInitialImageERK7Options" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindFirstInitialImage</span><span class="p">(</span>
     <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
 
   <span class="c1">// 保留元数据（meta-data）以对图像进行排名的结构</span>
-  <span class="k">struct</span> <span class="n">ImageInfo</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">ImageInfo</span> <span class="p">{</span>
     <span class="n">image_t</span> <span class="n">image_id</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">prior_focal_length</span><span class="p">;</span>
     <span class="n">image_t</span> <span class="n">num_correspondences</span><span class="p">;</span>
@@ -760,7 +677,7 @@
 <p class="admonition-title">注解</p>
 <ol class="arabic">
 <li><p>定义一个结构体用于存储图像的id、是否具有先验焦距、对应关系数</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ImageInfo</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">ImageInfo</span> <span class="p">{</span>
    <span class="n">image_t</span> <span class="n">image_id</span><span class="p">;</span>
    <span class="kt">bool</span> <span class="n">prior_focal_length</span><span class="p">;</span>
    <span class="n">image_t</span> <span class="n">num_correspondences</span><span class="p">;</span>
@@ -805,7 +722,7 @@
       <span class="k">if</span> <span class="p">(</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
          <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 
-      <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="o">!</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
          <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 
       <span class="k">else</span>
@@ -822,12 +739,12 @@
 </li>
 </ol>
 </div>
-</div>
-<div class="section" id="findsecondinitialimage">
-<h3>FindSecondInitialImage<a class="headerlink" href="#findsecondinitialimage" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="findsecondinitialimage">
+<h3>FindSecondInitialImage<a class="headerlink" href="#findsecondinitialimage" title="永久链接至标题"></a></h3>
 <dl class="cpp function">
-<dt id="_CPPv4NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t">
-<span id="_CPPv3NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t"></span><span id="_CPPv2NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t"></span><span id="IncrementalMapper::FindSecondInitialImage__OptionsCR.image_tCC"></span>std::vector&lt;image_t&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindSecondInitialImage</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id1</em><span class="sig-paren">)</span> <em class="property">const</em>;<a class="headerlink" href="#_CPPv4NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t">
+<span id="_CPPv3NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t"></span><span id="_CPPv2NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t"></span><span id="IncrementalMapper::FindSecondInitialImage__OptionsCR.image_tCC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FindSecondInitialImage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id1</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4NK17IncrementalMapper22FindSecondInitialImageERK7OptionsK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindSecondInitialImage</span><span class="p">(</span>
@@ -850,7 +767,7 @@
   <span class="p">}</span>
 
   <span class="c1">// 保留元数据（meta-data）以对图像进行排名的结构</span>
-  <span class="k">struct</span> <span class="n">ImageInfo</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">ImageInfo</span> <span class="p">{</span>
     <span class="n">image_t</span> <span class="n">image_id</span><span class="p">;</span>
     <span class="kt">bool</span> <span class="n">prior_focal_length</span><span class="p">;</span>
     <span class="n">point2D_t</span> <span class="n">num_correspondences</span><span class="p">;</span>
@@ -906,7 +823,7 @@
 <p class="admonition-title">注解</p>
 <ol class="arabic">
 <li><p>定义一个结构体用于存储图像的id、是否具有先验焦距、对应关系数</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="n">ImageInfo</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">ImageInfo</span> <span class="p">{</span>
    <span class="n">image_t</span> <span class="n">image_id</span><span class="p">;</span>
    <span class="kt">bool</span> <span class="n">prior_focal_length</span><span class="p">;</span>
    <span class="n">image_t</span> <span class="n">num_correspondences</span><span class="p">;</span>
@@ -959,7 +876,7 @@
       <span class="k">if</span> <span class="p">(</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
          <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 
-      <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="o">!</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">image_info1</span><span class="p">.</span><span class="n">prior_focal_length</span> <span class="o">&amp;&amp;</span> <span class="n">image_info2</span><span class="p">.</span><span class="n">prior_focal_length</span><span class="p">)</span>
          <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
       <span class="k">else</span>
        <span class="k">return</span> <span class="n">image_info1</span><span class="p">.</span><span class="n">num_correspondences</span> <span class="o">&gt;</span> <span class="n">image_info2</span><span class="p">.</span><span class="n">num_correspondences</span><span class="p">;</span>
@@ -976,14 +893,14 @@
 </li>
 </ol>
 </div>
-</div>
-<div class="section" id="findnextimages">
-<h3>FindNextImages<a class="headerlink" href="#findnextimages" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="findnextimages">
+<h3>FindNextImages<a class="headerlink" href="#findnextimages" title="永久链接至标题"></a></h3>
 <p>查找最佳的下一组图像以注册到增量重建。</p>
 <p>图像应传递到 <code class="docutils literal notranslate"><span class="pre">RegisterNextImag</span></code>。 此函数会自动忽略未注册 <code class="docutils literal notranslate"><span class="pre">max_reg_trial</span></code> 的图像。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper14FindNextImagesERK7Options">
-<span id="_CPPv3N17IncrementalMapper14FindNextImagesERK7Options"></span><span id="_CPPv2N17IncrementalMapper14FindNextImagesERK7Options"></span><span id="IncrementalMapper::FindNextImages__OptionsCR"></span>std::vector&lt;image_t&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindNextImages</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em><span class="sig-paren">)</span>;<a class="headerlink" href="#_CPPv4N17IncrementalMapper14FindNextImagesERK7Options" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper14FindNextImagesERK7Options">
+<span id="_CPPv3N17IncrementalMapper14FindNextImagesERK7Options"></span><span id="_CPPv2N17IncrementalMapper14FindNextImagesERK7Options"></span><span id="IncrementalMapper::FindNextImages__OptionsCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FindNextImages</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N17IncrementalMapper14FindNextImagesERK7Options" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindNextImages</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">)</span> <span class="p">{</span>
@@ -1098,17 +1015,17 @@
 </div>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="findlocalbundle">
-<h3>FindLocalBundle<a class="headerlink" href="#findlocalbundle" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="findlocalbundle">
+<h3>FindLocalBundle<a class="headerlink" href="#findlocalbundle" title="永久链接至标题"></a></h3>
 <p>在重建中找到给定图像的局部bundle。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>局部bundle定义为与给定图像的连接最多的图像，即最大共享3D点的数量。</p>
 </div>
 <dl class="cpp function">
-<dt id="_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t">
-<span id="_CPPv3NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="_CPPv2NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="IncrementalMapper::FindLocalBundle__OptionsCR.image_tCC"></span>std::vector&lt;image_t&gt; <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FindLocalBundle</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t">
+<span id="_CPPv3NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="_CPPv2NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t"></span><span id="IncrementalMapper::FindLocalBundle__OptionsCR.image_tCC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">image_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">FindLocalBundle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK17IncrementalMapper15FindLocalBundleERK7OptionsK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">FindLocalBundle</span><span class="p">(</span>
@@ -1194,7 +1111,7 @@
    <span class="k">const</span> <span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span> <span class="n">proj_center</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">ProjectionCenter</span><span class="p">();</span>
    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="o">&gt;</span> <span class="n">shared_points3D</span><span class="p">;</span>
    <span class="n">shared_points3D</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">NumPoints3D</span><span class="p">());</span>
-   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">tri_angles</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">tri_angles</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="mf">-1.0</span><span class="p">);</span>
    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">used_overlapping_images</span><span class="p">(</span><span class="n">overlapping_images</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="nb">false</span><span class="p">);</span>
 
    <span class="c1">// 遍历每个三角剖分阈值</span>
@@ -1290,16 +1207,16 @@
 最终返回局部bundle的图像id序列。</p>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="estimateinitialtwoviewgeometry">
-<h3>EstimateInitialTwoViewGeometry<a class="headerlink" href="#estimateinitialtwoviewgeometry" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="estimateinitialtwoviewgeometry">
+<h3>EstimateInitialTwoViewGeometry<a class="headerlink" href="#estimateinitialtwoviewgeometry" title="永久链接至标题"></a></h3>
 <p>估计初始种子图像对的两视图几何</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t">
-<span id="_CPPv3N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t"></span><span id="_CPPv2N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t"></span><span id="IncrementalMapper::EstimateInitialTwoViewGeometry__OptionsCR.image_tC.image_tC"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">EstimateInitialTwoViewGeometry</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id1</em>, <em class="property">const</em> image_t <em>image_id2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t">
+<span id="_CPPv3N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t"></span><span id="_CPPv2N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t"></span><span id="IncrementalMapper::EstimateInitialTwoViewGeometry__OptionsCR.image_tC.image_tC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">EstimateInitialTwoViewGeometry</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper30EstimateInitialTwoViewGeometryERK7OptionsK7image_tK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">EstimateInitialTwoViewGeometry</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">IncrementalMapper::EstimateInitialTwoViewGeometry</span><span class="p">(</span>
     <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span> <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span> <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span><span class="p">)</span> <span class="p">{</span>
 
    <span class="c1">// 根据图像id得到图像对</span>
@@ -1365,16 +1282,16 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="registerinitialimagepair">
-<h3>RegisterInitialImagePair<a class="headerlink" href="#registerinitialimagepair" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="registerinitialimagepair">
+<h3>RegisterInitialImagePair<a class="headerlink" href="#registerinitialimagepair" title="永久链接至标题"></a></h3>
 <p>从种子图像对开始重建</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t">
-<span id="_CPPv3N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t"></span><span id="_CPPv2N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t"></span><span id="IncrementalMapper::RegisterInitialImagePair__OptionsCR.image_tC.image_tC"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RegisterInitialImagePair</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id1</em>, <em class="property">const</em> image_t <em>image_id2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t">
+<span id="_CPPv3N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t"></span><span id="_CPPv2N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t"></span><span id="IncrementalMapper::RegisterInitialImagePair__OptionsCR.image_tC.image_tC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RegisterInitialImagePair</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper24RegisterInitialImagePairERK7OptionsK7image_tK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">RegisterInitialImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">IncrementalMapper::RegisterInitialImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
                                                  <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span>
                                                  <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
@@ -1479,17 +1396,17 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="registernextimage">
-<h3>RegisterNextImage<a class="headerlink" href="#registernextimage" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="registernextimage">
+<h3>RegisterNextImage<a class="headerlink" href="#registernextimage" title="永久链接至标题"></a></h3>
 <p>尝试将图像注册到现有模型。</p>
 <p>要求之前对 <code class="docutils literal notranslate"><span class="pre">RegisterInitialImagePair</span></code> 的调用成功。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t">
-<span id="_CPPv3N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t"></span><span id="_CPPv2N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t"></span><span id="IncrementalMapper::RegisterNextImage__OptionsCR.image_tC"></span>bool <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">RegisterNextImage</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t">
+<span id="_CPPv3N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t"></span><span id="_CPPv2N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t"></span><span id="IncrementalMapper::RegisterNextImage__OptionsCR.image_tC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RegisterNextImage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17RegisterNextImageERK7OptionsK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">RegisterNextImage</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">IncrementalMapper::RegisterNextImage</span><span class="p">(</span><span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span>
                                           <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
   <span class="n">CHECK_GE</span><span class="p">(</span><span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">NumRegImages</span><span class="p">(),</span> <span class="mi">2</span><span class="p">);</span>
@@ -1672,7 +1589,7 @@
          <span class="k">const</span> <span class="n">Point2D</span><span class="o">&amp;</span> <span class="n">point2D</span> <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">Point2D</span><span class="p">(</span><span class="n">point2D_idx</span><span class="p">);</span>
          <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">point2D</span><span class="p">.</span><span class="n">HasPoint3D</span><span class="p">())</span> <span class="p">{</span>
             <span class="k">const</span> <span class="n">point3D_t</span> <span class="n">point3D_id</span> <span class="o">=</span> <span class="n">tri_corrs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
-            <span class="k">const</span> <span class="n">TrackElement</span> <span class="nf">track_el</span><span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="n">point2D_idx</span><span class="p">);</span>
+            <span class="k">const</span> <span class="n">TrackElement</span> <span class="n">track_el</span><span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="n">point2D_idx</span><span class="p">);</span>
             <span class="n">reconstruction_</span><span class="o">-&gt;</span><span class="n">AddObservation</span><span class="p">(</span><span class="n">point3D_id</span><span class="p">,</span> <span class="n">track_el</span><span class="p">);</span>
             <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">AddModifiedPoint3D</span><span class="p">(</span><span class="n">point3D_id</span><span class="p">);</span>
          <span class="p">}</span>
@@ -1683,18 +1600,18 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="triangulate">
-<h3>Triangulate<a class="headerlink" href="#triangulate" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="triangulate">
+<h3>Triangulate<a class="headerlink" href="#triangulate" title="永久链接至标题"></a></h3>
 <p>👉</p>
 <p><strong>TriangulateImage</strong></p>
 <p>对图像进行三角测量</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t">
-<span id="_CPPv3N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="_CPPv2N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="IncrementalMapper::TriangulateImage__IncrementalTriangulator::OptionsCR.image_tC"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">TriangulateImage</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em>, <em class="property">const</em> image_t <em>image_id</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t">
+<span id="_CPPv3N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="_CPPv2N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t"></span><span id="IncrementalMapper::TriangulateImage__IncrementalTriangulator::OptionsCR.image_tC"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">TriangulateImage</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tri_options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper16TriangulateImageERKN23IncrementalTriangulator7OptionsEK7image_t" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">TriangulateImage</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">IncrementalMapper::TriangulateImage</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">,</span>
       <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
@@ -1710,11 +1627,11 @@
 <li><p>如果阈值太小，将无法有效地解决漂移问题。</p></li>
 </ul>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE">
-<span id="_CPPv3N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::Retriangulate__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Retriangulate</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::Retriangulate__IncrementalTriangulator::OptionsCR"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Retriangulate</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tri_options</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper13RetriangulateERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">Retriangulate</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">IncrementalMapper::Retriangulate</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
    <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">Retriangulate</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
@@ -1726,11 +1643,11 @@
 <p>BA调整后，此函数特别有效，因为许多摄像机和点的位置可能已得到改善。</p>
 <p>完成轨道后，可以更好地注册新图像。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE">
-<span id="_CPPv3N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::CompleteTracks__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">CompleteTracks</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::CompleteTracks__IncrementalTriangulator::OptionsCR"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">CompleteTracks</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tri_options</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper14CompleteTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">CompleteTracks</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">IncrementalMapper::CompleteTracks</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
    <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">CompleteAllTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
@@ -1740,29 +1657,29 @@
 <p><strong>MergeTracks</strong></p>
 <p>使用场景图对应关系来合并轨道，这在BA调整后有效，并改善了后续BA调整中的冗余性。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE">
-<span id="_CPPv3N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::MergeTracks__IncrementalTriangulator::OptionsCR"></span>size_t <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">MergeTracks</code><span class="sig-paren">(</span><em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE">
+<span id="_CPPv3N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="_CPPv2N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE"></span><span id="IncrementalMapper::MergeTracks__IncrementalTriangulator::OptionsCR"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MergeTracks</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tri_options</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper11MergeTracksERKN23IncrementalTriangulator7OptionsE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">MergeTracks</span><span class="p">(</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">size_t</span> <span class="nf">IncrementalMapper::MergeTracks</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">reconstruction_</span><span class="p">);</span>
    <span class="k">return</span> <span class="n">triangulator_</span><span class="o">-&gt;</span><span class="n">MergeAllTracks</span><span class="p">(</span><span class="n">tri_options</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="adjustlocalbundle">
-<h3>AdjustLocalBundle<a class="headerlink" href="#adjustlocalbundle" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="adjustlocalbundle">
+<h3>AdjustLocalBundle<a class="headerlink" href="#adjustlocalbundle" title="永久链接至标题"></a></h3>
 <p>调整局部连接的图像和参考图像的点。</p>
 <p>此外，优化提供的3D点。 仅优化连接到参考图像的图像。 如果提供的3D点未局部连接到参考图像，则在调整中将其观察图像设置为常数。</p>
 <dl class="cpp function">
-<dt id="_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE">
-<span id="_CPPv3N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="_CPPv2N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="IncrementalMapper::AdjustLocalBundle__OptionsCR.BundleAdjustmentOptionsCR.IncrementalTriangulator::OptionsCR.image_tC.std::unordered_set:point3D_t:CR"></span><code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper">IncrementalMapper</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">AdjustLocalBundle</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options">Options</a> &amp;<em>options</em>, <em class="property">const</em> BundleAdjustmentOptions &amp;<em>ba_options</em>, <em class="property">const</em> IncrementalTriangulator::Options &amp;<em>tri_options</em>, <em class="property">const</em> image_t <em>image_id</em>, <em class="property">const</em> std::unordered_set&lt;point3D_t&gt; &amp;<em>point3D_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE">
+<span id="_CPPv3N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="_CPPv2N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE"></span><span id="IncrementalMapper::AdjustLocalBundle__OptionsCR.BundleAdjustmentOptionsCR.IncrementalTriangulator::OptionsCR.image_tC.std::unordered_set:point3D_t:CR"></span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv417IncrementalMapper" title="IncrementalMapper"><span class="n"><span class="pre">IncrementalMapper</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AdjustLocalBundle</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N17IncrementalMapper7OptionsE" title="IncrementalMapper::Options"><span class="n"><span class="pre">Options</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">BundleAdjustmentOptions</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ba_options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">IncrementalTriangulator</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Options</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tri_options</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">image_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">image_id</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">point3D_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">point3D_ids</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N17IncrementalMapper17AdjustLocalBundleERK7OptionsRK23BundleAdjustmentOptionsRKN23IncrementalTriangulator7OptionsEK7image_tRKNSt13unordered_setI9point3D_tEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">LocalBundleAdjustmentReport</span>
-<span class="n">IncrementalMapper</span><span class="o">::</span><span class="n">AdjustLocalBundle</span><span class="p">(</span>
+<span class="nf">IncrementalMapper::AdjustLocalBundle</span><span class="p">(</span>
       <span class="k">const</span> <span class="n">Options</span><span class="o">&amp;</span> <span class="n">options</span><span class="p">,</span> <span class="k">const</span> <span class="n">BundleAdjustmentOptions</span><span class="o">&amp;</span> <span class="n">ba_options</span><span class="p">,</span>
       <span class="k">const</span> <span class="n">IncrementalTriangulator</span><span class="o">::</span><span class="n">Options</span><span class="o">&amp;</span> <span class="n">tri_options</span><span class="p">,</span> <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id</span><span class="p">,</span>
       <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">point3D_t</span><span class="o">&gt;&amp;</span> <span class="n">point3D_ids</span><span class="p">)</span> <span class="p">{</span>
@@ -1875,48 +1792,36 @@
 <p class="admonition-title">注意</p>
 <p>没看懂， 有空再看。</p>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../../theiasfm.html" class="btn btn-neutral float-right" title="🍑 TheiaSfM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../../c_sfm.html" class="btn btn-neutral float-left" title="SfM Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../../theiasfm.html" class="btn btn-neutral float-right" title="🍑 TheiaSfM" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

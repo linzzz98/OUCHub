@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. Structure from Motion &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="2. Robust Optimization in 3D Vision" href="../Robust_Optimization/Robust_Optimization.html" />
     <link rel="prev" title="🍤 Local Method" href="../LocalMethod.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,19 +43,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
@@ -116,99 +66,69 @@
 <li class="toctree-l3"><a class="reference internal" href="../BundleAdjustment/BundleAdjustment.html">4. Bundle Adjustment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../MotionAveraging/MotionAveraging.html">5. Motion Averaging</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../RotationAveraging/RotationAveraging.html">6. Rotation Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LineFeature/LineFeature.html">7. Line Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Epipolar_Geometry/Epipolar_Geometry.html">8. Epipolar Geometry</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
-        
           <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>Structure from Motion</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/SfM/SfM.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="structure-from-motion">
-<h1><span class="section-number">1. </span>Structure from Motion<a class="headerlink" href="#structure-from-motion" title="永久链接至标题">¶</a></h1>
+             
+  <section id="structure-from-motion">
+<h1><span class="section-number">1. </span>Structure from Motion<a class="headerlink" href="#structure-from-motion" title="永久链接至标题"></a></h1>
 <p>SfM（运动恢复结构）是一个通过输入无序（有序）的图片恢复所有相机位姿和生成稀疏点云的过程。</p>
 <p>SfM大致可以分为以下四个类型</p>
 <ol class="arabic simple">
@@ -217,12 +137,14 @@
 <li><p>Hybrid SfM</p></li>
 <li><p>DeepLearning Method</p></li>
 </ol>
-<div class="section" id="incremental-sfm">
-<h2><span class="section-number">1.1. </span>Incremental SfM<a class="headerlink" href="#incremental-sfm" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default" id="id19">
+<section id="incremental-sfm">
+<h2><span class="section-number">1.1. </span>Incremental SfM<a class="headerlink" href="#incremental-sfm" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default" id="id19">
 <img alt="../../../../../_images/incremental_1.jpg" src="../../../../../_images/incremental_1.jpg" />
-<p class="caption"><span class="caption-text">incremental pipeline in colmap</span><a class="headerlink" href="#id19" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">incremental pipeline in colmap</span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>该方法最早可以追溯到 <a class="footnote-reference brackets" href="#id8" id="id1">1</a> ，目前使用较多的方法 <a class="footnote-reference brackets" href="#id9" id="id2">2</a> <a class="footnote-reference brackets" href="#id10" id="id3">3</a> <a class="footnote-reference brackets" href="#id11" id="id4">4</a> <a class="footnote-reference brackets" href="#id12" id="id5">5</a> <a class="footnote-reference brackets" href="#id13" id="id6">6</a> <a class="footnote-reference brackets" href="#id14" id="id7">7</a> 也是以其为基础。</p>
 <p>增量式重建对于特征匹配以及外极几何关系的外点比较鲁棒，重建场景精度高:</p>
 <p>1.标定过程中通过RANSAC不断地过滤外点</p>
@@ -250,12 +172,12 @@
 <dd><p>Schönberger J L, Frahm J M. Structure-from-Motion Revisited[C] Computer Vision and Pattern Recognition. IEEE, 2016.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="glboal-sfm">
-<h2><span class="section-number">1.2. </span>Glboal SfM<a class="headerlink" href="#glboal-sfm" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="id15">
-<h2><span class="section-number">1.3. </span>旋转平均<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="glboal-sfm">
+<h2><span class="section-number">1.2. </span>Glboal SfM<a class="headerlink" href="#glboal-sfm" title="永久链接至标题"></a></h2>
+</section>
+<section id="id15">
+<h2><span class="section-number">1.3. </span>旋转平均<a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
 <p>假设一个数据集包含N张图像，那么就存在 <span class="math notranslate nohighlight">\(C_2^N = \frac{N(N-1)}{2}\)</span> 对的相机运动可以被估计。可以用一个图 <span class="math notranslate nohighlight">\(G = \{v, \epsilon\}\)</span> 来表示所有相机之间的关系，将其称为视图。
 其中 <span class="math notranslate nohighlight">\(v\)</span> 中的每个顶点对应不同的相机，而边 <span class="math notranslate nohighlight">\((i,j) \in \epsilon\)</span> 意味着相机 <span class="math notranslate nohighlight">\(i\)</span> 和相机 <span class="math notranslate nohighlight">\(j\)</span> 之间的相对旋转矩阵可以被估计。相对旋转矩阵和全局旋转矩阵都是 <span class="math notranslate nohighlight">\(3 \times 3\)</span> 的正交矩阵，用 <span class="math notranslate nohighlight">\(R\)</span> 表示旋转矩阵，则每个旋转矩阵满足：</p>
 <ol class="arabic simple">
@@ -266,9 +188,9 @@
 <p>相对旋转矩阵 <span class="math notranslate nohighlight">\(R_{ij}\)</span> 与全局旋转矩阵 <span class="math notranslate nohighlight">\(R_i\)</span> 和  <span class="math notranslate nohighlight">\(R_j\)</span> 之间的关系可以表示为：</p>
 <div class="math notranslate nohighlight">
 \[R_{ij} = R_j R_i^{-1}, \forall \{i,j\} \in \epsilon\]</div>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../_images/ra.jpg" src="../../../../../_images/ra.jpg" />
-</div>
+</figure>
 <p>相对旋转平均的问题可以表述如下：给定足够数量的相对旋转 <span class="math notranslate nohighlight">\(R_{ij} \in R_{\epsilon}\)</span> ，寻求全局相机旋转的估计，即  <span class="math notranslate nohighlight">\(R_v\)</span> 。</p>
 <p>在实际中，总是有比遍历视图图所需的更多边（ <span class="math notranslate nohighlight">\(|\epsilon| &gt; N - 1\)</span> ），这意味着肯定有冗余的观察项。</p>
 <p>由于噪声或异常值的存在，相对旋转的集合是不一致的，即无法找到完全满足所有约束的解  <span class="math notranslate nohighlight">\(R_v = \{R_1,R_2,···,R_N\}\)</span> 。</p>
@@ -277,8 +199,8 @@
 <div class="math notranslate nohighlight">
 \[R_v = \mathop{argmin}_{\{R_1, R_2, ···, R_N\}} \sum\limits_{(i,j)\in \epsilon} \rho(d(R_{ij},R_jR_i^{-1}))\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(d(·)\)</span> 是 SO(3) 中两个旋转之间的距离度量，而 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 是在此距离度量上定义的损失函数。</p>
-<div class="section" id="id16">
-<h3><span class="section-number">1.3.1. </span>不同的距离度量函数<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<section id="id16">
+<h3><span class="section-number">1.3.1. </span>不同的距离度量函数<a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>在本文中使用 SO(3) 上的测地距离作为距离度量，但是也有一些方法忽略将旋转定义为 SO(3) 组元素的内在约束，而是计算外在距离。这些方法使用距离 <span class="math notranslate nohighlight">\(d_{chordal}(R_1,R_2) = ||R_1 - R_2||_F\)</span> ，也称为 <strong>弦距离</strong> 。</p>
 <p>如果旋转 <span class="math notranslate nohighlight">\(R_1,R_2\)</span> 由单位四元数  <span class="math notranslate nohighlight">\(q_1,q_2\)</span>  等价表示，则它们之间的四元数距离定义为：</p>
 <div class="math notranslate nohighlight">
@@ -289,17 +211,17 @@
 <p>转换成四元数的写法：</p>
 <div class="math notranslate nohighlight">
 \[d_{quaternion}(R_1,R_2) = 2 sin(\theta / 4)\]</div>
-</div>
-<div class="section" id="id17">
-<h3><span class="section-number">1.3.2. </span>不同的代价函数<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id17">
+<h3><span class="section-number">1.3.2. </span>不同的代价函数<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <p>距离度量 <span class="math notranslate nohighlight">\(d(·,·)\)</span> 可用于测量 <span class="math notranslate nohighlight">\(\epsilon\)</span> 中单个边上的相对旋转观察的残余拟合误差。（residual fitting error），同样的，还需要定义一个损失函数 <span class="math notranslate nohighlight">\(\rho(·)\)</span> 来确定各个误差的相对贡献。</p>
 <p>尽管与欧几里德空间不同，SO(3) 的流形上的距离以 <span class="math notranslate nohighlight">\(\pi\)</span> 弧度为界，但与估计的相对旋转中的噪声水平相比，该边界总是非常大。</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <img alt="../../../../../_images/lf.jpg" src="../../../../../_images/lf.jpg" />
-</div>
-</div>
-<div class="section" id="id18">
-<h3><span class="section-number">1.3.3. </span>构造矩阵方程<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="id18">
+<h3><span class="section-number">1.3.3. </span>构造矩阵方程<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
 <p>想要得到最优的全局旋转，就需要最小化相对旋转集合与估计的全局旋转集合之间的差异。</p>
 <p>设 <span class="math notranslate nohighlight">\(R\)</span> 是某个相机的旋转，随时间而连续变换，即 <span class="math notranslate nohighlight">\(R\)</span> 为关于时间 <span class="math notranslate nohighlight">\(t\)</span> 的函数 <span class="math notranslate nohighlight">\(R(t)\)</span> 。由于 <span class="math notranslate nohighlight">\(R\)</span> 是正交阵，则有：</p>
 <div class="math notranslate nohighlight">
@@ -359,51 +281,39 @@
 <div class="math notranslate nohighlight">
 \[A x = b\]</div>
 <p>将 <span class="math notranslate nohighlight">\(\Delta v_{global}\)</span> 视为 <span class="math notranslate nohighlight">\(x\)</span> ， <span class="math notranslate nohighlight">\(\Delta v_{rel}\)</span> 视为 <span class="math notranslate nohighlight">\(b\)</span> ，问题转化为求解矩阵方程最优解的问题。</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <a class="reference internal image-reference" href="../../../../../_images/ra_algorithm_1.jpg"><img alt="../../../../../_images/ra_algorithm_1.jpg" src="../../../../../_images/ra_algorithm_1.jpg" style="width: 465.0px; height: 242.25px;" /></a>
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Robust_Optimization/Robust_Optimization.html" class="btn btn-neutral float-right" title="2. Robust Optimization in 3D Vision" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../LocalMethod.html" class="btn btn-neutral float-left" title="🍤 Local Method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Robust_Optimization/Robust_Optimization.html" class="btn btn-neutral float-right" title="2. Robust Optimization in 3D Vision" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

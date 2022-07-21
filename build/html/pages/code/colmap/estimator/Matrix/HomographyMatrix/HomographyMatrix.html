@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>HomographyMatrix &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="5. Triangulation" href="../../Triangulation/Triangulation.html" />
     <link rel="prev" title="FundmentalMatrix" href="../FundamentalMatrix/FundamentalMatrix.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +43,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../../c_base.html">Base</a></li>
@@ -135,85 +87,50 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../../c_estimator.html">Estimator</a> &raquo;</li>
-        
           <li><a href="../Matrix.html"><span class="section-number">4. </span>Matrix</a> &raquo;</li>
-        
       <li>HomographyMatrix</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/code/colmap/estimator/Matrix/HomographyMatrix/HomographyMatrix.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="homographymatrix">
-<h1>HomographyMatrix<a class="headerlink" href="#homographymatrix" title="永久链接至标题">¶</a></h1>
+             
+  <section id="homographymatrix">
+<h1>HomographyMatrix<a class="headerlink" href="#homographymatrix" title="永久链接至标题"></a></h1>
 <p>直接线性变换算法以计算点对之间的单应性。 该算法从至少4个对应关系中计算出单应性的最小二乘估计。</p>
 <p>单应性被定义为一个平面到另一个平面的投影映射。</p>
 <p>单应性矩阵 <span class="math notranslate nohighlight">\(H\)</span> 由两部分组成：相机内参  <span class="math notranslate nohighlight">\(K = \left[\begin{matrix}f_x &amp; 0 &amp; c_x\\0 &amp; f_y &amp; c_y\\0 &amp; 0 &amp; 1\end{matrix}\right]\)</span> 和外参  <span class="math notranslate nohighlight">\(W = [R~~~t]\)</span></p>
@@ -306,21 +223,21 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 <p class="admonition-title">重要</p>
 <p>总结为：对 <span class="math notranslate nohighlight">\(A\)</span> 进行SVD分解，然后取 <span class="math notranslate nohighlight">\(V\)</span> 矩阵的最后一列，即为 <span class="math notranslate nohighlight">\(h\)</span> 的一个非零解</p>
 </div>
-<div class="section" id="id1">
-<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>成员变量<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <ol class="arabic">
 <li><p>视角1下的特征点</p>
 <dl class="cpp type">
-<dt id="_CPPv4N25HomographyMatrixEstimator3X_tE">
-<span id="_CPPv3N25HomographyMatrixEstimator3X_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3X_tE"></span><span id="HomographyMatrixEstimator::X_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">HomographyMatrixEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">X_t</code>;<a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3X_tE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N25HomographyMatrixEstimator3X_tE">
+<span id="_CPPv3N25HomographyMatrixEstimator3X_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3X_tE"></span><span id="HomographyMatrixEstimator::X_t"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">X_t</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3X_tE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 </li>
 <li><p>视角2下的特征点</p>
 <blockquote>
 <div><dl class="cpp type">
-<dt id="_CPPv4N25HomographyMatrixEstimator3Y_tE">
-<span id="_CPPv3N25HomographyMatrixEstimator3Y_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3Y_tE"></span><span id="HomographyMatrixEstimator::Y_t"></span><em class="property">typedef </em>Eigen::Vector2d <code class="sig-prename descclassname">HomographyMatrixEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Y_t</code>;<a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3Y_tE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N25HomographyMatrixEstimator3Y_tE">
+<span id="_CPPv3N25HomographyMatrixEstimator3Y_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3Y_tE"></span><span id="HomographyMatrixEstimator::Y_t"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Vector2d</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Y_t</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3Y_tE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
@@ -328,8 +245,8 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 <li><p>基础矩阵</p>
 <blockquote>
 <div><dl class="cpp type">
-<dt id="_CPPv4N25HomographyMatrixEstimator3M_tE">
-<span id="_CPPv3N25HomographyMatrixEstimator3M_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3M_tE"></span><span id="HomographyMatrixEstimator::M_t"></span><em class="property">typedef </em>Eigen::Matrix3d <code class="sig-prename descclassname">HomographyMatrixEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">M_t</code>;<a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3M_tE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N25HomographyMatrixEstimator3M_tE">
+<span id="_CPPv3N25HomographyMatrixEstimator3M_tE"></span><span id="_CPPv2N25HomographyMatrixEstimator3M_tE"></span><span id="HomographyMatrixEstimator::M_t"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">Eigen</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Matrix3d</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">M_t</span></span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator3M_tE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
@@ -337,23 +254,23 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 <li><p>估计模型所需的最少样本数</p>
 <blockquote>
 <div><dl class="cpp member">
-<dt id="_CPPv4N25HomographyMatrixEstimator14kMinNumSamplesE">
-<span id="_CPPv3N25HomographyMatrixEstimator14kMinNumSamplesE"></span><span id="_CPPv2N25HomographyMatrixEstimator14kMinNumSamplesE"></span><span id="HomographyMatrixEstimator::kMinNumSamples__iC"></span><em class="property">static</em> <em class="property">const</em> int <code class="sig-prename descclassname">HomographyMatrixEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">kMinNumSamples</code> = 4;<a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator14kMinNumSamplesE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N25HomographyMatrixEstimator14kMinNumSamplesE">
+<span id="_CPPv3N25HomographyMatrixEstimator14kMinNumSamplesE"></span><span id="_CPPv2N25HomographyMatrixEstimator14kMinNumSamplesE"></span><span id="HomographyMatrixEstimator::kMinNumSamples__iC"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">kMinNumSamples</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator14kMinNumSamplesE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 </div></blockquote>
 </li>
 </ol>
-</div>
-<div class="section" id="id2">
-<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>成员函数<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Estimate</strong></p></li>
 </ol>
 <p>使用至少四个点估计单应性矩阵</p>
 <dl class="cpp function">
-<dt id="_CPPv4N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
-<span id="_CPPv3N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="HomographyMatrixEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span>std::vector&lt;HomographyMatrixEstimator::<a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3M_tE" title="HomographyMatrixEstimator::M_t">M_t</a>&gt; <code class="sig-prename descclassname">HomographyMatrixEstimator<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">Estimate</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3X_tE" title="HomographyMatrixEstimator::X_t">X_t</a>&gt; &amp;<em>points1</em>, <em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3Y_tE" title="HomographyMatrixEstimator::Y_t">Y_t</a>&gt; &amp;<em>points2</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE">
+<span id="_CPPv3N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="_CPPv2N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE"></span><span id="HomographyMatrixEstimator::Estimate__std::vector:X_t:CR.std::vector:Y_t:CR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3M_tE" title="HomographyMatrixEstimator::M_t"><span class="n"><span class="pre">M_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">HomographyMatrixEstimator</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Estimate</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3X_tE" title="HomographyMatrixEstimator::X_t"><span class="n"><span class="pre">X_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N25HomographyMatrixEstimator3Y_tE" title="HomographyMatrixEstimator::Y_t"><span class="n"><span class="pre">Y_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">points2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N25HomographyMatrixEstimator8EstimateERKNSt6vectorI3X_tEERKNSt6vectorI3Y_tEE" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">HomographyMatrixEstimator</span><span class="o">::</span><span class="n">M_t</span><span class="o">&gt;</span> <span class="n">HomographyMatrixEstimator</span><span class="o">::</span><span class="n">Estimate</span><span class="p">(</span>
@@ -381,14 +298,14 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 
     <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">s_0</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">s_1</span><span class="p">;</span>
-    <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="n">s_0</span> <span class="o">*</span> <span class="n">d_0</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">=</span> <span class="n">s_1</span> <span class="o">*</span> <span class="n">d_0</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">=</span> <span class="n">d_0</span><span class="p">;</span>
 
     <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">s_0</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="n">s_1</span><span class="p">;</span>
-    <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="mi">-1</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="n">s_0</span> <span class="o">*</span> <span class="n">d_1</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">=</span> <span class="n">s_1</span> <span class="o">*</span> <span class="n">d_1</span><span class="p">;</span>
     <span class="n">A</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">=</span> <span class="n">d_1</span><span class="p">;</span>
@@ -406,47 +323,35 @@ x_4 &amp; y_4 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; -x_4'x_4 &amp; -x_4'y_4 &amp
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../Triangulation/Triangulation.html" class="btn btn-neutral float-right" title="5. Triangulation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../FundamentalMatrix/FundamentalMatrix.html" class="btn btn-neutral float-left" title="FundmentalMatrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../Triangulation/Triangulation.html" class="btn btn-neutral float-right" title="5. Triangulation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,80 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>8. Reconstrucion &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="Estimator" href="../../c_estimator.html" />
     <link rel="prev" title="7. Triangulation" href="../Triangulation/Triangulation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,31 +42,22 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../colmap.html">🍑 Colmap</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../c_base.html">Base</a><ul class="current">
@@ -133,103 +84,69 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../colmap.html">🍑 Colmap</a> &raquo;</li>
-        
           <li><a href="../../c_base.html">Base</a> &raquo;</li>
-        
       <li><span class="section-number">8. </span>Reconstrucion</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/code/colmap/base/Reconstruction/Reconstruction.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="reconstrucion">
-<h1><span class="section-number">8. </span>Reconstrucion<a class="headerlink" href="#reconstrucion" title="永久链接至标题">¶</a></h1>
+             
+  <section id="reconstrucion">
+<h1><span class="section-number">8. </span>Reconstrucion<a class="headerlink" href="#reconstrucion" title="永久链接至标题"></a></h1>
 <p>重构类保存有关单个重构模型的所有信息。</p>
 <dl class="cpp class">
-<dt id="_CPPv414Reconstruction">
-<span id="_CPPv314Reconstruction"></span><span id="_CPPv214Reconstruction"></span><span id="Reconstruction"></span><em class="property">class </em><code class="sig-name descname">Reconstruction</code><a class="headerlink" href="#_CPPv414Reconstruction" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv414Reconstruction">
+<span id="_CPPv314Reconstruction"></span><span id="_CPPv214Reconstruction"></span><span id="Reconstruction"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Reconstruction</span></span></span><a class="headerlink" href="#_CPPv414Reconstruction" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp struct">
-<dt id="_CPPv413ImagePairStat">
-<span id="_CPPv313ImagePairStat"></span><span id="_CPPv213ImagePairStat"></span><span id="ImagePairStat"></span><em class="property">struct </em><code class="sig-name descname">ImagePairStat</code><a class="headerlink" href="#_CPPv413ImagePairStat" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv413ImagePairStat">
+<span id="_CPPv313ImagePairStat"></span><span id="_CPPv213ImagePairStat"></span><span id="ImagePairStat"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ImagePairStat</span></span></span><a class="headerlink" href="#_CPPv413ImagePairStat" title="永久链接至目标"></a><br /></dt>
 <dd><dl class="field-list">
 <dt class="field-odd">ImagePairStat</dt>
 <dd class="field-odd"><dl class="cpp member">
-<dt id="_CPPv4N13ImagePairStat13num_tri_corrsE">
-<span id="_CPPv3N13ImagePairStat13num_tri_corrsE"></span><span id="_CPPv2N13ImagePairStat13num_tri_corrsE"></span><span id="ImagePairStat::num_tri_corrs__s"></span>size_t <code class="sig-name descname">num_tri_corrs</code> = 0;<a class="headerlink" href="#_CPPv4N13ImagePairStat13num_tri_corrsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N13ImagePairStat13num_tri_corrsE">
+<span id="_CPPv3N13ImagePairStat13num_tri_corrsE"></span><span id="_CPPv2N13ImagePairStat13num_tri_corrsE"></span><span id="ImagePairStat::num_tri_corrs__s"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_tri_corrs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N13ImagePairStat13num_tri_corrsE" title="永久链接至目标"></a><br /></dt>
 <dd><p>两个图像之间的三角对应关系数</p>
 </dd></dl>
 
 <dl class="cpp member">
-<dt id="_CPPv4N13ImagePairStat15num_total_corrsE">
-<span id="_CPPv3N13ImagePairStat15num_total_corrsE"></span><span id="_CPPv2N13ImagePairStat15num_total_corrsE"></span><span id="ImagePairStat::num_total_corrs__s"></span>size_t <code class="sig-name descname">num_total_corrs</code> = 0;<a class="headerlink" href="#_CPPv4N13ImagePairStat15num_total_corrsE" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N13ImagePairStat15num_total_corrsE">
+<span id="_CPPv3N13ImagePairStat15num_total_corrsE"></span><span id="_CPPv2N13ImagePairStat15num_total_corrsE"></span><span id="ImagePairStat::num_total_corrs__s"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">num_total_corrs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv4N13ImagePairStat15num_total_corrsE" title="永久链接至目标"></a><br /></dt>
 <dd><p>两个图像之间的总对应/匹配数</p>
 </dd></dl>
 
@@ -237,8 +154,8 @@
 </dl>
 </dd></dl>
 
-<div class="section" id="id1">
-<h2><span class="section-number">8.1. </span>内联函数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2><span class="section-number">8.1. </span>内联函数<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p><strong>获取对象数</strong></p>
 <blockquote>
 <div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="kt">size_t</span> <span class="nf">NumCameras</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
@@ -261,9 +178,9 @@
 
 <span class="kr">inline</span> <span class="k">const</span> <span class="k">class</span> <span class="nc">Point3D</span><span class="o">&amp;</span> <span class="n">Point3D</span><span class="p">(</span><span class="k">const</span> <span class="n">point3D_t</span> <span class="n">point3D_id</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="kr">inline</span> <span class="k">const</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="n">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_pair_t</span> <span class="n">pair_id</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="nf">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_pair_t</span> <span class="n">pair_id</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="kr">inline</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="n">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="nf">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span><span class="p">);</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -275,22 +192,22 @@
 
 <span class="kr">inline</span> <span class="k">class</span> <span class="nc">Point3D</span><span class="o">&amp;</span> <span class="n">Point3D</span><span class="p">(</span><span class="k">const</span> <span class="n">point3D_t</span> <span class="n">point3D_id</span><span class="p">);</span>
 
-<span class="kr">inline</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="n">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_pair_t</span> <span class="n">pair_id</span><span class="p">);</span>
+<span class="kr">inline</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="nf">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_pair_t</span> <span class="n">pair_id</span><span class="p">);</span>
 
-<span class="kr">inline</span> <span class="k">const</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="n">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="n">ImagePairStat</span><span class="o">&amp;</span> <span class="nf">ImagePair</span><span class="p">(</span><span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id1</span><span class="p">,</span>
                                   <span class="k">const</span> <span class="n">image_t</span> <span class="n">image_id2</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p><strong>获取对所有对象的引用</strong></p>
 <blockquote>
-<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="k">const</span> <span class="nf">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">camera_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Camera</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Cameras</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<div><div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span> <span class="k">const</span> <span class="n">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">camera_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Camera</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Cameras</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="kr">inline</span> <span class="k">const</span> <span class="nf">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">image_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Image</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Images</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="n">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">image_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Image</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Images</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
 <span class="kr">inline</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">image_t</span><span class="o">&gt;&amp;</span> <span class="n">RegImageIds</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
-<span class="kr">inline</span> <span class="k">const</span> <span class="nf">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">point3D_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Point3D</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Points3D</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kr">inline</span> <span class="k">const</span> <span class="n">EIGEN_STL_UMAP</span><span class="p">(</span><span class="n">point3D_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Point3D</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Points3D</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 
 <span class="kr">inline</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">image_pair_t</span><span class="p">,</span> <span class="n">ImagePairStat</span><span class="o">&gt;&amp;</span> <span class="n">ImagePairs</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
 </pre></div>
@@ -314,22 +231,22 @@
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="id2">
-<h2><span class="section-number">8.2. </span>成员变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">8.3. </span>成员函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="setup">
-<h3><span class="section-number">8.3.1. </span>SetUp<a class="headerlink" href="#setup" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id2">
+<h2><span class="section-number">8.2. </span>成员变量<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">8.3. </span>成员函数<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="setup">
+<h3><span class="section-number">8.3.1. </span>SetUp<a class="headerlink" href="#setup" title="永久链接至标题"></a></h3>
 <blockquote>
 <div><p>重建之前设置所有相关的数据结构</p>
 <dl class="cpp function">
-<dt id="_CPPv4N14Reconstruction5SetUpEPK19CorrespondenceGraph">
-<span id="_CPPv3N14Reconstruction5SetUpEPK19CorrespondenceGraph"></span><span id="_CPPv2N14Reconstruction5SetUpEPK19CorrespondenceGraph"></span><span id="Reconstruction::SetUp__CorrespondenceGraphCP"></span>void <code class="sig-prename descclassname"><a class="reference internal" href="#_CPPv414Reconstruction" title="Reconstruction">Reconstruction</a><code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SetUp</code><span class="sig-paren">(</span><em class="property">const</em> CorrespondenceGraph *<em>correspondence_graph</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14Reconstruction5SetUpEPK19CorrespondenceGraph" title="永久链接至目标">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N14Reconstruction5SetUpEPK19CorrespondenceGraph">
+<span id="_CPPv3N14Reconstruction5SetUpEPK19CorrespondenceGraph"></span><span id="_CPPv2N14Reconstruction5SetUpEPK19CorrespondenceGraph"></span><span id="Reconstruction::SetUp__CorrespondenceGraphCP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="#_CPPv414Reconstruction" title="Reconstruction"><span class="n"><span class="pre">Reconstruction</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">SetUp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">CorrespondenceGraph</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">correspondence_graph</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N14Reconstruction5SetUpEPK19CorrespondenceGraph" title="永久链接至目标"></a><br /></dt>
 <dd></dd></dl>
 
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">Reconstruction</span><span class="o">::</span><span class="n">SetUp</span><span class="p">(</span><span class="k">const</span> <span class="n">CorrespondenceGraph</span><span class="o">*</span> <span class="n">correspondence_graph</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">Reconstruction::SetUp</span><span class="p">(</span><span class="k">const</span> <span class="n">CorrespondenceGraph</span><span class="o">*</span> <span class="n">correspondence_graph</span><span class="p">)</span> <span class="p">{</span>
    <span class="n">CHECK_NOTNULL</span><span class="p">(</span><span class="n">correspondence_graph</span><span class="p">);</span>
    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">image</span> <span class="p">:</span> <span class="n">images_</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">image</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">SetUp</span><span class="p">(</span><span class="n">Camera</span><span class="p">(</span><span class="n">image</span><span class="p">.</span><span class="n">second</span><span class="p">.</span><span class="n">CameraId</span><span class="p">()));</span>
@@ -352,48 +269,36 @@
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../c_estimator.html" class="btn btn-neutral float-right" title="Estimator" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Triangulation/Triangulation.html" class="btn btn-neutral float-left" title="7. Triangulation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../c_estimator.html" class="btn btn-neutral float-right" title="Estimator" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

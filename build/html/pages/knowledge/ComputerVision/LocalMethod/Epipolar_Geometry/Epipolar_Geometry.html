@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>8. Epipolar Geometry &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="🍎 Machine Learning" href="../../../k_ML.html" />
     <link rel="prev" title="7. Line Feature" href="../LineFeature/LineFeature.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,19 +43,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
@@ -119,7 +69,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
@@ -127,92 +77,58 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
-        
           <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
-        
       <li><span class="section-number">8. </span>Epipolar Geometry</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/Epipolar_Geometry/Epipolar_Geometry.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="epipolar-geometry">
-<h1><span class="section-number">8. </span>Epipolar Geometry<a class="headerlink" href="#epipolar-geometry" title="永久链接至标题">¶</a></h1>
+             
+  <section id="epipolar-geometry">
+<h1><span class="section-number">8. </span>Epipolar Geometry<a class="headerlink" href="#epipolar-geometry" title="永久链接至标题"></a></h1>
 <p>👉 <a class="reference external" href="https://www.cnblogs.com/majiale/p/9306039.html">原文链接</a></p>
 <p>对极几何是研究两幅图像之间存在的几何。它和场景结构无关，只依赖于摄像机的内外参数。研究这种几何可以用在图像匹配、三维重建方面。（因为参考多处来源，本文各个章节之间没有统一约定符号）</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/146.jpg" src="../../../../../_images/146.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/16.jpg" src="../../../../../_images/16.jpg" />
+</figure>
 <ul class="simple">
 <li><p>基线：连接两个摄像机光心 <span class="math notranslate nohighlight">\(O（O′）\)</span> 的直线</p></li>
 <li><p>对极点：基线与像平面的交点</p></li>
@@ -220,35 +136,35 @@
 <li><p>对极线：对极平面与图像平面的交线</p></li>
 <li><p>基本矩阵F：对应点对之间的约束 <span class="math notranslate nohighlight">\(m^{'T}Fm=0\)</span></p></li>
 </ul>
-<div class="section" id="id2">
-<h2><span class="section-number">8.1. </span>极线约束<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">8.1. </span>极线约束<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>对于一个单一的摄像机观测3D点 <span class="math notranslate nohighlight">\(w\)</span> 的情况。 <span class="math notranslate nohighlight">\(w\)</span> 必定位于一条穿过光心和摄像机平面中 <span class="math notranslate nohighlight">\(x_1\)</span> 的光线上。然而，从单独的一个摄像机，无法获知该点与光线间的距离。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/230.jpg" src="../../../../../_images/230.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/23.jpg" src="../../../../../_images/23.jpg" />
+</figure>
 <p>现在考虑观测同一个3D点的第二个摄像机。从第一个摄像机可得知，该点必定位于3D空间中的一条特定光线上。进而第二幅图像中该点的投影位置 <span class="math notranslate nohighlight">\(x_2\)</span> 必定位于第二幅图像中这条光线投影上的某个位置。三维空间中的光线在二维空间中的投影就是所谓的极线。</p>
 <p>这种几何关系揭示了一些重要信息：对于第一幅图像中的任意点，其在第二幅图像中的对应点被限制在一条线上。这就是所谓的极线约束。而这条受约束的特定极线依赖于摄像机的内在参数和外在参数（也就是两个摄像机间的相对平移和旋转）。</p>
 <p>极线约束有两个重要的实际意义。</p>
 <p>1）在已知摄像机的内在参数和外在参数的情况下，能够相对容易地找到对应点：对于第一幅图像中的某个点，只需要沿着第二幅图像中的极线执行一维搜索，就可以得到该点在第二幅图像中极线上对应点的位置。</p>
 <p>2）对应点的约束是摄像机内在参数和外在参数的函数；在已知摄像机内在参数的情况下，可利用对应点的观测模式来确定摄像机的外在参数，因而确定两台摄像机间的几何关系。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">8.2. </span>极点<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">8.2. </span>极点<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>现在考虑第一幅图像中的点。每一个点都与三维空间中的一条光线相关联，每一条光线都在第二幅图像中投影而形成极线。
 由于所有的光线都汇聚于第一个摄像机的光心，所以极线必须汇聚于第二幅图像平面上的一个点。 <strong>极点</strong> 为摄像机的光心在另一个摄像机中的投影。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/318.jpg" src="../../../../../_images/318.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/31.jpg" src="../../../../../_images/31.jpg" />
+</figure>
 <p>极点并不一定位于观测图像内：极线也可能汇聚于可视范围之外的某一点。</p>
 <p>当两个摄像机都位于同一方向（即没有相对旋转）且垂直于光轴时，极线是相互平行的，因此由极线汇聚的极点就位于 <strong>无穷远处</strong> 。</p>
 <p>当两个摄像机位于同一方向且平行于光轴时，极点就位于 <strong>图像的中心且极线呈放射状</strong>。</p>
 <p>这些例子说明极线能够提供摄像机间的相对位置和方向等信息。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/417.jpg" src="../../../../../_images/417.jpg" />
-</div>
-</div>
-<div class="section" id="essential-matrix">
-<h2><span class="section-number">8.3. </span>本质矩阵（Essential Matrix）<a class="headerlink" href="#essential-matrix" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/41.jpg" src="../../../../../_images/41.jpg" />
+</figure>
+</section>
+<section id="essential-matrix">
+<h2><span class="section-number">8.3. </span>本质矩阵（Essential Matrix）<a class="headerlink" href="#essential-matrix" title="永久链接至标题"></a></h2>
 <p>对于世界坐标系中的点 <span class="math notranslate nohighlight">\(P\)</span> ，在摄像机1和摄像机2中的成像分别为 <span class="math notranslate nohighlight">\(p_1\)</span> 和 <span class="math notranslate nohighlight">\(p_2\)</span> 。</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}s_1p_1 = K[R,t]P\\
@@ -290,47 +206,35 @@ s_2p_2 = K'[R,t]P~~\longrightarrow~~s_2p_2 = K'(RP+t)\end{split}\]</div>
 \[E = t \hat{}R,~~
 F = K^{-T} E K^{-1},~~
 x_2^{T}Ex_1 = p_2^T F p_1 = 0\]</div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../LineFeature/LineFeature.html" class="btn btn-neutral float-left" title="7. Line Feature" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../k_ML.html" class="btn btn-neutral float-right" title="🍎 Machine Learning" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>16. Optimizing the Viewing Graph for Structure-from-Motion &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="17. Reducing Drift in Structure From Motion Using Extended Features" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" />
     <link rel="prev" title="15. Efficient Initial Pose-graph Generation for Global SfM" href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -145,7 +95,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
@@ -153,9 +103,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">38. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">39. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">40. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
@@ -163,90 +114,52 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">算法学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">16. </span>Optimizing the Viewing Graph for Structure-from-Motion</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/Optimizing_the_Viewing_Graph/Optimizing_the_Viewing_Graph.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="optimizing-the-viewing-graph-for-structure-from-motion">
-<h1><span class="section-number">16. </span>Optimizing the Viewing Graph for Structure-from-Motion<a class="headerlink" href="#optimizing-the-viewing-graph-for-structure-from-motion" title="永久链接至标题">¶</a></h1>
+             
+  <section id="optimizing-the-viewing-graph-for-structure-from-motion">
+<h1><span class="section-number">16. </span>Optimizing the Viewing Graph for Structure-from-Motion<a class="headerlink" href="#optimizing-the-viewing-graph-for-structure-from-motion" title="永久链接至标题"></a></h1>
 <p>在本文中对 SfM 采取了一种不同的方法，在应用 SfM 之前专注于提高查看图的质量。</p>
 <p>本文的主要贡献是一种新颖的优化，它通过对极点传输强制循环一致性约束来提高视图图中相对几何的质量。</p>
 <p>实验表明，这种优化极大地提高了视图图中相对姿势的准确性，并消除了对全局 SfM 方法中通常使用的过滤步骤或鲁棒算法的需求。此外，优化的观察图可用于有效地大规模校准相机。</p>
@@ -261,14 +174,14 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 <p>本文从一个不同的角度来处理 SfM：没有将潜在不准确的两视图几何作为 SfM 的输入，而是尝试从嘈杂的视图中恢复一致的视图图，这样任何 SfM 方法的性能都会得到改善。</p>
 <p>在实践中不太可能恢复完全一致的查看图；然而，通过提高当前 SfM 算法的收敛性，在视图图中强制执行循环一致性可以更容易地估计结构和运动。</p>
 <p>本文提出了一种新的方法来优化查看图并通过循环约束来强制执行全局一致性。在视图图中使用跨三元组的极点转移作为循环一致性的几何误差，并直接优化连接视图的基本矩阵。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/516.jpg" src="../../../../../../_images/516.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/612.jpg" src="../../../../../../_images/612.jpg" />
-</div>
-<div class="section" id="the-viewing-graph">
-<h2><span class="section-number">16.1. </span>The Viewing Graph<a class="headerlink" href="#the-viewing-graph" title="永久链接至标题">¶</a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/511.jpg" src="../../../../../../_images/511.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/68.jpg" src="../../../../../../_images/68.jpg" />
+</figure>
+<section id="the-viewing-graph">
+<h2><span class="section-number">16.1. </span>The Viewing Graph<a class="headerlink" href="#the-viewing-graph" title="永久链接至标题"></a></h2>
 <p>由 n 个视图组成的场景可以由视图图 <span class="math notranslate nohighlight">\(G = \{v, e\}\)</span>  表示，其顶点 <span class="math notranslate nohighlight">\(v\)</span> 对应于场景中的视图，其边 <span class="math notranslate nohighlight">\(e\)</span> 对应于特征匹配和两个视图之间的相对几何，即连接两个视图的基本矩阵。</p>
 <p>具体来说， <span class="math notranslate nohighlight">\(F_{ij}\)</span> 是将图像 <span class="math notranslate nohighlight">\(j\)</span> 中的点转换为图像 <span class="math notranslate nohighlight">\(i\)</span> 中的线的基本矩阵。</p>
 <p>视图图包含有关视图之间的相对几何的信息，但除了两视图几何之外，不执行任何几何约束。</p>
@@ -299,16 +212,16 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 <p>因此，本文的目标是优化嘈杂的、不一致的视图图  <span class="math notranslate nohighlight">\(G = \{V, E\}\)</span>  以恢复一致的视图图 <span class="math notranslate nohighlight">\(G_c\)</span> ，从而提高 SfM。</p>
 <p>这需要调整边缘  <span class="math notranslate nohighlight">\(F_{ij} ∈ E\)</span>  以强制执行条件 1。本文提出了一种优化方案，该方案使用几何误差来强制执行尝试满足条件 1 的循环约束。</p>
 <p>如果能够恢复一致的查看图，那么计算重建是微不足道的 ; 然而，即使在无法恢复完全一致的视图图的情况下，相对几何的准确性也得到了足够的提高，从而大大简化了计算SfM。</p>
-</div>
-<div class="section" id="enforcing-loop-consistency">
-<h2><span class="section-number">16.2. </span>Enforcing Loop Consistency<a class="headerlink" href="#enforcing-loop-consistency" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="enforcing-loop-consistency">
+<h2><span class="section-number">16.2. </span>Enforcing Loop Consistency<a class="headerlink" href="#enforcing-loop-consistency" title="永久链接至标题"></a></h2>
 <p>本文提出了一个代价函数，用于调整 <span class="math notranslate nohighlight">\(e\)</span> 以在 <span class="math notranslate nohighlight">\(G\)</span> 中强制执行三元组一致性。虽然条件 1 是一致性的充分条件，但它是一个代数度量，并且受到明显不足的约束。</p>
 <p>相反，本文建议使用对极点转移来强制循环一致性。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/156.jpg" src="../../../../../../_images/156.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/139.jpg" src="../../../../../../_images/139.jpg" />
+</figure>
 <p>极点转移定义为两个视图的两条转移线相交到第三个视图：</p>
 <div class="math notranslate nohighlight">
 \[\hat{x}_i^{jk} = F_{ij} x_j \times F_{ik}x_k\]</div>
@@ -320,9 +233,9 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 \[C(x)_i^{jk} = ||x_i - \hat{x}_i^{jk}||_2\]</div>
 <p>这个代价是像素距离方面的几何误差。</p>
 </div>
-</div>
-<div class="section" id="updating-fundamental-matrices">
-<h2><span class="section-number">16.3. </span>Updating Fundamental Matrices<a class="headerlink" href="#updating-fundamental-matrices" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="updating-fundamental-matrices">
+<h2><span class="section-number">16.3. </span>Updating Fundamental Matrices<a class="headerlink" href="#updating-fundamental-matrices" title="永久链接至标题"></a></h2>
 <p>本文试图根据等式调整 <span class="math notranslate nohighlight">\(G\)</span> 中的基本矩阵边 <span class="math notranslate nohighlight">\(F_{ij} \in e\)</span> 。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -337,32 +250,32 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 \[s \leftarrow s + \delta_s\]</div>
 <p>由于 <span class="math notranslate nohighlight">\(R_u\)</span> 和 <span class="math notranslate nohighlight">\(R_v\)</span> 是 SO(3) 旋转，它们可以用最少的 3 个参数表示（通过欧拉角或角轴表示），因此总共需要 7 个参数（ <span class="math notranslate nohighlight">\(R_u\)</span> 为 3， <span class="math notranslate nohighlight">\(R_v\)</span> 为 3， <span class="math notranslate nohighlight">\(\delta_s\)</span> 为 1）来更新 <span class="math notranslate nohighlight">\(F\)</span> 。</p>
 </div>
-</div>
-<div class="section" id="nonlinear-optimization">
-<h2><span class="section-number">16.4. </span>Nonlinear Optimization<a class="headerlink" href="#nonlinear-optimization" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="nonlinear-optimization">
+<h2><span class="section-number">16.4. </span>Nonlinear Optimization<a class="headerlink" href="#nonlinear-optimization" title="永久链接至标题"></a></h2>
 <p>我们使用成本函数和提出的更新基本矩阵的方法创建了一个大型非线性优化，只优化视图图中三元组 T 中存在的边：</p>
 <div class="math notranslate nohighlight">
 \[F^* = \mathop{argmin}\limits_{F} \sum\limits_{t \in \tau} \sum\limits_{x \in t} C(x)_i^{jk} +  C(x)_j^{ik} + C(x)_k^{ij}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(x\)</span> 是存在于三元组  <span class="math notranslate nohighlight">\(t = \{i, j, k\}\)</span> 中的特征轨迹， <span class="math notranslate nohighlight">\(F\)</span> 是基本矩阵 <span class="math notranslate nohighlight">\(F\in e\)</span> 的集合。</p>
 <p>也就是说，对于所有三元组，最小化其中所有特征轨迹的极点转移代价。尽管极点转移成本函数不需要基本矩阵的三元组，但使用三元组极大地提高了收敛速度。</p>
 <p>特征点 <span class="math notranslate nohighlight">\(x\)</span> 在方程式中被视为常数，或者可以被视为使用基本矩阵优化的自由参数。 我们发现，使用基本矩阵额外优化特征点会导致效率显着下降，并且没有提供明显更好的结果。</p>
-</div>
-<div class="section" id="numeric-instabilities">
-<h2><span class="section-number">16.5. </span>Numeric Instabilities<a class="headerlink" href="#numeric-instabilities" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="numeric-instabilities">
+<h2><span class="section-number">16.5. </span>Numeric Instabilities<a class="headerlink" href="#numeric-instabilities" title="永久链接至标题"></a></h2>
 <p>极点转移具有已知的退化和数值不稳定性。</p>
 <p>特别是，传输点位于图像 i、j 和 k 的三焦平面上的任何配置都将退化，并且靠近该退化的点越来越病态。</p>
 <p>为了避免病态点，不考虑两条传输线几乎平行的点或传输线位于极点附近的点。后一种情况可以通过检查传输线的规范来检查。由于极点在 <span class="math notranslate nohighlight">\(F_{ij}\)</span> 的零空间中，当传输线靠近极点时，传输线的范数会非常小。</p>
 <p>应该注意的是，如果三个相机中心共线，则存在一个包含三个相机的单参数平面族，因此三焦平面是不明确的。</p>
 <p>通过移除极点相等的共线三元组来明确避免这种情况。</p>
-</div>
-<div class="section" id="estimating-structure-and-motion">
-<h2><span class="section-number">16.6. </span>Estimating Structure and Motion<a class="headerlink" href="#estimating-structure-and-motion" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="estimating-structure-and-motion">
+<h2><span class="section-number">16.6. </span>Estimating Structure and Motion<a class="headerlink" href="#estimating-structure-and-motion" title="永久链接至标题"></a></h2>
 <p>给定一个一致的观察图，估计结构和运动是非常简单的。考虑一个一致且经过校准的视图图 <span class="math notranslate nohighlight">\(G_c\)</span> 。 由于图是一致的，这意味着 <span class="math notranslate nohighlight">\(G_c\)</span> 中每个三元组中的相对旋转也是一致的（即，连接三元组中的相对旋转将形成一个循环： <span class="math notranslate nohighlight">\(R_{ij}R_{jk}R_{ki} = I\)</span> ）。</p>
 <p>一致的观察图也意味着 <span class="math notranslate nohighlight">\(G_c\)</span> 中的相对平移方向是完美的，即 <span class="math notranslate nohighlight">\(\alpha_{ij} t_{ij} = R_i(c_j - c_i)\)</span></p>
 <p>因此，估计相机位置（假设方向已知）相当于恢复相机之间的基线 <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> 。该管道比替代全局 SfM 方法更简单，后者需要许多过滤步骤和更复杂的运动估计算法</p>
-</div>
-<div class="section" id="viewing-graph-optimization">
-<h2><span class="section-number">16.7. </span>Viewing Graph Optimization<a class="headerlink" href="#viewing-graph-optimization" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="viewing-graph-optimization">
+<h2><span class="section-number">16.7. </span>Viewing Graph Optimization<a class="headerlink" href="#viewing-graph-optimization" title="永久链接至标题"></a></h2>
 <p>视图优化具有 <span class="math notranslate nohighlight">\(O(|E|)\)</span>  个自由参数，因此非线性优化的运行时间直接与边数成比例。 视图图可能包含高度冗余的信息，因此希望减少视图图中的边数，以减少非线性优化的大小。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -373,16 +286,16 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 <p>在 <span class="math notranslate nohighlight">\(e_t\)</span> 中的边中，选择一组“好”边 <span class="math notranslate nohighlight">\(e_G\)</span> ，其三元组投影误差小于 <span class="math notranslate nohighlight">\(\tau\)</span> （见附录 A）并添加这些 到图表。</p>
 <p>三元组投影误差是一种近似误差测量，用于确定基本矩阵三元组与一致的接近程度（条件 1）。</p>
 <p>重复这个过程（即 <span class="math notranslate nohighlight">\(G' = G' \cup e_G\)</span> ），直到视图图中的每个视图都参与至少一个三元组，或者没有更多可以添加的“好”边。</p>
-<div class="figure align-default">
-<img alt="../../../../../../_images/322.jpg" src="../../../../../../_images/322.jpg" />
-</div>
+<figure class="align-default">
+<img alt="../../../../../../_images/318.jpg" src="../../../../../../_images/318.jpg" />
+</figure>
 <p>在获得一个有代表性的观察图 <span class="math notranslate nohighlight">\(G'\)</span> 之后，使用集合覆盖方法来选择所有特征轨迹的子集来加速优化。</p>
 <p>在每幅图像中创建一个  <span class="math notranslate nohighlight">\(N \times N\)</span> 的网格并选择最小数量的特征轨迹，以使所有图像中的所有网格单元都包含至少一个优化轨迹。 选择空间分布的特征点有助于查看图优化收敛到更好的最小值。 最后，使用所有选定的边和特征轨迹通过最小化方程来优化视图图。
 使用 Huber 损失函数来保持对来自特征匹配的异常值的鲁棒性。</p>
 <p>生成的优化视图图提供了准确的基本矩阵，几乎形成了一致的视图图（参见下图）。 在结构和运动估计期间不需要进一步的异常值过滤。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/322.jpg" src="../../../../../../_images/322.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/318.jpg" src="../../../../../../_images/318.jpg" />
+</figure>
 <p>假设相机已校准，计算方向很简单。 通过执行相对旋转约束  <span class="math notranslate nohighlight">\(R_{ij} = R_j R_i^T\)</span> 来求解方向。</p>
 <p>最小化代价函数来解决相机方向问题:</p>
 <div class="math notranslate nohighlight">
@@ -390,20 +303,20 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 <p>为了计算相机位置，给定一个相对平移 <span class="math notranslate nohighlight">\(t_{ij}\)</span> 和一个已知的相机方向 <span class="math notranslate nohighlight">\(R_i\)</span> ，使用以下约束来估计相机中心 <span class="math notranslate nohighlight">\(c_i\)</span> 和 <span class="math notranslate nohighlight">\(c_j\)</span> ：</p>
 <div class="math notranslate nohighlight">
 \[t_{ij} = R_i \frac{(c_j - c_i)}{||c_j - c_i||}\]</div>
-</div>
-<div class="section" id="focal-length-calibration">
-<h2><span class="section-number">16.8. </span>Focal Length Calibration<a class="headerlink" href="#focal-length-calibration" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="focal-length-calibration">
+<h2><span class="section-number">16.8. </span>Focal Length Calibration<a class="headerlink" href="#focal-length-calibration" title="永久链接至标题"></a></h2>
 <p>全局 SfM 方法的当前限制是它们需要以相对旋转和平移形式的相对位姿作为输入。</p>
 <p>对于校准后的图像集，可以通过分解基本矩阵来获得相对位姿。 对于未校准的相机，两个视图之间只有基本矩阵可用。</p>
 <p>焦距可以从封闭形式的基本矩阵获得，并且得到的基本矩阵可以分解为相对旋转和平移。 然而，与已知校准时相比，通过基本矩阵分解获得的相对旋转和平移的准确度要低得多，因此获得准确的校准对 SfM 算法的质量有直接影响。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/419.jpg" src="../../../../../../_images/419.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/414.jpg" src="../../../../../../_images/414.jpg" />
+</figure>
 <p>然而，从包含特定相机的所有相关几何形状中单独分解基本矩阵并不能保证产生单个一致的焦距值。 也就是说，包含特定相机的基本矩阵的每次分解都可能为该相机产生不同的焦距值。 此外，从基本矩阵计算的焦距的质量完全取决于基本矩阵估计的质量。</p>
 <p>在本节中提出了一种新的校准方法，用于仅使用基本矩阵作为输入来同时确定视图图中所有相机的焦距。</p>
-</div>
-<div class="section" id="focal-length-from-a-fundamental-matrix">
-<h2><span class="section-number">16.9. </span>Focal Length from a Fundamental Matrix<a class="headerlink" href="#focal-length-from-a-fundamental-matrix" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="focal-length-from-a-fundamental-matrix">
+<h2><span class="section-number">16.9. </span>Focal Length from a Fundamental Matrix<a class="headerlink" href="#focal-length-from-a-fundamental-matrix" title="永久链接至标题"></a></h2>
 <p>从单个基本矩阵确定焦距的技术: 对于给定的相对平移 <span class="math notranslate nohighlight">\(t\)</span> 和旋转 <span class="math notranslate nohighlight">\(R\)</span> ，基本矩阵 <span class="math notranslate nohighlight">\(E\)</span> 的形式为 <span class="math notranslate nohighlight">\(t \times R\)</span> 。</p>
 <p>这个属性可以被 <span class="math notranslate nohighlight">\(E\)</span> 的标量不变量封装：</p>
 <div class="math notranslate nohighlight">
@@ -414,9 +327,9 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 \[E = K'^T F K\]</div>
 <p>当焦距未知时， <span class="math notranslate nohighlight">\(C\)</span> 是一个非负代价函数，其最小值为 0。通过插入等式上式进入方程式（ <span class="math notranslate nohighlight">\(C = ||EE^T||^2 - \frac{1}{2}||E||^4\)</span>） ，可以求解最小化 <span class="math notranslate nohighlight">\(C\)</span> 的焦距值。</p>
 <p>这可以通过注意一阶偏导数  <span class="math notranslate nohighlight">\(\delta C / \delta f'\)</span> 和 <span class="math notranslate nohighlight">\(\delta C / \delta f\)</span> 也必须为 0 来以封闭形式求解。</p>
-</div>
-<div class="section" id="focal-lengths-from-the-viewing-graph">
-<h2><span class="section-number">16.10. </span>Focal Lengths from the Viewing Graph<a class="headerlink" href="#focal-lengths-from-the-viewing-graph" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="focal-lengths-from-the-viewing-graph">
+<h2><span class="section-number">16.10. </span>Focal Lengths from the Viewing Graph<a class="headerlink" href="#focal-lengths-from-the-viewing-graph" title="永久链接至标题"></a></h2>
 <p>扩展方程式为：</p>
 <div class="math notranslate nohighlight">
 \[C = C(F_{12}) + C(F_{13}) + C(F_{23})\]</div>
@@ -426,59 +339,47 @@ SfM 算法将视图图中的相对几何形状作为输入，并输出由相机�
 \[f^* = \mathop{argmin} \sum\limits_{F \in G} C(F)\]</div>
 <p>其中  <span class="math notranslate nohighlight">\(f^* = \{f_0, . . . , f_n\} \)</span> 中所有视图的所有焦距的集合。焦距值是通过最小化方程的代价函数获得的。使用 L1 损失函数来最小化等式的项。</p>
 <p>通过在最小化期间保持已知焦距恒定，可以轻松修改 <span class="math notranslate nohighlight">\(f^*\)</span> 的最小化以处理具有部分已知校准的查看图。 同样， <span class="math notranslate nohighlight">\(f^*\)</span> 可以轻松修改以处理所有相机共享相同焦距的情况。</p>
-</div>
-<div class="section" id="results">
-<h2><span class="section-number">16.11. </span>Results<a class="headerlink" href="#results" title="永久链接至标题">¶</a></h2>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/78.jpg" src="../../../../../../_images/78.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/87.jpg" src="../../../../../../_images/87.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/95.jpg" src="../../../../../../_images/95.jpg" />
-</div>
-</div>
-</div>
+</section>
+<section id="results">
+<h2><span class="section-number">16.11. </span>Results<a class="headerlink" href="#results" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/75.jpg" src="../../../../../../_images/75.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/85.jpg" src="../../../../../../_images/85.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/94.jpg" src="../../../../../../_images/94.jpg" />
+</figure>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" class="btn btn-neutral float-right" title="17. Reducing Drift in Structure From Motion Using Extended Features" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Efficient_Initial_Pose-graph/Efficient_Initial_Pose-graph.html" class="btn btn-neutral float-left" title="15. Efficient Initial Pose-graph Generation for Global SfM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" class="btn btn-neutral float-right" title="17. Reducing Drift in Structure From Motion Using Extended Features" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

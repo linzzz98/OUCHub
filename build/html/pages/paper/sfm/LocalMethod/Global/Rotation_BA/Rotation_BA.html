@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>18. Rotation-Only Bundle Adjustment &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../../" src="../../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../../_static/jquery.js"></script>
         <script src="../../../../../../_static/underscore.js"></script>
         <script src="../../../../../../_static/doctools.js"></script>
-        <script src="../../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../../_static/twemoji.js"></script>
         <script src="../../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../../search.html" />
     <link rel="next" title="19. HSfM: Hybrid Structure-from-Motion" href="../../Hybrid/HSfM/HSfM.html" />
     <link rel="prev" title="17. Reducing Drift in Structure From Motion Using Extended Features" href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,25 +43,14 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../../../../p_sfm.html">🍊 Structure from Motion</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../Incremental/Structure-from-Motion_Revisited/Structure-from-Motion_Revisited.html">1. Structure-from-Motion Revisited</a></li>
@@ -143,13 +93,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Robust_Relative_Rotation_Averaging/Robust_Relative_Rotation_Averaging.html">27. Robust Relative Rotation Averaging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Image_Queries/Privacy_Image_Queries.html">28. Privacy Preserving Image Queries for Camera Localization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Privacy_Location/Privacy_Location.html">29. Privacy Preserving Image-Based Localization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using _Many_Cameras_as_One/Using _Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Using%20_Many_Cameras_as_One/Using%20_Many_Cameras_as_One.html">30. Using Many Cameras as One</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Pose_Estimation_From_Points_Lines/Pose_Estimation_From_Points_Lines.html">31. Accurate and Linear Time Pose Estimation from Points and Lines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Solver6L/Solver6L.html">32. Solutions to Minimal Generalized Relative Pose Problems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Geometric_Interpretations/Geometric_Interpretations.html">33. Geometric Interpretations of the Normalized Epipolar Error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">34. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">35. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">36. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Triangulation_Why_Optimize/Triangulation_Why_Optimize.html">34. Triangulation: Why Optimize?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/Planar_Markers/Planar_Markers.html">35. Mapping and Localization from Planar Markers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/GAM/GAM.html">36. Geometry-aware Feature Matching for Structure from Motion Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/RA_MarkerPose/RA_MarkerPose.html">37. Resolving Marker Pose Ambiguity by Robust Rotation Averaging with Clique Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CameraPose/1DSfM/1DSfM.html">38. Robust Global Translations with 1DSfM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/SfMLearner/SfMLearner.html">39. Unsupervised Learning of Depth and Ego-Motion from Video</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/DeepSfM/DeepSfM.html">40. DeepSFM: Structure From Motion Via Deep Bundle Adjustment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../DeepLearning/Pixel_Perfect_SfM/Pixel_Perfect_SfM.html">41. Pixel-Perfect Structure-from-Motion with Featuremetric Refinement</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_slam.html">🍊 SLAM</a></li>
@@ -157,85 +112,52 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../p_sfm.html">🍊 Structure from Motion</a> &raquo;</li>
-        
       <li><span class="section-number">18. </span>Rotation-Only Bundle Adjustment</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../../_sources/pages/paper/sfm/LocalMethod/Global/Rotation_BA/Rotation_BA.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="rotation-only-bundle-adjustment">
-<h1><span class="section-number">18. </span>Rotation-Only Bundle Adjustment<a class="headerlink" href="#rotation-only-bundle-adjustment" title="永久链接至标题">¶</a></h1>
+             
+  <section id="rotation-only-bundle-adjustment">
+<h1><span class="section-number">18. </span>Rotation-Only Bundle Adjustment<a class="headerlink" href="#rotation-only-bundle-adjustment" title="永久链接至标题"></a></h1>
 <p>👉 <a class="reference external" href="https://arxiv.org/pdf/2011.11724.pdf">原文链接</a></p>
 <p>🔥 <a class="reference external" href="https://github.com/sunghoon031/ROBA">代码已开源</a></p>
 <div class="admonition note">
@@ -268,16 +190,16 @@
 </ol>
 </dd>
 </dl>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/229.jpg" src="../../../../../../_images/229.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/228.jpg" src="../../../../../../_images/228.jpg" />
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>本文的工作基于《Direct optimization of frame-to-frame rotation》</p>
 <p>Two-View Rotation-Only Optimization（Kneip &amp; Lynen 2013）</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/144.jpg"><img alt="../../../../../../_images/144.jpg" src="../../../../../../_images/144.jpg" style="width: 507.49999999999994px; height: 301.7px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../../_images/142.jpg"><img alt="../../../../../../_images/142.jpg" src="../../../../../../_images/142.jpg" style="width: 507.49999999999994px; height: 301.7px;" /></a>
+</figure>
 <p>其中三个点在两个校准视图中是共同可见的，每对点形成一个对极平面，上图显示了两视图的三个对极平面。</p>
 <p>如果所有观测值都是准确的，则对极平面法向量 <span class="math notranslate nohighlight">\(n_1, n_2, n_3\)</span> 将会是 <strong>共面</strong> 的，因为它们都垂直于平移向量 <span class="math notranslate nohighlight">\(t\)</span> 。</p>
 <p>但由于噪声的存在，它们不会共面，因此需要寻找一个旋转 <span class="math notranslate nohighlight">\(R\)</span> 使法线尽可能共面，即：</p>
@@ -293,8 +215,8 @@
 <p>其中 <span class="math notranslate nohighlight">\(\epsilon\)</span> 是所有现有的有超过10个共同观察点的相机对。</p>
 <p>然后使用 Adam optimizer（King &amp; Ba,2015）求解。</p>
 </div>
-<div class="section" id="notation">
-<h2><span class="section-number">18.1. </span>Notation<a class="headerlink" href="#notation" title="永久链接至标题">¶</a></h2>
+<section id="notation">
+<h2><span class="section-number">18.1. </span>Notation<a class="headerlink" href="#notation" title="永久链接至标题"></a></h2>
 <p>对向量使用粗体小写字母，对矩阵使用粗体大写字母，对标量使用浅色字母。</p>
 <p>哈达玛积： <span class="math notranslate nohighlight">\(A ◦ B\)</span></p>
 <p>除法： <span class="math notranslate nohighlight">\(A \oslash B\)</span></p>
@@ -303,9 +225,9 @@
 <p><span class="math notranslate nohighlight">\(v\)</span> 的欧氏范数用 <span class="math notranslate nohighlight">\(||v||\)</span> 表示，其单位向量用 <span class="math notranslate nohighlight">\(\hat{v} = v / ||v||\)</span> 表示，</p>
 <p>一个旋转矩阵 <span class="math notranslate nohighlight">\(R ∈ SO(3)\)</span> 可以用对应的旋转向量 <span class="math notranslate nohighlight">\(u = \theta \hat{u}\)</span> 表示，其中 <span class="math notranslate nohighlight">\(\theta\)</span> 和 <span class="math notranslate nohighlight">\(\hat{u}\)</span> 分别表示旋转的角度和单位轴。
 用Exp()和Log( ) 表示它们之间的映射:</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/317.jpg"><img alt="../../../../../../_images/317.jpg" src="../../../../../../_images/317.jpg" style="width: 495.0px; height: 149.4px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../../_images/319.jpg"><img alt="../../../../../../_images/319.jpg" src="../../../../../../_images/319.jpg" style="width: 495.0px; height: 149.4px;" /></a>
+</figure>
 <p><span class="math notranslate nohighlight">\((x_i)_w = [(x_i)_w, (y_i)_w, (z_i)_w]^T\)</span>  为世界参考系 <span class="math notranslate nohighlight">\(w\)</span> 中索引为 <span class="math notranslate nohighlight">\(i\)</span> 的点的三维位置。</p>
 <p><span class="math notranslate nohighlight">\(c_j\)</span> 是索引为 <span class="math notranslate nohighlight">\(j\)</span> 的透视照相机。</p>
 <p>在 <span class="math notranslate nohighlight">\(c_j\)</span> 的参照系中， <span class="math notranslate nohighlight">\(x_i\)</span> 的位置由 <span class="math notranslate nohighlight">\((x_i)_j = [(x_i)_j，(y_i)_j，(z_i)_j]^T = R_j(x_i)_w + t_j\)</span> 表示，其中 <span class="math notranslate nohighlight">\(R_j\)</span> 和 <span class="math notranslate nohighlight">\(t_j\)</span> 是将 <span class="math notranslate nohighlight">\(c_j\)</span> 的局部参照系与世界联系起来的旋转和平移。</p>
@@ -314,9 +236,9 @@
 <p><span class="math notranslate nohighlight">\(R_{jk}\)</span> 和 <span class="math notranslate nohighlight">\(t_{jk}\)</span> 为摄像机j和k之间的旋转和平移。</p>
 <p><span class="math notranslate nohighlight">\(c_j\)</span> 和 <span class="math notranslate nohighlight">\(c_k\)</span> 参考系中的点 <span class="math notranslate nohighlight">\(x_i\)</span> 由 <span class="math notranslate nohighlight">\((x_i)_j = R_{jk}(x_i)_k + t_jk\)</span> 相关联。</p>
 <p>这意味着 <span class="math notranslate nohighlight">\(R_{jk} = R_jR_k^T\)</span> ，以及 <span class="math notranslate nohighlight">\(t_{jk} = -R_jR_k^Tt_k + t_j\)</span></p>
-</div>
-<div class="section" id="two-view-rotation-only-method">
-<h2><span class="section-number">18.2. </span>Two-view Rotation-Only Method<a class="headerlink" href="#two-view-rotation-only-method" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="two-view-rotation-only-method">
+<h2><span class="section-number">18.2. </span>Two-view Rotation-Only Method<a class="headerlink" href="#two-view-rotation-only-method" title="永久链接至标题"></a></h2>
 <p>考虑已知内参的两个视图， <span class="math notranslate nohighlight">\(c_j\)</span> 和 <span class="math notranslate nohighlight">\(c_k\)</span> ，观察 <span class="math notranslate nohighlight">\(m ≥ 5\)</span> 个公共点，索引  <span class="math notranslate nohighlight">\(i ∈ {1, 2, . . . , m}\)</span> 。</p>
 <p>与每个点 <span class="math notranslate nohighlight">\(i\)</span> 相关的归一化对极误差定义为：</p>
 <div class="math notranslate nohighlight">
@@ -333,9 +255,9 @@
 <blockquote>
 <div><p>方位向量为一个长度为3的单位向量，由相机（camera）指向三维点（landmark）。 它具有2个自由度，分别是摄像机参考系中的方位角和仰角。 由于它只有两个自由度，因此我们经常将其称为2D信息。 通常以摄像机参考系表示。</p>
 </div></blockquote>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/416.jpg"><img alt="../../../../../../_images/416.jpg" src="../../../../../../_images/416.jpg" style="width: 483.75px; height: 251.25px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../../_images/415.jpg"><img alt="../../../../../../_images/415.jpg" src="../../../../../../_images/415.jpg" style="width: 483.75px; height: 251.25px;" /></a>
+</figure>
 </div>
 <p>所有这些误差的平方和由下式给出：</p>
 <div class="math notranslate nohighlight">
@@ -345,14 +267,14 @@
 \[M_{jk} = \sum\limits_{i=1}^m ((\hat{f}_i)_j \times R_{jk}(\hat{f}_i)_k)((\hat{f}_i)_j \times R_{jk}(\hat{f}_i)_k)^T\]</div>
 <p>在Two-View Rotation-Only Optimization一文中， <span class="math notranslate nohighlight">\(3\times 3\)</span> 的矩阵 <span class="math notranslate nohighlight">\(M_{jk}\)</span> 也可以这样计算：</p>
 <p>将 <span class="math notranslate nohighlight">\((\hat{f}_i)_j\)</span> 表示为 <span class="math notranslate nohighlight">\([(f_{xi})_j, (f_{yi})_j, (f_{zi})_j]^T\)</span> ，定义为：</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/514.jpg"><img alt="../../../../../../_images/514.jpg" src="../../../../../../_images/514.jpg" style="width: 444.75px; height: 234.75px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../../_images/512.jpg"><img alt="../../../../../../_images/512.jpg" src="../../../../../../_images/512.jpg" style="width: 444.75px; height: 234.75px;" /></a>
+</figure>
 <p>设  <span class="math notranslate nohighlight">\(r_1,r_2,r_3\)</span>  为 <span class="math notranslate nohighlight">\(R_{jk}\)</span> 的每一行， <span class="math notranslate nohighlight">\(m_{ab}\)</span> 为 <span class="math notranslate nohighlight">\(M_{jk}\)</span> 第 <span class="math notranslate nohighlight">\(a\)</span> 行第 <span class="math notranslate nohighlight">\(b\)</span> 列的元素。</p>
 <p>因此：（为简单，省略了jk下标）</p>
-<div class="align-center figure align-default">
-<a class="reference internal image-reference" href="../../../../../../_images/610.jpg"><img alt="../../../../../../_images/610.jpg" src="../../../../../../_images/610.jpg" style="width: 541.5px; height: 249.0px;" /></a>
-</div>
+<figure class="align-center align-default">
+<a class="reference internal image-reference" href="../../../../../../_images/69.jpg"><img alt="../../../../../../_images/69.jpg" src="../../../../../../_images/69.jpg" style="width: 541.5px; height: 249.0px;" /></a>
+</figure>
 <p>以及 <span class="math notranslate nohighlight">\(m_{21} = m_{12} ， m_{31} = m_{13} ， m_{32} = m_{23}\)</span> 。</p>
 <p>这是比第一个式子（ <span class="math notranslate nohighlight">\(M_{jk} = \sum\limits_{i=1}^m ((\hat{f}_i)_j \times R_{jk}(\hat{f}_i)_k)((\hat{f}_i)_j \times R_{jk}(\hat{f}_i)_k)^T\)</span> ）更有效的 <span class="math notranslate nohighlight">\(M_{jk}\)</span> 计算。</p>
 <p>给定一组对应的 unit bearing vectors，可以通过最小化 <span class="math notranslate nohighlight">\(\sum\limits_{i=1}^m (e_i)^2_{(j,k)} = \hat{t}_{jk}^T M_{jk} \hat{t}_{jk}\)</span> 关于 <span class="math notranslate nohighlight">\(R_{jk}\)</span> 和 <span class="math notranslate nohighlight">\(t_{jk}\)</span> 来联合优化相对旋转和平移。</p>
@@ -361,15 +283,15 @@
 \[R_{jk}^* = \mathop{argmin}\limits_{R_jk} \lambda_M(R_{jk})~~~~~~~~~~~~~~(18)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\lambda_M(R_{jk})\)</span> 是 <span class="math notranslate nohighlight">\(M_{jk}\)</span> 的最小特征值（它是 <span class="math notranslate nohighlight">\(R_{jk}\)</span> 的函数）。</p>
 <p>该特征值可以以封闭形式获得：</p>
-<div class="align-center figure align-default">
+<figure class="align-center align-default">
 <a class="reference internal image-reference" href="../../../../../../_images/76.jpg"><img alt="../../../../../../_images/76.jpg" src="../../../../../../_images/76.jpg" style="width: 403.5px; height: 289.5px;" /></a>
-</div>
+</figure>
 <p>综上所述，最优解 <span class="math notranslate nohighlight">\((R_{jk}^*, \hat{t}_{jk}^*)\)</span> 的旋转部分使(5)最小化是通过求解(18)得到的</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">18.3. </span>Rotation-Only Bundle Adjustment<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="cost-function">
-<h3><span class="section-number">18.3.1. </span>Cost Function<a class="headerlink" href="#cost-function" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h2><span class="section-number">18.3. </span>Rotation-Only Bundle Adjustment<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="cost-function">
+<h3><span class="section-number">18.3.1. </span>Cost Function<a class="headerlink" href="#cost-function" title="永久链接至标题"></a></h3>
 <p>上面是对两视图的简述，本文将该方法扩展到了多视图。</p>
 <p>令 <span class="math notranslate nohighlight">\(\epsilon\)</span> 是所有边的集合，例如相机对 <span class="math notranslate nohighlight">\((j,k)\)</span> 观察到足够多的（&gt;10）个共同点，然后，将优化问题公式化如下：</p>
 <div class="math notranslate nohighlight">
@@ -381,20 +303,20 @@
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>作者凭经验发现这种平方根提高了收敛速度。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/85.jpg" src="../../../../../../_images/85.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/86.jpg" src="../../../../../../_images/86.jpg" />
+</figure>
 </div>
 <dl class="field-list">
 <dt class="field-odd">algorithm 1</dt>
-<dd class="field-odd"><div class="align-center figure align-default">
-<img alt="../../../../../../_images/93.jpg" src="../../../../../../_images/93.jpg" />
-</div>
+<dd class="field-odd"><figure class="align-center align-default">
+<img alt="../../../../../../_images/95.jpg" src="../../../../../../_images/95.jpg" />
+</figure>
 </dd>
 </dl>
-</div>
-<div class="section" id="optimization">
-<h3><span class="section-number">18.3.2. </span>Optimization<a class="headerlink" href="#optimization" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="optimization">
+<h3><span class="section-number">18.3.2. </span>Optimization<a class="headerlink" href="#optimization" title="永久链接至标题"></a></h3>
 <p>为了迭代求解（26），使用 Adam，一种用于随机目标函数的一阶梯度优化算法。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -403,9 +325,9 @@
 <p>给定 <span class="math notranslate nohighlight">\(R_1,···,R_n\)</span> 的初始估计值，令 <span class="math notranslate nohighlight">\(s_0\)</span> 为通过将 <span class="math notranslate nohighlight">\(Log(R_1),···,Log(R_n)\)</span> 堆叠在一列中形成的初始状态向量。</p>
 <p>令 <span class="math notranslate nohighlight">\(m_0 = 0_{3n \times 1}，v_0 = 0_{3n\times 1}, t=0, \epsilon = (10^{-8})1_{3n \times 1}\)</span></p>
 <p>然后，使用 Adam，在优化的每次迭代中重复以下步骤：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/102.jpg" src="../../../../../../_images/102.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/103.jpg" src="../../../../../../_images/103.jpg" />
+</figure>
 <p>对于超参数 <span class="math notranslate nohighlight">\(\beta_1\)</span> 和 <span class="math notranslate nohighlight">\(\beta_2\)</span> ，使用ADAM给出的默认值： <span class="math notranslate nohighlight">\(\beta_1 = 0.9 , \beta_2 = 0.999\)</span></p>
 <p>对于步长 <span class="math notranslate nohighlight">\(\alpha\)</span> ，在开始时使用 <span class="math notranslate nohighlight">\(\alpha = 0.01\)</span> ，一旦cost在五次连续迭代中增加，就永久切换到 <span class="math notranslate nohighlight">\(\alpha = 0.001\)</span> 。</p>
 <div class="admonition note">
@@ -414,14 +336,14 @@
 </div>
 <dl class="field-list">
 <dt class="field-odd">algorithm 2</dt>
-<dd class="field-odd"><div class="align-center figure align-default">
-<img alt="../../../../../../_images/1111.jpg" src="../../../../../../_images/1111.jpg" />
-</div>
+<dd class="field-odd"><figure class="align-center align-default">
+<img alt="../../../../../../_images/1112.jpg" src="../../../../../../_images/1112.jpg" />
+</figure>
 </dd>
 </dl>
-</div>
-<div class="section" id="gradient-computation">
-<h3><span class="section-number">18.3.3. </span>Gradient computation<a class="headerlink" href="#gradient-computation" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="gradient-computation">
+<h3><span class="section-number">18.3.3. </span>Gradient computation<a class="headerlink" href="#gradient-computation" title="永久链接至标题"></a></h3>
 <p>以数值方式计算（29）中的梯度 <span class="math notranslate nohighlight">\(g_t\)</span> 。
 可以通过稍微扰动 <span class="math notranslate nohighlight">\(s_t\)</span> 中的每个旋转参数并在遍历边缘集 <span class="math notranslate nohighlight">\(\epsilon\)</span> 时对所有边缘成本 <span class="math notranslate nohighlight">\(c_{jk}\)</span> 的结果变化求和来有效地完成。</p>
 <div class="admonition note">
@@ -439,85 +361,73 @@
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>根据经验，作者发现这在相对较小的精度损失的情况下显着提高了效率。</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/1211.jpg" src="../../../../../../_images/1211.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/1212.jpg" src="../../../../../../_images/1212.jpg" />
+</figure>
 </div>
 <dl class="field-list">
 <dt class="field-odd">algorithm 3</dt>
-<dd class="field-odd"><div class="align-center figure align-default">
+<dd class="field-odd"><figure class="align-center align-default">
 <img alt="../../../../../../_images/1310.jpg" src="../../../../../../_images/1310.jpg" />
-</div>
+</figure>
 </dd>
 </dl>
-</div>
-</div>
-<div class="section" id="results">
-<h2><span class="section-number">18.4. </span>Results<a class="headerlink" href="#results" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="results">
+<h2><span class="section-number">18.4. </span>Results<a class="headerlink" href="#results" title="永久链接至标题"></a></h2>
 <p>作者使用了仿真数据集和真实数据集两种进行了测试：</p>
 <ol class="arabic simple">
 <li><p>仿真数据集</p></li>
 </ol>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/151.jpg" src="../../../../../../_images/151.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/152.jpg" src="../../../../../../_images/152.jpg" />
+</figure>
 <p>效果如下：</p>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/147.jpg" src="../../../../../../_images/147.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/143.jpg" src="../../../../../../_images/143.jpg" />
+</figure>
 <ol class="arabic simple" start="2">
 <li><p>真实数据集</p></li>
 </ol>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/171.jpg" src="../../../../../../_images/171.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/181.jpg" src="../../../../../../_images/181.jpg" />
-</div>
-<div class="align-center figure align-default">
-<img alt="../../../../../../_images/191.jpg" src="../../../../../../_images/191.jpg" />
-</div>
-</div>
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/172.jpg" src="../../../../../../_images/172.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/182.jpg" src="../../../../../../_images/182.jpg" />
+</figure>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/192.jpg" src="../../../../../../_images/192.jpg" />
+</figure>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../Hybrid/HSfM/HSfM.html" class="btn btn-neutral float-right" title="19. HSfM: Hybrid Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Reducing_Drift_Using_Extended_Feature/Reducing_Drift_Using_Extended_Feature.html" class="btn btn-neutral float-left" title="17. Reducing Drift in Structure From Motion Using Extended Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../Hybrid/HSfM/HSfM.html" class="btn btn-neutral float-right" title="19. HSfM: Hybrid Structure-from-Motion" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,80 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>5. Motion Averaging &mdash; OUCHub  文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
         <script src="../../../../../_static/jquery.js"></script>
         <script src="../../../../../_static/underscore.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
-        <script src="../../../../../_static/language_data.js"></script>
         <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
         <script src="../../../../../_static/twemoji.js"></script>
         <script src="../../../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../../../search.html" />
     <link rel="next" title="6. Rotation Averaging" href="../RotationAveraging/RotationAveraging.html" />
     <link rel="prev" title="4. Bundle Adjustment" href="../BundleAdjustment/BundleAdjustment.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: black" >
-          
-
-          
             <a href="../../../../../index.html" class="icon icon-home"> OUCHub
-          
-
-          
-            
             <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="在文档中搜索" />
@@ -82,19 +43,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">基础知识</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../k_MH.html">💊 Math</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../../k_CV.html">🍤 Computer Vision</a><ul class="current">
@@ -109,99 +59,69 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../RotationAveraging/RotationAveraging.html">6. Rotation Averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../LineFeature/LineFeature.html">7. Line Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Epipolar_Geometry/Epipolar_Geometry.html">8. Epipolar Geometry</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../k_ML.html">🍎 Machine Learning</a></li>
 </ul>
-<p class="caption"><span class="caption-text">论文学习</span></p>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
 </ul>
-<p class="caption"><span class="caption-text">源码解析</span></p>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
 </ul>
-<p class="caption"><span class="caption-text">杂七杂八</span></p>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../index.html">OUCHub</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../k_CV.html">🍤 Computer Vision</a> &raquo;</li>
-        
           <li><a href="../LocalMethod.html">🍤 Local Method</a> &raquo;</li>
-        
       <li><span class="section-number">5. </span>Motion Averaging</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../../../../_sources/pages/knowledge/ComputerVision/LocalMethod/MotionAveraging/MotionAveraging.rst.txt" rel="nofollow"> 查看页面源码</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="motion-averaging">
-<h1><span class="section-number">5. </span>Motion Averaging<a class="headerlink" href="#motion-averaging" title="永久链接至标题">¶</a></h1>
+             
+  <section id="motion-averaging">
+<h1><span class="section-number">5. </span>Motion Averaging<a class="headerlink" href="#motion-averaging" title="永久链接至标题"></a></h1>
 <p>小孔模型</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\left[
@@ -281,11 +201,11 @@ T_{ij} &amp;=&amp; T_j - T_i
 \end{eqnarray}\end{split}\]</div>
 <p>以上的结果相同，但是在表示形式上不同。</p>
 </div>
-<div class="section" id="id1">
-<h2><span class="section-number">5.1. </span>视图图<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-<div class="algin-center figure align-default">
-<img alt="../../../../../_images/126.jpg" src="../../../../../_images/126.jpg" />
-</div>
+<section id="id1">
+<h2><span class="section-number">5.1. </span>视图图<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<figure class="algin-center align-default">
+<img alt="../../../../../_images/17.jpg" src="../../../../../_images/17.jpg" />
+</figure>
 <ul>
 <li><p>Viewgraph（视图图 ） 表示为 <span class="math notranslate nohighlight">\(\mathcal{G = \{V, E\}}\)</span></p>
 <blockquote>
@@ -313,9 +233,9 @@ T_{ij} &amp;=&amp; T_j - T_i
 <p class="admonition-title">注解</p>
 <p>当存在约束的时候， <span class="math notranslate nohighlight">\(v_j - v_i \ne v_{ij}\)</span> ，不同的路径会产生不同的结果，观测值也不再连续（”consistent”），因此问题的解就变为找到与边最一致的估计。</p>
 </div>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/217.jpg" src="../../../../../_images/217.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/24.jpg" src="../../../../../_images/24.jpg" />
+</figure>
 <p>等式的线性系统为： <span class="math notranslate nohighlight">\(AV = V_{ij}\)</span></p>
 <p>其中 <span class="math notranslate nohighlight">\(A\)</span> 编码了视图图，是图的关联矩阵。</p>
 <p>与图拉普拉斯相关的 <span class="math notranslate nohighlight">\(L = A^TA\)</span> ，图的拉普拉斯在表征问题难度方面发挥作用。</p>
@@ -329,63 +249,51 @@ T_{ij} &amp;=&amp; T_j - T_i
 <p>拉普拉斯矩阵是对称的，秩为 <span class="math notranslate nohighlight">\(V - 1\)</span> ，一个特征值为0，是半正定的，每行每列加起来为0。</p>
 </div>
 <p>规范自由度（Gauge freedom） <span class="math notranslate nohighlight">\(AV = A(V+s1)\)</span></p>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/310.jpg" src="../../../../../_images/310.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/32.jpg" src="../../../../../_images/32.jpg" />
+</figure>
 <p>考虑运动矩阵 <span class="math notranslate nohighlight">\(M\)</span></p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(M_j M_i^{-1} = M_{ij}, \forall i \ne j\)</span></p></li>
 <li><p>类似的有 <span class="math notranslate nohighlight">\(v_j - v_i = v_{ij}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(=\)</span> 左侧为 要估计的全局运动， <span class="math notranslate nohighlight">\(=\)</span> 右侧的是观测值。</p></li>
 </ul>
-<div class="align-center figure align-default">
-<img alt="../../../../../_images/48.jpg" src="../../../../../_images/48.jpg" />
-</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/42.jpg" src="../../../../../_images/42.jpg" />
+</figure>
 <p><span class="math notranslate nohighlight">\(M_ij = M_jM_i^{-1}, \forall i \ne j \Rightarrow M_{ij} M_i - M_j = 0\)</span></p>
 <p>全局运动 <span class="math notranslate nohighlight">\(M_g = \{M_1,···,M_N\}\)</span></p>
 <p>等式系统 <span class="math notranslate nohighlight">\(BM_g = 0\)</span></p>
 <p>这里的运动群是李群。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../RotationAveraging/RotationAveraging.html" class="btn btn-neutral float-right" title="6. Rotation Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../BundleAdjustment/BundleAdjustment.html" class="btn btn-neutral float-left" title="4. Bundle Adjustment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../RotationAveraging/RotationAveraging.html" class="btn btn-neutral float-right" title="6. Rotation Averaging" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, linzzz.
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
 
-    </p>
-  </div> 
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

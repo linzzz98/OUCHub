@@ -5,9 +5,13 @@
    :maxdepth: -1
    :hidden:
 
-   array/53/53
+   array/array
+
+   stack/stack
 
 .. |ball| image:: /images/index/ball.gif
 
-|:star:|  :doc:`53 <array/53/53>`
+|:star:|  :doc:`Array <array/array>`
+
+|:star:|  :doc:`Stack <stack/stack>`
 
