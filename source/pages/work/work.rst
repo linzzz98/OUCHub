@@ -5,6 +5,7 @@
    :maxdepth: -1
    :hidden:
 
+   network/network
    basic/basic
    mysql/mysql
    ssm/ssm
@@ -14,3 +15,5 @@
 |:star:|  :doc:`MySQL <mysql/mysql>`
 
 |:star:|  :doc:`SSM框架 <ssm/ssm>`
+
+|:star:|  :doc:`计算机网络 <network/network>`
