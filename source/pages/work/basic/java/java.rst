@@ -10,9 +10,12 @@
    thread/thread
    thread/sleepvswait
    thread/lockvssyn
+   thread/threadlocal
+   collection/hashtable/hashtable
    lock/lock
    design/instance/instance
    volatile/volatile
+   vm/vm
 
 |:star:| \ **JAVA面试问题**\
 
@@ -30,4 +33,8 @@
 
 |:star:|  :doc:`Lock vs Synchronized <thread/lockvssyn>`
 
+|:star:|  :doc:`ThreadLocal <thread/threadlocal>`
+
 |:star:|  :doc:`悲观锁和乐观锁 <lock/lock>`
+
+|:star:|  :doc:`JAVA虚拟机 <vm/vm>`
