@@ -1,4 +1,4 @@
-|:peach:| Algorithm
+MYSQL
 ====================================
 
 .. toctree::

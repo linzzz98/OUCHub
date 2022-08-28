@@ -1,4 +1,4 @@
-|:peach:| Algorithm
+JAVA
 ====================================
 
 .. toctree::
@@ -16,8 +16,11 @@
    design/instance/instance
    volatile/volatile
    vm/vm
+   exp/exp
 
 |:star:| \ **JAVA面试问题**\
+
+|:star:|  :doc:`JAVA 面经 <exp/exp>`
 
 |:star:|  :doc:`String,StringBuffer,StringBuilder的区别 <s3/s3>`
 
