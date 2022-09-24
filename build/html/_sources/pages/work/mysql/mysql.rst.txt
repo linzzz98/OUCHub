@@ -6,6 +6,7 @@ MYSQL
    :hidden:
 
    basic/basic
+   mj/mj
 
 |:star:|  :doc:`基础篇 <basic/basic>`
 

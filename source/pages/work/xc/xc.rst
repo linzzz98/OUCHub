@@ -8,9 +8,11 @@
 
    zl/zl
    sl/sl
+   yy/yy
 
 |:fire:| \ **行测考点解析**\
 
+   * :doc:`言语理解 <yy/yy>`
 
    * :doc:`资料分析 <zl/zl>`
 

@@ -7,6 +7,7 @@ JAVA
 
    s3/s3
    collection/hashmap/hashmap
+   collection/priorityqueue/priorityqueue
    thread/thread
    thread/sleepvswait
    thread/lockvssyn
@@ -25,6 +26,8 @@ JAVA
 |:star:|  :doc:`String,StringBuffer,StringBuilder的区别 <s3/s3>`
 
 |:star:|  :doc:`HashMap详解 <collection/hashmap/hashmap>`
+
+|:star:|  :doc:`优先队列详解 <collection/priorityqueue/priorityqueue>`
 
 |:star:|  :doc:`单例模式 <design/instance/instance>`
 
