@@ -10,6 +10,7 @@
    mysql/mysql
    ssm/ssm
    xc/xc
+   bank/bank
 
 |:star:|  :doc:`基础 <basic/basic>`
 
@@ -20,3 +21,5 @@
 |:star:|  :doc:`计算机网络 <network/network>`
 
 |:star:|  :doc:`行测 <xc/xc>`
+
+|:star:|  :doc:`银行 <bank/bank>`
