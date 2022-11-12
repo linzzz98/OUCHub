@@ -1,0 +1,75 @@
+[104] 二叉树的最大深度
+==========================================
+
+.. figure:: q.jpg
+   :figclass: align-center
+
+
+
+Solution 1 (递归)
+------------------------------
+
+.. code-block:: java
+
+   class Solution {
+       public int maxDepth(TreeNode root) {
+           if(root == null) {
+               return 0;
+           }
+           return Math.max(maxDepth(root.left) + 1, maxDepth(root.right) + 1);
+       }
+   }
+
+.. important::
+
+   复杂度分析:
+
+   * 时间复杂度：O(n)，其中 n 为二叉树节点的个数。每个节点在递归中只被遍历一次。
+
+   * 空间复杂度：O(height)，其中 height 表示二叉树的高度。递归函数需要栈空间，而栈空间取决于递归的深度，因此空间复杂度等价于二叉树的高度。
+
+Solution 2 (广度优先搜索)
+----------------------------------
+
+.. note::
+
+   广度优先搜索的队列里存放的是「当前层的所有节点」。
+
+   每次拓展下一层的时候，不同于广度优先搜索的每次只从队列里拿出一个节点，我们需要将队列里的所有节点都拿出来进行拓展，这样能保证每次拓展完的时候队列里存放的是当前层的所有节点，
+
+   即我们是一层一层地进行拓展，最后我们用一个变量 ans 来维护拓展的次数，该二叉树的最大深度即为 ans。
+
+.. code-block:: java
+
+   class Solution {
+       public int maxDepth(TreeNode root) {
+           if(root == null){
+               return 0;
+           }
+           Queue<TreeNode> queue = new LinkedList<>();
+           queue.offer(root);
+           int ans = 0;
+           while(!queue.isEmpty()){
+               int size = queue.size();
+               for(int i = 0; i < size; i++){
+                   TreeNode node = queue.poll();
+                   if(node.left != null){
+                       queue.offer(node.left);
+                   }
+                   if(node.right != null){
+                       queue.offer(node.right);
+                   }
+               }
+               ans++;
+           }
+           return ans;
+       }
+   }
+
+.. important::
+
+   复杂度分析:
+
+   * 时间复杂度：O(n)，其中 n 为二叉树的节点个数。与方法一同样的分析，每个节点只会被访问一次。
+
+   * 空间复杂度：此方法空间的消耗取决于队列存储的元素数量，其在最坏情况下会达到 O(n)。

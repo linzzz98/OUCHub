@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[234] 回文链表 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="[496] 下一个更大元素I" href="../496/496.html" />
+    <link rel="prev" title="[145] 二叉树的后序遍历" href="../145/145.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../algorithm.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../al/al.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../leetcode.html">🍑 LeetCode</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../array/array.html">🍑 Array</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../stack.html">🍑 Stack</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../94/94.html">[94] 二叉树的中序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../101/101.html">[101] 对称二叉树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../144/144.html">[144] 二叉树的前序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../145/145.html">[145] 二叉树的后序遍历</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">[234] 回文链表</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#solution-1">Solution 1</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#solution-2">Solution 2</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#solution-3">Solution 3</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../496/496.html">[496] 下一个更大元素I</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../897/897.html">[897] 递增顺序搜索树</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../algorithm.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../../leetcode.html">🍑 LeetCode</a> &raquo;</li>
+          <li><a href="../stack.html">🍑 Stack</a> &raquo;</li>
+      <li>[234] 回文链表</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/algorithm/leetcode/stack/234/234.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>[234] 回文链表<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/q5.jpg" src="../../../../../_images/q5.jpg" />
+</figure>
+<section id="solution-1">
+<h2>Solution 1<a class="headerlink" href="#solution-1" title="永久链接至标题"></a></h2>
+<p>双指针法</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution2</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">vals</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="n">head</span><span class="o">!=</span><span class="kc">null</span><span class="p">){</span>
+            <span class="n">vals</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">back</span> <span class="o">=</span> <span class="n">vals</span><span class="p">.</span><span class="na">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="n">front</span> <span class="o">&lt;</span> <span class="n">back</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">vals</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">front</span><span class="p">).</span><span class="na">equals</span><span class="p">(</span><span class="n">vals</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">back</span><span class="p">))){</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">front</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">back</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>一共为两个步骤：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>复制链表值到数组列表中。</p></li>
+<li><p>使用双指针法判断是否为回文。</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>时间复杂度：O(n)，其中 n 指的是链表的元素个数。</dt><dd><ul>
+<li><p>第一步： 遍历链表并将值复制到数组中，O(n)。</p></li>
+<li><p>第二步：双指针判断是否为回文，执行了 O(n/2) 次的判断，即 O(n)。</p></li>
+<li><p>总的时间复杂度：O(2n)=O(n)。</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>空间复杂度：O(n)，其中 n 指的是链表的元素个数，我们使用了一个数组列表存放链表的元素值。</p></li>
+</ul>
+</div></blockquote>
+</div>
+</section>
+<section id="solution-2">
+<h2>Solution 2<a class="headerlink" href="#solution-2" title="永久链接至标题"></a></h2>
+<p>快慢指针法</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="n">ListNode</span> <span class="n">firstHalfEnd</span> <span class="o">=</span> <span class="n">endOfFirstHalf</span><span class="p">(</span><span class="n">head</span><span class="p">);</span>
+      <span class="n">ListNode</span> <span class="n">secondHalfStart</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">firstHalfEnd</span><span class="p">.</span><span class="na">next</span><span class="p">);</span>
+      <span class="kt">boolean</span> <span class="n">res</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+      <span class="n">ListNode</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+      <span class="n">ListNode</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">secondHalfStart</span><span class="p">;</span>
+      <span class="k">while</span><span class="p">(</span><span class="n">res</span> <span class="o">&amp;&amp;</span> <span class="n">p2</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+         <span class="k">if</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="na">val</span> <span class="o">!=</span> <span class="n">p2</span><span class="p">.</span><span class="na">val</span><span class="p">){</span>
+             <span class="n">res</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="n">p1</span> <span class="o">=</span> <span class="n">p1</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+         <span class="n">p2</span> <span class="o">=</span> <span class="n">p2</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="n">firstHalfEnd</span><span class="p">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">secondHalfStart</span><span class="p">);</span>
+     <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 翻转链表</span>
+   <span class="n">ListNode</span> <span class="nf">reverseList</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="p">){</span>
+     <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+     <span class="n">ListNode</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+     <span class="k">while</span><span class="p">(</span><span class="n">curr</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+         <span class="n">ListNode</span> <span class="n">nextTemp</span> <span class="o">=</span> <span class="n">curr</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+         <span class="n">curr</span><span class="p">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span>
+         <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="p">;</span>
+         <span class="n">curr</span> <span class="o">=</span> <span class="n">nextTemp</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">prev</span><span class="p">;</span>
+   <span class="p">}</span>
+
+   <span class="c1">// 快慢指针找到链表的中点</span>
+   <span class="n">ListNode</span> <span class="nf">endOfFirstHalf</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="p">){</span>
+     <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+     <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+     <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="p">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="p">.</span><span class="na">next</span><span class="p">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+         <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">.</span><span class="na">next</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+         <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ul class="simple">
+<li><p><strong>避免使用 O(n) 额外空间的方法就是改变输入。</strong></p></li>
+</ul>
+<ul class="simple">
+<li><p>将链表的后半部分反转（修改链表结构），然后将前半部分和后半部分进行比较。(比较完成后我们应该将链表恢复原样。虽然不需要恢复也能通过测试用例，但是使用该函数的人通常不希望链表结构被更改。)</p></li>
+</ul>
+<ul class="simple">
+<li><p>该方法虽然可以将空间复杂度降到 O(1)，但是在并发环境下，该方法也有缺点。在并发环境下，函数运行时需要锁定其他线程或进程对链表的访问，因为在函数执行过程中链表会被修改。</p></li>
+</ul>
+<ul>
+<li><p>算法整个流程可以分为以下五个步骤：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>找到前半部分链表的尾节点。</p></li>
+<li><p>反转后半部分链表。</p></li>
+<li><p>判断是否回文。</p></li>
+<li><p>恢复链表。</p></li>
+<li><p>返回结果。</p></li>
+</ol>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>时间复杂度：O(n)，其中 n 指的是链表的大小。</p></li>
+<li><p>空间复杂度：O(1)。只会修改原本链表中节点的指向，而在堆栈上的堆栈帧不超过 O(1)。</p></li>
+</ul>
+</div></blockquote>
+</div>
+</section>
+<section id="solution-3">
+<h2>Solution 3<a class="headerlink" href="#solution-3" title="永久链接至标题"></a></h2>
+<p>递归</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="n">ListNode</span> <span class="n">frontPointer</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">recursivelyCheck</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">currentNode</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">currentNode</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">recursivelyCheck</span><span class="p">(</span><span class="n">currentNode</span><span class="p">.</span><span class="na">next</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">currentNode</span><span class="p">.</span><span class="na">val</span> <span class="o">!=</span> <span class="n">frontPointer</span><span class="p">.</span><span class="na">val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">frontPointer</span> <span class="o">=</span> <span class="n">frontPointer</span><span class="p">.</span><span class="na">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="p">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">frontPointer</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">recursivelyCheck</span><span class="p">(</span><span class="n">head</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>currentNode 指针是先到尾节点，由于递归的特性再从后往前进行比较。</p>
+<p>frontPointer 是递归函数外的指针。</p>
+<p>若 currentNode.val != frontPointer.val 则返回 false。反之，frontPointer 向前移动并返回 true。</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>时间复杂度：O(n)，其中 n 指的是链表的大小。</p></li>
+<li><p>空间复杂度：O(n)，其中 n 指的是链表的大小。</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>我们要理解计算机如何运行递归函数，在一个函数中调用一个函数时，计算机需要在进入被调用函数之前跟踪它在当前函数中的位置（以及任何局部变量的值），通过运行时存放在堆栈中来实现（堆栈帧）。在堆栈中存放好了数据后就可以进入被调用的函数。在完成被调用函数之后，他会弹出堆栈顶部元素，以恢复在进行函数调用之前所在的函数。在进行回文检查之前，递归函数将在堆栈中创建 n 个堆栈帧，计算机会逐个弹出进行处理。所以在使用递归时空间复杂度要考虑堆栈的使用情况。</p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../145/145.html" class="btn btn-neutral float-left" title="[145] 二叉树的后序遍历" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../496/496.html" class="btn btn-neutral float-right" title="[496] 下一个更大元素I" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HashTable &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="悲观锁与乐观锁" href="../../lock/lock.html" />
+    <link rel="prev" title="ThreadLocal" href="../../thread/threadlocal.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../network/network.html">计算机网络</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../basic.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../java.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../s3/s3.html">String,StringBuffer,StringBuilder的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hashmap/hashmap.html">HashMap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/thread.html">并发</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/sleepvswait.html">Sleep 和 Wait 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/lockvssyn.html">Lock 和 Synchronized 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/threadlocal.html">ThreadLocal</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">HashTable</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hashtable-concurrenthashmap">面试题: Hashtable 与 ConcurrentHashMap 的区别</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hashmap-hashtable">面试题： HashMap 和 Hashtable 的区别</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../lock/lock.html">悲观锁与乐观锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../design/instance/instance.html">单例模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../volatile/volatile.html">Volatile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../ssm/ssm.html">SSM</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../basic.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../../java.html">🍑 Algorithm</a> &raquo;</li>
+      <li>HashTable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/basic/java/collection/hashtable/hashtable.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hashtable">
+<h1>HashTable<a class="headerlink" href="#hashtable" title="永久链接至标题"></a></h1>
+<section id="hashtable-concurrenthashmap">
+<h2>面试题: Hashtable 与 ConcurrentHashMap 的区别<a class="headerlink" href="#hashtable-concurrenthashmap" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>Hashtable 与 ConcurrentHashMap 都是线程安全的 Map 集合</p></li>
+<li><p>Hashtable 并发度低，整个 Hashtable 对应一把锁，同一时刻，只能有一个线程操作它</p></li>
+<li><p>ConcurrentHashMap 并发度高，整个 ConcurrentHashMap 对应多把锁，只要线程访问的是不同锁，那么不会冲突</p></li>
+</ul>
+<p><strong>ConcurrentHashMap 1.7</strong></p>
+<ul class="simple">
+<li><p>数据结构：<cite>Segment(大数组) + HashEntry(小数组) + 链表</cite>，每个 Segment 对应一把锁，如果多个线程访问不同的 Segment，则不会冲突</p></li>
+<li><p>并发度：Segment 数组大小即并发度，决定了同一时刻最多能有多少个线程并发访问。Segment 数组不能扩容，意味着并发度在 ConcurrentHashMap 创建时就固定了</p></li>
+<li><p>索引计算
+* 假设大数组长度是 $2^m$，key 在大数组内的索引是 key 的二次 hash 值的高 m 位
+* 假设小数组长度是 $2^n$，key 在小数组内的索引是 key 的二次 hash 值的低 n 位</p></li>
+<li><p>扩容：每个小数组的扩容相对独立，小数组在超过扩容因子时会触发扩容，每次扩容翻倍</p></li>
+<li><p>Segment[0] 原型：首次创建其它小数组时，会以此原型为依据，数组长度，扩容因子都会以原型为准</p></li>
+</ul>
+<p><strong>ConcurrentHashMap 1.8</strong></p>
+<ul class="simple">
+<li><p>数据结构：<cite>Node 数组 + 链表或红黑树</cite>，数组的每个头节点作为锁，如果多个线程访问的头节点不同，则不会冲突。首次生成头节点时如果发生竞争，利用 cas 而非 syncronized，进一步提升性能</p></li>
+<li><p>并发度：Node 数组有多大，并发度就有多大，与 1.7 不同，Node 数组可以扩容</p></li>
+<li><p>扩容条件：Node 数组满 3/4 时就会扩容</p></li>
+<li><p>扩容单位：以链表为单位从后向前迁移链表，迁移完成的将旧数组头节点替换为 ForwardingNode</p></li>
+<li><p>扩容时并发 get
+* 根据是否为 ForwardingNode 来决定是在新数组查找还是在旧数组查找，不会阻塞
+* 如果链表长度超过 1，则需要对节点进行复制（创建新节点），怕的是节点迁移后 next 指针改变
+* 如果链表最后几个元素扩容后索引不变，则节点无需复制</p></li>
+<li><p>扩容时并发 put
+* 如果 put 的线程与扩容线程操作的链表是同一个，put 线程会阻塞
+* 如果 put 的线程操作的链表还未迁移完成，即头节点不是 ForwardingNode，则可以并发执行
+* 如果 put 的线程操作的链表已经迁移完成，即头结点是 ForwardingNode，则可以协助扩容</p></li>
+<li><p>与 1.7 相比是懒惰初始化</p></li>
+<li><p>capacity 代表预估的元素个数，capacity / factory 来计算出初始数组大小，需要贴近 $2^n$</p></li>
+<li><p>loadFactor 只在计算初始数组大小时被使用，之后扩容固定为 3/4</p></li>
+<li><p>超过树化阈值时的扩容问题，如果容量已经是 64，直接树化，否则在原来容量基础上做 3 轮扩容</p></li>
+</ul>
+</section>
+<section id="hashmap-hashtable">
+<h2>面试题： HashMap 和 Hashtable 的区别<a class="headerlink" href="#hashmap-hashtable" title="永久链接至标题"></a></h2>
+<p>相同点：</p>
+<p>hashmap和Hashtable都实现了map、Cloneable（可克隆）、Serializable（可序列化）这三个接口</p>
+<p>不同点：</p>
+<ol class="arabic simple">
+<li><p>底层数据结构不同:jdk1.7底层都是数组+链表,但jdk1.8 HashMap加入了红黑树</p></li>
+<li><p>Hashtable 是不允许键或值为 null 的，HashMap 的键值则都可以为 null。</p></li>
+<li><p>添加key-value的hash值算法不同：HashMap添加元素时，是使用自定义的哈希算法,而HashTable是直接采用key的hashCode()</p></li>
+<li><p>实现方式不同：Hashtable 继承的是 Dictionary类，而 HashMap 继承的是 AbstractMap 类。</p></li>
+<li><p>初始化容量不同：HashMap 的初始容量为：16，Hashtable 初始容量为：11，两者的负载因子默认都是：0.75。</p></li>
+<li><p>扩容机制不同：当已用容量&gt;总容量 * 负载因子时，HashMap 扩容规则为当前容量翻倍，Hashtable 扩容规则为当前容量翻倍 +1。</p></li>
+<li><p>支持的遍历种类不同：HashMap只支持Iterator遍历,而HashTable支持Iterator和Enumeration两种方式遍历</p></li>
+<li><p>迭代器不同：HashMap的迭代器(Iterator)是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。但这并不是一个一定发生的行为，要看JVM。而Hashtable 则不会。</p></li>
+<li><p>部分API不同：HashMap不支持contains(Object value)方法，没有重写toString()方法,而HashTable支持contains(Object value)方法，而且重写了toString()方法</p></li>
+<li><p>同步性不同: Hashtable是同步(synchronized)的，适用于多线程环境, 而hashmap不是同步的，适用于单线程环境。多个线程可以共享一个Hashtable；而如果没有正确的同步的话，多个线程是不能共享HashMap的。</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../thread/threadlocal.html" class="btn btn-neutral float-left" title="ThreadLocal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../lock/lock.html" class="btn btn-neutral float-right" title="悲观锁与乐观锁" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

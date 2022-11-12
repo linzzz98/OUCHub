@@ -1,0 +1,120 @@
+[236] 二叉树的最近公共祖先
+====================================
+
+.. figure:: q.jpg
+   :figclass: align-center
+
+Solution 1
+-------------------------------------
+
+.. note::
+
+   可以用哈希表存储所有节点的父节点，然后利用节点的父节点信息从 p 结点开始不断往上跳，并记录已经访问过的节点，再从 q 节点开始不断往上跳，如果碰到已经访问过的节点，那么这个节点就是我们要找的最近公共祖先。
+
+   算法:
+
+   1. 从根节点开始遍历整棵二叉树，用哈希表记录每个节点的父节点指针。
+
+   2. 从 p 节点开始不断往它的祖先移动，并用数据结构记录已经访问过的祖先节点。
+
+   3. 再从 q 节点开始不断往它的祖先移动，如果有祖先已经被访问过，即意味着这是 p 和 q 的深度最深的公共祖先，即 LCA 节点。
+
+.. code-block:: java
+
+   class Solution {
+
+       Map<Integer, TreeNode> parent = new HashMap<>();
+       Set<Integer> visited = new HashSet<>();
+
+       public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+           dfs(root);
+
+           while(p != null){
+               visited.add(p.val);
+               p = parent.get(p.val);
+           }
+
+           while(q != null){
+               if(visited.contains(q.val)){
+                   return q;
+               }
+               q = parent.get(q.val);
+           }
+
+           return null;
+       }
+
+       void dfs(TreeNode root){
+           if(root.left != null){
+               parent.put(root.left.val, root);
+               dfs(root.left);
+           }
+           if(root.right != null){
+               parent.put(root.right.val, root);
+               dfs(root.right);
+           }
+       }
+   }
+
+.. important::
+
+   复杂度分析:
+
+   * 时间复杂度：O(N)，其中 N 是二叉树的节点数。二叉树的所有节点有且只会被访问一次，从 p 和 q 节点往上跳经过的祖先节点个数不会超过 N，因此总的时间复杂度为 O(N)。
+
+   * 空间复杂度：O(N) ，其中 N 是二叉树的节点数。递归调用的栈深度取决于二叉树的高度，二叉树最坏情况下为一条链，此时高度为 N，因此空间复杂度为 O(N)，哈希表存储每个节点的父节点也需要 O(N) 的空间复杂度，因此最后总的空间复杂度为 O(N)。
+
+Solution 2 (递归)
+-------------------------
+
+.. note::
+
+   解题思路：
+   两个节点 p,q 分为两种情况：
+
+   * p 和 q 在相同子树中
+   * p 和 q 在不同子树中
+
+   从根节点遍历，递归向左右子树查询节点信息
+
+   递归终止条件：如果当前节点为空或等于 p 或 q，则返回当前节点
+
+   递归遍历左右子树，如果左右子树查到节点都不为空，则表明 p 和 q 分别在左右子树中，因此，当前节点即为最近公共祖先；
+
+   如果左右子树其中一个不为空，则返回非空节点。
+
+
+.. code-block:: java
+
+   class Solution {
+       public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+           if(root == null || root == p || root == q){
+               return root;
+           }
+
+           // 在左子树找p和q
+           TreeNode l = lowestCommonAncestor(root.left, p, q);
+
+           // 在右子树找p和q
+           TreeNode r = lowestCommonAncestor(root.right, p, q);
+
+           // 说明左右子树各找到p和q当中的一个,那么p和q在root的两侧
+           if(l != null && r != null){
+               return root;
+           }
+
+           // 说明p和q在左子树里面
+           if(l != null){
+               return l;
+           }
+
+           // 说明p和q在右子树里面
+           if(r != null){
+               return r;
+           }
+
+           //说明找不到
+           return null;
+       }
+   }

@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>13. POM文件 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../others/o_others.html" />
+    <link rel="prev" title="12. Maven" href="advanced/maven.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../spring/frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../spring/basic/aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">13. POM文件</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">总体配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">单项配置</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#localrepository">localRepository</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#interactivemode">interactiveMode</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#usepluginregistry">usePluginRegistry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#offline">offline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">offline</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proxies">proxies</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#servers">servers</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#mirrors">mirrors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#profiles">profiles</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#activation">Activation</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#repositories">Repositories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">13. </span>POM文件</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/pages/work/ssm/maven/pom_helper.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pom">
+<h1><span class="section-number">13. </span>POM文件<a class="headerlink" href="#pom" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>总体配置<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0&quot;</span>
+<span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+<span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd &quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 父项目的坐标。如果项目中没有规定某个元素的值，那么父项目中的对应值即为项目的默认值。</span>
+<span class="c">         坐标包括group ID，artifact ID和 version。 --&gt;</span>
+    <span class="nt">&lt;parent&gt;</span>
+        <span class="c">&lt;!-- 被继承的父项目的构件标识符 --&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>xxx<span class="nt">&lt;/artifactId&gt;</span>
+
+        <span class="c">&lt;!-- 被继承的父项目的全球唯一标识符 --&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>xxx<span class="nt">&lt;/groupId&gt;</span>
+
+        <span class="c">&lt;!-- 被继承的父项目的版本 --&gt;</span>
+        <span class="nt">&lt;version&gt;</span>xxx<span class="nt">&lt;/version&gt;</span>
+
+        <span class="c">&lt;!-- 父项目的pom.xml文件的相对路径。相对路径允许你选择一个不同的路径。默认值是../pom.xml。</span>
+<span class="c">             Maven首先在构建当前项目的地方寻找父项目的pom，其次在文件系统的这个位置（relativePath位置），</span>
+<span class="c">             然后在本地仓库，最后在远程仓库寻找父项目的pom。 --&gt;</span>
+        <span class="nt">&lt;relativePath&gt;</span>xxx<span class="nt">&lt;/relativePath&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
+
+    <span class="c">&lt;!-- 声明项目描述符遵循哪一个POM模型版本。模型本身的版本很少改变，虽然如此，但它仍然是必不可少的，</span>
+<span class="c">         这是为了当Maven引入了新的特性或者其他模型变更的时候，确保稳定性。 --&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span> 4.0.0 <span class="nt">&lt;/modelVersion&gt;</span>
+
+    <span class="c">&lt;!-- 项目的全球唯一标识符，通常使用全限定的包名区分该项目和其他项目。并且构建时生成的路径也是由此生成，</span>
+<span class="c">         如com.mycompany.app生成的相对路径为：/com/mycompany/app --&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>xxx<span class="nt">&lt;/groupId&gt;</span>
+
+    <span class="c">&lt;!-- 构件的标识符，它和group ID一起唯一标识一个构件。换句话说，你不能有两个不同的项目拥有同样的artifact ID</span>
+<span class="c">         和groupID；在某个特定的group ID下，artifact ID也必须是唯一的。构件是项目产生的或使用的一个东西，Maven</span>
+<span class="c">         为项目产生的构件包括：JARs，源码，二进制发布和WARs等。 --&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>xxx<span class="nt">&lt;/artifactId&gt;</span>
+
+    <span class="c">&lt;!-- 项目产生的构件类型，例如jar、war、ear、pom。插件可以创建他们自己的构件类型，所以前面列的不是全部构件类型 --&gt;</span>
+    <span class="nt">&lt;packaging&gt;</span> jar <span class="nt">&lt;/packaging&gt;</span>
+
+    <span class="c">&lt;!-- 项目当前版本，格式为:主版本.次版本.增量版本-限定版本号 --&gt;</span>
+    <span class="nt">&lt;version&gt;</span> 1.0-SNAPSHOT <span class="nt">&lt;/version&gt;</span>
+
+    <span class="c">&lt;!-- 项目的名称, Maven产生的文档用 --&gt;</span>
+    <span class="nt">&lt;name&gt;</span> xxx-maven <span class="nt">&lt;/name&gt;</span>
+
+    <span class="c">&lt;!-- 项目主页的URL, Maven产生的文档用 --&gt;</span>
+    <span class="nt">&lt;url&gt;</span> http://maven.apache.org <span class="nt">&lt;/url&gt;</span>
+
+    <span class="c">&lt;!-- 项目的详细描述, Maven 产生的文档用。 当这个元素能够用HTML格式描述时（例如，CDATA中的文本会被解析器忽略，</span>
+<span class="c">         就可以包含HTML标签）， 不鼓励使用纯文本描述。如果你需要修改产生的web站点的索引页面，你应该修改你自己的</span>
+<span class="c">         索引页文件，而不是调整这里的文档。 --&gt;</span>
+    <span class="nt">&lt;description&gt;</span> A maven project to study maven. <span class="nt">&lt;/description&gt;</span>
+
+    <span class="c">&lt;!-- 描述了这个项目构建环境中的前提条件。 --&gt;</span>
+    <span class="nt">&lt;prerequisites&gt;</span>
+        <span class="c">&lt;!-- 构建该项目或使用该插件所需要的Maven的最低版本 --&gt;</span>
+        <span class="nt">&lt;maven&gt;&lt;/maven&gt;</span>
+    <span class="nt">&lt;/prerequisites&gt;</span>
+
+    <span class="c">&lt;!-- 项目的问题管理系统(Bugzilla, Jira, Scarab,或任何你喜欢的问题管理系统)的名称和URL，本例为 jira --&gt;</span>
+    <span class="nt">&lt;issueManagement&gt;</span>
+        <span class="c">&lt;!-- 问题管理系统（例如jira）的名字， --&gt;</span>
+        <span class="nt">&lt;system&gt;</span> jira <span class="nt">&lt;/system&gt;</span>
+
+        <span class="c">&lt;!-- 该项目使用的问题管理系统的URL --&gt;</span>
+        <span class="nt">&lt;url&gt;</span> http://jira.baidu.com/banseon <span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/issueManagement&gt;</span>
+
+    <span class="c">&lt;!-- 项目持续集成信息 --&gt;</span>
+    <span class="nt">&lt;ciManagement&gt;</span>
+        <span class="c">&lt;!-- 持续集成系统的名字，例如continuum --&gt;</span>
+        <span class="nt">&lt;system&gt;&lt;/system&gt;</span>
+
+        <span class="c">&lt;!-- 该项目使用的持续集成系统的URL（如果持续集成系统有web接口的话）。 --&gt;</span>
+        <span class="nt">&lt;url&gt;&lt;/url&gt;</span>
+
+        <span class="c">&lt;!-- 构建完成时，需要通知的开发者/用户的配置项。包括被通知者信息和通知条件（错误，失败，成功，警告） --&gt;</span>
+        <span class="nt">&lt;notifiers&gt;</span>
+            <span class="c">&lt;!-- 配置一种方式，当构建中断时，以该方式通知用户/开发者 --&gt;</span>
+            <span class="nt">&lt;notifier&gt;</span>
+                <span class="c">&lt;!-- 传送通知的途径 --&gt;</span>
+                <span class="nt">&lt;type&gt;&lt;/type&gt;</span>
+
+                <span class="c">&lt;!-- 发生错误时是否通知 --&gt;</span>
+                <span class="nt">&lt;sendOnError&gt;&lt;/sendOnError&gt;</span>
+
+                <span class="c">&lt;!-- 构建失败时是否通知 --&gt;</span>
+                <span class="nt">&lt;sendOnFailure&gt;&lt;/sendOnFailure&gt;</span>
+
+                <span class="c">&lt;!-- 构建成功时是否通知 --&gt;</span>
+                <span class="nt">&lt;sendOnSuccess&gt;&lt;/sendOnSuccess&gt;</span>
+
+                <span class="c">&lt;!-- 发生警告时是否通知 --&gt;</span>
+                <span class="nt">&lt;sendOnWarning&gt;&lt;/sendOnWarning&gt;</span>
+
+                <span class="c">&lt;!-- 不赞成使用。通知发送到哪里 --&gt;</span>
+                <span class="nt">&lt;address&gt;&lt;/address&gt;</span>
+
+                <span class="c">&lt;!-- 扩展配置项 --&gt;</span>
+                <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/notifier&gt;</span>
+        <span class="nt">&lt;/notifiers&gt;</span>
+    <span class="nt">&lt;/ciManagement&gt;</span>
+
+    <span class="c">&lt;!-- 项目创建年份，4位数字。当产生版权信息时需要使用这个值。 --&gt;</span>
+    <span class="nt">&lt;inceptionYear</span> <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- 项目相关邮件列表信息 --&gt;</span>
+    <span class="nt">&lt;mailingLists&gt;</span>
+        <span class="c">&lt;!-- 该元素描述了项目相关的所有邮件列表。自动产生的网站引用这些信息。 --&gt;</span>
+        <span class="nt">&lt;mailingList&gt;</span>
+            <span class="c">&lt;!-- 邮件的名称 --&gt;</span>
+            <span class="nt">&lt;name&gt;</span> Demo <span class="nt">&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 发送邮件的地址或链接，如果是邮件地址，创建文档时，mailto: 链接会被自动创建 --&gt;</span>
+            <span class="nt">&lt;post&gt;</span> banseon@126.com <span class="nt">&lt;/post&gt;</span>
+
+            <span class="c">&lt;!-- 订阅邮件的地址或链接，如果是邮件地址，创建文档时，mailto: 链接会被自动创建 --&gt;</span>
+            <span class="nt">&lt;subscribe&gt;</span> banseon@126.com <span class="nt">&lt;/subscribe&gt;</span>
+
+            <span class="c">&lt;!-- 取消订阅邮件的地址或链接，如果是邮件地址，创建文档时，mailto: 链接会被自动创建 --&gt;</span>
+            <span class="nt">&lt;unsubscribe&gt;</span> banseon@126.com <span class="nt">&lt;/unsubscribe&gt;</span>
+
+            <span class="c">&lt;!-- 你可以浏览邮件信息的URL --&gt;</span>
+            <span class="nt">&lt;archive&gt;</span> http:/hi.baidu.com/banseon/demo/dev/ <span class="nt">&lt;/archive&gt;</span>
+        <span class="nt">&lt;/mailingList&gt;</span>
+    <span class="nt">&lt;/mailingLists&gt;</span>
+
+    <span class="c">&lt;!-- 项目开发者列表 --&gt;</span>
+    <span class="nt">&lt;developers&gt;</span>
+        <span class="c">&lt;!-- 某个项目开发者的信息 --&gt;</span>
+        <span class="nt">&lt;developer&gt;</span>
+            <span class="c">&lt;!-- SCM里项目开发者的唯一标识符 --&gt;</span>
+            <span class="nt">&lt;id&gt;</span> HELLO WORLD <span class="nt">&lt;/id&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者的全名 --&gt;</span>
+            <span class="nt">&lt;name&gt;</span> banseon <span class="nt">&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者的email --&gt;</span>
+            <span class="nt">&lt;email&gt;</span> banseon@126.com <span class="nt">&lt;/email&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者的主页的URL --&gt;</span>
+            <span class="nt">&lt;url&gt;&lt;/url&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者在项目中扮演的角色，角色元素描述了各种角色 --&gt;</span>
+            <span class="nt">&lt;roles&gt;</span>
+                <span class="nt">&lt;role&gt;</span> Project Manager <span class="nt">&lt;/role&gt;</span>
+                <span class="nt">&lt;role&gt;</span> Architect <span class="nt">&lt;/role&gt;</span>
+            <span class="nt">&lt;/roles&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者所属组织 --&gt;</span>
+            <span class="nt">&lt;organization&gt;</span> demo <span class="nt">&lt;/organization&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者所属组织的URL --&gt;</span>
+            <span class="nt">&lt;organizationUrl&gt;</span> http://hi.baidu.com/xxx <span class="nt">&lt;/organizationUrl&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者属性，如即时消息如何处理等 --&gt;</span>
+            <span class="nt">&lt;properties&gt;</span>
+                <span class="nt">&lt;dept&gt;</span> No <span class="nt">&lt;/dept&gt;</span>
+            <span class="nt">&lt;/properties&gt;</span>
+
+            <span class="c">&lt;!-- 项目开发者所在时区， -11到12范围内的整数。 --&gt;</span>
+            <span class="nt">&lt;timezone&gt;</span> -5 <span class="nt">&lt;/timezone&gt;</span>
+        <span class="nt">&lt;/developer&gt;</span>
+    <span class="nt">&lt;/developers&gt;</span>
+
+    <span class="c">&lt;!-- 项目的其他贡献者列表 --&gt;</span>
+    <span class="nt">&lt;contributors&gt;</span>
+        <span class="c">&lt;!-- 项目的其他贡献者。参见developers/developer元素 --&gt;</span>
+        <span class="nt">&lt;contributor&gt;</span>
+            <span class="c">&lt;!-- 项目贡献者的全名 --&gt;</span>
+            <span class="nt">&lt;name&gt;&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者的email --&gt;</span>
+            <span class="nt">&lt;email&gt;&lt;/email&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者的主页的URL --&gt;</span>
+            <span class="nt">&lt;url&gt;&lt;/url&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者所属组织 --&gt;</span>
+            <span class="nt">&lt;organization&gt;&lt;/organization&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者所属组织的URL --&gt;</span>
+            <span class="nt">&lt;organizationUrl&gt;&lt;/organizationUrl&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者在项目中扮演的角色，角色元素描述了各种角色 --&gt;</span>
+            <span class="nt">&lt;roles&gt;</span>
+                <span class="nt">&lt;role&gt;</span> Project Manager <span class="nt">&lt;/role&gt;</span>
+                <span class="nt">&lt;role&gt;</span> Architect <span class="nt">&lt;/role&gt;</span>
+            <span class="nt">&lt;/roles&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者所在时区， -11到12范围内的整数。 --&gt;</span>
+            <span class="nt">&lt;timezone&gt;&lt;/timezone&gt;</span>
+
+            <span class="c">&lt;!-- 项目贡献者属性，如即时消息如何处理等 --&gt;</span>
+            <span class="nt">&lt;properties&gt;</span>
+                <span class="nt">&lt;dept&gt;</span> No <span class="nt">&lt;/dept&gt;</span>
+            <span class="nt">&lt;/properties&gt;</span>
+        <span class="nt">&lt;/contributor&gt;</span>
+    <span class="nt">&lt;/contributors&gt;</span>
+
+    <span class="c">&lt;!-- 该元素描述了项目所有License列表。 应该只列出该项目的license列表，不要列出依赖项目的 license列表。</span>
+<span class="c">         如果列出多个license，用户可以选择它们中的一个而不是接受所有license。 --&gt;</span>
+    <span class="nt">&lt;licenses&gt;</span>
+        <span class="c">&lt;!-- 描述了项目的license，用于生成项目的web站点的license页面，其他一些报表和validation也会用到该元素。 --&gt;</span>
+        <span class="nt">&lt;license&gt;</span>
+            <span class="c">&lt;!-- license用于法律上的名称 --&gt;</span>
+            <span class="nt">&lt;name&gt;</span> Apache 2 <span class="nt">&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 官方的license正文页面的URL --&gt;</span>
+            <span class="nt">&lt;url&gt;</span> http://www.baidu.com/banseon/LICENSE-2.0.txt <span class="nt">&lt;/url&gt;</span>
+
+            <span class="c">&lt;!-- 项目分发的主要方式：</span>
+<span class="c">                    repo，可以从Maven库下载</span>
+<span class="c">                    manual， 用户必须手动下载和安装依赖 --&gt;</span>
+            <span class="nt">&lt;distribution&gt;</span> repo <span class="nt">&lt;/distribution&gt;</span>
+
+            <span class="c">&lt;!-- 关于license的补充信息 --&gt;</span>
+            <span class="nt">&lt;comments&gt;</span> A business-friendly OSS license <span class="nt">&lt;/comments&gt;</span>
+        <span class="nt">&lt;/license&gt;</span>
+    <span class="nt">&lt;/licenses&gt;</span>
+
+    <span class="c">&lt;!-- SCM(Source Control Management)标签允许你配置你的代码库，供Maven web站点和其它插件使用。 --&gt;</span>
+    <span class="nt">&lt;scm&gt;</span>
+        <span class="c">&lt;!-- SCM的URL,该URL描述了版本库和如何连接到版本库。欲知详情，请看SCMs提供的URL格式和列表。该连接只读。 --&gt;</span>
+        <span class="nt">&lt;connection&gt;</span>
+            scm:svn:http://svn.baidu.com/banseon/maven/banseon/banseon-maven2-trunk(dao-trunk)
+        <span class="nt">&lt;/connection&gt;</span>
+
+        <span class="c">&lt;!-- 给开发者使用的，类似connection元素。即该连接不仅仅只读 --&gt;</span>
+        <span class="nt">&lt;developerConnection&gt;</span>
+            scm:svn:http://svn.baidu.com/banseon/maven/banseon/dao-trunk
+        <span class="nt">&lt;/developerConnection&gt;</span>
+
+        <span class="c">&lt;!-- 当前代码的标签，在开发阶段默认为HEAD --&gt;</span>
+        <span class="nt">&lt;tag&gt;&lt;/tag&gt;</span>
+
+        <span class="c">&lt;!-- 指向项目的可浏览SCM库（例如ViewVC或者Fisheye）的URL。 --&gt;</span>
+        <span class="nt">&lt;url&gt;</span> http://svn.baidu.com/banseon <span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/scm&gt;</span>
+
+    <span class="c">&lt;!-- 描述项目所属组织的各种属性。Maven产生的文档用 --&gt;</span>
+    <span class="nt">&lt;organization&gt;</span>
+        <span class="c">&lt;!-- 组织的全名 --&gt;</span>
+        <span class="nt">&lt;name&gt;</span> demo <span class="nt">&lt;/name&gt;</span>
+
+        <span class="c">&lt;!-- 组织主页的URL --&gt;</span>
+        <span class="nt">&lt;url&gt;</span> http://www.baidu.com/banseon <span class="nt">&lt;/url&gt;</span>
+    <span class="nt">&lt;/organization&gt;</span>
+
+    <span class="c">&lt;!-- 构建项目需要的信息 --&gt;</span>
+    <span class="nt">&lt;build&gt;</span>
+        <span class="c">&lt;!-- 该元素设置了项目源码目录，当构建项目的时候，构建系统会编译目录里的源码。该路径是相对</span>
+<span class="c">             于pom.xml的相对路径。 --&gt;</span>
+        <span class="nt">&lt;sourceDirectory&gt;&lt;/sourceDirectory&gt;</span>
+
+        <span class="c">&lt;!-- 该元素设置了项目脚本源码目录，该目录和源码目录不同：绝大多数情况下，该目录下的内容会</span>
+<span class="c">             被拷贝到输出目录(因为脚本是被解释的，而不是被编译的)。 --&gt;</span>
+        <span class="nt">&lt;scriptSourceDirectory&gt;&lt;/scriptSourceDirectory&gt;</span>
+
+        <span class="c">&lt;!-- 该元素设置了项目单元测试使用的源码目录，当测试项目的时候，构建系统会编译目录里的源码。</span>
+<span class="c">             该路径是相对于pom.xml的相对路径。 --&gt;</span>
+        <span class="nt">&lt;testSourceDirectory&gt;&lt;/testSourceDirectory&gt;</span>
+
+        <span class="c">&lt;!-- 被编译过的应用程序class文件存放的目录。 --&gt;</span>
+        <span class="nt">&lt;outputDirectory&gt;&lt;/outputDirectory&gt;</span>
+
+        <span class="c">&lt;!-- 被编译过的测试class文件存放的目录。 --&gt;</span>
+        <span class="nt">&lt;testOutputDirectory&gt;&lt;/testOutputDirectory&gt;</span>
+
+        <span class="c">&lt;!-- 使用来自该项目的一系列构建扩展 --&gt;</span>
+        <span class="nt">&lt;extensions&gt;</span>
+            <span class="c">&lt;!-- 描述使用到的构建扩展。 --&gt;</span>
+            <span class="nt">&lt;extension&gt;</span>
+                <span class="c">&lt;!-- 构建扩展的groupId --&gt;</span>
+                <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+
+                <span class="c">&lt;!-- 构建扩展的artifactId --&gt;</span>
+                <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+
+                <span class="c">&lt;!-- 构建扩展的版本 --&gt;</span>
+                <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+            <span class="nt">&lt;/extension&gt;</span>
+        <span class="nt">&lt;/extensions&gt;</span>
+
+        <span class="c">&lt;!-- 当项目没有规定目标（Maven2 叫做阶段）时的默认值 --&gt;</span>
+        <span class="nt">&lt;defaultGoal&gt;&lt;/defaultGoal&gt;</span>
+
+        <span class="c">&lt;!-- 这个元素描述了项目相关的所有资源路径列表，例如和项目相关的属性文件，这些资源被包含在</span>
+<span class="c">             最终的打包文件里。 --&gt;</span>
+        <span class="nt">&lt;resources&gt;</span>
+            <span class="c">&lt;!-- 这个元素描述了项目相关或测试相关的所有资源路径 --&gt;</span>
+            <span class="nt">&lt;resource&gt;</span>
+                <span class="c">&lt;!-- 描述了资源的目标路径。该路径相对target/classes目录（例如${project.build.outputDirectory}）。</span>
+<span class="c">                     举个例子，如果你想资源在特定的包里(org.apache.maven.messages)，你就必须该元素设置为</span>
+<span class="c">                    org/apache/maven/messages。然而，如果你只是想把资源放到源码目录结构里，就不需要该配置。 --&gt;</span>
+                <span class="nt">&lt;targetPath&gt;&lt;/targetPath&gt;</span>
+
+                <span class="c">&lt;!-- 是否使用参数值代替参数名。参数值取自properties元素或者文件里配置的属性，文件在filters元素</span>
+<span class="c">                     里列出。 --&gt;</span>
+                <span class="nt">&lt;filtering&gt;&lt;/filtering&gt;</span>
+
+                <span class="c">&lt;!-- 描述存放资源的目录，该路径相对POM路径 --&gt;</span>
+                <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+
+                <span class="c">&lt;!-- 包含的模式列表，例如**/*.xml. --&gt;</span>
+                <span class="nt">&lt;includes&gt;</span>
+                    <span class="nt">&lt;include&gt;&lt;/include&gt;</span>
+                <span class="nt">&lt;/includes&gt;</span>
+
+                <span class="c">&lt;!-- 排除的模式列表，例如**/*.xml --&gt;</span>
+                <span class="nt">&lt;excludes&gt;</span>
+                    <span class="nt">&lt;exclude&gt;&lt;/exclude&gt;</span>
+                <span class="nt">&lt;/excludes&gt;</span>
+            <span class="nt">&lt;/resource&gt;</span>
+        <span class="nt">&lt;/resources&gt;</span>
+
+        <span class="c">&lt;!-- 这个元素描述了单元测试相关的所有资源路径，例如和单元测试相关的属性文件。 --&gt;</span>
+        <span class="nt">&lt;testResources&gt;</span>
+            <span class="c">&lt;!-- 这个元素描述了测试相关的所有资源路径，参见build/resources/resource元素的说明 --&gt;</span>
+            <span class="nt">&lt;testResource&gt;</span>
+                <span class="c">&lt;!-- 描述了测试相关的资源的目标路径。该路径相对target/classes目录（例如${project.build.outputDirectory}）。</span>
+<span class="c">                     举个例子，如果你想资源在特定的包里(org.apache.maven.messages)，你就必须该元素设置为</span>
+<span class="c">                    org/apache/maven/messages。然而，如果你只是想把资源放到源码目录结构里，就不需要该配置。 --&gt;</span>
+                <span class="nt">&lt;targetPath&gt;&lt;/targetPath&gt;</span>
+
+                <span class="c">&lt;!-- 是否使用参数值代替参数名。参数值取自properties元素或者文件里配置的属性，文件在filters元素</span>
+<span class="c">                     里列出。 --&gt;</span>
+                <span class="nt">&lt;filtering&gt;&lt;/filtering&gt;</span>
+
+                <span class="c">&lt;!-- 描述存放测试相关的资源的目录，该路径相对POM路径 --&gt;</span>
+                <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+
+                <span class="c">&lt;!-- 包含的模式列表，例如**/*.xml. --&gt;</span>
+                <span class="nt">&lt;includes&gt;</span>
+                    <span class="nt">&lt;include&gt;&lt;/include&gt;</span>
+                <span class="nt">&lt;/includes&gt;</span>
+
+                <span class="c">&lt;!-- 排除的模式列表，例如**/*.xml --&gt;</span>
+                <span class="nt">&lt;excludes&gt;</span>
+                    <span class="nt">&lt;exclude&gt;&lt;/exclude&gt;</span>
+                <span class="nt">&lt;/excludes&gt;</span>
+            <span class="nt">&lt;/testResource&gt;</span>
+        <span class="nt">&lt;/testResources&gt;</span>
+
+        <span class="c">&lt;!-- 构建产生的所有文件存放的目录 --&gt;</span>
+        <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+
+        <span class="c">&lt;!-- 产生的构件的文件名，默认值是${artifactId}-${version}。 --&gt;</span>
+        <span class="nt">&lt;finalName&gt;&lt;/finalName&gt;</span>
+
+        <span class="c">&lt;!-- 当filtering开关打开时，使用到的过滤器属性文件列表 --&gt;</span>
+        <span class="nt">&lt;filters&gt;&lt;/filters&gt;</span>
+
+        <span class="c">&lt;!-- 子项目可以引用的默认插件信息。该插件配置项直到被引用时才会被解析或绑定到生命周期。给定插件的任何本</span>
+<span class="c">             地配置都会覆盖这里的配置 --&gt;</span>
+        <span class="nt">&lt;pluginManagement&gt;</span>
+            <span class="c">&lt;!-- 使用的插件列表 。 --&gt;</span>
+            <span class="nt">&lt;plugins&gt;</span>
+                <span class="c">&lt;!-- plugin元素包含描述插件所需要的信息。 --&gt;</span>
+                <span class="nt">&lt;plugin&gt;</span>
+                    <span class="c">&lt;!-- 插件在仓库里的group ID --&gt;</span>
+                    <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+
+                    <span class="c">&lt;!-- 插件在仓库里的artifact ID --&gt;</span>
+                    <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+
+                    <span class="c">&lt;!-- 被使用的插件的版本（或版本范围） --&gt;</span>
+                    <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+
+                    <span class="c">&lt;!-- 是否从该插件下载Maven扩展（例如打包和类型处理器），由于性能原因，只有在真需要下载时，该</span>
+<span class="c">                         元素才被设置成enabled。 --&gt;</span>
+                    <span class="nt">&lt;extensions&gt;</span>true/false<span class="nt">&lt;/extensions&gt;</span>
+
+                    <span class="c">&lt;!-- 在构建生命周期中执行一组目标的配置。每个目标可能有不同的配置。 --&gt;</span>
+                    <span class="nt">&lt;executions&gt;</span>
+                        <span class="c">&lt;!-- execution元素包含了插件执行需要的信息 --&gt;</span>
+                        <span class="nt">&lt;execution&gt;</span>
+                            <span class="c">&lt;!-- 执行目标的标识符，用于标识构建过程中的目标，或者匹配继承过程中需要合并的执行目标 --&gt;</span>
+                            <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+
+                            <span class="c">&lt;!-- 绑定了目标的构建生命周期阶段，如果省略，目标会被绑定到源数据里配置的默认阶段 --&gt;</span>
+                            <span class="nt">&lt;phase&gt;&lt;/phase&gt;</span>
+
+                            <span class="c">&lt;!-- 配置的执行目标 --&gt;</span>
+                            <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+
+                            <span class="c">&lt;!-- 配置是否被传播到子POM --&gt;</span>
+                            <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                            <span class="c">&lt;!-- 作为DOM对象的配置 --&gt;</span>
+                            <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                        <span class="nt">&lt;/execution&gt;</span>
+                    <span class="nt">&lt;/executions&gt;</span>
+
+                    <span class="c">&lt;!-- 项目引入插件所需要的额外依赖 --&gt;</span>
+                    <span class="nt">&lt;dependencies&gt;</span>
+                        <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                        <span class="nt">&lt;dependency&gt;</span>
+                        <span class="nt">&lt;/dependency&gt;</span>
+                    <span class="nt">&lt;/dependencies&gt;</span>
+
+                    <span class="c">&lt;!-- 任何配置是否被传播到子项目 --&gt;</span>
+                    <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                    <span class="c">&lt;!-- 作为DOM对象的配置 --&gt;</span>
+                    <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                <span class="nt">&lt;/plugin&gt;</span>
+            <span class="nt">&lt;/plugins&gt;</span>
+        <span class="nt">&lt;/pluginManagement&gt;</span>
+
+        <span class="c">&lt;!-- 该项目使用的插件列表 。 --&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="c">&lt;!-- plugin元素包含描述插件所需要的信息。 --&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="c">&lt;!-- 插件在仓库里的group ID --&gt;</span>
+                <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+
+                <span class="c">&lt;!-- 插件在仓库里的artifact ID --&gt;</span>
+                <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+
+                <span class="c">&lt;!-- 被使用的插件的版本（或版本范围） --&gt;</span>
+                <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+
+                <span class="c">&lt;!-- 是否从该插件下载Maven扩展（例如打包和类型处理器），由于性能原因，只有在真需要下载时，该</span>
+<span class="c">                     元素才被设置成enabled。 --&gt;</span>
+                <span class="nt">&lt;extensions&gt;</span>true/false<span class="nt">&lt;/extensions&gt;</span>
+
+                <span class="c">&lt;!-- 在构建生命周期中执行一组目标的配置。每个目标可能有不同的配置。 --&gt;</span>
+                <span class="nt">&lt;executions&gt;</span>
+                    <span class="c">&lt;!-- execution元素包含了插件执行需要的信息 --&gt;</span>
+                    <span class="nt">&lt;execution&gt;</span>
+                        <span class="c">&lt;!-- 执行目标的标识符，用于标识构建过程中的目标，或者匹配继承过程中需要合并的执行目标 --&gt;</span>
+                        <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+
+                        <span class="c">&lt;!-- 绑定了目标的构建生命周期阶段，如果省略，目标会被绑定到源数据里配置的默认阶段 --&gt;</span>
+                        <span class="nt">&lt;phase&gt;&lt;/phase&gt;</span>
+
+                        <span class="c">&lt;!-- 配置的执行目标 --&gt;</span>
+                        <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+
+                        <span class="c">&lt;!-- 配置是否被传播到子POM --&gt;</span>
+                        <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                        <span class="c">&lt;!-- 作为DOM对象的配置 --&gt;</span>
+                        <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;/execution&gt;</span>
+                <span class="nt">&lt;/executions&gt;</span>
+
+                <span class="c">&lt;!-- 项目引入插件所需要的额外依赖 --&gt;</span>
+                <span class="nt">&lt;dependencies&gt;</span>
+                    <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                    <span class="nt">&lt;dependency&gt;</span>
+                    <span class="nt">&lt;/dependency&gt;</span>
+                <span class="nt">&lt;/dependencies&gt;</span>
+
+                <span class="c">&lt;!-- 任何配置是否被传播到子项目 --&gt;</span>
+                <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                <span class="c">&lt;!-- 作为DOM对象的配置 --&gt;</span>
+                <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/build&gt;</span>
+
+    <span class="c">&lt;!-- 在列的项目构建profile，如果被激活，会修改构建处理 --&gt;</span>
+    <span class="nt">&lt;profiles&gt;</span>
+        <span class="c">&lt;!-- 根据环境参数或命令行参数激活某个构建处理 --&gt;</span>
+        <span class="nt">&lt;profile&gt;</span>
+            <span class="c">&lt;!-- 构建配置的唯一标识符。即用于命令行激活，也用于在继承时合并具有相同标识符的profile。 --&gt;</span>
+            <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+
+            <span class="c">&lt;!-- 自动触发profile的条件逻辑。Activation是profile的开启钥匙。profile的力量来自于它能够</span>
+<span class="c">                 在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。activation元</span>
+<span class="c">                 素并不是激活profile的唯一方式。 --&gt;</span>
+            <span class="nt">&lt;activation&gt;</span>
+                <span class="c">&lt;!-- profile默认是否激活的标志 --&gt;</span>
+                <span class="nt">&lt;activeByDefault&gt;</span>true/false<span class="nt">&lt;/activeByDefault&gt;</span>
+
+                <span class="c">&lt;!-- 当匹配的jdk被检测到，profile被激活。例如，1.4激活JDK1.4，1.4.0_2，而!1.4激活所有版本</span>
+<span class="c">                     不是以1.4开头的JDK。 --&gt;</span>
+                <span class="nt">&lt;jdk&gt;</span>jdk版本，如:1.7<span class="nt">&lt;/jdk&gt;</span>
+
+                <span class="c">&lt;!-- 当匹配的操作系统属性被检测到，profile被激活。os元素可以定义一些操作系统相关的属性。 --&gt;</span>
+                <span class="nt">&lt;os&gt;</span>
+                    <span class="c">&lt;!-- 激活profile的操作系统的名字 --&gt;</span>
+                    <span class="nt">&lt;name&gt;</span> Windows XP <span class="nt">&lt;/name&gt;</span>
+
+                    <span class="c">&lt;!-- 激活profile的操作系统所属家族(如 &#39;windows&#39;) --&gt;</span>
+                    <span class="nt">&lt;family&gt;</span> Windows <span class="nt">&lt;/family&gt;</span>
+
+                    <span class="c">&lt;!-- 激活profile的操作系统体系结构 --&gt;</span>
+                    <span class="nt">&lt;arch&gt;</span> x86 <span class="nt">&lt;/arch&gt;</span>
+
+                    <span class="c">&lt;!-- 激活profile的操作系统版本 --&gt;</span>
+                    <span class="nt">&lt;version&gt;</span> 5.1.2600 <span class="nt">&lt;/version&gt;</span>
+                <span class="nt">&lt;/os&gt;</span>
+
+                <span class="c">&lt;!-- 如果Maven检测到某一个属性（其值可以在POM中通过${名称}引用），其拥有对应的名称和值，Profile</span>
+<span class="c">                     就会被激活。如果值字段是空的，那么存在属性名称字段就会激活profile，否则按区分大小写方式匹</span>
+<span class="c">                     配属性值字段 --&gt;</span>
+                <span class="nt">&lt;property&gt;</span>
+                    <span class="c">&lt;!-- 激活profile的属性的名称 --&gt;</span>
+                    <span class="nt">&lt;name&gt;</span> mavenVersion <span class="nt">&lt;/name&gt;</span>
+
+                    <span class="c">&lt;!-- 激活profile的属性的值 --&gt;</span>
+                    <span class="nt">&lt;value&gt;</span> 2.0.3 <span class="nt">&lt;/value&gt;</span>
+                <span class="nt">&lt;/property&gt;</span>
+
+                <span class="c">&lt;!-- 提供一个文件名，通过检测该文件的存在或不存在来激活profile。missing检查文件是否存在，如果不存在则激活</span>
+<span class="c">                     profile。另一方面，exists则会检查文件是否存在，如果存在则激活profile。 --&gt;</span>
+                <span class="nt">&lt;file&gt;</span>
+                    <span class="c">&lt;!-- 如果指定的文件存在，则激活profile。 --&gt;</span>
+                    <span class="nt">&lt;exists&gt;</span> /usr/local/hudson/hudson-home/jobs/maven-guide-zh-to-production/workspace/ <span class="nt">&lt;/exists&gt;</span>
+
+                    <span class="c">&lt;!-- 如果指定的文件不存在，则激活profile。 --&gt;</span>
+                    <span class="nt">&lt;missing&gt;</span> /usr/local/hudson/hudson-home/jobs/maven-guide-zh-to-production/workspace/ <span class="nt">&lt;/missing&gt;</span>
+                <span class="nt">&lt;/file&gt;</span>
+            <span class="nt">&lt;/activation&gt;</span>
+
+            <span class="c">&lt;!-- 构建项目所需要的信息。参见build元素 --&gt;</span>
+            <span class="nt">&lt;build&gt;</span>
+                <span class="nt">&lt;defaultGoal</span> <span class="nt">/&gt;</span>
+                <span class="nt">&lt;resources&gt;</span>
+                    <span class="nt">&lt;resource&gt;</span>
+                        <span class="nt">&lt;targetPath&gt;&lt;/targetPath&gt;</span>
+                        <span class="nt">&lt;filtering&gt;&lt;/filtering&gt;</span>
+                        <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+                        <span class="nt">&lt;includes&gt;</span>
+                            <span class="nt">&lt;include&gt;&lt;/include&gt;</span>
+                        <span class="nt">&lt;/includes&gt;</span>
+                        <span class="nt">&lt;excludes&gt;</span>
+                            <span class="nt">&lt;exclude&gt;&lt;/exclude&gt;</span>
+                        <span class="nt">&lt;/excludes&gt;</span>
+                    <span class="nt">&lt;/resource&gt;</span>
+                <span class="nt">&lt;/resources&gt;</span>
+                <span class="nt">&lt;testResources&gt;</span>
+                    <span class="nt">&lt;testResource&gt;</span>
+                        <span class="nt">&lt;targetPath&gt;&lt;/targetPath&gt;</span>
+                        <span class="nt">&lt;filtering&gt;&lt;/filtering&gt;</span>
+                        <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+                        <span class="nt">&lt;includes&gt;</span>
+                            <span class="nt">&lt;include&gt;&lt;/include&gt;</span>
+                        <span class="nt">&lt;/includes&gt;</span>
+                        <span class="nt">&lt;excludes&gt;</span>
+                            <span class="nt">&lt;exclude&gt;&lt;/exclude&gt;</span>
+                        <span class="nt">&lt;/excludes&gt;</span>
+                    <span class="nt">&lt;/testResource&gt;</span>
+                <span class="nt">&lt;/testResources&gt;</span>
+                <span class="nt">&lt;directory&gt;&lt;/directory&gt;</span>
+                <span class="nt">&lt;finalName&gt;&lt;/finalName&gt;</span>
+                <span class="nt">&lt;filters&gt;&lt;/filters&gt;</span>
+                <span class="nt">&lt;pluginManagement&gt;</span>
+                    <span class="nt">&lt;plugins&gt;</span>
+                        <span class="c">&lt;!-- 参见build/pluginManagement/plugins/plugin元素 --&gt;</span>
+                        <span class="nt">&lt;plugin&gt;</span>
+                            <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+                            <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+                            <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+                            <span class="nt">&lt;extensions&gt;</span>true/false<span class="nt">&lt;/extensions&gt;</span>
+                            <span class="nt">&lt;executions&gt;</span>
+                                <span class="nt">&lt;execution&gt;</span>
+                                    <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+                                    <span class="nt">&lt;phase&gt;&lt;/phase&gt;</span>
+                                    <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+                                    <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+                                    <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                                <span class="nt">&lt;/execution&gt;</span>
+                            <span class="nt">&lt;/executions&gt;</span>
+                            <span class="nt">&lt;dependencies&gt;</span>
+                                <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                                <span class="nt">&lt;dependency&gt;</span>
+                                <span class="nt">&lt;/dependency&gt;</span>
+                            <span class="nt">&lt;/dependencies&gt;</span>
+                            <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+                            <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+                            <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                        <span class="nt">&lt;/plugin&gt;</span>
+                    <span class="nt">&lt;/plugins&gt;</span>
+                <span class="nt">&lt;/pluginManagement&gt;</span>
+                <span class="nt">&lt;plugins&gt;</span>
+                    <span class="c">&lt;!-- 参见build/pluginManagement/plugins/plugin元素 --&gt;</span>
+                    <span class="nt">&lt;plugin&gt;</span>
+                        <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+                        <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+                        <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+                        <span class="nt">&lt;extensions&gt;</span>true/false<span class="nt">&lt;/extensions&gt;</span>
+                        <span class="nt">&lt;executions&gt;</span>
+                            <span class="nt">&lt;execution&gt;</span>
+                                <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+                                <span class="nt">&lt;phase&gt;&lt;/phase&gt;</span>
+                                <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+                                <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+                                <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                            <span class="nt">&lt;/execution&gt;</span>
+                        <span class="nt">&lt;/executions&gt;</span>
+                        <span class="nt">&lt;dependencies&gt;</span>
+                            <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                            <span class="nt">&lt;dependency&gt;</span>
+                            <span class="nt">&lt;/dependency&gt;</span>
+                        <span class="nt">&lt;/dependencies&gt;</span>
+                        <span class="nt">&lt;goals&gt;&lt;/goals&gt;</span>
+                        <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+                        <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+                    <span class="nt">&lt;/plugin&gt;</span>
+                <span class="nt">&lt;/plugins&gt;</span>
+            <span class="nt">&lt;/build&gt;</span>
+
+            <span class="c">&lt;!-- 模块（有时称作子项目） 被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的</span>
+<span class="c">                 相对路径 --&gt;</span>
+            <span class="nt">&lt;modules&gt;</span>
+                <span class="c">&lt;!--子项目相对路径--&gt;</span>
+                <span class="nt">&lt;module&gt;&lt;/module&gt;</span>
+            <span class="nt">&lt;/modules&gt;</span>
+
+            <span class="c">&lt;!-- 发现依赖和扩展的远程仓库列表。 --&gt;</span>
+            <span class="nt">&lt;repositories&gt;</span>
+                <span class="c">&lt;!-- 参见repositories/repository元素 --&gt;</span>
+                <span class="nt">&lt;repository&gt;</span>
+                    <span class="nt">&lt;releases&gt;</span>
+                        <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+                        <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+                        <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+                    <span class="nt">&lt;/releases&gt;</span>
+                    <span class="nt">&lt;snapshots&gt;</span>
+                        <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+                        <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+                        <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+                    <span class="nt">&lt;/snapshots&gt;</span>
+                    <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+                    <span class="nt">&lt;name&gt;&lt;/name&gt;</span>
+                    <span class="nt">&lt;url&gt;&lt;/url&gt;</span>
+                    <span class="nt">&lt;layout&gt;&lt;/layout&gt;</span>
+                <span class="nt">&lt;/repository&gt;</span>
+            <span class="nt">&lt;/repositories&gt;</span>
+
+            <span class="c">&lt;!-- 发现插件的远程仓库列表，这些插件用于构建和报表 --&gt;</span>
+            <span class="nt">&lt;pluginRepositories&gt;</span>
+                <span class="c">&lt;!-- 包含需要连接到远程插件仓库的信息.参见repositories/repository元素 --&gt;</span>
+                <span class="nt">&lt;pluginRepository&gt;</span>
+                    <span class="nt">&lt;releases&gt;</span>
+                        <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+                        <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+                        <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+                    <span class="nt">&lt;/releases&gt;</span>
+                    <span class="nt">&lt;snapshots&gt;</span>
+                        <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+                        <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+                        <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+                    <span class="nt">&lt;/snapshots&gt;</span>
+                    <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+                    <span class="nt">&lt;name&gt;&lt;/name&gt;</span>
+                    <span class="nt">&lt;url&gt;&lt;/url&gt;</span>
+                    <span class="nt">&lt;layout&gt;&lt;/layout&gt;</span>
+                <span class="nt">&lt;/pluginRepository&gt;</span>
+            <span class="nt">&lt;/pluginRepositories&gt;</span>
+
+            <span class="c">&lt;!-- 该元素描述了项目相关的所有依赖。 这些依赖组成了项目构建过程中的一个个环节。它们自动从项目定义的</span>
+<span class="c">                 仓库中下载。要获取更多信息，请看项目依赖机制。 --&gt;</span>
+            <span class="nt">&lt;dependencies&gt;</span>
+                <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                <span class="nt">&lt;dependency&gt;</span>
+                <span class="nt">&lt;/dependency&gt;</span>
+            <span class="nt">&lt;/dependencies&gt;</span>
+
+            <span class="c">&lt;!-- 不赞成使用. 现在Maven忽略该元素. --&gt;</span>
+            <span class="nt">&lt;reports&gt;&lt;/reports&gt;</span>
+
+            <span class="c">&lt;!-- 该元素包括使用报表插件产生报表的规范。当用户执行“mvn site”，这些报表就会运行。 在页面导航栏能看</span>
+<span class="c">                 到所有报表的链接。参见reporting元素 --&gt;</span>
+            <span class="nt">&lt;reporting&gt;&lt;/reporting&gt;</span>
+
+            <span class="c">&lt;!-- 参见dependencyManagement元素 --&gt;</span>
+            <span class="nt">&lt;dependencyManagement&gt;</span>
+                <span class="nt">&lt;dependencies&gt;</span>
+                    <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+                    <span class="nt">&lt;dependency&gt;</span>
+                    <span class="nt">&lt;/dependency&gt;</span>
+                <span class="nt">&lt;/dependencies&gt;</span>
+            <span class="nt">&lt;/dependencyManagement&gt;</span>
+
+            <span class="c">&lt;!-- 参见distributionManagement元素 --&gt;</span>
+            <span class="nt">&lt;distributionManagement&gt;</span>
+            <span class="nt">&lt;/distributionManagement&gt;</span>
+
+            <span class="c">&lt;!-- 参见properties元素 --&gt;</span>
+            <span class="nt">&lt;properties</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/profile&gt;</span>
+    <span class="nt">&lt;/profiles&gt;</span>
+
+    <span class="c">&lt;!-- 模块（有时称作子项目） 被构建成项目的一部分。列出的每个模块元素是指向该模块的目录的相对路径 --&gt;</span>
+    <span class="nt">&lt;modules&gt;</span>
+        <span class="c">&lt;!--子项目相对路径--&gt;</span>
+        <span class="nt">&lt;module&gt;&lt;/module&gt;</span>
+    <span class="nt">&lt;/modules&gt;</span>
+
+    <span class="c">&lt;!-- 发现依赖和扩展的远程仓库列表。 --&gt;</span>
+    <span class="nt">&lt;repositories&gt;</span>
+        <span class="c">&lt;!-- 包含需要连接到远程仓库的信息 --&gt;</span>
+        <span class="nt">&lt;repository&gt;</span>
+            <span class="c">&lt;!-- 如何处理远程仓库里发布版本的下载 --&gt;</span>
+            <span class="nt">&lt;releases&gt;</span>
+                <span class="c">&lt;!-- true或者false表示该仓库是否为下载某种类型构件（发布版，快照版）开启。 --&gt;</span>
+                <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+
+                <span class="c">&lt;!-- 该元素指定更新发生的频率。Maven会比较本地POM和远程POM的时间戳。这里的选项是：always（一直），</span>
+<span class="c">                     daily（默认，每日），interval：X（这里X是以分钟为单位的时间间隔），或者never（从不）。 --&gt;</span>
+                <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+
+                <span class="c">&lt;!-- 当Maven验证构件校验文件失败时该怎么做：ignore（忽略），fail（失败），或者warn（警告）。 --&gt;</span>
+                <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+            <span class="nt">&lt;/releases&gt;</span>
+
+            <span class="c">&lt;!-- 如何处理远程仓库里快照版本的下载。有了releases和snapshots这两组配置，</span>
+<span class="c">                 POM就可以在每个单独的仓库中，为每种类型的构件采取不同的策略。</span>
+<span class="c">                 例如，可能有人会决定只为开发目的开启对快照版本下载的支持。参见repositories/repository/releases元素 --&gt;</span>
+            <span class="nt">&lt;snapshots&gt;</span>
+                <span class="nt">&lt;enabled&gt;&lt;enabled&gt;</span>
+                <span class="nt">&lt;updatePolicy&gt;&lt;/updatePolicy&gt;</span>
+                <span class="nt">&lt;checksumPolicy&gt;&lt;/checksumPolicy&gt;</span>
+            <span class="nt">&lt;/snapshots&gt;</span>
+
+            <span class="c">&lt;!-- 远程仓库唯一标识符。可以用来匹配在settings.xml文件里配置的远程仓库 --&gt;</span>
+            <span class="nt">&lt;id&gt;</span> banseon-repository-proxy <span class="nt">&lt;/id&gt;</span>
+
+            <span class="c">&lt;!-- 远程仓库名称 --&gt;</span>
+            <span class="nt">&lt;name&gt;</span> banseon-repository-proxy <span class="nt">&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 远程仓库URL，按protocol://hostname/path形式 --&gt;</span>
+            <span class="nt">&lt;url&gt;</span> http://192.168.1.169:9999/repository/ <span class="nt">&lt;/url&gt;</span>
+
+            <span class="c">&lt;!-- 用于定位和排序构件的仓库布局类型-可以是default（默认）或者legacy（遗留）。Maven 2为其仓库提供了一个默认</span>
+<span class="c">                 的布局；然而，Maven 1.x有一种不同的布局。我们可以使用该元素指定布局是default（默认）还是legacy（遗留）。 --&gt;</span>
+            <span class="nt">&lt;layout&gt;</span> default <span class="nt">&lt;/layout&gt;</span>
+        <span class="nt">&lt;/repository&gt;</span>
+    <span class="nt">&lt;/repositories&gt;</span>
+
+    <span class="c">&lt;!-- 发现插件的远程仓库列表，这些插件用于构建和报表 --&gt;</span>
+    <span class="nt">&lt;pluginRepositories&gt;</span>
+        <span class="c">&lt;!-- 包含需要连接到远程插件仓库的信息.参见repositories/repository元素 --&gt;</span>
+        <span class="nt">&lt;pluginRepository&gt;</span>
+        <span class="nt">&lt;/pluginRepository&gt;</span>
+    <span class="nt">&lt;/pluginRepositories&gt;</span>
+
+    <span class="c">&lt;!-- 该元素描述了项目相关的所有依赖。 这些依赖组成了项目构建过程中的一个个环节。它们自动从项目定义的仓库中下载。</span>
+<span class="c">         要获取更多信息，请看项目依赖机制。 --&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="c">&lt;!-- 依赖的group ID --&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span> org.apache.maven <span class="nt">&lt;/groupId&gt;</span>
+
+            <span class="c">&lt;!-- 依赖的artifact ID --&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span> maven-artifact <span class="nt">&lt;/artifactId&gt;</span>
+
+            <span class="c">&lt;!-- 依赖的版本号。 在Maven 2里, 也可以配置成版本号的范围。 --&gt;</span>
+            <span class="nt">&lt;version&gt;</span> 3.8.1 <span class="nt">&lt;/version&gt;</span>
+
+            <span class="c">&lt;!-- 依赖类型，默认类型是jar。它通常表示依赖的文件的扩展名，但也有例外。一个类型可以被映射成另外一个扩展</span>
+<span class="c">                 名或分类器。类型经常和使用的打包方式对应，尽管这也有例外。一些类型的例子：jar，war，ejb-client和test-jar。</span>
+<span class="c">                 如果设置extensions为 true，就可以在plugin里定义新的类型。所以前面的类型的例子不完整。 --&gt;</span>
+            <span class="nt">&lt;type&gt;</span> jar <span class="nt">&lt;/type&gt;</span>
+
+            <span class="c">&lt;!-- 依赖的分类器。分类器可以区分属于同一个POM，但不同构建方式的构件。分类器名被附加到文件名的版本号后面。例如，</span>
+<span class="c">                 如果你想要构建两个单独的构件成JAR，一个使用Java 1.4编译器，另一个使用Java 6编译器，你就可以使用分类器来生</span>
+<span class="c">                 成两个单独的JAR构件。 --&gt;</span>
+            <span class="nt">&lt;classifier&gt;&lt;/classifier&gt;</span>
+
+            <span class="c">&lt;!-- 依赖范围。在项目发布过程中，帮助决定哪些构件被包括进来。欲知详情请参考依赖机制。</span>
+<span class="c">                - compile ：默认范围，用于编译</span>
+<span class="c">                - provided：类似于编译，但支持你期待jdk或者容器提供，类似于classpath</span>
+<span class="c">                - runtime: 在执行时需要使用</span>
+<span class="c">                - test: 用于test任务时使用</span>
+<span class="c">                - system: 需要外在提供相应的元素。通过systemPath来取得</span>
+<span class="c">                - systemPath: 仅用于范围为system。提供相应的路径</span>
+<span class="c">                - optional: 当项目自身被依赖时，标注依赖是否传递。用于连续依赖时使用 --&gt;</span>
+            <span class="nt">&lt;scope&gt;</span> test <span class="nt">&lt;/scope&gt;</span>
+
+            <span class="c">&lt;!-- 仅供system范围使用。注意，不鼓励使用这个元素，并且在新的版本中该元素可能被覆盖掉。该元素为依赖规定了文件</span>
+<span class="c">                 系统上的路径。需要绝对路径而不是相对路径。推荐使用属性匹配绝对路径，例如${java.home}。 --&gt;</span>
+            <span class="nt">&lt;systemPath&gt;&lt;/systemPath&gt;</span>
+
+            <span class="c">&lt;!-- 当计算传递依赖时， 从依赖构件列表里，列出被排除的依赖构件集。即告诉maven你只依赖指定的项目，不依赖项目的</span>
+<span class="c">                 依赖。此元素主要用于解决版本冲突问题 --&gt;</span>
+            <span class="nt">&lt;exclusions&gt;</span>
+                <span class="nt">&lt;exclusion&gt;</span>
+                    <span class="nt">&lt;artifactId&gt;</span> spring-core <span class="nt">&lt;/artifactId&gt;</span>
+                    <span class="nt">&lt;groupId&gt;</span> org.springframework <span class="nt">&lt;/groupId&gt;</span>
+                <span class="nt">&lt;/exclusion&gt;</span>
+            <span class="nt">&lt;/exclusions&gt;</span>
+
+            <span class="c">&lt;!-- 可选依赖，如果你在项目B中把C依赖声明为可选，你就需要在依赖于B的项目（例如项目A）中显式的引用对C的依赖。</span>
+<span class="c">                 可选依赖阻断依赖的传递性。 --&gt;</span>
+            <span class="nt">&lt;optional&gt;</span> true <span class="nt">&lt;/optional&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+
+    <span class="c">&lt;!-- 不赞成使用. 现在Maven忽略该元素. --&gt;</span>
+    <span class="nt">&lt;reports&gt;&lt;/reports&gt;</span>
+
+    <span class="c">&lt;!-- 该元素描述使用报表插件产生报表的规范。当用户执行“mvn site”，这些报表就会运行。 在页面导航栏能看到所有报表的链接。 --&gt;</span>
+    <span class="nt">&lt;reporting&gt;</span>
+        <span class="c">&lt;!-- true，则，网站不包括默认的报表。这包括“项目信息”菜单中的报表。 --&gt;</span>
+        <span class="nt">&lt;excludeDefaults</span> <span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- 所有产生的报表存放到哪里。默认值是${project.build.directory}/site。 --&gt;</span>
+        <span class="nt">&lt;outputDirectory</span> <span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- 使用的报表插件和他们的配置。 --&gt;</span>
+        <span class="nt">&lt;plugins&gt;</span>
+            <span class="c">&lt;!-- plugin元素包含描述报表插件需要的信息 --&gt;</span>
+            <span class="nt">&lt;plugin&gt;</span>
+                <span class="c">&lt;!-- 报表插件在仓库里的group ID --&gt;</span>
+                <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+                <span class="c">&lt;!-- 报表插件在仓库里的artifact ID --&gt;</span>
+                <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+
+                <span class="c">&lt;!-- 被使用的报表插件的版本（或版本范围） --&gt;</span>
+                <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+
+                <span class="c">&lt;!-- 任何配置是否被传播到子项目 --&gt;</span>
+                <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                <span class="c">&lt;!-- 报表插件的配置 --&gt;</span>
+                <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+
+                <span class="c">&lt;!-- 一组报表的多重规范，每个规范可能有不同的配置。一个规范（报表集）对应一个执行目标 。例如，</span>
+<span class="c">                     有1，2，3，4，5，6，7，8，9个报表。1，2，5构成A报表集，对应一个执行目标。2，5，8构成B报</span>
+<span class="c">                     表集，对应另一个执行目标 --&gt;</span>
+                <span class="nt">&lt;reportSets&gt;</span>
+                    <span class="c">&lt;!-- 表示报表的一个集合，以及产生该集合的配置 --&gt;</span>
+                    <span class="nt">&lt;reportSet&gt;</span>
+                        <span class="c">&lt;!-- 报表集合的唯一标识符，POM继承时用到 --&gt;</span>
+                        <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+
+                        <span class="c">&lt;!-- 产生报表集合时，被使用的报表的配置 --&gt;</span>
+                        <span class="nt">&lt;configuration&gt;&lt;/configuration&gt;</span>
+
+                        <span class="c">&lt;!-- 配置是否被继承到子POMs --&gt;</span>
+                        <span class="nt">&lt;inherited&gt;</span>true/false<span class="nt">&lt;/inherited&gt;</span>
+
+                        <span class="c">&lt;!-- 这个集合里使用到哪些报表 --&gt;</span>
+                        <span class="nt">&lt;reports&gt;&lt;/reports&gt;</span>
+                    <span class="nt">&lt;/reportSet&gt;</span>
+                <span class="nt">&lt;/reportSets&gt;</span>
+            <span class="nt">&lt;/plugin&gt;</span>
+        <span class="nt">&lt;/plugins&gt;</span>
+    <span class="nt">&lt;/reporting&gt;</span>
+
+    <span class="c">&lt;!-- 继承自该项目的所有子项目的默认依赖信息。这部分的依赖信息不会被立即解析,而是当子项目声明一个依赖</span>
+<span class="c">        （必须描述group ID和artifact ID信息），如果group ID和artifact ID以外的一些信息没有描述，则通过</span>
+<span class="c">            group ID和artifact ID匹配到这里的依赖，并使用这里的依赖信息。 --&gt;</span>
+    <span class="nt">&lt;dependencyManagement&gt;</span>
+        <span class="nt">&lt;dependencies&gt;</span>
+            <span class="c">&lt;!-- 参见dependencies/dependency元素 --&gt;</span>
+            <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;/dependencies&gt;</span>
+    <span class="nt">&lt;/dependencyManagement&gt;</span>
+
+    <span class="c">&lt;!-- 项目分发信息，在执行mvn deploy后表示要发布的位置。有了这些信息就可以把网站部署到远程服务器或者</span>
+<span class="c">         把构件部署到远程仓库。 --&gt;</span>
+    <span class="nt">&lt;distributionManagement&gt;</span>
+        <span class="c">&lt;!-- 部署项目产生的构件到远程仓库需要的信息 --&gt;</span>
+        <span class="nt">&lt;repository&gt;</span>
+            <span class="c">&lt;!-- 是分配给快照一个唯一的版本号（由时间戳和构建流水号）？还是每次都使用相同的版本号？参见</span>
+<span class="c">                 repositories/repository元素 --&gt;</span>
+            <span class="nt">&lt;uniqueVersion</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;id&gt;</span> banseon-maven2 <span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;name&gt;</span> banseon maven2 <span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;url&gt;</span> file://${basedir}/target/deploy <span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;layout&gt;&lt;/layout&gt;</span>
+        <span class="nt">&lt;/repository&gt;</span>
+
+        <span class="c">&lt;!-- 构件的快照部署到哪里？如果没有配置该元素，默认部署到repository元素配置的仓库，参见</span>
+<span class="c">             distributionManagement/repository元素 --&gt;</span>
+        <span class="nt">&lt;snapshotRepository&gt;</span>
+            <span class="nt">&lt;uniqueVersion</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;id&gt;</span> banseon-maven2 <span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;name&gt;</span> Banseon-maven2 Snapshot Repository <span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;url&gt;</span> scp://svn.baidu.com/banseon:/usr/local/maven-snapshot <span class="nt">&lt;/url&gt;</span>
+            <span class="nt">&lt;layout&gt;&lt;/layout&gt;</span>
+        <span class="nt">&lt;/snapshotRepository&gt;</span>
+
+        <span class="c">&lt;!-- 部署项目的网站需要的信息 --&gt;</span>
+        <span class="nt">&lt;site&gt;</span>
+            <span class="c">&lt;!-- 部署位置的唯一标识符，用来匹配站点和settings.xml文件里的配置 --&gt;</span>
+            <span class="nt">&lt;id&gt;</span> banseon-site <span class="nt">&lt;/id&gt;</span>
+
+            <span class="c">&lt;!-- 部署位置的名称 --&gt;</span>
+            <span class="nt">&lt;name&gt;</span> business api website <span class="nt">&lt;/name&gt;</span>
+
+            <span class="c">&lt;!-- 部署位置的URL，按protocol://hostname/path形式 --&gt;</span>
+            <span class="nt">&lt;url&gt;</span>
+                scp://svn.baidu.com/banseon:/var/www/localhost/banseon-web
+            <span class="nt">&lt;/url&gt;</span>
+        <span class="nt">&lt;/site&gt;</span>
+
+        <span class="c">&lt;!-- 项目下载页面的URL。如果没有该元素，用户应该参考主页。使用该元素的原因是：帮助定位</span>
+<span class="c">             那些不在仓库里的构件（由于license限制）。 --&gt;</span>
+        <span class="nt">&lt;downloadUrl</span> <span class="nt">/&gt;</span>
+
+        <span class="c">&lt;!-- 如果构件有了新的group ID和artifact ID（构件移到了新的位置），这里列出构件的重定位信息。 --&gt;</span>
+        <span class="nt">&lt;relocation&gt;</span>
+            <span class="c">&lt;!-- 构件新的group ID --&gt;</span>
+            <span class="nt">&lt;groupId&gt;&lt;/groupId&gt;</span>
+
+            <span class="c">&lt;!-- 构件新的artifact ID --&gt;</span>
+            <span class="nt">&lt;artifactId&gt;&lt;/artifactId&gt;</span>
+
+            <span class="c">&lt;!-- 构件新的版本号 --&gt;</span>
+            <span class="nt">&lt;version&gt;&lt;/version&gt;</span>
+
+            <span class="c">&lt;!-- 显示给用户的，关于移动的额外信息，例如原因。 --&gt;</span>
+            <span class="nt">&lt;message&gt;&lt;/message&gt;</span>
+        <span class="nt">&lt;/relocation&gt;</span>
+
+        <span class="c">&lt;!-- 给出该构件在远程仓库的状态。不得在本地项目中设置该元素，因为这是工具自动更新的。有效的值</span>
+<span class="c">             有：none（默认），converted（仓库管理员从Maven 1 POM转换过来），partner（直接从伙伴Maven</span>
+<span class="c">             2仓库同步过来），deployed（从Maven 2实例部署），verified（被核实时正确的和最终的）。 --&gt;</span>
+        <span class="nt">&lt;status&gt;&lt;/status&gt;</span>
+    <span class="nt">&lt;/distributionManagement&gt;</span>
+
+    <span class="c">&lt;!-- 以值替代名称，Properties可以在整个POM中使用，也可以作为触发条件（见settings.xml配置文件里</span>
+<span class="c">         activation元素的说明）。格式是&lt;name&gt;value&lt;/name&gt;。 --&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;name&gt;</span>value<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>单项配置<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="localrepository">
+<h3>localRepository<a class="headerlink" href="#localrepository" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!-- 本地仓库的路径。默认值为${user.home}/.m2/repository。 --&gt;</span>
+
+<span class="nt">&lt;localRepository&gt;</span>usr/local/maven<span class="nt">&lt;/localRepository&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="interactivemode">
+<h3>interactiveMode<a class="headerlink" href="#interactivemode" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--Maven是否需要和用户交互以获得输入。</span>
+<span class="c">    如果Maven需要和用户交互以获得输入，则设置成true。</span>
+<span class="c">    默认为true。--&gt;</span>
+
+<span class="nt">&lt;interactiveMode&gt;</span>true<span class="nt">&lt;/interactiveMode&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="usepluginregistry">
+<h3>usePluginRegistry<a class="headerlink" href="#usepluginregistry" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--Maven是否需要使用plugin-registry.xml文件来管理插件版本。</span>
+<span class="c">如果需要让Maven使用文件${user.home}/.m2/plugin-registry.xml来管理插件版本，</span>
+<span class="c">则设为true。默认为false。--&gt;</span>
+
+<span class="nt">&lt;usePluginRegistry&gt;</span>false<span class="nt">&lt;/usePluginRegistry&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="offline">
+<h3>offline<a class="headerlink" href="#offline" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--表示Maven是否需要在离线模式下运行。如果构建系统需要在离线模式下运行，则为true，默认为false。</span>
+<span class="c">当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该配置就十分有用。 --&gt;</span>
+
+<span class="nt">&lt;offline&gt;</span>false<span class="nt">&lt;/offline&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>offline<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--表示Maven是否需要在离线模式下运行。如果构建系统需要在离线模式下运行，则为true，默认为false。</span>
+<span class="c">当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该配置就十分有用。 --&gt;</span>
+
+<span class="nt">&lt;offline&gt;</span>false<span class="nt">&lt;/offline&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="proxies">
+<h3>proxies<a class="headerlink" href="#proxies" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--用来配置不同的代理，多代理profiles 可以应对笔记本或移动设备的工作环境：</span>
+<span class="c">通过简单的设置profile id就可以很容易的更换整个代理配置。 --&gt;</span>
+
+<span class="nt">&lt;proxies&gt;</span>
+   <span class="c">&lt;!--代理元素包含配置代理时需要的信息--&gt;</span>
+   <span class="nt">&lt;proxy&gt;</span>
+
+   <span class="c">&lt;!--代理的唯一定义符，用来区分不同的代理元素。--&gt;</span>
+   <span class="nt">&lt;id&gt;</span>myproxy<span class="nt">&lt;/id&gt;</span>
+
+   <span class="c">&lt;!--该代理是否是激活的那个。true则激活代理。当我们声明了一组代理，而某个时候只需要激活一个代理的时候，该元素就可以派上用处。 --&gt;</span>
+   <span class="nt">&lt;active&gt;</span>true<span class="nt">&lt;/active&gt;</span>
+
+   <span class="c">&lt;!--代理的协议。 协议://主机名:端口，分隔成离散的元素以方便配置。--&gt;</span>
+   <span class="nt">&lt;protocol&gt;</span>http<span class="nt">&lt;/protocol&gt;</span>
+
+   <span class="c">&lt;!--代理的主机名。协议://主机名:端口，分隔成离散的元素以方便配置。  --&gt;</span>
+   <span class="nt">&lt;host&gt;</span>proxy.somewhere.com<span class="nt">&lt;/host&gt;</span>
+
+   <span class="c">&lt;!--代理的端口。协议://主机名:端口，分隔成离散的元素以方便配置。 --&gt;</span>
+   <span class="nt">&lt;port&gt;</span>8080<span class="nt">&lt;/port&gt;</span>
+
+   <span class="c">&lt;!--代理的用户名，用户名和密码表示代理服务器认证的登录名和密码。 --&gt;</span>
+   <span class="nt">&lt;username&gt;</span>proxyuser<span class="nt">&lt;/username&gt;</span>
+
+   <span class="c">&lt;!--代理的密码，用户名和密码表示代理服务器认证的登录名和密码。 --&gt;</span>
+   <span class="nt">&lt;password&gt;</span>somepassword<span class="nt">&lt;/password&gt;</span>
+
+   <span class="c">&lt;!--不该被代理的主机名列表。该列表的分隔符由代理服务器指定；例子中使用了竖线分隔符，使用逗号分隔也很常见。--&gt;</span>
+   <span class="nt">&lt;nonProxyHosts&gt;</span>*.google.com|ibiblio.org<span class="nt">&lt;/nonProxyHosts&gt;</span>
+   <span class="nt">&lt;/proxy&gt;</span>
+<span class="nt">&lt;/proxies&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="servers">
+<h3>servers<a class="headerlink" href="#servers" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--配置服务端的一些设置。一些设置如安全证书不应该和pom.xml一起分发。这种类型的信息应该存在于构建服务器上的settings.xml文件中。--&gt;</span>
+<span class="nt">&lt;servers&gt;</span>
+   <span class="c">&lt;!--服务器元素包含配置服务器时需要的信息 --&gt;</span>
+   <span class="nt">&lt;server&gt;</span>
+
+   <span class="c">&lt;!--这是server的id（注意不是用户登陆的id），该id与distributionManagement中repository元素的id相匹配。--&gt;</span>
+   <span class="nt">&lt;id&gt;</span>server001<span class="nt">&lt;/id&gt;</span>
+
+   <span class="c">&lt;!--鉴权用户名。鉴权用户名和鉴权密码表示服务器认证所需要的登录名和密码。 --&gt;</span>
+   <span class="nt">&lt;username&gt;</span>my_login<span class="nt">&lt;/username&gt;</span>
+
+   <span class="c">&lt;!--鉴权密码 。鉴权用户名和鉴权密码表示服务器认证所需要的登录名和密码。密码加密功能已被添加到2.1.0 +。详情请访问密码加密页面--&gt;</span>
+   <span class="nt">&lt;password&gt;</span>my_password<span class="nt">&lt;/password&gt;</span>
+
+   <span class="c">&lt;!--鉴权时使用的私钥位置。和前两个元素类似，私钥位置和私钥密码指定了一个私钥的路径（默认是${user.home}/.ssh/id_dsa）以及如果需要的话，一个密语。将来passphrase和password元素可能会被提取到外部，但目前它们必须在settings.xml文件以纯文本的形式声明。 --&gt;</span>
+   <span class="nt">&lt;privateKey&gt;</span>${usr.home}/.ssh/id_dsa<span class="nt">&lt;/privateKey&gt;</span>
+
+   <span class="c">&lt;!--鉴权时使用的私钥密码。--&gt;</span>
+   <span class="nt">&lt;passphrase&gt;</span>some_passphrase<span class="nt">&lt;/passphrase&gt;</span>
+
+   <span class="c">&lt;!--文件被创建时的权限。如果在部署的时候会创建一个仓库文件或者目录，这时候就可以使用权限（permission）。这两个元素合法的值是一个三位数字，其对应了unix文件系统的权限，如664，或者775。 --&gt;</span>
+   <span class="nt">&lt;filePermissions&gt;</span>664<span class="nt">&lt;/filePermissions&gt;</span>
+
+   <span class="c">&lt;!--目录被创建时的权限。 --&gt;</span>
+   <span class="nt">&lt;directoryPermissions&gt;</span>775<span class="nt">&lt;/directoryPermissions&gt;</span>
+   <span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="mirrors">
+<h3>mirrors<a class="headerlink" href="#mirrors" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--为仓库列表配置的下载镜像列表。高级设置请参阅镜像设置页面 --&gt;</span>
+<span class="nt">&lt;mirrors&gt;</span>
+   <span class="c">&lt;!--给定仓库的下载镜像。 --&gt;</span>
+   <span class="nt">&lt;mirror&gt;</span>
+
+   <span class="c">&lt;!--该镜像的唯一标识符。id用来区分不同的mirror元素。 --&gt;</span>
+   <span class="nt">&lt;id&gt;</span>planetmirror.com<span class="nt">&lt;/id&gt;</span>
+
+   <span class="c">&lt;!--镜像名称 --&gt;</span>
+   <span class="nt">&lt;name&gt;</span>PlanetMirror Australia<span class="nt">&lt;/name&gt;</span>
+
+   <span class="c">&lt;!--该镜像的URL。构建系统会优先考虑使用该URL，而非使用默认的服务器URL。 --&gt;</span>
+   <span class="nt">&lt;url&gt;</span>http://downloads.planetmirror.com/pub/maven2<span class="nt">&lt;/url&gt;</span>
+
+   <span class="c">&lt;!--被镜像的服务器的id。例如，如果我们要设置了一个Maven中央仓库（http://repo.maven.apache.org/maven2/）的镜像，就需要将该元素设置成central。这必须和中央仓库的id central完全一致。--&gt;</span>
+   <span class="nt">&lt;mirrorOf&gt;</span>central<span class="nt">&lt;/mirrorOf&gt;</span>
+   <span class="nt">&lt;/mirror&gt;</span>
+<span class="nt">&lt;/mirrors&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="profiles">
+<h3>profiles<a class="headerlink" href="#profiles" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--根据环境参数来调整构建配置的列表。settings.xml中的profile元素是pom.xml中profile元素的裁剪版本。</span>
+<span class="c">它包含了id，activation, repositories, pluginRepositories和 properties元素。</span>
+<span class="c">这里的profile元素只包含这五个子元素是因为这里只关心构建系统这个整体（这正是settings.xml文件的角色定位），</span>
+<span class="c">而非单独的项目对象模型设置。如果一个settings中的profile被激活，</span>
+<span class="c">它的值会覆盖任何其它定义在POM中或者profile.xml中的带有相同id的profile。 --&gt;</span>
+
+<span class="nt">&lt;profiles&gt;</span>
+<span class="c">&lt;!--根据环境参数来调整的构件的配置--&gt;</span>
+   <span class="nt">&lt;profile&gt;</span>
+   <span class="c">&lt;!--该配置的唯一标识符。 --&gt;</span>
+   <span class="nt">&lt;id&gt;</span>test<span class="nt">&lt;/id&gt;</span>
+   ...
+   <span class="nt">&lt;profile&gt;</span>
+<span class="nt">&lt;profiles&gt;</span>
+</pre></div>
+</div>
+<section id="activation">
+<h4>Activation<a class="headerlink" href="#activation" title="永久链接至标题"></a></h4>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--自动触发profile的条件逻辑。Activation是profile的开启钥匙。如POM中的profile一样，profile的力量来自于它能够在某些特定的环境中自动使用某些特定的值；这些环境通过activation元素指定。activation元素并不是激活profile的唯一方式。settings.xml文件中的activeProfile元素可以包含profile的id。profile也可以通过在命令行，使用-P标记和逗号分隔的列表来显式的激活（如，-P test）。--&gt;</span>
+<span class="nt">&lt;activation&gt;</span>
+
+   <span class="c">&lt;!--profile默认是否激活的标识--&gt;</span>
+   <span class="nt">&lt;activeByDefault&gt;</span>false<span class="nt">&lt;/activeByDefault&gt;</span>
+
+   <span class="c">&lt;!--当匹配的jdk被检测到，profile被激活。例如，1.4激活JDK1.4，1.4.0_2，而!1.4激活所有版本不是以1.4开头的JDK。--&gt;</span>
+   <span class="nt">&lt;jdk&gt;</span>1.5<span class="nt">&lt;/jdk&gt;</span>
+
+   <span class="c">&lt;!--当匹配的操作系统属性被检测到，profile被激活。os元素可以定义一些操作系统相关的属性。--&gt;</span>
+   <span class="nt">&lt;os&gt;</span>
+      <span class="c">&lt;!--激活profile的操作系统的名字 --&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Windows XP<span class="nt">&lt;/name&gt;</span>
+
+      <span class="c">&lt;!--激活profile的操作系统所属家族(如 &#39;windows&#39;)  --&gt;</span>
+      <span class="nt">&lt;family&gt;</span>Windows<span class="nt">&lt;/family&gt;</span>
+
+      <span class="c">&lt;!--激活profile的操作系统体系结构  --&gt;</span>
+      <span class="nt">&lt;arch&gt;</span>x86<span class="nt">&lt;/arch&gt;</span>
+
+      <span class="c">&lt;!--激活profile的操作系统版本--&gt;</span>
+      <span class="nt">&lt;version&gt;</span>5.1.2600<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/os&gt;</span>
+
+   <span class="c">&lt;!--如果Maven检测到某一个属性（其值可以在POM中通过${name}引用），其拥有对应的name = 值，Profile就会被激活。如果值字段是空的，那么存在属性名称字段就会激活profile，否则按区分大小写方式匹配属性值字段--&gt;</span>
+   <span class="nt">&lt;property&gt;</span>
+      <span class="c">&lt;!--激活profile的属性的名称--&gt;</span>
+      <span class="nt">&lt;name&gt;</span>mavenVersion<span class="nt">&lt;/name&gt;</span>
+
+      <span class="c">&lt;!--激活profile的属性的值 --&gt;</span>
+      <span class="nt">&lt;value&gt;</span>2.0.3<span class="nt">&lt;/value&gt;</span>
+   <span class="nt">&lt;/property&gt;</span>
+
+   <span class="c">&lt;!--提供一个文件名，通过检测该文件的存在或不存在来激活profile。missing检查文件是否存在，如果不存在则激活profile。另一方面，exists则会检查文件是否存在，如果存在则激活profile。--&gt;</span>
+   <span class="nt">&lt;file&gt;</span>
+      <span class="c">&lt;!--如果指定的文件存在，则激活profile。 --&gt;</span>
+      <span class="nt">&lt;exists&gt;</span>${basedir}/file2.properties<span class="nt">&lt;/exists&gt;</span>
+
+      <span class="c">&lt;!--如果指定的文件不存在，则激活profile。--&gt;</span>
+      <span class="nt">&lt;missing&gt;</span>${basedir}/file1.properties<span class="nt">&lt;/missing&gt;</span>
+   <span class="nt">&lt;/file&gt;</span>
+<span class="nt">&lt;/activation&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="repositories">
+<h4>Repositories<a class="headerlink" href="#repositories" title="永久链接至标题"></a></h4>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--远程仓库列表，它是Maven用来填充构建系统本地仓库所使用的一组远程项目。 --&gt;</span>
+<span class="nt">&lt;repositories&gt;</span>
+   <span class="c">&lt;!--包含需要连接到远程仓库的信息 --&gt;</span>
+   <span class="nt">&lt;repository&gt;</span>
+
+   <span class="c">&lt;!--远程仓库唯一标识--&gt;</span>
+   <span class="nt">&lt;id&gt;</span>codehausSnapshots<span class="nt">&lt;/id&gt;</span>
+
+   <span class="c">&lt;!--远程仓库名称 --&gt;</span>
+   <span class="nt">&lt;name&gt;</span>Codehaus Snapshots<span class="nt">&lt;/name&gt;</span>
+
+   <span class="c">&lt;!--如何处理远程仓库里发布版本的下载--&gt;</span>
+   <span class="nt">&lt;releases&gt;</span>
+      <span class="c">&lt;!--true或者false表示该仓库是否为下载某种类型构件（发布版，快照版）开启。  --&gt;</span>
+      <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+      <span class="c">&lt;!--该元素指定更新发生的频率。Maven会比较本地POM和远程POM的时间戳。这里的选项是：always（一直），daily（默认，每日），interval：X（这里X是以分钟为单位的时间间隔），或者never（从不）。 --&gt;</span>
+      <span class="nt">&lt;updatePolicy&gt;</span>always<span class="nt">&lt;/updatePolicy&gt;</span>
+      <span class="c">&lt;!--当Maven验证构件校验文件失败时该怎么做-ignore（忽略），fail（失败），或者warn（警告）。--&gt;</span>
+      <span class="nt">&lt;checksumPolicy&gt;</span>warn<span class="nt">&lt;/checksumPolicy&gt;</span>
+   <span class="nt">&lt;/releases&gt;</span>
+
+   <span class="c">&lt;!--如何处理远程仓库里快照版本的下载。有了releases和snapshots这两组配置，POM就可以在每个单独的仓库中，为每种类型的构件采取不同的策略。例如，可能有人会决定只为开发目的开启对快照版本下载的支持。参见repositories/repository/releases元素--&gt;</span>
+   <span class="nt">&lt;snapshots&gt;</span>
+      <span class="nt">&lt;enabled/&gt;&lt;updatePolicy/&gt;&lt;checksumPolicy/&gt;</span>
+   <span class="nt">&lt;/snapshots&gt;</span>
+
+   <span class="c">&lt;!--远程仓库URL，按protocol://hostname/path形式 --&gt;</span>
+   <span class="nt">&lt;url&gt;</span>http://snapshots.maven.codehaus.org/maven2<span class="nt">&lt;/url&gt;</span>
+
+   <span class="c">&lt;!--用于定位和排序构件的仓库布局类型-可以是default（默认）或者legacy（遗留）。Maven 2为其仓库提供了一个默认的布局；然而，Maven 1.x有一种不同的布局。我们可以使用该元素指定布局是default（默认）还是legacy（遗留）。 --&gt;</span>
+   <span class="nt">&lt;layout&gt;</span>default<span class="nt">&lt;/layout&gt;</span>
+   <span class="nt">&lt;/repository&gt;</span>
+<span class="nt">&lt;/repositories&gt;</span>
+
+<span class="c">&lt;!--发现插件的远程仓库列表。仓库是两种主要构件的家。第一种构件被用作其它构件的依赖。这是中央仓库中存储的大部分构件类型。另外一种构件类型是插件。Maven插件是一种特殊类型的构件。由于这个原因，插件仓库独立于其它仓库。pluginRepositories元素的结构和repositories元素的结构类似。每个pluginRepository元素指定一个Maven可以用来寻找新插件的远程地址。--&gt;</span>
+<span class="nt">&lt;pluginRepositories&gt;</span>
+   <span class="c">&lt;!--包含需要连接到远程插件仓库的信息.参见profiles/profile/repositories/repository元素的说明--&gt;</span>
+   <span class="nt">&lt;pluginRepository&gt;</span>
+   <span class="nt">&lt;releases&gt;</span>
+      <span class="nt">&lt;enabled/&gt;&lt;updatePolicy/&gt;&lt;checksumPolicy/&gt;</span>
+   <span class="nt">&lt;/releases&gt;</span>
+   <span class="nt">&lt;snapshots&gt;</span>
+      <span class="nt">&lt;enabled/&gt;&lt;updatePolicy/&gt;&lt;checksumPolicy/&gt;</span>
+   <span class="nt">&lt;/snapshots&gt;</span>
+   <span class="nt">&lt;id/&gt;&lt;name/&gt;&lt;url/&gt;&lt;layout/&gt;</span>
+   <span class="nt">&lt;/pluginRepository&gt;</span>
+<span class="nt">&lt;/pluginRepositories&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="advanced/maven.html" class="btn btn-neutral float-left" title="12. Maven" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

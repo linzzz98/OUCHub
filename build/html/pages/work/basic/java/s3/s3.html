@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>String,StringBuffer,StringBuilder的区别 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍑 Algorithm" href="../../../mysql/mysql.html" />
+    <link rel="prev" title="🍑 Algorithm" href="../java.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../basic.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../java.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">String,StringBuffer,StringBuilder的区别</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#stringbuffer-stringbuilder">StringBuffer 和 StringBuilder 类</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id2">区别</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">格式化</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id4">整数</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id5">浮点数</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#concat">concat() 方法和 + 号的区别:</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#string">String 类的常见面试问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ssm/ssm.html">SSM</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../basic.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../java.html">🍑 Algorithm</a> &raquo;</li>
+      <li>String,StringBuffer,StringBuilder的区别</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/work/basic/java/s3/s3.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="string-stringbuffer-stringbuilder">
+<h1>String,StringBuffer,StringBuilder的区别<a class="headerlink" href="#string-stringbuffer-stringbuilder" title="永久链接至标题"></a></h1>
+<p>👉 <a class="reference external" href="https://zhuanlan.zhihu.com/p/77614811">原文链接</a></p>
+<p>在JAVA中字符串的表示有三种方式 String StringBuilder StringBuffer .</p>
+<p>关于String 需要注意两点：</p>
+<ol class="arabic simple">
+<li><p>String是不可变的字符串，它的底层是一个用final修饰的字符数组</p></li>
+<li><p>String 对象赋值之后就会在字符串常量池中缓存，如果下次创建会判定常量池是否已经有缓存对象，如果有的话直接返回该引用给创建者。</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>String 创建的字符串存储在公共池中，而 new 创建的字符串对象在堆上：</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/160.jpg" src="../../../../../_images/160.jpg" />
+</figure>
+<p>注意:String 类是不可改变的，所以你一旦创建了 String 对象，那它的值就无法改变了</p>
+<p>字符串实际上就是一个 char 数组，并且内部就是封装了一个 char 数组。</p>
+<p>并且这里 char 数组是被 final 修饰的:</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">String</span>
+    <span class="kd">implements</span> <span class="n">java</span><span class="p">.</span><span class="na">io</span><span class="p">.</span><span class="na">Serializable</span><span class="p">,</span> <span class="n">Comparable</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">CharSequence</span> <span class="p">{</span>
+    <span class="cm">/** The value is used for character storage. */</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">value</span><span class="o">[]</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>String 中的所有的方法，都是对于 char 数组的改变，只要是对它的改变，方法内部都是返回一个新的 String 实例。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&quot;Google&quot;</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;s = &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">&quot;Runoob&quot;</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;s = &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="p">);</span>
+
+<span class="c1">// 输出结果为：</span>
+<span class="c1">// Google</span>
+<span class="c1">// Runoob</span>
+</pre></div>
+</div>
+<p>从结果上看是改变了，但为什么说 String 对象是不可变的呢？</p>
+<p>原因在于实例中的 s 只是一个 String 对象的引用，并不是对象本身，当执行 s = “Runoob”; 创建了一个新的对象 “Runoob”，而原来的 “Google” 还存在于内存中。</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/425.jpg" src="../../../../../_images/425.jpg" />
+</figure>
+</div>
+<section id="stringbuffer-stringbuilder">
+<h2>StringBuffer 和 StringBuilder 类<a class="headerlink" href="#stringbuffer-stringbuilder" title="永久链接至标题"></a></h2>
+<p>当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。</p>
+<p>和 String 类不同的是，StringBuffer 和 StringBuilder 类的对象能够被多次的修改，并且不产生新的未使用对象。</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/243.jpg" src="../../../../../_images/243.jpg" />
+</figure>
+</section>
+<section id="id2">
+<h2>区别<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p><strong>String：</strong></p>
+<blockquote>
+<div><p>字符串常量，字符串长度不可变。Java中String 是immutable（不可变）的。用于存放字符的数组被声明为final的，因此只能赋值一次，不可再更改。</p>
+</div></blockquote>
+<p><strong>StringBuffer：</strong></p>
+<blockquote>
+<div><p>字符串变量（Synchronized，即线程安全）。如果要频繁对字符串内容进行修改，出于效率考虑最好使用 StringBuffer，如果想转成 String 类型，可以调用 StringBuffer 的 toString() 方法。Java.lang.StringBuffer 线程安全的可变字符序列。在任意时间点上它都包含某种特定的字符序列，但通过某些方法调用可以改变该序列的长度和内容。可将字符串缓冲区安全地用于多个线程。</p>
+</div></blockquote>
+<p><strong>StringBuilder：</strong></p>
+<blockquote>
+<div><p>字符串变量（非线程安全）。在内部 StringBuilder 对象被当作是一个包含字符序列的变长数组。</p>
+</div></blockquote>
+<p>基本原则：</p>
+<ul class="simple">
+<li><p>如果要操作少量的数据用 String ；</p></li>
+<li><p>单线程操作大量数据用StringBuilder ；</p></li>
+<li><p>多线程操作大量数据，用StringBuffer。</p></li>
+</ul>
+<p>在使用 StringBuffer 类时，每次都会对 StringBuffer 对象本身进行操作，而不是生成新的对象，所以如果需要对字符串进行修改推荐使用 StringBuffer。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>StringBuilder 类在 Java 5 中被提出，它和 StringBuffer 之间的最大不同在于 StringBuilder 的方法不是线程安全的（不能同步访问）。</p>
+<p>由于 StringBuilder 相较于 StringBuffer 有速度优势，所以多数情况下建议使用 StringBuilder 类。</p>
+</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/331.jpg" src="../../../../../_images/331.jpg" />
+</figure>
+</section>
+<section id="id3">
+<h2>格式化<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h3>整数<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">%[index$][标识][最小宽度]转换方式</span></code></p>
+<p>格式化字符串由4部分组成，特殊的格式常以%index$开头，index从1开始取值，表示将第index个参数拿进来进行格式化，[最小宽度]的含义也很好理解，就是最终该整数转化的字符串最少包含多少位数字。剩下2个部分的含义：</p>
+<p>标识：</p>
+<ul class="simple">
+<li><p>‘-’ 在最小宽度内左对齐，不可以与”用0填充”同时使用</p></li>
+<li><p>‘#’ 只适用于8进制和16进制，8进制时在结果前面增加一个0，16进制时在结果前面增加0x</p></li>
+<li><p>‘+’ 结果总是包括一个符号(一般情况下只适用于10进制，若对象为BigInteger才可以用于8进制和16进制)</p></li>
+<li><p>‘ ‘ 正值前加空格，负值前加负号(一般情况下只适用于10进制，若对象为BigInteger才可以用于8进制和16进制)</p></li>
+<li><p>‘0’ 结果将用零来填充</p></li>
+<li><p>‘,’ 只适用于10进制，每3位数字之间用”，”分隔</p></li>
+<li><p>‘(’ 若参数是负数，则结果中不添加负号而是用圆括号把数字括起来(同’+’具有同样的限制)</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;%1$,09d&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">3123</span><span class="p">));</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;%1$9d&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">31</span><span class="p">));</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;%1$-9d&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">31</span><span class="p">));</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;%1$(9d&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">31</span><span class="p">));</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">format</span><span class="p">(</span><span class="s">&quot;%1$#9x&quot;</span><span class="p">,</span> <span class="mi">5689</span><span class="p">));</span>
+<span class="c1">//结果为：</span>
+<span class="c1">//-0003,123</span>
+<span class="c1">// -31</span>
+<span class="c1">//-31</span>
+<span class="c1">// (31)</span>
+<span class="c1">// 0x1639</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>浮点数<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">%[index$][标识][最少宽度][.精度]转换方式</span></code></p>
+<p>标识：</p>
+<ul class="simple">
+<li><p>‘-’ 在最小宽度内左对齐，不可以与”用0填充”同时使用</p></li>
+<li><p>‘+’ 结果总是包括一个符号</p></li>
+<li><p>‘ ‘ 正值前加空格，负值前加负号</p></li>
+<li><p>‘0’ 结果将用零来填充</p></li>
+<li><p>‘,’ 每3位数字之间用”，”分隔(只适用于fgG的转换)</p></li>
+<li><p>‘(’ 若参数是负数，则结果中不添加负号而是用圆括号把数字括起来(只适用于eEfgG的转换)</p></li>
+</ul>
+<p>转换方式：</p>
+<ul class="simple">
+<li><p>‘e’, ‘E’ – 结果被格式化为用计算机科学记数法表示的十进制数</p></li>
+<li><p>‘f’ – 结果被格式化为十进制普通表示方式</p></li>
+<li><p>‘g’, ‘G’ – 根据具体情况，自动选择用普通表示方式还是科学计数法方式</p></li>
+<li><p>‘a’, ‘A’ – 结果被格式化为带有效位数和指数的十六进制浮点数</p></li>
+</ul>
+</section>
+</section>
+<section id="concat">
+<h2>concat() 方法和 + 号的区别:<a class="headerlink" href="#concat" title="永久链接至标题"></a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span><span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">){</span>
+        <span class="n">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="s">&quot;a&quot;</span><span class="p">.</span><span class="na">concat</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">).</span><span class="na">concat</span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="p">);</span>
+        <span class="n">String</span> <span class="n">str2</span> <span class="o">=</span> <span class="s">&quot;a&quot;</span><span class="o">+</span><span class="s">&quot;b&quot;</span><span class="o">+</span><span class="s">&quot;c&quot;</span><span class="p">;</span>
+        <span class="n">String</span> <span class="n">str3</span> <span class="o">=</span> <span class="s">&quot;abc&quot;</span><span class="p">;</span>
+        <span class="n">String</span> <span class="n">str4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str1</span> <span class="o">==</span> <span class="n">str2</span><span class="p">);</span> <span class="c1">//运行结果为false</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str1</span> <span class="o">==</span> <span class="n">str3</span><span class="p">);</span> <span class="c1">//运行结果为false</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str2</span> <span class="o">==</span> <span class="n">str3</span><span class="p">);</span> <span class="c1">//运行结果为ture</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str2</span> <span class="o">==</span> <span class="n">str4</span><span class="p">);</span> <span class="c1">//运行结果为false</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">str1</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">str4</span><span class="p">));</span> <span class="c1">//运行结果为true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>解析：</p>
+<blockquote>
+<div><p>首先关于 new 出来的对象和 String s = “字符串” 的 == 执行结果为 false 就不多赘述了，因为 == 比较的是两个对象的地址值，equals() 比较的是字面值。</p>
+<p>那么 concat 方法和 + 号的区别在这里有体现了，查看concat方法的源码可以看到，它是通过复制数组在通过 char 数组进行拼接生成一个新的对象，所以地址值会有变动，而 + 号不会。</p>
+</div></blockquote>
+</div>
+</section>
+<section id="string">
+<h2>String 类的常见面试问题<a class="headerlink" href="#string" title="永久链接至标题"></a></h2>
+<p>面试题一：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;abc&quot;</span><span class="p">;</span>            <span class="c1">// 常量池</span>
+<span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="p">(</span><span class="s">&quot;abc&quot;</span><span class="p">);</span>     <span class="c1">// 堆内存中</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s1</span><span class="o">==</span><span class="n">s2</span><span class="p">);</span>        <span class="c1">// false两个对象的地址值不一样。</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">s2</span><span class="p">));</span> <span class="c1">// true</span>
+</pre></div>
+</div>
+<p>面试题二：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s1</span><span class="o">=</span><span class="s">&quot;a&quot;</span><span class="o">+</span><span class="s">&quot;b&quot;</span><span class="o">+</span><span class="s">&quot;c&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">s2</span><span class="o">=</span><span class="s">&quot;abc&quot;</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s1</span><span class="o">==</span><span class="n">s2</span><span class="p">);</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">s2</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>java 中常量优化机制，编译时 s1 已经成为 abc 在常量池中查找创建，s2 不需要再创建。</p>
+<p>面试题三：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s1</span><span class="o">=</span><span class="s">&quot;ab&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">s2</span><span class="o">=</span><span class="s">&quot;abc&quot;</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">s3</span><span class="o">=</span><span class="n">s1</span><span class="o">+</span><span class="s">&quot;c&quot;</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s3</span><span class="o">==</span><span class="n">s2</span><span class="p">);</span>         <span class="c1">// false</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s3</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">s2</span><span class="p">));</span>  <span class="c1">// true</span>
+</pre></div>
+</div>
+<p>先在常量池中创建 ab ，地址指向 s1, 再创建 abc ，指向 s2。对于 s3，先创建StringBuilder（或 StringBuffer）对象，通过 append 连接得到 abc ,再调用 toString() 转换得到的地址指向 s3。故 (s3==s2) 为 false。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../java.html" class="btn btn-neutral float-left" title="🍑 Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../mysql/mysql.html" class="btn btn-neutral float-right" title="🍑 Algorithm" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

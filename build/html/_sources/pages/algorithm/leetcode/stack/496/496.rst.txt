@@ -1,0 +1,64 @@
+[496] 下一个更大元素I
+=======================
+
+.. figure:: q.jpg
+   :figclass: align-center
+
+
+Solution 1
+-----------------------
+
+哈希表 + 单调栈
+
+.. code-block:: java
+
+   public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for(int i = nums2.length - 1; i >= 0; --i){
+            int num = nums2[i];
+            while(!stack.isEmpty() && num >= stack.peek()){
+                stack.pop();
+            }
+            map.put(num, stack.isEmpty() ? -1 : stack.peek());
+            stack.push(num);
+        }
+        int[] res = new int[nums1.length];
+        for(int i = 0; i < nums1.length; i++){
+            res[i] = map.get(nums1[i]);
+        }
+        return res;
+   }
+
+.. note::
+
+   思想:
+
+      我们可以先预处理 nums2 ，使查询 nums1中的每个元素在 nums2中对应位置的右边的第一个更大的元素值时不需要再遍历 nums2。
+
+      于是，题目分解为两个子问题：
+
+         第 1 个子问题：如何更高效地计算 nums2中每个元素右边的第一个更大的值；
+
+         第 2 个子问题：如何存储第 1 个子问题的结果。
+
+   算法:
+
+      可以使用单调栈来解决第 1 个子问题。倒序遍历 nums2，并用单调栈中维护当前位置右边的更大的元素列表，从栈底到栈顶的元素是单调递减的。
+
+      具体地，每次我们移动到数组中一个新的位置 i，就将当前单调栈中所有小于 nums2[i] 的元素弹出单调栈，当前位置右边的第一个更大的元素即为栈顶元素，如果栈为空则说明当前位置右边没有更大的元素。随后我们将位置 i 的元素入栈。
+
+      因为题目规定了 nums2是没有重复元素的，所以我们可以使用哈希表来解决第 2 个子问题，将元素值与其右边第一个更大的元素值的对应关系存入哈希表。
+
+   细节:
+
+      因为在这道题中我们只需要用到 nums2中元素的顺序而不需要用到下标，所以栈中直接存储 nums2中元素的值即可。
+
+.. important::
+
+   复杂度分析:
+
+      * 时间复杂度：O(m+n)，其中 m 是 nums1的长度，n 是 nums2的长度。我们需要遍历 nums2以计算 nums2中每个元素右边的第一个更大的值；需要遍历 nums1以生成查询结果。
+
+      * 空间复杂度：O(n)，用于存储哈希表。

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[496] 下一个更大元素I &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="[897] 递增顺序搜索树" href="../897/897.html" />
+    <link rel="prev" title="[234] 回文链表" href="../234/234.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../algorithm.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../al/al.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../leetcode.html">🍑 LeetCode</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../array/array.html">🍑 Array</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../stack.html">🍑 Stack</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../94/94.html">[94] 二叉树的中序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../101/101.html">[101] 对称二叉树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../144/144.html">[144] 二叉树的前序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../145/145.html">[145] 二叉树的后序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../234/234.html">[234] 回文链表</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">[496] 下一个更大元素I</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#solution-1">Solution 1</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../897/897.html">[897] 递增顺序搜索树</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../algorithm.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../../leetcode.html">🍑 LeetCode</a> &raquo;</li>
+          <li><a href="../stack.html">🍑 Stack</a> &raquo;</li>
+      <li>[496] 下一个更大元素I</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/algorithm/leetcode/stack/496/496.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="i">
+<h1>[496] 下一个更大元素I<a class="headerlink" href="#i" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/q3.jpg" src="../../../../../_images/q3.jpg" />
+</figure>
+<section id="solution-1">
+<h2>Solution 1<a class="headerlink" href="#solution-1" title="永久链接至标题"></a></h2>
+<p>哈希表 + 单调栈</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">nextGreaterElement</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums1</span><span class="p">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums2</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="p">,</span> <span class="n">Integer</span><span class="o">&gt;</span><span class="p">();</span>
+     <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">nums2</span><span class="p">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">){</span>
+         <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">nums2</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+         <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">num</span> <span class="o">&gt;=</span> <span class="n">stack</span><span class="p">.</span><span class="na">peek</span><span class="p">()){</span>
+             <span class="n">stack</span><span class="p">.</span><span class="na">pop</span><span class="p">();</span>
+         <span class="p">}</span>
+         <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">stack</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="p">:</span> <span class="n">stack</span><span class="p">.</span><span class="na">peek</span><span class="p">());</span>
+         <span class="n">stack</span><span class="p">.</span><span class="na">push</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">nums1</span><span class="p">.</span><span class="na">length</span><span class="o">]</span><span class="p">;</span>
+     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums1</span><span class="p">.</span><span class="na">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+         <span class="n">res</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">nums1</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>思想:</p>
+<blockquote>
+<div><p>我们可以先预处理 nums2 ，使查询 nums1中的每个元素在 nums2中对应位置的右边的第一个更大的元素值时不需要再遍历 nums2。</p>
+<p>于是，题目分解为两个子问题：</p>
+<blockquote>
+<div><p>第 1 个子问题：如何更高效地计算 nums2中每个元素右边的第一个更大的值；</p>
+<p>第 2 个子问题：如何存储第 1 个子问题的结果。</p>
+</div></blockquote>
+</div></blockquote>
+<p>算法:</p>
+<blockquote>
+<div><p>可以使用单调栈来解决第 1 个子问题。倒序遍历 nums2，并用单调栈中维护当前位置右边的更大的元素列表，从栈底到栈顶的元素是单调递减的。</p>
+<p>具体地，每次我们移动到数组中一个新的位置 i，就将当前单调栈中所有小于 nums2[i] 的元素弹出单调栈，当前位置右边的第一个更大的元素即为栈顶元素，如果栈为空则说明当前位置右边没有更大的元素。随后我们将位置 i 的元素入栈。</p>
+<p>因为题目规定了 nums2是没有重复元素的，所以我们可以使用哈希表来解决第 2 个子问题，将元素值与其右边第一个更大的元素值的对应关系存入哈希表。</p>
+</div></blockquote>
+<p>细节:</p>
+<blockquote>
+<div><p>因为在这道题中我们只需要用到 nums2中元素的顺序而不需要用到下标，所以栈中直接存储 nums2中元素的值即可。</p>
+</div></blockquote>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>时间复杂度：O(m+n)，其中 m 是 nums1的长度，n 是 nums2的长度。我们需要遍历 nums2以计算 nums2中每个元素右边的第一个更大的值；需要遍历 nums1以生成查询结果。</p></li>
+<li><p>空间复杂度：O(n)，用于存储哈希表。</p></li>
+</ul>
+</div></blockquote>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../234/234.html" class="btn btn-neutral float-left" title="[234] 回文链表" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../897/897.html" class="btn btn-neutral float-right" title="[897] 递增顺序搜索树" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

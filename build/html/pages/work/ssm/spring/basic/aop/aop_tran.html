@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9. AOP事务管理 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="10. AOP知识点" href="aop_knowledge.html" />
+    <link rel="prev" title="8. AOP" href="aop.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="aop.html">8. AOP</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">9. AOP事务管理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#spring">Spring事务简介</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">案例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">9. </span>AOP事务管理</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/aop/aop_tran.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="aop">
+<h1><span class="section-number">9. </span>AOP事务管理<a class="headerlink" href="#aop" title="永久链接至标题"></a></h1>
+<section id="spring">
+<h2>Spring事务简介<a class="headerlink" href="#spring" title="永久链接至标题"></a></h2>
+<p>Spring为了管理事务，提供了一个平台事务管理器 <code class="docutils literal notranslate"><span class="pre">PlatformTransactionManager</span></code></p>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/1113.jpg" src="../../../../../../_images/1113.jpg" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">commit</span></code> 是用来提交事务，<code class="docutils literal notranslate"><span class="pre">rollback</span></code> 是用来回滚事务。</p>
+<p>PlatformTransactionManager只是一个接口，Spring还为其提供了一个具体的实现:</p>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/1213.jpg" src="../../../../../../_images/1213.jpg" />
+</figure>
+<section id="id1">
+<h3>案例<a class="headerlink" href="#id1" title="永久链接至标题"></a></h3>
+<p>需求: 实现任意两个账户间转账操作</p>
+<p>需求微缩: A账户减钱，B账户加钱</p>
+<p>为了实现上述的业务需求，按照下面步骤来实现下:</p>
+<p>①：数据层提供基础操作，指定账户减钱（outMoney），指定账户加钱（inMoney）</p>
+<p>②：业务层提供转账操作（transfer），调用减钱与加钱的操作</p>
+<p>③：提供2个账号和操作金额执行转账操作</p>
+<p>④：基于Spring整合MyBatis环境搭建上述操作</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="aop.html" class="btn btn-neutral float-left" title="8. AOP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="aop_knowledge.html" class="btn btn-neutral float-right" title="10. AOP知识点" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

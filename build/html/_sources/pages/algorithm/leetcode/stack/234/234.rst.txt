@@ -1,0 +1,189 @@
+[234] 回文链表
+=================================
+
+.. figure:: q.jpg
+   :figclass: align-center
+
+Solution 1
+------------------------
+
+双指针法
+
+.. code-block:: java
+
+   class Solution2 {
+       public boolean isPalindrome(ListNode head) {
+           List<Integer> vals = new ArrayList<>();
+
+           while(head!=null){
+               vals.add(head.val);
+               head = head.next;
+           }
+
+           int front = 0, back = vals.size() - 1;
+
+           while(front < back){
+               if(!vals.get(front).equals(vals.get(back))){
+                   return false;
+               }
+               front++;
+               back--;
+           }
+           return true;
+       }
+   }
+
+.. note::
+
+   一共为两个步骤：
+
+      1. 复制链表值到数组列表中。
+
+      2. 使用双指针法判断是否为回文。
+
+.. important::
+
+   复杂度分析:
+
+      * 时间复杂度：O(n)，其中 n 指的是链表的元素个数。
+         * 第一步： 遍历链表并将值复制到数组中，O(n)。
+         * 第二步：双指针判断是否为回文，执行了 O(n/2) 次的判断，即 O(n)。
+         * 总的时间复杂度：O(2n)=O(n)。
+
+      * 空间复杂度：O(n)，其中 n 指的是链表的元素个数，我们使用了一个数组列表存放链表的元素值。
+
+
+Solution 2
+------------------------
+
+快慢指针法
+
+.. code-block:: java
+
+   class Solution {
+      public boolean isPalindrome(ListNode head) {
+         if(head == null) {
+            return true;
+         }
+
+         ListNode firstHalfEnd = endOfFirstHalf(head);
+         ListNode secondHalfStart = reverseList(firstHalfEnd.next);
+         boolean res = true;
+
+         ListNode p1 = head;
+         ListNode p2 = secondHalfStart;
+         while(res && p2 != null){
+            if(p1.val != p2.val){
+                res = false;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+
+        firstHalfEnd.next = reverseList(secondHalfStart);
+        return res;
+      }
+
+      // 翻转链表
+      ListNode reverseList(ListNode head){
+        ListNode prev = null;
+        ListNode curr = head;
+        while(curr != null){
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        return prev;
+      }
+
+      // 快慢指针找到链表的中点
+      ListNode endOfFirstHalf(ListNode head){
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+      }
+   }
+
+.. note::
+
+   * **避免使用 O(n) 额外空间的方法就是改变输入。**
+
+   ..
+
+   * 将链表的后半部分反转（修改链表结构），然后将前半部分和后半部分进行比较。(比较完成后我们应该将链表恢复原样。虽然不需要恢复也能通过测试用例，但是使用该函数的人通常不希望链表结构被更改。)
+
+   ..
+
+   * 该方法虽然可以将空间复杂度降到 O(1)，但是在并发环境下，该方法也有缺点。在并发环境下，函数运行时需要锁定其他线程或进程对链表的访问，因为在函数执行过程中链表会被修改。
+
+   ..
+
+   * 算法整个流程可以分为以下五个步骤：
+
+      1. 找到前半部分链表的尾节点。
+      2. 反转后半部分链表。
+      3. 判断是否回文。
+      4. 恢复链表。
+      5. 返回结果。
+
+.. important::
+
+   复杂度分析
+
+      * 时间复杂度：O(n)，其中 n 指的是链表的大小。
+      * 空间复杂度：O(1)。只会修改原本链表中节点的指向，而在堆栈上的堆栈帧不超过 O(1)。
+
+Solution 3
+------------------------
+
+递归
+
+.. code-block:: java
+
+   class Solution {
+       private ListNode frontPointer;
+
+       private boolean recursivelyCheck(ListNode currentNode) {
+           if (currentNode != null) {
+               if (!recursivelyCheck(currentNode.next)) {
+                   return false;
+               }
+               if (currentNode.val != frontPointer.val) {
+                   return false;
+               }
+               frontPointer = frontPointer.next;
+           }
+           return true;
+       }
+
+       public boolean isPalindrome(ListNode head) {
+           frontPointer = head;
+           return recursivelyCheck(head);
+       }
+   }
+
+
+.. note::
+
+   currentNode 指针是先到尾节点，由于递归的特性再从后往前进行比较。
+
+   frontPointer 是递归函数外的指针。
+
+   若 currentNode.val != frontPointer.val 则返回 false。反之，frontPointer 向前移动并返回 true。
+
+.. important::
+
+   复杂度分析:
+
+      * 时间复杂度：O(n)，其中 n 指的是链表的大小。
+
+      * 空间复杂度：O(n)，其中 n 指的是链表的大小。
+
+   .. tip::
+
+      我们要理解计算机如何运行递归函数，在一个函数中调用一个函数时，计算机需要在进入被调用函数之前跟踪它在当前函数中的位置（以及任何局部变量的值），通过运行时存放在堆栈中来实现（堆栈帧）。在堆栈中存放好了数据后就可以进入被调用的函数。在完成被调用函数之后，他会弹出堆栈顶部元素，以恢复在进行函数调用之前所在的函数。在进行回文检查之前，递归函数将在堆栈中创建 n 个堆栈帧，计算机会逐个弹出进行处理。所以在使用递归时空间复杂度要考虑堆栈的使用情况。

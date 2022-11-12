@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[257] 二叉树所有路径 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="[496] 下一个更大元素I" href="../496/496.html" />
+    <link rel="prev" title="[236] 二叉树的最近公共祖先" href="../236/236.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../algorithm.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../al/al.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../leetcode.html">🍑 LeetCode</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../array/array.html">🍑 Array</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../stack.html">🍑 Stack</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../94/94.html">[94] 二叉树的中序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../101/101.html">[101] 对称二叉树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../104/104.html">[104] 二叉树的最大深度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../144/144.html">[144] 二叉树的前序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../145/145.html">[145] 二叉树的后序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../226/226.html">[226] 翻转二叉树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../234/234.html">[234] 回文链表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../235/235.html">[235] 二叉搜索树的最近公共祖先</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../236/236.html">[236] 二叉树的最近公共祖先</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">[257] 二叉树所有路径</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#solution-1-dfs">Solution 1 (DFS)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#solution-2-bfs">Solution 2 (BFS)</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../496/496.html">[496] 下一个更大元素I</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../897/897.html">[897] 递增顺序搜索树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../1476/1476.html">[1476] 商品折扣后的最终价格</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../algorithm.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../../leetcode.html">🍑 LeetCode</a> &raquo;</li>
+          <li><a href="../stack.html">🍑 Stack</a> &raquo;</li>
+      <li>[257] 二叉树所有路径</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/algorithm/leetcode/stack/257/257.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>[257] 二叉树所有路径<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/q11.jpg" src="../../../../../_images/q11.jpg" />
+</figure>
+<section id="solution-1-dfs">
+<h2>Solution 1 (DFS)<a class="headerlink" href="#solution-1-dfs" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>思路与算法:</p>
+<p>最直观的方法是使用深度优先搜索。在深度优先搜索遍历二叉树时，我们需要考虑当前的节点以及它的孩子节点。</p>
+<ul class="simple">
+<li><p>如果当前节点不是叶子节点，则在当前的路径末尾添加该节点，并继续递归遍历该节点的每一个孩子节点。</p></li>
+<li><p>如果当前节点是叶子节点，则在当前路径末尾添加该节点后我们就得到了一条从根节点到叶子节点的路径，将该路径加入到答案即可。</p></li>
+<li><p>如此，当遍历完整棵二叉树以后我们就得到了所有从根节点到叶子节点的路径。当然，深度优先搜索也可以使用非递归的方式实现。</p></li>
+</ul>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">binaryTreePaths</span><span class="p">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">paths</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">paths</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">paths</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="p">,</span> <span class="n">String</span> <span class="n">path</span><span class="p">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">paths</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="n">StringBuffer</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+            <span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="p">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="p">){</span>
+                <span class="n">paths</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="n">buffer</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&quot;-&gt;&quot;</span><span class="p">);</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span> <span class="n">paths</span><span class="p">);</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span> <span class="n">paths</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析</p>
+<ul class="simple">
+<li><p>时间复杂度：O( <span class="math notranslate nohighlight">\(N^2\)</span> )，其中 N 表示节点数目。在深度优先搜索中每个节点会被访问一次且只会被访问一次，每一次会对 path 变量进行拷贝构造，时间代价为 O(N)，故时间复杂度为 O( <span class="math notranslate nohighlight">\(N^2\)</span> )。</p></li>
+<li><p>空间复杂度：O( <span class="math notranslate nohighlight">\(N^2\)</span> )，其中 N 表示节点数目。除答案数组外我们需要考虑递归调用的栈空间。在最坏情况下，当二叉树中每个节点只有一个孩子节点时，即整棵二叉树呈一个链状，此时递归的层数为 N，此时每一层的 path 变量的空间代价的总和为 O(<span class="math notranslate nohighlight">\(\sum_{i=1}^N i\)</span>)=O(<span class="math notranslate nohighlight">\(N^2\)</span>)，空间复杂度为 O(<span class="math notranslate nohighlight">\(N^2\)</span>)。最好情况下，当二叉树为平衡二叉树时，它的高度为 logN，此时空间复杂度为 <span class="math notranslate nohighlight">\(O((logN)^2)\)</span>。</p></li>
+</ul>
+</div>
+</section>
+<section id="solution-2-bfs">
+<h2>Solution 2 (BFS)<a class="headerlink" href="#solution-2-bfs" title="永久链接至标题"></a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">binaryTreePaths</span><span class="p">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">paths</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+        <span class="n">nodes</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="n">paths</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">Integer</span><span class="p">.</span><span class="na">toString</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">val</span><span class="p">));</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">nodes</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()){</span>
+            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+            <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">paths</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="p">){</span>
+                <span class="n">res</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+                    <span class="n">nodes</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">);</span>
+                    <span class="n">StringBuffer</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">(</span><span class="n">path</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="s">&quot;-&gt;&quot;</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">left</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+                    <span class="n">paths</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+                    <span class="n">nodes</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">);</span>
+                    <span class="n">StringBuffer</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="p">(</span><span class="n">path</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="s">&quot;-&gt;&quot;</span><span class="p">).</span><span class="na">append</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="na">right</span><span class="p">.</span><span class="na">val</span><span class="p">);</span>
+                    <span class="n">paths</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>复杂度分析:</p>
+<ul class="simple">
+<li><p>时间复杂度：O( <span class="math notranslate nohighlight">\(N^2\)</span> )，其中 N 表示节点数目。分析同方法一。</p></li>
+<li><p>空间复杂度：O( <span class="math notranslate nohighlight">\(N^2\)</span> )，其中 N 表示节点数目。在最坏情况下，队列中会存在 N 个节点，保存字符串的队列中每个节点的最大长度为 N，故空间复杂度为 O( <span class="math notranslate nohighlight">\(N^2\)</span> ).</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../236/236.html" class="btn btn-neutral float-left" title="[236] 二叉树的最近公共祖先" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../496/496.html" class="btn btn-neutral float-right" title="[496] 下一个更大元素I" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

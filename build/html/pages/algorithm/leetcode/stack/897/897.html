@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[897] 递增顺序搜索树 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍑 Work" href="../../../../work/work.html" />
+    <link rel="prev" title="[496] 下一个更大元素I" href="../496/496.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../algorithm.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../al/al.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../leetcode.html">🍑 LeetCode</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../array/array.html">🍑 Array</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../stack.html">🍑 Stack</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../94/94.html">[94] 二叉树的中序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../101/101.html">[101] 对称二叉树</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../144/144.html">[144] 二叉树的前序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../145/145.html">[145] 二叉树的后序遍历</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../234/234.html">[234] 回文链表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../496/496.html">[496] 下一个更大元素I</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">[897] 递增顺序搜索树</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#solution">Solution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../work/work.html">🍑 Work</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../algorithm.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../../leetcode.html">🍑 LeetCode</a> &raquo;</li>
+          <li><a href="../stack.html">🍑 Stack</a> &raquo;</li>
+      <li>[897] 递增顺序搜索树</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/algorithm/leetcode/stack/897/897.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>[897] 递增顺序搜索树<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/q2.jpg" src="../../../../../_images/q2.jpg" />
+</figure>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="永久链接至标题"></a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">increasingBST</span><span class="p">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="n">inOrder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">TreeNode</span> <span class="nf">inOrder</span><span class="p">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span> <span class="n">tail</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">tail</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">TreeNode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">inOrder</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">root</span><span class="p">);</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="n">root</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">inOrder</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">tail</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>先把整个二叉树的左子树全部遍历一遍(中序遍历的特点)，当前节点就自动变成了尾节点。</p>
+<p>并且遍历到最底部的左子树，那点就是head起点。</p>
+<p>这里只做获取head，不做拼接！！！</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">TreeNode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">inOrder</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">left</span><span class="p">,</span> <span class="n">root</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>处理完左子树，就开始处理当前节点。根据题目的要求，那当前节点的左子树就设置为空</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="p">.</span><span class="na">left</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>这里面开始做链表的拼接，设置当前右子树的节点，并开始遍历右子树。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="p">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">inOrder</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">right</span><span class="p">,</span> <span class="n">tail</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>另一种解释：</p>
+<p>整个算法流程就是，先将根结点的左子树翻转，将左孩子置为空，再将根结点的右子树翻转，返回左子树的头结点，结束。</p>
+<p>函数inOrder(TreeNode* root,TreeNode* res)用于将以root为根结点的二叉树翻转为右子树单链。并返回单链的头结点，且将单链的尾结点指向res。</p>
+<p>有两个细节需要注意:</p>
+<p>一是搜索左子树时parent的传参是root，因为左子树翻转后，尾结点会指向root（见图右侧箭头）。</p>
+<p>二是搜索右子树时parent的传参还是parent，因为右子树翻转后，尾结点会指向root的parent（见图左侧箭头）。</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/162.jpg" src="../../../../../_images/162.jpg" />
+</figure>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../496/496.html" class="btn btn-neutral float-left" title="[496] 下一个更大元素I" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../../work/work.html" class="btn btn-neutral float-right" title="🍑 Work" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

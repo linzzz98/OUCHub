@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12. Maven &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="13. POM文件" href="../pom_helper.html" />
+    <link rel="prev" title="11. BASIC" href="../basic/maven.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../spring/frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../spring/basic/aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">12. Maven</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">分模块开发</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id2">建立依赖关系</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">将项目安装本地仓库</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">总结</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">依赖管理</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id6">依赖传递</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id7">特殊优先</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id8">路径优先</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id9">声明优先</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pom_helper.html">13. POM文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">12. </span>Maven</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/work/ssm/maven/advanced/maven.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="maven">
+<h1><span class="section-number">12. </span>Maven<a class="headerlink" href="#maven" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>分模块开发<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>将原始模块按照功能拆分成若干个子模块，方便模块间的相互调用，接口共享。</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/153.jpg" src="../../../../../_images/153.jpg" />
+</figure>
+<section id="id2">
+<h3>建立依赖关系<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.linzzz<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>maven_03_pojo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>将项目安装本地仓库<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>将需要被依赖的项目 <strong>maven_03_pojo</strong> ，使用maven的install命令，把其安装到Maven的本地仓库中。</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/236.jpg" src="../../../../../_images/236.jpg" />
+</figure>
+<p>安装成功后，在对应的路径下就看到安装好的jar包</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/324.jpg" src="../../../../../_images/324.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>说明:</strong> 具体安装在哪里，和电脑上Maven的本地仓库配置的位置有关。</p>
+</div>
+</section>
+<section id="id4">
+<h3>总结<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>对于项目的拆分，大致会有如下几个步骤:</p>
+<ol class="arabic simple">
+<li><p>创建Maven模块</p></li>
+<li><p>书写模块代码</p></li>
+</ol>
+<blockquote>
+<div><p>分模块开发需要先针对模块功能进行设计，再进行编码。不会先将工程开发完毕，然后进行拆分。拆分方式可以按照功能拆也可以按照模块拆。</p>
+</div></blockquote>
+<p>(3)通过maven指令安装模块到本地仓库(install 指令)</p>
+</section>
+</section>
+<section id="id5">
+<h2>依赖管理<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;dependency&gt;</span></code> 被称为依赖，依赖管理里面涉及以下内容:</p>
+<ul class="simple">
+<li><p>依赖传递</p></li>
+<li><p>可选依赖</p></li>
+<li><p>排除依赖</p></li>
+</ul>
+<p>依赖指当前项目运行所需的jar，一个项目可以设置多个依赖。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--设置当前项目所依赖的所有jar--&gt;</span>
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!--设置具体的依赖--&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="c">&lt;!--依赖所属群组id--&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+        <span class="c">&lt;!--依赖所属项目id--&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-webmvc<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="c">&lt;!--依赖版本号--&gt;</span>
+        <span class="nt">&lt;version&gt;</span>5.2.10.RELEASE<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><strong>依赖传递与冲突问题</strong></p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/421.jpg" src="../../../../../_images/421.jpg" />
+</figure>
+<p>在项目所依赖的这些jar包中，有一个比较大的区别就是**有的依赖前面有箭头&gt;,有的依赖前面没有。**</p>
+<p>打开前面的箭头，发现这个jar包下面还包含有其他的jar包</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/518.jpg" src="../../../../../_images/518.jpg" />
+</figure>
+<section id="id6">
+<h3>依赖传递<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/613.jpg" src="../../../../../_images/613.jpg" />
+</figure>
+<p><strong>说明:</strong></p>
+<blockquote>
+<div><p>A代表自己的项目；B,C,D,E,F,G代表的是项目所依赖的jar包；D1和D2 E1和E2代表是相同jar包的不同版本</p>
+<ol class="arabic simple">
+<li><p>A依赖了B和C,B和C有分别依赖了其他jar包，所以在A项目中就可以使用上面所有jar包，这就是所说的依赖传递</p></li>
+<li><p>依赖传递有直接依赖和间接依赖</p></li>
+</ol>
+<ul class="simple">
+<li><p>相对于A来说，A直接依赖B和C,间接依赖了D1,E1,G，F,D2和E2</p></li>
+<li><p>相对于B来说，B直接依赖了D1和E1,间接依赖了G</p></li>
+<li><p>直接依赖和间接依赖是一个相对的概念</p></li>
+</ul>
+<p>(3)因为有依赖传递的存在，就会导致jar包在依赖的过程中出现冲突问题</p>
+</div></blockquote>
+<section id="id7">
+<h4>特殊优先<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<p>添加两个不同版本的Junit依赖:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.12<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>junit<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>junit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.11<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div>
+<p><strong>特殊优先：当同级配置了相同资源的不同版本，后配置的覆盖先配置的。</strong></p>
+</section>
+<section id="id8">
+<h4>路径优先<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<p>当依赖中出现相同的资源时，层级越深，优先级越低，层级越浅，优先级越高</p>
+<ul class="simple">
+<li><p>A通过B间接依赖到E1</p></li>
+<li><p>A通过C间接依赖到E2</p></li>
+<li><p>A就会间接依赖到E1和E2,Maven会按照层级来选择，E1是2度，E2是3度，所以最终会选择E1</p></li>
+</ul>
+</section>
+<section id="id9">
+<h4>声明优先<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<p>当资源在相同层级被依赖时，配置顺序靠前的覆盖配置顺序靠后的</p>
+<ul class="simple">
+<li><p>A通过B间接依赖到D1</p></li>
+<li><p>A通过C间接依赖到D2</p></li>
+<li><p>D1和D2都是两度，这个时候就不能按照层级来选择，需要按照声明来，谁先声明用谁，也就是说B在C之前声明，这个时候使用的是D1，反之则为D2</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../basic/maven.html" class="btn btn-neutral float-left" title="11. BASIC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../pom_helper.html" class="btn btn-neutral float-right" title="13. POM文件" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

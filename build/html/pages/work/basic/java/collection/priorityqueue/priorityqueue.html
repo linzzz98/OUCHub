@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PriorityQueue &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="并发" href="../../thread/thread.html" />
+    <link rel="prev" title="HashMap" href="../hashmap/hashmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../network/network.html">计算机网络</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../basic.html">基础</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../java.html">JAVA</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../../s3/s3.html">String,StringBuffer,StringBuilder的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hashmap/hashmap.html">HashMap</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PriorityQueue</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">构造方法</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id2">常用方法总结</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">堆结构调整</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#topk">应用(topK问题)</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">总结</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/thread.html">并发</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/sleepvswait.html">Sleep 和 Wait 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/lockvssyn.html">Lock 和 Synchronized 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../thread/threadlocal.html">ThreadLocal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hashtable/hashtable.html">HashTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../lock/lock.html">悲观锁与乐观锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../design/instance/instance.html">单例模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../volatile/volatile.html">Volatile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../vm/vm.html">JAVA虚拟机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exp/exp.html">JAVA面经</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">MYSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../ssm/ssm.html">SSM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../xc/xc.html">行测</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../basic.html">基础</a> &raquo;</li>
+          <li><a href="../../java.html">JAVA</a> &raquo;</li>
+      <li>PriorityQueue</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/basic/java/collection/priorityqueue/priorityqueue.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="priorityqueue">
+<h1>PriorityQueue<a class="headerlink" href="#priorityqueue" title="永久链接至标题"></a></h1>
+<p>Java PriorityQueue 实现了 Queue 接口，不允许放入 null 元素；其通过堆实现，具体说是</p>
+<p>通过完全二叉树（complete binary tree）实现的小顶堆（任意一个非叶子节点的权值，都不</p>
+<p>大于其左右子节点的权值），也就意味着可以通过数组来作为PriorityQueue 的底层实现，</p>
+<p>数组初始大小为11；也可以用一棵完全二叉树表示。</p>
+<p><strong>优先队列的作用是能保证每次取出的元素都是队列中权值最小的</strong></p>
+<section id="id1">
+<h2>构造方法<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// JDK下的优先级队列是基于最小堆实现的</span>
+<span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">queue1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+<span class="c1">// 元素操作</span>
+<span class="n">queue1</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 入队</span>
+<span class="n">queue1</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span> <span class="c1">// 出队</span>
+<span class="n">queue1</span><span class="p">.</span><span class="na">peek</span><span class="p">();</span> <span class="c1">// 返回队首元素(最小值)</span>
+
+<span class="c1">// 改造：如果想使用基于最大堆的优先级队列可以这样改</span>
+<span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">queue2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="n">Integer</span> <span class="n">o1</span><span class="p">,</span> <span class="n">Integer</span> <span class="n">o2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">o2</span> <span class="o">-</span> <span class="n">o1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 改造2：对于类型为自定义类的优先级队列可以这样改</span>
+<span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span> <span class="n">queue3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+        <span class="n">lists</span><span class="p">.</span><span class="na">length</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">-&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="na">val</span> <span class="o">-</span> <span class="n">b</span><span class="p">.</span><span class="na">val</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>常用方法总结<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>public boolean add(E e); //在队尾插入元素，插入失败时抛出异常，并调整堆结构</p>
+<p>public boolean offer(E e); //在队尾插入元素，插入失败时抛出false，并调整堆结构</p>
+<p>public E remove(); //获取队头元素并删除，并返回，失败时前者抛出异常，再调整堆结构</p>
+<p>public E poll(); //获取队头元素并删除，并返回，失败时前者抛出null，再调整堆结构</p>
+<p>public E element(); //返回队头元素（不删除），失败时前者抛出异常</p>
+<p>public E peek()；//返回队头元素（不删除），失败时前者抛出null</p>
+<p>public boolean isEmpty(); //判断队列是否为空</p>
+<p>public int size(); //获取队列中元素个数</p>
+<p>public void clear(); //清空队列</p>
+<p>public boolean contains(Object o); //判断队列中是否包含指定元素（从队头到队尾遍历）</p>
+<p>public Iterator&lt;E&gt; iterator(); //迭代器</p>
+</section>
+<section id="id3">
+<h2>堆结构调整<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>每次插入或删除元素后，都对队列进行调整，使得队列始终构成最小堆（或最大堆）。</p>
+<p>具体调整如下：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>插入元素后，从堆底到堆顶调整堆；</p></li>
+<li><p>删除元素后，将队尾元素复制到队头，并从堆顶到堆底调整堆。</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="topk">
+<h2>应用(topK问题)<a class="headerlink" href="#topk" title="永久链接至标题"></a></h2>
+<p><strong>topK问题是指：从海量数据中寻找最大的前k个数据，比如从1亿个数据中，寻找最大的1万个数。</strong></p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<dl class="simple">
+<dt>最小或最大的k个元素 =》都是优先级队列 (堆的应用)</dt><dd><ul class="simple">
+<li><p>找最小的k个数，就构造最大堆。</p></li>
+<li><p>找最大的k个数，就构造最小堆。</p></li>
+</ul>
+</dd>
+<dt>原因：</dt><dd><ul class="simple">
+<li><p>当你需要找k个较小的数时，你的最大堆顶部一定是堆中最大的元素。当遍历完所有元素时，堆顶的元素相比其它元素已经算是较小的元素了，那么堆中的其它元素一定更小。这样就有效地筛选出k个小值了。</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<p>e.g.</p>
+<p>例1： 给定整数数组 nums 和整数 k，请返回数组中 k 个最小的元素。你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。</p>
+<blockquote>
+<div><p>例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。</p>
+</div></blockquote>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">getLeastNumbers</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 使用一个最大堆（大顶堆）</span>
+    <span class="c1">// Java 的 PriorityQueue 默认是小顶堆，添加 comparator 参数使其变成最大堆</span>
+    <span class="c1">// 不能使用 b - a !!!</span>
+    <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">heap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="p">.</span><span class="na">compare</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">));</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">e</span> <span class="p">:</span> <span class="n">arr</span><span class="p">){</span>
+        <span class="c1">// 当前数字小于堆顶元素才会入堆</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">()</span> <span class="o">||</span> <span class="n">heap</span><span class="p">.</span><span class="na">size</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="o">||</span> <span class="n">e</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">.</span><span class="na">peek</span><span class="p">()){</span>
+            <span class="n">heap</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">heap</span><span class="p">.</span><span class="na">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">){</span>
+            <span class="n">heap</span><span class="p">.</span><span class="na">poll</span><span class="p">();</span> <span class="c1">// 删除堆顶最大元素</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">k</span><span class="o">]</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">e</span> <span class="p">:</span> <span class="n">heap</span><span class="p">)</span> <span class="p">{</span> <span class="n">res</span><span class="o">[</span><span class="n">j</span><span class="o">++]</span> <span class="o">=</span> <span class="n">e</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>总结<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>1、jdk内置的优先队列PriorityQueue内部使用一个堆维护数据，每当有数据add进来或者poll出去的时候会对堆做从下往上的调整和从上往下的调整。</p>
+<p>2、PriorityQueue不是一个线程安全的类，如果要在多线程环境下使用，可以使用 PriorityBlockingQueue 这个优先阻塞队列。其中add、poll、remove方法都使用 ReentrantLock 锁来保持同步，take() 方法中如果元素为空，则会一直保持阻塞。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../hashmap/hashmap.html" class="btn btn-neutral float-left" title="HashMap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../thread/thread.html" class="btn btn-neutral float-right" title="并发" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

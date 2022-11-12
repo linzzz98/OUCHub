@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. 数量关系 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="🍺 Others" href="../../../others/o_others.html" />
+    <link rel="prev" title="1. 资料分析" href="../zl/zl.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network/network.html">计算机网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/basic.html">基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mysql/mysql.html">MYSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ssm/ssm.html">SSM</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../xc.html">行测</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../zl/zl.html">1. 资料分析</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. 数量关系</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">倍数特性法</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id3">口诀</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id4">拆分</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id5">因式分解</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id6">例题</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">比例型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">不定方程</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id9">尾数特性</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id10">奇偶特性</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id11">倍数特性</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">不定方程组</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">工程问题</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id14">完工时间型</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id15">同时开始同时结束</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id16">效率比例型</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id17">误工追赶</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id18">牛吃草</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">行程问题</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id20">基本行程</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id21">直线相遇</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id22">直线追及</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id23">环形相遇</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id24">环形追及</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id25">线性多次相遇</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id26">同端出发</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id27">两端出发</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">流水行船</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">经济利润</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id30">基础经济的方法</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">二次函数最值</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32">最值问题</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id33">最不利构造</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id34">构造数列（和定最值）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id35">多集合反向构造</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id36">排列组合</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id37">排列</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id38">组合</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id39">特定题型</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id40">概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id41">容斥原理</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id42">两集合</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id43">三集合标准型（分别给出两两交集）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id44">三集合非标准型（统一给出满足两者）</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id45">如何区分标准与非标</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id46">方法选择</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id47">求和公式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../xc.html">行测</a> &raquo;</li>
+      <li><span class="section-number">2. </span>数量关系</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/pages/work/xc/sl/sl.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">2. </span>数量关系<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2>倍数特性法<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h3>口诀<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>（常用于 3、4、8、9）：4 和 8 考查不多。</p>
+<ul class="simple">
+<li><p>3/9 看各数（个位+十位+百位+千位+万位+……）加和能否被 3/9 整除，</p></li>
+<li><p>4 看数字末两位能否被 4 整除</p></li>
+<li><p>8 看数字末三位能否被 8 整除</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>拆分<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>没口诀，常用于 7、11、13</p>
+<p>一个数=接近且明显能被整除±小数字，看小数字</p>
+<p>e.g. 427，427=420+7，420 和 7 都是 7 的倍数，则 427 是 7 的倍数</p>
+</section>
+<section id="id5">
+<h3>因式分解<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>复杂倍数，常用于 6、12、18 等</p>
+<p>因式分解成两个互质的数，同时满足能被这两个数整除</p>
+<ul class="simple">
+<li><p>12 拆分为 3*4，一个数如果既是 3 的倍数，又是 4 的倍数，则为 12 的倍数。</p></li>
+<li><p>因式分解的两个数必须互质，3 和 4 之间除了 1 之外没有其他约数，2 和 6 除了 1 之外还可以约去 2</p></li>
+<li><p>18 应拆分为 2*9，不能拆分为 3*6</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>例题<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<figure class="align-center align-default">
+<img alt="../../../../_images/176.jpg" src="../../../../_images/176.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>已知设备数量为 24 套，故总价一定为 24 的倍数，</p>
+<p>考虑因式分解，24 拆分为 3*8，必须知道各个数位上的数字之和才可以判断 3 的倍数，故从 8 的倍数入手，</p>
+<p>8 的倍数看末三位，末三位能被 8 整除，则 79△能被 8 整除。</p>
+<p>设 79△=800-x，减去的 x 必须为 8 的倍数，则只能为 8，故 79△为 792。</p>
+<p>借助 3 的倍数验证首位，后四位加和为 5+7+9+2=23，23+☆应为 3 的倍数，C 项当选。【选 C】</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>1.做题逻辑：买 24 套→总价为 24 的倍数。</p>
+<p>2.本题是正常难度，考查的是倍数判定，8 看后三位，可以确定一个未知量，然后再通过 3 进行验证。</p>
+<p>3.所有的数都可以拆分，8 的倍数看末三位即可，不需要拆分。</p>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>比例型<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<p>记：<span class="math notranslate nohighlight">\(\frac{A}{B}=\frac{M}{N}\)</span> （M、N 最简比），则 A 为 M 倍数，B 为 N 倍数，A±B 为 M±N 倍数。</p>
+<p>出现比例，求具体数，优先考虑倍数特性，实在不行再用方程。</p>
+<p><strong>比例转化的“无脑方法”</strong></p>
+<p>谁比谁，就谁除以谁，分母不动，分子：多→加、少→减。</p>
+<p>e.g.</p>
+<ol class="arabic simple">
+<li><p>A比B多3/7，A/B=（3+7）/7=10/7。可以用赋值做，假设B为7，A比B多3/7，则A为10。</p></li>
+<li><p>A比B少3/7，A/B=（7-3）/7=4/7。</p></li>
+<li><p>B比A多3/7，B/A=（7+3）/7=10/7。</p></li>
+<li><p>M比N少5/8，M/N=（8-5）/8=3/8。</p></li>
+</ol>
+</section>
+<section id="id8">
+<h2>不定方程<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<section id="id9">
+<h3>尾数特性<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>识别：ax+by=M，当 a 或 b 尾数是 0 或 5 时，考虑尾数</p>
+<p>e.g., 37x+20y=271，x=？（x、y 均为正整数）</p>
+</section>
+<section id="id10">
+<h3>奇偶特性<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>ax+by=M，当 a、b 恰好一奇一偶时，考虑奇偶特性（从偶系数入手）。</p>
+<p>e.g., 3x+4y=25，x=？</p>
+</section>
+<section id="id11">
+<h3>倍数特性<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<p>A+B=C，如果其中两个数都有 N 因子，则另外一个一定有 N 因子。</p>
+<p>e.g., 7x+3y=60，y 最大为多少？</p>
+</section>
+</section>
+<section id="id12">
+<h2>不定方程组<a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
+<ul>
+<li><p>必须为整数：比如人数、车的数量。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>消元：求谁留谁，消系数小的。</p></li>
+<li><p>利用数字特性。</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>不必须为整数：比如时间、金钱、速度。</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>赋其中一个未知数为 0：尽量赋系数大的，比较好算。</p></li>
+<li><p>计算出其他未知数。</p></li>
+</ol>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id13">
+<h2>工程问题<a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<section id="id14">
+<h3>完工时间型<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<p>识别：只给了多个（2 个以上）的完工时间。</p>
+<p>方法：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>赋总量→最好为完工时间的最小公倍数（方便计算）</p></li>
+<li><p>求效率→效率=总量/时间</p></li>
+<li><p>做题</p></li>
+</ol>
+</div></blockquote>
+<figure class="align-center align-default">
+<img alt="../../../../_images/253.jpg" src="../../../../_images/253.jpg" />
+</figure>
+</section>
+<section id="id15">
+<h3>同时开始同时结束<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+<p>方法：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>先总体→t 总 = 总量加和/效率加和</p></li>
+<li><p>再分开→帮谁分析谁</p></li>
+</ol>
+</div></blockquote>
+<figure class="align-center align-default">
+<img alt="../../../../_images/337.jpg" src="../../../../_images/337.jpg" />
+</figure>
+</section>
+<section id="id16">
+<h3>效率比例型<a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
+<p>方法：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>赋效率→最好为比例数</p></li>
+<li><p>求总量→总量=效率*时间</p></li>
+<li><p>做题</p></li>
+</ol>
+</div></blockquote>
+<p>e.g.</p>
+<blockquote>
+<div><p>某企业生产一批产品，计划在 42 天内完成，先由甲、乙车间共同生产，12 天后甲车间完成总任务的 10%，乙车间完成总任务的15%。乙车间因设备整修，此后只能以 80%的效率工作，为按时完成任务，丙车间此时新加入工作，则其产能至少应是甲车间的：</p>
+<figure class="align-center align-default">
+<img alt="../../../../_images/431.jpg" src="../../../../_images/431.jpg" />
+</figure>
+</div></blockquote>
+</section>
+<section id="id17">
+<h3>误工追赶<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<p>加速期工作量=原本工作量 + 误工期工作量</p>
+</section>
+<section id="id18">
+<h3>牛吃草<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<p>e.g., 牧场上有一片青草，每天都生长的一样快。这片青草供给 10 头牛吃，
+可以吃 24 天，或者供给 17 头牛吃，可以吃 10 天，如果供给 25 头牛吃，可以吃
+几天？</p>
+<div class="math notranslate nohighlight">
+\[草 = \frac{牛_1 * 天_1 - 牛_2 * 天_2}{天_1 - 天_2}\]</div>
+<div class="math notranslate nohighlight">
+\[原 = \frac{牛 - 草}{时间}\]</div>
+</section>
+</section>
+<section id="id19">
+<h2>行程问题<a class="headerlink" href="#id19" title="永久链接至标题"></a></h2>
+<section id="id20">
+<h3>基本行程<a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
+<p>基本公式：S = V * T</p>
+<p>等距离平均速度</p>
+<div class="math notranslate nohighlight">
+\[v' = \frac{2 V_1 V_2}{V_1 + V_2}\]</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/525.jpg" src="../../../../_images/525.jpg" />
+</figure>
+</section>
+<section id="id21">
+<h3>直线相遇<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
+<p>甲乙两人从 A、B 两地同时出发，相向而行。假设甲的速度为 <span class="math notranslate nohighlight">\(V_1\)</span> 、
+乙的速度为 <span class="math notranslate nohighlight">\(V_2\)</span> ，二人行走的时间为 t，则</p>
+<div class="math notranslate nohighlight">
+\[S_{相遇} = (V_1 + V_2) * t\]</div>
+</section>
+<section id="id22">
+<h3>直线追及<a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
+<p>甲乙两人从 A、B 两地同时出发，同向而行。</p>
+<div class="math notranslate nohighlight">
+\[S_{追及} =（V_1 - V_2）* T\]</div>
+<p>e.g., 小王和小李从甲地去往相距 15km 的乙地调研。两人同
+时出发且速度相同。 15 分钟后，小王发现遗漏了重要文件遂立即原路原速返回，
+小李则继续前行；小王取到文件后提速 20%追赶小李，在小李到达乙地时刚好追
+上，假设小王取文件的时间忽略不计，问小李的速度为多少 km/h？</p>
+<p>解：小王和小李同时从甲地出发去乙地调
+研，路程总共 15 千米，两人同时出发且速度相同，假设小王、小李的速度均为
+V，小王出发 15 分钟后，发现遗漏了重要文件遂立即原路原速返回，小王出发和原路返回均为 15 分钟，此时小李继续往前走 15 分钟，小李、小王相差 15+15=30
+分钟=0.5 小时的路程，即两人之间的距离为 0.5V。已知“小王取到文件后提速
+20%追赶小李”，小王提速后速度变为 1.2V，小李速度不变还是 V，为追及过程，
+公式：<span class="math notranslate nohighlight">\(S_追及 =V_差 * t\)</span> ，列式：0.5V=（1.2V-V）*t=0.2V*t，解得 t=2.5，小王追上小
+李共用了 2.5 小时，小李共走了 0.5+2.5=3 小时，则 <span class="math notranslate nohighlight">\(V_李 =15km/t_李 =15/3=5km/h\)</span>，</p>
+</section>
+<section id="id23">
+<h3>环形相遇<a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
+<p>甲乙两人在环形跑道上，同时出发，背向而行。</p>
+<div class="math notranslate nohighlight">
+\[S_{相遇} = (V_1 + V_2) * T\]</div>
+<div class="math notranslate nohighlight">
+\[相遇一次，S_{相遇} = 一圈\]</div>
+<div class="math notranslate nohighlight">
+\[相遇 N 次，S_{相遇} = N圈\]</div>
+</section>
+<section id="id24">
+<h3>环形追及<a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
+<p>甲乙两人在环形跑道上，同时出发，同向而行。例如甲乙在同
+一点同向而行，甲跑的比乙快，从后面追上了乙，即套圈，从后面追上一次相当
+于多跑了一圈，多跑的距离就是追及路程。</p>
+<div class="math notranslate nohighlight">
+\[S_{追及} = (V_1 - V_2) * T\]</div>
+<div class="math notranslate nohighlight">
+\[追及一次，S_{追及} = 一圈\]</div>
+<div class="math notranslate nohighlight">
+\[追及 N 次，S_{追及} = N圈\]</div>
+</section>
+<section id="id25">
+<h3>线性多次相遇<a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
+<section id="id26">
+<h4>同端出发<a class="headerlink" href="#id26" title="永久链接至标题"></a></h4>
+<figure class="align-center align-default">
+<img alt="../../../../_images/714.jpg" src="../../../../_images/714.jpg" />
+</figure>
+<div class="math notranslate nohighlight">
+\[S_{相遇} = （V_1 + V_2）* T = 2 n S_{单程}\]</div>
+</section>
+<section id="id27">
+<h4>两端出发<a class="headerlink" href="#id27" title="永久链接至标题"></a></h4>
+<figure class="align-center align-default">
+<img alt="../../../../_images/619.jpg" src="../../../../_images/619.jpg" />
+</figure>
+<div class="math notranslate nohighlight">
+\[S_{相遇} =（V_1 + V_2）* T =（2n-1）* S_{单程}\]</div>
+</section>
+</section>
+</section>
+<section id="id28">
+<h2>流水行船<a class="headerlink" href="#id28" title="永久链接至标题"></a></h2>
+<div class="math notranslate nohighlight">
+\[V_顺 = V_船 + V_水\]</div>
+<div class="math notranslate nohighlight">
+\[V_逆 = V_船 - V_水\]</div>
+<div class="math notranslate nohighlight">
+\[V_船 = \frac{V_顺 + V_逆}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[V_水 = \frac{V_顺 - V_逆}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}静水速度 = 船速\\漂流速度 = 水速\end{aligned}\end{align} \]</div>
+<p>e.g., 甲、乙两地分别为一条河流的上、下游，两地相距 360
+千米，A 船往返需要 35 小时，其中从甲地到乙地的时间比从乙地到甲地的时间
+短 5 小时。B 船在静水中的速度为 12 千米每小时。问其从甲地开往乙地需要多
+少小时？</p>
+<p>解：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(t_{甲-&gt;乙} = 15, t_{乙-&gt;甲} = 20\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p><span class="math notranslate nohighlight">\(v_{顺} = v_{甲-&gt;乙} = 360 / 15 = 24, v_{逆} = v_{乙-&gt;甲} = 360 / 20 = 18\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p><span class="math notranslate nohighlight">\(v_{水} = (v_{顺} - v_{逆}) / 2 = 3\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p><span class="math notranslate nohighlight">\(v_{顺}^B = 3 + 12 = 15\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p><span class="math notranslate nohighlight">\(t_{甲-&gt;乙}^B = 360 / 15 = 24\)</span></p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id29">
+<h2>经济利润<a class="headerlink" href="#id29" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>利润=售价-成本=赚-亏→列方程常用</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>利润率=利润/成本→与资料分析中的区分开</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>售价=成本* (1+利润率) →题干日常表述</p></li>
+</ol>
+<ol class="arabic simple" start="4">
+<li><p>总利润=单个利润*数量→涉及到数量</p></li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>打折：打几折就是按照原价的百分之几十出售</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>利润 = 售价 - 成本， 售价 = 成本 + 利润</p>
+<p>利润率 = 利润 / 成本 = (售价 - 成本) / 成本 = 售价 / 成本 - 1</p>
+<p>成本 = 售价 / (1 + 利润率)</p>
+</div>
+<section id="id30">
+<h3>基础经济的方法<a class="headerlink" href="#id30" title="永久链接至标题"></a></h3>
+<ol class="arabic">
+<li><p>给具体价格（售价、成本、利润），求具体价格→列方程（相对简单）</p>
+<p>设未知数→找等量关系（利润=售价-成本）→列方程、解方程</p>
+</li>
+</ol>
+<ol class="arabic" start="2">
+<li><p>给比例（折扣、利润率），求比例→赋值法（相对较难）</p>
+<p>常赋值成本为 10、100 好算的数。涉及数量，赋值总成本=单个成本（10）*数量（10）</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="id31">
+<h2>二次函数最值<a class="headerlink" href="#id31" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>设提/降价次数为 x</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>两括号=0，求x</p></li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>平均数时，x为最值 <span class="math notranslate nohighlight">\((x_1 + x_2) / 2\)</span>， 极值将 x 代回原式</p></li>
+</ol>
+<p>e.g., 某苗木公司准备出售一批苗木，如果每株以 4 元出售，
+可卖出 20 万株，若苗木单价每提高 0.4 元，就会少卖 10000 株。问在最佳定价
+的情况下，该公司最大收入是多少万元？</p>
+<p>解：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>列方程</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[(4 + 0.4x)(20 - x)\]</div>
+<ol class="arabic" start="2">
+<li><p>求 x1, x2</p>
+<p>x1 = -10, x2 = 20</p>
+</li>
+<li><p>求x</p>
+<p>x = (20 + (-10)) / 2 = 5</p>
+</li>
+<li><p>求最大值</p>
+<p>y = (4 + 0.4 * 5)(20 - 5) = 90</p>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id32">
+<h2>最值问题<a class="headerlink" href="#id32" title="永久链接至标题"></a></h2>
+<section id="id33">
+<h3>最不利构造<a class="headerlink" href="#id33" title="永久链接至标题"></a></h3>
+<p>识别： <code class="docutils literal notranslate"><span class="pre">至少……才能保证……</span></code></p>
+<p>方法： 保证数=最不利数+1</p>
+<p>e.g., 一个纸箱中装有 43 本同样大小的教辅资料，其中物理教辅资料 4
+本，化学教辅资料 3 本，语数英三种教辅资料各 12 本，那么一次至少拿出多少
+本教辅资料，才能保证取的教辅资料中至少有 7 本是同一种教辅资料?</p>
+<p>【解析】最不利的情况是物理
+不够 4 个全取，化学不够 3 个全取，语、数、英够只给 6 个，保证数=最不利数+
+1=4+3+6+6+6+1=26。</p>
+</section>
+<section id="id34">
+<h3>构造数列（和定最值）<a class="headerlink" href="#id34" title="永久链接至标题"></a></h3>
+<p>【识别】：和一定，求某个主体的最大值、最小值，此消彼长</p>
+<p>【方法】：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>定位→确定求谁的什么值。</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>反向→若求最大，其他尽可能小，从最小的开始构造，若求最小，其他尽可能大，从最大的开始构造</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>注意：看题干是否有“各不相同”，没说，可以默认相同</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>求解→若结果不为整数，反向取整 (最大为 7.2，向下取整取 7；最小为 7.2，向上取整取 8)</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id35">
+<h3>多集合反向构造<a class="headerlink" href="#id35" title="永久链接至标题"></a></h3>
+<p>【识别】：都（同时、共同）……至少……</p>
+<p>【常规方法】：反向（“喜欢”的反向是“不喜欢”）→求和→作差</p>
+<p>【无脑公式】：“全部”就是全部的数量、总体</p>
+<div class="math notranslate nohighlight">
+\[(A∩B)_{最小} = A+B-全部\]</div>
+<div class="math notranslate nohighlight">
+\[(A∩B∩C)_{最小} =A+B+C-2*全部\]</div>
+<div class="math notranslate nohighlight">
+\[(A∩B∩C∩D)_{最小} =A+B+C+D-3*全部\]</div>
+<div class="math notranslate nohighlight">
+\[(A∩B∩C∩D∩E)_{最小} =A+B+C+D+E-4*全部\]</div>
+<figure class="align-center align-default">
+<img alt="../../../../_images/812.jpg" src="../../../../_images/812.jpg" />
+</figure>
+</section>
+</section>
+<section id="id36">
+<h2>排列组合<a class="headerlink" href="#id36" title="永久链接至标题"></a></h2>
+<section id="id37">
+<h3>排列<a class="headerlink" href="#id37" title="永久链接至标题"></a></h3>
+<div class="math notranslate nohighlight">
+\[A_N^M = \frac{n !}{(n - m)!}\]</div>
+</section>
+<section id="id38">
+<h3>组合<a class="headerlink" href="#id38" title="永久链接至标题"></a></h3>
+<div class="math notranslate nohighlight">
+\[C_N^M = \frac{A_N^M}{m!} = \frac{n!}{m!(n-m)!}\]</div>
+</section>
+<section id="id39">
+<h3>特定题型<a class="headerlink" href="#id39" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>选项小（枚举法）</p></li>
+<li><p>要相邻（捆绑法）</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>先捆：把相邻的捆绑起来，考虑内部顺序。</p></li>
+<li><p>后排：把捆后的“胖子”与其他排列。</p></li>
+</ol>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>不相邻（插空法）</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>先将可以相邻的进行排列，排列后形成若干个空位。</p></li>
+<li><p>再将不相邻的插入到形成的空位中去。</p></li>
+</ol>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>错位排列（结论）</p></li>
+</ol>
+<figure class="align-center align-default">
+<img alt="../../../../_images/910.jpg" src="../../../../_images/910.jpg" />
+</figure>
+<ol class="arabic simple" start="5">
+<li><p>环形排列</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[方法数 = A_{N-1}^{N-1}\]</div>
+<ol class="arabic simple" start="6">
+<li><p>归一法</p></li>
+</ol>
+<p>m个元素中的n个元素相对位置固定，把m个元素进行全排列，n个元素的相对位置有 <span class="math notranslate nohighlight">\(A_n^n\)</span> 种， 排列数有 <span class="math notranslate nohighlight">\(\frac{A^m_m}{A^n_n}\)</span> 种</p>
+</section>
+</section>
+<section id="id40">
+<h2>概率<a class="headerlink" href="#id40" title="永久链接至标题"></a></h2>
+<p>【问题】：两个主体，相同目标，求P</p>
+<p>【解答】：先任意固定一个，然后求另一个满足的概率P即可</p>
+<p>【例题】：如 A、B、C、D 四个选项，甲和乙蒙同一个答案的概率为多少？</p>
+<p>【解答】：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>任意固定一个，甲先选，假设选 B 项。</p></li>
+<li><p>乙选择的时候，有 4 种选择，其中有 1 个 B 项和甲相同，概率为 1/4。</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id41">
+<h2>容斥原理<a class="headerlink" href="#id41" title="永久链接至标题"></a></h2>
+<section id="id42">
+<h3>两集合<a class="headerlink" href="#id42" title="永久链接至标题"></a></h3>
+<div class="math notranslate nohighlight">
+\[总数=A+B-A∩B+都不\]</div>
+</section>
+<section id="id43">
+<h3>三集合标准型（分别给出两两交集）<a class="headerlink" href="#id43" title="永久链接至标题"></a></h3>
+<div class="math notranslate nohighlight">
+\[总数=A+B+C-A∩B-A∩C-B∩C+A∩B∩C+都不\]</div>
+</section>
+<section id="id44">
+<h3>三集合非标准型（统一给出满足两者）<a class="headerlink" href="#id44" title="永久链接至标题"></a></h3>
+<div class="math notranslate nohighlight">
+\[总数=A+B+C-满足两项-2*满足三项+都不\]</div>
+</section>
+<section id="id45">
+<h3>如何区分标准与非标<a class="headerlink" href="#id45" title="永久链接至标题"></a></h3>
+<ul>
+<li><p>标准：</p>
+<blockquote>
+<div><p>【公式】总数=A+B+C-A∩B-A∩C-B∩C+A∩B∩C+都不</p>
+<p>【识别】分别给出两两交集（既……又），题干/问题中分别给出两两交集（既 A 又 B、既 B 又 C、既 A 又 C）</p>
+<p>【例子】28 人喜欢泰山，30 人喜欢华山，42 人喜欢黄山，8 人既喜欢黄山又喜欢华山，10 人既喜欢泰山又喜欢黄山，5 人既喜欢华山又喜欢泰山，3 人喜欢这三个景点，则不喜欢这三个景点中任何一个的有多少人？</p>
+</div></blockquote>
+</li>
+<li><p>非标准：</p>
+<blockquote>
+<div><p>【公式】总数=A+B+C-满足两项-2*满足三项+都不</p>
+<p>【识别】统一给出满足两者（参加两项、喜欢两种），题干/问题中统一给出满足两种（只满足两种）</p>
+<p>【例子】…参加合唱活动的有 189 人，参加象棋活动的有 152 人，参加羽毛球活动的有 135 人，参加两种活动的有 130 人，参加三种活动的有 69 人，不参加任何一种活动的有 44 人。该单位的职工人数为多少？</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id46">
+<h3>方法选择<a class="headerlink" href="#id46" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>公式法：题目中所给、所求都是公式中的一部分。</p></li>
+<li><p>画图法：出现 <strong>只 A</strong> 。公式中没有，考虑画图。</p></li>
+</ol>
+</section>
+</section>
+<section id="id47">
+<h2>求和公式<a class="headerlink" href="#id47" title="永久链接至标题"></a></h2>
+<p>等差数列的中项求和公式：</p>
+<div class="math notranslate nohighlight">
+\[S_n = \frac{(首项 + 末项) \times n}{2}\]</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>当 n 为奇数时， <span class="math notranslate nohighlight">\(S_n = 数列中间项 \times n\)</span> ， 其中数列中间项是 <span class="math notranslate nohighlight">\(\frac{1 + n}{2}\)</span></p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../zl/zl.html" class="btn btn-neutral float-left" title="1. 资料分析" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../others/o_others.html" class="btn btn-neutral float-right" title="🍺 Others" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

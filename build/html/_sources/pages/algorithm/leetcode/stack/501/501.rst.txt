@@ -1,0 +1,105 @@
+[501] 二叉树中的众数
+==================================
+
+.. figure:: q.jpg
+   :figclass: align-center
+
+Solution 1 (中序遍历)
+--------------------------------------
+
+.. note::
+
+   思路与算法:
+
+      首先一定能想到一个最朴素的做法：因为这棵树的中序遍历是一个有序的序列，所以可以先获得这棵树的中序遍历，然后从扫描这个中序遍历序列，然后用一个哈希表来统计每个数字出现的个数，这样就可以找到出现次数最多的数字。
+
+      但是这样做的空间复杂度显然不是 O(1) 的，原因是哈希表和保存中序遍历序列的空间代价都是 O(n)。
+
+      考虑在寻找出现次数最多的数时，不使用哈希表。 这个优化是基于二叉搜索树中序遍历的性质：一棵二叉搜索树的中序遍历序列是一个非递减的有序序列。
+
+      e.g.
+
+         一颗二叉搜索树的中序遍历序列是 {−1,0,0,1,2,2}
+
+      重复出现的数字一定是一个连续出现的，例如这里的 0 和 2，它们都重复出现了，并且所有的 0 都集中在一个连续的段内，所有的 2 也集中在一个连续的段内。
+
+      可以顺序扫描中序遍历序列，用 base 记录当前的数字，用 count 记录当前数字重复的次数，用 maxCount 来维护已经扫描过的数当中出现最多的那个数字的出现次数，用 answer 数组记录出现的众数。每次扫描到一个新的元素：
+
+      * 首先更新 base 和 count:
+
+         * 如果该元素和 base 相等，那么 count 自增 1；
+
+         * 否则将 base 更新为当前数字，count 复位为 1。
+
+      * 然后更新 maxCount：
+
+         * 如果 count=maxCount，那么说明当前的这个数字（base）出现的次数等于当前众数出现的次数，将 base 加入 answer 数组；
+
+         * 如果 count>maxCount，那么说明当前的这个数字（base）出现的次数大于当前众数出现的次数，因此，需要将 maxCount 更新为 count，清空 answer 数组后将 base 加入 answer 数组。
+
+   可以把这个过程写成一个 update 函数。这样在寻找出现次数最多的数字的时候就可以省去一个哈希表带来的空间消耗。
+
+   然后，考虑不存储这个中序遍历序列。 如果在递归进行中序遍历的过程中，访问当了某个点的时候直接使用上面的 update 函数，就可以省去中序遍历序列的空间。
+
+.. code-block:: java
+
+   class Solution {
+       List<Integer> answer = new ArrayList<Integer>();
+       int base, count, maxCount;
+       public int[] findMode(TreeNode root) {
+           TreeNode pre = null;
+           while(root != null){
+               if(root.left != null){
+                   pre = root.left;
+                   while(pre.right != null && pre.right != root){
+                       pre = pre.right;
+                   }
+                   if(pre.right == null){
+                       pre.right = root;
+                       root = root.left;
+                   }
+                   else{
+                       update(root.val);
+                       pre.right = null;
+                       root = root.right;
+                   }
+               }
+               else{
+                   update(root.val);
+                   root = root.right;
+               }
+           }
+           int[] res = new int[answer.size()];
+           for (int i = 0; i < answer.size(); ++i)
+           {
+               res[i] = answer.get(i);
+           }
+           return res;
+       }
+
+       void update(int x){
+           if(x == base){
+               ++count;
+           }
+           else{
+               count = 1;
+               base = x;
+           }
+           if(count == maxCount){
+               answer.add(base);
+           }
+           if(count > maxCount){
+               maxCount = count;
+               answer.clear();
+               answer.add(base);
+           }
+       }
+   }
+
+.. important::
+
+   复杂度分析:
+
+   * 时间复杂度：O(n)。每个点被访问的次数不会超过两次，故这里的时间复杂度是 O(n)。
+
+   * 空间复杂度：O(1)。使用临时空间的大小和输入规模无关。

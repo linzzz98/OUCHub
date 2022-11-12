@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 资料分析 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="2. 数量关系" href="../sl/sl.html" />
+    <link rel="prev" title="行测" href="../xc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../network/network.html">计算机网络</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/basic.html">基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mysql/mysql.html">MYSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ssm/ssm.html">SSM</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../xc.html">行测</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. 资料分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">基期与现期</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">一般增长率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">增长量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">比重</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">平均数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">倍数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">特殊增长率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">贸易额</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">拉动..增长</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">同位比较法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../sl/sl.html">2. 数量关系</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../xc.html">行测</a> &raquo;</li>
+      <li><span class="section-number">1. </span>资料分析</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/pages/work/xc/zl/zl.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>资料分析<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2>基期与现期<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/175.jpg" src="../../../../_images/175.jpg" />
+</figure>
+<ol class="arabic simple">
+<li><p><strong>同比</strong> 指的是与去年相比； <strong>环比</strong> 指的是与上一个周期相比。</p></li>
+</ol>
+<ol class="arabic" start="2">
+<li><p>已知 <strong>现期量</strong> 和 <strong>增长量</strong> ， 求 <strong>基期量</strong>：</p>
+<div class="math notranslate nohighlight">
+\[现期量 - 增长量\]</div>
+</li>
+<li><p>已知 <strong>现期量</strong> 和 <strong>增长率（r）</strong>， 求 <strong>基期量</strong>：</p>
+<div class="math notranslate nohighlight">
+\[\frac{现期量}{1 + r}\]</div>
+</li>
+<li><p>当增长率（r） <span class="math notranslate nohighlight">\(\le 5%\)</span> 时，基期量可以化除为整：</p>
+<div class="math notranslate nohighlight">
+\[\frac{现期量}{1 + r} \approx 现期量 \times (1 - r)\]</div>
+</li>
+<li><p>基期量比较大小，先观察 <strong>现期</strong> 和 <strong>增长率（r）</strong> ， <strong>现期量大 且 r 小</strong> 的，基期量更大</p></li>
+</ol>
+<ol class="arabic simple" start="6">
+<li><p>基期和差，可先用 <strong>现期量</strong> 和 <strong>正负</strong> 排除，再计算</p></li>
+</ol>
+<ol class="arabic" start="7">
+<li><p>已知增长率和基期量，求现期量：</p>
+<div class="math notranslate nohighlight">
+\[基期量 + 增长量\]</div>
+<p>已知增长率（r）和基期量，求现期量：</p>
+<div class="math notranslate nohighlight">
+\[基期量 \times (1 + r)\]</div>
+</li>
+</ol>
+</section>
+<section id="id3">
+<h2>一般增长率<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/252.jpg" src="../../../../_images/252.jpg" />
+</figure>
+<ol class="arabic" start="9">
+<li><p>增长率计算题型识别： <code class="docutils literal notranslate"><span class="pre">增长/</span> <span class="pre">下降</span> <span class="pre">+</span> <span class="pre">%</span></code></p>
+<p>增长量计算题型识别： <code class="docutils literal notranslate"><span class="pre">增长/</span> <span class="pre">下降</span> <span class="pre">+</span> <span class="pre">具体单位</span></code></p>
+<p>增长率比较题型识别： 问增长最 <code class="docutils literal notranslate"><span class="pre">快/慢</span></code></p>
+<p>增长量比较题型识别： 问增长最 <code class="docutils literal notranslate"><span class="pre">多/少</span></code></p>
+</li>
+</ol>
+<ol class="arabic" start="10">
+<li><p>已知今年增长率和去年增长率相比提高了x个百分点，求去年增长率用 <strong>减法</strong></p>
+<p>已知今年增长率和去年增长率相比降低了x个百分点，求去年增长率用 <strong>加法</strong></p>
+</li>
+</ol>
+<ol class="arabic" start="11">
+<li><p>已知 <strong>现期量</strong> 和 <strong>基期量</strong> ，增长率计算公式为：</p>
+<div class="math notranslate nohighlight">
+\[\frac{现期量 - 基期量}{基期量}\]</div>
+</li>
+</ol>
+<blockquote>
+<div><p>已知 <strong>现期量</strong> 和 <strong>增长量</strong>， 增长率计算公式为:</p>
+<div class="math notranslate nohighlight">
+\[\frac{增长量}{现期量 - 增长量}\]</div>
+</div></blockquote>
+<ol class="arabic simple" start="12">
+<li><p>增长率比较，先看 <span class="math notranslate nohighlight">\(\frac{现期量}{基期量}\)</span> 倍数，看不出来再比较 <span class="math notranslate nohighlight">\(\frac{现期量 - 基期量}{基期量}\)</span></p></li>
+</ol>
+<ol class="arabic simple" start="13">
+<li><p>若增长率为 <span class="math notranslate nohighlight">\(r\)</span>， 则现期量是基期量的 <span class="math notranslate nohighlight">\(r + 1\)</span> 倍</p></li>
+</ol>
+</section>
+<section id="id4">
+<h2>增长量<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/336.jpg" src="../../../../_images/336.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>增长量：</p>
+<blockquote>
+<div><p>1.计算：</p>
+<p>（1）识别：增长+具体单位（人/元/吨）</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><p>①增长量=现期量- 基期量 = 基期量 * r（考查很少）= 现期量 /（1 + r）* r</p>
+<p>②年均增长量=（现期量- 基期量）/年份差</p>
+</div></blockquote>
+<p>（3）速算：</p>
+<blockquote>
+<div><p>①百分数百化分：近似转化、取中转化、倍数转化、倒数转化（如果记住了M%=1/N，则同时就记住了 N%=1/M，比如 18%≈1/5.6， 8%=1/12.5， 18.9%≈1/5.3）</p>
+<p>②若|r|≈1/N，增长量≈现期量/（N+1）；减少量≈现期量/（N-1）</p>
+</div></blockquote>
+<p>2.比较：</p>
+<p>（1）识别：增长最多/少。</p>
+<p>（2）速算：</p>
+<blockquote>
+<div><p>①给出每年数据：直接两两相减，柱状图还可用直尺测量。</p>
+<p>②给出现期量和 r：两者都大（现期量大、r 大）则增量必然大，否则百化分计算。</p>
+</div></blockquote>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<ol class="arabic simple">
+<li><p>给现期量、基期量： 增长量 = 现期量- 基期量（柱状图，折线图看高度差）</p></li>
+</ol>
+<ol class="arabic" start="2">
+<li><p>给现期量、增长率：</p>
+<p>大大则大：现期量大， r的绝对值也大， 则其 增长量 / 减少量 大（前提：同正同负）</p>
+<p>一大一小：百化分 或 看乘积</p>
+</li>
+</ol>
+<ol class="arabic simple" start="3">
+<li><p>现期数为A， 增长率为m%， 则增长率为 <span class="math notranslate nohighlight">\(\frac{A}{1 + m\%} * m \%\)</span>，当 m &gt; 0时， m越大， <span class="math notranslate nohighlight">\(\frac{m\%}{1 + m\%}\)</span> 越大</p></li>
+</ol>
+</div>
+</div></blockquote>
+</div>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<p>一般情况下，对于2011-2015年间，现期为2015年，基期为2011年，年份差为4年</p>
+<p>“十二五”期间，现期为2015年， <strong>基期为2010年</strong> ，年份差为5年</p>
+</div>
+</section>
+<section id="id5">
+<h2>比重<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/430.jpg" src="../../../../_images/430.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>比重：</p>
+<blockquote>
+<div><p>1.现期比重：</p>
+<p>（1）识别：问题时间与材料一致，占，比重</p>
+<p>（2）公式：比重=部分/整体；整体=部分/比重；部分=整体*比重</p>
+<p>（3）速算：截位直除</p>
+<p>2.基期比重：</p>
+<p>（1）识别：问题时间在资料之前，占，比重</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{A}{B}*\frac{1+b}{1+a}\]</div>
+</div></blockquote>
+<p>（3）速算：</p>
+<blockquote>
+<div><p>①截位直除</p>
+<p>②先计算 A/B，再观察 <span class="math notranslate nohighlight">\(\frac{1+b}{1+a}\)</span> 与 1 的大小关系</p>
+</div></blockquote>
+<p>3.两期比重：</p>
+<p>（1）识别：两个年份，一个比重</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{A}{B} * \frac{a-b}{1+a}\]</div>
+<p>口算 a-b，剩下的估算</p>
+</div></blockquote>
+<p>（3）升降判断：比较部分与总体增长率，部分大则升，小则降</p>
+</div></blockquote>
+</div>
+</section>
+<section id="id6">
+<h2>平均数<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/524.jpg" src="../../../../_images/524.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>平均数：</p>
+<blockquote>
+<div><p>1.现期平均数：</p>
+<p>（1）识别：问题时间与资料一致+平均（均/每/单位）</p>
+<p>（2）公式：平均数=总数/个数；后面/前面</p>
+<p>（3）技巧：①截位直除。②削峰填谷</p>
+<p>2.基期平均数：</p>
+<p>（1）识别：问题时间在资料前+平均（均/每/单位）</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{A}{B} * \frac{1+b}{1+a}\]</div>
+</div></blockquote>
+<p>（3）速算：①截位直除。②先计算 A/B 且观察 <span class="math notranslate nohighlight">\(\frac{1+b}{1+a}\)</span> 与 1 的大小</p>
+<p>3.两期平均数：</p>
+<p>（1）识别：题干中涉及两个时间+平均（均/每/单位）</p>
+<p>（2）升降判断：看分子、分母增长率，分子大则升，小则降</p>
+<p>（3）平均数的增长率：先找出分子的增速 a 和分母的增速 b，代入公式 <span class="math notranslate nohighlight">\(r = \frac{a-b}{1+b}\)</span></p>
+</div></blockquote>
+</div>
+</section>
+<section id="id7">
+<h2>倍数<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/618.jpg" src="../../../../_images/618.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>倍数：</p>
+<blockquote>
+<div><p>1.现期倍数：</p>
+<p>（1）识别：问题时间与资料一致，A 是 B 的多少倍</p>
+<p>（2）公式：A/B</p>
+<p>（3）速算：截位直除法</p>
+<p>2.基期倍数：</p>
+<p>（1）识别：问题时间在资料时间之前，A 是 B 的多少倍</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\frac{A}{B} * \frac{1+b}{1+a}\]</div>
+</div></blockquote>
+<p>（3）速算：</p>
+<blockquote>
+<div><p>①截位直除</p>
+<p>②计算 A/B 且观察 <span class="math notranslate nohighlight">\(\frac{1+b}{1+a}\)</span> 与 1 的大小</p>
+</div></blockquote>
+<p>3.倍数问法：</p>
+<p>（1）A 是 B 的 n 倍：<span class="math notranslate nohighlight">\(n=\frac{A}{B}\)</span></p>
+<p>（2）A 比 B 增长（多）r 倍：<span class="math notranslate nohighlight">\(r=\frac{A}{B}-1\)</span></p>
+</div></blockquote>
+</div>
+</section>
+<section id="id8">
+<h2>特殊增长率<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../_images/713.jpg" src="../../../../_images/713.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>特殊增长率：</p>
+<blockquote>
+<div><p>1.间隔增长率：</p>
+<p>（1）识别：中间间隔一年求增长率。比如 2017 年和 2015 年中间隔 2016年。</p>
+<p>（2）公式：r 间隔 = <span class="math notranslate nohighlight">\(r_1+r_2+r_1*r_2\)</span></p>
+<p>（3）速算：</p>
+<blockquote>
+<div><p>① <span class="math notranslate nohighlight">\(r_1,r_2\)</span> 绝对值均小于 10%，结合选项 <span class="math notranslate nohighlight">\(r_1*r_2\)</span> 可忽略。</p>
+<p>②百化分。</p>
+</div></blockquote>
+<p>2.年均增长率：</p>
+<p>（1）识别：年均增长最快、年均增速排序。</p>
+<p>（2）公式：</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[(1+r)^n\]</div>
+</div></blockquote>
+<p>（3）比较：比较“现期量/基期量”（n 相同）。</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>初值为A，第(n + 1)年增长为B，年均增长量为M，年均增长率为x，则：</p>
+<ol class="arabic simple">
+<li><p>已知初值和终值求年均增长量：</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[M = \frac{B-A}{n}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>已知初值和终值求年均增长率：</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[x = \sqrt[n]{\frac{B}{A}} - 1\]</div>
+<p>速算：</p>
+<p>当年均增长率 x &lt; 10% 时，且选项之间差距较大时，<span class="math notranslate nohighlight">\((1+x)^{n-m} \approx 1 + (n - m)x\)</span></p>
+<p>则有如下速算：当第m年的数据指标为A，第n年的数据指标为B，求年均增长率：</p>
+<div class="math notranslate nohighlight">
+\[x \approx \frac{\frac{B}{A} - 1}{n - m}\]</div>
+<p>且 x的结果 略小于 上式</p>
+</div>
+<p>3.混合增长率：</p>
+<p>（1）识别：部分增速与总体增速之间的关系</p>
+<p>（2）口诀：居中但不中，偏向基期较大的</p>
+</div></blockquote>
+</div>
+</section>
+<section id="id9">
+<h2>贸易额<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>贸易额即出口总额</p></li>
+</ol>
+<ol class="arabic" start="2">
+<li><p>顺差： 出口额 &gt; 进口额</p>
+<p>逆差： 进口额 &gt; 出口额</p>
+</li>
+</ol>
+<ol class="arabic" start="3">
+<li><p>贸易差额 即 进出口差值的绝对值</p>
+<p>顺差额 = 出口额 - 进口额</p>
+<p>逆差额 = 进口额 - 出口额</p>
+</li>
+</ol>
+</div>
+</section>
+<section id="id10">
+<h2>拉动..增长<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<p>基期总量为A， 现期分量增加值为B，则拉动…增长：</p>
+<div class="math notranslate nohighlight">
+\[\frac{b}{A} \times 100%\]</div>
+</section>
+<section id="id11">
+<h2>同位比较法<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<p>两个分数 <span class="math notranslate nohighlight">\(\frac{a}{b}, \frac{c}{d}\)</span> ，如果 a &gt; c, b &gt; d, <span class="math notranslate nohighlight">\(\frac{a}{b}\)</span> 记为大分数， <span class="math notranslate nohighlight">\(\frac{c}{d}\)</span> 记为小分数， <span class="math notranslate nohighlight">\(\frac{a-c}{b-d}\)</span> 记为差分数：</p>
+<ul class="simple">
+<li><p>若 <span class="math notranslate nohighlight">\(\frac{a-c}{b-d}\)</span> = <span class="math notranslate nohighlight">\(\frac{c}{d}\)</span>，则 <span class="math notranslate nohighlight">\(\frac{a}{b} = \frac{c}{d}\)</span></p></li>
+</ul>
+<ul class="simple">
+<li><p>若 <span class="math notranslate nohighlight">\(\frac{a-c}{b-d}\)</span> &gt; <span class="math notranslate nohighlight">\(\frac{c}{d}\)</span>，则 <span class="math notranslate nohighlight">\(\frac{a}{b} &gt; \frac{c}{d}\)</span></p></li>
+</ul>
+<ul class="simple">
+<li><p>若 <span class="math notranslate nohighlight">\(\frac{a-c}{b-d}\)</span> &lt; <span class="math notranslate nohighlight">\(\frac{c}{d}\)</span>，则 <span class="math notranslate nohighlight">\(\frac{a}{b} &lt; \frac{c}{d}\)</span></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../xc.html" class="btn btn-neutral float-left" title="行测" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../sl/sl.html" class="btn btn-neutral float-right" title="2. 数量关系" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. IOC/DI注解开发 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="7. 注解知识点" href="anno_knowledge.html" />
+    <link rel="prev" title="5. 容器" href="../container/container.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6. IOC/DI注解开发</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bean">注解开发定义bean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">纯注解开发模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">注解开发bean作用范围与生命周期管理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">注解开发依赖注入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">简单数据类型注入</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioc-dibean">IOC/DI注解开发管理第三方bean</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id5">注解开发管理第三方bean</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id6">引入外部配置类</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">总结</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">6. </span>IOC/DI注解开发</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/annotation/annotation.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ioc-di">
+<h1><span class="section-number">6. </span>IOC/DI注解开发<a class="headerlink" href="#ioc-di" title="永久链接至标题"></a></h1>
+<p>Spring的IOC/DI对应的配置使用起来比较复杂，复杂的地方在 <strong>配置文件</strong></p>
+<p>Spring的注解开发用于简化开发</p>
+<section id="bean">
+<h2>注解开发定义bean<a class="headerlink" href="#bean" title="永久链接至标题"></a></h2>
+<ol class="arabic">
+<li><p>删除原XML配置</p></li>
+<li><p>类上添加注解</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Component</span><span class="p">(</span><span class="s">&quot;bookDao&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookDaoImpl</span> <span class="kd">implements</span> <span class="n">BookDao</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;book dao save ...&quot;</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>注意: <code class="docutils literal notranslate"><span class="pre">&#64;Component</span></code> 注解不可以添加在接口上，因为接口是无法创建对象的。</p>
+</div>
+<p><strong>XML与注解配置的对应关系</strong></p>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/154.jpg" src="../../../../../../_images/154.jpg" />
+</figure>
+</li>
+<li><p>配置Spring的注解包扫描</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&quot;com.linzzz&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>base-package指定Spring框架扫描的包路径，它会扫描指定包及其子包中的所有类上的注解。</p>
+<ul class="simple">
+<li><p>包路径越多[如:com.linzzz.dao.impl]，扫描的范围越小速度越快</p></li>
+</ul>
+<ul class="simple">
+<li><p>包路径越少[如:com.linzzz],扫描的范围越大速度越慢</p></li>
+</ul>
+<ul class="simple">
+<li><p>一般扫描到项目的组织名称即Maven的groupId下[如:com.linzzz]即可。</p></li>
+</ul>
+</div>
+</li>
+<li><p>运行程序</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>说明:</strong></p>
+<ul class="simple">
+<li><p>BookServiceImpl类没有起名称，所以在App中是按照类型来获取bean对象</p></li>
+<li><p>&#64;Component注解如果不起名称，会有一个默认值就是 <strong>当前类名首字母小写</strong> ，所以也可以按照名称获取，如</p></li>
+</ul>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">BookService</span> <span class="n">bookService</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookService</span><span class="p">)</span><span class="n">ctx</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;bookServiceImpl&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>对于&#64;Component注解，还衍生出了其他三个注解 <code class="docutils literal notranslate"><span class="pre">&#64;Controller``（表现层）</span> <span class="pre">、</span> <span class="pre">``&#64;Service</span></code> （业务层）、 <code class="docutils literal notranslate"><span class="pre">&#64;Repository</span></code> （数据层）</p>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/237.jpg" src="../../../../../../_images/237.jpg" />
+</figure>
+</div>
+</section>
+<section id="id1">
+<h2>纯注解开发模式<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>将配置文件applicationContext.xml删除掉，使用类来替换。</p>
+<ol class="arabic">
+<li><p>创建配置类</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>标识该类为配置类</p>
+<p>在配置类上添加 <code class="docutils literal notranslate"><span class="pre">&#64;Configuration</span></code> 注解，将其标识为一个配置类,替换 <code class="docutils literal notranslate"><span class="pre">applicationContext.xml</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>用注解替换包扫描配置</p>
+<p>在配置类上添加包扫描注解 <code class="docutils literal notranslate"><span class="pre">&#64;ComponentScan</span></code> 替换 <code class="docutils literal notranslate"><span class="pre">&lt;context:component-scan</span> <span class="pre">base-package=&quot;&quot;/&gt;</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="s">&quot;com.linzzz&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>创建并执行</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">(</span><span class="n">SpringConfig</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic">
+<li><p>Java类替换Spring核心配置文件</p>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/325.jpg" src="../../../../../../_images/325.jpg" />
+</figure>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;Configuration</span></code> 注解用于设定当前类为配置类</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;ComponentScan</span></code> 注解用于设定扫描路径，( <strong>此注解只能添加一次，多个数据请用数组格式</strong> )</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>@ComponentScan({com.linzzz.service&quot;,&quot;com.linzzz.dao&quot;})
+</pre></div>
+</div>
+</li>
+<li><p>读取Spring核心配置文件初始化容器对象切换为读取Java配置类初始化容器对象</p>
+<p>注意， 类由 <code class="docutils literal notranslate"><span class="pre">ClassPathXmlApplicationContext</span></code> 换成了 <code class="docutils literal notranslate"><span class="pre">AnnotationConfigApplicationContext</span></code></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">//加载配置文件初始化容器</span>
+<span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;applicationContext.xml&quot;</span><span class="p">);</span>
+
+<span class="c1">//加载配置类初始化容器</span>
+<span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">(</span><span class="n">SpringConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<section id="id2">
+<h2>注解开发bean作用范围与生命周期管理<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<ol class="arabic">
+<li><p>在对应的方法上添加`&#64;PostConstruct`和`&#64;PreDestroy`注解即可</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">//在构造方法之后执行，替换 init-method</span>
+ <span class="nd">@PostConstruct</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+     <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;init ...&quot;</span><span class="p">);</span>
+ <span class="p">}</span>
+
+<span class="c1">//在销毁方法之前执行,替换 destroy-method</span>
+ <span class="nd">@PreDestroy</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="p">()</span> <span class="p">{</span>
+     <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;destroy ...&quot;</span><span class="p">);</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic">
+<li><p>从JDK9以后jdk中的javax.annotation包被移除了，这两个注解刚好就在这个包中。</p>
+<p>需要导入下面的jar包</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>javax.annotation<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>javax.annotation-api<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.3.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>销毁方法必须是单例才能执行，非单例不执行销毁方法</p></li>
+</ol>
+</div>
+</section>
+<section id="id3">
+<h2>注解开发依赖注入<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<ol class="arabic">
+<li><p>注解实现按照类型注入</p>
+<p>在BookServiceImpl类的bookDao属性上添加 <code class="docutils literal notranslate"><span class="pre">&#64;Autowired</span></code> 注解</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic simple">
+<li><p>&#64;Autowired可以写在属性上，也可也写在setter方法上，最简单的处理方式是 <strong>写在属性上并将setter方法删除</strong></p></li>
+<li><p>自动装配基于反射设计创建对象并通过暴力反射为私有属性进行设值，所以此处无需提供setter方法。</p></li>
+</ol>
+</div>
+</li>
+<li><p>注解实现按照名称注入</p>
+<p>对应接口如果有多个实现类，比如添加BookDaoImpl2，此时，按照类型注入就无法区分到底注入哪个对象。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">&#64;Qualifier</span></code> 注解 填入注入的bean的名称</p>
+<p><strong>按照名称注入</strong></p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Autowired</span>
+<span class="nd">@Qualifier</span><span class="p">(</span><span class="s">&quot;bookDao1&quot;</span><span class="p">)</span>
+<span class="kd">private</span> <span class="n">BookDao</span> <span class="n">bookDao</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>&#64;Qualifier不能独立使用，必须和&#64;Autowired一起使用</strong></p>
+</li>
+</ol>
+</section>
+<section id="id4">
+<h2>简单数据类型注入<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<ol class="arabic">
+<li><p>按值注入</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">&#64;Value</span></code> 注解，将值写入注解的参数中</p>
+<p>注意数据格式要匹配，如将”abc”注入给int值，这样程序就会报错。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;itheima&quot;</span><span class="p">)</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p>配置文件注入</p>
+<ul>
+<li><p>resource下准备properties文件，如jdbc.properties</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>name=zzz
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>使用注解加载properties配置文件</p>
+<blockquote>
+<div><p>在配置类上添加 <code class="docutils literal notranslate"><span class="pre">&#64;PropertySource</span></code> 注解</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>@Configuration
+@ComponentScan(&quot;com.linzzz&quot;)
+@PropertySource(&quot;jdbc.properties&quot;)
+public class SpringConfig {}
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">&#64;Value</span></code> 读取配置文件中的内容</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${name}&quot;</span><span class="p">)</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ul>
+<li><p>如果读取的properties配置文件有多个，可以使用 <code class="docutils literal notranslate"><span class="pre">&#64;PropertySource</span></code> 的属性来指定多个</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>@PropertySource({&quot;jdbc.properties&quot;,&quot;xxx.properties&quot;})
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;PropertySource</span></code> 注解属性中不支持使用通配符 <code class="docutils literal notranslate"><span class="pre">*</span></code> ,运行会报错</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>@PropertySource({&quot;*.properties&quot;})
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;PropertySource</span></code> 注解属性中可以把 <code class="docutils literal notranslate"><span class="pre">classpath:</span></code> 加上,代表从当前项目的根路径找文件</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>@PropertySource({&quot;classpath:jdbc.properties&quot;})
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</section>
+<section id="ioc-dibean">
+<h2>IOC/DI注解开发管理第三方bean<a class="headerlink" href="#ioc-dibean" title="永久链接至标题"></a></h2>
+<p><strong>使用&#64;Bean注解</strong></p>
+<section id="id5">
+<h3>注解开发管理第三方bean<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<blockquote>
+<div><ol class="arabic">
+<li><p>在配置类中添加一个方法</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="p">(){</span>
+        <span class="n">DruidDataSource</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DruidDataSource</span><span class="p">();</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setDriverClassName</span><span class="p">(</span><span class="s">&quot;com.mysql.cj.jdbc.Driver&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setUrl</span><span class="p">(</span><span class="s">&quot;jdbc:mysql://localhost:3306/test&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setUsername</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setPassword</span><span class="p">(</span><span class="s">&quot;123456&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ds</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>在方法上添加 <code class="docutils literal notranslate"><span class="pre">&#64;Bean</span></code> 注解</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="p">(){</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>&#64;Bean注解的作用是将方法的返回值制作为Spring管理的一个bean对象</p>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="id6">
+<h3>引入外部配置类<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>对于数据源的bean,新建一个 <code class="docutils literal notranslate"><span class="pre">JdbcConfig</span></code> 配置类存放数据源</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcConfig</span> <span class="p">{</span>
+   <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="p">(){</span>
+        <span class="n">DruidDataSource</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DruidDataSource</span><span class="p">();</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setDriverClassName</span><span class="p">(</span><span class="s">&quot;com.mysql.cj.jdbc.Driver&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setUrl</span><span class="p">(</span><span class="s">&quot;jdbc:mysql://localhost:3306/test&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setUsername</span><span class="p">(</span><span class="s">&quot;root&quot;</span><span class="p">);</span>
+        <span class="n">ds</span><span class="p">.</span><span class="na">setPassword</span><span class="p">(</span><span class="s">&quot;123456&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ds</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>这个配置类如何能被Spring配置类加载到，并创建DataSource对象在IOC容器中?</strong></p>
+<ol class="arabic">
+<li><p>使用包扫描引入</p>
+<ul>
+<li><p>在Spring的配置类上添加包扫描</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="s">&quot;com.linzzz.config&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在JdbcConfig上添加配置注解</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcConfig</span><span class="p">{</span>
+   <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>使用 <code class="docutils literal notranslate"><span class="pre">&#64;Import</span></code> 引入</p>
+<p>这种方案可以不用加 <code class="docutils literal notranslate"><span class="pre">&#64;Configuration</span></code> 注解，但是必须在Spring配置类上使用 <code class="docutils literal notranslate"><span class="pre">&#64;Import</span></code> 注解手动引入需要加载的配置类</p>
+<ul>
+<li><p>去除JdbcConfig类上的注解</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcConfig</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>在Spring配置类中引入</p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="c1">//@ComponentScan(&quot;com.itheima.config&quot;)</span>
+<span class="nd">@Import</span><span class="p">({</span><span class="n">JdbcConfig</span><span class="p">.</span><span class="na">class</span><span class="p">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ul>
+<li><p>扫描注解可以移除</p></li>
+<li><p>&#64;Import参数需要的是一个数组，可以引入多个配置类。</p></li>
+<li><p>&#64;Import注解在配置类中只能写一次，下面的方式是 <strong>不允许的</strong></p>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="nd">@Configuration</span>
+<span class="c1">//@ComponentScan(&quot;com.itheima.config&quot;)</span>
+<span class="nd">@Import</span><span class="p">(</span><span class="n">JdbcConfig</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="nd">@Import</span><span class="p">(</span><span class="n">Xxx</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="id7">
+<h2>总结<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../../_images/422.jpg" src="../../../../../../_images/422.jpg" />
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../container/container.html" class="btn btn-neutral float-left" title="5. 容器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="anno_knowledge.html" class="btn btn-neutral float-right" title="7. 注解知识点" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

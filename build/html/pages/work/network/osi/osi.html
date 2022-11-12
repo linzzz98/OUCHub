@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. OSI七个层次 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../_static/twemoji.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../search.html" />
+    <link rel="next" title="基础" href="../../basic/basic.html" />
+    <link rel="prev" title="1. 计算机网络—-概述" href="../n1/n1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../network.html">计算机网络</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../n1/n1.html">1. 计算机网络—-概述</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. OSI七个层次</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">应用层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">表示层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">会话层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">传输层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">网络层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">数据链路层</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">物理层</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../basic/basic.html">基础</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../mysql/mysql.html">MYSQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ssm/ssm.html">SSM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../xc/xc.html">行测</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../network.html">计算机网络</a> &raquo;</li>
+      <li><span class="section-number">2. </span>OSI七个层次</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/pages/work/network/osi/osi.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="osi">
+<h1><span class="section-number">2. </span>OSI七个层次<a class="headerlink" href="#osi" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>应用层<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>网络应用：（提供应用程序间通信）</p>
+<p>为网络用户之间的通信提供专用的程序</p>
+<p>为用户提供网络管理、文件传输、事务处理等服务</p>
+<p>应用层包含的协议最多，也最复杂</p>
+<p>比如：
+以下哪些协议属于/不属于应用层？（经常使用的，能看的到的就是应用层的（HTTP、DHCP等绝大部分都是应用层协议））</p>
+</section>
+<section id="id2">
+<h2>表示层<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>数据表示：（数据表示、加密、解密）</p>
+<p>向上对应用层提供服务，向下接收会话层服务</p>
+<p>确保应用接收到的数据可读</p>
+<p>规范数据格式与结构：</p>
+<p>创建文件的后缀格式不同（.txt、.docx、.jpg），应该用什么样的形式把它表现出来，这就是应用层的功能</p>
+<p>数据压缩和解压、加密和解密</p>
+</section>
+<section id="id3">
+<h2>会话层<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>会话建立维护管理：</p>
+<p>会话层不参与具体的传输，它提供包括访问验证和会话管理</p>
+<p>在不同的进程间建立管理维持会话，并能使会话获得同步</p>
+<p>担负应用进程服务要求，而运输层不能完成的那部分工作</p>
+</section>
+<section id="id4">
+<h2>传输层<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>建立主机端到端的连接</p>
+<p>处理主机之间的传输问题</p>
+<p>确保数据传输的可靠性</p>
+<p>建立、维护和终止虚电路</p>
+<p>容错机制和流量控制</p>
+<p>可以做数据的传输、协议，也可以做数据速率的优化、丢包等</p>
+</section>
+<section id="id5">
+<h2>网络层<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>寻址和路由</p>
+<p>路由数据包，提供逻辑寻址</p>
+<p>基于网络层地址进行不同网络系统间的最优路径选择</p>
+<p>网络层为建立网络连接和为上层提供服务</p>
+<p>网络中都是以IP地址来表示一个节点，也会以IP地址来定位一个资源，使信息能够发送到某一个对应的目的主机（相当于门牌号）。在此过程中，选路就十分重要了，要选择对应的路径</p>
+<p>路由器：工作在网络层，可以帮助选路</p>
+</section>
+<section id="id6">
+<h2>数据链路层<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<p>介质访问、链路管理</p>
+<p>负责将上层数据封装成固定格式的帧</p>
+<p>为了防止数据传输过程中产生误码,在帧尾部加上校验信息</p>
+<p>还有流控机制，会试探接收方缓存调整速率大小</p>
+<p>交换机工作在数据链路层</p>
+</section>
+<section id="id7">
+<h2>物理层<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<p>二进制传输：（承上启下）</p>
+<p>定义了电气、机械、形状针脚等物理特性</p>
+<p>主要功能是完成相邻节点之间原始比特流的传输，它关心的是如何用物理信号表示0和1</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../n1/n1.html" class="btn btn-neutral float-left" title="1. 计算机网络—-概述" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../basic/basic.html" class="btn btn-neutral float-right" title="基础" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>并发 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="Sleep 和 Wait 的区别" href="sleepvswait.html" />
+    <link rel="prev" title="HashMap" href="../collection/hashmap/hashmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../basic.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../java.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../s3/s3.html">String,StringBuffer,StringBuilder的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../collection/hashmap/hashmap.html">HashMap</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">并发</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id2">线程池</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#threadpoolexecutor">ThreadPoolExecutor构造方法</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id3">线程池的工作顺序</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id4">提交任务的方式</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id5">如何正确使用线程池</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id6">获取处理结果和异常</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#id7">线程池的常用场景</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id8">正确构造线程池</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id9">获取单个结果</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id10">获取多个结果</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id11">单个任务的超时时间</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#id12">总结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="sleepvswait.html">Sleep 和 Wait 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../design/instance/instance.html">单例模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ssm/ssm.html">SSM</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../basic.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../java.html">🍑 Algorithm</a> &raquo;</li>
+      <li>并发</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/work/basic/java/thread/thread.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>并发<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>JAVA线程可以分为六种状态</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/164.jpg" src="../../../../../_images/164.jpg" />
+</figure>
+<section id="id2">
+<h2>线程池<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/245.jpg" src="../../../../../_images/245.jpg" />
+</figure>
+<ol class="arabic simple">
+<li><p>corePoolSize 核心线程数目</p>
+<ul class="simple">
+<li><p>最多保留的线程数</p></li>
+</ul>
+</li>
+<li><p>maximumPoolSize 最大线程数目</p>
+<ul class="simple">
+<li><p>核心线程 + 救急线程</p></li>
+</ul>
+</li>
+<li><p>keepAliveTime</p>
+<ul class="simple">
+<li><p>针对救急线程</p></li>
+</ul>
+</li>
+<li><p>unit</p>
+<ul class="simple">
+<li><p>针对救急线程</p></li>
+</ul>
+</li>
+<li><p>workQueue</p>
+<ul class="simple">
+<li><p>阻塞队列</p></li>
+</ul>
+</li>
+<li><p>threadFactory</p>
+<ul class="simple">
+<li><p>线程创建名称</p></li>
+</ul>
+</li>
+<li><p>handler</p>
+<ul class="simple">
+<li><p>四种</p></li>
+</ul>
+</li>
+</ol>
+<section id="threadpoolexecutor">
+<h3>ThreadPoolExecutor构造方法<a class="headerlink" href="#threadpoolexecutor" title="永久链接至标题"></a></h3>
+<p>Executors中创建线程池的快捷方法，实际上是调用了ThreadPoolExecutor的构造方法（定时任务使用的是ScheduledThreadPoolExecutor），该类构造方法参数列表如下：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// Java线程池的完整构造函数</span>
+<span class="kd">public</span> <span class="nf">ThreadPoolExecutor</span><span class="p">(</span>
+   <span class="kt">int</span> <span class="n">corePoolSize</span><span class="p">,</span>    <span class="c1">// 线程池长期维持的线程数，即使线程处于Idle状态，也不会回收。</span>
+   <span class="kt">int</span> <span class="n">maximumPoolSize</span><span class="p">,</span> <span class="c1">// 线程数的上限</span>
+   <span class="kt">long</span> <span class="n">keepAliveTime</span><span class="p">,</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="p">,</span>  <span class="c1">// 超过corePoolSize的线程的idle时长，</span>
+                                       <span class="c1">// 超过这个时间，多余的线程会被回收。</span>
+   <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">workQueue</span><span class="p">,</span>  <span class="c1">// 任务的排队队列</span>
+   <span class="n">ThreadFactory</span> <span class="n">threadFactory</span><span class="p">,</span> <span class="c1">// 新线程的产生方式</span>
+   <span class="n">RejectedExecutionHandler</span> <span class="n">handler</span><span class="p">)</span>   <span class="c1">// 拒绝策略</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ul class="simple">
+<li><p>corePoolSize和maximumPoolSize设置不当会影响效率，甚至耗尽线程；</p></li>
+<li><p>workQueue设置不当容易导致OOM；</p></li>
+<li><p>handler设置不当会导致提交任务时抛出异常。</p></li>
+</ul>
+</div>
+</section>
+<section id="id3">
+<h3>线程池的工作顺序<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>corePoolSize -&gt; 任务队列 -&gt; maximumPoolSize -&gt; 拒绝策略</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>Runnable和Callable</strong></p>
+<p>可以向线程池提交的任务有两种：Runnable和Callable，二者的区别如下：</p>
+<ol class="arabic simple">
+<li><p>方法签名不同，void Runnable.run(),V Callable.call() throws Exception</p></li>
+<li><p>是否允许有返回值，Callable允许有返回值</p></li>
+<li><p>是否允许抛出异常，Callable允许抛出异常。</p></li>
+</ol>
+<p><strong>Callable是JDK1.5时加入的接口，作为Runnable的一种补充，允许有返回值，允许抛出异常。</strong></p>
+</div>
+</section>
+<section id="id4">
+<h3>提交任务的方式<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>是否关心返回结果?</p>
+<ul class="simple">
+<li><p>是 <code class="docutils literal notranslate"><span class="pre">Future&lt;T&gt;</span> <span class="pre">submit(Callable&lt;T&gt;</span> <span class="pre">task)</span></code></p></li>
+<li><p>否 <code class="docutils literal notranslate"><span class="pre">void</span> <span class="pre">execute(Runnable</span> <span class="pre">command)</span></code></p></li>
+<li><p>否，虽然返回Future，但是其get()方法总是返回null <code class="docutils literal notranslate"><span class="pre">Future&lt;?&gt;</span> <span class="pre">submit(Runnable</span> <span class="pre">task)</span></code></p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>如何正确使用线程池<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<ol class="arabic">
+<li><p>避免使用无界队列</p>
+<p>不要使用Executors.newXXXThreadPool()快捷方法创建线程池，因为这种方式会使用无界的任务队列，为避免OOM，我们应该使用ThreadPoolExecutor的构造方法手动指定队列的最大长度：</p>
+</li>
+<li><p>明确拒绝任务时的行为</p>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/333.jpg" src="../../../../../_images/333.jpg" />
+</figure>
+<ul>
+<li><p>AbortPolicy</p>
+<blockquote>
+<div><p>抛出RejectedExecutionException</p>
+</div></blockquote>
+</li>
+<li><p>DiscardPolicy</p>
+<blockquote>
+<div><p>什么也不做，直接忽略</p>
+</div></blockquote>
+</li>
+<li><p>DiscardOldestPolicy</p>
+<blockquote>
+<div><p>丢弃执行队列中最老的任务，尝试为当前提交的任务腾出位置</p>
+</div></blockquote>
+</li>
+<li><p>CallerRunsPolicy</p>
+<blockquote>
+<div><p>直接由提交任务者执行这个任务</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>线程池默认的拒绝行为是AbortPolicy，也就是抛出RejectedExecutionHandler异常，该异常是非受检异常，很容易忘记捕获。</p>
+<p>如果不关心任务被拒绝的事件，可以将拒绝策略设置成DiscardPolicy，这样多余的任务会被忽略。</p>
+</div>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">,</span>
+            <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="mi">512</span><span class="p">),</span>
+            <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">DiscardPolicy</span><span class="p">());</span><span class="c1">// 指定拒绝策略</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="id6">
+<h3>获取处理结果和异常<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>线程池的处理结果、以及处理过程中的异常都被包装到Future中，并在调用Future.get()方法时获取。</p>
+<p>执行过程中的异常会被包装成ExecutionException，submit()方法本身不会传递结果和任务执行过程中的异常。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">ExecutorService</span> <span class="n">executorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="p">.</span><span class="na">newFixedThreadPool</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="n">Future</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executorService</span><span class="p">.</span><span class="na">submit</span><span class="p">(</span><span class="k">new</span> <span class="n">Callable</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">call</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;exception in call~&quot;</span><span class="p">);</span><span class="c1">// 该异常会在调用Future.get()时传递给调用者</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+<span class="k">try</span> <span class="p">{</span>
+   <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="p">.</span><span class="na">get</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// interrupt</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ExecutionException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// exception in Callable.call()</span>
+   <span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/427.jpg" src="../../../../../_images/427.jpg" />
+</figure>
+</section>
+</section>
+<section id="id7">
+<h2>线程池的常用场景<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<section id="id8">
+<h3>正确构造线程池<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">poolSize</span> <span class="o">=</span> <span class="n">Runtime</span><span class="p">.</span><span class="na">getRuntime</span><span class="p">().</span><span class="na">availableProcessors</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">Runnable</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="mi">512</span><span class="p">);</span>
+
+<span class="n">RejectedExecutionHandler</span> <span class="n">policy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">DiscardPolicy</span><span class="p">();</span>
+
+<span class="n">executorService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">poolSize</span><span class="p">,</span> <span class="n">poolSize</span><span class="p">,</span>
+    <span class="mi">0</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="p">.</span><span class="na">SECONDS</span><span class="p">,</span>
+            <span class="n">queue</span><span class="p">,</span>
+            <span class="n">policy</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>获取单个结果<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>通过submit()向线程池提交任务后会返回一个Future，调用 <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">Future.get()</span></code> 方法能够阻塞等待执行结果，<code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">get(long</span> <span class="pre">timeout,</span> <span class="pre">TimeUnit</span> <span class="pre">unit)</span></code> 方法可以指定等待的超时时间。</p>
+</section>
+<section id="id10">
+<h3>获取多个结果<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<p>如果向线程池提交了多个任务，要获取这些任务的执行结果，可以依次调用 <code class="docutils literal notranslate"><span class="pre">Future.get()</span></code> 获得。</p>
+<p>但对于这种场景，我们更应该使用 <code class="docutils literal notranslate"><span class="pre">ExecutorCompletionService</span></code> ，该类的take()方法总是阻塞等待某一个任务完成，然后返回该任务的Future对象。向CompletionService批量提交任务后，只需调用相同次数的CompletionService.take()方法，就能获取所有任务的执行结果，获取顺序是任意的，取决于任务的完成顺序：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">solve</span><span class="p">(</span><span class="n">Executor</span> <span class="n">executor</span><span class="p">,</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Callable</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;&gt;</span> <span class="n">solvers</span><span class="p">)</span>
+   <span class="kd">throws</span> <span class="n">InterruptedException</span><span class="p">,</span> <span class="n">ExecutionException</span> <span class="p">{</span>
+
+   <span class="n">CompletionService</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">ecs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExecutorCompletionService</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">executor</span><span class="p">);</span><span class="c1">// 构造器</span>
+
+   <span class="k">for</span> <span class="p">(</span><span class="n">Callable</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">s</span> <span class="p">:</span> <span class="n">solvers</span><span class="p">)</span><span class="c1">// 提交所有任务</span>
+       <span class="n">ecs</span><span class="p">.</span><span class="na">submit</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+
+   <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">solvers</span><span class="p">.</span><span class="na">size</span><span class="p">();</span>
+   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span><span class="c1">// 获取每一个完成的任务</span>
+       <span class="n">Result</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ecs</span><span class="p">.</span><span class="na">take</span><span class="p">().</span><span class="na">get</span><span class="p">();</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span>
+           <span class="n">use</span><span class="p">(</span><span class="n">r</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>单个任务的超时时间<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">Future.get(long</span> <span class="pre">timeout,</span> <span class="pre">TimeUnit</span> <span class="pre">unit)</span></code> 方法可以指定等待的超时时间，超时未完成会抛出 <code class="docutils literal notranslate"><span class="pre">TimeoutException</span></code>。</p>
+</section>
+<section id="id12">
+<h3>总结<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>Executors为我们提供了构造线程池的便捷方法，对于服务器程序我们应该杜绝使用这些便捷方法，而是直接使用线程池ThreadPoolExecutor的构造方法，避免无界队列可能导致的OOM以及线程个数限制不当导致的线程数耗尽等问题。</p>
+<p>ExecutorCompletionService提供了等待所有任务执行结束的有效方式，如果要设置等待的超时时间，则可以通过CountDownLatch完成。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../collection/hashmap/hashmap.html" class="btn btn-neutral float-left" title="HashMap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="sleepvswait.html" class="btn btn-neutral float-right" title="Sleep 和 Wait 的区别" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

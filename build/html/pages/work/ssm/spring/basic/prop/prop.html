@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Properties文件 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="5. 容器" href="../container/container.html" />
+    <link rel="prev" title="3. DI基础入门" href="../di/di.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../annotation/anno_knowledge.html">7. 注解知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">4. </span>Properties文件</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/prop/prop.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="properties">
+<h1><span class="section-number">4. </span>Properties文件<a class="headerlink" href="#properties" title="永久链接至标题"></a></h1>
+<ol class="arabic">
+<li><p>准备properties配置文件</p>
+<p>resources下创建一个jdbc.properties文件,并添加对应的属性键值对</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>jdbc.driver=com.mysql.cj.jdbc.Driver
+jdbc.url=jdbc:mysql://127.0.0.1:3306/test
+jdbc.username=root
+jdbc.password=123456
+</pre></div>
+</div>
+</li>
+<li><p>开启context命名空间</p>
+<p>在applicationContext.xml中开 <strong>context</strong> 命名空间</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>.. figure:: images/1.jpg
+   :figclass: align-center
+
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&quot;</span>
+<span class="s">            http://www.springframework.org/schema/beans</span>
+<span class="s">            http://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="s">            http://www.springframework.org/schema/context</span>
+<span class="s">            http://www.springframework.org/schema/context/spring-context.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>加载properties配置文件</p>
+<p>在配置文件中使用 <code class="docutils literal notranslate"><span class="pre">context</span></code> 命名空间下的标签来加载properties配置文件</p>
+</li>
+<li><p>完成属性注入</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">${key}</span></code> 来读取properties配置文件中的内容并完成属性注入</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;jdbc.properties&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;dataSource&quot;</span> <span class="na">class=</span><span class="s">&quot;com.alibaba.druid.pool.DruidDataSource&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;${jdbc.driver}&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;${jdbc.url}&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;${jdbc.username}&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;${jdbc.password}&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic">
+<li><p>键值对的key为系统变量引发的问题</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;context:property-placeholder/&gt;</span></code> 标签会加载系统的环境变量，而且环境变量的值会被优先加载</p>
+<p>将system-properties-mode:设置为NEVER,表示不加载系统属性，就可以解决上述问题</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;jdbc.properties&quot;</span> <span class="na">system-properties-mode=</span><span class="s">&quot;NEVER&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>当有多个properties配置文件需要被加载，该如何配置?</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="c">&lt;!--方式一 --&gt;</span>
+<span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;jdbc.properties,jdbc2.properties&quot;</span> <span class="na">system-properties-mode=</span><span class="s">&quot;NEVER&quot;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--方式二--&gt;</span>
+<span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;*.properties&quot;</span> <span class="na">system-properties-mode=</span><span class="s">&quot;NEVER&quot;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--方式三 --&gt;</span>
+<span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;classpath:*.properties&quot;</span> <span class="na">system-properties-mode=</span><span class="s">&quot;NEVER&quot;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--方式四--&gt;</span>
+<span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&quot;classpath*:*.properties&quot;</span> <span class="na">system-properties-mode=</span><span class="s">&quot;NEVER&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p><strong>说明:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>方式一: 可以实现，如果配置文件多的话，每个都需要配置</p></li>
+</ul>
+<ul class="simple">
+<li><p>方式二: <code class="docutils literal notranslate"><span class="pre">*.properties</span></code> 代表所有以properties结尾的文件都会被加载，可以解决方式一的问题，但是不标准</p></li>
+</ul>
+<ul class="simple">
+<li><p>方式三: 标准的写法，<code class="docutils literal notranslate"><span class="pre">classpath:</span></code> 代表的是从根路径下开始查找，但是只能查询当前项目的根路径</p></li>
+</ul>
+<ul class="simple">
+<li><p>方式四: 不仅可以加载当前项目还可以加载当前项目所依赖的所有项目的根路径下的properties配置文件</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../di/di.html" class="btn btn-neutral float-left" title="3. DI基础入门" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../container/container.html" class="btn btn-neutral float-right" title="5. 容器" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

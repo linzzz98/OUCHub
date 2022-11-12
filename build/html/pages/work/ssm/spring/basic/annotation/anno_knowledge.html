@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7. 注解知识点 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../../_static/translations.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../../search.html" />
+    <link rel="next" title="8. AOP" href="../aop/aop.html" />
+    <link rel="prev" title="6. IOC/DI注解开发" href="annotation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../ssm.html">SSM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../frame/frame.html">1. Spring系统架构和核心概念</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ioc/ioc.html">2. Ioc基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../di/di.html">3. DI基础入门</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../prop/prop.html">4. Properties文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../container/container.html">5. 容器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="annotation.html">6. IOC/DI注解开发</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7. 注解知识点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#component">1. &#64;Component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#componentscan">2. &#64;ComponentScan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scope">3. &#64;Scope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#postconstruct">4. &#64;PostConstruct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#predestroy">5. &#64;PreDestroy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#autowired">6. &#64;Autowired</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qualifier">7. &#64;Qualifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#value">8. &#64;Value</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#propertysource">9. &#64;PropertySource</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bean">10. &#64;Bean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import">11. &#64;Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#runwith">12. &#64;RunWith</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contextconfiguration">13. &#64;ContextConfiguration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop.html">8. AOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_tran.html">9. AOP事务管理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aop/aop_knowledge.html">10. AOP知识点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/basic/maven.html">11. BASIC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/advanced/maven.html">12. Maven</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../maven/pom_helper.html">13. POM文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../../ssm.html">SSM</a> &raquo;</li>
+      <li><span class="section-number">7. </span>注解知识点</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../../_sources/pages/work/ssm/spring/basic/annotation/anno_knowledge.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">7. </span>注解知识点<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="component">
+<h2>1. &#64;Component<a class="headerlink" href="#component" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Component/&#64;Controller/&#64;Service/&#64;Repository</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置该类为spring管理的bean</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：定义bean的id</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="componentscan">
+<h2>2. &#64;ComponentScan<a class="headerlink" href="#componentscan" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;ComponentScan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置spring配置类扫描路径，用于加载使用注解格式定义的bean</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：扫描路径，此路径可以逐层向下扫描</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scope">
+<h2>3. &#64;Scope<a class="headerlink" href="#scope" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Scope</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设
+置该类创建对象的作用范围可用于设置创建出的bean是否为单例对象</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：定义bean作用
+范围，==默认值singleton（单例），可选值prototype（非单例）==</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="postconstruct">
+<h2>4. &#64;PostConstruct<a class="headerlink" href="#postconstruct" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;PostConstruct</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>方法上</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置该方法为初始化方法</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>无</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="predestroy">
+<h2>5. &#64;PreDestroy<a class="headerlink" href="#predestroy" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;PreDestroy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>方法上</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置该方法为销毁方法</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>无</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="autowired">
+<h2>6. &#64;Autowired<a class="headerlink" href="#autowired" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 94%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Autowired</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>属性注解 或 方法注解（了解） 或 方法形参注解（了解）</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>属性定义上方 或 标准set方法上方 或 类set方法上方 或 方法形参前面</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>为引用类型属性设置值</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>required：true/false，定义该属性是否允许为null</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qualifier">
+<h2>7. &#64;Qualifier<a class="headerlink" href="#qualifier" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Qualifier</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>属性注解 或 方法注解（了解）</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>属性定义上方 或 标准set方法上方 或 类set方法上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>为引用类型属性指定注入的beanId</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：设置注入的beanId</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="value">
+<h2>8. &#64;Value<a class="headerlink" href="#value" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>属性注解 或 方法注解（了解）</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>属性定义上方 或 标准set方法上方 或 类set方法上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>为 基本数据类型 或 字符串类型 属性设置值</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：要注入的属性值</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="propertysource">
+<h2>9. &#64;PropertySource<a class="headerlink" href="#propertysource" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 92%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;PropertySource</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>加载properties文件中的属性值</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：设置加载的properties文件对应的文件名或文件名组成的数组</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bean">
+<h2>10. &#64;Bean<a class="headerlink" href="#bean" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Bean</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>方法注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>方法定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置该方法的返回值作为spring管理的bean</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：定义bean的id</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="import">
+<h2>11. &#64;Import<a class="headerlink" href="#import" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;Import</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>导入配置类</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：定义导入的
+配置类类名，当配置类有多个时使用数组格式一次性导入多个配置类</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="runwith">
+<h2>12. &#64;RunWith<a class="headerlink" href="#runwith" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;RunWith</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>测试类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>测试类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置JUnit运行器</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性</p></td>
+<td><p>value（默认）：运行所使用的运行期</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="contextconfiguration">
+<h2>13. &#64;ContextConfiguration<a class="headerlink" href="#contextconfiguration" title="永久链接至标题"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>名称</p></th>
+<th class="head"><p>&#64;ContextConfiguration</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>类型</p></td>
+<td><p>测试类注解</p></td>
+</tr>
+<tr class="row-odd"><td><p>位置</p></td>
+<td><p>测试类定义上方</p></td>
+</tr>
+<tr class="row-even"><td><p>作用</p></td>
+<td><p>设置JUnit加载的Spring核心配置</p></td>
+</tr>
+<tr class="row-odd"><td><p>属性1</p></td>
+<td><p>classes：核心配置类，可以使用数组的格式设定加载多个配置类</p></td>
+</tr>
+<tr class="row-even"><td><p>属性2</p></td>
+<td><p>locations：配置文件，可以使用数组的格式设定加载多个配置文件名称</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="annotation.html" class="btn btn-neutral float-left" title="6. IOC/DI注解开发" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../aop/aop.html" class="btn btn-neutral float-right" title="8. AOP" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

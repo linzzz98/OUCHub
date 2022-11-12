@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JAVA面经 &mdash; OUCHub  文档</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/twemoji.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../_static/jquery.js"></script>
+        <script src="../../../../../_static/underscore.js"></script>
+        <script src="../../../../../_static/doctools.js"></script>
+        <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+        <script src="../../../../../_static/twemoji.js"></script>
+        <script src="../../../../../_static/translations.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../../../search.html" />
+    <link rel="next" title="🍑 Algorithm" href="../../../mysql/mysql.html" />
+    <link rel="prev" title="JAVA虚拟机" href="../vm/vm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: black" >
+            <a href="../../../../../index.html" class="icon icon-home"> OUCHub
+            <img src="../../../../../_static/logo_1.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">基础知识</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_MH.html">💊 Math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_CV.html">🍤 Computer Vision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge/k_ML.html">🍎 Machine Learning</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">论文学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_sfm.html">🍊 Structure from Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_slam.html">🍊 SLAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_pointcloud.html">🍋 Point Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_BA.html">🍊 Bundle Adjustment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../paper/p_others.html">🍒 Others</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">源码解析</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/colmap.html">🍑 Colmap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/theiasfm.html">🍑 TheiaSfM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/ba.html">🍑 Bundle Adjustment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">算法学习</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../algorithm/algorithm.html">🍑 Algorithm</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">工作知识</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../work.html">🍑 Work</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../network/network.html">计算机网络</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../basic.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../java.html">🍑 Algorithm</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../s3/s3.html">String,StringBuffer,StringBuilder的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../collection/hashmap/hashmap.html">HashMap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../thread/thread.html">并发</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../thread/sleepvswait.html">Sleep 和 Wait 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../thread/lockvssyn.html">Lock 和 Synchronized 的区别</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../thread/threadlocal.html">ThreadLocal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../collection/hashtable/hashtable.html">HashTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../lock/lock.html">悲观锁与乐观锁</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../design/instance/instance.html">单例模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../volatile/volatile.html">Volatile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../vm/vm.html">JAVA虚拟机</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">JAVA面经</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id1">java基础</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#id2">数据类型</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#static-final">static，final关键字</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#static">static</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#final">final</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#staticabstract">static和abstract能同时用吗</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#id3">内部类可以调用外部的数据吗？如果是静态的呢？</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#override-overload">重写(override)和重载(overload)的区别</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#equals">equals和==</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#stringstringbuffer-stringbuilder">String和StringBuffer、 StringBuilder</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hashcode-equals">hashCode 与 equals</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#object">Object类有哪些方法</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#collectioncollections">collection和collections</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#length-length-size">length，length()和size()</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#arraylist">ArrayList</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#linkedlist">LinkedList</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#arraylistlinkedlist">ArrayList和LinkedList的区别</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#arraylistvector">ArrayList和Vector</a></li>
+<li class="toctree-l6"><a class="reference internal" href="#set">Set</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../mysql/mysql.html">🍑 Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../ssm/ssm.html">SSM</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">杂七杂八</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../others/o_others.html">🍺 Others</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: black" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">OUCHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../work.html">🍑 Work</a> &raquo;</li>
+          <li><a href="../../basic.html">🍑 Algorithm</a> &raquo;</li>
+          <li><a href="../java.html">🍑 Algorithm</a> &raquo;</li>
+      <li>JAVA面经</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../../_sources/pages/work/basic/java/exp/exp.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="java">
+<h1>JAVA面经<a class="headerlink" href="#java" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>java基础<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h3>数据类型<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/170.jpg" src="../../../../../_images/170.jpg" />
+</figure>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kt">short</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">short</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>则 a + b 是什么类型？</p>
+<p>答：在java的世界里，如果比int类型小的类型做运算，java在编译的时候就会将它们统一强转成int类型。当是比int类型大的类型做运算，就会自动转换成它们中最大类型那个。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在 java 中，任何字符类型与字符串相加，结果都是拼接。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;hello&quot;</span><span class="p">;</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>  <span class="c1">// 输出 nullhello</span>
+</pre></div>
+</div>
+<p>原因是先应用 String.valueOf 得出 s 的 value 值，再通过 StringBuilder 拼接 hello，因此将 value 与 hello 进行了拼接。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="n">StringBuilder</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">s</span><span class="p">))).</span><span class="na">append</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">).</span><span class="na">toString</span><span class="p">();</span>
+<span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>int 类型在赋值到 Integer 类时，会自动封装，调用 Integer 的 valueOf(int i) 方法。</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>当</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">Integer</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">Integer</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>a 和 b 的引用都指向同一个对象，即 a == b</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>原始类型：boolean，char，byte，short，int，long，float，double</p>
+<p>包装类型：Boolean，Character，Byte，Short，Integer，Long，Float，Double</p>
+<p>Java 中的基本数据类型只有以上 8 个，除了基本类型（primitive type），剩下的都是引用类型（reference type）</p>
+</div>
+</section>
+</section>
+<section id="static-final">
+<h2>static，final关键字<a class="headerlink" href="#static-final" title="永久链接至标题"></a></h2>
+<section id="static">
+<h3>static<a class="headerlink" href="#static" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>被static修饰的成员变量和成员方法独立于该类的任何对象。也就是说，它不依赖类特定的实例，被类的所有实例共享。只要这个类被加载了，Java虚拟机就能根据类名在运行时数据区的方法区内定找到他们。</p></li>
+</ul>
+<ul class="simple">
+<li><p>静态变量(类变量)：静态变量被所有的对象所共享，也就是说我们创建了一个类的多个对象，多个对象共享着一个静态变量，如果我们修改了静态变量的值，那么其他对象的静态变量也会随之修改。</p></li>
+</ul>
+<ul class="simple">
+<li><p>非静态变量(实例变量)：如果我们创建了一个类的多个对象，那么每个对象都有它自己该有的非静态变量。当你修改其中一个对象中的非静态变量时，不会引起其他对象非静态变量值得改变。</p></li>
+</ul>
+<ul class="simple">
+<li><p>static修饰的成员方法称作静态方法，这样我们就可以通过“类名. 方法名”进行调用。由于静态方法在类加载的时候就存在了，所以它不依赖于任何对象的实例就可以进行调用，因此对于静态方法而言，是木有当前对象的概念，即没有this、super关键字的。因为static方法独立于任何实例，因此static方法必须被实现，而不能是抽象的abstract。</p></li>
+</ul>
+<ul class="simple">
+<li><p>被static修饰的代码块也叫静态代码块，会随着JVM加载类的时候而加载这些静态代码块，并且会自动执行。它们可以有多个，可以存在于该类的任何地方。JVM会按照它们的先后顺序依次执行它们，而且每个静态代码块只会被初始化一次，不会进行多次初始化。</p></li>
+</ul>
+<ul>
+<li><p>普通类是不允许声明为静态的，只有内部类才可以，被static修饰的内部类可以直接作为一个普通类来使用，而不需先实例一个外部类。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>静态内部类只能访问外部类的静态成员，否则编译会报错。</p></li>
+<li><p>不管是静态方法还是非静态方法都可以在非静态内部类中访问。</p></li>
+<li><p>如果需要调用内部类的非静态方法，必须先new一个OuterClass的对象outerClass，然后通过outer。new生成内部类的对象，而static内部类则不需要。</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="final">
+<h3>final<a class="headerlink" href="#final" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>修饰类：当用final修饰一个类时，表明这个类不能被继承。</p></li>
+<li><p>修饰方法：方法不能被重写（可以重载多个final修饰的方法）。此处需要注意的一点是：因为重写的前提是子类可以从父类中继承此方法，如果父类中final修饰的方法同时访问控制权限为private，将会导致子类中不能直接继承到此方法，因此，此时可以在子类中定义相同的方法名和参数，此时不再产生重写与final的矛盾，而是在子类中重新定义了新的方法。 <strong>（注：类的private方法会隐式地被指定为final方法。）</strong></p></li>
+<li><p>修饰变量：当final修饰一个基本数据类型时，表示该基本数据类型的值一旦在初始化后便不能发生变化；如果final修饰一个引用类型时，则在对其初始化之后便不能再让其指向其他对象了，但该引用所指向的对象的内容是可以发生变化的。本质上是一回事，因为引用的值是一个地址，final要求值，即地址的值不发生变化。 <strong>final修饰一个成员变量（属性），必须要显示初始化。</strong> 这里有两种初始化方式，一种是在变量声明的时候初始化；第二种方法是在声明变量的时候不赋初值，但是要在这个变量所在的类的所有的构造函数中对这个变量赋初值。</p></li>
+</ul>
+</section>
+<section id="staticabstract">
+<h3>static和abstract能同时用吗<a class="headerlink" href="#staticabstract" title="永久链接至标题"></a></h3>
+<p>不能，因为static方法独立于任何实例，因此static方法必须被实现，而不能是抽象的abstract。</p>
+</section>
+</section>
+<section id="id3">
+<h2>内部类可以调用外部的数据吗？如果是静态的呢？<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>可以。静态内部类只能访问外部类的静态成员，否则编译会报错。</p>
+</section>
+<section id="override-overload">
+<h2>重写(override)和重载(overload)的区别<a class="headerlink" href="#override-overload" title="永久链接至标题"></a></h2>
+<p>重载： 发生在同一个类中，方法名必须相同，参数类型不同、个数不同、顺序不同，方法返回值和访问修饰符可以不同，发生在编译时。</p>
+<p>重写： 发生在父子类中，方法名、参数列表必须相同，返回值范围小于等于父类，抛出的异常范围小于等于父类，访问修饰符范围大于等于父类；如果父类方法访问修饰符为 private 则子类就不能重写该方法。</p>
+<p><strong>返回值不同的重载，可以吗？为什么？</strong></p>
+<p>不可以。在java语言中，要重载(overload)一个方法，除了要与原方法具有相同的简单名称之外，还要求必须拥有一个与原方法不同的特征签名，
+特征签名就是一个方法中各个参数在常量池中的字段符号引用的集合，也就是因为返回值不会包含在特征签名中，
+因此java语言里面无法仅仅依靠返回值不同来对一个已有的方法进行重载。</p>
+<ul class="simple">
+<li><p>java代码层面的特征签名：方法名称+参数顺序+参数类型</p></li>
+<li><p>字节码文件的特征签名：以上+方法返回值+受查异常表</p></li>
+</ul>
+</section>
+<section id="equals">
+<h2>equals和==<a class="headerlink" href="#equals" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>== : 它的作用是判断两个对象的 <strong>地址</strong> 是不是相等。即，判断两个对象是不是同一个对象 <strong>(基本数据类型==比较的是值，引用数据类型==比较的是内存地址)。</strong></p></li>
+<li><p>equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：</p></li>
+<li><p>情况1：类没有覆盖写 equals() 方法。则通过 equals() 比较该类的两个对象时，等价于通过“==”比较这两个对象。</p></li>
+<li><p>情况2：类override了 equals() 方法。一般，我们都覆盖 equals() 方法来比较两个对象的内容是否相等；若它们的内容相等，则返回 true (即，认为这两个对象相等)。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p>String 中的 equals 方法是被重写过的，因为 object 的 equals 方法是比较的对象的内存地址，而 String 的 equals 方法比较的是对象的值。</p></li>
+<li><p>当创建 String 类型的对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个 String 对象。</p></li>
+</ol>
+</div>
+</section>
+<section id="stringstringbuffer-stringbuilder">
+<h2>String和StringBuffer、 StringBuilder<a class="headerlink" href="#stringstringbuffer-stringbuilder" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>可变性：String 类中使用 <strong>final 关键字修饰字符数组来保存字符串</strong> ， <code class="docutils literal notranslate"><span class="pre">private　final　char　value[]</span></code> ，所以 String 对象是不可变的。而StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串char[]value 但是没有用 final 关键字修饰，所以这两种对象都是可变的。</p></li>
+<li><p>线程安全性： <strong>String 中的对象是不可变的，也就可以理解为常量，线程安全。</strong> AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。 <strong>StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁(synchronized)，所以是线程安全的。</strong> StringBuilder 并没有对方法进行加同步锁，所以是 <strong>非线程安全</strong> 的。</p></li>
+<li><p>性能： <strong>每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。</strong> StringBuffer 每次都会对 StringBuffer 对象本身进行操作，而不是生成新的对象并改变对象引用。单线程操作字符串缓冲区下操作大量数据: 适用StringBuilder；多线程操作字符串缓冲区下操作大量数据: 适用StringBuffer。</p></li>
+</ol>
+</section>
+<section id="hashcode-equals">
+<h2>hashCode 与 equals<a class="headerlink" href="#hashcode-equals" title="永久链接至标题"></a></h2>
+<p>hashCode() 的作用是获取哈希码，也称为散列码；它实际上是返回一个int整数。这个哈希码的作用是确定该对象在哈希表中的索引位置。散列表存储的是键值对(key-value)，它的特点是：能根据“键”快速的检索出对应的“值”。这其中就利用到了散列码！（可以快速找到所需要的对象）。</p>
+<p>把对象加入 HashSet 时，HashSet 会先计算对象的 hashcode 值来判断对象加入的位置，同时也会与其他已经加入的对象的 hashcode 值作比较，如果没有相同的hashcode，HashSet会假设对象没有重复出现。但是如果发现有相同 hashcode 值的对象，这时会调用 equals（）方法来检查 hashcode 相等的对象。如果equals方法返回为true，HashSet 就不会让其加入操作成功。如果返回false，就会重新散列到其他位置。</p>
+<p><strong>hashCode（）与equals（）的相关规定</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>如果不需要将该类的对象存放到哈希的集合中，比较对象相等时只需要重写equals()方法</p></li>
+<li><p>如果需要将该类的对象存放到哈希的集合中，则需要重写hashCode()方法</p></li>
+</ol>
+</div></blockquote>
+</section>
+<section id="object">
+<h2>Object类有哪些方法<a class="headerlink" href="#object" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>hashCode(),equals()</p></li>
+<li><p>toString()</p></li>
+<li><p>clone()</p></li>
+<li><p>wait(),notify(),notifyAll()</p></li>
+<li><p>finalize()</p></li>
+</ol>
+</section>
+<section id="collectioncollections">
+<h2>collection和collections<a class="headerlink" href="#collectioncollections" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>Collections是个java.util下的 <strong>类</strong> ，它包含有各种有关集合操作的静态方法。</p></li>
+<li><p>Collection是个java.util下的 <strong>接口</strong> ，它是各种集合结构的父接口。</p></li>
+</ol>
+<figure class="align-center align-default">
+<img alt="../../../../../_images/250.jpg" src="../../../../../_images/250.jpg" />
+</figure>
+<section id="length-length-size">
+<h3>length，length()和size()<a class="headerlink" href="#length-length-size" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>java 中的length 属性是针对数组说的,比如说你声明了一个数组,想知道这个数组的长度则用到了 length 这个属性</p></li>
+<li><p>java 中的length()方法是针对字符串String说的,如果想看这个字符串的长度则用到 length()这个方法</p></li>
+<li><p>java 中的size()方法是针对泛型集合说的,如果想看这个泛型有多少个元素,就调用此方法</p></li>
+</ol>
+</section>
+<section id="arraylist">
+<h3>ArrayList<a class="headerlink" href="#arraylist" title="永久链接至标题"></a></h3>
+<p>ArrayList 的底层是数组队列，相当于动态数组。与 Java 中的数组相比，它的容量能动态增长。
+在添加大量元素前，应用程序可以使用ensureCapacity操作来增加 ArrayList 实例的容量。这可以减少递增式再分配的数量。</p>
+<p>继承于 AbstractList，实现了 List, RandomAccess, Cloneable, java.io.Serializable 这些接口。</p>
+<p>线性表的顺序存储，插入删除元素的时间复杂度为O（n）,求表长以及增加元素，取第 i 元素的时间复杂度为O（1）</p>
+<ul class="simple">
+<li><p>ArrayList 继承了AbstractList，实现了List。它是一个数组队列，提供了相关的添加、删除、修改、遍历等功能。</p></li>
+<li><p>ArrayList 实现了RandomAccess 接口， RandomAccess 是一个标志接口，表明实现这个这个接口的 List 集合是支持快速随机访问的。在 ArrayList 中，我们即可以通过元素的序号快速获取元素对象，这就是快速随机访问。</p></li>
+<li><p>ArrayList 实现了Cloneable 接口，即覆盖了函数 clone()，能被克隆。</p></li>
+<li><p>ArrayList 实现java.io.Serializable 接口，这意味着ArrayList支持序列化，能通过序列化去传输。</p></li>
+<li><p>和 Vector 不同， <strong>ArrayList 中的操作不是线程安全的。</strong> 所以，建议在单线程中才使用 ArrayList，而在多线程中可以选择 <strong>Vector 或者 CopyOnWriteArrayList</strong> 。</p></li>
+</ul>
+</section>
+<section id="linkedlist">
+<h3>LinkedList<a class="headerlink" href="#linkedlist" title="永久链接至标题"></a></h3>
+<p>LinkedList是一个实现了List接口和Deque接口的双端链表。
+LinkedList底层的链表结构使它支持高效的插入和删除操作，另外它实现了Deque接口，使得LinkedList类也具有队列的特性; LinkedList不是线程安全的，如果想使LinkedList变成线程安全的，可以调用静态类Collections类中的synchronizedList方法：</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">List</span> <span class="n">list</span><span class="o">=</span><span class="n">Collections</span><span class="p">.</span><span class="na">synchronizedList</span><span class="p">(</span><span class="k">new</span> <span class="n">LinkedList</span><span class="p">(...));</span>
+</pre></div>
+</div>
+<p><strong>获取尾节点（index=-1）数据方法：</strong> getLast() 方法在链表为空时，会抛出NoSuchElementException，而peekLast() 则不会，只是会返回 null</p>
+<p><strong>删除方法：</strong> removeLast()在链表为空时将抛出NoSuchElementException，而pollLast()方法返回null</p>
+</section>
+<section id="arraylistlinkedlist">
+<h3>ArrayList和LinkedList的区别<a class="headerlink" href="#arraylistlinkedlist" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>是否保证线程安全： ArrayList 和 LinkedList 都是不同步的，也就是不保证线程安全；</p></li>
+<li><p>底层数据结构： Arraylist 底层使用的是Object数组；LinkedList 底层使用的是双向链表数据结构；</p></li>
+<li><p>插入和删除是否受元素位置的影响：</p>
+<ul class="simple">
+<li><p>ArrayList 采用数组存储，所以插入和删除元素的时间复杂度受元素位置的影响。 比如：执行add(E e) 方法的时候， ArrayList 会默认在将指定的元素追加到此列表的末尾，这种情况时间复杂度就是O(1)。但是如果要在指定位置 i 插入和删除元素的话（add(int index, E element) ）时间复杂度就为 O(n-i)。因为在进行上述操作的时候集合中第 i 和第 i 个元素之后的(n-i)个元素都要执行向后位/向前移一位的操作。</p></li>
+<li><p>LinkedList 采用链表存储，所以插入，删除元素时间复杂度不受元素位置的影响，都是近似 O（1）而数组为近似 O（n）。</p></li>
+</ul>
+</li>
+<li><p>是否支持快速随机访问： LinkedList 不支持高效的随机元素访问，而 ArrayList 支持。快速随机访问就是通过元素的序号快速获取元素对象(对应于get(int index) 方法)。</p></li>
+<li><p>内存空间占用： ArrayList的空间浪费主要体现在在list列表的结尾会预留一定的容量空间，而LinkedList的空间花费则体现在它的每一个元素都需要消耗比ArrayList更多的空间（因为要存放直接后继和直接前驱以及数据）。</p></li>
+</ol>
+</section>
+<section id="arraylistvector">
+<h3>ArrayList和Vector<a class="headerlink" href="#arraylistvector" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>Vector与ArrayList一样，也是通过数组实现的，Vector类的所有方法都是同步的。它也是线程安全的，而Arraylist是线程异步（ASynchronized）的，是不安全的。如果不考虑到线程的安全因素，一般用Arraylist效率比较高。</p></li>
+<li><p>使用ArrayList时，如果不指定大小，会生成一个空的数组；使用Vector时，如果不指定大小，会默认生成一个10个元素大小的数组</p></li>
+<li><p>Vector 实现类中有一个变量 capacityIncrement 用来表示每次容量自增时应该增加多少，如果不指定，默认为0</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在扩容时，会判断，如果指定了capacityIncrement，会先把数组容量扩大到oldCapacity + capacityIncrement，
+如果没有指定capacityIncrement，会先把数组容量扩大到2倍的oldCapacity, 然后再进行判断扩充后的容量是否满足要求，如果不满足要求，直接将容量扩大到指定大小</p>
+</div>
+</section>
+<section id="set">
+<h3>Set<a class="headerlink" href="#set" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>HashSet 底层就是基于 HashMap 实现的。（HashSet 的源码非常非常少，因为除了 clone() 、writeObject()、readObject()是 HashSet 自己不得不实现之外，其他方法都是直接调用 HashMap 中的方法。</p></li>
+<li><p>把对象加入HashSet时，HashSet会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的hashcode值作比较，如果没有相符的hashcode，HashSet会假设对象没有重复出现。但是如果发现有相同hashcode值的对象，这时会调用equals（）方法来检查hashcode相等的对象是否真的相同。如果两者相同，HashSet就不会让加入操作成功。</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../vm/vm.html" class="btn btn-neutral float-left" title="JAVA虚拟机" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../../mysql/mysql.html" class="btn btn-neutral float-right" title="🍑 Algorithm" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, linzzz.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
